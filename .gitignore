@@ -1,0 +1,28 @@
+# Agent local files
+/.agents/handoff.local.md
+/.codex/handoff.local.md
+/.codex/workspace.dirs
+!.codex/
+!.codex/AGENTS.md
+!.codex/PLANS.md
+
+# Local tool state
+/.metadata/
+/.cache/
+/.guix/.config/kicad/
+__pycache__/
+*.pyc
+*.tmp
+
+# KiCad transient files
+**/*.kicad_sch-bak
+**/*.kicad_pcb-bak
+**/*.kicad_prl
+**/*.lck
+**/.history/
+**/*-backups/
+**/_autosave-*
+**/*.dsn
+**/*.ses
+/fab/
+/tmp/
