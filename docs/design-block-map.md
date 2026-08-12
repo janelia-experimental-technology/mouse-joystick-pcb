@@ -23,7 +23,7 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 | Differential encoder receive | `differential_encoder_receiver` | 0-1 | available, proven ×3; needed only if the encoder is differential |
 | InstrumentPort-40 DUT boundary | `instrument_port_40_dut_ffc_boundary` | 1 | available, proven |
 | Instrumentation signal buffers | `instrumentation_signal_buffer_sn74lvc125a` | 5 | available, proven ×5 |
-| USB device connection | `usb2` | 1 | available, proven |
+| USB device connection | `usb2` | 1 | available, proven; **carries no ESD protection** — add `USBLC6-2P6` |
 | Logic-rail reference sense | `vtref_sense` | 0 | available but never placed; skip |
 
 Total: **12 block instances**, or 13 if the encoder turns out to be differential.
@@ -53,13 +53,27 @@ Three things to check before trusting it, in priority order:
 1. **Where the regulator chain taps in.** If `hv_to_5v_tpsm365r6` is fed from the
    *switched* `+36V` output, the MCU cannot enable its own supply and the board
    never boots. See `docs/power.md`.
-2. **No TVS is populated.** Its own description says so, and says this is the
-   difference from both 24 V variants. Add a board-level 36 V TVS.
+2. **No TVS is populated.** Add one on `HV_IN` — `SMBJ40A`, or the stocked
+   `SMF48A` to start. It protects the switch (70 V) and the buck (65 V) at
+   hot-plug, which matters because the regulator chain taps pre-switch and so
+   `HV_IN` carries the buck's input capacitance. It cannot protect the TMC5130A
+   (49 V); that is handled by bulk placement and layout. See `docs/power.md`.
 3. **`ENABLE` is pulled low**, so the rail is off until driven. Correct, but it
    is a firmware requirement, not a free behavior.
 
 Place it in a scratch project and run ERC before committing, exactly as the twin
 board's notes recommend for the unproven 24 V terminal variant.
+
+`docs/hv-input-block-schematic-note.txt` holds a schematic text block giving
+`R_ILIM` and `R_SNS` values for any current limit, so the block can be retargeted
+per board the way the `tmc5130` block's sense resistors are. **That note belongs in
+the `kicad-libs` block itself** once this board has proven the six edits.
+
+**A full netlist audit of this block against the switch datasheet is in
+`docs/power.md`.** It found six things to change when the block is placed,
+including an `EN` divider with only 150 mV of threshold margin and a `DIAG_EN`
+pin left unconnected that silently disables the current sense. Read that before
+placing the block, not after.
 
 Unlike the 24 V terminal variant, this block **does** carry a `PWR_FLAG`, so it
 does not need a board-level flag added. Do not add a second one.
@@ -115,6 +129,11 @@ materially smaller reuse risk than the twin board carries.
 - Labelled test points for the 8 signals not carried by InstrumentPort-40, plus
   `HV_SNS` and the TMC `SWSEL` strap.
 - Exactly one `PWR_FLAG` per net, on input and entry nets only.
+- **USB ESD protection**, which `usb2` does not provide. Stocked `USBLC6-2P6`
+  (`Power_Protection:USBLC6-2P6` / `Package_TO_SOT_SMD:SOT-666`), placed on the
+  connector side of the 27 Ω series resistors that live in the `rp2040` block.
+- A shield termination decision for the USB-C receptacle, whose `SHIELD` pins the
+  `usb2` block leaves unconnected.
 
 ## Source Material To Mine
 

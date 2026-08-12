@@ -36,7 +36,7 @@ specific rather than general:
 
 | Twin-axis board | This board |
 | --- | --- |
-| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 27 of 30 with **nothing cut** and 3 ADC-capable spares |
+| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 29 of 30 with **nothing cut**, plus `+5V` sense and switch diagnostics, and a documented reclaim order |
 | Event-line routing is an open blocking question: 4 lines, no home | 3 lines, and 4 BNCs is a complement that fits |
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One of each |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
@@ -55,8 +55,9 @@ Two, and both are improvements this board can afford:
 1. **36 V input instead of 24 V**, using
    `hv_input_36V_terminal_2pos_5p08_protected`. Better motor performance, and it
    pre-resolves the brake rail tension the twin board records as unresolved. It
-   costs transient headroom at the TMC5130A and requires a TVS the catalog does
-   not stock. See `docs/power.md`.
+   costs transient headroom at the TMC5130A, which at this voltage no TVS can
+   restore — the driver relies on the soft-start switch and layout instead, while
+   the TVS on `HV_IN` covers the switch and the buck. See `docs/power.md`.
 2. **Nothing is descoped for pin budget.** Encoder index, `DIAG1`, the synthetic
    homing stimulus, and software `~LDAC`/`~CLR` are all present.
 
@@ -217,10 +218,34 @@ Add series resistors and ESD protection on every port signal.
 
 ## Power
 
-36 V in, switched and current-limited, then 5 V, then 3.3 V. The full treatment
-including the TMC5130A headroom analysis, the missing TVS, and the boot-order
-trap is in `docs/power.md`. Read it before drawing the power section — it
-contains the one mistake that produces an unbootable board.
+36 V in, switched and current-limited, then 5 V, then 3.3 V. Read `docs/power.md`
+before drawing the power section — it contains the two mistakes that look correct
+on a schematic:
+
+- feeding the 5 V/3.3 V chain from the **switched** rail, which produces a board
+  whose MCU cannot enable its own supply;
+- diode-ORing USB and pyControl 5 V onto the **`+5V` rail**, which drops it below
+  the TMC5130A's 4.6 V `VCC` minimum and silently truncates the 0-5 V analog
+  output.
+
+The board's logic rail is multi-sourced: the onboard buck, USB `VBUS`, and
+optionally pyControl RJ-45 pin 6, diode-ORed at the **3.3 V regulator input**,
+not at `+5V`. `+5V` stays single-sourced because the DAC and the driver's `VCC`
+need it in spec.
+
+**Fit a TVS on `HV_IN`, not on the motor rail.** At hot-plug the switch is off, so
+the exposed parts are the `TPS1HTC100-Q1` (70 V) and the `TPSM365R6V5` (65 V) —
+and they *are* exposed, because the regulator chain taps pre-switch and `HV_IN`
+therefore carries the buck's input capacitance. `SMBJ40A` preferred; stocked
+`SMF48A` works for first boards. The TMC5130A at 49 V cannot be protected by any
+standard TVS at this supply voltage; it relies on bulk capacitance downstream of
+the soft-start switch — **tens of µF, not hundreds** — tight `VS`/`GND` layout, and
+measurement at Gate B.
+
+**The input block needs six edits when placed**, two of them functional defects
+for this board: the `EN` divider gives only 150 mV of threshold margin from 3.3 V
+logic, and `DIAG_EN` left unconnected disables the `SNS` current sense entirely.
+Full audit in `docs/power.md`.
 
 ## Instrument Port
 
@@ -240,22 +265,32 @@ Ranked by what blocks the schedule.
    is 0.6 A.
 2. **The encoder part**, and therefore single-ended versus differential receive,
    the encoder supply voltage, and the harness conductor count.
-3. **DAC8563 `VIH` at `VDD = 5 V`**, and whether a level translator is required.
-4. **A 36 V-rated TVS part.** Not stocked; `SMBJ40A`/`SMBJ43A` class. Purchase
-   item.
-5. Whether the 5 V/3.3 V chain is fed pre- or post-high-side-switch.
+3. **DAC8563 `VIH` at `VDD = 5 V`**, and whether a dual-supply level translator
+   is required. If one is fitted it also resolves the DAC back-powering question
+   under USB-only power.
+4. Whether the 5 V/3.3 V chain is fed pre- or post-high-side-switch.
    Recommendation in `docs/power.md`: pre-switch.
+5. **Where `+3.3V_MCU` comes from.** `VSA` stays on the external 5 V for thermal
+   reasons, so that 5 V must be switched with `VM`, which forces the MCU onto a
+   separate always-on rail and the TMC's `VCC_IO` onto a switched one. Either a
+   small always-on converter taps `HV_IN`, or the board only boots with USB or
+   pyControl present. See `docs/power.md`.
 6. Which breakout the lab deploys, and which port is assigned to this board.
-7. Whether the researcher wants a second analog output later, which decides
+7. Whether `D3`, the pyControl 5 V ORing branch, is populated. Gated on measuring
+   the port's 5 V budget; the footprint goes down either way.
+8. Whether the researcher wants a second analog output later, which decides
    whether `AUX_ANALOG_OUT` gets a populated BNC now.
-8. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
+9. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
    describes the **two**-joystick assembly, so a single-axis board's mechanical
    envelope is not derivable from it without a decision about how two of these
    boards mount in the rig.
-9. Cable and mounting arrangement for in-rig InstrumentPort-40 use.
+10. Cable and mounting arrangement for in-rig InstrumentPort-40 use.
 
 Items 1 through 5 can stop a fabrication order. Everything else can be resolved
 during layout.
+
+**Not on this list:** the `HV_IN` TVS. `SMBJ40A` is worth ordering, but the
+stocked `SMF48A` builds a working first board, so it never blocks a fab order.
 
 ## First Schematic Pass
 
@@ -263,9 +298,10 @@ Once the parts above are settled, in this order:
 
 1. Insert `rp2040`.
 2. Insert `hv_input_36V_terminal_2pos_5p08_protected`, `hv_to_5v_tpsm365r6`, and
-   `5v_to_3v3_tps73733`. **Decide the pre-/post-switch feed point immediately**
-   and add the 36 V TVS. Confirm exactly one `PWR_FLAG`; the 36 V block carries
-   one already.
+   `5v_to_3v3_tps73733`. **Decide the pre-/post-switch feed point immediately**,
+   put the bulk capacitance downstream of the switch, and add the ORing diodes at
+   the `TPS73733` input — not at `+5V`. Confirm exactly one `PWR_FLAG` per input
+   net; the 36 V block and the `usb2` block each carry one already.
 3. Insert `tmc5130`. Change both sense resistors from the block default 0.12 Ω to
    **0.15 Ω** (`OW-PASS-RLH12FTCR150`). Record `vsense = 1` and `IRUN = 28`
    alongside. Confirm `VCC` is fed from the external `+5V` rail.

@@ -197,7 +197,7 @@ A bitmask, so several faults can be present at once.
 | 3 | `HOME_TIMEOUT` | Homing exceeded its bound |
 | 4 | `ENCODER_MISMATCH` | TMC5130A count and PIO count diverged beyond tolerance |
 | 5 | `LIMIT_UNEXPECTED` | Limit switch asserted during normal motion |
-| 6 | `SUPPLY_OUT_OF_RANGE` | Motor supply outside the accepted window, from `HV_SNS` |
+| 6 | `SUPPLY_OUT_OF_RANGE` | Motor supply outside the accepted window, from `HV_SNS`, or `~{HV_FAULT}` asserted by the input switch — overload, short circuit, or its thermal shutdown |
 | 7 | `INTERNAL` | Firmware assertion or self-test failure, including CHOPCONF `vsense != 1` |
 | 8 | `EXT_STOP` | External fault input asserted, if the cross-board fault line is fitted |
 

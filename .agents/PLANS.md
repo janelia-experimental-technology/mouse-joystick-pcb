@@ -40,9 +40,10 @@ Source-of-truth sibling repositories:
 
 ## Resolved
 
-- **RP2040 GPIO allocation.** 27 of 30, 3 spare, all ADC-capable, with encoder
-  index, `DIAG1`, the synthetic homing stimulus, and software DAC
-  `~LDAC`/`~CLR` all present. `docs/interface-map.md`.
+- **RP2040 GPIO allocation.** 29 of 30, 1 spare, with encoder index, `DIAG1`, the
+  synthetic homing stimulus, software DAC `~LDAC`/`~CLR`, a `+5V` presence sense,
+  and the input switch's fault and current-sense outputs all present. A reclaim
+  order is documented. `docs/interface-map.md`.
 - **InstrumentPort-40 overlay.** All 18 digital slots filled. Same document.
 - **Event-line routing.** Three lines on BNC, two dual jacks plus one. This is
   the twin board's blocking question, and one axis makes it answerable.
@@ -50,6 +51,24 @@ Source-of-truth sibling repositories:
 - **Current sense**, inherited: 0.15 Ω, `vsense = 1`, `IRUN = 28`.
 - **Supply voltage:** 36 V, using the existing
   `hv_input_36V_terminal_2pos_5p08_protected` block.
+- **TVS on `HV_IN`, for the switch and the buck — not for the driver.** A standard
+  TVS cannot clamp under the TMC5130A's 49 V on a 36 V rail, but the switch (70 V)
+  and the buck (65 V) are the parts exposed at hot-plug, and they are clampable.
+  `SMBJ40A` preferred, stocked `SMF48A` usable now. The driver is protected by
+  construction — bulk downstream of the soft-start switch, capped at tens of µF,
+  tight `VS` loop — and verified at Gate B.
+- **The 36 V input block's six edits are applied**, verified by netlist review on
+  2026-08-12. `EN` divider, `DIAG_EN`, `LATCH`, `ILIM` = 40 kΩ, `SNS` = 249 Ω, and
+  the `~FAULT` route are all in. **Three defects remain**: `~FAULT` is pulled down
+  to `GND` instead of up to `+3.3V_MCU`, and `HV_IN` and `SNS` are local labels
+  rather than hierarchical, so the board can reach neither. Plus two cheap
+  concerns — `C27002`'s 50 V rating on a 36 V rail, and the misleading `VAA` net
+  name. The `+3.3V_MCU` naming concern was **withdrawn**; naming the rail by its
+  domain is correct. All in `docs/power.md`; fix before the block's PCB layout is
+  finished.
+- **Multi-source logic power.** Onboard buck, USB `VBUS`, and optionally
+  pyControl 5 V, diode-ORed at the 3.3 V regulator input. `+5V` stays
+  single-sourced because the DAC and the driver's `VCC` need it in spec.
 
 ## Blocking Items
 
@@ -61,16 +80,29 @@ Ranked. Items 1-5 can stop a fabrication order.
    supply voltage and current, and the harness conductor count. Owner: Peter.
 3. **DAC8563 `VIH` at `VDD = 5 V`.** Datasheet check. If translation is needed it
    must be a dual-supply part — an `SN74LVC125A` will not do it.
-4. **A 36 V-rated TVS.** Not stocked; `SMBJ40A`/`SMBJ43A` class. Purchase item.
-5. **Pre- or post-switch feed for the regulator chain.** Post-switch produces an
-   unbootable board. Recommendation in `docs/power.md`: pre-switch.
+4. **Where `+3.3V_MCU` comes from with only the 36 V supply connected.** `VSA`
+   stays on the external 5 V for thermal reasons, so that 5 V is switched with
+   `+36V`, which puts the MCU on a separate always-on rail. Either a small
+   always-on converter taps `HV_IN`, or the board only boots with USB or pyControl
+   present. Owner: Peter.
+5. **The TMC's `VCC_IO` needs its own switched 3.3 V**, not `+3.3V_MCU` — an
+   always-on `VCC_IO` with a switched `VCC` is the sequencing order pin 34 forbids.
+   Confirm the second LDO or gating arrangement.
 6. `EXT_FAULT_IN` on `GP27`: fitted or explicitly declined. Cheap now, a flying
    wire later.
-7. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
+7. `D3`, the pyControl 5 V ORing branch: populated or DNP. Gated on measuring the
+   port's 5 V budget. Footprint goes down either way.
+8. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
    assembly, so how a per-axis board mounts is a decision.
 
 Items 1-3 are shared with `../mouse-joysticks-pcb`. Answer them once and record
 the answer in both.
+
+**Reopened and narrowed, 2026-08-12: the 36 V TVS.** It belongs on `HV_IN` to
+protect the switch and the buck at hot-plug, not on the motor rail to protect the
+driver — nothing can do the latter at 36 V. `SMBJ40A` is the part to order, and
+the stocked `SMF48A` works for first boards, so it is **not a fabrication
+blocker**. See `docs/power.md`.
 
 ## Milestones
 
@@ -99,8 +131,8 @@ Ready for active PCB work when:
 
 - the motor and encoder parts are identified;
 - the DAC logic-level question is settled;
-- the TVS part is chosen;
-- the pre-/post-switch feed point is decided;
+- the bulk-capacitance placement and snubber footprint are decided;
+- the `+3.3V_MCU` source and the switched `VCC_IO` rail are decided;
 - ~~the Guix pin, Makefile, and KiCad scaffold exist~~ **done**; `make validate-db`
   still to be run once in the managed shell;
 - Gate A items in `docs/validation-plan.md` have explicit status.
@@ -117,6 +149,135 @@ Ready for active PCB work when:
   nothing descoped — and the InstrumentPort-40 overlay, which fills all 18
   digital slots. Gave the DAC SPI bus two slots so the analog angle output can be
   verified against the encoder from a single capture.
+- 2026-08-12: Added `orb_weaver_smd:Texas_HTSSOP-14-1EP_..._ThermalVias_JLCPCB` to
+  `kicad-libs`. The stock footprint's thermal *pad* was already correct; the via
+  array was missing, and KiCad's official `_ThermalVias` variant fails this
+  project's DRU with 15 `drill_out_of_range` errors (0.2 mm drills vs a 0.3 mm
+  `min_through_hole_diameter`). Enlarging only the drill would breach the 0.18 mm
+  PTH annular rule, so the local variant uses 0.7 mm pads / 0.3 mm drills
+  (0.20 mm annular) with the y-pitch tightened to 1.0 mm to keep the outer pads
+  inside the 5 mm pad. DRC-verified clean, and **assigned at source** on
+  Peter's instruction: three `db/source/` CSVs plus the symbol default, then
+  `make build-db`. Placed instances are copies and still carry the old footprint —
+  Update Symbols from Library is needed in the two hv_input blocks, the mining
+  example project, and **`tmc51x0-driver-dev-pcb`**, which places the 24 V
+  barrel-jack block and will gain thermal vias on its next update. Its
+  `fp-lib-table` already carries `orb_weaver_smd`.
+- 2026-08-12: **Reversed the `VSA` → `VM` recommendation.** The external 5 V on
+  `VSA` exists to bypass the internal linear regulator, which the datasheet
+  explicitly sanctions ("a different (lower) supply voltage can be used for VSA")
+  and which matters thermally: the regulator can contribute up to 1 W at 46 V, and
+  even with `VCC` external it would add a few hundred mW to a package already
+  dissipating ~0.45 W of bridge `I²R`. So `VSA` stays on `+5V` and **`+5V` is
+  switched with `+36V`**. Cheapest way to get every ordering right: feed
+  `hv_to_5v_tpsm365r6` from the **switched `+36V`**, which reverses the earlier
+  pre-switch recommendation for that buck. **Consequence to plan for:** the TMC's
+  `VCC_IO` cannot sit on the always-on MCU rail, because an always-on `VCC_IO` with
+  a switched `VCC` is the order pin 34 forbids — so there are two 3.3 V domains,
+  `+3.3V_MCU` always on and a switched 3.3 V for `VCC_IO` alone. That makes the
+  `+3.3V_MCU` name load-bearing rather than merely descriptive. **New open item:**
+  where `+3.3V_MCU` comes from when only the 36 V supply is connected.
+- 2026-08-12: Settled the "do not power the TMC5130A without VM" question against
+  rev 1.21, and it lands on a different pin than expected. **`VCC` must come up
+  EARLY**, not late — pin 34: "make sure, that VCC comes up before or in parallel to
+  5VOUT or VCC_IO, whichever comes up later". So `VCC` alive with `VS` = 0 is the
+  permitted direction, and the buck→LDO cascade guarantees `VCC` before `VCC_IO` by
+  construction. **The real violation is `VSA`:** the `tmc5130` block ties `VSA`
+  (pin 39) to `+5V` while `VS` goes to `VM`, and the absolute maximum is
+  `V_VSA` ≤ `V_VS` + 0.5 V. With the buck fed pre-switch, `VSA` sits 4.5 V over that
+  limit every time the motor rail is off — the boot state and the safe state. Fix is
+  to tie `VSA` to `VM`, the datasheet's "normally tied to VS"; costs ~0.15 W in the
+  internal regulator because `VCC` is fed externally. **Rejected switching the 3.3 V
+  rail**: the MCU runs on it and drives `ENABLE`, so that is a deadlock. Also noted
+  `R4002` is 10 Ω where the datasheet recommends 2.2-3.3 Ω between `VCC` and
+  `5VOUT`. This is a shared change to the `tmc5130` block.
+- 2026-08-12: **Withdrew the `+3.3V_MCU` rename recommendation.** The pull-ups on
+  `DIAG_EN`, `LATCH` and `~FAULT` must reference the rail the MCU itself uses, so
+  naming the rail by its domain is correct and more precise than `+3.3V`. Only
+  consequence: `5v_to_3v3_tps73733` emits `+3.3V`, so the two names need reconciling
+  at board level and a netclass pattern added.
+- 2026-08-12: Reviewed `hv_input_36V_terminal_2pos_5p08_protected` after the first
+  round of edits (refdes renumbered; a `.kicad_pcb` now exists). **Correct:** the
+  `EN` divider is now 1 kΩ series + 10 kΩ pulldown giving 3.0 V; `DIAG_EN` and
+  `LATCH` are pulled to `+3.3V_MCU` through 1 kΩ `RPROT`; `ILIM` = 40 kΩ;
+  `SNS` = 249 Ω; diode orientation, both capacitor placements, thermal pad to
+  `GND`, `NC` left open, `PWR_FLAG` on `HV_IN`, and the HTSSOP-14 PowerPAD
+  footprint all check out. **Three defects:** `R27005` pulls `~FAULT` to `GND`
+  instead of `+3.3V_MCU`, so the open-drain output idles low and never presents a
+  valid high; `HV_IN` is a local label, so the board cannot tap the unswitched node
+  for the buck feed or the TVS; and `SNS` is a local label, so the current sense
+  cannot reach `GP28`. **Three concerns:** `C27002` is 50 V on a 36 V rail where
+  `C27001` is 100 V, and `VOUT` is specified to −60 V during inductive turn-off;
+  `+3.3V_MCU` will not connect to the board's `+3.3V`; and `VAA` names a pin the
+  part does not have. ERC is clean — 32 violations, all library-path or
+  isolated-fragment artifacts.
+- 2026-08-12: Checked the six input-block edits against actual stock and the parts
+  database. **Neither 470 Ω nor 24.9 kΩ is stocked**, so the values changed again:
+  `R27004` → **249 Ω** (`OW-PASS-CRCW0402249RFKED`, fault level 1.29-1.59 V, even
+  safer than 470 Ω would have been) and `R27003` → **40 kΩ**
+  (`OW-PASS-SCR0603F40K`, `I_CL` ~1.2 A), with 2 × 49.9 kΩ in parallel as the
+  25 kΩ / 1.96 A fallback. Every value now in use is stocked and already promoted,
+  so the block edits carry no lead time. Confirmed the SNS amplitude loss is
+  irrelevant because `I_SNS` accuracy is ±25-30% below 60 mA anyway.
+- 2026-08-12: Netlist export of the `usb2` block shows it has **no ESD
+  protection** — only the receptacle and two 5.1 kΩ `CC` pulldowns, with `SHIELD`
+  unconnected. The 27 Ω `D+`/`D-` series resistors RP2040 needs are not missing;
+  they are `R10001`/`R10002` inside the `rp2040` block. Decided to add the
+  **stocked `USBLC6-2P6`** (already in the parts database as
+  `Power_Protection:USBLC6-2P6` / `Package_TO_SOT_SMD:SOT-666`, 20 on hand) on the
+  connector side of those resistors, rather than purchasing `USBLC6-2SC6`, which is
+  the same die in SOT-23-6 and would also need a new internal part. Buy the SC6
+  only if boards are hand-assembled. This matters more than usual because `VBUS`
+  now feeds the logic rail and the USBLC6 clamps `VBUS` as well as the data lines.
+- 2026-08-12: Resolved the four follow-up questions on the 36 V input block against
+  `tps1htc100-q1.pdf`. `DIAG_EN` and `LATCH` at 3.3 V with `VS` unpowered is within
+  Recommended Operating Conditions, because those pins are specified −1 to 5.5 V
+  **with respect to GND** and independently of `VS`; this is unlike the `DAC8563`
+  case, whose inputs are specified relative to its own `VDD`. `ILIM` and `SNS` are
+  each a single resistor to ground, so the earlier "2:1 divider" advice is
+  withdrawn: change `R27003` 10 kΩ → 24.9 kΩ (limit 5.3 A typ → ~2 A) and
+  `R27004` 1 kΩ → 470 Ω (fault level 3.3-4.4 V → 2.44-3.01 V, under the ADC
+  limit). **Both values were superseded later the same day** by the stock check
+  recorded in the entry above — 24.9 kΩ and 470 Ω are not stocked; the values in
+  use are 40 kΩ and 249 Ω. Corrected the current-limit figure from 4.6 A to **5.3 A typ (4-6.3 A)**;
+  the earlier number used the wrong `K_CL` row instead of the datasheet's tabulated
+  `I_CL` values. `LATCH` floating gives **auto-retry every 2 ms**, so tie it high
+  for latch-off; clearing is by toggling `EN`, which firmware already owns on
+  `GP19`. `R27001` → 1 kΩ done.
+- 2026-08-12: Audited `hv_input_36V_terminal_2pos_5p08_protected` by exporting its
+  netlist and checking it against `tps1htc100-q1.pdf`. Confirmed the 220 nF is the
+  `VS` bypass on `HV_IN` and the 22 nF is the output bypass on `+36V`, both
+  correctly placed. Found six things to change when the block is placed: the
+  `EN` divider (10 k/10 k) gives only 1.65 V against a 1.5 V `VIH`; `DIAG_EN` is
+  left unconnected with an internal pulldown, which disables the `SNS` current
+  sense that `GP28` was allocated to read; `~FAULT` and `LATCH` are unconnected;
+  `ILIM` is set to ~4.6 A; and the `SNS` fault level of 3.3-4.4 V would
+  overvoltage the RP2040 ADC. Allocated `GP29` to `~{HV_FAULT}` and specified a
+  2:1 divider on `SNS`. Also bounded output bulk capacitance at tens of µF, since
+  the switch dissipates ½CV² charging it and the datasheet requires the design not
+  reach thermal shutdown while doing so.
+- 2026-08-12: **Corrected the previous "no TVS" conclusion.** It was right that no
+  standard TVS protects the TMC5130A at 36 V and wrong to conclude none was
+  needed: because the regulator chain taps pre-switch, `HV_IN` carries the buck's
+  input capacitance, so hot-plug rings against it while the switch is off and the
+  driver is disconnected. The exposed parts at that moment are the 70 V switch and
+  the 65 V buck, both clampable by a 40 V-standoff part. TVS goes on `HV_IN`.
+- 2026-08-12: Ran the TVS arithmetic against the actual stocked parts and
+  **reversed the earlier "add a board-level TVS" recommendation.** Standard SMBJ
+  parts clamp at ~1.6× standoff, so a 36 V rail needs 40 V standoff and clamps
+  near 64 V, against the TMC5130A's 49 V absolute maximum; the `SMBJ40A`
+  breakdown spread of 44.4-49.1 V straddles that limit. The `TPS1HTC100-Q1`
+  (70 V / 81 V transient) and `TPSM365R6V5` (65 V / 70 V) need no clamp. Recorded
+  that the stocked `SMBJ28A` works only on a 24 V rail, which is why the 24 V
+  input block is passive-with-TVS while the 36 V block is active-with-soft-start —
+  two coherent designs, not one with a missing part. Also recorded that the 36 V
+  block runs happily from 24 V or 30 V as an escape hatch.
+- 2026-08-12: Added the multi-source logic rail — onboard buck, USB `VBUS`, and
+  optional pyControl 5 V, diode-ORed at the `TPS73733` input rather than at
+  `+5V`, because ORing onto `+5V` violates the TMC5130A's 4.6 V `VCC` minimum and
+  truncates the DAC's full-scale output. Allocated `GP26`/`ADC0` to `V5_SENSE` so
+  firmware can detect the MCU-alive/`+5V`-dead state that USB-only power creates,
+  and recorded the input-clamp back-powering hazard it introduces.
 - 2026-08-12: Worked the 36 V consequences from `TMC5130A_datasheet_rev1.21.pdf`
   chapter 29: 46 V operating, 49 V absolute with inductive load, and the
   datasheet's own warning about supply ringing from stray inductance. Recorded

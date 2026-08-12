@@ -15,8 +15,10 @@ The twin-axis board (`../mouse-joysticks-pcb`) fits two axes into 28 of RP2040's
 30 GPIOs only after cutting the encoder index, the synthetic homing stimulus,
 `DIAG1`, and software control of the DAC's `~LDAC` and `~CLR`.
 
-One axis needs **27 of 30**, with everything the twin board cut restored, and
-leaves **3 spare, all ADC-capable**. There is no descope in this allocation.
+One axis needs **29 of 30**, with everything the twin board cut restored plus a
+`+5V` presence sense and the input switch's fault and current-sense outputs, and
+leaves **1 spare**. There is no descope in this allocation, and a documented
+reclaim order exists if that changes.
 
 That is the single largest reason this board is faster to build: no GPIO budget
 argument, no descope table, no fallback plan for finding two more pins.
@@ -59,13 +61,33 @@ The `rp2040` design block exposes these as labels `GPIO0` … `GPIO25` and
 | `GP23` | `PYC_RSYNC_IN` | Rsync edges in | GPIO |
 | `GP24` | `~{INSTR_BUF_OE}` | Instrumentation buffer enable | GPIO |
 | `GP25` | `FW_TRIG0` | Firmware timing marker | GPIO |
-| `GP26` | spare | Reserved — HV rail-voltage divider candidate | `ADC0` |
+| `GP26` | `V5_SENSE` | `+5V` rail presence and level, via divider | `ADC0` |
 | `GP27` | spare | Reserved — `EXT_FAULT_IN` candidate, see below | `ADC1` |
-| `GP28` | `HV_SNS` | 36 V input load-current sense | `ADC2` |
-| `GP29` | spare | Reserved | `ADC3` |
+| `GP28` | `HV_SNS` | 36 V input load-current sense, `R_SNS` = 249 Ω | `ADC2` |
+| `GP29` | `~{HV_FAULT}` | 36 V switch fault, open-drain, pull-up to 3.3 V | `ADC3` |
 
-**27 used, 3 spare.** All three spares are ADC-capable, and no digital function
-sits on an ADC pin, so analog monitoring can be added without moving anything.
+**29 used, 1 spare** (`GP27`). If `EXT_FAULT_IN` is fitted there, none remain.
+
+`DIAG_EN` on the input block's switch is **tied to `+3.3V`, not to a GPIO** —
+diagnostics have no reason to be gated, and tying it costs no pin. Without it
+neither `HV_SNS` nor `~{HV_FAULT}` works at all; see `docs/power.md`.
+
+### Reclaim Order If More Pins Are Needed
+
+Documented so a late change does not have to re-derive it, in order of least loss
+first:
+
+1. **Tie `~{DAC_CLR}` high in hardware**, freeing `GP17`. Costs software clear;
+   the twin-axis board already accepts this. Mandatory anyway if a 4-bit level
+   translator is fitted.
+2. **Drop `TMC_REF_STIM`**, freeing `GP9`. Costs synthetic homing stimulus, a
+   development convenience. The twin board cut this too. Leave a test pad on the
+   `REFL` net so a jumper can still simulate a switch closure.
+3. **Drop `TMC_DIAG1`**, freeing `GP8`. `DIAG0` alone, configured to report what
+   matters. Route `DIAG1` to a test point.
+
+Do not reclaim by moving an encoder pin — `GP14`/`GP15`/`GP16` contiguity is
+worth more than any of the above.
 
 Notes:
 
@@ -86,11 +108,21 @@ Notes:
 - `GP19` drives the `hv_input_36V_terminal_2pos_5p08_protected` block's `ENABLE`
   input. That block pulls `ENABLE` low, so the 36 V rail is **off until firmware
   drives it**. See `docs/power.md`.
-- `GP28` reads the TPS1HTC100-Q1 `SNS` analog current-sense output. Confirm
-  whether the block already populates the sense resistor to ground and scale it
-  so full-scale load current lands below 3.3 V.
+- `GP28` reads the TPS1HTC100-Q1 `SNS` output. **Change the block's `R_SNS` from
+  1 kΩ to 249 Ω** (`OW-PASS-CRCW0402249RFKED`, stocked) — the pin signals faults by
+  sourcing 5.2-6.4 mA into `R_SNS`, which at 1 kΩ lands at 3.3-4.4 V, above the
+  RP2040's `VDD + 0.3 V` limit. At 249 Ω the fault level is 1.29-1.59 V and current
+  reads 0.311 V/A. No divider needed. See `docs/power.md`.
+- `GP29` reads the switch's `~FAULT` open-drain output: overload, short-circuit,
+  and thermal shutdown. Needs an external pull-up to `+3.3V`. The design block
+  leaves this pin unconnected; this board routes it because it has the pin and
+  because the motor rail can shut itself off.
+- `GP26` senses the `+5V` rail through a divider. The board can be powered from
+  USB or pyControl with the 36 V supply absent, in which case `+5V` is dead while
+  the MCU is running. Firmware must not drive the DAC or any other 5 V-domain
+  input in that state. See `docs/power.md`.
 - If the DAC needs a 4-bit level translator (see `docs/encoder-analog-output.md`),
-  `~{DAC_CLR}` is tied high in hardware instead and `GP17` becomes a fourth spare.
+  `~{DAC_CLR}` is tied high in hardware instead and `GP17` becomes a second spare.
 
 ### `EXT_FAULT_IN` — Decide Before Layout
 
@@ -112,7 +144,7 @@ keyed 2-pin header, not a bare pad.
 | `SPI0` | TMC5130A | `GP6` SCK, `GP7` TX, `GP4` RX, `GP2` CS as GPIO |
 | `SPI1` | DAC8563, write-only | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO |
 | PIO0 SM0 | Encoder A/B/N quadrature decode | `GP14`-`GP16` |
-| ADC | `HV_SNS`, three spare channels | `GP26`-`GP29` |
+| ADC | `V5_SENSE`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29` |
 | USB | Debug console, CDC | dedicated USB pins |
 | QSPI | External flash | dedicated QSPI pins |
 
@@ -219,8 +251,8 @@ session never silently produces no data. See `docs/instrument-strategy.md`.
 | Ref | Connector | Carries |
 | --- | --- | --- |
 | `J1` | 2-pos 5.08 mm pluggable terminal, Phoenix `1757242` | 36 V motor supply in |
-| `J2` | USB-C receptacle (`usb2` block) | Firmware load, USB CDC debug console |
-| `J3` | RJ-45, `OW-CONN-J1B1211CCD` or `OW-CONN-438600001` | pyControl behavior port: UART + GND |
+| `J2` | USB-C receptacle (`usb2` block) | Firmware load, USB CDC debug console, and a logic-rail power source |
+| `J3` | RJ-45, `OW-CONN-J1B1211CCD` or `OW-CONN-438600001` | pyControl behavior port: UART + GND, and optionally 5 V on pin 6 |
 | `J4` | 40-pin 0.5 mm FFC, `OW-CONN-5051104091` | InstrumentPort-40 |
 | `J5` | Motor connector, locking, 4-pos | Stepper coils |
 | `J6` | Joystick harness, locking | Encoder A/B/N (+/-), encoder supply, limit switch, return |

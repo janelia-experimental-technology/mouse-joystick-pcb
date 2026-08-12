@@ -92,8 +92,14 @@ for the `SN74LVC125A` already on this board for instrumentation buffering: its
 its input too and it solves nothing. `LSF0102DCUR` is prior art from the
 previous-generation board and is also acceptable.
 
-Check `kicad-libs` stock before choosing; if nothing suitable is stocked, this
-becomes a purchase item alongside the 36 V TVS.
+Check `kicad-libs` stock before choosing; if nothing suitable is stocked, this is
+the board's **only** purchase item, so resolve it early.
+
+A translator has a second benefit worth counting. The board can run from USB with
+the 36 V supply absent, which leaves the MCU alive while `+5V` is at 0 V. A
+dual-supply translator's outputs go high-Z when `VCCB` is absent, so it stops the
+MCU from back-powering the dead DAC through its input clamps. See the
+multi-source section of `docs/power.md`.
 
 ## Signal Chain
 

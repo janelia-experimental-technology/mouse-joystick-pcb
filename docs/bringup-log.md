@@ -27,6 +27,25 @@ independently calibrated and independently suspect.
 - Solder issues:
 - Rework:
 
+## Power — sources and ORing
+
+| Source powering the board | 3.3 V rail | `+5V` rail | Board responds to `ID` | Notes |
+| --- | --- | --- | --- | --- |
+| USB only | | 0 V expected | | |
+| pyControl only (`D3` fitted?) | | 0 V expected | | |
+| 36 V only | | | | |
+| 36 V + USB | | | | |
+| All available | | | | |
+
+- ORing diode part and measured `Vf` at the actual logic current:
+- Current measured flowing back into the USB host (expect 0):
+- Current measured flowing back into pyControl (expect 0):
+- Current into the dead `+5V` rail under USB-only power (expect ~0):
+- `V5_SENSE` reading versus measured `+5V`:
+- Firmware refuses 5 V-domain access when `+5V` is absent:
+- Behavior when each source is plugged/unplugged while others are live:
+- pyControl port 5 V current drawn by this board:
+
 ## Power — 36 V
 
 - Input voltage / current limit used:
@@ -53,8 +72,11 @@ Limits: 46 V operating, 49 V absolute with inductive load, 50 V bridge.
 | Deliberate stall | | |
 | Power removal under load | | |
 
-- TVS part fitted and its clamping voltage:
+- Bulk capacitance value and its position relative to the high-side switch:
+- Snubber populated, and its values:
 - Probe method and bandwidth used (a slow probe will not see this):
+- If overshoot approaches 46 V, the fallback taken (snubber / lower supply /
+  24 V) and why:
 
 ### Thermal
 

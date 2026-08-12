@@ -19,9 +19,52 @@ not grant that authority.
   not from the high-side switch output. Otherwise the MCU cannot enable its own
   supply and the board never boots. This is the highest-consequence check on the
   list.
-- A **36 V-rated TVS is placed** on the motor rail. The
-  `hv_input_36V_terminal_2pos_5p08_protected` block populates none. `SMBJ40A`/
-  `SMBJ43A` class; the stocked TVS parts are unsuitable.
+- **A TVS is fitted on `HV_IN`** (`SMBJ40A`, or stocked `SMF48A`). It protects
+  the switch and the buck at hot-plug; it cannot protect the TMC5130A.
+- **Bulk capacitance is downstream of the high-side switch**, so plugging the
+  terminal block in does not ring against it, and is **capped at tens of µF** —
+  the switch dissipates ½CV² = 0.65 mJ per µF charging it, and the datasheet
+  requires the design not reach thermal shutdown while doing so.
+
+### Power — the 36 V input block edits
+
+The block has never been placed. Every item is a resistor value or a single wire;
+see the audit in `docs/power.md`.
+
+- `R27001` changed from 10 k to **1 kΩ**, so `EN` sees 3.0 V rather than 1.65 V
+  against a 1.5 V `VIH`.
+- `DIAG_EN` tied to `+3.3V`. **Without this the `SNS` output is dead** and
+  `HV_SNS` reads nothing.
+- `~FAULT` routed to `GP29` with a pull-up to `+3.3V`.
+- `LATCH` tied to `+3.3V` through a 1 kΩ `RPROT` for **latch-off**. Left floating
+  the device auto-retries every 2 ms, which cycles the motor rail at ~500 Hz into a
+  persistent fault. Clearing is by toggling `EN`, which firmware owns on `GP19`.
+- `R27003` (`ILIM`) changed from 10 kΩ to **40 kΩ** (`OW-PASS-SCR0603F40K`,
+  stocked), so the limit is ~1.2 A rather than the present **5.3 A typ (4-6.3 A)**.
+  Confirmed against the identified motor, and able to pass the `+36V` inrush. Must
+  never float — floating is a fault state. If more headroom is needed, 2 × 49.9 kΩ
+  in parallel gives the tabulated 25 kΩ / 1.96 A row.
+- `R27004` (`R_SNS`) changed from 1 kΩ to **249 Ω**
+  (`OW-PASS-CRCW0402249RFKED`, stocked), so the fault indication lands at
+  1.29-1.59 V instead of 3.3-4.4 V, well under the RP2040 ADC's `VDD + 0.3 V`
+  limit. No divider required.
+- `DIAG_EN` and `LATCH` each driven through a 1 kΩ `RPROT` series resistor, per
+  the datasheet's Table 4-2.
+- **`R27005` pulls `~FAULT` UP to `+3.3V_MCU`, not down to `GND`.** As originally
+  wired it was a pulldown on an open-drain output, which idles low and reads as a
+  permanent fault.
+- **`HV_IN` and `SNS` are hierarchical labels**, not local ones. Without `HV_IN`
+  the board cannot feed the buck from the unswitched node or place the TVS; without
+  `SNS` the current sense cannot reach `GP28`. `ILIM` stays local.
+- `C27002` is a **100 V** part, matching `C27001`. 50 V gives only 1.4× margin on a
+  36 V rail and does not cover the −60 V `VOUT` excursion during inductive turn-off.
+- The block's 3.3 V hierarchical label matches the board's `+3.3V` net name.
+- The terminal block's polarity is silkscreened: pin 1 `GND`, pin 2 positive.
+- The switch's thermal pad has a via array — it is both the heat path and the
+  ground connection.
+
+### Power — driver side
+
 - The TMC5130A `VCC` is supplied from the external `+5V` rail, not left to the
   internal regulator. At `VM = 36 V` the internal regulator's 1 W limit is reached
   at 32 mA.
@@ -29,11 +72,48 @@ not grant that authority.
 - Bulk capacitance sits at the driver's `VS` pins, and the `VS`/`GND` loop is
   small. 36 V leaves 10 V to the 46 V operating limit and the datasheet warns
   explicitly about ringing from stray inductance.
-- The `ILIM` resistor is sized from the identified motor's inrush and stall
-  behavior.
-- `SNS` scaling puts full-scale load current below 3.3 V at `GP28`.
+- An RC snubber footprint exists across `VS`/`GND` at the driver, populated or
+  not, so a bad Gate B transient measurement is a populate decision rather than a
+  respin.
 - Exactly one `PWR_FLAG` per net, on input and entry nets only. The 36 V block
-  carries one; do not add a second.
+  and the `usb2` block each carry one; do not add a second to either.
+
+### Power — multi-source logic rail
+
+- **The ORing diodes are at the `TPS73733` input, not on `+5V`.** ORing onto
+  `+5V` drops it below the TMC5130A's 4.6 V `VCC` minimum and truncates the DAC's
+  full-scale output.
+- `+5V` is single-sourced from the `TPSM365R6V5`.
+- Diode orientation blocks current back into the USB host and into pyControl.
+- `V5_SENSE` divider is fitted on `GP26`, and firmware refuses to drive the 5 V
+  domain when `+5V` is absent.
+- Series resistors are present on every 3.3 V line driving a 5 V-domain input,
+  as a hardware backstop independent of firmware.
+- **`hv_to_5v_tpsm365r6` is fed from the switched `+36V`**, so `VSA` (which the
+  `tmc5130` block ties to `+5V`) can never exceed the `V_VS` + 0.5 V absolute
+  maximum, and `VCC` can never arrive after `VCC_IO`. Both orderings hold by
+  construction with no sequencing logic.
+- **`+3.3V_MCU` is a separate always-on rail** with its own source on `HV_IN`, or
+  the board's inability to boot from 36 V alone is documented and accepted.
+- **The TMC5130A's `VCC_IO` is on the switched 3.3 V, not on `+3.3V_MCU`.** An
+  always-on `VCC_IO` with a switched `VCC` is the sequencing order the datasheet
+  forbids.
+- Series resistors protect every MCU output that drives a TMC digital input, since
+  `VCC_IO` is 0 V whenever the motor rail is off, and firmware gates those pins on
+  `HV` state.
+- **`+3.3V_MCU` is never switched.** The MCU runs on it and drives `ENABLE`;
+  switching it off cannot be undone by firmware.
+- `R4002` in the `tmc5130` block, between `VCC` and `5VOUT`, is 10 Ω where the
+  datasheet recommends 2.2 or 3.3 Ω. Confirm or change.
+- `D3`, the pyControl 5 V branch, is populated or explicitly left DNP with the
+  reason recorded.
+- `VBUS` is not tied to `+5V` anywhere.
+- **USB ESD protection is fitted.** The `usb2` block contains none — only the
+  receptacle and two 5.1 kΩ `CC` pulldowns. Use the stocked `USBLC6-2P6`, placed on
+  the **connector side** of the 27 Ω series resistors that live in the `rp2040`
+  block. It clamps `VBUS` too, which matters now that `VBUS` is a power source.
+- The USB-C receptacle's `SHIELD` pins are terminated deliberately, not left
+  unconnected as the block leaves them.
 
 ### Controller and allocation
 
@@ -119,11 +199,31 @@ not grant that authority.
 
 - **Board boots with the motor rail off**, and `HV_EN` raises it. Confirm before
   a motor is attached.
+- **Each power source works alone**, and the board behaves sanely in each state:
+  USB only; pyControl only if `D3` is populated; 36 V only; and every
+  combination, including plugging and unplugging each source while the others are
+  live. Measure the 3.3 V rail in each case.
+- With USB-only power, confirm no current flows into the dead `+5V` rail through
+  any device's input clamps, and that `V5_SENSE` reads it correctly.
+- No current flows back into the USB host or into pyControl from any other
+  source.
+- The analog output reaches a true 5.00 V full scale with the 36 V supply
+  present. If it tops out below 5 V, something is ORed onto `+5V` that should
+  not be.
 - Rail voltages, sequencing, and ripple are measured with the motor loaded.
 - Motor-rail transient overshoot is measured at the TMC5130A `VS` pins during
   motion start, stop, and a deliberate stall. **Compare against the 46 V
   operating and 49 V absolute limits.** This is the measurement that justifies or
   condemns the 36 V choice.
+- Overshoot on `HV_IN` is measured while **hot-plugging the terminal block**,
+  against the switch's 70 V and the buck's 65 V. This is the event the TVS is
+  there for.
+- `HV_EN` turn-on into the final `+36V` capacitance completes without tripping the
+  switch's thermal shutdown, from both a cold and a warm start.
+- `HV_SNS` tracks measured load current, and the fault level stays under 3.3 V at
+  the ADC pin when a fault is provoked.
+- `~{HV_FAULT}` asserts on a deliberate overload and the board reports
+  `SUPPLY_OUT_OF_RANGE`.
 - TMC5130A case temperature is measured; the internal regulator is confirmed
   offloaded.
 - **Continuity confirmed against real hardware for all eight RJ-45 pins.** The

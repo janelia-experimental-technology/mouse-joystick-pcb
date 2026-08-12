@@ -1,0 +1,99 @@
+Schematic text block for hv_input_*_terminal_*_protected (TPS1HTC100-Q1).
+
+Paste the block between the rule lines into a KiCad schematic text item next to
+the placed design block, the same way the TMC5130 sense-resistor note travels
+with that block. Values derived from tps1htc100-q1.pdf (SLVSHZ1A, rev July 2025);
+K_SNS = 800 A/A, K_CL = 46-53 A*kOhm.
+
+KiCad's default stroke font is not monospaced, so the columns will look slightly
+ragged. Either accept that, set the text item to a monospace font, or rebuild the
+two tables as KiCad 10 schematic tables.
+
+--------------------------------------------------------------------------------
+TPS1HTC100-Q1 SMART HIGH-SIDE SWITCH - PER-BOARD RESISTOR SELECTION
+
+R_ILIM sets the current limit. R_SNS sets the ADC sense scaling. They do
+independent jobs, but R_SNS has a ceiling that depends on I_CL - see below.
+
+PREREQUISITES, or neither resistor does anything:
+  DIAG_EN must be driven HIGH. Left floating (internal pulldown) the analog
+    sense, open-load and short-to-battery diagnostics are all disabled.
+  ILIM must NEVER float. Floating selects the internal default limit AND is
+    "considered a fault state for the device" (datasheet Table 4-2).
+
+--- R_ILIM (single resistor to GND) -> CURRENT LIMIT -------------------------
+  I_CL = K_CL / R_ILIM        Transient peak allowance: I_CL_LINPK = 1.5 x I_CL
+
+  R_ILIM        I_CL min    typ     max     source
+  49.9k / 50k    0.73 A    0.92 A   1.11 A  datasheet
+  40k            0.9  A    1.2  A   1.4  A  computed
+  25k            1.5  A    1.96 A   2.3  A  datasheet
+  20k            1.9  A    2.5  A   2.9  A  computed
+  16.7k          2.3  A    3.0  A   3.5  A  datasheet
+  10k            4.0  A    5.3  A   6.3  A  datasheet
+  open or GND    6.1  A    7.3  A   8.6  A  datasheet - do not use
+
+  Adjustable range is 1 A to 5 A, or 7.3 A with ILIM at GND. Pick a limit that
+  clears the board's worst-case load AND passes the inrush into the downstream
+  bulk capacitance, since charging above ~10 uF is current-limited.
+
+--- R_SNS (single resistor to GND) -> SENSE SCALING -------------------------
+  V_SNS = (I_OUT / 800) * R_SNS
+
+  TWO CEILINGS, BOTH MUST HOLD:
+
+  1. FAULT LEVEL - does NOT depend on I_CL.
+     In fault the pin sources I_SNSFLT = 5.2-6.4 mA into R_SNS.
+       R_SNS <= V_ADC_MAX / 6.4 mA
+     3.3 V ADC -> 515 ohm absolute; use <= 470 ohm for margin.
+     Reducing R_SNS is the only fix. The alternative clamp level V_SNSFH is
+     3.3-4.4 V at DIAG_EN = 3.3 V and 4.5-5.8 V at DIAG_EN = 5 V, both of which
+     exceed a 3.3 V ADC input.
+
+  2. CURRENT RANGE - scales with I_CL.
+       R_SNS <= V_ADC_MAX * 800 / (1.5 * I_CL)
+     3.3 V ADC -> R_SNS <= 1760 / I_CL(A) ohm
+
+  CONSEQUENCE: ceiling 1 binds up to I_CL = 3.4 A, so for any limit at or below
+  that, R_SNS DOES NOT NEED TO CHANGE when R_ILIM changes. Above 3.4 A, scale
+  R_SNS down per ceiling 2.
+
+  I_CL      R_SNS max, 3.3 V ADC     which ceiling binds
+  1 A         515 ohm                fault level
+  2 A         515 ohm                fault level
+  3 A         515 ohm                fault level
+  3.4 A       515 ohm                crossover
+  5 A         350 ohm                current range
+  7.3 A       240 ohm                current range
+
+  249 ohm satisfies both ceilings across the part's entire adjustable range and
+  is a safe single value for every board:
+    0.311 V/A, full scale 10.6 A, fault level 1.29-1.59 V.
+  At I_CL = 7.3 A a 1.5x transient peak reads 3.41 V - the reading saturates,
+  nothing is damaged.
+
+  Larger R_SNS buys ADC amplitude, not accuracy. I_SNS accuracy is +-5 to 6%
+  above ~0.5 A but +-25 to 30% below 60 mA regardless of R_SNS, so this is a
+  coarse supply monitor by construction.
+
+  For a 5 V ADC, ceiling 1 becomes 781 ohm and ceiling 2 becomes 2670/I_CL.
+
+--- ADC INPUT ---------------------------------------------------------------
+  RP2040 absolute maximum on an ADC pin is VDD + 0.3 V = 3.6 V. Size both
+  ceilings against 3.0-3.3 V, not 3.6 V.
+  SNS also reports a fault by driving high, so the fault level - not the
+  maximum current - is usually what sets R_SNS.
+--------------------------------------------------------------------------------
+
+Worked example, mouse-joystick-pcb: one 0.67 A/phase stepper on a 36 V rail draws
+roughly 0.2-0.3 A while holding. R_ILIM = 40k gives I_CL ~1.2 A, about 4x
+headroom. That is below the 3.4 A crossover, so R_SNS is chosen purely by the
+fault ceiling: 249 ohm, the largest stocked value comfortably under 470 ohm.
+
+Stocked combinations at the time of writing, for the values not available as a
+single resistor:
+  25k   = 2 x 49.9k in parallel   (OW-PASS-RC0402FR-0749K9L)
+  20k   = 2 x 40k in parallel     (OW-PASS-SCR0603F40K)
+  249R  = single                  (OW-PASS-CRCW0402249RFKED)
+Re-check stock rather than trusting this list; the two tables above do not
+depend on it.

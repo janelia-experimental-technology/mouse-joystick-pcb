@@ -137,9 +137,13 @@ Recorded so they are not mistaken for things that exist:
   work, and the critical path.
 - **No new-rig component list.** The motor, encoder, and limit switch for the new
   rig are not identified in any document found.
-- **No stocked 36 V-rated TVS.** Required by this board's supply choice.
+- **No ideal stocked TVS for a 36 V rail.** The stock is `SMBJ28A` (28 V
+  standoff), `SMF48A` (48 V), `SMBJ58A` (58 V), and `USBLC6-2P6` (ESD only).
+  `SMF48A` is workable on `HV_IN` and `SMBJ40A` is the part to order; neither is a
+  fabrication blocker. See `docs/power.md`. Still a genuine gap for the Rev 1 brake
+  supply the `kicad-libs` brake note describes.
 - **No stocked dual-supply level translator identified** for the DAC, if one is
-  needed.
+  needed. This is the board's only candidate purchase item.
 - **`hv_input_36V_terminal_2pos_5p08_protected` has never been placed** on any
   board.
 - **No maintained MBM model of the upgraded rig.**

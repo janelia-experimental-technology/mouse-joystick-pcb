@@ -53,7 +53,7 @@ instrument tooling.
 
 Both are in [Interface Map](docs/interface-map.md).
 
-**RP2040: 27 of 30 GPIOs used, 3 spare, all ADC-capable.** Nothing is descoped
+**RP2040: 29 of 30 GPIOs used, 1 spare.** Nothing is descoped
 for pin budget — encoder index, `DIAG1`, the synthetic homing stimulus, and
 software DAC `~LDAC`/`~CLR` are all present, unlike on the twin-axis board.
 
@@ -64,10 +64,10 @@ software DAC `~LDAC`/`~CLR` are all present, unlike on the twin-axis board.
 | DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` |
 | Encoder PIO | `GP14` A, `GP15` B, `GP16` N — contiguous |
 | Limit switch | `GP18` |
-| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2) |
+| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `V5_SENSE` (ADC0), `GP29` `~HV_FAULT` |
 | pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` |
 | Instrument | `GP24` `~INSTR_BUF_OE`, `GP25` `FW_TRIG0`, `GP21` `FW_TRIG1` |
-| Spare | `GP26` (ADC0), `GP27` (ADC1, `EXT_FAULT_IN` candidate), `GP29` (ADC3) |
+| Spare | `GP27` (ADC1, `EXT_FAULT_IN` candidate) |
 
 **InstrumentPort-40: all 18 digital slots filled**, which one axis does exactly.
 `DIG0`-`DIG6` carry the pyControl UART, the TMC SPI bus with chip select, and the
@@ -87,9 +87,26 @@ answerable from a single capture.
 
 36 V buys motor performance and pre-resolves the brake-rail tension the twin
 board records as unresolved. It costs transient headroom: the TMC5130A operates
-to 46 V and 36 V leaves 10 V, and the datasheet warns explicitly about supply
-ringing from stray inductance. **The 36 V input block populates no TVS** — one has
-to be added and is not in the catalog.
+to 46 V with a 49 V absolute maximum, and the datasheet warns explicitly about
+supply ringing from stray inductance.
+
+**A TVS on `HV_IN` protects the switch and the buck, not the driver**, and the two
+jobs are separate. At hot-plug the switch is off, so the exposed parts are the
+`TPS1HTC100-Q1` (70 V) and the `TPSM365R6V5` (65 V) — both comfortably clamped by
+a 40 V-standoff part, and both genuinely exposed because the regulator chain taps
+pre-switch and so `HV_IN` carries the buck's input capacitance. Fit `SMBJ40A`;
+prototype with the stocked `SMF48A` if you don't want to wait.
+
+The driver is a different problem. A standard TVS clamps near 1.6× its standoff,
+so nothing that stands off 36 V clamps under the TMC5130A's 49 V. Its protection
+is by construction: bulk capacitance downstream of the soft-start switch — capped
+at **tens of µF, since the switch dissipates ½CV² charging it** — plus a tight
+`VS`/`GND` loop and a snubber footprint, verified at Gate B.
+
+The logic rail is diode-ORed from the onboard buck, USB `VBUS`, and optionally
+pyControl's 5 V — **at the 3.3 V regulator input, not at `+5V`**. ORing onto
+`+5V` would drop it below the TMC5130A's 4.6 V `VCC` minimum and quietly truncate
+the "0-5 V" analog output.
 
 There is also one way to make an unbootable board out of correct blocks: feeding
 the 5 V/3.3 V chain from the *switched* rail, so the MCU cannot enable its own
@@ -120,11 +137,29 @@ no edges on `Edge.Cuts`. Expected until an outline is drawn.
 1. The joystick motor part number. The current sense is already decided —
    0.15 Ω, `vsense = 1`, `IRUN = 28`.
 2. The encoder part, and therefore single-ended versus differential receive.
-3. DAC8563 `VIH` at `VDD = 5 V`, and whether a level translator is needed.
-4. A 36 V-rated TVS part. Purchase item, `SMBJ40A`/`SMBJ43A` class.
-5. Whether the regulator chain is fed pre- or post-high-side-switch.
+3. DAC8563 `VIH` at `VDD = 5 V`, and whether a dual-supply level translator is
+   needed.
+4. Whether the regulator chain is fed pre- or post-high-side-switch.
+5. Whether the TMC5130A tolerates `VCC_IO` present with `VCC` and `VS` absent,
+   which USB-only operation requires.
 
 Everything else can be resolved during layout.
+
+**The 36 V input block needs six edits when placed** — it has never been used on a
+board, and an audit of its netlist against the switch datasheet found: an `EN`
+divider leaving only 150 mV of threshold margin from 3.3 V logic (`R27001` →
+1 kΩ); `DIAG_EN` unconnected, which disables the current sense entirely (tie
+high); `~FAULT` unconnected (route to `GP29`); `LATCH` unconnected, so the device
+auto-retries every 2 ms (tie high for latch-off); `ILIM` set to 5.3 A typ
+(`R27003` → 40 kΩ for ~1.2 A); and an `SNS` fault level that would overvoltage the
+RP2040 ADC (`R27004` → 249 Ω). All are resistor values or one-wire changes, and
+**every value is already stocked with an internal part** — no purchase, no lead
+time. See [Power](docs/power.md).
+
+The `usb2` block carries **no ESD protection** — only the receptacle and two
+5.1 kΩ `CC` pulldowns. Add the stocked `USBLC6-2P6` on the connector side of the
+27 Ω series resistors, which live in the `rp2040` block. It clamps `VBUS` too,
+which matters now that `VBUS` feeds the logic rail.
 
 ## Environment
 

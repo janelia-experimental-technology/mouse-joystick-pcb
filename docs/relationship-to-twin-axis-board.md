@@ -31,7 +31,7 @@ gone:
 
 | Twin-axis work item | Status here |
 | --- | --- |
-| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 27 of 30 with nothing cut. |
+| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 29 of 30 with nothing cut, and pins to spend on supply diagnostics. |
 | Deciding where four TTL event lines land — the twin board's blocking question | Reduced to three lines; four BNCs is a workable complement |
 | Axis symmetry as a layout constraint and a scientific confound | Not applicable |
 | Zoning two motor sections and two encoder paths away from two analog outputs | One of each |
