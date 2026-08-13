@@ -1504,13 +1504,25 @@
         "uuid": "004d6f75-7365-204a-6f79-737469636b00"
       }
     ],
-    "used_designators": "",
+    "used_designators": "C201-202,C301,D201,J201,J301,R201-207,R301-302,U201,U301,#FLG101,#FLG201,#FLG301",
     "variants": []
   },
   "sheets": [
     [
       "004d6f75-7365-204a-6f79-737469636b00",
       "mouse-joystick-pcb"
+    ],
+    [
+      "ff6a05ea-712d-490d-a8ce-f9a389d527af",
+      "hv_input_36V_terminal_2pos_5p08_protected"
+    ],
+    [
+      "fbb76df6-572f-4f46-8e0c-b951c745a6bd",
+      "usb2"
+    ],
+    [
+      "0c650d04-30fc-49a7-ad29-e59a24743655",
+      "mcu"
     ]
   ],
   "text_variables": {},

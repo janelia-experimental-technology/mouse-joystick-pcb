@@ -1,0 +1,14 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "19247690-3e5b-477d-a65a-eaa274768479")
+	(paper "A4")
+	(title_block
+		(title "mouse-joystick-pcb")
+		(date "2026-08-13")
+		(rev "0.1")
+		(company "Janelia Research Campus")
+	)
+	(lib_symbols)
+)
