@@ -1,5 +1,12 @@
 # UART Application Protocol
 
+**Rev 0 scope:** the protocol is unchanged, with one hardware-imposed gap. The
+`ENCODER_MISMATCH` fault compares the TMC5130A's encoder count against an
+independent RP2040 PIO count, and Rev 0 routes the encoder to the driver only.
+The fault code stays reserved and is not raisable until rev 1 adds the PIO tap on
+`GP14`-`GP16`. Encoder integrity in Rev 0 rests on the driver's count and the
+index pulse.
+
 **Status:** Draft v0.1. Not implemented, not frozen.
 **Date:** 2026-08-12
 **Derived from:** `../mouse-joysticks-pcb/docs/uart-protocol.md` v0.3, with the

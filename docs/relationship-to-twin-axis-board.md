@@ -1,5 +1,10 @@
 # Relationship To The Twin-Axis Board
 
+**Rev 0 scope:** this record compares the two *full-scope* designs and stays
+valid as such. Rev 0 of this board was rescoped on 2026-08-13 to the interfaces
+only, which widens the near-term gap and changes none of the structural
+trade-offs below. See `docs/rev0-plan.md`.
+
 **Status:** Decision record
 **Date:** 2026-08-12
 
@@ -31,8 +36,8 @@ gone:
 
 | Twin-axis work item | Status here |
 | --- | --- |
-| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 29 of 30 with nothing cut, and pins to spend on supply diagnostics. |
-| Deciding where four TTL event lines land — the twin board's blocking question | Reduced to three lines; four BNCs is a workable complement |
+| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 29 of 30 at full scope, 17 of 30 in Rev 0, and pins to spend on supply diagnostics. One thing was cut, deliberately: the synthetic homing stimulus, traded for the GPIO isolation enable. |
+| Deciding where four TTL event lines land — the twin board's blocking question | Reduced to three lines; four BNCs is a workable complement. Deferred out of Rev 0 entirely. |
 | Axis symmetry as a layout constraint and a scientific confound | Not applicable |
 | Zoning two motor sections and two encoder paths away from two analog outputs | One of each |
 | Sizing supply, protection, and bulk for two motors moving at once | One motor |

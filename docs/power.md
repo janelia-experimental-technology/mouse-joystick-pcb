@@ -5,6 +5,15 @@
 **Date:** 2026-08-12
 **Input:** 36 V through a 2-position 5.08 mm pluggable terminal block
 
+**Rev 0 scope:** the power chain is unchanged by the 2026-08-13 rescope. `+5V`
+is still required — the TMC5130A's `VCC` minimum is 4.6 V — even though the
+DAC8563 that also needed it is deferred to rev 1. The argument against diode-ORing
+onto `+5V` therefore still holds, and `V5_SENSE` on `GP26` is still populated.
+One Rev 0 addition affects this document: `HV_EN` bypasses the new GPIO isolation
+bus switch, so the MCU can drive the 36 V enable regardless of bus state, while
+`HV_SNS` and `~{HV_FAULT}` sit behind it and cannot be read until firmware
+enables the bus. See `docs/interface-map.md`.
+
 ## Input Block Review Status
 
 Reviewed against the block's netlist and `tps1htc100-q1.pdf` on 2026-08-12, after
@@ -892,7 +901,10 @@ That is exactly the "latch faults, require explicit clearing" model in
 `.agents/AGENTS.md`, achieved with one resistor and no GPIO.
 
 Driving `LATCH` from a GPIO instead would let firmware choose between behaviors,
-but there is no reason to want auto-retry here, and the board is at 29 of 30 pins.
+but there is no reason to want auto-retry here. Rev 0 has pins free, so the
+argument is now purely that auto-retry is the wrong behavior — not that the pin
+budget forbids it. Full scope returns to 29 of 30, so spending one there would
+cost the `GP27` spare.
 
 ### Reverse-Polarity Protection Is The Series Diode, Not The Device Feature
 

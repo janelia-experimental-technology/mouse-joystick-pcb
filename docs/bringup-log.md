@@ -1,5 +1,10 @@
 # Bring-Up Log
 
+**Rev 0 scope:** Rev 0 hardware carries no analog angle output, no
+InstrumentPort-40, no buffered digital observation, no pyControl TTL event
+lines, and no PIO encoder cross-check. Sections below covering those record
+rev 1 measurements. See `docs/rev0-plan.md`.
+
 Use this file to record measured behavior of real boards. Record numbers with
 units, not pass/fail marks.
 

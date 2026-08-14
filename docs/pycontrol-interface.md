@@ -1,5 +1,12 @@
 # pyControl Interface
 
+**Rev 0 scope:** the serial link only. `PULL_EVENT`, `FAULT`, and `RSYNC` and
+their BNCs are deferred to rev 1, so Rev 0 has **no hardware-timed event or fault
+path** — every event is a UART line with UART latency. Fine for exercising the
+interfaces, not fine for behavioral data, and that is the boundary between Rev 0
+and rev 1. The cross-board `EXT_FAULT_IN` discussion below is also rev 1: Rev 0
+has no `FAULT` output to cross-wire.
+
 **Status:** Pinout and serial parameters established from a cited working design;
 electrical properties unverified.
 **Date:** 2026-08-12

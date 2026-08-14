@@ -1,18 +1,29 @@
 # Encoder Analog Output
 
+**Rev 0 scope:** deferred to rev 1. The rescope of 2026-08-13 removed the analog
+angle output from Rev 0; see `docs/rev0-plan.md`. Everything below stays valid as
+the rev 1 design, and `docs/interface-map.md` reserves `GP10`-`GP13` and `GP17`
+plus connector `J7` for it. The DAC8563 `VIH` question is no longer a Rev 0
+blocking item.
+
 **Status:** Draft design; one blocking component question
 **Date:** 2026-08-12
 **Derived from:** `../mouse-joysticks-pcb/docs/encoder-analog-output.md`
 **Requirement:** The researcher asked for joystick encoder angle as a 0-5 V
 analog voltage on a BNC connector. One joystick, one output.
 
-## Why It Is In Rev 0
+## Why It Is The First Thing Rev 1 Adds
 
 This is an explicit researcher request and it is what lets the rest of the rig's
 acquisition chain be tested. An analog angle signal goes straight into whatever
 ephys or DAQ system already records the rig, without waiting on the pyControl
 device class, the UART protocol, or a firmware release. It is the cheapest thing
 on this board that produces immediate scientific value.
+
+It was cut from Rev 0 only because Rev 0's purpose narrowed to proving the
+interfaces, not because the value argument weakened. Of the four rev 1
+additions it is the one with the shortest path from silicon to a number the
+researcher cares about, and `docs/rev0-plan.md` lists it first for that reason.
 
 ## Part
 

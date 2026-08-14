@@ -1,5 +1,12 @@
 # Instrument Strategy
 
+**Rev 0 scope:** deferred to rev 1. Rev 0 carries no InstrumentPort-40 and no
+instrumentation buffers, so its only observation paths are the USB CDC console,
+two `FW_TRIG` test points, and a scope on labelled test pads. The overlay and the
+buffering plan survive intact in `docs/interface-map.md`; six of the eighteen
+digital slots carry signals Rev 0 does not have, which is why the port arrives
+with the DAC and the PIO encoder tap rather than before them.
+
 **Status:** Planning
 **Date:** 2026-08-12
 **Derived from:** `../mouse-joysticks-pcb/docs/instrument-strategy.md`

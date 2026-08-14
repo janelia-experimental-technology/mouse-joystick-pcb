@@ -1,5 +1,13 @@
 # Validation Plan
 
+**Rev 0 scope:** gates that exercise the analog angle output, InstrumentPort-40,
+the buffered digital observation path, the pyControl TTL event lines, or the PIO
+encoder cross-check do not apply to Rev 0 hardware, which does not carry them.
+Run them when rev 1 adds the circuits. Everything covering power, the driver,
+the encoder-to-driver path, homing, and the serial link applies as written.
+Note that `ENCODER_MISMATCH` cannot be tested on Rev 0 — there is no second
+count to disagree with.
+
 **Status:** Planning
 **Date:** 2026-08-12
 **Derived from:** `../mouse-joysticks-pcb/docs/validation-plan.md`

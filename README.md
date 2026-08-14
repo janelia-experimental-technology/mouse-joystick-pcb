@@ -12,19 +12,28 @@ axis.
 
 ## Board Contents
 
+**Rev 0 was rescoped on 2026-08-13** to shorten the path to testable hardware. It
+carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
+
 - **RP2040** controller MCU with USB-C for firmware load and a CDC debug console.
+- **GPIO isolation** — a 32-channel FET bus switch between the MCU and the board,
+  isolated at power-on until firmware enables it.
 - **36 V** motor supply through a protected, electronically switched 2-position
   terminal block.
-- **One TMC5130A** stepper driver section in SPI mode, with encoder input and
-  limit-switch input.
-- **One 0-5 V analog output on BNC**, proportional to encoder angle.
-- **pyControl RJ-45** behavior port carrying the serial link, 115200 8N1.
-- `PULL_EVENT`, `FAULT`, and `RSYNC` on BNC.
-- **InstrumentPort-40** for a logic analyzer or ADALM2000.
+- **One TMC5130A** stepper driver section in SPI mode, on a 4-pin motor terminal.
+- **One single-ended encoder** on a 5-pin terminal, read by the TMC5130A only.
+- **One limit switch** on a 2-pin terminal through a hardware debouncer, to
+  `REFL` and to an MCU GPIO.
+- **pyControl RJ-45** behavior port carrying the serial link, 115200 8N1 — and
+  nothing else.
 
-Assembled from `kicad-libs` design blocks — twelve instances, thirteen if the
-encoder is differential. Exactly one of them, the 36 V input, has never been
-placed on a board before.
+Deferred to rev 1: the 0-5 V analog angle output and its BNC, InstrumentPort-40
+and its five buffers, the `PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs,
+and the RP2040 PIO encoder cross-check. Every one of them lands on pins Rev 0 has
+already allocated and left unconnected.
+
+Assembled from `kicad-libs` design blocks — **seven instances**. Exactly one of
+them, the 36 V input, has never been placed on a board before.
 
 ## Two Repositories, One Rig
 
@@ -51,34 +60,41 @@ instrument tooling.
 
 ## Pinouts
 
-Both are in [Interface Map](docs/interface-map.md).
+All in [Interface Map](docs/interface-map.md).
 
-**RP2040: 29 of 30 GPIOs used, 1 spare.** Nothing is descoped
-for pin budget — encoder index, `DIAG1`, the synthetic homing stimulus, and
-software DAC `~LDAC`/`~CLR` are all present, unlike on the twin-axis board.
+**Rev 0 connects 17 of 30 GPIOs. Full scope is 29 of 30 with 1 spare.** The
+allocation is written so that **no pin moves between Rev 0 and full scope** — Rev
+0 leaves the other twelve reserved and routed nowhere, and rev 1 makes them live
+without disturbing anything Rev 0 established.
 
-| Group | Pins |
-| --- | --- |
-| pyControl `UART0` | `GP0` TX, `GP1` RX |
-| TMC5130A `SPI0` | `GP6` SCK, `GP7` COPI, `GP4` CIPO, `GP2` CS, `GP3` `~DRV_EN`, `GP5` `DIAG0`, `GP8` `DIAG1`, `GP9` `REF_STIM` |
-| DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` |
-| Encoder PIO | `GP14` A, `GP15` B, `GP16` N — contiguous |
-| Limit switch | `GP18` |
-| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `V5_SENSE` (ADC0), `GP29` `~HV_FAULT` |
-| pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` |
-| Instrument | `GP24` `~INSTR_BUF_OE`, `GP25` `FW_TRIG0`, `GP21` `FW_TRIG1` |
-| Spare | `GP27` (ADC1, `EXT_FAULT_IN` candidate) |
+| Group | Pins | Rev 0 |
+| --- | --- | --- |
+| pyControl `UART0` | `GP0` TX, `GP1` RX | yes |
+| TMC5130A `SPI0` | `GP6` SCK, `GP7` COPI, `GP4` CIPO, `GP2` CS, `GP3` `~DRV_EN`, `GP5` `DIAG0`, `GP8` `DIAG1` | yes |
+| GPIO isolation enable | `GP9` `~BUS_SW_OE` | yes |
+| Limit switch | `GP18` | yes |
+| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `V5_SENSE` (ADC0), `GP29` `~HV_FAULT` | yes |
+| Firmware markers | `GP25` `FW_TRIG0`, `GP21` `FW_TRIG1` — test points in Rev 0 | yes |
+| DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` | rev 1 |
+| Encoder PIO | `GP14` A, `GP15` B, `GP16` N — contiguous | rev 1 |
+| pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` | rev 1 |
+| Instrument buffer enable | `GP24` `~INSTR_BUF_OE` | rev 1 |
+| Spare | `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
 
-**InstrumentPort-40: all 18 digital slots filled**, which one axis does exactly.
-`DIG0`-`DIG6` carry the pyControl UART, the TMC SPI bus with chip select, and the
-DAC chip select; `DIG7`-`DIG9` the encoder A/B/N; `DIG10`-`DIG11` the DAC SPI
-bus; `DIG12`-`DIG15` pull event, fault, `RSYNC`, and the limit switch; `TRIG0`/
-`TRIG1` the firmware markers. `AIN0` observes the analog angle output at the BNC;
-`AOUT0`/`AOUT1` are no-connect so no instrument can drive the board.
+**One pin was traded, not found.** The isolation bus switch needs an enable, and
+the map was already at 29 of 30. It is paid for by permanently dropping
+`TMC_REF_STIM`, the synthetic homing stimulus that sat on `GP9` — the limit
+switch now arrives through a real debouncer, so homing is exercised by closing
+the actual switch. One-for-one, and `GP27` survives as the spare.
 
-The DAC bus earns two slots here because the 0-5 V output is the researcher's
-primary deliverable and "does the voltage match the encoder?" should be
-answerable from a single capture.
+**Four signals bypass the isolation switch:** `~BUS_SW_OE` (circular otherwise),
+`HV_EN` (rail control must not depend on bus state), and both `FW_TRIG` markers
+(must stay observable while the bus is isolated). `~INSTR_BUF_OE` joins them in
+rev 1. This is the same bypass group `../tmc51x0-driver-dev-pcb` uses.
+
+**InstrumentPort-40 is deferred to rev 1**, and its overlay is retained in full
+in the interface map. Six of its eighteen slots carry signals Rev 0 does not
+have, so it arrives with the DAC and the PIO encoder tap rather than before them.
 
 ## 36 V, And What It Costs
 
@@ -114,36 +130,43 @@ supply. [Power](docs/power.md) covers all of this.
 
 ## Repository Status
 
-**Scaffolded, schematic and layout empty.** Ready to design into.
+**Schematic capture under way, layout not started.**
 
 Present:
 
 - `.guix/` — channel pin and manifests.
 - `Makefile` — agent, KiCad, fabrication, and validation targets.
-- `kicad/` — empty KiCad 10 project carrying the metadata: 21 netclasses, 108
-  netclass patterns, the 4-layer stackup, plot/fabrication setup, the JLCPCB
-  design rules, and project-local symbol, footprint, and design-block library
-  tables.
+- `kicad/` — KiCad 10 project carrying the metadata: 21 netclasses, 108 netclass
+  patterns, the 4-layer stackup, plot/fabrication setup, the JLCPCB design rules,
+  and project-local symbol, footprint, and design-block library tables.
 - `docs/` — the design record.
 
-Not yet done: schematic capture and layout. `kicad/mouse-joystick-pcb.kicad_sch`
-and `.kicad_pcb` are intentionally empty.
+Placed so far: a `mcu` sheet containing `rp2040`,
+`rp2040_gpio_isolation_sn74cb3q3245`, and `5v_to_3v3_tps73733`; plus `usb2` and
+`hv_input_36V_terminal_2pos_5p08_protected` at the root. **Five of the seven Rev
+0 blocks.** Remaining: `hv_to_5v_tpsm365r6` and `tmc5130`, then the three
+board-local sections — encoder input, `limit_switch_debounced_input`, and the
+pyControl RJ-45 boundary.
 
-A DRC run on the empty board reports exactly one violation, `invalid_outline` —
-no edges on `Edge.Cuts`. Expected until an outline is drawn.
+Not yet done: layout. `kicad/mouse-joystick-pcb.kicad_pcb` is empty, and a DRC
+run reports exactly one violation, `invalid_outline` — no edges on `Edge.Cuts`.
+Expected until an outline is drawn.
 
 ## Blocking Items Before Ordering
 
 1. The joystick motor part number. The current sense is already decided —
    0.15 Ω, `vsense = 1`, `IRUN = 28`.
-2. The encoder part, and therefore single-ended versus differential receive.
-3. DAC8563 `VIH` at `VDD = 5 V`, and whether a dual-supply level translator is
-   needed.
-4. Whether the regulator chain is fed pre- or post-high-side-switch.
-5. Whether the TMC5130A tolerates `VCC_IO` present with `VCC` and `VS` absent,
+2. The encoder part. Rev 0 assumes single-ended; the part sets the supply voltage
+   and confirms that assumption.
+3. Whether the regulator chain is fed pre- or post-high-side-switch.
+4. Whether the TMC5130A tolerates `VCC_IO` present with `VCC` and `VS` absent,
    which USB-only operation requires.
 
 Everything else can be resolved during layout.
+
+The rescope removed one blocking item outright: the DAC8563 `VIH` question is now
+a rev 1 concern. See [Encoder Analog Output](docs/encoder-analog-output.md),
+which stays valid for rev 1.
 
 **The 36 V input block needs six edits when placed** — it has never been used on a
 board, and an audit of its netlist against the switch datasheet found: an `EN`
@@ -156,10 +179,13 @@ RP2040 ADC (`R27004` → 249 Ω). All are resistor values or one-wire changes, a
 **every value is already stocked with an internal part** — no purchase, no lead
 time. See [Power](docs/power.md).
 
-The `usb2` block carries **no ESD protection** — only the receptacle and two
-5.1 kΩ `CC` pulldowns. Add the stocked `USBLC6-2P6` on the connector side of the
-27 Ω series resistors, which live in the `rp2040` block. It clamps `VBUS` too,
-which matters now that `VBUS` feeds the logic rail.
+The `usb2` block **now carries ESD protection** — the stocked `USBLC6-2P6` on
+`D+`/`D-` and `VBUS`, plus a shell-to-GND tie that the block previously left
+floating. Both were added upstream in `kicad-libs` on 2026-08-13, so a freshly
+placed copy has them. Verify the placed instance rather than assuming: the block
+is copied, not linked. Place it on the connector side of the 27 Ω series
+resistors, which live in the `rp2040` block, and keep the clamp's ground via hard
+against pin 2 — its clamping voltage is dominated by connection inductance.
 
 ## Environment
 

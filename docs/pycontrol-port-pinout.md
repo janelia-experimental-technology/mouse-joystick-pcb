@@ -1,5 +1,9 @@
 # pyControl Behavior Port Pinout
 
+**Rev 0 scope:** the pinout below is unchanged and remains the reference, but Rev
+0 populates pins 1, 2, and 4 only — `DIO-A` to `UART0 RX`, `GND`, `DIO-B` to
+`UART0 TX` — plus an unpopulated footprint for the pin 6 `5V` ORing branch.
+
 **Status:** Derived from a working pyControl-compatible module schematic.
 Bench verification still required.
 **Date:** 2026-08-12
