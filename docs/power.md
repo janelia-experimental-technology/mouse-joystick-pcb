@@ -2,8 +2,15 @@
 
 **Status:** Draft. The 36 V input block has been audited against
 `tps1htc100-q1.pdf` and needs six edits when placed; see below.
-**Date:** 2026-08-12
+**Date:** 2026-08-14
 **Input:** 36 V through a 2-position 5.08 mm pluggable terminal block
+
+**Updated 2026-08-14:** the pyControl 5 V supply was traced from the host side in
+`~/Repositories/github/pycontrol-h7-breakout`. Pin 6 is a shared **1.0 A** rail
+that also feeds the controller's own logic regulator, with no per-port fuse — so
+this board now **requires a polyfuse on its pin 6 branch**. See
+[What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). One open
+decision closed, one new part.
 
 **Rev 0 scope:** the power chain is unchanged by the 2026-08-13 rescope. `+5V`
 is still required — the TMC5130A's `VCC` minimum is 4.6 V — even though the
@@ -538,17 +545,98 @@ diode-ORed so the MCU runs from whichever is present. The onboard `TPSM365R6V5`
 is deliberately **not** one of them — it lives on the switched rail, which is the
 thing the MCU has to survive switching off.
 
-**pyControl pin 6 is 5 V, confirmed.** Read out of the reference design's own
-netlist: in `~/Repositories/github/syringe-pump/ecad/module_pycontrol.kicad_sch`
-the RJ-45 pin 6 net is `5VDC` and pin 8 is `Vmotor` at 12 V. So both ORed sources
-are nominal 5 V and the OR happens at 5 V, upstream of the MCU's own LDO. There
-is no 3.3 V pin on the port to worry about.
+**pyControl pin 6 is 5 V, confirmed on two independent designs.** Read out of the
+reference design's own netlist — in
+`~/Repositories/github/syringe-pump/ecad/module_pycontrol.kicad_sch` the RJ-45
+pin 6 net is `5VDC` and pin 8 is `Vmotor` at 12 V — and confirmed again from the
+host side in `~/Repositories/github/pycontrol-h7-breakout` (see below). So both
+ORed sources are nominal 5 V and the OR happens at 5 V, upstream of the MCU's own
+LDO. There is no 3.3 V pin on the port to worry about.
 
-What is **not** confirmed is how much current pin 6 can supply, or whether it is
-shared across ports behind one regulator. That is the one number that decides
-whether pyControl-only operation actually works, and it is still on the
-verification list in `docs/pycontrol-port-pinout.md`. Measure it before relying on
-it; USB-only operation is unaffected either way.
+**The current budget is now known at the source, and it comes with a hazard.**
+See [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply) immediately
+below. The short version: 1.0 A shared with everything else in the rig *including
+the pyControl controller's own logic rail*, with no per-port fuse — so **this
+board must fuse its own pin 6 branch.** USB-only operation is unaffected either
+way.
+
+### What Pin 6 Can Actually Supply
+
+Traced from `~/Repositories/github/pycontrol-h7-breakout` PCB v0.7 by netlist
+export on 2026-08-14. This resolves the third open decision in this document and
+the corresponding Gate A row. Full detail in `docs/pycontrol-port-pinout.md`.
+
+```text
+12 V barrel in ──> SW1 ──> +12V ──┬──> RECOM R-78E5.0-1.0  ──> +5V ──┬──> 10× RJ-45 pin 6
+                                  │      (5 V, 1.0 A)                ├──> J8 pin 2 (16-pos terminal block)
+                                  ├──> 10× RJ-45 pin 8               └──> U2 AMS1117-3.3 ──> the breakout's
+                                  └──> 3× TBD62083APG COM                                    own 3.3 V rail
+```
+
+| Fact | Value |
+| --- | --- |
+| Port 5 V source | `U1`, RECOM `R-78E5.0-1.0` — **5 V, 1.0 A total** |
+| Shared by | all 10 behavior ports' pin 6, the 16-position terminal block, **and `U2`, the `AMS1117-3.3` that makes the controller's own 3.3 V** |
+| Per-port fuse | **none** — `+5V` runs straight from the module to every pin 6 |
+
+The `AMS1117` is **linear**, so every milliamp the controller's 3.3 V rail draws
+is a milliamp off the same 5 V budget. An STM32H743 at 480 MHz with 32 MB of QSPI
+flash and indicator LEDs is perhaps 200-400 mA, leaving roughly **600-800 mA** for
+ten ports plus the terminal block. The 1.0 A ceiling is firm; that split is the
+estimate still worth measuring.
+
+Against this board's ~100 mA MCU domain:
+
+| Scenario | Draw | Verdict |
+| --- | --- | --- |
+| One board, pyControl-only | ~100 mA | Comfortable |
+| Two boards in a rig, pyControl-only | ~200 mA | Fits, but a quarter to a third of the whole breakout's 5 V budget for two peripherals |
+| Either, with a fault or inrush on this board | unbounded | **Can brown out the `AMS1117` and reset the pyControl controller mid-experiment** |
+
+That third row is the new finding. The board's supply and the experiment
+controller's own logic supply are the same 1 A rail, with nothing in between.
+
+**Requirement: a resettable polyfuse on the pin 6 branch, holding roughly
+250-500 mA, upstream of `D2`.** It confines a fault on this board to this board.
+
+It fails in the right direction, which is why it is cheap insurance rather than a
+new failure mode: if the polyfuse trips, `D2` simply stops conducting and the
+board falls back to USB power, or goes dark if USB is absent. Nothing is damaged
+and nothing is back-fed — the same fail-safe behavior already described for a
+starved pyControl branch.
+
+#### No Fuse Of Any Kind Is In The Parts Database
+
+Checked 2026-08-14: `db/source/internal_parts.csv` and `parts.csv` contain **zero**
+fuses, polyfuses, or PPTCs. So this is a new internal part plus a vendor mapping,
+not a value change — unlike every other edit this document recommends.
+
+**That must not hold up a fab order.** Use the same pattern this document already
+applies to the `HV_IN` TVS and the `VS` snubber — lay out the footprint, populate
+a stocked stand-in, make the protection a populate decision rather than a respin:
+
+| Rev 0 | Later |
+| --- | --- |
+| **1206 footprint**, populated with a stocked 1206 resistor as a jumper — `OW-PASS-RL1206FR-070R36L` (0.36 Ω, 250 mW; 54 mV and 8 mW at 150 mA) | Swap in a 1206 PPTC once one is added to the catalog. No layout change |
+
+1206 is the choice because it is the most widely available PPTC size; a 0603 or
+0805 footprint would narrow the options later for no gain now. **The position must
+be populated in Rev 0** — leaving it empty opens the pyControl branch entirely and
+the board goes dark whenever USB is absent, which is the operating mode this whole
+arrangement exists to support.
+
+Do **not** read the stand-in as protection. A 0.36 Ω series resistor limits
+nothing at these voltages; it is a jumper that happens to be stocked in the right
+package. Until a PPTC is fitted, the hazard above stands, and Gate B's
+"pyControl-only, USB absent" test should be run with the controller's 5 V rail on
+a scope.
+
+**Consequence for the load budget below:** size the MCU domain to stay well under
+the polyfuse hold current, not merely under 1.0 A. That is the binding number now.
+
+**Reinforces "keep USB as the normal power path."** pyControl-only was always
+intended for reaching a board whose switched domain is deliberately off, not as
+the everyday supply. This gives that a second, independent reason.
 
 ### Do Not OR Onto `+5V_SW`
 
@@ -613,9 +701,19 @@ Notes:
   pyControl with USB unplugged and the 36 V rail off is an explicitly wanted
   operating mode. What remains conditional is whether the port can actually
   supply the current — measure it.
+- **Polyfuse on the pyControl branch, ~250-500 mA hold, upstream of `D2`.** Not
+  on the USB branch — a USB host already current-limits and will simply drop the
+  port. pyControl does not: its 5 V has no per-port protection and shares a
+  regulator with the controller's own logic. See
+  [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply).
 - Each ORed source is a power-input net and needs exactly one `PWR_FLAG`. The
-  `usb2` block already carries one (`#FLG011001`); the 36 V block carries one.
-  Add one for the RJ-45 5 V branch.
+  `usb2` block already carries one (`#FLG011001`) on `VBUS`, pre-diode; the 36 V
+  block carries one. Add one for the RJ-45 5 V branch.
+- **`+5V_MCU` itself needs a `PWR_FLAG`, at board level.** Every driver on it is
+  a diode cathode — passive — and its only consumer is the LDO's `power_in`, so
+  ERC reports `power_pin_not_driven` without one. It must **not** live inside
+  either source block: two blocks each carrying a flag would put two `power_out`
+  pins on one net and ERC would report a power-output conflict.
 - Never tie `VBUS` directly to `+5V_SW`.
 
 ### MCU Alive, Switched Rails Dead — The Normal Idle State
@@ -682,20 +780,26 @@ that is deliberately powered down. So both diodes go in.
 The objections were real and survive as verification items rather than as reasons
 not to fit it:
 
-- The port's 5 V current budget is **unknown** and shared across all ports with
-  every other module. It is already an open row in the Gate A checklist, and it
-  is now the item that decides whether pyControl-only operation works at all.
-  With two of these boards in a rig, that is two more loads on the same
-  regulator. **Measure it at Gate A**, and size the MCU domain's draw against it
-  — see the load budget below.
+- ~~The port's 5 V current budget is **unknown**~~ — **answered 2026-08-14: a
+  shared 1.0 A**, and the controller's own 3.3 V regulator is one of the loads on
+  it. See [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). This
+  board's ~100 mA fits comfortably, and two boards in a rig still fit; what the
+  finding changed is not the feasibility but the **failure mode** — with no
+  per-port fuse, a fault here can reset the experiment controller. Hence the
+  polyfuse. Still measure the controller's own draw at Gate A to know the true
+  spare fraction.
 - It adds a second ground path between pyControl and the board, which interacts
   with the grounding-topology decision that is still open.
 - It adds a power state to test at Gate B: "board powered by pyControl only,
   USB absent, `HV_EN` low". That is now a required test, not an optional one.
+- **New at Gate B:** confirm the polyfuse does not trip on the MCU domain's
+  cold-start inrush. A polyfuse sized near the operating current is the classic
+  way to build an intermittent board.
 
-If the measured budget turns out to be too small, the fallback is USB-only
+If the spare budget turns out to be too small, the fallback is USB-only
 operation with the pyControl branch fitted but starved — which fails safe, since
-the diode simply never conducts. Nothing about the layout changes.
+the diode simply never conducts. The polyfuse tripping produces the same
+behavior. Nothing about the layout changes.
 
 ### USB ESD Protection Is Missing And Should Be Added
 
@@ -749,10 +853,19 @@ switching. Rev 0 without the buffers is nearer 100 mA.
 Comfortable on USB's 500 mA default. The `usb2` block presents `Rd` pulldowns
 only, so assume default USB power rather than a negotiated higher current.
 
-**Whether it is comfortable on pyControl pin 6 is the open question**, and it is
-the one that decides whether pyControl-only operation works. Nothing on the
-switched domain draws from this rail, which is what keeps the number small enough
-to be plausible on a shared port supply.
+**On pyControl pin 6 it is comfortable but not free.** The port supplies a shared
+1.0 A with the controller's own logic rail as one of the consumers, so ~100 mA is
+a small fraction and two boards in a rig still fit — but there is no per-port
+fuse, so the polyfuse recommended above is what keeps a fault on this board from
+propagating. Nothing on the switched domain draws from this rail, which is what
+keeps the number small enough to be plausible on a shared port supply in the
+first place.
+
+**Size the MCU domain against the polyfuse hold current, not against 1.0 A.**
+At ~100 mA typical in Rev 0 and ~250 mA with the rev 1 buffers switching, a
+500 mA hold leaves room for both; a 250 mA hold does not leave much for rev 1.
+Pick the value with rev 1 in mind, since changing it later is a rework on an
+assembled board.
 
 ## Load Budget
 
@@ -1108,12 +1221,23 @@ Consequences worth stating plainly:
    and the motor connector.
 2. **Encoder supply voltage and current**, which sets the 5 V budget and the
    harness conductor count.
-3. **pyControl pin 6's 5 V current budget**, and whether it is shared across
-   ports behind one regulator. This decides whether pyControl-only operation
-   works. Measure at Gate A.
+3. **The polyfuse hold current on the pyControl branch** — 250 mA or 500 mA. A
+   layout-time decision, not a fabrication blocker, but pick it against rev 1's
+   ~250 mA rather than Rev 0's ~100 mA.
 4. `SNS` scaling and whether the block already populates the sense resistor.
 5. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
    if the DAC's own `VIH` demands it rather than as a back-powering fix.
+
+**Resolved 2026-08-14 from the pyControl H7 breakout netlist:**
+
+- **pyControl pin 6's 5 V current budget** is a shared **1.0 A** from a RECOM
+  `R-78E5.0-1.0`, and yes, it is shared across all ports — and with the
+  controller's own `AMS1117-3.3` logic rail, and with the 16-position terminal
+  block. There is no per-port fuse. pyControl-only operation works for this
+  board's ~100 mA; the finding's real consequence is the polyfuse requirement.
+  See [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply).
+- Pin 6 is 5 V — now confirmed from the **host** side, not only from another
+  peripheral.
 
 **Resolved 2026-08-13 by the reset-button architecture:**
 

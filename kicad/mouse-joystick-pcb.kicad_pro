@@ -1517,10 +1517,6 @@
       "hv_input_36V_terminal_2pos_5p08_protected"
     ],
     [
-      "fbb76df6-572f-4f46-8e0c-b951c745a6bd",
-      "usb2"
-    ],
-    [
       "0c650d04-30fc-49a7-ad29-e59a24743655",
       "mcu"
     ],

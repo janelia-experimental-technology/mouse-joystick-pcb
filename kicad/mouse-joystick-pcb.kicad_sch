@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-13")
+		(date "2026-08-14")
 		(rev "0.1")
 		(company "Janelia Research Campus")
 	)
@@ -430,11 +430,6 @@
 			)
 		)
 	)
-	(group "usb2"
-		(uuid "3f75aac7-81eb-491c-9369-e67046610694")
-		(lib_id "orb_weaver_private:usb2")
-		(members "fbb76df6-572f-4f46-8e0c-b951c745a6bd")
-	)
 	(group "hv_input_36V_terminal_2pos_5p08_protected"
 		(uuid "fb5a551b-120e-478f-80d7-16fcefaf6964")
 		(lib_id "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected")
@@ -482,92 +477,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00"
 					(page "4")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 50.8 50.8)
-		(size 25.4 12.7)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "fbb76df6-572f-4f46-8e0c-b951c745a6bd")
-		(property "Sheetname" "usb2"
-			(at 50.8 50.0884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "usb2.kicad_sch"
-			(at 50.8 64.0846 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "GND" passive
-			(at 76.2 55.88 0)
-			(uuid "9a03efa8-b552-4581-b33c-bf1ff00f2719")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "USB_D+" bidirectional
-			(at 76.2 58.42 0)
-			(uuid "12386542-9109-4718-9bbc-1ca5fcfc362c")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "USB_D-" bidirectional
-			(at 76.2 60.96 0)
-			(uuid "57bb23bb-62cb-453e-b51f-1ef5e149ac9c")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "VBUS" passive
-			(at 76.2 53.34 0)
-			(uuid "d0bc6f71-9126-4420-94c8-070e4632e0da")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00"
-					(page "3")
 				)
 			)
 		)
