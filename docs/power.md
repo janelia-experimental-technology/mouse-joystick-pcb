@@ -25,8 +25,8 @@ edits; the list below uses the current ones.
 | Element | Value / connection | Check |
 | --- | --- | --- |
 | `R27001` + `R27004` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH` |
-| `R27002` | 1 kΩ, `+3.3V_MCU` → `DIAG_EN` | Diagnostics enabled; `RPROT` per Table 4-2 |
-| `R27003` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry |
+| `R27002` | 1 kΩ, `+3V3_MCU` → `DIAG_EN` | Diagnostics enabled; `RPROT` per Table 4-2 |
+| `R27003` | 1 kΩ, `+3V3_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry |
 | `R27006` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label |
 | `R27007` | 249 Ω on `SNS` | Fault level 1.29-1.59 V, under the ADC limit |
 | `C27001` | 220 nF **100 V** on `HV_IN` | `VS` bypass, correctly placed and correctly derated |
@@ -41,11 +41,11 @@ edits; the list below uses the current ones.
 
 | # | Defect | Fix |
 | --- | --- | --- |
-| 1 | **`R27005` pulls `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idles low, so it reads as a permanent fault and never presents a valid high. | Move `R27005`'s ground end to **`+3.3V_MCU`**, matching `R27002`/`R27003`. 10 kΩ is the right value. |
-| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it twice: to place the TVS at the entry point, and to tap the always-on converter that feeds `+3.3V_MCU` so the MCU can drive `ENABLE`. | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. |
+| 1 | **`R27005` pulls `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idles low, so it reads as a permanent fault and never presents a valid high. | Move `R27005`'s ground end to **`+3V3_MCU`**, matching `R27002`/`R27003`. 10 kΩ is the right value. |
+| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it twice: to place the TVS at the entry point, and to tap the always-on converter that feeds `+3V3_MCU` so the MCU can drive `ENABLE`. | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. |
 | 3 | **`SNS` is a plain local label**, so the board cannot read the current sense at all. | Promote `SNS` to a **hierarchical label**. Leave `ILIM` local — that one is correct. Schematic-only, no PCB impact. |
 
-The block's board-facing interface is currently only `+3.3V_MCU`, `+36V`,
+The block's board-facing interface is currently only `+3V3_MCU`, `+36V`,
 `ENABLE`, `GND`, `~{FAULT}`. It needs `HV_IN` and `SNS` as well.
 
 **Three concerns, cheap to fix now:**
@@ -53,7 +53,7 @@ The block's board-facing interface is currently only `+3.3V_MCU`, `+36V`,
 | # | Concern | Fix |
 | --- | --- | --- |
 | 4 | **`C27002` is 50 V on a 36 V rail** while `C27001` is 100 V. 1.4× margin; X7R in an 0402 at 72% of rated voltage loses most of its capacitance to DC bias; and the internal `V_DS` clamp can drive `VOUT` to roughly −43 V, which is 86% of a 50 V rating. Marginal rather than illegal, but inconsistent with `C27001`. | **`OW-PASS-GCM188R72A223KA37D`** — 22 nF 100 V X7R, stocked and already promoted. **Note it is 0603, not 0402, so this one does change the footprint and therefore the layout.** |
-| 5 | ~~`+3.3V_MCU` should be renamed `+3.3V`.~~ **Withdrawn.** The pull-ups on `DIAG_EN`, `LATCH` and `~FAULT` must reference the same rail the MCU uses, or the logic levels do not match and the MCU's clamps become a back-power path. Naming the rail by its domain is the right call and is more precise than `+3.3V`. | Keep `+3.3V_MCU`. Only consequence: `5v_to_3v3_tps73733` emits `+3.3V`, so either label the board's rail `+3.3V_MCU` too or tie the two at board level — and add a netclass pattern for whichever name wins. |
+| 5 | ~~`+3V3_MCU` should be renamed `+3.3V`.~~ **Withdrawn.** The pull-ups on `DIAG_EN`, `LATCH` and `~FAULT` must reference the same rail the MCU uses, or the logic levels do not match and the MCU's clamps become a back-power path. Naming the rail by its domain is the right call and is more precise than `+3.3V`. | Keep `+3V3_MCU`. Only consequence: `5v_to_3v3_tps73733` emits `+3.3V`, so either label the board's rail `+3V3_MCU` too or tie the two at board level — and add a netclass pattern for whichever name wins. |
 | 6 | **`VAA` is a misleading net name.** The TPS1HTC100-Q1 has no `VAA` pin — its pins are `GND`, `EN`, `DIAG_EN`, `~FAULT`, `LATCH`, `SNS`, `ILIM`, `VOUT`, `NC`, `VS`. It reads like a chip supply that does not exist. It is the raw connector node ahead of the reverse-polarity diode. | Rename to **`HV_RAW`** or `VIN_RAW`. Also affects netclass pattern matching. |
 
 **ERC:** 32 violations, none of them defects. 13 `lib_symbol_issues` and 12
@@ -116,30 +116,92 @@ and 40 kΩ are, and both land in a better place than the ideal values would have
 Both capacitors are in the right places and neither should move: `C27001` on
 `HV_IN` is the switch's `VS` bypass, `C27002` on `+36V` is the output bypass.
 
+## The High-Side Switch Is A Reset Button
+
+Decided 2026-08-13, and it is the organising principle for everything below.
+
+The `TPS1HTC100-Q1` is not only inrush and fault protection. Its job is to let
+the researcher **power-cycle every chip on the board to a known state without
+unplugging anything**, while the MCU stays alive and reachable over USB or
+pyControl. If the driver or the encoder wedges, firmware drops `HV_EN`, waits,
+and raises it again; the researcher never touches a connector.
+
+Three requirements fall straight out of that:
+
+1. **Everything resettable hangs off the switched rail** — including the 5 V and
+   3.3 V derived from it. Dropping `HV_EN` must drop all of it.
+2. **The MCU does not.** It runs from USB `VBUS` or pyControl 5 V, so it survives
+   the reset it is performing.
+3. **The MCU must not back-power what it just switched off.** That is the entire
+   job of `rp2040_gpio_isolation_sn74cb3q3245`: any MCU line that reaches a chip
+   on the switched rail goes through the bus switch, and lines that do not —
+   the pyControl UART above all — bypass it. See `docs/interface-map.md`.
+
 ## Rail Chain
 
 ```text
 36 V in ─> hv_input_36V_terminal_2pos_5p08_protected
              │
-             ├─ HV_IN (unswitched) ─┬─> TVS
-             │                      └─> always-on converter ─> +3.3V_MCU
-             │                                                   ├─> RP2040
-             │                                                   ├─> input block DIAG_EN / LATCH / ~FAULT pull-ups
-             │                                                   └─> 5× SN74LVC125A
+             ├─ HV_IN (unswitched) ──> TVS, and the TPS1HTC100-Q1's own supply
              │
-             └─ +36V (switched by HV_EN) ─┬─> TMC5130A VS
-                                          └─> hv_to_5v_tpsm365r6 ─> +5V
-                                                ├─> TMC5130A VSA, VCC, 5VOUT
-                                                ├─> DAC8563 VDD
-                                                ├─> encoder supply (if 5 V)
-                                                └─> 5v_to_3v3_tps73733 ─> +3.3V_TMC
-                                                                            └─> TMC5130A VCC_IO
+             └─ +36V_SW (switched by HV_EN) ─┬─> TMC5130A VS
+                                             └─> hv_to_5v_tpsm365r6 ─> +5V_SW
+                                                   ├─> TMC5130A VSA, VCC, 5VOUT
+                                                   ├─> encoder supply (if 5 V)
+                                                   ├─> DAC8563 VDD (rev 1)
+                                                   └─> 5v_to_3v3_tps73733 #2 ─> +3V3_SW
+                                                         ├─> TMC5130A VCC_IO
+                                                         ├─> MAX6816 limit-switch debouncer
+                                                         └─> encoder supply (if 3.3 V)
+
+USB-C VBUS ──────────────|>|── D1 ──┬─> +5V_MCU ─> 5v_to_3v3_tps73733 #1 ─> +3V3_MCU
+pyControl RJ-45 pin 6 ───|>|── D2 ──┘                                        ├─> RP2040
+                                                                             ├─> SN74CB3Q3245 ×4 VCC
+                                                                             ├─> input block DIAG_EN / LATCH / ~FAULT pull-ups
+                                                                             └─> 5× SN74LVC125A (rev 1)
 ```
 
+### Rail Names
+
+| Net | Domain | Source | Dies when |
+| --- | --- | --- | --- |
+| `HV_IN` | unswitched | 36 V terminal, after the reverse diode | 36 V supply unplugged |
+| `+36V_SW` | switched | `TPS1HTC100-Q1` output | `HV_EN` low |
+| `+5V_SW` | switched | `TPSM365R6V5` from `+36V_SW` | `HV_EN` low |
+| `+3V3_SW` | switched | `TPS73733` #2 from `+5V_SW` | `HV_EN` low |
+| `+5V_MCU` | always-on | USB `VBUS` OR pyControl pin 6, two diodes | USB and pyControl both absent |
+| `+3V3_MCU` | always-on | `TPS73733` #1 from `+5V_MCU` | USB and pyControl both absent |
+
+Older passages in this document say `+5V` and `+3.3V` from before the split; read
+those as `+5V_SW` and `+3V3_SW` unless the surrounding text is about the MCU.
+
+**Two independent domains, and the split is the point.**
+
 Everything the TMC5130A needs is downstream of the switch, so `VSA` never exceeds
-`VS`, and `VCC` never arrives after `VCC_IO`. The MCU sits on its own always-on
-rail so it can drive `ENABLE`. The USB and pyControl diode-OR branches feed
-`+3.3V_MCU`, alongside the always-on converter.
+`VS`, `VCC` never arrives after `VCC_IO`, and all three fall together when
+`HV_EN` drops. The MCU sits on a rail the switch cannot reach, so it can drive
+`ENABLE`, talk to pyControl, and report what it just did.
+
+**The MCU rail is not fed from the 36 V chain at all.** That was previously an
+open decision — "either a small always-on converter taps `HV_IN`, or the board
+only boots with USB or pyControl present" — and it is now settled in favour of
+the second. The consequence is explicit and accepted:
+
+> **With only the 36 V supply connected, the board does not boot.** It needs USB
+> or pyControl present. That is a usability property, not a safety one, and it
+> buys a genuinely always-on MCU domain with no extra converter, no extra part on
+> `HV_IN`, and no path by which a 36 V fault reaches the MCU.
+
+Silkscreen it near the terminal block. A rig board that looks dead with its motor
+supply plugged in will otherwise be reported as broken.
+
+**The bus switch is powered from `+3V3_MCU`, not the switched rail.** It has to
+be: the MCU must be able to isolate *before* dropping `HV_EN` and reconnect only
+*after* the rails are confirmed up. Powering it from `+3V3_SW` would give
+automatic isolation through the `SN74CB3Q3245`'s powered-off `Ioff` behaviour and
+cost no GPIO, but it would also hand control of the sequencing to a rail ramp
+instead of to firmware. Rejected deliberately; see the sequencing rule in
+`docs/interface-map.md`.
 
 | Stage | Block | Part | Range | Headroom at 36 V |
 | --- | --- | --- | --- | --- |
@@ -190,11 +252,17 @@ TVS-shaped answer:
 | Motor inductive turn-off | `TMC5130A`, plus the switch's own integrated `V_DS` clamp | No. Bulk absorbs it. |
 
 The hot-plug case is why a TVS is needed on `HV_IN` and why it belongs *there*
-rather than on `+36V`. Because the regulator chain taps pre-switch, `HV_IN`
-unavoidably carries the buck's input capacitance — a few µF of ceramic. Cable
-inductance of a couple of µH ringing against that can overshoot toward twice the
-supply, and at 36 V that reaches into the 60s of volts, which is at or past the
-buck's 65 V continuous rating. That transient is real and it is worth clamping.
+rather than on `+36V_SW`. At hot-plug the high-side switch is off, so what sits
+on `HV_IN` is the `TPS1HTC100-Q1`'s own `VS` pin and the reverse-polarity diode
+— and, deliberately, **very little capacitance**, because the regulator chain now
+taps post-switch. Cable inductance of a couple of µH ringing into a lightly
+loaded node overshoots toward twice the supply, and at 36 V that reaches into the
+60s of volts, close to the switch's 70 V rating with nothing local to damp it.
+
+**Moving the buck behind the switch strengthened this argument rather than
+weakening it.** The buck's 65 V rating is no longer exposed at hot-plug, which is
+good, but the few µF of ceramic that used to sit on `HV_IN` and absorb some of
+the ringing went with it. The TVS is now the only thing clamping that node.
 
 Part choice:
 
@@ -330,10 +398,11 @@ The `tmc5130` design block ties **`VSA` (pin 39) to `+5V`**, not to `VM`:
 /VM    -> U4001.21 VS,   U4001.40 VS,   bulk + decoupling
 ```
 
-With the regulator chain fed **pre-switch**, `+5V` is alive while `+36V` is off.
-That puts `VSA` at 5 V with `VS` at 0 V — **4.5 V above the `V_VS` + 0.5 V
-absolute maximum.** Every time the board sits with the motor rail disabled, which
-is its boot state and its safe state, `VSA` is over its limit.
+Feeding the regulator chain **pre**-switch would leave `+5V` alive while `+36V`
+is off. That would put `VSA` at 5 V with `VS` at 0 V — **4.5 V above the `V_VS` +
+0.5 V absolute maximum** — every time the board sat with the motor rail disabled,
+which is its boot state and its idle state. This is one of the two reasons the
+board feeds the chain post-switch instead; see the rail chain above.
 
 There is a second, milder problem even when the rail *is* on: Recommended
 Operating Conditions give `V_VS`, `V_VSA` a **minimum of 5.5 V**, so `VSA` at
@@ -368,23 +437,31 @@ TMC's `VCC_IO` sits on an always-on 3.3 V rail while `VCC` is switched, then `VC
 arrives **after** `VCC_IO` — the prohibited order.
 
 So switching `+5V` with `+36V` forces the TMC's `VCC_IO` to be switched too, which
-means **two 3.3 V domains**:
+means **two 3.3 V domains and therefore two `5v_to_3v3_tps73733` instances**:
 
 | Rail | Source | Powers |
 | --- | --- | --- |
-| `+3.3V_MCU` | Always on | RP2040, the input block's `DIAG_EN`/`LATCH`/`~FAULT` pull-ups, instrumentation buffers |
-| Switched 3.3 V | Downstream of the switched `+5V` | TMC5130A `VCC_IO` only |
+| `+3V3_MCU` | Always on, from the ORed USB / pyControl 5 V | RP2040, the four `SN74CB3Q3245` bus switches, the input block's `DIAG_EN`/`LATCH`/`~FAULT` pull-ups, instrumentation buffers (rev 1) |
+| `+3V3_SW` | Downstream of the switched `+5V_SW` | TMC5130A `VCC_IO`, the MAX6816 debouncer, encoder supply if 3.3 V |
 
-Two further consequences to plan for:
+Far from being a nuisance, this is what makes the switch a usable reset: the
+TMC's three supplies rise and fall together, so the sequencing rules hold by
+construction in both directions and there is no ordering logic to get wrong.
 
-- **MCU outputs will drive TMC digital inputs whose `VCC_IO` is 0 V** whenever the
-  motor rail is off. Same hazard class as the `DAC8563` case below: series
-  resistors as the hardware backstop, plus firmware gating on `HV` state.
-- **`+3.3V_MCU` needs an always-on source.** It cannot come from the switched
-  chain, so either a small always-on converter taps `HV_IN`, or the board only
-  boots with USB or pyControl present. **Decide this explicitly** — a rig board
-  that cannot power up from its own 36 V supply alone is a usability problem, even
-  though it is not a safety one.
+**It also dissolves an old blocking question.** "Whether the TMC5130A tolerates
+`VCC_IO` present with `VCC` and `VS` absent" no longer needs an answer, because
+that state cannot occur — all three come from `+36V_SW`.
+
+One consequence remains, and it now has a real mechanism rather than a mitigation:
+
+- **MCU outputs would otherwise drive TMC digital inputs whose `VCC_IO` is 0 V**
+  whenever the motor rail is off, which is the normal idle state of this board.
+  Series resistors are a backstop, not a solution. The solution is
+  `rp2040_gpio_isolation_sn74cb3q3245`: every MCU line reaching a chip on the
+  switched rail passes through a `SN74CB3Q3245` channel that is high-Z until
+  firmware enables it, and high-Z again before firmware drops `HV_EN`. Keep the
+  series resistors anyway — they cost nothing and they cover the window where
+  firmware gets the order wrong.
 
 ### Turn-On Ordering Comes Free If The Buck Is Fed Post-Switch
 
@@ -399,11 +476,11 @@ three orderings are satisfied by construction with no sequencing logic:
 
 **This reverses the earlier recommendation in this document to feed the regulator
 chain pre-switch.** That recommendation existed so the MCU could boot and drive
-`ENABLE`; the separate always-on `+3.3V_MCU` rail now does that job instead. The
+`ENABLE`; the separate always-on `+3V3_MCU` rail now does that job instead. The
 underlying warning still stands: *something* must power the MCU independently of
 the switch, or the board cannot enable its own motor supply.
 
-Do **not** switch `+3.3V_MCU`. The MCU runs on it and drives `ENABLE`, so
+Do **not** switch `+3V3_MCU`. The MCU runs on it and drives `ENABLE`, so
 switching it off is a deadlock.
 
 Note also that `R4002` in the `tmc5130` block is 10 Ω where the datasheet
@@ -456,13 +533,31 @@ attributed to a benefit:
 
 ## Multiple Logic Power Sources
 
-Three sources of 5 V exist: the onboard `TPSM365R6V5`, USB-C `VBUS`, and
-pyControl RJ-45 pin 6. Diode-ORing them so the MCU runs from whichever is present
-is worth doing — but **not onto the board's `+5V` rail.**
+**Two** sources feed the MCU domain: USB-C `VBUS` and pyControl RJ-45 pin 6,
+diode-ORed so the MCU runs from whichever is present. The onboard `TPSM365R6V5`
+is deliberately **not** one of them — it lives on the switched rail, which is the
+thing the MCU has to survive switching off.
 
-### Do Not OR Onto `+5V`
+**pyControl pin 6 is 5 V, confirmed.** Read out of the reference design's own
+netlist: in `~/Repositories/github/syringe-pump/ecad/module_pycontrol.kicad_sch`
+the RJ-45 pin 6 net is `5VDC` and pin 8 is `Vmotor` at 12 V. So both ORed sources
+are nominal 5 V and the OR happens at 5 V, upstream of the MCU's own LDO. There
+is no 3.3 V pin on the port to worry about.
 
-`+5V` has consumers that need a real, in-spec 5 V:
+What is **not** confirmed is how much current pin 6 can supply, or whether it is
+shared across ports behind one regulator. That is the one number that decides
+whether pyControl-only operation actually works, and it is still on the
+verification list in `docs/pycontrol-port-pinout.md`. Measure it before relying on
+it; USB-only operation is unaffected either way.
+
+### Do Not OR Onto `+5V_SW`
+
+Under the two-domain split this is now structurally impossible rather than merely
+inadvisable — the ORed node and `+5V_SW` are different nets that never meet. The
+reasoning is kept because it is *why* they are different nets, and because the
+obvious "simplification" of merging them would reintroduce it.
+
+`+5V_SW` has consumers that need a real, in-spec 5 V:
 
 | Consumer | Requirement |
 | --- | --- |
@@ -479,100 +574,128 @@ angle output, which is this board's headline deliverable. A researcher would see
 a full-scale output of 4.6 V instead of 5.0 V and have no indication why. **This
 is the trap in the obvious implementation.**
 
-### OR At The 3.3 V Regulator Input Instead
+### OR The Two Host Sources At `+5V_MCU`
 
-The rail that actually benefits from multi-sourcing is 3.3 V — the MCU, the
-instrumentation buffers, and the TMC's `VCC_IO`. The `TPS73733` regulates away
-both the diode drop and the difference between sources, and it only needs its
-input above roughly 3.8 V.
+Both sources are 5 V, so the OR is a plain two-diode wired-OR feeding the MCU
+domain's own LDO. The `TPS73733` regulates away both the diode drop and the
+difference between sources, and it only needs its input above roughly 3.8 V.
 
 ```text
-36 V in ─[reverse diode]─┬─[TPS1HTC100 switch]── +36V (VM) ──> TMC5130A VS
-                         │
-                         └──> TPSM365R6V5 ──> +5V ──> TMC VCC, DAC VDD, encoder
-                                                │
-                                                ├──|>|── D1 ──┐
-USB-C VBUS ─────────────────────────|>|── D2 ────────────────┼──> VLOGIC
-pyControl RJ-45 pin 6 (DNP) ────────|>|── D3 ────────────────┘      │
-                                                                     v
-                                                              TPS73733 ──> +3.3V
+36 V in ─[reverse diode]─[TPS1HTC100 switch]─ +36V_SW ─┬─> TMC5130A VS
+                                                       └─> TPSM365R6V5 ─> +5V_SW ─> TMC VCC, encoder, DAC (rev 1)
+                                                                             │
+                                                                             └─> TPS73733 #2 ─> +3V3_SW ─> TMC VCC_IO, MAX6816
+
+USB-C VBUS ──────────────|>|── D1 ──┬──> +5V_MCU ──> TPS73733 #1 ──> +3V3_MCU
+pyControl RJ-45 pin 6 ───|>|── D2 ──┘
 ```
 
-`+5V` stays single-sourced and in spec. `VLOGIC` is the ORed node and feeds only
-the 3.3 V regulator.
+`+5V_SW` stays single-sourced and in spec. `+5V_MCU` is the ORed node and feeds
+only the MCU domain's LDO. **The two 5 V rails never touch.**
 
 Notes:
 
 - **Diodes:** Schottky, low `Vf` at 150-250 mA. 20-30 V reverse rating is ample.
   A P-FET ideal-diode arrangement is overkill for a logic rail at this current.
-  Check `kicad-libs` stock before choosing.
+  Stocked candidate: `OW-MISC-MBR120VLSFT1G` (`D_SCHOTTKY_20V_1A`, SOD-123FL,
+  300 mV at 1 A, so well under 200 mV at this load). `OW-MISC-NSR20F40NXT5G`
+  (40 V, 2 A, 0603) is the smaller option if area is tight.
 - **Priority is undefined and that is fine.** With plain diodes the highest
   source wins, sources sag under load, and two nearly-equal sources may share
   unpredictably. Behind an LDO on a logic rail this has no consequence. Do not
   build a priority mux to fix a non-problem.
 - **The diodes are what stop back-powering.** They prevent the board from
-  feeding current into the USB host or into pyControl. Check the orientation
-  deliberately — it is the entire reason the diodes are there.
+  feeding current into the USB host or into pyControl, and they prevent USB from
+  powering pyControl through the board. Check the orientation deliberately — it
+  is the entire reason the diodes are there.
+- **Both branches are populated.** The pyControl branch is no longer optional:
+  it is one of only two ways to power this board, and powering the board from
+  pyControl with USB unplugged and the 36 V rail off is an explicitly wanted
+  operating mode. What remains conditional is whether the port can actually
+  supply the current — measure it.
 - Each ORed source is a power-input net and needs exactly one `PWR_FLAG`. The
   `usb2` block already carries one (`#FLG011001`); the 36 V block carries one.
-  Add one for the RJ-45 5 V only if that branch is populated.
-- Never tie `VBUS` directly to `+5V`.
+  Add one for the RJ-45 5 V branch.
+- Never tie `VBUS` directly to `+5V_SW`.
 
-### The Hazard This Introduces: MCU Alive, `+5V` Dead
+### MCU Alive, Switched Rails Dead — The Normal Idle State
 
-USB-only or pyControl-only operation creates a state the board could not
-previously reach: **the MCU is running at 3.3 V while `+5V` is at 0 V.**
+USB-only or pyControl-only operation puts the board in a state the earlier
+architecture treated as an edge case: **the MCU is running at 3.3 V while
+`+36V_SW`, `+5V_SW`, and `+3V3_SW` are all at 0 V.**
 
-Note this is not the same as the `HV_EN` off state. The regulator chain is fed
-pre-switch, so `+5V` comes up whenever the 36 V supply is connected regardless of
-`HV_EN`. `+5V` is dead only when the 36 V supply is genuinely absent — which is
-exactly the new operating mode.
+Under the reset-button architecture this is no longer an edge case. It is the
+board's **normal idle state**, reached three ways:
 
-In that state, MCU outputs drive into parts whose supply is 0 V, forward-biasing
-their input ESD clamps and back-powering their dead rails through them. Affected:
-the `DAC8563` control lines, anything on the 5 V side of a level translator, and
-the encoder input path if the encoder is 5 V.
+| How | Frequency |
+| --- | --- |
+| 36 V supply not connected | Bench and firmware work |
+| 36 V connected, `HV_EN` low at boot | Every power-up — the block pulls `ENABLE` low |
+| 36 V connected, firmware deliberately cycling `HV_EN` | Every recovery from a wedged chip |
 
-Three mitigations, and use at least the first two:
+In that state, MCU outputs would drive into parts whose supply is 0 V,
+forward-biasing their input ESD clamps and back-powering dead rails through them.
+Affected: every TMC5130A digital input, the MAX6816, the encoder path if the
+encoder is supplied from a switched rail, and the DAC control lines in rev 1.
 
-1. **Series resistors on every 3.3 V line that drives a 5 V-domain input.**
-   Cheap hardware backstop that limits clamp current whatever the firmware does.
-   The DAC control lines need series resistance anyway.
-2. **A `+5V` presence sense on `GP26` (`ADC0`)** through a divider, so firmware
-   can refuse to touch the 5 V domain when the rail is down and can report it.
-   This is the systemic fix; the resistors are the backstop. It also lets `ARM`
-   be refused with a meaningful reason instead of a mysterious failure.
-3. **A dual-supply level translator on the DAC lines** goes high-Z when its
-   `VCCB` is absent, which solves the DAC case outright. If the DAC `VIH` check
-   in `docs/encoder-analog-output.md` forces a translator anyway, this is a
-   second reason to fit one.
+**The primary mechanism is the GPIO isolation bus switch**, not series
+resistors. `rp2040_gpio_isolation_sn74cb3q3245` puts a `SN74CB3Q3245` channel in
+every MCU line that reaches the switched domain; disabled, those channels are
+high-Z and no clamp current flows regardless of what firmware does with the pin.
+The bus switch runs from `+3V3_MCU` so it is controllable in exactly the state
+that needs controlling.
 
-**Open datasheet check:** whether the `TMC5130A` tolerates `VCC_IO` present while
-`VCC` and `VS` are absent. Many drivers do; some latch or draw current through
-internal structures. Confirm in rev 1.21 before relying on USB-only operation
-with the driver fitted. Do not assume.
+Three supporting measures, and use all of them:
 
-### Whether To Take pyControl's 5 V At All
+1. **Sequencing.** Isolate before switching off, reconnect only after the rails
+   are confirmed up. Firmware rule and ordering in `docs/interface-map.md`.
+2. **Series resistors on every 3.3 V line that crosses into the switched
+   domain.** Cheap backstop covering the window where firmware gets the order
+   wrong, or where the bus switch itself fails. They cost nothing; fit them.
+3. **A `+5V_SW` presence sense on `GP26` (`ADC0`)** through a divider, so
+   firmware can confirm the switched domain is actually up before enabling the
+   bus, refuse `ARM` with a meaningful reason when it is not, and report it.
+   `GP26` therefore **bypasses the bus switch** — sensing the rail through the
+   thing you are trying to decide whether to enable would be circular.
 
-**Recommendation: lay out the footprint, leave `D3` unpopulated.**
+**Two open questions this architecture closed.** Whether the `TMC5130A` tolerates
+`VCC_IO` present with `VCC` and `VS` absent no longer matters — all three are on
+`+36V_SW` and fall together. And the dual-supply level translator that was one
+candidate fix for the DAC case is now needed only if the DAC's own `VIH` demands
+it, which is a rev 1 question.
 
-USB alone delivers the entire development benefit — firmware load, CDC console,
-protocol work, and instrument bring-up with no bench supply. What pyControl's 5 V
-adds is that the board answers `ID`/`STATUS` when neither USB nor the motor
-supply is present. That is marginal, and a board that is alive but cannot move
-may be more confusing to a researcher than a dark one. The board can already
-report "motor supply absent" from `HV_SNS`.
+### Taking pyControl's 5 V Is No Longer Optional
 
-Against it:
+**Reversed 2026-08-13. Populate both diodes.**
+
+The earlier recommendation was to lay out the pyControl 5 V branch and leave it
+unpopulated, on the grounds that USB alone delivers the whole development
+benefit. That reasoning assumed the board had an always-on rail of its own. It
+does not: `+3V3_MCU` comes from USB or pyControl and from nowhere else, so an
+unpopulated pyControl branch means **the board is dark whenever USB is
+unplugged**, no matter what else is connected.
+
+Being reachable from pyControl with USB absent and the motor rail off is an
+explicitly wanted operating mode — it is how the researcher talks to a board
+that is deliberately powered down. So both diodes go in.
+
+The objections were real and survive as verification items rather than as reasons
+not to fit it:
 
 - The port's 5 V current budget is **unknown** and shared across all ports with
-  every other module. It is already an open row in the Gate A checklist. With two
-  of these boards in a rig, that is two more loads on the same regulator.
+  every other module. It is already an open row in the Gate A checklist, and it
+  is now the item that decides whether pyControl-only operation works at all.
+  With two of these boards in a rig, that is two more loads on the same
+  regulator. **Measure it at Gate A**, and size the MCU domain's draw against it
+  — see the load budget below.
 - It adds a second ground path between pyControl and the board, which interacts
   with the grounding-topology decision that is still open.
-- It adds a power state to test at Gate B: "board powered by pyControl only".
+- It adds a power state to test at Gate B: "board powered by pyControl only,
+  USB absent, `HV_EN` low". That is now a required test, not an optional one.
 
-Populate `D3` after the port's 5 V budget is measured, not before.
+If the measured budget turns out to be too small, the fallback is USB-only
+operation with the pyControl branch fitted but starved — which fails safe, since
+the diode simply never conducts. Nothing about the layout changes.
 
 ### USB ESD Protection Is Missing And Should Be Added
 
@@ -618,29 +741,45 @@ Placement details that are easy to get wrong:
 
 ### Current Budget For The ORed Rail
 
-3.3 V loads total roughly 100-150 mA typical and up to ~250 mA with the
-instrumentation buffers switching. Comfortable on USB's 500 mA default. The
-`usb2` block presents `Rd` pulldowns only, so assume default USB power rather
-than a negotiated higher current.
+The MCU domain is the only thing on it: RP2040, the four `SN74CB3Q3245` bus
+switches, the input block's pull-ups, and the five `SN74LVC125A` buffers in
+rev 1. Roughly **100-150 mA typical**, up to ~250 mA with the rev 1 buffers
+switching. Rev 0 without the buffers is nearer 100 mA.
+
+Comfortable on USB's 500 mA default. The `usb2` block presents `Rd` pulldowns
+only, so assume default USB power rather than a negotiated higher current.
+
+**Whether it is comfortable on pyControl pin 6 is the open question**, and it is
+the one that decides whether pyControl-only operation works. Nothing on the
+switched domain draws from this rail, which is what keeps the number small enough
+to be plausible on a shared port supply.
 
 ## Load Budget
 
 Fill in measured values at Gate B. Estimates for sizing only.
 
-| Rail | Load | Estimate |
-| --- | --- | --- |
-| `+36V` | Motor, 0.67 A/phase RMS, two phases | Sized from the identified motor; see below |
-| `+36V` | TMC5130A quiescent and gate drive | tens of mA |
-| `+5V` | TMC5130A `VCC` | ~20-30 mA |
-| `+5V` | DAC8563 `VDD` | ~1 mA |
-| `+5V` | Encoder, if 5 V | **Unknown — the encoder part is not identified.** A Broadcom `HEDR-5421` class part draws 40-85 mA |
-| `+5V` | Level translator, if fitted | few mA |
-| `+3.3V` | RP2040 | ~50 mA |
-| `+3.3V` | TMC5130A `VCC_IO` | few mA |
-| `+3.3V` | 5× `SN74LVC125A` | few mA static, more when switching |
-| `+3.3V` | Differential encoder receiver, if fitted | ~10 mA |
+| Domain | Rail | Load | Estimate |
+| --- | --- | --- | --- |
+| switched | `+36V_SW` | Motor, 0.67 A/phase RMS, two phases | Sized from the identified motor; see below |
+| switched | `+36V_SW` | TMC5130A quiescent and gate drive | tens of mA |
+| switched | `+5V_SW` | TMC5130A `VCC` | ~20-30 mA |
+| switched | `+5V_SW` | Encoder, if 5 V | **Unknown — the encoder part is not identified.** A Broadcom `HEDR-5421` class part draws 40-85 mA |
+| switched | `+5V_SW` | DAC8563 `VDD` (rev 1) | ~1 mA |
+| switched | `+5V_SW` | Level translator, if fitted (rev 1) | few mA |
+| switched | `+3V3_SW` | TMC5130A `VCC_IO` | few mA |
+| switched | `+3V3_SW` | MAX6816 debouncer | tens of µA |
+| switched | `+3V3_SW` | Differential encoder receiver, if fitted | ~10 mA |
+| always-on | `+3V3_MCU` | RP2040 | ~50 mA |
+| always-on | `+3V3_MCU` | 4× `SN74CB3Q3245` | µA static; charge transfer only when switching |
+| always-on | `+3V3_MCU` | Input block `DIAG_EN`/`LATCH`/`~FAULT` pull-ups | < 1 mA |
+| always-on | `+3V3_MCU` | 5× `SN74LVC125A` (rev 1) | few mA static, more when switching |
 
 The 5 V rail's 600 mA is comfortable unless the encoder is unusually hungry.
+
+**Read the table by domain, not by voltage.** The `+5V_SW`/`+3V3_SW` column is
+what the 36 V chain must supply and what disappears when `HV_EN` drops; the
+`+3V3_MCU` column is what USB or pyControl must supply continuously. Sizing them
+against the wrong source is the mistake this split exists to prevent.
 **Check the encoder's supply current once the part is identified** — it is the
 only line item here that could plausibly matter.
 
@@ -940,13 +1079,13 @@ Consequences worth stating plainly:
   and it is free. Firmware must raise `HV_EN` deliberately, after configuring the
   driver, and must drop it on fault. Add this to the boot sequence and to the
   fault table.
-- The 3.3 V and 5 V logic rails are downstream of the same switch, so **the MCU
-  cannot enable its own supply**. Verify this during schematic capture: if
-  `hv_to_5v_tpsm365r6` is fed from the *switched* `+36V` output, the board never
-  boots. Feed the regulator chain from the **protected but unswitched** node —
-  after the reverse-polarity diode, before the high-side switch — and switch only
-  the motor rail. This is the single most likely way to make an unbootable board
-  out of otherwise correct blocks.
+- `hv_to_5v_tpsm365r6` **is** fed from the switched `+36V_SW` output, on
+  purpose, so that dropping `HV_EN` resets the whole switched domain. That would
+  make the board unbootable if the MCU were also on that chain — which is exactly
+  why the MCU is not: `+3V3_MCU` comes from USB or pyControl through two ORing
+  diodes and never touches the 36 V chain. Verify **both halves** during
+  schematic capture. Feeding the MCU from the switched rail is the single most
+  likely way to make an unbootable board out of otherwise correct blocks.
 - The block carries a `PWR_FLAG` (`#FLG027001`), unlike the 24 V terminal
   variant. Do not add a second one on the same net. Exactly one `PWR_FLAG` per
   net, on input and entry nets only.
@@ -969,15 +1108,26 @@ Consequences worth stating plainly:
    and the motor connector.
 2. **Encoder supply voltage and current**, which sets the 5 V budget and the
    harness conductor count.
-3. Whether the regulator chain is fed pre- or post-switch. Recommendation above:
-   pre-switch, so logic survives a motor-rail shutdown.
-4. Whether the `TMC5130A` tolerates `VCC_IO` present with `VCC` and `VS` absent,
-   which USB-only operation requires. Datasheet check.
-5. `SNS` scaling and whether the block already populates the sense resistor.
-6. Whether `D3`, the pyControl 5 V branch, is populated. Gated on measuring the
-   port's 5 V budget.
-7. Whether the DAC gets a dual-supply level translator, which also resolves the
-   back-powering question on those lines.
+3. **pyControl pin 6's 5 V current budget**, and whether it is shared across
+   ports behind one regulator. This decides whether pyControl-only operation
+   works. Measure at Gate A.
+4. `SNS` scaling and whether the block already populates the sense resistor.
+5. How many `5v_to_3v3_tps73733` instances the board ends up with. Two is the
+   minimum the architecture requires — one per domain. A third is worth
+   considering if the switched domain wants its analog and digital 3.3 V
+   separated, or if `+3V3_SW` loads grow in rev 1.
+6. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
+   if the DAC's own `VIH` demands it rather than as a back-powering fix.
+
+**Resolved 2026-08-13 by the reset-button architecture:**
+
+- The regulator chain is fed **post-switch**. Previously open, and previously
+  recommended the other way; see the rail chain above for why it reversed.
+- `+3V3_MCU` comes from USB or pyControl only. No always-on converter taps
+  `HV_IN`, and the board does not boot on 36 V alone.
+- Both ORing diodes are populated. The pyControl branch is no longer conditional.
+- Whether the `TMC5130A` tolerates `VCC_IO` present with `VCC` and `VS` absent no
+  longer needs an answer: all three are on the switched domain and fall together.
 
 **Resolved, and no longer a purchase item:** the 36 V TVS. No standard TVS can
 protect the `TMC5130A` on a 36 V rail, and the other two parts on that rail do

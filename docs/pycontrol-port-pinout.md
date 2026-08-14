@@ -1,8 +1,15 @@
 # pyControl Behavior Port Pinout
 
-**Rev 0 scope:** the pinout below is unchanged and remains the reference, but Rev
-0 populates pins 1, 2, and 4 only — `DIO-A` to `UART0 RX`, `GND`, `DIO-B` to
-`UART0 TX` — plus an unpopulated footprint for the pin 6 `5V` ORing branch.
+**Rev 0 scope:** the pinout below is unchanged and remains the reference. Rev 0
+populates pins 1, 2, 4, **and 6** — `DIO-A` to `UART0 RX`, `GND`, `DIO-B` to
+`UART0 TX`, and the 5 V into the MCU domain's ORing diode.
+
+**Pin 6 is load-bearing, not optional.** The board's MCU rail comes from USB
+`VBUS` or pyControl pin 6 and from nowhere else, so with USB unplugged pin 6 is
+the only thing keeping the board alive. Confirmed 5 V, not 3.3 V, from this
+document's own source netlist. **Its current budget is the one number that
+decides whether pyControl-only operation works** and it is still unmeasured —
+see Remaining Verification below and `docs/power.md`.
 
 **Status:** Derived from a working pyControl-compatible module schematic.
 Bench verification still required.

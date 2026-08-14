@@ -34,13 +34,14 @@ independently calibrated and independently suspect.
 
 ## Power — sources and ORing
 
-| Source powering the board | 3.3 V rail | `+5V` rail | Board responds to `ID` | Notes |
-| --- | --- | --- | --- | --- |
-| USB only | | 0 V expected | | |
-| pyControl only (`D3` fitted?) | | 0 V expected | | |
-| 36 V only | | | | |
-| 36 V + USB | | | | |
-| All available | | | | |
+| Source powering the board | `+3V3_MCU` | `+5V_SW` | `+3V3_SW` | Responds to `ID` | Notes |
+| --- | --- | --- | --- | --- | --- |
+| USB only | | 0 V expected | 0 V expected | | |
+| pyControl only | | 0 V expected | 0 V expected | | measure port current too |
+| 36 V only | 0 V expected | 0 V expected | 0 V expected | **no** expected | board deliberately does not boot |
+| 36 V + USB, `HV_EN` low | | 0 V expected | 0 V expected | | the normal idle state |
+| 36 V + USB, `HV_EN` high | | | | | |
+| All available | | | | | |
 
 - ORing diode part and measured `Vf` at the actual logic current:
 - Current measured flowing back into the USB host (expect 0):
@@ -55,7 +56,8 @@ independently calibrated and independently suspect.
 
 - Input voltage / current limit used:
 - Board boots with motor rail off, `HV_EN` low:
-- Regulator chain confirmed fed pre-switch:
+- Regulator chain confirmed fed **post**-switch, and `+3V3_MCU` confirmed fed
+  from USB/pyControl only:
 - Inrush:
 - `HV_EN` assertion behavior, rail rise time:
 - `ILIM` resistor value and measured current limit:

@@ -34,13 +34,14 @@ The `rp2040` design block exposes these as labels `GPIO0` … `GPIO25` and
 `GPIO26_ADC0` … `GPIO29_ADC3`.
 
 **Iso** column: `sw` = routed through the `rp2040_gpio_isolation_sn74cb3q3245`
-bus switch; `byp` = bypasses it and connects to the MCU directly. See
+bus switch; `byp` = bypasses it and connects to the MCU directly. **The rule is
+the powered domain of the far end**, not convenience — see
 [GPIO Isolation](#gpio-isolation).
 
 | GPIO   | Net               | Function                                        | Rev 0    | Iso   |
 |--------|-------------------|-------------------------------------------------|----------|-------|
-| `GP0`  | `PYC_UART_TX`     | UART TX to pyControl (`UART0 TX`)               | **yes**  | `sw`  |
-| `GP1`  | `PYC_UART_RX`     | UART RX from pyControl (`UART0 RX`)             | **yes**  | `sw`  |
+| `GP0`  | `PYC_UART_TX`     | UART TX to pyControl (`UART0 TX`)               | **yes**  | `byp` |
+| `GP1`  | `PYC_UART_RX`     | UART RX from pyControl (`UART0 RX`)             | **yes**  | `byp` |
 | `GP2`  | `~{TMC_CS}`       | Driver chip select                              | **yes**  | `sw`  |
 | `GP3`  | `~{TMC_DRV_EN}`   | Driver enable, active low                       | **yes**  | `sw`  |
 | `GP4`  | `TMC_SPI_CIPO`    | Driver SPI MISO (`SPI0 RX`)                     | **yes**  | `sw`  |
@@ -59,16 +60,16 @@ bus switch; `byp` = bypasses it and connects to the MCU directly. See
 | `GP17` | `~{DAC_CLR}`      | DAC clear                                       | reserved | `sw`  |
 | `GP18` | `LIMIT_SW`        | Debounced limit switch, MCU copy                | **yes**  | `sw`  |
 | `GP19` | `HV_EN`           | 36 V input switch enable                        | **yes**  | `byp` |
-| `GP20` | `PYC_PULL_EVENT`  | Pull event out                                  | reserved | `sw`  |
+| `GP20` | `PYC_PULL_EVENT`  | Pull event out                                  | reserved | `byp` |
 | `GP21` | `FW_TRIG1`        | Firmware timing marker                          | **yes**¹ | `byp` |
-| `GP22` | `PYC_FAULT`       | Latched fault out                               | reserved | `sw`  |
-| `GP23` | `PYC_RSYNC_IN`    | Rsync edges in                                  | reserved | `sw`  |
+| `GP22` | `PYC_FAULT`       | Latched fault out                               | reserved | `byp` |
+| `GP23` | `PYC_RSYNC_IN`    | Rsync edges in                                  | reserved | `byp` |
 | `GP24` | `~{INSTR_BUF_OE}` | Instrumentation buffer enable                   | reserved | `byp` |
 | `GP25` | `FW_TRIG0`        | Firmware timing marker                          | **yes**¹ | `byp` |
-| `GP26` | `V5_SENSE`        | `+5V` rail presence and level, via divider      | **yes**  | `sw`  |
+| `GP26` | `V5_SENSE`        | `+5V_SW` presence and level, via divider        | **yes**  | `byp` |
 | `GP27` | spare             | Reserved — `EXT_FAULT_IN` candidate, see below  | spare    | —     |
-| `GP28` | `HV_SNS`          | 36 V input load-current sense, `R_SNS` = 249 Ω  | **yes**  | `sw`  |
-| `GP29` | `~{HV_FAULT}`     | 36 V switch fault, open-drain, pull-up to 3.3 V | **yes**  | `sw`  |
+| `GP28` | `HV_SNS`          | 36 V input load-current sense, `R_SNS` = 249 Ω  | **yes**  | `byp` |
+| `GP29` | `~{HV_FAULT}`     | 36 V switch fault, open-drain, pull-up to 3.3 V | **yes**  | `byp` |
 
 ¹ Rev 0 lands `FW_TRIG0`/`FW_TRIG1` on labelled test points. With no
 InstrumentPort they have nowhere else to go, and they are the cheapest bring-up
@@ -129,7 +130,9 @@ Notes:
   copy, taken from the same debounced node.
 - `GP19` drives the `hv_input_36V_terminal_2pos_5p08_protected` block's `ENABLE`
   input. That block pulls `ENABLE` low, so the 36 V rail is **off until firmware
-  drives it**. See `docs/power.md`.
+  drives it** — and so the board's power-on state is the idle state, with the MCU
+  up on USB or pyControl and everything switched dark. Firmware cycling `GP19` is
+  also the board's chip-reset mechanism; see `docs/power.md`.
 - `GP28` reads the TPS1HTC100-Q1 `SNS` output. **Change the block's `R_SNS` from
   1 kΩ to 249 Ω** (`OW-PASS-CRCW0402249RFKED`, stocked) — the pin signals faults by
   sourcing 5.2-6.4 mA into `R_SNS`, which at 1 kΩ lands at 3.3-4.4 V, above the
@@ -139,11 +142,12 @@ Notes:
   and thermal shutdown. Needs an external pull-up to `+3.3V`. The design block
   leaves this pin unconnected; this board routes it because it has the pin and
   because the motor rail can shut itself off.
-- `GP26` senses the `+5V` rail through a divider. The board can be powered from
-  USB or pyControl with the 36 V supply absent, in which case `+5V` is dead while
-  the MCU is running. `+5V` is still required in Rev 0 — the TMC5130A's `VCC`
-  minimum is 4.6 V — even though the DAC that also needed it is deferred. See
-  `docs/power.md`.
+- `GP26` senses `+5V_SW` through a divider. That rail is dead whenever `HV_EN` is
+  low or the 36 V supply is absent, which is the board's normal idle state, so
+  this is the MCU's primary evidence that the switched domain is actually up.
+  It gates step 3 of the sequencing rule above. `+5V_SW` is still required in
+  Rev 0 — the TMC5130A's `VCC` minimum is 4.6 V — even though the DAC that also
+  needed it is deferred. See `docs/power.md`.
 
 ### `EXT_FAULT_IN` — Still Deferred, Still Cheap
 
@@ -177,70 +181,126 @@ board has.
 ## GPIO Isolation
 
 Rev 0 places `orb_weaver_private:rp2040_gpio_isolation_sn74cb3q3245` between the
-RP2040 and the rest of the board. It is four `SN74CB3Q3245` 8-channel
+RP2040 and the switched half of the board. It is four `SN74CB3Q3245` 8-channel
 bidirectional FET bus switches — 32 channels, one shared active-low `~OE`, pulled
-up so the bus is **isolated at power-on until firmware enables it**.
+up so the bus is **isolated at power-on until firmware enables it**, with
+powered-off `Ioff` isolation as a second line of defence.
 
-That default is the point. Until firmware drives `~{BUS_SW_OE}` low, every
-board-side net sits at whatever its own local pull defines rather than at whatever
-an unconfigured RP2040 pin happens to do. `~{TMC_DRV_EN}` rests disabled by the
-`tmc5130` block's own pull, and `HV_EN` rests low at the input block's pull, so
-the motor rail is off and the driver is off before firmware exists.
+### The Rule: Follow The Far End's Power Domain
 
-### The Bypass Group
+The `TPS1HTC100-Q1` high-side switch exists so the researcher can power-cycle the
+board's chips to a known state without unplugging anything, while the MCU stays
+alive on USB or pyControl. See `docs/power.md`. That makes "MCU running, switched
+rails at 0 V" the board's **normal idle state**, not an edge case — and an MCU pin
+driving into an unpowered chip forward-biases its input ESD clamps and
+back-powers a dead rail through them.
 
-Four signals connect to the MCU directly and **must not** be routed through a
-switch channel:
+The bus switch exists to prevent exactly that, which gives a single mechanical
+rule:
+
+> **A GPIO goes through the bus switch if and only if its far end sits on the
+> switched domain** (`+36V_SW`, `+5V_SW`, `+3V3_SW`). Everything else bypasses.
+
+| Iso | Applies to | Because |
+| --- | --- | --- |
+| `sw` | TMC5130A SPI, enable, and diagnostics; the MAX6816 debouncer's output copy; the encoder PIO tap and DAC bus in rev 1 | All of them are parts that lose power when `HV_EN` drops |
+| `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_SNS`, `~{HV_FAULT}`; `V5_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_OE}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN` |
+
+**Rev 0 isolates 8 channels; full scope isolates 16.** The bypass group is 13 at
+full scope, which is larger than a first pass suggests, and each entry earns it:
 
 | Net | Why it bypasses |
 | --- | --- |
+| `PYC_UART_TX`, `PYC_UART_RX` | The whole point of the architecture. pyControl is externally powered and must stay reachable when the switched domain is off — that is how the researcher talks to a board that is deliberately powered down |
 | `~{BUS_SW_OE}` | Circular otherwise — the enable cannot be behind the switch it enables |
-| `HV_EN` | Rail control must not depend on bus-switch state, and must not glitch when the bus is enabled or disabled |
-| `FW_TRIG0`, `FW_TRIG1` | Timing markers must stay observable while the bus is isolated |
-| `~{INSTR_BUF_OE}` (rev 1) | Instrumentation must be enableable independently of the bus |
+| `HV_EN` | The `TPS1HTC100-Q1` runs from `HV_IN` and is never switched off. Rail control must not depend on bus state, and the MCU must be able to switch the rail back on while everything downstream is dark |
+| `HV_SNS`, `~{HV_FAULT}` | Same device, same always-on supply, and their pull-ups sit on `+3V3_MCU`. Fault status must be readable precisely when the rail is off |
+| `V5_SENSE` | It reports whether `+5V_SW` came up, which is the precondition for enabling the bus. Reading it through the bus would be circular |
+| `FW_TRIG0`, `FW_TRIG1` | Test points only — no chip at the far end — and they must stay observable while the bus is isolated |
+| `PYC_PULL_EVENT`, `PYC_FAULT`, `PYC_RSYNC_IN` (rev 1) | BNC connectors and pyControl, both outside the switched domain |
+| `~{INSTR_BUF_OE}` (rev 1) | The `SN74LVC125A` buffers sit on `+3V3_MCU` so the board can be observed while the switched domain is off |
 
-This matches `tmc51x0-driver-dev-pcb`, which bypasses exactly this set: its
-netlist shows `~{BUS_SW_OE}` on `GPIO19`, `~{INSTR_BUF_OE}` on `GPIO23`, and
-`HV_EN` and both `FW_TRIG` markers wired straight to the MCU, with 27 GPIO nets
-through the switch and the control group around it.
+`tmc51x0-driver-dev-pcb` bypasses the same *kind* of set — its netlist shows
+`~{BUS_SW_OE}` on `GPIO19`, `~{INSTR_BUF_OE}` on `GPIO23`, and `HV_EN` and both
+`FW_TRIG` markers wired straight to the MCU, with 27 GPIO nets through the switch.
+**This board bypasses considerably more**, because it has a genuinely two-domain
+power tree and that board does not. Do not "align" the two.
 
 **This board puts `~{BUS_SW_OE}` on `GP9`, not `GP19`.** The proven board uses
 `GP19` because it has no 36 V enable there; here `GP19` is `HV_EN` and is already
 wired into `mcu.kicad_sch`. Deliberate divergence, noted so nobody "fixes" it.
 
-### Wire All 32 Channels, Populate The Board Side Later
+### The Block Is Oversized For This Board — Decide Before Layout
 
-The block is a fixed slab of 32 channels placed whole, so channel count is not a
-Rev 0 economy. Wire the **A (MCU) side of every allocated GPIO now**, including
-the 12 reserved ones, and leave the B side of the reserved channels unconnected.
+The block is four packages because it is built to isolate all 30 GPIOs. Under the
+rule above this board isolates **8 in Rev 0 and 16 at full scope**, so three of
+the four `SN74CB3Q3245` packages are dead weight in Rev 0 and two are at full
+scope.
+
+| Option | Cost | Benefit |
+| --- | --- | --- |
+| **A.** Place the block whole, wire 16 channels, leave 16 unused | 3 unnecessary ICs, their decoupling, and the board area | Proven block, zero design work, obvious upgrade path |
+| **B.** Board-local section with two `SN74CB3Q3245` | Two ICs, a new schematic section to verify | Half the parts and area; matches what the board actually needs |
+
+**Recommendation: B, two packages.** 16 channels covers full scope with 0 spare
+— tight, so allow one spare channel by keeping the two packages and accepting 16
+of 16 used. If that feels too tight, option A costs two more ICs and removes the
+question. This is a real decision and it wants making before layout, not after.
+
+Either way, wire the **A (MCU) side of all 16 isolated GPIOs now**, including the
+8 reserved for rev 1, and leave the B side of the reserved channels unconnected.
 A later revision then adds board-side wiring only — no re-place, no re-pin, no
-firmware change.
+firmware change. Leave bypass-group signals off the switch entirely.
 
-Leave the bypass-group channels entirely unused on both sides. With 30 GPIOs, 4
-bypassed, and 32 channels there is ample slack.
+### The Bus Switch Runs From `+3V3_MCU`
+
+It has to. Powering it from `+3V3_SW` would give free isolation through `Ioff`
+whenever `HV_EN` is low and would cost no GPIO at all — but it would hand the
+sequencing to a rail ramp instead of to firmware, and it would remove the ability
+to isolate *before* switching off. Rejected deliberately; recorded in
+`docs/power.md` so it is not rediscovered as a clever idea.
+
+### Sequencing Rule
+
+Falls straight out of the architecture, and firmware must follow it:
+
+**Powering the switched domain down**
+
+1. Assert `~{BUS_SW_OE}` high — isolate first.
+2. Drive `HV_EN` low.
+
+**Powering it back up**
+
+1. Drive `HV_EN` high.
+2. Wait for the buck and LDO to settle.
+3. Confirm `+5V_SW` is up on `V5_SENSE` — which is readable because it bypasses.
+4. Assert `~{BUS_SW_OE}` low — connect last.
+
+Isolating first and connecting last means no MCU pin is ever driving a rail that
+is on its way down or not yet up. Getting this backwards is the failure this
+whole arrangement exists to prevent, so **test it at Gate B** with a scope on
+`+3V3_SW` and one TMC input.
 
 ### Firmware Consequences
 
-Documented here because they are properties of the hardware, not choices:
+Properties of the hardware, not choices:
 
-- **The pyControl link is dead until the bus switch is enabled.** `GP0`/`GP1` are
-  isolated. Firmware must enable the bus early in boot, before it expects to talk
-  to pyControl.
-- **The USB CDC console is not affected.** USB uses dedicated pins, not the GPIO
-  matrix, so the debug console works with the bus isolated. That makes it the
-  right channel for reporting a bus-switch failure.
-- **The ADC sense group is behind the switch.** `V5_SENSE`, `HV_SNS`, and
-  `~{HV_FAULT}` cannot be read until the bus is enabled. Boot order is therefore:
-  enable bus switch → read rails → enable `HV_EN`. The `SN74CB3Q3245` adds a few
-  ohms in series with a high-impedance ADC input, which is negligible, but it
-  disconnects entirely when disabled, which is not.
-- Report bus-switch state in `ID`/`STATUS` so a session cannot silently run with
-  the bus isolated. Same argument as the instrumentation buffer enable.
-
-**Open question for layout:** whether the sense group should join the bypass
-group so the MCU can read rail state before enabling anything. The simple version
-above matches the proven board and is the recommendation; revisit only if boot
-sequencing turns out to need rail state first.
+- **The pyControl link works with the bus isolated.** `GP0`/`GP1` bypass, so the
+  board answers `ID`/`STATUS` in its idle state and can report *why* the motor
+  rail is off. This is the behaviour the architecture is for.
+- **The USB CDC console is likewise unaffected** — USB uses dedicated pins, not
+  the GPIO matrix.
+- **The power-monitoring group is readable at all times.** `V5_SENSE`, `HV_SNS`,
+  and `~{HV_FAULT}` all bypass, so firmware can diagnose the switched domain
+  without enabling anything. The earlier boot-order awkwardness is gone.
+- **Nothing on the switched domain is reachable until the bus is enabled.** SPI
+  to the driver, the debounced limit-switch copy on `GP18`, and in rev 1 the
+  encoder tap and DAC. Firmware must treat a read from any of them as invalid
+  while `~{BUS_SW_OE}` is high rather than returning stale or floating data.
+- **`GP18` floats while isolated.** Enable an internal pull on it so the MCU's
+  limit-switch copy has a defined level in the idle state.
+- Report both `~{BUS_SW_OE}` and `HV_EN` state in `ID`/`STATUS`. A session that
+  silently runs isolated should be impossible to mistake for a working one.
 
 ## Connector Complement
 

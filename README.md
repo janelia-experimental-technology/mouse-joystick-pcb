@@ -16,8 +16,10 @@ axis.
 carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
 
 - **RP2040** controller MCU with USB-C for firmware load and a CDC debug console.
-- **GPIO isolation** — a 32-channel FET bus switch between the MCU and the board,
-  isolated at power-on until firmware enables it.
+- **Two power domains** — a switched one carrying everything the high-side switch
+  resets, and an always-on MCU domain fed from USB or pyControl.
+- **GPIO isolation** — a FET bus switch between the MCU and the switched domain,
+  isolated at power-on, so the MCU cannot back-power chips it just switched off.
 - **36 V** motor supply through a protected, electronically switched 2-position
   terminal block.
 - **One TMC5130A** stepper driver section in SPI mode, on a 4-pin motor terminal.
@@ -32,8 +34,9 @@ and its five buffers, the `PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs,
 and the RP2040 PIO encoder cross-check. Every one of them lands on pins Rev 0 has
 already allocated and left unconnected.
 
-Assembled from `kicad-libs` design blocks — **seven instances**. Exactly one of
-them, the 36 V input, has never been placed on a board before.
+Assembled from `kicad-libs` design blocks — **eight instances**, including two
+`5v_to_3v3_tps73733`, one per power domain. Exactly one of them, the 36 V input,
+has never been placed on a board before.
 
 ## Two Repositories, One Rig
 
@@ -87,31 +90,53 @@ the map was already at 29 of 30. It is paid for by permanently dropping
 switch now arrives through a real debouncer, so homing is exercised by closing
 the actual switch. One-for-one, and `GP27` survives as the spare.
 
-**Four signals bypass the isolation switch:** `~BUS_SW_OE` (circular otherwise),
-`HV_EN` (rail control must not depend on bus state), and both `FW_TRIG` markers
-(must stay observable while the bus is isolated). `~INSTR_BUF_OE` joins them in
-rev 1. This is the same bypass group `../tmc51x0-driver-dev-pcb` uses.
+**A GPIO goes through the isolation switch if and only if its far end sits on the
+switched domain.** That isolates 8 channels in Rev 0 and 16 at full scope — the
+TMC bus, and the limit-switch copy. Everything else bypasses, including the
+pyControl UART, so **the board still answers `ID`/`STATUS` with the motor rail
+switched off**. That is the whole point of the arrangement. Per-signal rationale
+in the interface map.
 
 **InstrumentPort-40 is deferred to rev 1**, and its overlay is retained in full
 in the interface map. Six of its eighteen slots carry signals Rev 0 does not
 have, so it arrives with the DAC and the PIO encoder tap rather than before them.
 
-## 36 V, And What It Costs
+## The High-Side Switch Is A Reset Button
 
-`hv_input_36V_terminal_2pos_5p08_protected` → `hv_to_5v_tpsm365r6` →
-`5v_to_3v3_tps73733`.
+The `TPS1HTC100-Q1` is not only inrush and fault protection. It lets the
+researcher power-cycle every chip on the board to a known state **without
+unplugging anything**, while the MCU stays alive and reachable. Everything
+resettable hangs off the switched rail:
+
+```text
+36 V ─[switch]─ +36V_SW ─┬─> TMC5130A VS
+                         └─> hv_to_5v_tpsm365r6 ─> +5V_SW ─> 5v_to_3v3 #2 ─> +3V3_SW
+
+USB VBUS ─────────|>|─┬─> +5V_MCU ─> 5v_to_3v3 #1 ─> +3V3_MCU ─> RP2040, bus switch
+pyControl pin 6 ──|>|─┘
+```
+
+**The board does not boot on 36 V alone** — it needs USB or pyControl. That is
+accepted, deliberate, and worth silkscreening next to the terminal block.
+pyControl pin 6 **is** 5 V, confirmed from the reference design's netlist in
+`~/Repositories/github/syringe-pump`; what is still unmeasured is how much
+current it can supply, which is what decides whether pyControl-only operation
+works.
+
+## 36 V, And What It Costs
 
 36 V buys motor performance and pre-resolves the brake-rail tension the twin
 board records as unresolved. It costs transient headroom: the TMC5130A operates
 to 46 V with a 49 V absolute maximum, and the datasheet warns explicitly about
 supply ringing from stray inductance.
 
-**A TVS on `HV_IN` protects the switch and the buck, not the driver**, and the two
-jobs are separate. At hot-plug the switch is off, so the exposed parts are the
-`TPS1HTC100-Q1` (70 V) and the `TPSM365R6V5` (65 V) — both comfortably clamped by
-a 40 V-standoff part, and both genuinely exposed because the regulator chain taps
-pre-switch and so `HV_IN` carries the buck's input capacitance. Fit `SMBJ40A`;
-prototype with the stocked `SMF48A` if you don't want to wait.
+**A TVS on `HV_IN` protects the switch, not the driver**, and the two jobs are
+separate. At hot-plug the switch is off, so the exposed part is the
+`TPS1HTC100-Q1` (70 V), comfortably clamped by a 40 V-standoff part. It matters
+more than it used to: the buck now taps **post**-switch, so `HV_IN` no longer
+carries the buck's input capacitance and there is little left to damp cable
+ringing. Fit `SMBJ40A`; prototype with the stocked `SMF48A` if you don't want to
+wait.
 
 The driver is a different problem. A standard TVS clamps near 1.6× its standoff,
 so nothing that stands off 36 V clamps under the TMC5130A's 49 V. Its protection
@@ -119,14 +144,15 @@ is by construction: bulk capacitance downstream of the soft-start switch — cap
 at **tens of µF, since the switch dissipates ½CV² charging it** — plus a tight
 `VS`/`GND` loop and a snubber footprint, verified at Gate B.
 
-The logic rail is diode-ORed from the onboard buck, USB `VBUS`, and optionally
-pyControl's 5 V — **at the 3.3 V regulator input, not at `+5V`**. ORing onto
-`+5V` would drop it below the TMC5130A's 4.6 V `VCC` minimum and quietly truncate
-the "0-5 V" analog output.
+The MCU rail is diode-ORed from USB `VBUS` and pyControl pin 6 — **and never
+from the onboard buck**. The two 5 V rails are structurally separate, which is
+what keeps `+5V_SW` in spec for the TMC5130A's 4.6 V `VCC` minimum. Merging them
+is the mistake that would quietly truncate the rev 1 "0-5 V" analog output.
 
-There is also one way to make an unbootable board out of correct blocks: feeding
-the 5 V/3.3 V chain from the *switched* rail, so the MCU cannot enable its own
-supply. [Power](docs/power.md) covers all of this.
+There is still one way to make an unbootable board out of correct blocks: putting
+the **MCU** on the switched chain, so it cannot enable its own supply. Feeding
+the *buck* from the switched rail is correct and intentional.
+[Power](docs/power.md) covers all of this.
 
 ## Repository Status
 
@@ -142,11 +168,16 @@ Present:
 - `docs/` — the design record.
 
 Placed so far: a `mcu` sheet containing `rp2040`,
-`rp2040_gpio_isolation_sn74cb3q3245`, and `5v_to_3v3_tps73733`; plus `usb2` and
-`hv_input_36V_terminal_2pos_5p08_protected` at the root. **Five of the seven Rev
-0 blocks.** Remaining: `hv_to_5v_tpsm365r6` and `tmc5130`, then the three
-board-local sections — encoder input, `limit_switch_debounced_input`, and the
-pyControl RJ-45 boundary.
+`rp2040_gpio_isolation_sn74cb3q3245`, and one `5v_to_3v3_tps73733`; plus `usb2`
+and `hv_input_36V_terminal_2pos_5p08_protected` at the root. **Five of the eight
+Rev 0 block instances.** Remaining: `hv_to_5v_tpsm365r6`, `tmc5130`, and the
+second `5v_to_3v3_tps73733`, then the board-local sections — encoder input,
+`limit_switch_debounced_input`, the pyControl RJ-45 boundary, and the two ORing
+diodes.
+
+The placed `5v_to_3v3_tps73733` currently sits inside the `mcu` sheet, which is
+the right home for the **always-on** instance. Confirm it is fed from the ORed
+`+5V_MCU` node and not from the 36 V chain.
 
 Not yet done: layout. `kicad/mouse-joystick-pcb.kicad_pcb` is empty, and a DRC
 run reports exactly one violation, `invalid_outline` — no edges on `Edge.Cuts`.

@@ -19,16 +19,24 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 | Controller core | `rp2040` | 1 | available, proven on `tmc51x0-driver-dev-pcb` |
 | GPIO isolation | `rp2040_gpio_isolation_sn74cb3q3245` | 1 | available, proven on `tmc51x0-driver-dev-pcb` |
 | Motor supply input, protected and switched | `hv_input_36V_terminal_2pos_5p08_protected` | 1 | available, **never placed anywhere** |
-| 5 V rail | `hv_to_5v_tpsm365r6` | 1 | available, proven |
-| 3.3 V logic rail | `5v_to_3v3_tps73733` | 1 | available, proven |
+| 5 V rail, switched domain | `hv_to_5v_tpsm365r6` | 1 | available, proven |
+| 3.3 V rails, one per domain | `5v_to_3v3_tps73733` | **2** | available, proven |
 | Stepper driver section | `tmc5130` | 1 | available, proven ×2 |
 | USB device connection | `usb2` | 1 | available, proven; now carries `USBLC6-2P6` ESD and a shell-to-GND tie |
 
-**Seven block instances.** The earlier full-scope plan was twelve or thirteen;
+**Eight block instances.** The earlier full-scope plan was twelve or thirteen;
 the twin board's list is fifteen or seventeen.
 
-Plus two board-local sections that are not blocks yet — the pyControl RJ-45
-boundary and `limit_switch_debounced_input`, both below.
+The two `5v_to_3v3_tps73733` instances are not a duplication to tidy away. The
+board has **two power domains** — a switched one that `HV_EN` turns off to reset
+the chips, and an always-on MCU domain fed from USB or pyControl — and each needs
+its own 3.3 V regulator. Merging them would defeat the architecture. See
+`docs/power.md`.
+
+Plus three board-local sections that are not blocks yet — the pyControl RJ-45
+boundary, `limit_switch_debounced_input`, and the two-diode OR that feeds
+`+5V_MCU` from USB `VBUS` and pyControl pin 6. The first two are below; the
+diodes are two parts and a net, described in `docs/power.md`.
 
 ## Blocks Deferred To Rev 1
 
@@ -63,14 +71,16 @@ Board-facing labels: `HV_IN`, `+36V`, `GND`, `EN`/`ENABLE`, `ILIM`, `SNS`,
 
 Three things to check before trusting it, in priority order:
 
-1. **Where the regulator chain taps in.** If `hv_to_5v_tpsm365r6` is fed from the
-   *switched* `+36V` output, the MCU cannot enable its own supply and the board
-   never boots. See `docs/power.md`.
+1. **Where the regulator chain taps in.** `hv_to_5v_tpsm365r6` is fed from the
+   **switched** `+36V_SW` output, on purpose — that is what makes `HV_EN` a reset
+   for the whole switched domain. It only works because the MCU is powered from
+   USB or pyControl instead; check both halves. See `docs/power.md`.
 2. **No TVS is populated.** Add one on `HV_IN` — `SMBJ40A`, or the stocked
-   `SMF48A` to start. It protects the switch (70 V) and the buck (65 V) at
-   hot-plug, which matters because the regulator chain taps pre-switch and so
-   `HV_IN` carries the buck's input capacitance. It cannot protect the TMC5130A
-   (49 V); that is handled by bulk placement and layout. See `docs/power.md`.
+   `SMF48A` to start. It protects the switch (70 V) at hot-plug, and it matters
+   more now that the buck sits behind the switch: `HV_IN` no longer carries the
+   buck's input capacitance, so there is little left to damp the ringing. It
+   cannot protect the TMC5130A (49 V); that is handled by bulk placement and
+   layout. See `docs/power.md`.
 3. **`ENABLE` is pulled low**, so the rail is off until driven. Correct, but it
    is a firmware requirement, not a free behavior — and in Rev 0 `HV_EN` bypasses
    the GPIO isolation switch, so it is drivable regardless of bus state.
@@ -99,19 +109,24 @@ switches — 32 channels, one shared active-low `~OE` with a pull-up, so the bus
 isolated until firmware enables it.
 
 It is proven on `tmc51x0-driver-dev-pcb`, but this board is the first to place it
-alongside a switched high-voltage rail, so two things need care:
+alongside a switched domain that is routinely powered down while the MCU runs, so
+three things need care:
 
-- **The bypass group.** Four signals must not go through the switch:
-  `~{BUS_SW_OE}`, `HV_EN`, `FW_TRIG0`/`FW_TRIG1`, and `~{INSTR_BUF_OE}` when it
-  arrives. Same set the proven board bypasses. Per-signal rationale in
-  `docs/interface-map.md`.
-- **The ADC sense group is behind the switch**, so the MCU cannot read
-  `V5_SENSE`, `HV_SNS`, or `~{HV_FAULT}` until the bus is enabled. That fixes the
-  boot order. Flagged as an open layout question in the interface map.
+- **The rule is the far end's power domain.** A GPIO goes through the switch if
+  and only if what it reaches loses power when `HV_EN` drops. That isolates 8
+  channels in Rev 0 and 16 at full scope, and it bypasses considerably more than
+  the proven board does — the pyControl UART above all, plus the whole
+  power-monitoring group. Per-signal rationale in `docs/interface-map.md`.
+- **The bus switch is powered from `+3V3_MCU`**, the always-on domain. Putting it
+  on the switched rail would isolate for free via `Ioff` and would also take the
+  sequencing away from firmware.
+- **The block is oversized for this board.** Four packages isolate 30 GPIOs; this
+  board isolates 16. Either place the proven block whole and leave half unused, or
+  build a two-package board-local section. **Decide before layout** — the
+  trade-off is in `docs/interface-map.md`.
 
-Wire the A side of all 29 allocated GPIOs even though Rev 0 uses 17 — the block
-is a fixed slab and the reserved channels cost nothing now but save a re-place
-later.
+Wire the A side of all 16 isolated GPIOs even though Rev 0 uses 8 — the reserved
+channels cost nothing now and save a re-place later.
 
 ## Blocks Not Yet Existing
 
@@ -119,7 +134,8 @@ later.
 | --- | --- | --- | --- |
 | Limit switch input conditioning | `limit_switch_debounced_input` | **yes** | See below |
 | pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary` | **yes** | Pinout established (`docs/pycontrol-port-pinout.md`): pin 1 `DIO-A` → UART RX, pin 4 `DIO-B` → UART TX, pin 2 `GND`, pin 6 `5V` footprint. Needs series/ESD protection. Stocked RJ-45 candidates: `OW-CONN-J1B1211CCD` (shielded, right-angle, LEDs) and `OW-CONN-438600001` (unshielded, right-angle, official footprint). **No Ethernet magnetics.** Rev 0 populates the UART only. Keep project-local until bench-verified. |
-| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Too thin to abstract until rev 1 adds the PIO tap. |
+| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Encoder supply comes from the **switched** domain, so the encoder resets with everything else. Too thin to abstract until rev 1 adds the PIO tap. |
+| MCU power OR | — | **yes** | Board-local: two Schottkys from USB `VBUS` and pyControl pin 6 into `+5V_MCU`. Stocked candidate `OW-MISC-MBR120VLSFT1G`. |
 | Analog angle output | `dac8563_analog_output` | rev 1 | `DAC8563SDSCR`, channel A to BNC, channel B spare, protection, and any level translation. See `docs/encoder-analog-output.md`. |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. |
 
@@ -138,8 +154,15 @@ change that makes the limit switch independent of the encoder harness.
 | Debouncer | `MAX6816EUS+T` | `OW-MISC-MAX6816EUS-T`, stocked, `orb_weaver_misc:MAX6816` / `orb_weaver_smd:SOT192P237X122-4N` |
 | Support | Local decoupling | The MAX6816 supplies its own pull-up and ±15 kV ESD protection, so the part count stays at three |
 
-Board-facing: `+3.3V`, `GND`, and one debounced output that fans out to the
+Board-facing: `+3V3_SW`, `GND`, and one debounced output that fans out to the
 TMC5130A `REFL` pin and to `GP18`.
+
+**Supply it from the switched domain**, not the MCU domain. Its output drives the
+TMC5130A's `REFL` pin, so if the debouncer stayed powered while the driver did
+not it would back-power the driver through that pin — the exact failure the bus
+switch exists to prevent, arriving by a route the bus switch cannot cover. The
+cost is that `GP18` reads a floating pin while the switched domain is down;
+firmware enables an internal pull to give it a defined level.
 
 Prior art on the previous-generation board used the same debouncer with a MiSUMi
 `D2F-01FL` switch. **The twin-axis board needs this circuit too**, so design it
@@ -151,10 +174,10 @@ to be promotable to `kicad-libs` once bring-up verifies it.
 so block composability is demonstrated for the blocks it uses.
 
 Proven and reused in Rev 0: `rp2040`, `rp2040_gpio_isolation_sn74cb3q3245`,
-`tmc5130`, `hv_to_5v_tpsm365r6`, `5v_to_3v3_tps73733`, `usb2`.
+`tmc5130`, `hv_to_5v_tpsm365r6`, `5v_to_3v3_tps73733` ×2, `usb2`.
 
-Not proven: `hv_input_36V_terminal_2pos_5p08_protected` only — six of seven Rev 0
-blocks are proven. The rescope improved this, because the deferred blocks took
+Not proven: `hv_input_36V_terminal_2pos_5p08_protected` only — seven of eight Rev
+0 block instances are proven. The rescope improved this, because the deferred blocks took
 the two new circuits (DAC, BNC group) with them.
 
 ## Board-Specific Glue

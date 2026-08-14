@@ -1,6 +1,12 @@
 # pyControl Interface
 
-**Rev 0 scope:** the serial link only. `PULL_EVENT`, `FAULT`, and `RSYNC` and
+**Rev 0 scope:** the serial link, plus pin 6's 5 V as one of the two sources that
+power the board at all. Neither the UART nor the 5 V branch passes through the
+GPIO isolation switch, so **the board stays reachable over pyControl with USB
+unplugged and the motor rail switched off** — that is a deliberate property of the
+power architecture, not an accident. See `docs/power.md`.
+
+Otherwise: the serial link only. `PULL_EVENT`, `FAULT`, and `RSYNC` and
 their BNCs are deferred to rev 1, so Rev 0 has **no hardware-timed event or fault
 path** — every event is a UART line with UART latency. Fine for exercising the
 interfaces, not fine for behavioral data, and that is the boundary between Rev 0

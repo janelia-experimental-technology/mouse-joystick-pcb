@@ -58,7 +58,7 @@ see the audit in `docs/power.md`.
   limit. No divider required.
 - `DIAG_EN` and `LATCH` each driven through a 1 kΩ `RPROT` series resistor, per
   the datasheet's Table 4-2.
-- **`R27005` pulls `~FAULT` UP to `+3.3V_MCU`, not down to `GND`.** As originally
+- **`R27005` pulls `~FAULT` UP to `+3V3_MCU`, not down to `GND`.** As originally
   wired it was a pulldown on an open-drain output, which idles low and reads as a
   permanent fault.
 - **`HV_IN` and `SNS` are hierarchical labels**, not local ones. Without `HV_IN`
@@ -101,20 +101,25 @@ see the audit in `docs/power.md`.
   `tmc5130` block ties to `+5V`) can never exceed the `V_VS` + 0.5 V absolute
   maximum, and `VCC` can never arrive after `VCC_IO`. Both orderings hold by
   construction with no sequencing logic.
-- **`+3.3V_MCU` is a separate always-on rail** with its own source on `HV_IN`, or
-  the board's inability to boot from 36 V alone is documented and accepted.
-- **The TMC5130A's `VCC_IO` is on the switched 3.3 V, not on `+3.3V_MCU`.** An
-  always-on `VCC_IO` with a switched `VCC` is the sequencing order the datasheet
-  forbids.
-- Series resistors protect every MCU output that drives a TMC digital input, since
-  `VCC_IO` is 0 V whenever the motor rail is off, and firmware gates those pins on
-  `HV` state.
-- **`+3.3V_MCU` is never switched.** The MCU runs on it and drives `ENABLE`;
+- **`+3V3_MCU` is a separate always-on rail fed only from USB `VBUS` or
+  pyControl pin 6**, through two ORing diodes, with no tap on `HV_IN`. The
+  board's inability to boot from 36 V alone is accepted and silkscreened.
+- **The TMC5130A's `VCC_IO` is on `+3V3_SW`, not on `+3V3_MCU`.** An always-on
+  `VCC_IO` with a switched `VCC` is the sequencing order the datasheet forbids.
+- **Two `5v_to_3v3_tps73733` instances exist, one per domain**, and the two 5 V
+  rails are separate nets that never meet.
+- **Every MCU line reaching the switched domain passes through a
+  `SN74CB3Q3245` channel**, and the pyControl UART, `HV_EN`, `V5_SENSE`,
+  `HV_SNS`, `~{HV_FAULT}` and the `FW_TRIG` markers do not. Series resistors
+  back up the bus switch on those crossings.
+- **The bus switch is powered from `+3V3_MCU`**, so firmware can isolate before
+  dropping `HV_EN`.
+- **`+3V3_MCU` is never switched.** The MCU runs on it and drives `ENABLE`;
   switching it off cannot be undone by firmware.
 - `R4002` in the `tmc5130` block, between `VCC` and `5VOUT`, is 10 Ω where the
   datasheet recommends 2.2 or 3.3 Ω. Confirm or change.
-- `D3`, the pyControl 5 V branch, is populated or explicitly left DNP with the
-  reason recorded.
+- **Both ORing diodes are populated.** The pyControl 5 V branch is no longer
+  optional — it is one of only two sources that power the board.
 - `VBUS` is not tied to `+5V` anywhere.
 - **USB ESD protection is fitted.** The `usb2` block contains none — only the
   receptacle and two 5.1 kΩ `CC` pulldowns. Use the stocked `USBLC6-2P6`, placed on
@@ -208,11 +213,20 @@ see the audit in `docs/power.md`.
 - **Board boots with the motor rail off**, and `HV_EN` raises it. Confirm before
   a motor is attached.
 - **Each power source works alone**, and the board behaves sanely in each state:
-  USB only; pyControl only if `D3` is populated; 36 V only; and every
-  combination, including plugging and unplugging each source while the others are
-  live. Measure the 3.3 V rail in each case.
-- With USB-only power, confirm no current flows into the dead `+5V` rail through
-  any device's input clamps, and that `V5_SENSE` reads it correctly.
+  USB only; **pyControl only, which is now a required mode, not an optional
+  one**; 36 V only, which must be confirmed *not* to boot; and every combination,
+  including plugging and unplugging each source while the others are live.
+  Measure `+3V3_MCU` in each case.
+- **Measure pyControl pin 6's available current** under the board's real load.
+  This is the item that decides whether pyControl-only operation works, and it is
+  unmeasured today.
+- With the switched domain down, confirm no current flows into `+5V_SW` or
+  `+3V3_SW` through any device's input clamps, and that `V5_SENSE` reads them
+  correctly.
+- **Exercise the reset sequence with a scope**: isolate, drop `HV_EN`, confirm
+  `+3V3_SW` collapses with no MCU pin driving into it; then raise `HV_EN`,
+  confirm `V5_SENSE`, and connect. Getting this order wrong is the failure the
+  architecture exists to prevent, so prove it rather than assuming it.
 - No current flows back into the USB host or into pyControl from any other
   source.
 - The analog output reaches a true 5.00 V full scale with the 36 V supply
