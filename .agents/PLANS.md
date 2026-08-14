@@ -97,12 +97,17 @@ Source-of-truth sibling repositories:
 **Two remain, and only the second can actually invalidate the board.** Ranked.
 
 1. **Joystick motor part number.** Sets the motor connector, supply envelope,
-   `ILIM`, and confirms whether 0.67 A is RMS or peak. Owner: Peter.
+   `ILIM`, and confirms whether 0.67 A is RMS or peak. Owner: Peter. Also settles
+   the `tmc5130` block's 200 µF bulk question — see `.agents/handoff.local.md`.
 2. **Encoder part.** Sets single-ended versus differential receive, the encoder
    supply voltage and current, and the harness conductor count. Owner: Peter.
 3. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
    assembly, so how a per-axis board mounts is a decision — but pick a rectangle
    and move on rather than blocking the fab order on it.
+
+**Not blocking, but do not lose:** the schematic is far less connected than
+`README.md` states, netclass patterns match none of this board's rail names, and
+the `rp2040` block exposes no `RUN`/`SWD`. All in `.agents/handoff.local.md`.
 
 **Resolved 2026-08-13, no longer blocking:**
 
@@ -162,6 +167,25 @@ Ready for active PCB work when:
 
 ## Progress Log
 
+- 2026-08-14: **Built three `kicad-libs` blocks and closed the pin 6 budget
+  question.** Added the ORing diode to `usb2` exposing both `VBUS` and
+  `+5V_USB`; created `limit_switch_debounced_input` and
+  `pycontrol_behavior_port_rj45_boundary`. Traced the pyControl 5 V supply from
+  the **host** side in `~/Repositories/github/pycontrol-h7-breakout`: a shared
+  **1.0 A** RECOM `R-78E5.0-1.0` feeding all ten ports, the terminal block, and
+  the controller's own `AMS1117-3.3`, with no per-port fuse — so blocking item 3
+  is answered, and its real consequence is a **new polyfuse requirement** on this
+  board's pin 6 branch. Also corrected the pinout: pin 5 is `DIO-C` on eight of
+  ten ports and a `POW-C` sink driver on two, not "`SPECIAL`", and pins 3/7 are
+  driver outputs, which kills the "use `POW-A`/`POW-B` for event lines"
+  fallback. Decided a **hardware 10 kΩ pull-up on `GP1`** rather than relying on
+  firmware. Mirrored the pinout findings into `../mouse-joysticks-pcb`.
+  **Rev 0 was not finished and not ordered.** A netlist audit found the schematic
+  much less connected than `README.md` claims — the `mcu` sheet has no sheet pins
+  at root, so there are three separate GND nets, the isolation block is entirely
+  unwired, and all 30 GPIOs are unwired. Full state and a ranked action list are
+  in `.agents/handoff.local.md`, which did not exist before today despite being
+  referenced here and in `.agents/AGENTS.md`.
 - 2026-08-13: **Rescoped Rev 0 to the interfaces only** and rewrote the design
   record around it — `interface-map`, `rev0-plan`, `design-block-map`, `README`,
   plus scope banners on the eight docs describing deferred subsystems. Rev 0

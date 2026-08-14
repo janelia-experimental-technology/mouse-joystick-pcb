@@ -148,6 +148,67 @@ Notes:
   It gates step 3 of the sequencing rule above. `+5V_SW` is still required in
   Rev 0 — the TMC5130A's `VCC` minimum is 4.6 V — even though the DAC that also
   needed it is deferred. See `docs/power.md`.
+- **`GP1` needs an external 10 kΩ pull-up to `+3V3_MCU`.** See
+  [`GP1` Gets A Hardware Pull-Up](#gp1-gets-a-hardware-pull-up) below. This is a
+  board-level part on the MCU side of the port block's series resistor, not part
+  of `pycontrol_behavior_port_rj45_boundary`.
+
+### `GP1` Gets A Hardware Pull-Up
+
+**Decided 2026-08-14.** Fit a **10 kΩ 0402 (`OW-RES-10K-0402`, stocked) from
+`PYC_UART_RX` to `+3V3_MCU`**, on the **MCU side** of the port block's `R29001`,
+placed near the RP2040.
+
+`GP1` is the pyControl UART RX. It is driven by the host's `DIO-A`, so it floats
+whenever the cable is unplugged, whenever pyControl is powered down with the
+cable connected, and — the case that matters — **between this board's
+power-on-reset and the instruction where firmware configures the pad**. A UART RX
+line that drifts low reads as a start bit or a break, so the RX FIFO fills with
+framing errors before the first line of protocol code runs.
+
+An internal pull does not cover that window. This is the same argument that keeps
+the external 10 kΩ pulldown on the 36 V block's `EN` — see `docs/power.md` — and
+the same one behind `.agents/AGENTS.md`'s rule that the board must reach a safe
+state without firmware's cooperation. A defined idle level on the link carrying
+the safety heartbeat belongs in that category.
+
+The floating level is genuinely indeterminate rather than merely "probably high":
+the `USBLC6-2P6` on that line leaks 150 nA max, against the RP2040's own ~1 µA
+input leakage.
+
+| Choice | Why |
+| --- | --- |
+| 10 kΩ | 330 µA load when the host drives low, trivial for an STM32 GPIO rated 8-20 mA. Wins against a ~50 kΩ internal pull-down if one is active |
+| `+3V3_MCU`, not `+3V3_SW` | The pyControl UART bypasses the bus switch precisely so it works with the switched domain dark. Pulling to the switched rail would defeat that |
+| MCU side of `R29001` | The point is to define the RP2040's input, so it must hold when the connector path is open — which is the unplugged-cable case. On the connector side it would only load the cable |
+| Board level, not in the block | The block's boundary has no 3.3 V pin, and *which* 3.3 V domain is a board decision. Keep the block's interface at five pins |
+
+**Keep the firmware pull enabled as well.** They parallel to ~8.3 kΩ and cost
+nothing.
+
+**`GP0` (TX) deliberately gets none.** A matching pull-up would keep the host
+seeing idle-high while this board is in reset or BOOTSEL, but it fails
+differently: with `+3V3_MCU` dead and the cable connected, 10 kΩ to a 0 V rail
+holds the host's RX **low**, a continuous break, which is arguably worse than
+floating. That needs both USB absent and the pyControl 5 V branch open, so it is
+a corner — but fit TX only if host-side framing noise actually shows up at
+Gate B.
+
+**Open, and it decides how strong this recommendation is:** `docs/power.md`
+states that RP2040 GPIOs are "inputs with pulls disabled at reset." That may be
+wrong — RP2040 pads are believed to reset with the pull-**down** enabled
+(`PDE` set in `PADS_BANK0`). The RP2040 datasheet is not in `kicad-libs/tmp/`,
+so confirm it.
+
+| If pulls are disabled at reset | If a pull-down is enabled at reset |
+| --- | --- |
+| The external pull-up is belt-and-braces | The external pull-up is **required** — `GP1` is otherwise actively held low until firmware runs |
+
+10 kΩ is the right value either way: against a ~50 kΩ internal pull-down it gives
+3.3 × 50/60 ≈ **2.75 V**, comfortably over a 2.31 V `VIH`. The same claim is
+load-bearing in `docs/power.md` for the `EN` divider, where it is harmless — the
+external pulldown pulls the same direction — but the document should still say
+the right thing.
 
 ### `EXT_FAULT_IN` — Still Deferred, Still Cheap
 
@@ -300,6 +361,10 @@ Properties of the hardware, not choices:
   while `~{BUS_SW_OE}` is high rather than returning stale or floating data.
 - **`GP18` floats while isolated.** Enable an internal pull on it so the MCU's
   limit-switch copy has a defined level in the idle state.
+- **`GP1` has a hardware pull-up, and firmware should still enable its own.**
+  The external 10 kΩ defines RX before firmware runs; the internal pull is the
+  second layer. Do not treat the hardware part as permission to skip it. See
+  [`GP1` Gets A Hardware Pull-Up](#gp1-gets-a-hardware-pull-up).
 - Report both `~{BUS_SW_OE}` and `HV_EN` state in `ID`/`STATUS`. A session that
   silently runs isolated should be impossible to mistake for a working one.
 
