@@ -5,10 +5,17 @@ sessions.
 
 ## Current Goal
 
-Get a **single-axis** board designed, reviewed, and fabricated as quickly as
-possible: RP2040, one TMC5130A, one encoder, one limit switch, one 0-5 V analog
-angle output on BNC, one pyControl UART on RJ-45, InstrumentPort-40, and a 36 V
-switched supply input.
+**Rev 0, rescoped 2026-08-13: get the interfaces on a board and send it to
+fabrication.** RP2040 with GPIO isolation, one TMC5130A on a 4-pin motor
+terminal, one single-ended encoder on a 5-pin terminal read by the driver only,
+one debounced limit switch on a 2-pin terminal, a pyControl UART on RJ-45, and a
+36 V switched supply input that doubles as a chip-reset button.
+
+Deferred to rev 1: the 0-5 V analog angle output, InstrumentPort-40 and its
+buffers, the pyControl TTL event lines, and the PIO encoder cross-check. Their
+pins are reserved and no Rev 0 pin moves when they arrive.
+
+**Session-level detail lives in `.agents/handoff.local.md`.** Read it first.
 
 The rig's two-joystick form factor question stays open. This board is the fast
 path to a testable system, not a commitment against `../mouse-joysticks-pcb`.
@@ -40,13 +47,26 @@ Source-of-truth sibling repositories:
 
 ## Resolved
 
-- **RP2040 GPIO allocation.** 29 of 30, 1 spare, with encoder index, `DIAG1`, the
-  synthetic homing stimulus, software DAC `~LDAC`/`~CLR`, a `+5V` presence sense,
-  and the input switch's fault and current-sense outputs all present. A reclaim
-  order is documented. `docs/interface-map.md`.
-- **InstrumentPort-40 overlay.** All 18 digital slots filled. Same document.
-- **Event-line routing.** Three lines on BNC, two dual jacks plus one. This is
-  the twin board's blocking question, and one axis makes it answerable.
+- **Rev 0 scope, 2026-08-13.** Interfaces only; DAC, InstrumentPort, event
+  lines, and the PIO encoder tap deferred to rev 1. `docs/rev0-plan.md`.
+- **RP2040 GPIO allocation.** Rev 0 connects 17 of 30 and reserves 12 more at
+  fixed numbers; full scope is 29 of 30 with `GP27` spare. **No pin moves between
+  Rev 0 and rev 1.** `TMC_REF_STIM` was deleted permanently and its pin pays for
+  the bus-switch enable on `GP9`. `docs/interface-map.md`.
+- **Two power domains, 2026-08-13.** The high-side switch is a reset button:
+  everything resettable is on `+36V_SW` → `+5V_SW` → `+3V3_SW`, and the MCU is on
+  `+5V_MCU` → `+3V3_MCU` fed from USB `VBUS` or pyControl pin 6 through two ORing
+  diodes. The board does not boot on 36 V alone, accepted. Exactly two
+  `5v_to_3v3_tps73733` instances, one per domain. `docs/power.md`.
+- **GPIO isolation rule.** A GPIO goes through the bus switch if and only if its
+  far end is on the switched domain — 8 channels in Rev 0, 16 at full scope. The
+  pyControl UART bypasses, so the board stays reachable with the motor rail off.
+  The oversized 4-package block is accepted as-is for schedule.
+- **pyControl pin 6 is 5 V**, confirmed from the syringe-pump module netlist. Its
+  current budget is still unmeasured and is a Gate A item.
+- **InstrumentPort-40 overlay.** All 18 digital slots filled — retained in full,
+  rev 1. `docs/interface-map.md`.
+- **Event-line routing.** Three lines on BNC, two dual jacks plus one. Rev 1.
 - **The pyControl port pinout**, from the syringe pump. Cited, not bench-verified.
 - **Current sense**, inherited: 0.15 Ω, `vsense = 1`, `IRUN = 28`.
 - **Supply voltage:** 36 V, using the existing
@@ -60,42 +80,44 @@ Source-of-truth sibling repositories:
 - **The 36 V input block's six edits are applied**, verified by netlist review on
   2026-08-12. `EN` divider, `DIAG_EN`, `LATCH`, `ILIM` = 40 kΩ, `SNS` = 249 Ω, and
   the `~FAULT` route are all in. **Three defects remain**: `~FAULT` is pulled down
-  to `GND` instead of up to `+3.3V_MCU`, and `HV_IN` and `SNS` are local labels
+  to `GND` instead of up to `+3V3_MCU`, and `HV_IN` and `SNS` are local labels
   rather than hierarchical, so the board can reach neither. Plus two cheap
   concerns — `C27002`'s 50 V rating on a 36 V rail, and the misleading `VAA` net
-  name. The `+3.3V_MCU` naming concern was **withdrawn**; naming the rail by its
+  name. The `+3V3_MCU` naming concern was **withdrawn**; naming the rail by its
   domain is correct. All in `docs/power.md`; fix before the block's PCB layout is
   finished.
-- **Multi-source logic power.** Onboard buck, USB `VBUS`, and optionally
-  pyControl 5 V, diode-ORed at the 3.3 V regulator input. `+5V` stays
-  single-sourced because the DAC and the driver's `VCC` need it in spec.
+- **Multi-source logic power, superseded 2026-08-13.** Now two sources only —
+  USB `VBUS` and pyControl pin 6 — ORed at `+5V_MCU`, upstream of the MCU
+  domain's own LDO. The onboard buck is **not** one of them; it lives on the
+  switched domain. The two 5 V rails are separate nets, which is what keeps
+  `+5V_SW` in spec for the TMC's `VCC`.
 
 ## Blocking Items
 
-Ranked. Items 1-5 can stop a fabrication order.
+**Two remain, and only the second can actually invalidate the board.** Ranked.
 
 1. **Joystick motor part number.** Sets the motor connector, supply envelope,
    `ILIM`, and confirms whether 0.67 A is RMS or peak. Owner: Peter.
 2. **Encoder part.** Sets single-ended versus differential receive, the encoder
    supply voltage and current, and the harness conductor count. Owner: Peter.
-3. **DAC8563 `VIH` at `VDD = 5 V`.** Datasheet check. If translation is needed it
-   must be a dual-supply part — an `SN74LVC125A` will not do it.
-4. **Where `+3.3V_MCU` comes from with only the 36 V supply connected.** `VSA`
-   stays on the external 5 V for thermal reasons, so that 5 V is switched with
-   `+36V`, which puts the MCU on a separate always-on rail. Either a small
-   always-on converter taps `HV_IN`, or the board only boots with USB or pyControl
-   present. Owner: Peter.
-5. **The TMC's `VCC_IO` needs its own switched 3.3 V**, not `+3.3V_MCU` — an
-   always-on `VCC_IO` with a switched `VCC` is the sequencing order pin 34 forbids.
-   Confirm the second LDO or gating arrangement.
-6. `EXT_FAULT_IN` on `GP27`: fitted or explicitly declined. Cheap now, a flying
-   wire later.
-7. `D3`, the pyControl 5 V ORing branch: populated or DNP. Gated on measuring the
-   port's 5 V budget. Footprint goes down either way.
-8. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
-   assembly, so how a per-axis board mounts is a decision.
+3. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
+   assembly, so how a per-axis board mounts is a decision — but pick a rectangle
+   and move on rather than blocking the fab order on it.
 
-Items 1-3 are shared with `../mouse-joysticks-pcb`. Answer them once and record
+**Resolved 2026-08-13, no longer blocking:**
+
+- DAC8563 `VIH` — deferred with the DAC to rev 1.
+- Where `+3V3_MCU` comes from — USB or pyControl only, two diodes, no always-on
+  converter on `HV_IN`.
+- The TMC's switched `VCC_IO` — it is on `+3V3_SW` from the second LDO, so all
+  three TMC supplies fall together and the pin-34 ordering holds by construction.
+- `D3`, the pyControl 5 V branch — populated. It is one of only two sources that
+  power the board, so it is no longer conditional.
+- `EXT_FAULT_IN` on `GP27` — rev 1, since Rev 0 has no `FAULT` output to
+  cross-wire.
+- The regulator feed point — post-switch, deliberately.
+
+Items 1-2 are shared with `../mouse-joysticks-pcb`. Answer them once and record
 the answer in both.
 
 **Reopened and narrowed, 2026-08-12: the 36 V TVS.** It belongs on `HV_IN` to
@@ -112,10 +134,10 @@ blocker**. See `docs/power.md`.
    ERC. It has never been placed on any board.
 4. Compose the schematic from existing `kicad-libs` blocks, in the order in
    `docs/rev0-plan.md`.
-5. Design the four sections that do not exist as blocks: pyControl port
-   boundary, event BNC group, DAC output section, debounced limit input. **Design
-   them so `../mouse-joysticks-pcb` can reuse them** — that is a real schedule
-   benefit to the other board and an argument for building this one first.
+5. Design the two sections Rev 0 needs that do not exist as blocks: the
+   pyControl port boundary and the debounced limit input. **Design them so
+   `../mouse-joysticks-pcb` can reuse them.** The event BNC group and the DAC
+   output section move to rev 1 with the functions they serve.
 6. Freeze the GPIO allocation and the instrument overlay against the schematic.
 7. Run ERC/DRC, generate fabrication outputs, order.
 8. Bench bring-up against Gates B through D. The 36 V transient measurement at
@@ -130,15 +152,38 @@ blocker**. See `docs/power.md`.
 Ready for active PCB work when:
 
 - the motor and encoder parts are identified;
-- the DAC logic-level question is settled;
+- ~~the DAC logic-level question is settled~~ **deferred to rev 1**;
 - the bulk-capacitance placement and snubber footprint are decided;
-- the `+3.3V_MCU` source and the switched `VCC_IO` rail are decided;
+- ~~the `+3V3_MCU` source and the switched `VCC_IO` rail are decided~~
+  **done 2026-08-13**;
 - ~~the Guix pin, Makefile, and KiCad scaffold exist~~ **done**; `make validate-db`
   still to be run once in the managed shell;
 - Gate A items in `docs/validation-plan.md` have explicit status.
 
 ## Progress Log
 
+- 2026-08-13: **Rescoped Rev 0 to the interfaces only** and rewrote the design
+  record around it — `interface-map`, `rev0-plan`, `design-block-map`, `README`,
+  plus scope banners on the eight docs describing deferred subsystems. Rev 0
+  connects 17 of 30 GPIOs and reserves the rest at fixed numbers, so rev 1 adds
+  the DAC, the PIO encoder tap, the event lines, and the InstrumentPort without
+  moving a pin. Dropped `TMC_REF_STIM` permanently to pay for the bus-switch
+  enable on `GP9`. Confirmed the whole Rev 0 connector complement is stocked in
+  one 3.5 mm terminal family, and flagged that it is screw, not locking.
+- 2026-08-13: **Adopted the two-domain power architecture.** The high-side switch
+  is a researcher-facing reset button, so the regulator chain is fed
+  *post*-switch and the MCU is fed from USB `VBUS` or pyControl pin 6 through two
+  ORing diodes, never from the 36 V chain. Exactly two `5v_to_3v3_tps73733`, one
+  per domain. This **reversed the pre-switch guidance** in `power.md` and
+  `.agents/AGENTS.md`, and dissolved three open items at once: the `+3V3_MCU`
+  source, the switched `VCC_IO`, and whether the TMC tolerates `VCC_IO` without
+  `VCC`/`VS`. Confirmed pyControl pin 6 is 5 V from the syringe-pump netlist; its
+  current budget stays unmeasured.
+- 2026-08-13: **Rewrote the GPIO isolation rule** to follow the far end's power
+  domain rather than an ad-hoc list. The pyControl UART now bypasses the bus
+  switch, so the board stays reachable with the motor rail off — the earlier
+  write-up had it isolated, which defeated the purpose. 8 isolated channels in
+  Rev 0, 16 at full scope. Accepted the oversized 4-package block for schedule.
 - 2026-08-12: Created the repository. Seeded `.guix/`, `Makefile`, agent shims,
   and an empty KiCad 10 project from `../mouse-joysticks-pcb`, renamed
   throughout. Wrote the design record: `rev0-plan`, `interface-map`, `power`,
@@ -174,9 +219,9 @@ Ready for active PCB work when:
   pre-switch recommendation for that buck. **Consequence to plan for:** the TMC's
   `VCC_IO` cannot sit on the always-on MCU rail, because an always-on `VCC_IO` with
   a switched `VCC` is the order pin 34 forbids — so there are two 3.3 V domains,
-  `+3.3V_MCU` always on and a switched 3.3 V for `VCC_IO` alone. That makes the
-  `+3.3V_MCU` name load-bearing rather than merely descriptive. **New open item:**
-  where `+3.3V_MCU` comes from when only the 36 V supply is connected.
+  `+3V3_MCU` always on and a switched 3.3 V for `VCC_IO` alone. That makes the
+  `+3V3_MCU` name load-bearing rather than merely descriptive. **New open item:**
+  where `+3V3_MCU` comes from when only the 36 V supply is connected.
 - 2026-08-12: Settled the "do not power the TMC5130A without VM" question against
   rev 1.21, and it lands on a different pin than expected. **`VCC` must come up
   EARLY**, not late — pin 34: "make sure, that VCC comes up before or in parallel to
@@ -191,7 +236,7 @@ Ready for active PCB work when:
   rail**: the MCU runs on it and drives `ENABLE`, so that is a deadlock. Also noted
   `R4002` is 10 Ω where the datasheet recommends 2.2-3.3 Ω between `VCC` and
   `5VOUT`. This is a shared change to the `tmc5130` block.
-- 2026-08-12: **Withdrew the `+3.3V_MCU` rename recommendation.** The pull-ups on
+- 2026-08-12: **Withdrew the `+3V3_MCU` rename recommendation.** The pull-ups on
   `DIAG_EN`, `LATCH` and `~FAULT` must reference the rail the MCU itself uses, so
   naming the rail by its domain is correct and more precise than `+3.3V`. Only
   consequence: `5v_to_3v3_tps73733` emits `+3.3V`, so the two names need reconciling
@@ -199,16 +244,16 @@ Ready for active PCB work when:
 - 2026-08-12: Reviewed `hv_input_36V_terminal_2pos_5p08_protected` after the first
   round of edits (refdes renumbered; a `.kicad_pcb` now exists). **Correct:** the
   `EN` divider is now 1 kΩ series + 10 kΩ pulldown giving 3.0 V; `DIAG_EN` and
-  `LATCH` are pulled to `+3.3V_MCU` through 1 kΩ `RPROT`; `ILIM` = 40 kΩ;
+  `LATCH` are pulled to `+3V3_MCU` through 1 kΩ `RPROT`; `ILIM` = 40 kΩ;
   `SNS` = 249 Ω; diode orientation, both capacitor placements, thermal pad to
   `GND`, `NC` left open, `PWR_FLAG` on `HV_IN`, and the HTSSOP-14 PowerPAD
   footprint all check out. **Three defects:** `R27005` pulls `~FAULT` to `GND`
-  instead of `+3.3V_MCU`, so the open-drain output idles low and never presents a
+  instead of `+3V3_MCU`, so the open-drain output idles low and never presents a
   valid high; `HV_IN` is a local label, so the board cannot tap the unswitched node
   for the buck feed or the TVS; and `SNS` is a local label, so the current sense
   cannot reach `GP28`. **Three concerns:** `C27002` is 50 V on a 36 V rail where
   `C27001` is 100 V, and `VOUT` is specified to −60 V during inductive turn-off;
-  `+3.3V_MCU` will not connect to the board's `+3.3V`; and `VAA` names a pin the
+  `+3V3_MCU` will not connect to the board's `+3.3V`; and `VAA` names a pin the
   part does not have. ERC is clean — 32 violations, all library-path or
   isolated-fragment artifacts.
 - 2026-08-12: Checked the six input-block edits against actual stock and the parts

@@ -42,7 +42,7 @@ edits; the list below uses the current ones.
 | # | Defect | Fix |
 | --- | --- | --- |
 | 1 | **`R27005` pulls `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idles low, so it reads as a permanent fault and never presents a valid high. | Move `R27005`'s ground end to **`+3V3_MCU`**, matching `R27002`/`R27003`. 10 kΩ is the right value. |
-| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it twice: to place the TVS at the entry point, and to tap the always-on converter that feeds `+3V3_MCU` so the MCU can drive `ENABLE`. | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. |
+| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it to place the TVS at the entry point. (It no longer needs a second tap there: `+3V3_MCU` comes from USB/pyControl, not from `HV_IN`.) | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. |
 | 3 | **`SNS` is a plain local label**, so the board cannot read the current sense at all. | Promote `SNS` to a **hierarchical label**. Leave `ILIM` local — that one is correct. Schematic-only, no PCB impact. |
 
 The block's board-facing interface is currently only `+3V3_MCU`, `+36V`,
@@ -1112,11 +1112,7 @@ Consequences worth stating plainly:
    ports behind one regulator. This decides whether pyControl-only operation
    works. Measure at Gate A.
 4. `SNS` scaling and whether the block already populates the sense resistor.
-5. How many `5v_to_3v3_tps73733` instances the board ends up with. Two is the
-   minimum the architecture requires — one per domain. A third is worth
-   considering if the switched domain wants its analog and digital 3.3 V
-   separated, or if `+3V3_SW` loads grow in rev 1.
-6. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
+5. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
    if the DAC's own `VIH` demands it rather than as a back-powering fix.
 
 **Resolved 2026-08-13 by the reset-button architecture:**
@@ -1128,6 +1124,10 @@ Consequences worth stating plainly:
 - Both ORing diodes are populated. The pyControl branch is no longer conditional.
 - Whether the `TMC5130A` tolerates `VCC_IO` present with `VCC` and `VS` absent no
   longer needs an answer: all three are on the switched domain and fall together.
+- **Exactly two `5v_to_3v3_tps73733` instances**, one per domain. Decided
+  2026-08-13. The switched domain's 3.3 V is not split into analog and digital,
+  and `+3V3_SW` is not subdivided if rev 1 loads grow — a third instance would be
+  a new decision, not a pre-approved option.
 
 **Resolved, and no longer a purchase item:** the 36 V TVS. No standard TVS can
 protect the `TMC5130A` on a 36 V rail, and the other two parts on that rail do

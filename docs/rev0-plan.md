@@ -131,11 +131,11 @@ idle state rather than an edge case.
   `V5_SENSE` confirms `+5V_SW` is up. Both `V5_SENSE` and `HV_EN` bypass, so
   firmware can do this with the bus isolated.
 
-**Open decision: the block is oversized for this board.** Four `SN74CB3Q3245`
-packages isolate 30 GPIOs; this board needs 16. Either place the proven block
-whole and leave half of it unused, or build a board-local section with two
-packages. Recommendation and the trade-off are in `docs/interface-map.md`; decide
-before layout.
+**Decided 2026-08-13: place the proven block whole.** Four `SN74CB3Q3245`
+packages isolate 30 GPIOs and this board needs 16, so two packages and their
+decoupling are dead weight. Accepted deliberately — schedule beats parts count
+for Rev 0, and the block is already placed and proven. Revisit in a later
+revision if board area gets tight.
 
 Proven on `tmc51x0-driver-dev-pcb`, which bypasses the same *kind* of control
 group — but bypasses far fewer signals, because it has no two-domain power tree.
@@ -364,20 +364,15 @@ what blocks the schedule:
    ports. It is now load-bearing: with USB unplugged it is the only thing
    powering the board. Measure at Gate A. Pin 6 **is** 5 V — that part is
    confirmed from the reference design's netlist.
-4. Whether to place the four-package `rp2040_gpio_isolation_sn74cb3q3245` block
-   whole or build a two-package board-local equivalent. This board isolates 16
-   channels of the block's 32. See `docs/interface-map.md`.
-5. Whether screw terminals are acceptable for the motor and encoder harnesses, or
+4. Whether screw terminals are acceptable for the motor and encoder harnesses, or
    whether a locking 4-pos motor connector must be sourced. Confined to `J5`.
-6. Which breakout the lab deploys, and which port is assigned to this board.
-7. Whether a third `5v_to_3v3_tps73733` is wanted to split the switched domain's
-   analog and digital 3.3 V. Two is the architectural minimum.
-8. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
+5. Which breakout the lab deploys, and which port is assigned to this board.
+6. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
    describes the **two**-joystick assembly, so a single-axis board's mechanical
    envelope is not derivable from it without a decision about how two of these
    boards mount in the rig.
 
-Items 1 through 4 can stop a fabrication order. Everything else can be resolved
+Items 1 through 3 can stop a fabrication order. Everything else can be resolved
 during layout.
 
 **Resolved by the rescope:** the DAC8563 `VIH` question, whether `AUX_ANALOG_OUT`
@@ -385,8 +380,11 @@ gets a populated BNC, and the InstrumentPort cable and mounting arrangement — 
 now rev 1 decisions. See `docs/encoder-analog-output.md` and
 `docs/instrument-strategy.md`, both of which remain valid for rev 1.
 
-**Resolved by the two-domain power architecture:** the regulator chain is fed
-**post**-switch; `+3V3_MCU` comes from USB or pyControl only, with no always-on
+**Also resolved:** the oversized GPIO isolation block is accepted as-is.
+
+**Resolved by the two-domain power architecture:** exactly two
+`5v_to_3v3_tps73733` instances, one per domain, with no third and no split of
+`+3V3_SW`; the regulator chain is fed **post**-switch; `+3V3_MCU` comes from USB or pyControl only, with no always-on
 converter on `HV_IN`; both ORing diodes are populated rather than one being
 conditional; and whether the TMC5130A tolerates `VCC_IO` without `VCC`/`VS` no
 longer needs an answer, because all three now fall together. See `docs/power.md`.

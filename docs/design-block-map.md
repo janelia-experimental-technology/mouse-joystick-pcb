@@ -27,7 +27,10 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 **Eight block instances.** The earlier full-scope plan was twelve or thirteen;
 the twin board's list is fifteen or seventeen.
 
-The two `5v_to_3v3_tps73733` instances are not a duplication to tidy away. The
+**Exactly two `5v_to_3v3_tps73733` instances**, decided 2026-08-13. Not one, not
+three: the switched domain's 3.3 V stays a single undivided rail.
+
+The two instances are not a duplication to tidy away. The
 board has **two power domains** — a switched one that `HV_EN` turns off to reset
 the chips, and an always-on MCU domain fed from USB or pyControl — and each needs
 its own 3.3 V regulator. Merging them would defeat the architecture. See
@@ -120,10 +123,10 @@ three things need care:
 - **The bus switch is powered from `+3V3_MCU`**, the always-on domain. Putting it
   on the switched rail would isolate for free via `Ioff` and would also take the
   sequencing away from firmware.
-- **The block is oversized for this board.** Four packages isolate 30 GPIOs; this
-  board isolates 16. Either place the proven block whole and leave half unused, or
-  build a two-package board-local section. **Decide before layout** — the
-  trade-off is in `docs/interface-map.md`.
+- **The block is oversized for this board, and that is accepted.** Four packages
+  isolate 30 GPIOs; this board isolates 16. Decided 2026-08-13 to place the
+  proven block whole and carry two unused packages rather than build a
+  two-package equivalent. Schedule over parts count; revisit in a later revision.
 
 Wire the A side of all 16 isolated GPIOs even though Rev 0 uses 8 — the reserved
 channels cost nothing now and save a re-place later.

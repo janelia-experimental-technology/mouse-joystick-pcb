@@ -230,7 +230,7 @@ power tree and that board does not. Do not "align" the two.
 `GP19` because it has no 36 V enable there; here `GP19` is `HV_EN` and is already
 wired into `mcu.kicad_sch`. Deliberate divergence, noted so nobody "fixes" it.
 
-### The Block Is Oversized For This Board — Decide Before Layout
+### The Block Is Oversized For This Board — Accepted
 
 The block is four packages because it is built to isolate all 30 GPIOs. Under the
 rule above this board isolates **8 in Rev 0 and 16 at full scope**, so three of
@@ -242,10 +242,11 @@ scope.
 | **A.** Place the block whole, wire 16 channels, leave 16 unused | 3 unnecessary ICs, their decoupling, and the board area | Proven block, zero design work, obvious upgrade path |
 | **B.** Board-local section with two `SN74CB3Q3245` | Two ICs, a new schematic section to verify | Half the parts and area; matches what the board actually needs |
 
-**Recommendation: B, two packages.** 16 channels covers full scope with 0 spare
-— tight, so allow one spare channel by keeping the two packages and accepting 16
-of 16 used. If that feels too tight, option A costs two more ICs and removes the
-question. This is a real decision and it wants making before layout, not after.
+**Decided 2026-08-13: option A.** Place the proven block whole and leave 16 of
+its 32 channels unused. Two `SN74CB3Q3245` packages and their decoupling are
+wasted, and that is accepted — the block is already placed, already proven, and
+Rev 0 is optimising for schedule. Option B remains the right answer for a later
+revision if board area becomes the binding constraint.
 
 Either way, wire the **A (MCU) side of all 16 isolated GPIOs now**, including the
 8 reserved for rev 1, and leave the B side of the reserved channels unconnected.

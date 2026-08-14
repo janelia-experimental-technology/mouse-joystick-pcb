@@ -47,10 +47,11 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
 - **Do not port twin-axis complexity here.** Axis symmetry rules, cross-axis
   fault policy, `XFAULT`, and the `B`-for-both protocol argument belong in
   `../mouse-joysticks-pcb`. Their absence is the point.
-- **Do not descope for pin budget.** This board uses 27 of 30 GPIOs with
-  everything present. If a change needs more pins than are free, say so rather
-  than quietly cutting the encoder index or `DIAG1` the way the twin board had
-  to.
+- **Rev 0 is deliberately scoped down; the pin map is not.** Rev 0 connects 17
+  of 30 GPIOs and reserves 12 more at fixed numbers so rev 1 adds them without
+  moving anything. Full scope is 29 of 30 with `GP27` spare. If a change needs
+  more pins than are free, say so rather than quietly cutting a reserved
+  function. See `docs/interface-map.md` and `docs/rev0-plan.md`.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** `vsense` is CHOPCONF bit 17 and its reset default is 0;
@@ -63,9 +64,14 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   populates no TVS. The TMC's internal 5 V regulator must be offloaded by
   supplying `VCC` externally. See `docs/power.md` before touching the power
   section.
-- **The 36 V input block switches the rail and boots with it off.** Feed the
-  5 V/3.3 V chain from the protected but **unswitched** node. Feeding it
-  post-switch produces a board that cannot enable its own supply.
+- **The high-side switch is a reset button, and the board has two power
+  domains.** Feed `hv_to_5v_tpsm365r6` from the **switched** `+36V_SW` — that is
+  what makes `HV_EN` power-cycle every resettable chip. It is only safe because
+  the MCU is on a separate always-on domain fed from USB `VBUS` or pyControl
+  pin 6 through two ORing diodes, never from the 36 V chain. **Reversed
+  2026-08-13**; earlier guidance said feed pre-switch. Putting the *MCU* on the
+  switched chain is still the way to make an unbootable board. See
+  `docs/power.md`.
 - pyControl owns experiment sequencing. This board owns local motion timing and
   safety. Never move experiment-level decisions into this firmware, and never
   expose unbounded trajectories or raw motor power as the normal API.
@@ -76,12 +82,17 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
 - The assigned pyControl port must be UART-capable: ports 1, 3, or 4 on Breakout
   board 1.2, or 8, 10, 11, or 12 on the D-series Breakout Board 1.6.
 - Both DIO lines on the assigned port are consumed by the UART. The three TTL
-  lines land on BNCs.
+  lines land on BNCs **in rev 1** — Rev 0 carries the serial link only.
+- **pyControl pin 6's 5 V is load-bearing**, not optional: it is one of only two
+  sources that power the board. Confirmed 5 V from the syringe-pump netlist; its
+  current budget is unmeasured.
 - Do not carry motor power through the pyControl behavior port. The board runs a
   36 V rail the port does not supply.
-- The InstrumentPort-40 is intended for use **during scientific experiments**,
-  not only on the bench. Observation must be passive, unidirectional, and unable
-  to affect rig behavior. No divided motor rail reaches any `AIN*`.
+- **InstrumentPort-40 is rev 1, not Rev 0.** Its overlay is retained in full in
+  `docs/interface-map.md` and the pins are reserved. When it arrives: it is
+  intended for use **during scientific experiments**, not only on the bench, so
+  observation must be passive, unidirectional, and unable to affect rig
+  behavior. No divided motor rail reaches any `AIN*`.
 - Do not redefine InstrumentPort-40 here; document only this board's overlay. If
   the profile is genuinely too narrow, raise it in `board-interfaces`.
 - Do not define the reusable pyControl connector profile here. That belongs in
@@ -145,16 +156,16 @@ pin carries 10.0.5 or newer.
 
 ### KiCad Project State
 
-`kicad/mouse-joystick-pcb.kicad_sch` and `.kicad_pcb` are **intentionally
-empty**. The project carries metadata only: 21 netclasses, 108 netclass patterns,
-the 4-layer stackup, plot/fabrication setup, and the JLCPCB design rules,
-inherited from `tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb`.
+**Schematic capture is under way; layout has not started.** See
+`.agents/handoff.local.md` for exactly what is placed and what is left.
 
-Do not populate the schematic without an explicit request. The board is to be
-laid out from scratch.
+The project carries 21 netclasses, 108 netclass patterns, the 4-layer stackup,
+plot/fabrication setup, and the JLCPCB design rules, inherited from
+`tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb`.
 
-A DRC run on the empty board reports exactly one violation, `invalid_outline` —
-no edges on `Edge.Cuts`. That is expected and not a defect to chase.
+`kicad/mouse-joystick-pcb.kicad_pcb` is still empty, so DRC reports exactly one
+violation, `invalid_outline` — no edges on `Edge.Cuts`. Expected until an outline
+is drawn, not a defect to chase.
 
 The netclass patterns are generic rail and signal names (`+24V`, `VM`, `PGND`,
 `+3V3`, `USB_HS`, encoder and instrument differential pairs). **The rail here is
