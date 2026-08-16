@@ -1,12 +1,16 @@
 # Validation Plan
 
-**Rev 0 scope:** gates that exercise the analog angle output, InstrumentPort-40,
-the buffered digital observation path, the pyControl TTL event lines, or the PIO
-encoder cross-check do not apply to Rev 0 hardware, which does not carry them.
-Run them when rev 1 adds the circuits. Everything covering power, the driver,
-the encoder-to-driver path, homing, and the serial link applies as written.
-Note that `ENCODER_MISMATCH` cannot be tested on Rev 0 — there is no second
-count to disagree with.
+**Rev 0 scope:** gates that exercise the analog angle output, the pyControl TTL
+event lines, or the PIO encoder cross-check do not apply to Rev 0 hardware, which
+does not carry them. Run them when rev 1 adds the circuits. Everything covering
+power, the driver, the encoder-to-driver path, homing, and the serial link
+applies as written. Note that `ENCODER_MISMATCH` cannot be tested on Rev 0 —
+there is no second count to disagree with.
+
+**InstrumentPort-40 gates apply to Rev 0 as of 2026-08-16**, but only for the ten
+live Strands and the three fitted buffer packages. Do not fail a gate on the eight
+unrouted Strands or on `U_C`/`U_D` being DNP; do check that they are DNP rather
+than populated with floating inputs.
 
 **Status:** Planning
 **Date:** 2026-08-12
@@ -179,11 +183,26 @@ see the audit in `docs/power.md`.
   BNCs for **all boards in the rig**, not just this one.
 - The InstrumentPort-40 overlay is reviewed against `board-interfaces` and not
   redefined here.
+- **`J4`'s cable orientation is documented before fabrication** — connector
+  reference, physical pin-1 marker location, contact side, expected cable type and
+  orientation, and whether the mating board sees the logical pin order mirrored.
+  The profile requires this of every board that uses it, and it is an open
+  decision in the profile itself.
 - All 18 `DIG*`/`TRIG*` signals are buffered; `~OE` defaults to high-Z in
   hardware and firmware enables it at startup.
+- **The pyControl serial Strands are tapped on the connector side** of
+  `R29001`/`R29002`, not the MCU side. Confirm on the schematic — the two nodes
+  look identical on a scope and only the netlist tells them apart.
+- **No `SN74LVC125A` input floats.** `U_C`/`U_D` are DNP with unrouted inputs;
+  `U_E`'s unused `DIG11`/`DIG12` inputs are tied to GND; and `TMC_SPI_CIPO`,
+  `ENC_A`, and `ENC_B` each carry a 100 kΩ pull-down at the buffer input.
+- **`ENC_A`/`ENC_B` are tapped on the driver side of the encoder input filter**,
+  so the capture shows what the TMC5130A's pins receive rather than what the cable
+  delivers.
 - `AOUT0`/`AOUT1` are no-connect, and no divided motor rail reaches any `AIN*`.
-- Labelled test points exist for the 8 signals not carried by InstrumentPort-40,
-  plus `HV_SNS` and `SWSEL`.
+- Labelled test points exist for the 10 signals not carried by InstrumentPort-40,
+  including `ENC_N` and `LIMIT_SW`, **plus `ENC_A`/`ENC_B`**, which lose their
+  port slots at rev 2 and fall back to the pads.
 
 ### Mechanical and process
 

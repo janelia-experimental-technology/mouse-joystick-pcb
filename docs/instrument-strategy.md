@@ -1,14 +1,24 @@
 # Instrument Strategy
 
-**Rev 0 scope:** deferred to rev 1. Rev 0 carries no InstrumentPort-40 and no
-instrumentation buffers, so its only observation paths are the USB CDC console,
-two `FW_TRIG` test points, and a scope on labelled test pads. The overlay and the
-buffering plan survive intact in `docs/interface-map.md`; six of the eighteen
-digital slots carry signals Rev 0 does not have, which is why the port arrives
-with the DAC and the PIO encoder tap rather than before them.
+**Rev 0 scope: the port is in Rev 0.** Decided 2026-08-16, reversing the
+2026-08-12 deferral. The reason is firmware development rather than experiments:
+being able to see the pyControl serial link at the cable and the TMC5130A SPI bus
+in one capture is what makes protocol and driver bring-up tractable. Rev 0
+populates `J4`, three of the five buffer packages, and **ten of the eighteen
+digital Strands** — the four TMC SPI signals, both pyControl serial directions,
+both firmware triggers, and `ENC_A`/`ENC_B`.
+
+The encoder pair are temporary tenants of `DIG0`/`DIG1`, the slots the rev 2
+torque front-end bus will take. They earn Rev 0 space because the TMC5130A's
+`X_ENC` register is the only encoder count on the board, and capturing the raw
+edges next to the SPI reads of that register is the only way to check the driver
+is decoding correctly.
+
+The remaining eight Strands are allocated now and routed when their circuits
+arrive. Full allocation in `docs/interface-map.md`.
 
 **Status:** Planning
-**Date:** 2026-08-12
+**Date:** 2026-08-16
 **Derived from:** `../mouse-joysticks-pcb/docs/instrument-strategy.md`
 **Source profile:** `board-interfaces/docs/instrument-port-40.md`,
 `board-interfaces/docs/la5032-instrument-port-40-mapping.md`
@@ -23,11 +33,22 @@ not.
 - **Event latency.** How long from a genuine pull to the `PULL_EVENT` edge, and
   from that edge to pyControl's logged timestamp. Software logs on either side
   cannot establish this alone.
-- **Verifying the analog output.** `DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`,
-  `ENC_A`, `ENC_B`, `ENC_N`, and the analog output itself are all in the capture.
-  "Does the voltage match the encoder?" is answerable from one file with no
-  firmware cooperation. This is the single best justification for the port on
-  this board.
+- **Firmware development.** The Rev 0 reason, and the one that pulled the port
+  forward. `PYC_DIO_A_CONN` and `PYC_DIO_B_CONN` show both directions of the
+  pyControl link *at the RJ-45*, so a protocol bug can be attributed to the wire,
+  to this board's parser, or to the breakout board, rather than argued about. The
+  TMC SPI bus in the same capture shows the driver transactions that resulted.
+- **Checking the driver's encoder decode.** The Rev 0 reason for `ENC_A`/`ENC_B`.
+  Rev 0 has no PIO cross-check, so the TMC5130A's `X_ENC` register is the only
+  count on the board and nothing in firmware can contradict it. Raw edges plus
+  SPI reads of that register, in one capture, make the comparison by hand.
+- **Verifying the analog output.** `DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`, and
+  the analog output on `AIN0` are all in the capture from rev 1. "Does the voltage
+  match the encoder?" is answerable from one file — against the raw edges while
+  the encoder holds `DIG0`/`DIG1`, and against the driver's `X_ENC` reads after
+  the torque bus takes those slots at rev 2. By then rev 1's PIO cross-check gives
+  firmware its own second count. See `docs/interface-map.md`,
+  "`DIG0`/`DIG1` Are The Swap Slots".
 - **Time alignment.** `RSYNC` in the same capture as everything else means the
   board's local time can be placed in pyControl's frame with measured, not
   assumed, uncertainty.
@@ -117,8 +138,11 @@ deliberately:
 - `AOUT0` and `AOUT1` are **no-connect** on this board. There is no analog
   stimulus path.
 - No target power is injected through the connector.
-- `AIN1_P/N` observes a 0-5 V DAC output, not a divided 36 V rail. The motor rail
-  never reaches the instrument connector. See `docs/interface-map.md`.
+- `AIN1_P/N` observes a ground-referenced 0-5 V board node, not a divided 36 V
+  rail. The motor rail never reaches the instrument connector. Its assignment is
+  contested between `AUX_ANALOG_OUT` and a rev 2 `BRAKE_ISENSE`; if the brake
+  monitor wins it must be low-side or ground-referenced, for this reason. See
+  `docs/interface-map.md`.
 
 Anything that would add a drive path from the instrument into the board — a
 bidirectional buffer, a populated `AOUT*`, an M2K used for stimulus — must be
@@ -141,8 +165,31 @@ needs.
 
 ## Overlay
 
-All 18 digital slots are filled, and the mapping and buffer grouping are in
-`docs/interface-map.md`. Eight signals sit on labelled test points, not vias.
+All 18 digital slots are allocated — 10 live in Rev 0, 6 more at rev 1, and 4
+reserved for the rev 2 brake and torque sensor, two of which the encoder occupies
+meanwhile. The mapping, the buffer grouping, the tap-point rules, and the reclaim
+order if brake and torque need a fifth slot are all in `docs/interface-map.md`.
+Ten signals sit on labelled test pads, not vias.
+
+### No Buffer Input May Float
+
+`U_C` and `U_D` are DNP in Rev 0 with their inputs unrouted. The grouping in
+`docs/interface-map.md` puts each revision's signals in whole packages precisely
+so a deferred group never leaves a powered CMOS input undriven; if that grouping
+is edited, preserve the property.
+
+`U_E` is the exception — it is fitted in Rev 0 for the encoder taps while its
+other two channels wait for the brake. **Its `DIG11` and `DIG12` inputs are tied
+to GND**, which is a net rather than a part and is the correct treatment for an
+unused LVC125A input.
+
+Three inputs need pull-downs rather than ties:
+
+- `TMC_SPI_CIPO`, because the TMC5130A tri-states `SDO` between transactions.
+- `ENC_A` and `ENC_B`, because the encoder is on the switched domain and floats
+  whenever `HV_EN` is low, while `U_E` runs from `+3V3_MCU`.
+
+100 kΩ each, at the buffer input. These are the only new passives the port adds.
 
 ## M2K Use
 

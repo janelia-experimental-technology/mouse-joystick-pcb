@@ -11,9 +11,12 @@ terminal, one single-ended encoder on a 5-pin terminal read by the driver only,
 one debounced limit switch on a 2-pin terminal, a pyControl UART on RJ-45, and a
 36 V switched supply input that doubles as a chip-reset button.
 
-Deferred to rev 1: the 0-5 V analog angle output, InstrumentPort-40 and its
-buffers, the pyControl TTL event lines, and the PIO encoder cross-check. Their
-pins are reserved and no Rev 0 pin moves when they arrive.
+Rev 0 also carries **InstrumentPort-40**, moved back in on 2026-08-16 for
+firmware development — see Resolved below.
+
+Deferred to rev 1: the 0-5 V analog angle output, the pyControl TTL event lines,
+and the PIO encoder cross-check. Their pins are reserved and no Rev 0 pin moves
+when they arrive.
 
 **Session-level detail lives in `.agents/handoff.local.md`.** Read it first.
 
@@ -47,8 +50,9 @@ Source-of-truth sibling repositories:
 
 ## Resolved
 
-- **Rev 0 scope, 2026-08-13.** Interfaces only; DAC, InstrumentPort, event
-  lines, and the PIO encoder tap deferred to rev 1. `docs/rev0-plan.md`.
+- **Rev 0 scope, 2026-08-13, amended 2026-08-16.** Interfaces plus the means to
+  observe them; DAC, event lines, and the PIO encoder tap deferred to rev 1.
+  `docs/rev0-plan.md`.
 - **RP2040 GPIO allocation.** Rev 0 connects 17 of 30 and reserves 12 more at
   fixed numbers; full scope is 29 of 30 with `GP27` spare. **No pin moves between
   Rev 0 and rev 1.** `TMC_REF_STIM` was deleted permanently and its pin pays for
@@ -64,8 +68,36 @@ Source-of-truth sibling repositories:
   The oversized 4-package block is accepted as-is for schedule.
 - **pyControl pin 6 is 5 V**, confirmed from the syringe-pump module netlist. Its
   current budget is still unmeasured and is a Gate A item.
-- **InstrumentPort-40 overlay.** All 18 digital slots filled — retained in full,
-  rev 1. `docs/interface-map.md`.
+- **InstrumentPort-40 is in Rev 0, re-allocated 2026-08-16.** Moved back in for
+  firmware development: the port carries both directions of the pyControl serial
+  link *tapped at the RJ-45*, the TMC5130A SPI bus, the two firmware triggers, and
+  `ENC_A`/`ENC_B` — 10 of 18 digital Strands live at fabrication. The other 8 are
+  allocated and unrouted, **4 reserved for the rev 2 brake and torque sensor** so
+  those circuits inherit a pinout instead of renegotiating one. The overlay now
+  follows the profile's own Preferred Digital Overlays table: TMC bus on the SPI
+  slots, pyControl serial on the first UART pair, brake PWM and fault on the
+  PWM/fault slots, torque front end on the I2C slots.
+  - **`DIG0`/`DIG1` are swap slots.** `ENC_A` and `ENC_B` hold the torque bus's
+    two slots through Rev 0 and rev 1, and hand them over at rev 2. They earn the
+    space because Rev 0 has no PIO cross-check, so the TMC5130A's `X_ENC` register
+    is the only encoder count on the board and nothing can contradict it —
+    capturing the raw edges beside the SPI reads of that register is the only
+    check that the driver decodes correctly. `DIG0`/`DIG1` were chosen over any
+    other pair because they sit in the rev 2 buffer package, which makes the
+    eviction as late as possible. `ENC_N` stays on a test pad.
+  - **Two new boundary pins are needed on
+    `pycontrol_behavior_port_rj45_boundary`** — `PYC_DIO_A_CONN` and
+    `PYC_DIO_B_CONN` on the connector side of `R29001`/`R29002`. Topology change,
+    must land before the block is placed. Free right now; it has not been placed.
+  - `GP24` `~{INSTR_BUF_OE}` is now live, taking Rev 0 to 18 connected GPIOs. No
+    pin moved.
+  - **Three 100 kΩ pull-downs are the only new passives** — `TMC_SPI_CIPO`,
+    `ENC_A`, `ENC_B`. Buffer packages `U_A`, `U_B`, `U_E` are fitted; `U_C` and
+    `U_D` are DNP with unrouted inputs. `U_E`'s two brake channels have their
+    inputs tied to GND until rev 2.
+  - **It costs layout schedule** — a 40-pin FFC, five buffer footprints, and 18
+    more routed nets on the board whose layout was already the long pole.
+  - `docs/interface-map.md`, `docs/instrument-strategy.md`.
 - **Event-line routing.** Three lines on BNC, two dual jacks plus one. Rev 1.
 - **The pyControl port pinout**, from the syringe pump. Cited, not bench-verified.
 - **Current sense**, inherited: 0.15 Ω, `vsense = 1`, `IRUN = 28`.
@@ -139,11 +171,15 @@ blocker**. See `docs/power.md`.
    ERC. It has never been placed on any board.
 4. Compose the schematic from existing `kicad-libs` blocks, in the order in
    `docs/rev0-plan.md`.
-5. Design the two sections Rev 0 needs that do not exist as blocks: the
-   pyControl port boundary and the debounced limit input. **Design them so
-   `../mouse-joysticks-pcb` can reuse them.** The event BNC group and the DAC
-   output section move to rev 1 with the functions they serve.
-6. Freeze the GPIO allocation and the instrument overlay against the schematic.
+5. ~~Design the two sections Rev 0 needs that do not exist as blocks: the
+   pyControl port boundary and the debounced limit input.~~ **Done 2026-08-15
+   and 2026-08-16**, both with saved PCB layouts, both still project-local
+   pending bench verification. The event BNC group and the DAC output section
+   move to rev 1 with the functions they serve.
+6. Add `PYC_DIO_A_CONN`/`PYC_DIO_B_CONN` boundary pins to the pyControl block, so
+   the InstrumentPort can tap the serial link at the cable. Must land before the
+   block is placed.
+7. Freeze the GPIO allocation and the instrument overlay against the schematic.
 7. Run ERC/DRC, generate fabrication outputs, order.
 8. Bench bring-up against Gates B through D. The 36 V transient measurement at
    the TMC5130A `VS` pins is the one that justifies or condemns the supply
@@ -167,6 +203,30 @@ Ready for active PCB work when:
 
 ## Progress Log
 
+- 2026-08-16: **Moved InstrumentPort-40 into Rev 0 and re-allocated all 18 digital
+  Strands.** The port is now justified by firmware development rather than by
+  experiments — both directions of the pyControl serial link, tapped at the
+  RJ-45, plus the TMC5130A SPI bus in one capture. **10 Strands live at
+  fabrication, 8 allocated and unrouted, 4 reserved for the rev 2 brake and torque
+  sensor** so those circuits inherit a pinout. `ENC_A`/`ENC_B` borrow two of the
+  reserved slots — `DIG0`/`DIG1`, in the rev 2 buffer package so the eviction is
+  as late as possible — because the driver's `X_ENC` register is the only encoder
+  count Rev 0 has and the raw edges are the only way to check it decodes
+  correctly. `ENC_N` went to a test pad. The new allocation also follows the v0.3
+  profile's own Preferred Digital Overlays table much more closely than the
+  superseded one did. Decided the three tap points — connector side for the
+  pyControl serial, A side of the bus switch for the TMC, driver side of the
+  filter for the encoder — and the three 100 kΩ pull-downs they need, on
+  `TMC_SPI_CIPO`, `ENC_A`, and `ENC_B`. Regrouped the five buffer packages so each
+  revision populates whole packages and no CMOS input floats: `U_A`/`U_B`/`U_E`
+  fitted, `U_C`/`U_D` DNP, `U_E`'s two brake inputs GND-tied until rev 2. `GP24`
+  went live, taking Rev 0 to 18 connected GPIOs with no pin moved. Corrected the
+  old claim that six slots carried signals Rev 0 does not have — only the three
+  DAC wires were genuinely absent. Updated `interface-map`, `design-block-map`,
+  `instrument-strategy`, `rev0-plan`, `validation-plan`, `bringup-log`, `README`,
+  `.agents/AGENTS.md`, the handoff, and this file. **Not yet done:** the two new
+  boundary pins on the pyControl block, and every bit of the schematic and layout
+  work itself.
 - 2026-08-14: **Built three `kicad-libs` blocks and closed the pin 6 budget
   question.** Added the ORing diode to `usb2` exposing both `VBUS` and
   `+5V_USB`; created `limit_switch_debounced_input` and

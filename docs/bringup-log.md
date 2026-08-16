@@ -1,9 +1,11 @@
 # Bring-Up Log
 
-**Rev 0 scope:** Rev 0 hardware carries no analog angle output, no
-InstrumentPort-40, no buffered digital observation, no pyControl TTL event
-lines, and no PIO encoder cross-check. Sections below covering those record
+**Rev 0 scope:** Rev 0 hardware carries no analog angle output, no pyControl TTL
+event lines, and no PIO encoder cross-check. Sections below covering those record
 rev 1 measurements. See `docs/rev0-plan.md`.
+
+**Rev 0 does carry InstrumentPort-40**, with 10 of 18 digital Strands live and 3
+of 5 buffer packages fitted. Record only the live Strands.
 
 Use this file to record measured behavior of real boards. Record numbers with
 units, not pass/fail marks.
@@ -206,10 +208,22 @@ Expected configuration: `R_SENSE` 0.15 Ω, `vsense = 1`, `IRUN = 28`, target
 ## InstrumentPort-40
 
 - Adapter used:
+- `J4` cable orientation confirmed by continuity, pin-1 to pin-1:
 - Buffer `~OE` state at power-on, before firmware, confirmed high-Z:
 - Firmware enables buffers at startup:
 - Buffer state reported in `ID`/`STATUS`:
-- All 18 signals present and correctly mapped:
+- All 10 Rev 0 Strands present and correctly mapped:
+- pyControl serial decodes at 115200 8N1 on `DIG7`/`DIG8`, both directions:
+- `DIG7`/`DIG8` confirmed to be the **connector-side** tap, by pulling
+  `R29001` and checking the Strand still follows the cable:
+- TMC SPI decodes on `DIG2`-`DIG5`, and `TMC_SPI_CIPO` goes quiet when
+  `~{BUS_SW_OE}` is deasserted:
+- **Encoder decode check.** Quadrature edges counted on `DIG0`/`DIG1` over a
+  known joystick sweep, against `X_ENC` read over SPI in the same capture.
+  Edge count, register delta, and any discrepancy:
+- Direction reversal produces the expected `X_ENC` sign change:
+- `DIG0`/`DIG1` read a defined low with `HV_EN` off, confirming the 100 kΩ
+  pull-downs hold the switched-domain taps:
 - Signal integrity at the instrument:
 - `AOUT*` confirmed unpopulated:
 - Gate D motion/timing check repeated with analyzer attached versus detached, any

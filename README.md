@@ -29,14 +29,19 @@ carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
 - **pyControl RJ-45** behavior port carrying the serial link, 115200 8N1 — and
   nothing else.
 
-Deferred to rev 1: the 0-5 V analog angle output and its BNC, InstrumentPort-40
-and its five buffers, the `PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs,
-and the RP2040 PIO encoder cross-check. Every one of them lands on pins Rev 0 has
-already allocated and left unconnected.
+- **InstrumentPort-40** on a 40-pin FFC, so a logic analyzer sees the pyControl
+  serial link at the connector and the TMC5130A SPI bus in one capture.
 
-Assembled from `kicad-libs` design blocks — **eight instances**, including two
-`5v_to_3v3_tps73733`, one per power domain. Exactly one of them, the 36 V input,
-has never been placed on a board before.
+Deferred to rev 1: the 0-5 V analog angle output and its BNC, the
+`PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs, and the RP2040 PIO encoder
+cross-check. Every one of them lands on pins Rev 0 has already allocated and left
+unconnected.
+
+Assembled from `kicad-libs` design blocks — **fifteen instances**, including two
+`5v_to_3v3_tps73733`, one per power domain, and five instrumentation buffers of
+which three are fitted. Four of them have never been placed on a board before: the
+36 V input, the limit-switch debouncer, the pyControl RJ-45 boundary, and the
+InstrumentPort FFC boundary.
 
 ## Two Repositories, One Rig
 
@@ -81,7 +86,7 @@ without disturbing anything Rev 0 established.
 | DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` | rev 1 |
 | Encoder PIO | `GP14` A, `GP15` B, `GP16` N — contiguous | rev 1 |
 | pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` | rev 1 |
-| Instrument buffer enable | `GP24` `~INSTR_BUF_OE` | rev 1 |
+| Instrument buffer enable | `GP24` `~INSTR_BUF_OE` | yes |
 | Spare | `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
 
 **One pin was traded, not found.** The isolation bus switch needs an enable, and
@@ -97,9 +102,20 @@ pyControl UART, so **the board still answers `ID`/`STATUS` with the motor rail
 switched off**. That is the whole point of the arrangement. Per-signal rationale
 in the interface map.
 
-**InstrumentPort-40 is deferred to rev 1**, and its overlay is retained in full
-in the interface map. Six of its eighteen slots carry signals Rev 0 does not
-have, so it arrives with the DAC and the PIO encoder tap rather than before them.
+**InstrumentPort-40 is in Rev 0** as of 2026-08-16, for firmware development
+rather than for experiments. Ten of its eighteen digital Strands are live: the
+four TMC5130A SPI signals, both directions of the pyControl serial link tapped at
+the RJ-45 rather than at the MCU, the two firmware triggers, and the two encoder
+quadrature channels. The other eight are allocated and unrouted, **four of them
+reserved for the rev 2 electronic brake and torque sensor**.
+
+`ENC_A` and `ENC_B` are borrowing two of those reserved slots. Rev 0 has no PIO
+cross-check, so the TMC5130A's own count is the only one on the board and nothing
+in firmware can contradict it — capturing the raw edges beside the SPI reads of
+that register is what confirms the driver is decoding the encoder correctly. They
+sit in the slots belonging to the rev 2 buffer package, so they survive rev 1 and
+hand over only when the torque front end arrives. Full allocation in the
+interface map.
 
 ## The High-Side Switch Is A Reset Button
 

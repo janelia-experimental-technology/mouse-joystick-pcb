@@ -1,7 +1,7 @@
 # Mouse Joystick PCB Rev 0 Plan
 
-**Status:** Planning, rescoped 2026-08-13
-**Date:** 2026-08-13
+**Status:** Planning, rescoped 2026-08-13, InstrumentPort added back 2026-08-16
+**Date:** 2026-08-16
 **Purpose:** Get a manufacturable single-axis board designed and ordered as fast
 as possible, so the researcher can **exercise the interfaces** — motor, encoder,
 limit switch, and the pyControl serial link — while the twin-axis form factor is
@@ -10,8 +10,8 @@ still being decided.
 ## Rescoped 2026-08-13
 
 Rev 0 was cut down to shorten the path to testable hardware. The board no longer
-carries the analog encoder-angle output, the InstrumentPort, or the pyControl TTL
-event lines. It carries the interfaces and nothing else.
+carries the analog encoder-angle output or the pyControl TTL event lines. It
+carries the interfaces, the means to observe them, and nothing else.
 
 The purpose changed with it. The earlier plan aimed at a board the researcher
 could run experiments against. **This one aims at a board that proves the
@@ -21,11 +21,38 @@ experiments start.
 | Moved out of Rev 0 | Returns in |
 | --- | --- |
 | DAC8563 0-5 V analog angle output and its BNC | rev 1 |
-| InstrumentPort-40 FFC and five instrumentation buffers | rev 1 |
 | `PULL_EVENT`, `FAULT`, `RSYNC` and their BNCs | rev 1 |
 | RP2040 PIO encoder cross-check | rev 1 |
 | Electronic brake, torque sensor, extra analog outputs | rev 2+ |
 | Synthetic homing stimulus (`TMC_REF_STIM`) | **never** — dropped permanently |
+
+### The InstrumentPort Came Back, 2026-08-16
+
+It was in the table above until 2026-08-16, deferred on the grounds that six of
+its eighteen digital slots carried signals Rev 0 does not have. That reasoning
+was partly wrong — the encoder nets exist in Rev 0, they just do not reach the
+MCU — and it weighed the wrong thing. **The port's Rev 0 value is firmware
+development, not experiments:** seeing the pyControl link at the cable and the
+TMC5130A SPI bus in one capture is what makes protocol and driver bring-up
+tractable, and that value is highest exactly when the board is new.
+
+Rev 0 populates `J4`, buffer packages `U_A`, `U_B`, and `U_E`, and **ten of the
+eighteen digital Strands**. The other eight are allocated and unrouted, four of
+them reserved for the rev 2 brake and torque sensor so those circuits do not have
+to renegotiate the pinout.
+
+`ENC_A` and `ENC_B` borrow two of those reserved slots until rev 2. Rev 0 has no
+PIO cross-check, so the TMC5130A's `X_ENC` register is the only encoder count on
+the board; capturing the raw edges beside the SPI reads of that register is the
+only way to confirm the driver is decoding correctly. They sit in `DIG0`/`DIG1`,
+the rev 2 package's slots, so they survive rev 1 and are evicted as late as
+possible. Full allocation and reasoning in `docs/interface-map.md`.
+
+**This costs schedule.** It adds a 40-pin FFC, five buffer footprints of which
+three are populated, three pull-down resistors, and eighteen more routed nets to a
+board whose layout was already the long pole — see `.agents/handoff.local.md`. It
+is the researcher's call whether that is worth a slip; the design record's job is
+to say plainly that it is a slip.
 
 `TMC_REF_STIM` is not deferred, it is deleted. The limit switch now arrives
 through a real debouncer on its own terminal block, so homing is exercised by
@@ -63,12 +90,12 @@ for it. This board exists because it can be finished sooner:
 
 | Twin-axis board | This board |
 | --- | --- |
-| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 29 of 30 at full scope with a documented reclaim order; **17 of 30 in Rev 0** |
+| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 29 of 30 at full scope with a documented reclaim order; **18 of 30 in Rev 0** |
 | Event-line routing is an open blocking question: 4 lines, no home | Deferred entirely in Rev 0; 3 lines and 4 BNCs when it returns |
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One motor section, one encoder path, no analog output |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
 | Two motors' supply current, doubled bulk and protection | One motor |
-| Two of every harness and connector | Seven connectors total |
+| Two of every harness and connector | Eight connectors total |
 
 See `docs/relationship-to-twin-axis-board.md` for what is being traded away and
 what carries forward.
@@ -436,12 +463,12 @@ defect.
 Written down now so Rev 0 does not foreclose it. All of it lands on pins Rev 0
 already allocated and left unconnected:
 
-| Addition | Pins | Blocks |
-| --- | --- | --- |
-| DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new |
-| PIO encoder cross-check | `GP14`-`GP16` | tap off the existing encoder nets |
-| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new |
-| InstrumentPort-40 + five buffers | `GP24` | `instrument_port_40_dut_ffc_boundary`, `instrumentation_signal_buffer_sn74lvc125a` ×5 |
+| Addition | Pins | Blocks | InstrumentPort Strands |
+| --- | --- | --- | --- |
+| DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new | `DIG6`, `DIG9`, `DIG10`, `AIN0`; buffer `U_C` |
+| PIO encoder cross-check | `GP14`-`GP16` | tap off the existing encoder nets | none new — `ENC_A`/`ENC_B` are already on `DIG0`/`DIG1` |
+| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; buffer `U_D` |
+| Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs buffer `U_E` |
 
 Nothing in that table requires moving a Rev 0 pin, changing a Rev 0 connector, or
 rewriting Rev 0 firmware. That is the property the Rev 0 allocation was built to

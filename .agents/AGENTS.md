@@ -88,11 +88,20 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   current budget is unmeasured.
 - Do not carry motor power through the pyControl behavior port. The board runs a
   36 V rail the port does not supply.
-- **InstrumentPort-40 is rev 1, not Rev 0.** Its overlay is retained in full in
-  `docs/interface-map.md` and the pins are reserved. When it arrives: it is
-  intended for use **during scientific experiments**, not only on the bench, so
+- **InstrumentPort-40 is in Rev 0** as of 2026-08-16, with 10 of 18 digital
+  Strands live and 4 reserved for the rev 2 brake and torque sensor — two of
+  which `ENC_A`/`ENC_B` borrow until then. `DIG0`/`DIG1` are **swap slots**; do
+  not treat the encoder's presence there as permanent, and do not reassign them
+  early. The full allocation is in `docs/interface-map.md`. It is intended
+  for use **during scientific experiments**, not only on the bench, so
   observation must be passive, unidirectional, and unable to affect rig
   behavior. No divided motor rail reaches any `AIN*`.
+- **Tap points are decisions, not details.** The pyControl serial is observed on
+  the *connector* side of the port block's series resistors, the TMC5130A bus on
+  the *A* side of the GPIO isolation switch, and the encoder on the *driver* side
+  of its input filter. All three are reasoned in `docs/interface-map.md`; do not
+  "simplify" any of them without reading it. Each carries a 100 kΩ pull-down where
+  the tapped net can float, and no `SN74LVC125A` input may be left undriven.
 - Do not redefine InstrumentPort-40 here; document only this board's overlay. If
   the profile is genuinely too narrow, raise it in `board-interfaces`.
 - Do not define the reusable pyControl connector profile here. That belongs in
