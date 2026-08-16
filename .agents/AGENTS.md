@@ -83,6 +83,11 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   board 1.2, or 8, 10, 11, or 12 on the D-series Breakout Board 1.6.
 - Both DIO lines on the assigned port are consumed by the UART. The three TTL
   lines land on BNCs **in rev 1** — Rev 0 carries the serial link only.
+- **`DIO-A` is this board's RX; `DIO-B` is this board's TX.** The alphabetical
+  order reverses, so `PYC_DIO_A` → `PYC_UART_RX` → `GP1` and `PYC_DIO_B` →
+  `PYC_UART_TX` → `GP0`. Block pins are named by connector position, board nets
+  by MCU function; the crossover happens once, at the `mcu` sheet boundary.
+  Diagram and the full sheet-pin direction table in `docs/interface-map.md`.
 - **pyControl pin 6's 5 V is load-bearing**, not optional: it is one of only two
   sources that power the board. Confirmed 5 V from the syringe-pump netlist; its
   current budget is unmeasured.

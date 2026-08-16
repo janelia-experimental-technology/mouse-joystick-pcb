@@ -1422,6 +1422,10 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/72a6e0d8-0034-436c-8227-3a0b0df3a34e"
+					(reference "U1001")
+					(unit 1)
+				)
 				(path "/004d6f75-7365-204a-6f79-737469636b00/0c650d04-30fc-49a7-ad29-e59a24743655/d87eabb6-24d1-4fcc-abf8-544fae2aa273"
 					(reference "U701")
 					(unit 1)
@@ -1709,6 +1713,10 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/72a6e0d8-0034-436c-8227-3a0b0df3a34e"
+					(reference "C1002")
+					(unit 1)
+				)
 				(path "/004d6f75-7365-204a-6f79-737469636b00/0c650d04-30fc-49a7-ad29-e59a24743655/d87eabb6-24d1-4fcc-abf8-544fae2aa273"
 					(reference "C702")
 					(unit 1)
@@ -1996,6 +2004,10 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/72a6e0d8-0034-436c-8227-3a0b0df3a34e"
+					(reference "C1001")
+					(unit 1)
+				)
 				(path "/004d6f75-7365-204a-6f79-737469636b00/0c650d04-30fc-49a7-ad29-e59a24743655/d87eabb6-24d1-4fcc-abf8-544fae2aa273"
 					(reference "C701")
 					(unit 1)

@@ -128,8 +128,66 @@
 		)
 	)
 	(no_connect
+		(at 127 53.34)
+		(uuid "01b9df83-c892-4b2d-beb2-1c5084939c84")
+	)
+	(no_connect
 		(at 76.2 27.94)
 		(uuid "230a8e9a-5b09-49eb-824b-d25cdfdc3acb")
+	)
+	(no_connect
+		(at 76.2 53.34)
+		(uuid "a57caf76-ae50-49a9-ae5d-709997122d3a")
+	)
+	(wire
+		(pts
+			(xy 50.8 78.74) (xy 48.26 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "158de64e-0ff6-4ec9-a06f-c44128c83234")
+	)
+	(wire
+		(pts
+			(xy 86.36 83.82) (xy 88.9 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19d23a47-a9fc-40f7-bef9-947837b5e677")
+	)
+	(wire
+		(pts
+			(xy 127 66.04) (xy 129.54 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26093a17-940c-494e-8c46-03679dd4cd3f")
+	)
+	(wire
+		(pts
+			(xy 127 55.88) (xy 129.54 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d571e97-c4ec-4b39-a4ab-3af99c6b8a94")
+	)
+	(wire
+		(pts
+			(xy 203.2 27.94) (xy 200.66 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ad08a6b-9d7d-47b2-951b-7cce2ab47f58")
 	)
 	(wire
 		(pts
@@ -143,7 +201,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 53.34) (xy 78.74 53.34)
+			(xy 76.2 55.88) (xy 78.74 55.88)
 		)
 		(stroke
 			(width 0)
@@ -153,13 +211,43 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 55.88) (xy 78.74 55.88)
+			(xy 76.2 58.42) (xy 78.74 58.42)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "4be3dfde-b8cc-412b-a05e-2a76d9706eef")
+	)
+	(wire
+		(pts
+			(xy 152.4 27.94) (xy 149.86 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5473ca00-6179-41fd-a490-7067585e7101")
+	)
+	(wire
+		(pts
+			(xy 50.8 81.28) (xy 48.26 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "560b183a-899e-4c33-902f-55278735ca60")
+	)
+	(wire
+		(pts
+			(xy 48.26 86.36) (xy 50.8 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a575e12-df4f-42b0-ba7f-b2123765d21c")
 	)
 	(wire
 		(pts
@@ -173,6 +261,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 88.9) (xy 88.9 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e768912-5b7a-463d-8298-8d5f5608e890")
+	)
+	(wire
+		(pts
 			(xy 76.2 30.48) (xy 78.74 30.48)
 		)
 		(stroke
@@ -180,6 +278,26 @@
 			(type default)
 		)
 		(uuid "7eb8cabe-ad3c-4cea-a185-ce5930c89d4f")
+	)
+	(wire
+		(pts
+			(xy 177.8 30.48) (xy 180.34 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f93df2f-09fa-4268-985b-64b3fc8fb4dd")
+	)
+	(wire
+		(pts
+			(xy 86.36 78.74) (xy 88.9 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8eefa0da-dbdd-46fd-8448-c094575ccc51")
 	)
 	(wire
 		(pts
@@ -203,6 +321,26 @@
 	)
 	(wire
 		(pts
+			(xy 228.6 27.94) (xy 231.14 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9fafb80-4652-4ca7-bed4-f67e9652fcd2")
+	)
+	(wire
+		(pts
+			(xy 86.36 81.28) (xy 88.9 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0023249-1f68-480b-87fd-379d08112fff")
+	)
+	(wire
+		(pts
 			(xy 76.2 33.02) (xy 78.74 33.02)
 		)
 		(stroke
@@ -213,7 +351,47 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 58.42) (xy 78.74 58.42)
+			(xy 127 63.5) (xy 129.54 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2d6ebd6-db58-4448-b83d-2c1908402c26")
+	)
+	(wire
+		(pts
+			(xy 177.8 27.94) (xy 180.34 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4ef63df-d107-401b-afaa-eb0ce5b451da")
+	)
+	(wire
+		(pts
+			(xy 86.36 91.44) (xy 88.9 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c894fe9d-200e-426f-95f6-5378e2736e58")
+	)
+	(wire
+		(pts
+			(xy 50.8 88.9) (xy 48.26 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d456e6be-b6c9-4006-a0ce-0aebd7421e49")
+	)
+	(wire
+		(pts
+			(xy 76.2 60.96) (xy 78.74 60.96)
 		)
 		(stroke
 			(width 0)
@@ -223,7 +401,7 @@
 	)
 	(wire
 		(pts
-			(xy 76.2 60.96) (xy 78.74 60.96)
+			(xy 76.2 63.5) (xy 78.74 63.5)
 		)
 		(stroke
 			(width 0)
@@ -241,6 +419,86 @@
 		)
 		(uuid "ec7e8a0a-72e7-4dfb-954d-86f44d033445")
 	)
+	(wire
+		(pts
+			(xy 127 58.42) (xy 129.54 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5378bf1-0082-44ba-a5a2-0967b6d89775")
+	)
+	(wire
+		(pts
+			(xy 228.6 30.48) (xy 231.14 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fea2e782-95b0-4d27-85e0-36bc9bd7093f")
+	)
+	(label "PYC_UART_RX"
+		(at 88.9 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "154e702c-ddae-4e1d-ad5f-08c82003bc69")
+	)
+	(label "+5V_MCU"
+		(at 48.26 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "184698de-7e27-4505-abe0-8a28bbc60d2d")
+	)
+	(label "+5V_SW"
+		(at 200.66 27.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2188de62-e6fa-4f55-989f-306b3368008d")
+	)
+	(label "HV_SNS"
+		(at 88.9 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "25b2d3c2-aa27-4cf1-805a-d3117fb44716")
+	)
+	(label "GND"
+		(at 231.14 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2cc07841-ce78-4dc7-bf4b-43bde52a1ad3")
+	)
+	(label "GND"
+		(at 48.26 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "37c3516b-30b6-40fb-a397-3d0ed5de9dca")
+	)
 	(label "GND"
 		(at 78.74 33.02 0)
 		(effects
@@ -251,8 +509,18 @@
 		)
 		(uuid "3d5c813c-e4ca-4cca-bb46-3a95095cb7f7")
 	)
+	(label "PYC_UART_TX"
+		(at 88.9 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3d88a796-fa7e-472e-967e-8bbaca2761b6")
+	)
 	(label "USB_D-"
-		(at 78.74 60.96 0)
+		(at 78.74 63.5 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -271,8 +539,8 @@
 		)
 		(uuid "4362baea-ca67-461e-bd33-0512bf5d72d4")
 	)
-	(label "USB_+5V"
-		(at 78.74 53.34 0)
+	(label "+5V_MCU"
+		(at 78.74 55.88 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -281,7 +549,7 @@
 		)
 		(uuid "461c1d2d-cd87-4a94-9820-595e400a99d5")
 	)
-	(label "+36V"
+	(label "+36V_SW"
 		(at 78.74 30.48 0)
 		(effects
 			(font
@@ -292,7 +560,7 @@
 		(uuid "4641ea7b-b379-40b5-a353-003f8f5b7567")
 	)
 	(label "USB_D+"
-		(at 78.74 58.42 0)
+		(at 78.74 60.96 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -301,8 +569,18 @@
 		)
 		(uuid "4dd288c4-6642-44d8-9e90-a5e881576e82")
 	)
+	(label "HV_EN"
+		(at 88.9 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "511f8c4d-28b1-42fe-99fe-31ff7c5a8dd3")
+	)
 	(label "GND"
-		(at 78.74 55.88 0)
+		(at 78.74 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -331,6 +609,66 @@
 		)
 		(uuid "722e67f9-22a1-4e04-bb8f-4b98e96bd376")
 	)
+	(label "+5V_SW"
+		(at 180.34 27.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "77229ed9-80bb-425e-9663-7448861492d6")
+	)
+	(label "+36V_SW"
+		(at 149.86 27.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "778e130e-91a0-4bb9-a0b4-9619878a1bad")
+	)
+	(label "+3.3V_SW"
+		(at 231.14 27.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7c411485-1ac3-477f-8dea-fcf1877e6438")
+	)
+	(label "GND"
+		(at 129.54 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "833be579-4c19-4427-b869-5bafc62263fd")
+	)
+	(label "GND"
+		(at 180.34 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a228827f-79c3-46f9-8716-4477c9f21460")
+	)
+	(label "USB_D-"
+		(at 48.26 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a79d7bf1-3762-4fa8-a583-e1c1aa9dd9ce")
+	)
 	(label "+3.3V_MCU"
 		(at 48.26 27.94 180)
 		(effects
@@ -340,6 +678,56 @@
 			(justify right bottom)
 		)
 		(uuid "af147652-e496-445b-a3f8-2854ad0825c1")
+	)
+	(label "~{HV_FAULT}"
+		(at 88.9 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b12a1582-eb28-44fe-97ca-e06acfee0ff1")
+	)
+	(label "+5V_MCU"
+		(at 129.54 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bf90a24d-dbb9-4d1b-9049-e1f75be4b70e")
+	)
+	(label "PYC_UART_RX"
+		(at 129.54 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cbb9fd5e-eac7-4b51-adeb-730f046daadd")
+	)
+	(label "USB_D+"
+		(at 48.26 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d5261663-dd51-4f64-9258-77067593bc0a")
+	)
+	(label "PYC_UART_TX"
+		(at 129.54 66.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e935bbaa-e103-4c07-9fdf-32708a34cbf2")
 	)
 	(label "GND"
 		(at 114.3 25.4 270)
@@ -430,14 +818,130 @@
 			)
 		)
 	)
+	(group "hv_to_5v_tpsm365r6"
+		(uuid "02707147-5688-4281-9e27-3fa0efec6ce3")
+		(lib_id "orb_weaver_private:hv_to_5v_tpsm365r6")
+		(members "f5a6a5ae-2414-49e1-a4d6-370fa53922e9")
+	)
+	(group "pycontrol_behavior_port_rj45_boundary"
+		(uuid "589636c7-a17c-4099-8c24-94a7febdcacc")
+		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary")
+		(members "017e67df-f017-4cb4-bce9-b68ddead61fb" "01b9df83-c892-4b2d-beb2-1c5084939c84")
+	)
+	(group "5v_to_3v3_tps73733"
+		(uuid "5c57b5d4-d1ab-47ee-aa2e-677d67fc6d60")
+		(lib_id "orb_weaver_private:5v_to_3v3_tps73733")
+		(members "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
+	)
 	(group "hv_input_36V_terminal_2pos_5p08_protected"
 		(uuid "fb5a551b-120e-478f-80d7-16fcefaf6964")
 		(lib_id "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected")
 		(members "ff6a05ea-712d-490d-a8ce-f9a389d527af")
 	)
+	(group "usb2"
+		(uuid "ff67af53-f1ba-433e-ac30-c1aa96f5bb9f")
+		(lib_id "orb_weaver_private:usb2")
+		(members "20cdec53-3c5f-4386-9051-cc6f3a67407b")
+	)
+	(sheet
+		(at 101.6 50.8)
+		(size 25.4 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "017e67df-f017-4cb4-bce9-b68ddead61fb")
+		(property "Sheetname" "pycontrol_behavior_port_rj45_boundary"
+			(at 101.6 50.0884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "pycontrol_behavior_port_rj45_boundary.kicad_sch"
+			(at 101.6 69.1646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+5V_PYC" passive
+			(at 127 55.88 0)
+			(uuid "f8fca565-872a-4e21-b7e0-3c97637072d9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 127 58.42 0)
+			(uuid "f3f742b8-6fcf-4556-a6b8-7581bf31736d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_CONN_5V" passive
+			(at 127 53.34 0)
+			(uuid "a87e0493-ba68-4f11-98f9-aae7a88efccc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_A" bidirectional
+			(at 127 63.5 0)
+			(uuid "db78317c-c998-4e26-8408-e6fad43a56a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_B" bidirectional
+			(at 127 66.04 0)
+			(uuid "5d73e869-e175-48cb-806d-ec6321a233b3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "8")
+				)
+			)
+		)
+	)
 	(sheet
 		(at 50.8 76.2)
-		(size 50.8 76.2)
+		(size 35.56 53.34)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -463,7 +967,425 @@
 			)
 		)
 		(property "Sheetfile" "mcu.kicad_sch"
-			(at 50.8 152.9846 0)
+			(at 50.8 130.1246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+5V" passive
+			(at 50.8 78.74 180)
+			(uuid "11fcff13-2711-43aa-a7bc-1d452b93a693")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 50.8 81.28 180)
+			(uuid "56b413cc-70c2-40b1-8881-938589ecd1c9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "HV_EN" output
+			(at 86.36 78.74 0)
+			(uuid "61263665-6f7e-4dd8-87a1-ccad052017c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_D+" bidirectional
+			(at 50.8 86.36 180)
+			(uuid "d164b77a-7c74-45a7-8d03-2d8e9346f372")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "USB_D-" bidirectional
+			(at 50.8 88.9 180)
+			(uuid "09a58a07-baf4-4b39-a121-820001c04a5f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "FW_TRIG0" output
+			(at 86.36 124.46 0)
+			(uuid "87259dc7-f7c6-4571-8baf-54d6aa9caae0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "FW_TRIG1" output
+			(at 86.36 127 0)
+			(uuid "00a0859d-a11a-4ebd-b48a-5436156e3a66")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "HV_SNS" input
+			(at 86.36 81.28 0)
+			(uuid "e646383d-97e4-42a3-a5de-5fea7a45455a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LIMIT_SWITCH" input
+			(at 86.36 116.84 0)
+			(uuid "ec4bf0f3-5cc5-4e2c-a9f8-24160629008b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_UART_RX" input
+			(at 86.36 91.44 0)
+			(uuid "20f4c91c-6237-4a47-a375-d00f9efc5299")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_UART_TX" output
+			(at 86.36 88.9 0)
+			(uuid "bf09b549-2e9b-425d-9a1c-6c420259288c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TMC_DIAG0" input
+			(at 86.36 109.22 0)
+			(uuid "2c20946f-abe4-4f65-aeb0-779da5fe4e9b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TMC_DIAG1" input
+			(at 86.36 111.76 0)
+			(uuid "dadaf2b5-3681-46b3-9765-3248c687935c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TMC_SPI_CIPO" input
+			(at 86.36 101.6 0)
+			(uuid "fa23fc25-23d2-4864-9ff1-7a3a92479ae2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TMC_SPI_COPI" output
+			(at 86.36 99.06 0)
+			(uuid "0e126a72-5910-401d-8dfc-7a7951b090e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TMC_SPI_SCK" output
+			(at 86.36 96.52 0)
+			(uuid "93a639bc-d0c6-43d6-beba-e3932a1f40fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{HV_FAULT}" input
+			(at 86.36 83.82 0)
+			(uuid "ba7574c5-fb75-47b8-ba25-7a54563987f6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{INSTR_BUF_OE}" output
+			(at 86.36 121.92 0)
+			(uuid "ee545520-f7b0-400d-b99a-56518aecba70")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{TMC_CS}" output
+			(at 86.36 104.14 0)
+			(uuid "0f445cd0-9cb8-4712-8cf4-532ef155f0ac")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{TMC_DRV_EN}" output
+			(at 86.36 106.68 0)
+			(uuid "8fa86856-e7ba-4a9a-8eec-71709f9af90c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 50.8 50.8)
+		(size 25.4 15.24)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "20cdec53-3c5f-4386-9051-cc6f3a67407b")
+		(property "Sheetname" "usb2"
+			(at 50.8 50.0884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "usb2.kicad_sch"
+			(at 50.8 66.6246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+5V_USB" passive
+			(at 76.2 55.88 0)
+			(uuid "204291d0-4f14-4e08-afbc-5205c1f0f458")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 76.2 58.42 0)
+			(uuid "2d0d8646-7a25-4cd7-bb94-73c8798256e2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_D+" bidirectional
+			(at 76.2 60.96 0)
+			(uuid "8047f222-cd5c-4170-9b81-dd5fe8db84dd")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "USB_D-" bidirectional
+			(at 76.2 63.5 0)
+			(uuid "62a8cd6b-9a14-4350-a9a6-aaede16c238d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "VBUS" passive
+			(at 76.2 53.34 0)
+			(uuid "718b3c9e-17b5-40b9-9000-bb514fa68933")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 203.2 25.4)
+		(size 25.4 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
+		(property "Sheetname" "5v_to_3v3_tps73733"
+			(at 203.2 24.6884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "5v_to_3v3_tps73733.kicad_sch"
+			(at 203.2 33.6046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 228.6 27.94 0)
+			(uuid "9fa2692c-3a06-4352-9f26-48578ff942dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "+5V" passive
+			(at 203.2 27.94 180)
+			(uuid "41eab5a1-7e87-4453-acf1-4fa9282ca4bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 228.6 30.48 0)
+			(uuid "2e38d5d4-3ada-4069-84b0-3b7aab0a4d28")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "10")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 76.2)
+		(size 25.4 50.8)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "80cd7232-94ab-41ea-965f-e2da584d580d")
+		(property "Sheetname" "motor_encoder_limit"
+			(at 152.4 75.4884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "motor_encoder_limit.kicad_sch"
+			(at 152.4 127.5846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -476,7 +1398,83 @@
 		(instances
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00"
-					(page "4")
+					(page "11")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 152.4 25.4)
+		(size 25.4 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "f5a6a5ae-2414-49e1-a4d6-370fa53922e9")
+		(property "Sheetname" "hv_to_5v_tpsm365r6"
+			(at 152.4 24.6884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "hv_to_5v_tpsm365r6.kicad_sch"
+			(at 152.4 33.6046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+5V" passive
+			(at 177.8 27.94 0)
+			(uuid "7aafedad-2f8f-48d2-984b-4f9a8dc3c14e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 177.8 30.48 0)
+			(uuid "a49ee3d3-62f2-49dd-a2ee-19683b8d49c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "VIN" passive
+			(at 152.4 27.94 180)
+			(uuid "184e5864-4ab0-40df-be00-7b62d88f8a8c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "9")
 				)
 			)
 		)

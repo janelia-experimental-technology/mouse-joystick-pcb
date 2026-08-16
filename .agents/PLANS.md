@@ -85,13 +85,22 @@ Source-of-truth sibling repositories:
     check that the driver decodes correctly. `DIG0`/`DIG1` were chosen over any
     other pair because they sit in the rev 2 buffer package, which makes the
     eviction as late as possible. `ENC_N` stays on a test pad.
-  - **No `kicad-libs` changes are needed.** An earlier draft called for two extra
-    boundary pins on `pycontrol_behavior_port_rj45_boundary` so the port could tap
-    the connector side of `R29001`/`R29002`. Rejected 2026-08-16: 330 µA through
-    100 Ω is 33 mV, so a digital channel cannot tell the two sides apart, and the
-    connector-side tap would put the buffer input on the unprotected side of the
-    ESD clamp. The port uses the existing `PYC_DIO_A`/`PYC_DIO_B` pins and the
-    block is placed as-is at five boundary pins.
+  - **No new boundary pins on `pycontrol_behavior_port_rj45_boundary`.** An
+    earlier draft called for two, so the port could tap the connector side of
+    `R29001`/`R29002`. Rejected 2026-08-16: 330 µA through 100 Ω is 33 mV, so a
+    digital channel cannot tell the two sides apart, and the connector-side tap
+    would put the buffer input on the unprotected side of the ESD clamp. The port
+    uses the existing `PYC_DIO_A`/`PYC_DIO_B` pins at five boundary pins.
+  - **But change those two pins from `passive` to `bidirectional`.** It is the
+    only connector boundary block in the library with no driving pin — `usb2` and
+    `instrument_port_40_dut_ffc_boundary` both use bidirectional for logic — and
+    left passive, `PYC_UART_RX` reaches the board with no driver on the net.
+  - **Signal directions are now in the allocation table**, as a `Dir` column, and
+    every `mcu` sheet pin is listed with its KiCad shape and what it mates with.
+    The `DIO-A` → RX / `DIO-B` → TX crossover is drawn explicitly; it is the one
+    place on this board where the naming reverses. `~{BUS_SW_OE}` is the only Rev
+    0 connected GPIO needing no `mcu` sheet pin — the bus switch is inside that
+    sheet.
   - `GP24` `~{INSTR_BUF_OE}` is now live, taking Rev 0 to 18 connected GPIOs. No
     pin moved.
   - **Three 100 kΩ pull-downs are the only new passives** — `TMC_SPI_CIPO`,
@@ -227,8 +236,12 @@ Ready for active PCB work when:
   old claim that six slots carried signals Rev 0 does not have — only the three
   DAC wires were genuinely absent. Updated `interface-map`, `design-block-map`,
   `instrument-strategy`, `rev0-plan`, `validation-plan`, `bringup-log`, `README`,
-  `.agents/AGENTS.md`, the handoff, and this file. **`kicad-libs` needs no
-  changes.** Not yet done: every bit of the schematic and layout work itself.
+  `.agents/AGENTS.md`, the handoff, and this file. Then added a `Dir` column to
+  the GPIO table and a "Signal Direction And Sheet Pin Types" section giving every
+  `mcu` sheet pin its KiCad shape, what it mates with, and the far side's declared
+  shape — surveyed from the blocks rather than assumed. **`kicad-libs` needs one
+  small change:** `PYC_DIO_A`/`PYC_DIO_B` from `passive` to `bidirectional`. Not
+  yet done: that, and every bit of the schematic and layout work itself.
 - 2026-08-14: **Built three `kicad-libs` blocks and closed the pin 6 budget
   question.** Added the ORing diode to `usb2` exposing both `VBUS` and
   `+5V_USB`; created `limit_switch_debounced_input` and

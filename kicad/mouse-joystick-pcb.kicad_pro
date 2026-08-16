@@ -1504,7 +1504,7 @@
         "uuid": "004d6f75-7365-204a-6f79-737469636b00"
       }
     ],
-    "used_designators": "Y501,SW501,#FLG101,#FLG201,#FLG301,U201,U301,U501-502,U601-604,U701,R201-207,R301-302,R501-505,R601,J201,J301,D201,C201-202,C301,C501-514,C601-604,C701-702",
+    "used_designators": "X1201,C201-202,C301,C501-514,C601-604,C701-702,C801,C1001-1002,C1201-1214,C1301,D201,D801,J201,J301,J801,J1101,J1301,R201-207,R301-302,R501-505,R601,R801-803,R1201-1204,U201,U301,U501-502,U601-604,U701,U801,U1001,U1201,U1301,#FLG101,#FLG201,#FLG301,#FLG801,SW501,Y501",
     "variants": []
   },
   "sheets": [
@@ -1515,6 +1515,10 @@
     [
       "ff6a05ea-712d-490d-a8ce-f9a389d527af",
       "hv_input_36V_terminal_2pos_5p08_protected"
+    ],
+    [
+      "20cdec53-3c5f-4386-9051-cc6f3a67407b",
+      "usb2"
     ],
     [
       "0c650d04-30fc-49a7-ad29-e59a24743655",
@@ -1531,6 +1535,30 @@
     [
       "d87eabb6-24d1-4fcc-abf8-544fae2aa273",
       "5v_to_3v3_tps73733"
+    ],
+    [
+      "017e67df-f017-4cb4-bce9-b68ddead61fb",
+      "pycontrol_behavior_port_rj45_boundary"
+    ],
+    [
+      "f5a6a5ae-2414-49e1-a4d6-370fa53922e9",
+      "hv_to_5v_tpsm365r6"
+    ],
+    [
+      "72a6e0d8-0034-436c-8227-3a0b0df3a34e",
+      "5v_to_3v3_tps73733"
+    ],
+    [
+      "80cd7232-94ab-41ea-965f-e2da584d580d",
+      "motor_encoder_limit"
+    ],
+    [
+      "f6d27586-38ad-4ba0-b6d4-cf456932c6c7",
+      "tmc5130"
+    ],
+    [
+      "ca65f961-6ddd-440d-9e9e-e541f04cf110",
+      "limit_switch_debounced_input"
     ]
   ],
   "text_variables": {},

@@ -50,20 +50,33 @@ That leaves **one** board-local section that is not a block: the encoder input �
 `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Still too
 thin to abstract.
 
-### The pyControl Block Needs No Changes
+### The pyControl Block Needs No New Pins, But Two Shape Edits
 
-**Considered and rejected, 2026-08-16.** An earlier draft of the InstrumentPort
-plan called for two extra boundary pins on
-`pycontrol_behavior_port_rj45_boundary` — `PYC_DIO_A_CONN`/`PYC_DIO_B_CONN` on
-the connector side of `R29001`/`R29002` — so the port could observe the raw cable
-node. **Do not do this.** On a digital instrument channel the two sides of a
-100 Ω resistor carrying 330 µA differ by 33 mV and are indistinguishable; the
-extra pins would expose a distinction no board can use, and would put the buffer
-input on the unprotected side of the ESD clamp. Reasoning in
-`docs/interface-map.md`, "Where Each Signal Is Tapped".
+**No new boundary pins — considered and rejected, 2026-08-16.** An earlier draft
+of the InstrumentPort plan called for `PYC_DIO_A_CONN`/`PYC_DIO_B_CONN` on the
+connector side of `R29001`/`R29002`, so the port could observe the raw cable node.
+**Do not do this.** On a digital instrument channel the two sides of a 100 Ω
+resistor carrying 330 µA differ by 33 mV and are indistinguishable; the extra pins
+would expose a distinction no board can use, and would put the buffer input on the
+unprotected side of the ESD clamp. Reasoning in `docs/interface-map.md`, "Where
+Each Signal Is Tapped". The port taps the existing `PYC_DIO_A`/`PYC_DIO_B` pins
+and **the block stays at five boundary pins**.
 
-The port taps the existing `PYC_DIO_A`/`PYC_DIO_B` pins. **The block stays at
-five boundary pins and is placed as-is.**
+**Two pin shapes should change**, though: `PYC_DIO_A` and `PYC_DIO_B` from
+`passive` to `bidirectional`. All five pins are `passive` today, which makes this
+the only connector boundary block in the library with no driving pin — `usb2`
+declares `USB_D+`/`USB_D-` bidirectional and `instrument_port_40_dut_ffc_boundary`
+declares all eighteen `DIG*`/`TRIG*` bidirectional. Left passive, `PYC_UART_RX`
+reaches the board with no driver anywhere on the net and trips KiCad's
+"input not driven" check. `bidirectional` is also the shape that actually means
+"either direction until a board assigns one", which is the right description of a
+pyControl DIO line.
+
+Leave `PYC_5V`, `+5V_PYC`, and `GND` passive. Two attribute edits, no topology
+change, no parts change, no PCB impact — but still do them before the block is
+placed, and re-run `make design-blocks-scrub-private` then
+`make design-blocks-validate`. Full reasoning in `docs/interface-map.md`,
+"Signal Direction And Sheet Pin Types".
 
 ## Blocks Deferred To Rev 1
 

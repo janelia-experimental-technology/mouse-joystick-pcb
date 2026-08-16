@@ -1,0 +1,1787 @@
+(kicad_sch
+	(version 20260306)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "617dfa23-c58e-4523-a574-8f6eb133482b")
+	(paper "A4")
+	(title_block
+		(title "mouse-joystick-pcb")
+		(date "2026-08-16")
+		(rev "0.1")
+		(company "Janelia Research Campus")
+	)
+	(lib_symbols
+		(symbol "orb_weaver_internal:All/OW-CONN-1844236"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 5.207 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+				(at 0 3.937 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+				(at 0 35.56 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 20.32 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "OW_PART" "OW-CONN-1844236"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_horizontal_screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C480590"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C480590"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "490"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Name" "Connector 01x04 P3.5mm TBH Horizontal Screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Group" "connectors"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqType" "connector"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqValue" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPackage" "Push-Pull,P=3.5mm"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqExactMPN" "1844236"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "OW-CONN-1844236 Connector 01x04 P3.5mm TBH Horizontal Screw connectors Conn_01x04_P3.5mm_TBH_Horizontal_Screw 1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS orb_weaver_connectors:"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "All/OW-CONN-1844236_1_1"
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 0.8636 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -5.08 180)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(no_connect
+		(at 152.4 104.14)
+		(uuid "45d9f0ba-7a4c-44ac-8488-d56963826cd0")
+	)
+	(no_connect
+		(at 152.4 93.98)
+		(uuid "61323aac-d374-4c20-9fbb-2ba4d9a56ea6")
+	)
+	(no_connect
+		(at 127 104.14)
+		(uuid "f2ef28dd-7d55-40de-aa19-e50c447b88c5")
+	)
+	(wire
+		(pts
+			(xy 228.6 104.14) (xy 231.14 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "066f9eef-f23c-4da6-8bae-c7184a44b427")
+	)
+	(wire
+		(pts
+			(xy 152.4 101.6) (xy 154.94 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08cd9fc6-5806-4d79-be9e-7253dec6c9c7")
+	)
+	(wire
+		(pts
+			(xy 152.4 99.06) (xy 154.94 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f520ee9-f008-4a21-b9ad-0f31826cb85e")
+	)
+	(wire
+		(pts
+			(xy 124.46 91.44) (xy 127 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a85303e-7b85-4192-8483-0504e05617aa")
+	)
+	(wire
+		(pts
+			(xy 124.46 114.3) (xy 127 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b013a42-6c93-4578-8c07-35b3c171c186")
+	)
+	(wire
+		(pts
+			(xy 203.2 81.28) (xy 200.66 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f7f7e62-70a2-4db7-823f-4380c4c14c50")
+	)
+	(wire
+		(pts
+			(xy 124.46 99.06) (xy 127 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33d68d5a-5878-4008-8e5f-ad1991cd6abe")
+	)
+	(wire
+		(pts
+			(xy 152.4 91.44) (xy 154.94 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3623f021-6c82-40dc-962a-5eec34b3e0f8")
+	)
+	(wire
+		(pts
+			(xy 124.46 81.28) (xy 127 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "382f59b8-c88d-41da-8774-5221b768f683")
+	)
+	(wire
+		(pts
+			(xy 124.46 109.22) (xy 127 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58e1f6a8-a998-4ec1-87e9-09b260895380")
+	)
+	(wire
+		(pts
+			(xy 152.4 83.82) (xy 154.94 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "697b40d2-ff96-44f5-91aa-aab287844ab8")
+	)
+	(wire
+		(pts
+			(xy 152.4 86.36) (xy 154.94 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c3dbb6e-a94c-4877-ab96-789ab32113b4")
+	)
+	(wire
+		(pts
+			(xy 124.46 96.52) (xy 127 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "770809f8-1081-4363-aaca-fe55e23fa2c7")
+	)
+	(wire
+		(pts
+			(xy 124.46 83.82) (xy 127 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ded5f58-d32d-438d-8c07-08c4da076a8a")
+	)
+	(wire
+		(pts
+			(xy 152.4 81.28) (xy 154.94 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8163a485-989e-456c-b67a-a3e5091376d7")
+	)
+	(wire
+		(pts
+			(xy 76.2 55.88) (xy 78.74 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9261ae60-8cb3-41ba-a809-899e4631d319")
+	)
+	(wire
+		(pts
+			(xy 200.66 106.68) (xy 203.2 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92f20e3a-7eba-4951-9d39-f323d185fb99")
+	)
+	(wire
+		(pts
+			(xy 152.4 78.74) (xy 154.94 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9391d256-7851-4087-9e4e-5952c0a43a2e")
+	)
+	(wire
+		(pts
+			(xy 200.66 104.14) (xy 203.2 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0775760-ce12-4630-8729-82f742f2718f")
+	)
+	(wire
+		(pts
+			(xy 124.46 78.74) (xy 127 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c01940bb-0391-4acf-a245-b6f9ffc2ee22")
+	)
+	(wire
+		(pts
+			(xy 203.2 78.74) (xy 200.66 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4488394-adc9-47f7-ab4a-984b91113592")
+	)
+	(wire
+		(pts
+			(xy 76.2 58.42) (xy 78.74 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4b3503c-196b-48f2-a16f-6bc69cffdc73")
+	)
+	(wire
+		(pts
+			(xy 76.2 50.8) (xy 78.74 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d7332f30-9e88-4bfd-9ca3-99ad3af633f7")
+	)
+	(wire
+		(pts
+			(xy 203.2 83.82) (xy 200.66 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d90a115f-5d3b-4ff8-9609-a83bc2ef2f4a")
+	)
+	(wire
+		(pts
+			(xy 124.46 86.36) (xy 127 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9efad0c-4956-4387-a0c9-f90e2b4feeda")
+	)
+	(wire
+		(pts
+			(xy 76.2 53.34) (xy 78.74 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db5d798e-0e8e-4943-8c10-708aab48803b")
+	)
+	(wire
+		(pts
+			(xy 203.2 86.36) (xy 200.66 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eaa85ed3-fb40-45d7-b5ce-e888cc294636")
+	)
+	(wire
+		(pts
+			(xy 124.46 106.68) (xy 127 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb578e1f-3dd5-4d68-9c3e-73a1e3e793c5")
+	)
+	(wire
+		(pts
+			(xy 124.46 93.98) (xy 127 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fce38e57-f972-4d16-8aed-5ea7f56aff43")
+	)
+	(label "ENCA"
+		(at 154.94 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "04782e9f-1d43-4d7d-a9ef-f287cbe1aef0")
+	)
+	(label "OA1"
+		(at 154.94 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0d1840b4-c6f8-49d6-bdc6-e58c7cd96c3c")
+	)
+	(label "ENCB"
+		(at 154.94 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "125eb8e5-1a48-452d-921e-3f18558b5b1f")
+	)
+	(label "+5V"
+		(at 78.74 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1c1a7566-16b0-4a73-9527-e06367497478")
+	)
+	(label "+3.3V"
+		(at 200.66 104.14 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1c20306d-5aab-482f-804c-296252406334")
+	)
+	(label "VM"
+		(at 124.46 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2431da71-4ed7-4cd9-8e0f-3d2e559754eb")
+	)
+	(label "OB1"
+		(at 200.66 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2b6f335c-1123-4d34-9faf-96cd9c784110")
+	)
+	(label "OA1"
+		(at 200.66 78.74 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2bdf9e00-5a27-47bf-8e6e-016fc4877af1")
+	)
+	(label "GND"
+		(at 124.46 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "310b8cdb-dbfa-4dfa-9c25-9716e35d9790")
+	)
+	(label "OB1"
+		(at 154.94 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3d0e2b20-1a1c-46b0-9736-e56f0a6e1165")
+	)
+	(label "+5V"
+		(at 124.46 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "42bfe0d8-394a-40c1-84e5-228c38d4f453")
+	)
+	(label "+3.3V"
+		(at 78.74 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "513ad9af-918b-47f1-b856-21203f04e4ef")
+	)
+	(label "GND"
+		(at 78.74 58.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5f6cd51b-a8bf-45e6-9550-97fa75e46511")
+	)
+	(label "+3.3V"
+		(at 124.46 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "658afc75-a3c8-4bd7-af0b-9879e68cbe35")
+	)
+	(label "VM"
+		(at 78.74 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6bb07465-8667-4da4-bfb9-4ad8bb8f1c96")
+	)
+	(label "OB2"
+		(at 154.94 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6e36856c-0fcf-49e4-8b23-0c7f4315e8ab")
+	)
+	(label "OA2"
+		(at 154.94 81.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8f1089ca-7eb4-4ecb-8420-156321f55099")
+	)
+	(label "GND"
+		(at 200.66 106.68 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bffec223-d63f-4ae3-8da3-2962ad6f8975")
+	)
+	(label "OA2"
+		(at 200.66 81.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c306c7f9-77a3-4faa-8ecb-e2893a8bc87b")
+	)
+	(label "OB2"
+		(at 200.66 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c40b2de7-a9be-4cbb-b60e-57aed38f681e")
+	)
+	(label "REFL"
+		(at 154.94 91.44 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f82d20d2-9604-4db1-8f75-918f87f82890")
+	)
+	(label "REFL"
+		(at 231.14 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ff46c464-fa96-4582-aa88-c6283d9f65e9")
+	)
+	(hierarchical_label "SDI"
+		(shape input)
+		(at 124.46 93.98 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "3403afe0-6782-4e6e-a2c8-afcc766404f4")
+	)
+	(hierarchical_label "SCK"
+		(shape input)
+		(at 124.46 91.44 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4a5708cd-b018-4f24-a2d3-030abc93ceca")
+	)
+	(hierarchical_label "DIAG1"
+		(shape output)
+		(at 124.46 109.22 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4ae31404-eac6-4652-9200-6424ddbe05d0")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 76.2 58.42 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6f0163e7-af2c-49c1-8bea-3ef18f918f81")
+	)
+	(hierarchical_label "DIAG0"
+		(shape output)
+		(at 124.46 106.68 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "72f27b24-5acd-49d0-934d-9fc9a5e8fb87")
+	)
+	(hierarchical_label "+3.3V"
+		(shape passive)
+		(at 76.2 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "8fb6ed3e-296f-4334-8285-8d6cf5ca504e")
+	)
+	(hierarchical_label "SDO"
+		(shape output)
+		(at 124.46 96.52 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9d3e76f8-56f0-43da-9951-cc0ef884bc0f")
+	)
+	(hierarchical_label "VM"
+		(shape passive)
+		(at 76.2 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b0830674-bed8-4eaf-a994-e457e10f816d")
+	)
+	(hierarchical_label "~{DRV_EN}"
+		(shape input)
+		(at 124.46 114.3 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e7d92614-b38f-44c4-ad60-1fbbee91c7d1")
+	)
+	(hierarchical_label "~{CS}"
+		(shape input)
+		(at 124.46 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "eb4893f3-c821-41fc-8df6-8669ee376c3a")
+	)
+	(hierarchical_label "+5V"
+		(shape passive)
+		(at 76.2 53.34 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f045a72c-c916-443d-afff-d134787173f3")
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-CONN-1844236")
+		(at 208.28 83.82 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fd3b3a16-7f18-491d-b349-a01e851f7aaf")
+		(property "Reference" "J1101"
+			(at 209.55 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+			(at 209.55 83.82 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+			(at 208.28 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-CONN-1844236"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_horizontal_screw"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C480590"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C480590"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "490"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Connector 01x04 P3.5mm TBH Horizontal Screw"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "connectors"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "connector"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "Push-Pull,P=3.5mm"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "1844236"
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 208.28 83.82 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "b7ed3ab0-5c04-4c95-88f3-787a65e5ec79")
+		)
+		(pin "3"
+			(uuid "ad4b4654-a4c2-4913-961c-be8197ef212c")
+		)
+		(pin "4"
+			(uuid "baab284c-052e-4221-a773-15bf96f94bf6")
+		)
+		(pin "1"
+			(uuid "8397f7b3-29fb-423d-a65f-93af80a34a15")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(reference "J1101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(group "limit_switch_debounced_input"
+		(uuid "accdeab8-3193-43b2-b6fb-007cfa87e033")
+		(lib_id "orb_weaver_private:limit_switch_debounced_input")
+		(members "ca65f961-6ddd-440d-9e9e-e541f04cf110")
+	)
+	(group "tmc5130"
+		(uuid "decbddf3-94a0-4552-bacd-514026f1ecfb")
+		(lib_id "orb_weaver_private:tmc5130")
+		(members "f6d27586-38ad-4ba0-b6d4-cf456932c6c7")
+	)
+	(sheet
+		(at 203.2 101.6)
+		(size 25.4 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ca65f961-6ddd-440d-9e9e-e541f04cf110")
+		(property "Sheetname" "limit_switch_debounced_input"
+			(at 203.2 100.8884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "limit_switch_debounced_input.kicad_sch"
+			(at 203.2 109.8046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V_SW" passive
+			(at 203.2 104.14 180)
+			(uuid "d9cff9eb-5e8c-400f-b127-11d019aa783d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 203.2 106.68 180)
+			(uuid "b99e5af5-1d4e-4f33-8b5f-a0f0c7d755c0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LIMIT_SW" output
+			(at 228.6 104.14 0)
+			(uuid "ff034ba0-89cc-423e-8d8b-fbbe892f9714")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "13")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 127 76.2)
+		(size 25.4 40.64)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "f6d27586-38ad-4ba0-b6d4-cf456932c6c7")
+		(property "Sheetname" "tmc5130"
+			(at 127 75.4884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "tmc5130.kicad_sch"
+			(at 127 117.4246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 127 83.82 180)
+			(uuid "f9aad1e6-5868-44ee-b67a-d3229cac1798")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" passive
+			(at 127 81.28 180)
+			(uuid "2d6244af-e32b-41f9-851d-52935465b06b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ENCA" input
+			(at 152.4 99.06 0)
+			(uuid "8f8e112d-9639-4f5c-8d52-5d3cb32fc345")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCB" input
+			(at 152.4 101.6 0)
+			(uuid "7ddc72d6-9548-41b7-b4b6-b7d18e9f392e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCN" input
+			(at 152.4 104.14 0)
+			(uuid "98f7a394-faf4-4cb2-bb3a-fc650d23f5b6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 127 86.36 180)
+			(uuid "7e02c917-c54a-4390-b2e4-8773757d9d8a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "OA1" passive
+			(at 152.4 78.74 0)
+			(uuid "31eb6992-a934-4085-98dc-5ecabc2f9bf7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OA2" passive
+			(at 152.4 81.28 0)
+			(uuid "92633e7d-7bd3-47f3-b2a5-4d4b10e3ddaa")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OB1" passive
+			(at 152.4 83.82 0)
+			(uuid "3426a3f1-3274-433c-90d6-b4b0236226f3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OB2" passive
+			(at 152.4 86.36 0)
+			(uuid "109f620d-70dc-4cf4-86b8-6b32f648a619")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "REFL" input
+			(at 152.4 91.44 0)
+			(uuid "0da10a89-bf02-487c-b7ee-be7752f9f485")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "REFR" input
+			(at 152.4 93.98 0)
+			(uuid "b0748990-07d8-4598-ada0-c7da0048885a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SCK" input
+			(at 127 91.44 180)
+			(uuid "f7235361-1c4d-45f4-8600-222481c921eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDI" input
+			(at 127 93.98 180)
+			(uuid "80ffcabe-47d6-4dc0-9c65-bf7f0cd40db9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDO" output
+			(at 127 96.52 180)
+			(uuid "5c3d3c91-6a6b-4495-be20-9ded7df83f70")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWN_DIAG0" bidirectional
+			(at 127 106.68 180)
+			(uuid "4dca36e9-bb6d-49e5-88bc-10590f578939")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWP_DIAG1" bidirectional
+			(at 127 109.22 180)
+			(uuid "a37d2361-54f4-4f84-847c-9019e48828a4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWSEL" input
+			(at 127 104.14 180)
+			(uuid "c70f30c6-dc30-4507-b842-d11790fbe939")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VM" passive
+			(at 127 78.74 180)
+			(uuid "5546246e-6336-428c-b80d-dae78853d5dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{CS}" input
+			(at 127 99.06 180)
+			(uuid "216f965d-a655-4c88-a84c-113e291d9b4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{DRV_EN}" input
+			(at 127 114.3 180)
+			(uuid "2582e057-d033-41ba-b331-3a4f6e4af5df")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "12")
+				)
+			)
+		)
+	)
+)
