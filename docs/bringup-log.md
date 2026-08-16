@@ -214,8 +214,8 @@ Expected configuration: `R_SENSE` 0.15 Ω, `vsense = 1`, `IRUN = 28`, target
 - Buffer state reported in `ID`/`STATUS`:
 - All 10 Rev 0 Strands present and correctly mapped:
 - pyControl serial decodes at 115200 8N1 on `DIG7`/`DIG8`, both directions:
-- `DIG7`/`DIG8` confirmed to be the **connector-side** tap, by pulling
-  `R29001` and checking the Strand still follows the cable:
+- Decoded bytes on `DIG7`/`DIG8` match what firmware reports receiving and
+  sending, confirming the parser rather than the wire:
 - TMC SPI decodes on `DIG2`-`DIG5`, and `TMC_SPI_CIPO` goes quiet when
   `~{BUS_SW_OE}` is deasserted:
 - **Encoder decode check.** Quadrature edges counted on `DIG0`/`DIG1` over a

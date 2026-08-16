@@ -85,10 +85,13 @@ Source-of-truth sibling repositories:
     check that the driver decodes correctly. `DIG0`/`DIG1` were chosen over any
     other pair because they sit in the rev 2 buffer package, which makes the
     eviction as late as possible. `ENC_N` stays on a test pad.
-  - **Two new boundary pins are needed on
-    `pycontrol_behavior_port_rj45_boundary`** — `PYC_DIO_A_CONN` and
-    `PYC_DIO_B_CONN` on the connector side of `R29001`/`R29002`. Topology change,
-    must land before the block is placed. Free right now; it has not been placed.
+  - **No `kicad-libs` changes are needed.** An earlier draft called for two extra
+    boundary pins on `pycontrol_behavior_port_rj45_boundary` so the port could tap
+    the connector side of `R29001`/`R29002`. Rejected 2026-08-16: 330 µA through
+    100 Ω is 33 mV, so a digital channel cannot tell the two sides apart, and the
+    connector-side tap would put the buffer input on the unprotected side of the
+    ESD clamp. The port uses the existing `PYC_DIO_A`/`PYC_DIO_B` pins and the
+    block is placed as-is at five boundary pins.
   - `GP24` `~{INSTR_BUF_OE}` is now live, taking Rev 0 to 18 connected GPIOs. No
     pin moved.
   - **Three 100 kΩ pull-downs are the only new passives** — `TMC_SPI_CIPO`,
@@ -176,10 +179,7 @@ blocker**. See `docs/power.md`.
    and 2026-08-16**, both with saved PCB layouts, both still project-local
    pending bench verification. The event BNC group and the DAC output section
    move to rev 1 with the functions they serve.
-6. Add `PYC_DIO_A_CONN`/`PYC_DIO_B_CONN` boundary pins to the pyControl block, so
-   the InstrumentPort can tap the serial link at the cable. Must land before the
-   block is placed.
-7. Freeze the GPIO allocation and the instrument overlay against the schematic.
+6. Freeze the GPIO allocation and the instrument overlay against the schematic.
 7. Run ERC/DRC, generate fabrication outputs, order.
 8. Bench bring-up against Gates B through D. The 36 V transient measurement at
    the TMC5130A `VS` pins is the one that justifies or condemns the supply
@@ -214,19 +214,21 @@ Ready for active PCB work when:
   count Rev 0 has and the raw edges are the only way to check it decodes
   correctly. `ENC_N` went to a test pad. The new allocation also follows the v0.3
   profile's own Preferred Digital Overlays table much more closely than the
-  superseded one did. Decided the three tap points — connector side for the
-  pyControl serial, A side of the bus switch for the TMC, driver side of the
-  filter for the encoder — and the three 100 kΩ pull-downs they need, on
-  `TMC_SPI_CIPO`, `ENC_A`, and `ENC_B`. Regrouped the five buffer packages so each
+  superseded one did. Decided the three tap points — the existing
+  `PYC_DIO_A`/`PYC_DIO_B` pins for the pyControl serial, A side of the bus switch
+  for the TMC, driver side of the filter for the encoder — and the three 100 kΩ
+  pull-downs they need, on `TMC_SPI_CIPO`, `ENC_A`, and `ENC_B`. **Proposed and
+  then rejected** a connector-side pyControl tap needing two new boundary pins: a
+  digital channel cannot resolve 33 mV across the block's 100 Ω, and the tap would
+  have sat on the unprotected side of the ESD clamp. Regrouped the five buffer packages so each
   revision populates whole packages and no CMOS input floats: `U_A`/`U_B`/`U_E`
   fitted, `U_C`/`U_D` DNP, `U_E`'s two brake inputs GND-tied until rev 2. `GP24`
   went live, taking Rev 0 to 18 connected GPIOs with no pin moved. Corrected the
   old claim that six slots carried signals Rev 0 does not have — only the three
   DAC wires were genuinely absent. Updated `interface-map`, `design-block-map`,
   `instrument-strategy`, `rev0-plan`, `validation-plan`, `bringup-log`, `README`,
-  `.agents/AGENTS.md`, the handoff, and this file. **Not yet done:** the two new
-  boundary pins on the pyControl block, and every bit of the schematic and layout
-  work itself.
+  `.agents/AGENTS.md`, the handoff, and this file. **`kicad-libs` needs no
+  changes.** Not yet done: every bit of the schematic and layout work itself.
 - 2026-08-14: **Built three `kicad-libs` blocks and closed the pin 6 budget
   question.** Added the ORing diode to `usb2` exposing both `VBUS` and
   `+5V_USB`; created `limit_switch_debounced_input` and

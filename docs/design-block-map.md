@@ -24,7 +24,7 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 | Stepper driver section | `tmc5130` | 1 | available, proven ×2 |
 | USB device connection | `usb2` | 1 | available, proven; now carries `USBLC6-2P6` ESD and a shell-to-GND tie |
 | Limit switch input conditioning | `limit_switch_debounced_input` | 1 | available 2026-08-15, **never placed anywhere** |
-| pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary` | 1 | available 2026-08-16, **never placed anywhere**; needs two boundary pins added, see below |
+| pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary` | 1 | available 2026-08-16, **never placed anywhere**; place as-is, no changes needed |
 | InstrumentPort-40 DUT boundary | `instrument_port_40_dut_ffc_boundary` | 1 | available, **never placed anywhere** |
 | Instrumentation signal buffers | `instrumentation_signal_buffer_sn74lvc125a` | **5** | available, composed ×5 into `tmc51x0-driver-dev-pcb`; **3 fitted in Rev 0, 2 DNP** |
 
@@ -50,28 +50,20 @@ That leaves **one** board-local section that is not a block: the encoder input �
 `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Still too
 thin to abstract.
 
-### The pyControl Block Needs Two More Boundary Pins
+### The pyControl Block Needs No Changes
 
-The InstrumentPort taps the pyControl serial lines on the **connector side** of
-the block's 100 Ω series resistors, so the capture shows what is actually on the
-cable rather than what survives to the RP2040. Today those nodes — `DIO_A` and
-`DIO_B`, between `J29001` and `R29001`/`R29002` — are local labels with no way
-out of the block.
+**Considered and rejected, 2026-08-16.** An earlier draft of the InstrumentPort
+plan called for two extra boundary pins on
+`pycontrol_behavior_port_rj45_boundary` — `PYC_DIO_A_CONN`/`PYC_DIO_B_CONN` on
+the connector side of `R29001`/`R29002` — so the port could observe the raw cable
+node. **Do not do this.** On a digital instrument channel the two sides of a
+100 Ω resistor carrying 330 µA differ by 33 mV and are indistinguishable; the
+extra pins would expose a distinction no board can use, and would put the buffer
+input on the unprotected side of the ESD clamp. Reasoning in
+`docs/interface-map.md`, "Where Each Signal Is Tapped".
 
-Add `PYC_DIO_A_CONN` and `PYC_DIO_B_CONN` as hierarchical labels on those two
-nets, taking the block from five boundary pins to seven. Keep the existing
-`PYC_DIO_A`/`PYC_DIO_B` names for the MCU-side nodes; naming the new pair `_CONN`
-says which side of the resistor it is, which is the whole distinction. No parts
-change and the block's PCB layout is unaffected.
-
-This is a topology change, so it must land **before** the block is placed on this
-board. It has not been placed yet, so the change is free right now and a re-place
-later. Update the block's `.json` description to record the tap, then run
-`make design-blocks-scrub-private` followed by `make design-blocks-validate` in
-`../kicad-libs`.
-
-The rationale for tapping the connector side, and why it costs no extra parts,
-is in `docs/interface-map.md` under "Where Each Signal Is Tapped".
+The port taps the existing `PYC_DIO_A`/`PYC_DIO_B` pins. **The block stays at
+five boundary pins and is placed as-is.**
 
 ## Blocks Deferred To Rev 1
 

@@ -34,10 +34,11 @@ not.
   from that edge to pyControl's logged timestamp. Software logs on either side
   cannot establish this alone.
 - **Firmware development.** The Rev 0 reason, and the one that pulled the port
-  forward. `PYC_DIO_A_CONN` and `PYC_DIO_B_CONN` show both directions of the
-  pyControl link *at the RJ-45*, so a protocol bug can be attributed to the wire,
-  to this board's parser, or to the breakout board, rather than argued about. The
-  TMC SPI bus in the same capture shows the driver transactions that resulted.
+  forward. `PYC_DIO_A` and `PYC_DIO_B` show both directions of the pyControl link
+  in hardware, independent of any firmware log, so a protocol bug can be
+  attributed to the wire, to this board's parser, or to the breakout board rather
+  than argued about. The TMC SPI bus in the same capture shows the driver
+  transactions that resulted.
 - **Checking the driver's encoder decode.** The Rev 0 reason for `ENC_A`/`ENC_B`.
   Rev 0 has no PIO cross-check, so the TMC5130A's `X_ENC` register is the only
   count on the board and nothing in firmware can contradict it. Raw edges plus

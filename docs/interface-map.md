@@ -481,8 +481,8 @@ I2C overlay.
 | 8 | `DIG4(SPI_MISO)` | `TMC_SPI_CIPO` | **Rev 0** | Also the witness for bus-switch state — see below |
 | 10 | `DIG5(SPI_CS0)` | `~{TMC_CS}` | **Rev 0** | Frames each driver transaction |
 | 11 | `DIG6(SPI_CS1)` | `~{DAC_CS}` | rev 1 | Frames each DAC write |
-| 13 | `DIG7` | `PYC_DIO_A_CONN` | **Rev 0** | Host link at the RJ-45, both directions, on the profile's first UART pair |
-| 14 | `DIG8` | `PYC_DIO_B_CONN` | **Rev 0** | |
+| 13 | `DIG7` | `PYC_DIO_A` | **Rev 0** | Host link, both directions, on the profile's first UART pair |
+| 14 | `DIG8` | `PYC_DIO_B` | **Rev 0** | |
 | 16 | `DIG9` | `DAC_SPI_SCK` | rev 1 | Lets a capture recover the commanded angle code |
 | 17 | `DIG10` | `DAC_SPI_COPI` | rev 1 | |
 | 19 | `DIG11` | `BRAKE_DIM` | rev 2 | Brake PWM, on the slot the profile names for PWM |
@@ -573,32 +573,51 @@ placing them now costs nothing and saves a layout change later.
 Two tap points are decisions, not details, and getting either wrong makes the
 capture answer a different question than the one being asked.
 
-**pyControl serial: the connector side of the port block's series resistors.**
-The buffered signals are `PYC_DIO_A_CONN` and `PYC_DIO_B_CONN`, taken from the
-`DIO_A`/`DIO_B` nodes between the RJ-45 and `R29001`/`R29002` — not from the
-`PYC_DIO_A`/`PYC_DIO_B` boundary pins, which are the MCU side. The point of the
-port on this board is to see what is actually on the cable to and from the
-breakout board, before the RP2040 parses it, so the tap belongs on the cable
-node. At 115200 8N1 the two nodes are electrically the same to well within a bit
-time; the reason to prefer the connector side is that it still tells the truth
-when `R29001` is wrong, unpopulated, or the RP2040 is holding the line.
+**pyControl serial: the block's existing `PYC_DIO_A`/`PYC_DIO_B` pins, the MCU
+side of `R29001`/`R29002`.** No block change, no new boundary pins.
 
-This needs **two new boundary pins on
-`orb_weaver_private:pycontrol_behavior_port_rj45_boundary`** — today `DIO_A` and
-`DIO_B` are local labels with no way out of the block. See
-`docs/design-block-map.md`.
+An earlier draft of this section put the tap on the connector side of those
+resistors. **That was wrong and is recorded here so it does not get re-proposed.**
+On a digital instrument channel the two nodes are indistinguishable by
+construction. The only current in the resistor is the 330 µA the 10 kΩ `GP1`
+pull-up sinks when the host drives low, so the drop across 100 Ω is **33 mV** —
+three orders of magnitude below any logic threshold. The two sides differ only
+when the resistor is open or something is actively fighting on the line, and both
+of those are hard faults a meter finds faster than a capture does. A logic
+analyzer cannot resolve the distinction the extra pin would expose.
 
-**It costs no extra parts.** The 10 kΩ `GP1` pull-up decided on 2026-08-14 sits
-on the MCU side, but only 100 Ω separates the two nodes, so it defines the
-connector-side node too — roughly 3.0 V against a 100 kΩ load, with the cable
-unplugged. `PYC_DIO_B_CONN` is driven by `GP0` whenever the MCU is up, and when
-the MCU is down so is the buffer.
+Three reasons the MCU side is the better tap, not merely the cheaper one:
+
+1. **It answers the question actually being asked.** "Is what the RP2040 receives
+   what the breakout board sent?" is a question about the signal presented to the
+   pin. That is the MCU-side node. The capture is still fully independent of
+   firmware — it is hardware observation, not a log — which is what "observe the
+   link directly" needs to mean.
+2. **The 100 Ω becomes series protection for the buffer.** Tapping the connector
+   side would put the `SN74LVC125A` input on the unprotected node, between the
+   `USBLC6-2P6` and the resistor, with no series element between it and the cable.
+3. **It keeps the ESD node short.** The block deliberately routes each line in one
+   `USBLC6` I/O pad and out the other so the clamp connection stays short. Hanging
+   a stub off that node to reach a buffer elsewhere on the board adds capacitance
+   and antenna to the one node that most wants neither.
+
+Exposing both sides of the resistor would also present the board with a
+distinction it cannot use, which is the opposite of the discipline the rest of
+that block's interface follows. If a future board genuinely needs the raw cable
+node — a bias network, a different clamp, a transceiver — add the pin then, when
+there is a consumer to define it against.
 
 **TMC5130A: the A side of the bus switch, not the chip pins.** When the bus
 switch is enabled, A and B are the same node through a few ohms, so the capture
 shows what the chip sees. When it is isolated, the capture shows MCU traffic with
 `TMC_SPI_CIPO` silent — which *diagnoses* the bus-switch state instead of hiding
 it, and that is exactly the failure mode a firmware author needs to recognise.
+
+This looks like the opposite of the pyControl decision above and is not. A 100 Ω
+resistor cannot make its two nodes read differently on a digital channel; a bus
+switch that can be *open* absolutely can. Where the series element has two
+distinguishable states, which side you tap is a real choice — and the near side is
+the one that stays in the always-on domain and stays driven.
 
 Tapping the B side would put always-on buffer inputs on switched-domain nets that
 float whenever `HV_EN` is low, which is this board's normal idle state. That is
@@ -657,9 +676,11 @@ Every `DIG*` and `TRIG*` signal above is buffered with
 
 - `VCC = +3V3_MCU`, the always-on domain. The catalog part's absolute maximum
   supply is 3.6 V.
-- Unidirectional, board-side to instrument-side only. `PYC_DIO_A_CONN` and
+- Unidirectional, board-side to instrument-side only. `PYC_DIO_A` and
   `PYC_RSYNC_IN` are inputs to this board; they are *tapped* and buffered
-  outward. The buffer never drives back into the pyControl cable.
+  outward. The buffer never drives back into the pyControl cable — and because
+  the tap is on the MCU side of `R29001`, the block's own 100 Ω sits between the
+  buffer and the cable as a second line of defence.
 - The block provides ~33 Ω series source termination on each output.
 - 18 signals at 4 channels per package = **5 packages**, 2 channels spare.
 

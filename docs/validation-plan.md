@@ -190,9 +190,9 @@ see the audit in `docs/power.md`.
   decision in the profile itself.
 - All 18 `DIG*`/`TRIG*` signals are buffered; `~OE` defaults to high-Z in
   hardware and firmware enables it at startup.
-- **The pyControl serial Strands are tapped on the connector side** of
-  `R29001`/`R29002`, not the MCU side. Confirm on the schematic — the two nodes
-  look identical on a scope and only the netlist tells them apart.
+- **The pyControl serial Strands come from the block's `PYC_DIO_A`/`PYC_DIO_B`
+  pins**, so the block's 100 Ω sits between the buffer input and the cable. The
+  block is unmodified at five boundary pins.
 - **No `SN74LVC125A` input floats.** `U_C`/`U_D` are DNP with unrouted inputs;
   `U_E`'s unused `DIG11`/`DIG12` inputs are tied to GND; and `TMC_SPI_CIPO`,
   `ENC_A`, and `ENC_B` each carry a 100 kΩ pull-down at the buffer input.

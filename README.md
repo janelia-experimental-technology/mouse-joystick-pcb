@@ -104,10 +104,10 @@ in the interface map.
 
 **InstrumentPort-40 is in Rev 0** as of 2026-08-16, for firmware development
 rather than for experiments. Ten of its eighteen digital Strands are live: the
-four TMC5130A SPI signals, both directions of the pyControl serial link tapped at
-the RJ-45 rather than at the MCU, the two firmware triggers, and the two encoder
-quadrature channels. The other eight are allocated and unrouted, **four of them
-reserved for the rev 2 electronic brake and torque sensor**.
+four TMC5130A SPI signals, both directions of the pyControl serial link, the two
+firmware triggers, and the two encoder quadrature channels. The other eight are
+allocated and unrouted, **four of them reserved for the rev 2 electronic brake
+and torque sensor**.
 
 `ENC_A` and `ENC_B` are borrowing two of those reserved slots. Rev 0 has no PIO
 cross-check, so the TMC5130A's own count is the only one on the board and nothing

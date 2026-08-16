@@ -96,12 +96,16 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   for use **during scientific experiments**, not only on the bench, so
   observation must be passive, unidirectional, and unable to affect rig
   behavior. No divided motor rail reaches any `AIN*`.
-- **Tap points are decisions, not details.** The pyControl serial is observed on
-  the *connector* side of the port block's series resistors, the TMC5130A bus on
-  the *A* side of the GPIO isolation switch, and the encoder on the *driver* side
-  of its input filter. All three are reasoned in `docs/interface-map.md`; do not
-  "simplify" any of them without reading it. Each carries a 100 kΩ pull-down where
-  the tapped net can float, and no `SN74LVC125A` input may be left undriven.
+- **Tap points are decisions, not details.** The TMC5130A bus is observed on the
+  *A* side of the GPIO isolation switch and the encoder on the *driver* side of
+  its input filter, because in both cases the series element has two
+  distinguishable states. The pyControl serial is taken from the port block's
+  existing `PYC_DIO_A`/`PYC_DIO_B` pins — **do not re-propose a connector-side tap
+  with extra boundary pins**; it was considered and rejected, because a digital
+  channel cannot resolve 33 mV across 100 Ω and the tap would sit on the
+  unprotected side of the ESD clamp. All reasoned in `docs/interface-map.md`.
+  A 100 kΩ pull-down goes wherever a tapped net can float, and no `SN74LVC125A`
+  input may be left undriven.
 - Do not redefine InstrumentPort-40 here; document only this board's overlay. If
   the profile is genuinely too narrow, raise it in `board-interfaces`.
 - Do not define the reusable pyControl connector profile here. That belongs in
