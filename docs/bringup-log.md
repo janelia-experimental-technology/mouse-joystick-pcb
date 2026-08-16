@@ -1,10 +1,11 @@
 # Bring-Up Log
 
 **Rev 0 scope:** Rev 0 hardware carries no analog angle output, no pyControl TTL
-event lines, and no PIO encoder cross-check. Sections below covering those record
+event lines, and no encoder cross-check — the last of those is permanent, not
+deferred. Sections below covering the first two record
 rev 1 measurements. See `docs/rev0-plan.md`.
 
-**Rev 0 does carry InstrumentPort-40**, with 10 of 18 digital Strands live and 3
+**Rev 0 does carry InstrumentPort-40**, with 11 of 18 digital Strands live and 3
 of 5 buffer packages fitted. Record only the live Strands.
 
 Use this file to record measured behavior of real boards. Record numbers with
@@ -49,7 +50,7 @@ independently calibrated and independently suspect.
 - Current measured flowing back into the USB host (expect 0):
 - Current measured flowing back into pyControl (expect 0):
 - Current into the dead `+5V` rail under USB-only power (expect ~0):
-- `V5_SENSE` reading versus measured `+5V`:
+- `SW_RAIL_SENSE` reading versus measured `+3V3_SW`, rail up and rail down:
 - Firmware refuses 5 V-domain access when `+5V` is absent:
 - Behavior when each source is plugged/unplugged while others are live:
 - pyControl port 5 V current drawn by this board:
@@ -102,7 +103,7 @@ Limits: 46 V operating, 49 V absolute with inductive load, 50 V bridge.
 - USB CDC console:
 - SWD access:
 - Clock verified:
-- PIO encoder decode functional:
+- ~~PIO encoder decode functional~~ **struck** — no PIO decode exists:
 
 ## pyControl Port
 
@@ -148,17 +149,18 @@ Expected configuration: `R_SENSE` 0.15 Ω, `vsense = 1`, `IRUN = 28`, target
 - Interface: single-ended / differential:
 - Supply voltage and measured current:
 - Counts per revolution:
-- TMC5130A count versus PIO count agreement:
+- TMC5130A `X_ENC` versus quadrature edges captured on `DIG0`/`DIG1`:
 - Index (`ENC_N`) behavior:
 - Angle versus independent angular measurement:
-- Deliberate mismatch raises `ENCODER_MISMATCH`:
+- ~~Deliberate mismatch raises `ENCODER_MISMATCH`~~ **struck**, fault retired:
 
 ## Homing
 
 - Limit switch part:
 - Debounce behavior observed:
-- Synthetic `REFL` stimulus on `GP9` exercises homing:
-- Real switch overrides the synthetic stimulus:
+- Switch closure seen on InstrumentPort `DIG11`, and the driver's reaction in the
+  next SPI poll:
+- `REFL` test pad jumpered to force a closure, and the driver reacts:
 - Homing repeatability over N runs:
 - Homing time:
 - Behavior when the switch is never reached:
@@ -212,7 +214,7 @@ Expected configuration: `R_SENSE` 0.15 Ω, `vsense = 1`, `IRUN = 28`, target
 - Buffer `~OE` state at power-on, before firmware, confirmed high-Z:
 - Firmware enables buffers at startup:
 - Buffer state reported in `ID`/`STATUS`:
-- All 10 Rev 0 Strands present and correctly mapped:
+- All 11 Rev 0 Strands present and correctly mapped:
 - pyControl serial decodes at 115200 8N1 on `DIG7`/`DIG8`, both directions:
 - Decoded bytes on `DIG7`/`DIG8` match what firmware reports receiving and
   sending, confirming the parser rather than the wire:

@@ -4,17 +4,18 @@
 2026-08-12 deferral. The reason is firmware development rather than experiments:
 being able to see the pyControl serial link at the cable and the TMC5130A SPI bus
 in one capture is what makes protocol and driver bring-up tractable. Rev 0
-populates `J4`, three of the five buffer packages, and **ten of the eighteen
+populates `J4`, three of the five buffer packages, and **eleven of the eighteen
 digital Strands** — the four TMC SPI signals, both pyControl serial directions,
-both firmware triggers, and `ENC_A`/`ENC_B`.
+both firmware triggers, `ENC_A`/`ENC_B`, and `LIMIT_SW`.
 
-The encoder pair are temporary tenants of `DIG0`/`DIG1`, the slots the rev 2
-torque front-end bus will take. They earn Rev 0 space because the TMC5130A's
-`X_ENC` register is the only encoder count on the board, and capturing the raw
-edges next to the SPI reads of that register is the only way to check the driver
-is decoding correctly.
+`ENC_A`, `ENC_B`, and `LIMIT_SW` are temporary tenants of `DIG0`, `DIG1`, and
+`DIG11`, the slots the rev 2 torque bus and brake will take. They earn Rev 0
+space because **none of them reaches an RP2040 pin in any revision** — the
+TMC5130A owns them — so the driver's own report is the only account firmware has
+of position and homing. Capturing the raw signals next to the SPI traffic is what
+makes that account checkable.
 
-The remaining eight Strands are allocated now and routed when their circuits
+The remaining seven Strands are allocated now and routed when their circuits
 arrive. Full allocation in `docs/interface-map.md`.
 
 **Status:** Planning
@@ -40,16 +41,18 @@ not.
   than argued about. The TMC SPI bus in the same capture shows the driver
   transactions that resulted.
 - **Checking the driver's encoder decode.** The Rev 0 reason for `ENC_A`/`ENC_B`.
-  Rev 0 has no PIO cross-check, so the TMC5130A's `X_ENC` register is the only
-  count on the board and nothing in firmware can contradict it. Raw edges plus
+  There is no PIO cross-check in any revision, so the TMC5130A's `X_ENC` register
+  is the only count on the board and nothing in firmware can contradict it.
+  Likewise `LIMIT_SW`: no GPIO copy, so the port is the only witness that the
+  switch closed when the driver says homing happened. Raw edges plus
   SPI reads of that register, in one capture, make the comparison by hand.
 - **Verifying the analog output.** `DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`, and
   the analog output on `AIN0` are all in the capture from rev 1. "Does the voltage
   match the encoder?" is answerable from one file — against the raw edges while
   the encoder holds `DIG0`/`DIG1`, and against the driver's `X_ENC` reads after
-  the torque bus takes those slots at rev 2. By then rev 1's PIO cross-check gives
-  firmware its own second count. See `docs/interface-map.md`,
-  "`DIG0`/`DIG1` Are The Swap Slots".
+  the torque bus takes those slots at rev 2. Nothing replaces the raw edges then —
+  the cross-check was deleted, not deferred. See `docs/interface-map.md`,
+  "`DIG0`, `DIG1`, And `DIG11` Are The Swap Slots".
 - **Time alignment.** `RSYNC` in the same capture as everything else means the
   board's local time can be placed in pyControl's frame with measured, not
   assumed, uncertainty.
@@ -170,7 +173,8 @@ All 18 digital slots are allocated — 10 live in Rev 0, 6 more at rev 1, and 4
 reserved for the rev 2 brake and torque sensor, two of which the encoder occupies
 meanwhile. The mapping, the buffer grouping, the tap-point rules, and the reclaim
 order if brake and torque need a fifth slot are all in `docs/interface-map.md`.
-Ten signals sit on labelled test pads, not vias.
+Ten signals sit on labelled test pads, not vias, plus `ENC_A`/`ENC_B`/`LIMIT_SW`,
+which are padded as well because the pads become their only access at rev 2.
 
 ### No Buffer Input May Float
 
@@ -179,16 +183,17 @@ Ten signals sit on labelled test pads, not vias.
 so a deferred group never leaves a powered CMOS input undriven; if that grouping
 is edited, preserve the property.
 
-`U_E` is the exception — it is fitted in Rev 0 for the encoder taps while its
-other two channels wait for the brake. **Its `DIG11` and `DIG12` inputs are tied
-to GND**, which is a net rather than a part and is the correct treatment for an
-unused LVC125A input.
+`U_E` is the exception — it is fitted in Rev 0 for the three driver-input
+witnesses while its fourth channel waits for the brake. **Its `DIG12` input is tied to GND**, which is a net
+rather than a part and is the correct treatment for an unused LVC125A input.
 
 Three inputs need pull-downs rather than ties:
 
 - `TMC_SPI_CIPO`, because the TMC5130A tri-states `SDO` between transactions.
-- `ENC_A` and `ENC_B`, because the encoder is on the switched domain and floats
-  whenever `HV_EN` is low, while `U_E` runs from `+3V3_MCU`.
+- `ENC_A`, `ENC_B`, and `LIMIT_SW`, because all three are on the switched domain
+  and float whenever `HV_EN` is low, while `U_E` runs from `+3V3_MCU`. Pull-down
+  rather than up: a pull-up would have to go to `+3V3_MCU` and would back-power
+  those chips through their output clamps while the domain is dark.
 
 100 kΩ each, at the buffer input. These are the only new passives the port adds.
 

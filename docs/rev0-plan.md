@@ -22,7 +22,6 @@ experiments start.
 | --- | --- |
 | DAC8563 0-5 V analog angle output and its BNC | rev 1 |
 | `PULL_EVENT`, `FAULT`, `RSYNC` and their BNCs | rev 1 |
-| RP2040 PIO encoder cross-check | rev 1 |
 | Electronic brake, torque sensor, extra analog outputs | rev 2+ |
 | Synthetic homing stimulus (`TMC_REF_STIM`) | **never** — dropped permanently |
 
@@ -36,20 +35,21 @@ development, not experiments:** seeing the pyControl link at the cable and the
 TMC5130A SPI bus in one capture is what makes protocol and driver bring-up
 tractable, and that value is highest exactly when the board is new.
 
-Rev 0 populates `J4`, buffer packages `U_A`, `U_B`, and `U_E`, and **ten of the
-eighteen digital Strands**. The other eight are allocated and unrouted, four of
+Rev 0 populates `J4`, buffer packages `U_A`, `U_B`, and `U_E`, and **eleven of the
+eighteen digital Strands**. The other seven are allocated and unrouted, four of
 them reserved for the rev 2 brake and torque sensor so those circuits do not have
 to renegotiate the pinout.
 
-`ENC_A` and `ENC_B` borrow two of those reserved slots until rev 2. Rev 0 has no
-PIO cross-check, so the TMC5130A's `X_ENC` register is the only encoder count on
-the board; capturing the raw edges beside the SPI reads of that register is the
-only way to confirm the driver is decoding correctly. They sit in `DIG0`/`DIG1`,
-the rev 2 package's slots, so they survive rev 1 and are evicted as late as
-possible. Full allocation and reasoning in `docs/interface-map.md`.
+`ENC_A`, `ENC_B`, and `LIMIT_SW` borrow three of those reserved slots until rev 2. Rev 0 has no
+cross-check at all — the encoder never reaches the MCU — so the TMC5130A's
+`X_ENC` register is the only encoder count on the board; capturing the raw edges beside the SPI reads of that register is the
+only way to confirm the driver is decoding correctly. The same applies to homing:
+with no `GP18` copy either, `LIMIT_SW` on the port is the only witness that the
+switch closed when the driver says it did. All three sit in the rev 2 package's
+slots, so they survive rev 1 and are evicted as late as possible. Full allocation and reasoning in `docs/interface-map.md`.
 
 **This costs schedule.** It adds a 40-pin FFC, five buffer footprints of which
-three are populated, three pull-down resistors, and eighteen more routed nets to a
+three are populated, four pull-down resistors, and eighteen more routed nets to a
 board whose layout was already the long pole — see `.agents/handoff.local.md`. It
 is the researcher's call whether that is worth a slip; the design record's job is
 to say plainly that it is a slip.
@@ -70,9 +70,10 @@ One PCB controlling **one** joystick axis:
 - Two power domains: a switched one carrying everything resettable, and an
   always-on MCU domain fed from USB or pyControl.
 - One TMC5130A stepper driver section in SPI mode, with a 4-pin motor terminal.
-- One single-ended encoder on a 5-pin terminal, read by the **TMC5130A only**.
+- One single-ended encoder on a 5-pin terminal, read by the **TMC5130A only** —
+  it reaches no GPIO in any revision.
 - One limit switch on a 2-pin terminal through a hardware debouncer, to the
-  TMC5130A `REFL` input and to an MCU GPIO.
+  TMC5130A `REFL` input **only** — it reaches no GPIO.
 - pyControl RJ-45 behavior port carrying the serial link and nothing else.
 - 36 V motor supply through a protected, electronically switched terminal-block
   input.
@@ -90,7 +91,7 @@ for it. This board exists because it can be finished sooner:
 
 | Twin-axis board | This board |
 | --- | --- |
-| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 29 of 30 at full scope with a documented reclaim order; **18 of 30 in Rev 0** |
+| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 25 of 30 at full scope with five spares; **17 of 30 in Rev 0** |
 | Event-line routing is an open blocking question: 4 lines, no home | Deferred entirely in Rev 0; 3 lines and 4 BNCs when it returns |
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One motor section, one encoder path, no analog output |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
@@ -145,17 +146,17 @@ only if what it connects to loses power when `HV_EN` drops. That is what stops
 the MCU back-powering a chip it just switched off, which is the board's normal
 idle state rather than an edge case.
 
-- **Isolated in Rev 0 — 8 channels:** the TMC5130A SPI bus, enable, and
-  diagnostics (`GP2`-`GP8`), plus the debounced limit-switch copy (`GP18`).
+- **Isolated in Rev 0 — 7 channels:** the TMC5130A SPI bus, enable, and
+  diagnostics (`GP2`-`GP8`). Twelve at full scope.
   Full scope reaches 16 with the rev 1 encoder tap and DAC bus.
 - **Bypassed:** the pyControl UART above all, plus `~{BUS_SW_OE}`, `HV_EN`,
-  `HV_SNS`, `~{HV_FAULT}`, `V5_SENSE`, and both `FW_TRIG` markers. Nothing at
+  `HV_SNS`, `~{HV_FAULT}`, `SW_RAIL_SENSE`, and both `FW_TRIG` markers. Nothing at
   those far ends is ever unpowered by `HV_EN`. Per-signal rationale in
   `docs/interface-map.md`.
 - Wire the **A side of all 16 isolated GPIOs now**, including the 8 reserved for
   rev 1, so a later revision adds board-side wiring only.
 - **Sequencing:** isolate before dropping `HV_EN`, and reconnect only after
-  `V5_SENSE` confirms `+5V_SW` is up. Both `V5_SENSE` and `HV_EN` bypass, so
+  `SW_RAIL_SENSE` confirms `+3V3_SW` is up. Both it and `HV_EN` bypass, so
   firmware can do this with the bus isolated.
 
 **Decided 2026-08-13: place the proven block whole.** Four `SN74CB3Q3245`
@@ -243,9 +244,10 @@ turns out to be RS-422, that block exists and is proven three times on
 `tmc51x0-driver-dev-pcb`, but fitting it is a rev 1 change and the connector
 conductor count changes with it.
 
-**The encoder does not reach the MCU in Rev 0.** `GP14`/`GP15`/`GP16` are
-reserved and contiguous, and the PIO cross-check arrives in rev 1. The
-consequence is that `ENCODER_MISMATCH` has nothing to compare and is not
+**The encoder does not reach the MCU, in any revision.** Decided 2026-08-16;
+`GP14`/`GP15`/`GP16` went back to the spare pool and the PIO cross-check was
+deleted rather than deferred. The consequence is that `ENCODER_MISMATCH` has
+nothing to compare and is never
 implementable; encoder integrity rests on the driver's count and the index pulse.
 
 **Still open:** the encoder part number, and therefore the supply voltage and
@@ -264,7 +266,8 @@ independent of the encoder harness:
 | Debouncer | `MAX6816EUS+T`, `OW-MISC-MAX6816EUS-T`, stocked, `orb_weaver_misc:MAX6816` / `orb_weaver_smd:SOT192P237X122-4N` |
 | Support | Local decoupling; the MAX6816 supplies its own pull-up and ±15 kV ESD protection |
 
-- Route the debounced output to the TMC5130A `REFL` input **and** to `GP18`.
+- Route the debounced output to the TMC5130A `REFL` input only — **not** to any
+  GPIO. Tap it to InstrumentPort `DIG11` and a test pad.
   `REFL` is the hardware-latched reference; the MCU copy allows independent state
   reporting and fault detection.
 - **No synthetic stimulus.** `TMC_REF_STIM` is gone. Bring `REFL` to a labelled
@@ -447,7 +450,7 @@ Once the parts above are settled, in this order:
 7. Draw the encoder input: `OW-CONN-1844249` → filtering and ESD → TMC5130A
    `ENCA`/`ENCB`/`ENCN`. No MCU connection.
 8. Draw `limit_switch_debounced_input`: `OW-CONN-1844210` → `MAX6816` → `REFL`
-   and `GP18`, plus a `REFL` test pad.
+   only, plus `REFL` and `LIMIT_SW` test pads.
 9. Draw the pyControl RJ-45 boundary: pins 1, 2, 4 with series resistors and ESD,
    pin 6 footprint for the ORing branch.
 10. Add test points for the Rev 0 test-point list in `docs/interface-map.md`.
@@ -466,7 +469,6 @@ already allocated and left unconnected:
 | Addition | Pins | Blocks | InstrumentPort Strands |
 | --- | --- | --- | --- |
 | DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new | `DIG6`, `DIG9`, `DIG10`, `AIN0`; buffer `U_C` |
-| PIO encoder cross-check | `GP14`-`GP16` | tap off the existing encoder nets | none new — `ENC_A`/`ENC_B` are already on `DIG0`/`DIG1` |
 | pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; buffer `U_D` |
 | Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs buffer `U_E` |
 

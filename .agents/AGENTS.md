@@ -48,8 +48,9 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   fault policy, `XFAULT`, and the `B`-for-both protocol argument belong in
   `../mouse-joysticks-pcb`. Their absence is the point.
 - **Rev 0 is deliberately scoped down; the pin map is not.** Rev 0 connects 17
-  of 30 GPIOs and reserves 12 more at fixed numbers so rev 1 adds them without
-  moving anything. Full scope is 29 of 30 with `GP27` spare. If a change needs
+  of 30 GPIOs and reserves 8 more at fixed numbers so rev 1 adds them without
+  moving anything. Full scope is 25 of 30 with five spares — `GP14`, `GP15`,
+`GP16`, `GP18`, `GP27`. If a change needs
   more pins than are free, say so rather than quietly cutting a reserved
   function. See `docs/interface-map.md` and `docs/rev0-plan.md`.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
@@ -93,18 +94,23 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   current budget is unmeasured.
 - Do not carry motor power through the pyControl behavior port. The board runs a
   36 V rail the port does not supply.
-- **InstrumentPort-40 is in Rev 0** as of 2026-08-16, with 10 of 18 digital
-  Strands live and 4 reserved for the rev 2 brake and torque sensor — two of
-  which `ENC_A`/`ENC_B` borrow until then. `DIG0`/`DIG1` are **swap slots**; do
-  not treat the encoder's presence there as permanent, and do not reassign them
-  early. The full allocation is in `docs/interface-map.md`. It is intended
+- **InstrumentPort-40 is in Rev 0** as of 2026-08-16, with 11 of 18 digital
+  Strands live and 4 reserved for the rev 2 brake and torque sensor — three of
+  which `ENC_A`, `ENC_B`, and `LIMIT_SW` borrow until then. `DIG0`, `DIG1`, and
+  `DIG11` are **swap slots**; do not treat those tenants as permanent, and do not
+  reassign the slots early. The full allocation is in `docs/interface-map.md`. It is intended
   for use **during scientific experiments**, not only on the bench, so
   observation must be passive, unidirectional, and unable to affect rig
   behavior. No divided motor rail reaches any `AIN*`.
+- **The encoder and the limit switch never reach a GPIO**, in any revision —
+  decided 2026-08-16. The TMC5130A owns them; firmware reads position and homing
+  from the driver over SPI. `GP14`/`GP15`/`GP16`/`GP18` are spare and the PIO
+  cross-check and `ENCODER_MISMATCH` are deleted, not deferred. The InstrumentPort
+  taps are the board's only independent witnesses to those signals.
 - **Tap points are decisions, not details.** The TMC5130A bus is observed on the
-  *A* side of the GPIO isolation switch and the encoder on the *driver* side of
-  its input filter, because in both cases the series element has two
-  distinguishable states. The pyControl serial is taken from the port block's
+  *A* side of the GPIO isolation switch, and the encoder and limit switch on the
+  *driver* side of their conditioning, because in those cases the series element
+  has two distinguishable states. The pyControl serial is taken from the port block's
   existing `PYC_DIO_A`/`PYC_DIO_B` pins — **do not re-propose a connector-side tap
   with extra boundary pins**; it was considered and rejected, because a digital
   channel cannot resolve 33 mV across 100 Ω and the tap would sit on the

@@ -1,11 +1,12 @@
 # Validation Plan
 
 **Rev 0 scope:** gates that exercise the analog angle output, the pyControl TTL
-event lines, or the PIO encoder cross-check do not apply to Rev 0 hardware, which
-does not carry them. Run them when rev 1 adds the circuits. Everything covering
+event lines, or an independent encoder cross-check do not apply. The cross-check
+is not deferred — it was deleted on 2026-08-16 and those gates should be struck,
+not postponed. Run them when rev 1 adds the circuits. Everything covering
 power, the driver, the encoder-to-driver path, homing, and the serial link
-applies as written. Note that `ENCODER_MISMATCH` cannot be tested on Rev 0 —
-there is no second count to disagree with.
+applies as written. Note that `ENCODER_MISMATCH` is retired — there is no
+second count to disagree with and there never will be.
 
 **InstrumentPort-40 gates apply to Rev 0 as of 2026-08-16**, but only for the ten
 live Strands and the three fitted buffer packages. Do not fail a gate on the eight
@@ -97,7 +98,8 @@ see the audit in `docs/power.md`.
   full-scale output.
 - `+5V` is single-sourced from the `TPSM365R6V5`.
 - Diode orientation blocks current back into the USB host and into pyControl.
-- `V5_SENSE` divider is fitted on `GP26`, and firmware refuses to drive the 5 V
+- The `SW_RAIL_SENSE` ÷2 divider off `+3V3_SW` is fitted on `GP26`, and firmware
+  refuses to deassert `~{BUS_SW_OE}` until it reads valid. Firmware refuses to drive the 5 V
   domain when `+5V` is absent.
 - Series resistors are present on every 3.3 V line driving a 5 V-domain input,
   as a hardware backstop independent of firmware.
@@ -113,7 +115,7 @@ see the audit in `docs/power.md`.
 - **Two `5v_to_3v3_tps73733` instances exist, one per domain**, and the two 5 V
   rails are separate nets that never meet.
 - **Every MCU line reaching the switched domain passes through a
-  `SN74CB3Q3245` channel**, and the pyControl UART, `HV_EN`, `V5_SENSE`,
+  `SN74CB3Q3245` channel**, and the pyControl UART, `HV_EN`, `SW_RAIL_SENSE`,
   `HV_SNS`, `~{HV_FAULT}` and the `FW_TRIG` markers do not. Series resistors
   back up the bus switch on those crossings.
 - **The bus switch is powered from `+3V3_MCU`**, so firmware can isolate before
@@ -135,8 +137,7 @@ see the audit in `docs/power.md`.
 ### Controller and allocation
 
 - The RP2040 GPIO allocation is checked against RP2040 peripheral pin muxing —
-  `UART0`, `SPI0`, `SPI1`, and the PIO encoder group.
-- `GP14`/`GP15`/`GP16` are contiguous for a single PIO input mapping.
+  `UART0`, `SPI0`, and `SPI1`. PIO0 is unallocated.
 - Chip selects are plain GPIO, not hardware `CSn`. RP2040 hardware chip select
   does not hold across the TMC5130A's multi-byte datagrams.
 - Debug console is USB CDC. `UART0` is committed to pyControl.
@@ -162,7 +163,7 @@ see the audit in `docs/power.md`.
 
 - The encoder is identified, and the input path is single-ended or differential
   accordingly.
-- `ENC_N` is wired to `GP16` and to the TMC5130A `ENCN`.
+- `ENC_N` is wired to the TMC5130A `ENCN` and a test pad, and **to no GPIO**.
 - The limit switch is identified and the debounce path is reviewed.
 - A test point exists on the `REFL` net, and `GP9` drives it through a series
   resistor weak enough that the real switch always wins.
@@ -240,11 +241,11 @@ see the audit in `docs/power.md`.
   This is the item that decides whether pyControl-only operation works, and it is
   unmeasured today.
 - With the switched domain down, confirm no current flows into `+5V_SW` or
-  `+3V3_SW` through any device's input clamps, and that `V5_SENSE` reads them
-  correctly.
+  `+3V3_SW` through any device's input clamps, and that `SW_RAIL_SENSE` reads
+  zero.
 - **Exercise the reset sequence with a scope**: isolate, drop `HV_EN`, confirm
   `+3V3_SW` collapses with no MCU pin driving into it; then raise `HV_EN`,
-  confirm `V5_SENSE`, and connect. Getting this order wrong is the failure the
+  confirm `SW_RAIL_SENSE`, and connect. Getting this order wrong is the failure the
   architecture exists to prevent, so prove it rather than assuming it.
 - No current flows back into the USB host or into pyControl from any other
   source.
@@ -310,10 +311,14 @@ see the audit in `docs/power.md`.
 - Travel, velocity, acceleration, and current limits are verified by attempting
   to exceed them.
 - Encoder angle is verified against an independent angular measurement.
-- TMC5130A count and PIO count agree; a deliberate disagreement raises
-  `ENCODER_MISMATCH`.
-- The synthetic `REFL` stimulus on `GP9` exercises homing without the real
-  switch, and the real switch still overrides it.
+- ~~TMC5130A count and PIO count agree; a deliberate disagreement raises
+  `ENCODER_MISMATCH`.~~ **Struck 2026-08-16** — there is no PIO count. Replaced
+  by: quadrature edges captured on InstrumentPort `DIG0`/`DIG1` agree with
+  `X_ENC` read over SPI in the same capture.
+- ~~The synthetic `REFL` stimulus on `GP9` exercises homing without the real
+  switch.~~ **Struck** — `TMC_REF_STIM` was deleted on 2026-08-13 and `GP9` is
+  now `~{BUS_SW_OE}`. Replaced by: closing the real switch produces an edge on
+  InstrumentPort `DIG11`, and the driver reacts in the next SPI poll.
 - Heartbeat timeout stops motion within a measured time and drops `HV_EN`.
 - Cable removal during motion stops the motor and latches a fault.
 - The analog output is verified against the encoder count **in the same

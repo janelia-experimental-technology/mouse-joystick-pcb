@@ -159,11 +159,15 @@ three things need care:
   on the switched rail would isolate for free via `Ioff` and would also take the
   sequencing away from firmware.
 - **The block is oversized for this board, and that is accepted.** Four packages
-  isolate 30 GPIOs; this board isolates 16. Decided 2026-08-13 to place the
-  proven block whole and carry two unused packages rather than build a
-  two-package equivalent. Schedule over parts count; revisit in a later revision.
+  isolate 30 GPIOs; this board isolates **12 at full scope and 7 in Rev 0**, down
+  from 16 and 8 when the encoder and limit switch stopped reaching the MCU on
+  2026-08-16. Twelve channels fit in two packages with four to spare, so the block
+  is now carrying double what it needs rather than a bit over. Decided 2026-08-13
+  to place the proven block whole rather than build a smaller equivalent, and that
+  still holds on schedule grounds — but it is a larger waste than when it was
+  decided. Revisit in a later revision.
 
-Wire the A side of all 16 isolated GPIOs even though Rev 0 uses 8 — the reserved
+Wire the A side of all 12 isolated GPIOs even though Rev 0 uses 7 — the reserved
 channels cost nothing now and save a re-place later.
 
 ## Blocks Not Yet Existing
@@ -173,7 +177,7 @@ Rev 0 placement table above. What remains here is future work.
 
 | Board function | Candidate block | Rev 0 | Notes |
 | --- | --- | --- | --- |
-| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Encoder supply comes from the **switched** domain, so the encoder resets with everything else. Too thin to abstract until rev 1 adds the PIO tap. `ENC_A`/`ENC_B` are tapped on the driver side of the filter into InstrumentPort `DIG0`/`DIG1`, each with a 100 kΩ pull-down; `ENC_N` goes to a test pad only. |
+| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`, **and nowhere near the MCU in any revision**. Encoder supply comes from the **switched** domain, so the encoder resets with everything else. `ENC_A`/`ENC_B` are tapped on the driver side of the filter into InstrumentPort `DIG0`/`DIG1`, each with a 100 kΩ pull-down; `ENC_N` goes to a test pad only. Stays board-local — the PIO tap that might have justified a block was deleted, not deferred. |
 | Analog angle output | `dac8563_analog_output` | rev 1 | `DAC8563SDSCR`, channel A to BNC, channel B spare, protection, and any level translation. See `docs/encoder-analog-output.md`. Feeds `DIG6`, `DIG9`, `DIG10`, and `AIN0`. |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. Feeds `DIG13`-`DIG15`. |
 | Brake current driver | `b5z_brake_current_driver` | rev 2 | Placid `B5Z`, constant-current, `LM3404HV` switching versus `BCR421UE6327` linear still undecided. Feeds `DIG11` `BRAKE_DIM`, `DIG12` `~{BRAKE_FAULT}`, and possibly `AIN1`. See `../mouse-joysticks-pcb/docs/deferred-subsystems.md`. |
@@ -194,15 +198,18 @@ change that makes the limit switch independent of the encoder harness.
 | Debouncer | `MAX6816EUS+T` | `OW-MISC-MAX6816EUS-T`, stocked, `orb_weaver_misc:MAX6816` / `orb_weaver_smd:SOT192P237X122-4N` |
 | Support | Local decoupling | The MAX6816 supplies its own pull-up and ±15 kV ESD protection, so the part count stays at three |
 
-Board-facing: `+3V3_SW`, `GND`, and one debounced output that fans out to the
-TMC5130A `REFL` pin and to `GP18`.
+Board-facing: `+3V3_SW`, `GND`, and one debounced output. **It goes to the
+TMC5130A `REFL` pin and nowhere else on the MCU** — decided 2026-08-16, freeing
+`GP18`. Firmware learns about homing from the driver over SPI. The output is also
+tapped to InstrumentPort `DIG11` in Rev 0 and to a test pad always, which are the
+only independent witnesses that the switch actually closed.
 
 **Supply it from the switched domain**, not the MCU domain. Its output drives the
 TMC5130A's `REFL` pin, so if the debouncer stayed powered while the driver did
 not it would back-power the driver through that pin — the exact failure the bus
-switch exists to prevent, arriving by a route the bus switch cannot cover. The
-cost is that `GP18` reads a floating pin while the switched domain is down;
-firmware enables an internal pull to give it a defined level.
+switch exists to prevent, arriving by a route the bus switch cannot cover. Since
+2026-08-16 there is no `GP18` copy to worry about; the only always-on thing on
+that net is the instrumentation buffer input, which gets a 100 kΩ pull-down.
 
 Prior art on the previous-generation board used the same debouncer with a MiSUMi
 `D2F-01FL` switch. **The twin-axis board needs this circuit too**, so design it
@@ -264,10 +271,10 @@ cable type, and whether the mating board sees the pin order mirrored. **Do that 
 - **Test points are no longer Rev 0's only instrumentation** — the InstrumentPort
   carries the TMC SPI bus, both pyControl serial directions, both firmware
   triggers, and `ENC_A`/`ENC_B`. The pads still matter for everything not on the
-  port: `ENC_N`, `LIMIT_SW`, `TMC_DIAG0`, `TMC_DIAG1`, `~{TMC_DRV_EN}`, `HV_EN`,
-  `HV_SNS`, `REFL`, `SWSEL`, and `~{INSTR_BUF_OE}`. **Pad `ENC_A` and `ENC_B`
-  too** — they lose their port slots at rev 2 and the pads are the fallback.
-  Labelled pads, not bare vias.
+  port: `ENC_N`, `TMC_DIAG0`, `TMC_DIAG1`, `~{TMC_DRV_EN}`, `HV_EN`, `HV_SNS`,
+  `REFL`, `SWSEL`, and `~{INSTR_BUF_OE}`. **Pad `ENC_A`, `ENC_B`, and `LIMIT_SW`
+  too** — they lose their port slots at rev 2, none of them reaches the MCU, so
+  the pads become the only access. Labelled pads, not bare vias.
 - Exactly one `PWR_FLAG` per net, on input and entry nets only.
 - A shield termination decision for the USB-C receptacle — **now made in the
   block**: `usb2` ties `SHIELD` S1/S2 to GND.

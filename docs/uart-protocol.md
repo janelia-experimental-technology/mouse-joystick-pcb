@@ -2,9 +2,11 @@
 
 **Rev 0 scope:** the protocol is unchanged, with one hardware-imposed gap. The
 `ENCODER_MISMATCH` fault compares the TMC5130A's encoder count against an
-independent RP2040 PIO count, and Rev 0 routes the encoder to the driver only.
-The fault code stays reserved and is not raisable until rev 1 adds the PIO tap on
-`GP14`-`GP16`. Encoder integrity in Rev 0 rests on the driver's count and the
+independent RP2040 PIO count. **As of 2026-08-16 that second count is never
+coming** — the encoder reaches the driver only, in every revision, and
+`GP14`-`GP16` have been returned to the spare pool. Retire the fault code rather
+than leaving it reserved; see `docs/interface-map.md`, "The Encoder And Limit
+Switch Do Not Reach The MCU". Encoder integrity rests on the driver's count and the
 index pulse.
 
 **Status:** Draft v0.1. Not implemented, not frozen.
@@ -202,7 +204,7 @@ A bitmask, so several faults can be present at once.
 | 1 | `DRIVER_FAULT` | TMC5130A `DIAG0` or `DIAG1` asserted |
 | 2 | `OVER_TRAVEL` | Commanded or measured position outside travel limits |
 | 3 | `HOME_TIMEOUT` | Homing exceeded its bound |
-| 4 | `ENCODER_MISMATCH` | TMC5130A count and PIO count diverged beyond tolerance |
+| 4 | `ENCODER_MISMATCH` | **Retired 2026-08-16** — there is no second count. Leave the bit permanently reserved so no later fault reuses it |
 | 5 | `LIMIT_UNEXPECTED` | Limit switch asserted during normal motion |
 | 6 | `SUPPLY_OUT_OF_RANGE` | Motor supply outside the accepted window, from `HV_SNS`, or `~{HV_FAULT}` asserted by the input switch — overload, short circuit, or its thermal shutdown |
 | 7 | `INTERNAL` | Firmware assertion or self-test failure, including CHOPCONF `vsense != 1` |

@@ -15,7 +15,9 @@ decision closed, one new part.
 **Rev 0 scope:** the power chain is unchanged by the 2026-08-13 rescope. `+5V`
 is still required — the TMC5130A's `VCC` minimum is 4.6 V — even though the
 DAC8563 that also needed it is deferred to rev 1. The argument against diode-ORing
-onto `+5V` therefore still holds, and `V5_SENSE` on `GP26` is still populated.
+onto `+5V` therefore still holds, and the switched-rail sense on `GP26` is still
+populated — though as of 2026-08-16 it reads `+3V3_SW`, not `+5V_SW`, and the net
+is named `SW_RAIL_SENSE`.
 One Rev 0 addition affects this document: `HV_EN` bypasses the new GPIO isolation
 bus switch, so the MCU can drive the 36 V enable regardless of bus state, while
 `HV_SNS` and `~{HV_FAULT}` sit behind it and cannot be read until firmware
@@ -750,11 +752,26 @@ Three supporting measures, and use all of them:
 2. **Series resistors on every 3.3 V line that crosses into the switched
    domain.** Cheap backstop covering the window where firmware gets the order
    wrong, or where the bus switch itself fails. They cost nothing; fit them.
-3. **A `+5V_SW` presence sense on `GP26` (`ADC0`)** through a divider, so
+3. **A `+3V3_SW` presence sense on `GP26` (`ADC0`)** through a ÷2 divider, so
    firmware can confirm the switched domain is actually up before enabling the
    bus, refuse `ARM` with a meaningful reason when it is not, and report it.
    `GP26` therefore **bypasses the bus switch** — sensing the rail through the
    thing you are trying to decide whether to enable would be circular.
+
+   **Changed 2026-08-16 from `+5V_SW` to `+3V3_SW`**, same two resistors. It is
+   the end of the chain, so one reading confirms 36 V, 5 V, and 3.3 V together,
+   and it is the rail that actually gates the decision because it powers the far
+   side of the bus switch.
+
+   **This circularity is the whole reason the sense exists.** It is tempting to
+   argue the sense is redundant, since the TMC5130A only answers SPI when all
+   three of its supplies are present — but SPI reaches the driver *through the bus
+   switch*, so it cannot confirm anything before the switch is enabled. Note also
+   that `~{HV_FAULT}` does not cover the gap: with no 36 V present the
+   `TPS1HTC100-Q1` is itself unpowered, its open-drain output floats, and the
+   pull-up reads it as no fault. `HV_SNS` on `GP28` does cover most of it, since
+   the buck and LDO draw quiescent current whenever the rail is genuinely up.
+   See `docs/interface-map.md`, "What The Rail Sense Is Actually For".
 
 **Two open questions this architecture closed.** Whether the `TMC5130A` tolerates
 `VCC_IO` present with `VCC` and `VS` absent no longer matters — all three are on
@@ -1155,8 +1172,8 @@ That is exactly the "latch faults, require explicit clearing" model in
 Driving `LATCH` from a GPIO instead would let firmware choose between behaviors,
 but there is no reason to want auto-retry here. Rev 0 has pins free, so the
 argument is now purely that auto-retry is the wrong behavior — not that the pin
-budget forbids it. Full scope returns to 29 of 30, so spending one there would
-cost the `GP27` spare.
+budget forbids it. Full scope is 25 of 30 with five spares as of 2026-08-16, so
+the budget argument has gone away entirely; only the behavioural one remains.
 
 ### Reverse-Polarity Protection Is The Series Diode, Not The Device Feature
 

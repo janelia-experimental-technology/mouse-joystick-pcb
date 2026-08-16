@@ -16,7 +16,8 @@ firmware development — see Resolved below.
 
 Deferred to rev 1: the 0-5 V analog angle output, the pyControl TTL event lines,
 and the PIO encoder cross-check. Their pins are reserved and no Rev 0 pin moves
-when they arrive.
+when they arrive. **The PIO cross-check was since deleted outright** — see
+2026-08-16 below.
 
 **Session-level detail lives in `.agents/handoff.local.md`.** Read it first.
 
@@ -51,10 +52,10 @@ Source-of-truth sibling repositories:
 ## Resolved
 
 - **Rev 0 scope, 2026-08-13, amended 2026-08-16.** Interfaces plus the means to
-  observe them; DAC, event lines, and the PIO encoder tap deferred to rev 1.
+  observe them; DAC and event lines deferred to rev 1, PIO encoder tap deleted.
   `docs/rev0-plan.md`.
-- **RP2040 GPIO allocation.** Rev 0 connects 17 of 30 and reserves 12 more at
-  fixed numbers; full scope is 29 of 30 with `GP27` spare. **No pin moves between
+- **RP2040 GPIO allocation.** Rev 0 connects 17 of 30 and reserves 8 more at
+  fixed numbers; full scope is 25 of 30 with five spares. **No pin moves between
   Rev 0 and rev 1.** `TMC_REF_STIM` was deleted permanently and its pin pays for
   the bus-switch enable on `GP9`. `docs/interface-map.md`.
 - **Two power domains, 2026-08-13.** The high-side switch is a reset button:
@@ -63,7 +64,7 @@ Source-of-truth sibling repositories:
   diodes. The board does not boot on 36 V alone, accepted. Exactly two
   `5v_to_3v3_tps73733` instances, one per domain. `docs/power.md`.
 - **GPIO isolation rule.** A GPIO goes through the bus switch if and only if its
-  far end is on the switched domain — 8 channels in Rev 0, 16 at full scope. The
+  far end is on the switched domain — 7 channels in Rev 0, 12 at full scope. The
   pyControl UART bypasses, so the board stays reachable with the motor rail off.
   The oversized 4-package block is accepted as-is for schedule.
 - **pyControl pin 6 is 5 V**, confirmed from the syringe-pump module netlist. Its
@@ -71,19 +72,19 @@ Source-of-truth sibling repositories:
 - **InstrumentPort-40 is in Rev 0, re-allocated 2026-08-16.** Moved back in for
   firmware development: the port carries both directions of the pyControl serial
   link *tapped at the RJ-45*, the TMC5130A SPI bus, the two firmware triggers, and
-  `ENC_A`/`ENC_B` — 10 of 18 digital Strands live at fabrication. The other 8 are
+  `ENC_A`/`ENC_B`/`LIMIT_SW` — 11 of 18 digital Strands live. The other 7 are
   allocated and unrouted, **4 reserved for the rev 2 brake and torque sensor** so
   those circuits inherit a pinout instead of renegotiating one. The overlay now
   follows the profile's own Preferred Digital Overlays table: TMC bus on the SPI
   slots, pyControl serial on the first UART pair, brake PWM and fault on the
   PWM/fault slots, torque front end on the I2C slots.
-  - **`DIG0`/`DIG1` are swap slots.** `ENC_A` and `ENC_B` hold the torque bus's
-    two slots through Rev 0 and rev 1, and hand them over at rev 2. They earn the
-    space because Rev 0 has no PIO cross-check, so the TMC5130A's `X_ENC` register
-    is the only encoder count on the board and nothing can contradict it —
-    capturing the raw edges beside the SPI reads of that register is the only
-    check that the driver decodes correctly. `DIG0`/`DIG1` were chosen over any
-    other pair because they sit in the rev 2 buffer package, which makes the
+  - **`DIG0`, `DIG1`, and `DIG11` are swap slots.** `ENC_A`, `ENC_B`, and
+    `LIMIT_SW` hold three of the rev 2 brake/torque slots through Rev 0 and rev 1
+    and hand them over at rev 2. They earn the space because none of those signals
+    reaches a GPIO in any revision, so the TMC5130A's own registers are firmware's
+    entire account of position and homing and nothing can contradict them —
+    capturing the raw signals beside the SPI traffic is the only check. These
+    slots were chosen because they sit in the rev 2 buffer package, making the
     eviction as late as possible. `ENC_N` stays on a test pad.
   - **No new boundary pins on `pycontrol_behavior_port_rj45_boundary`.** An
     earlier draft called for two, so the port could tap the connector side of
@@ -101,12 +102,11 @@ Source-of-truth sibling repositories:
     place on this board where the naming reverses. `~{BUS_SW_OE}` is the only Rev
     0 connected GPIO needing no `mcu` sheet pin — the bus switch is inside that
     sheet.
-  - `GP24` `~{INSTR_BUF_OE}` is now live, taking Rev 0 to 18 connected GPIOs. No
-    pin moved.
-  - **Three 100 kΩ pull-downs are the only new passives** — `TMC_SPI_CIPO`,
-    `ENC_A`, `ENC_B`. Buffer packages `U_A`, `U_B`, `U_E` are fitted; `U_C` and
-    `U_D` are DNP with unrouted inputs. `U_E`'s two brake channels have their
-    inputs tied to GND until rev 2.
+  - `GP24` `~{INSTR_BUF_OE}` is now live. No pin moved.
+  - **Four 100 kΩ pull-downs plus the `SW_RAIL_SENSE` divider are the only new
+    passives** — `TMC_SPI_CIPO`, `ENC_A`, `ENC_B`, `LIMIT_SW`. Buffer packages
+    `U_A`, `U_B`, `U_E` are fitted; `U_C` and `U_D` are DNP with unrouted inputs.
+    `U_E`'s one remaining brake channel has its input tied to GND until rev 2.
   - **It costs layout schedule** — a 40-pin FFC, five buffer footprints, and 18
     more routed nets on the board whose layout was already the long pole.
   - `docs/interface-map.md`, `docs/instrument-strategy.md`.
@@ -121,9 +121,12 @@ Source-of-truth sibling repositories:
   `SMBJ40A` preferred, stocked `SMF48A` usable now. The driver is protected by
   construction — bulk downstream of the soft-start switch, capped at tens of µF,
   tight `VS` loop — and verified at Gate B.
-- **The 36 V input block's six edits are applied**, verified by netlist review on
-  2026-08-12. `EN` divider, `DIAG_EN`, `LATCH`, `ILIM` = 40 kΩ, `SNS` = 249 Ω, and
-  the `~FAULT` route are all in. **Three defects remain**: `~FAULT` is pulled down
+- **The 36 V input block is clean.** The six edits were verified by netlist review
+  on 2026-08-12 — `EN` divider, `DIAG_EN`, `LATCH`, `ILIM` = 40 kΩ, `SNS` = 249 Ω,
+  and the `~FAULT` route. **The three defects below were fixed and verified in the
+  block on 2026-08-16**: `R27005` now pulls `~{FAULT}` up to `+3.3V_MCU`, and
+  `HV_IN` and `SNS` are hierarchical. Kept for the record only — historically,
+  `~FAULT` was pulled down
   to `GND` instead of up to `+3V3_MCU`, and `HV_IN` and `SNS` are local labels
   rather than hierarchical, so the board can reach neither. Plus two cheap
   concerns — `C27002`'s 50 V rating on a 36 V rail, and the misleading `VAA` net
@@ -212,6 +215,38 @@ Ready for active PCB work when:
 
 ## Progress Log
 
+- 2026-08-16 (later): **Cut the encoder and limit switch off the MCU, and
+  retargeted the rail sense.** `ENC_A`/`ENC_B`/`ENC_N` and `LIMIT_SW` now reach
+  the TMC5130A and nothing else, in every revision — the driver owns them and
+  firmware reads position and homing from its registers over SPI. That frees
+  `GP14`, `GP15`, `GP16`, and `GP18`, taking Rev 0 to **17 of 30** and full scope
+  to **25 of 30 with five spares**. It **deletes rather than defers** the PIO
+  encoder cross-check, `ENCODER_MISMATCH`, and the `GP14`-`GP16` contiguity
+  constraint; the fault code is retired and its bit left permanently reserved.
+  Isolated channels dropped from 8/16 to **7/12**, which makes the four-package
+  bus-switch block twice the size it needs rather than a bit over — still
+  accepted on schedule grounds, now recorded as a larger waste.
+  **`LIMIT_SW` joined the InstrumentPort** on `DIG11`, a third swap slot
+  alongside `ENC_A`/`ENC_B`, taking Rev 0 to **11 of 18 Strands** and three fitted
+  buffer packages. With no GPIO copies, those taps are the board's only
+  independent witnesses to what the driver is being fed; they are also the last
+  ones, since nothing replaces them at rev 2. Fourth 100 kΩ pull-down added for
+  `LIMIT_SW`.
+  **`GP26` went from `V5_SENSE` on divided `+5V_SW` to `SW_RAIL_SENSE` on a ÷2
+  divider off `+3V3_SW`** — same two resistors, end of the chain, so one reading
+  confirms 36 V, 5 V, and 3.3 V. It is *not* redundant with the TMC answering
+  SPI, which was the tempting argument: SPI reaches the driver through the bus
+  switch the sense exists to gate, so that check is circular. `~{HV_FAULT}` does
+  not cover it either — with no 36 V the switch is unpowered and its open-drain
+  output reads as no fault. `HV_SNS` does cover most of it, and that is recorded
+  as the fallback if the pin is ever wanted elsewhere.
+  **Rev 2 may now fit on RP2040** — five spares against roughly six needed for
+  brake and torque on one axis, five if `TQ_DRDY` is dropped. Recorded as an
+  observation to check, not a commitment.
+  Updated `interface-map`, `rev0-plan`, `power`, `uart-protocol`,
+  `instrument-strategy`, `design-block-map`, `validation-plan`, `bringup-log`,
+  `README`, `.agents/AGENTS.md`, the handoff, and this file.
+
 - 2026-08-16: **Moved InstrumentPort-40 into Rev 0 and re-allocated all 18 digital
   Strands.** The port is now justified by firmware development rather than by
   experiments — both directions of the pyControl serial link, tapped at the
@@ -232,7 +267,7 @@ Ready for active PCB work when:
   have sat on the unprotected side of the ESD clamp. Regrouped the five buffer packages so each
   revision populates whole packages and no CMOS input floats: `U_A`/`U_B`/`U_E`
   fitted, `U_C`/`U_D` DNP, `U_E`'s two brake inputs GND-tied until rev 2. `GP24`
-  went live, taking Rev 0 to 18 connected GPIOs with no pin moved. Corrected the
+  went live with no pin moved. Corrected the
   old claim that six slots carried signals Rev 0 does not have — only the three
   DAC wires were genuinely absent. Updated `interface-map`, `design-block-map`,
   `instrument-strategy`, `rev0-plan`, `validation-plan`, `bringup-log`, `README`,
@@ -266,6 +301,7 @@ Ready for active PCB work when:
   plus scope banners on the eight docs describing deferred subsystems. Rev 0
   connects 17 of 30 GPIOs and reserves the rest at fixed numbers, so rev 1 adds
   the DAC, the PIO encoder tap, the event lines, and the InstrumentPort without
+  *(counts superseded 2026-08-16)*
   moving a pin. Dropped `TMC_REF_STIM` permanently to pay for the bus-switch
   enable on `GP9`. Confirmed the whole Rev 0 connector complement is stocked in
   one 3.5 mm terminal family, and flagged that it is screw, not locking.
@@ -419,7 +455,8 @@ Ready for active PCB work when:
 - 2026-08-12: Added the multi-source logic rail — onboard buck, USB `VBUS`, and
   optional pyControl 5 V, diode-ORed at the `TPS73733` input rather than at
   `+5V`, because ORing onto `+5V` violates the TMC5130A's 4.6 V `VCC` minimum and
-  truncates the DAC's full-scale output. Allocated `GP26`/`ADC0` to `V5_SENSE` so
+  truncates the DAC's full-scale output. Allocated `GP26`/`ADC0` to a switched-rail
+  sense *(retargeted from `+5V_SW` to `+3V3_SW` on 2026-08-16)* so
   firmware can detect the MCU-alive/`+5V`-dead state that USB-only power creates,
   and recorded the input-clamp back-powering hazard it introduces.
 - 2026-08-12: Worked the 36 V consequences from `TMC5130A_datasheet_rev1.21.pdf`

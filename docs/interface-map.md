@@ -16,13 +16,15 @@ Rev 0 was scaled back to get testable hardware in the researcher's hands sooner.
 See `docs/rev0-plan.md` for what it contains and why.
 
 The allocation below is written so that **no pin moves between Rev 0 and full
-scope**. Rev 0 populates 18 of the 29 allocated GPIOs; the other 11 are reserved,
+scope**. Rev 0 populates 17 of the 25 allocated GPIOs; the other 8 are reserved,
 routed nowhere, and become live in later revisions without disturbing anything
 Rev 0 established. Firmware written against Rev 0 keeps working.
 
-The eighteenth is `GP24` `~{INSTR_BUF_OE}`, which became live on 2026-08-16 when
-the InstrumentPort moved into Rev 0. It was already allocated and already in the
-bypass group, so nothing else shifted.
+`GP24` `~{INSTR_BUF_OE}` became live on 2026-08-16 when the InstrumentPort moved
+into Rev 0; it was already allocated and already in the bypass group. The same
+day, `GP14`-`GP16` and `GP18` left the allocation entirely when the encoder and
+limit switch stopped reaching the MCU, which is why the denominator dropped from
+29 to 25.
 
 That property is not free, and it cost exactly one trade — see
 [The Bus Switch Costs A Pin](#the-bus-switch-costs-a-pin).
@@ -63,11 +65,11 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP11` | `DAC_SPI_COPI`    | DAC SPI MOSI (`SPI1 TX`)                        | reserved | `sw`  | `out` |
 | `GP12` | `~{DAC_LDAC}`     | DAC synchronous load                            | reserved | `sw`  | `out` |
 | `GP13` | `~{DAC_CS}`       | DAC chip select (`~SYNC`)                       | reserved | `sw`  | `out` |
-| `GP14` | `ENC_A`           | Encoder A, PIO cross-check                      | reserved | `sw`  | `in`  |
-| `GP15` | `ENC_B`           | Encoder B, PIO cross-check                      | reserved | `sw`  | `in`  |
-| `GP16` | `ENC_N`           | Encoder index, PIO cross-check                  | reserved | `sw`  | `in`  |
+| `GP14` | spare             | **Freed 2026-08-16** — encoder reaches the driver only³ | spare | — | —  |
+| `GP15` | spare             | **Freed 2026-08-16**                            | spare    | —     | —     |
+| `GP16` | spare             | **Freed 2026-08-16**                            | spare    | —     | —     |
 | `GP17` | `~{DAC_CLR}`      | DAC clear                                       | reserved | `sw`  | `out` |
-| `GP18` | `LIMIT_SW`        | Debounced limit switch, MCU copy                | **yes**  | `sw`  | `in`  |
+| `GP18` | spare             | **Freed 2026-08-16** — limit switch reaches `REFL` only³ | spare | — | —  |
 | `GP19` | `HV_EN`           | 36 V input switch enable                        | **yes**  | `byp` | `out` |
 | `GP20` | `PYC_PULL_EVENT`  | Pull event out                                  | reserved | `byp` | `out` |
 | `GP21` | `FW_TRIG1`        | Firmware timing marker                          | **yes**¹ | `byp` | `out` |
@@ -75,7 +77,7 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP23` | `PYC_RSYNC_IN`    | Rsync edges in                                  | reserved | `byp` | `in`  |
 | `GP24` | `~{INSTR_BUF_OE}` | Instrumentation buffer enable                   | **yes**  | `byp` | `out` |
 | `GP25` | `FW_TRIG0`        | Firmware timing marker                          | **yes**¹ | `byp` | `out` |
-| `GP26` | `V5_SENSE`        | `+5V_SW` presence and level, via divider        | **yes**  | `byp` | `in`  |
+| `GP26` | `SW_RAIL_SENSE`   | `+3V3_SW` presence and level, ÷2 divider⁴       | **yes**  | `byp` | `in`  |
 | `GP27` | spare             | Reserved — `EXT_FAULT_IN` candidate, see below  | spare    | —     | —     |
 | `GP28` | `HV_SNS`          | 36 V input load-current sense, `R_SNS` = 249 Ω  | **yes**  | `byp` | `in`  |
 | `GP29` | `~{HV_FAULT}`     | 36 V switch fault, open-drain, pull-up to 3.3 V | **yes**  | `byp` | `in`  |
@@ -88,12 +90,92 @@ instrumentation on the board and the natural trigger source for a long capture.
 `mcu` sheet, so `GP9` reaches its `~{OE}` without crossing the sheet boundary. It
 is the only Rev 0 connected GPIO with no pin on the `mcu` sheet.
 
-**Rev 0: 18 connected, 11 reserved, 1 spare.**
-**Full scope: 29 connected, 1 spare (`GP27`).**
+³ See [The Encoder And Limit Switch Do Not Reach The
+MCU](#the-encoder-and-limit-switch-do-not-reach-the-mcu).
+
+⁴ Was `V5_SENSE` on divided `+5V_SW` until 2026-08-16. See [What The Rail Sense
+Is Actually For](#what-the-rail-sense-is-actually-for).
+
+**Rev 0: 17 connected, 8 reserved, 5 spare.**
+**Full scope: 25 connected, 5 spare (`GP14`, `GP15`, `GP16`, `GP18`, `GP27`).**
+
+**Four pins were freed on 2026-08-16** and the allocation went from comfortable to
+roomy. That matters for more than tidiness — see the note on rev 2 below.
 
 `DIAG_EN` on the input block's switch is **tied to `+3.3V`, not to a GPIO** —
 diagnostics have no reason to be gated, and tying it costs no pin. Without it
 neither `HV_SNS` nor `~{HV_FAULT}` works at all; see `docs/power.md`.
+
+### The Encoder And Limit Switch Do Not Reach The MCU
+
+**Decided 2026-08-16.** `ENC_A`, `ENC_B`, `ENC_N`, and `LIMIT_SW` are the
+TMC5130A's business. The encoder goes from `J6` to `ENCA`/`ENCB`/`ENCN`; the
+debounced limit switch goes to `REFL`. **Neither reaches an RP2040 pin, in any
+revision.** Firmware gets position from the driver's `X_ENC`/`XACTUAL` register
+and homing state from the driver's status, both over SPI.
+
+This frees `GP14`, `GP15`, `GP16`, and `GP18`.
+
+**What it deletes, permanently rather than deferring:**
+
+- The **RP2040 PIO encoder cross-check**. It is not "rev 1" any more, it is gone.
+- **`ENCODER_MISMATCH`** in `docs/uart-protocol.md`. There is no second count to
+  disagree with and there never will be, so the fault code should be retired
+  rather than left reserved.
+- The `GP14`/`GP15`/`GP16` **contiguity constraint**. It existed only to let one
+  PIO state machine read A, B, and the index with a single input mapping. Those
+  three pins are now ordinary spares with no adjacency requirement.
+- The MCU's **independent copy of the limit switch**. Firmware learns a homing
+  event from the driver, one SPI poll later than the hardware `REFL` latch — which
+  is the same latency the design already accepted, since `REFL` was always the
+  hardware path and `GP18` was always just a witness.
+
+**What replaces the witness:** the InstrumentPort. `ENC_A`, `ENC_B`, and
+`LIMIT_SW` are all on it in Rev 0, which is now the *only* way to see those
+signals independently of the driver's own report. That is a stronger reason for
+them to be on the port than existed when the MCU also had copies.
+
+**Rev 2 may now fit on RP2040.** Full scope is 25 of 30 with five spares, and the
+brake plus torque front end for a single axis needs about six GPIOs — `BRAKE_DIM`,
+`~{BRAKE_FAULT}`, a brake current monitor on ADC, two for the torque bus, and
+`TQ_DRDY`. Drop `TQ_DRDY`, which the bus capture already implies, and it is five
+for five, with `GP27` ADC-capable for the current monitor. **The twin-axis board
+needs RP2354B because it carries two of everything; this board may not.** Do not
+treat that as settled — it is an observation to check when the rev 2 circuits are
+actually specified, not a commitment.
+
+### What The Rail Sense Is Actually For
+
+**`GP26` senses `+3V3_SW` through a ÷2 divider as of 2026-08-16**, replacing a
+divided `+5V_SW` sense. Same two resistors, better measurement — sensing the end
+of the chain confirms 36 V, 5 V, and 3.3 V in one reading, and `+3V3_SW` is the
+rail that actually gates the decision, because it is what powers the far side of
+the bus switch.
+
+**Why not delete it, given the TMC answers SPI when the rails are up?** Because of
+a circularity. `docs/power.md` makes the rail sense one of three supporting
+measures for the isolation architecture: *reconnect only after the rails are
+confirmed up*. SPI reaches the TMC5130A **through the bus switch you are deciding
+whether to enable**, so it cannot confirm anything before that decision. Enabling
+the bus into an unpowered driver is precisely the back-power failure the whole
+architecture exists to prevent. The sense must bypass the bus switch, and `GP26`
+does.
+
+**It is substantially redundant with `HV_SNS`**, though, and that is worth knowing
+if the pin is ever wanted elsewhere. `GP28` also bypasses the bus switch, and the
+buck, the LDO, and the driver draw quiescent current whenever the rail is really
+up, so a near-zero `HV_SNS` after raising `HV_EN` already means "the rail did not
+come up." Gating on `HV_SNS` plus a timeout would be defensible.
+
+**`~{HV_FAULT}` does not cover this**, and it is worth being explicit about why:
+with no 36 V present the `TPS1HTC100-Q1` is itself unpowered, so its open-drain
+fault output floats and the pull-up reads it as *no fault*. The most likely
+failure on the bench — nobody plugged the supply in — is invisible to `~{HV_FAULT}`
+and obvious to either `SW_RAIL_SENSE` or `HV_SNS`.
+
+**Firmware rule:** after raising `HV_EN`, confirm `SW_RAIL_SENSE` reads a valid
+`+3V3_SW` before deasserting `~{BUS_SW_OE}`. Refuse `ARM` with a specific reason
+when it does not, and report the reading in `STATUS`.
 
 ### Signal Direction And Sheet Pin Types
 
@@ -138,11 +220,10 @@ what the mating block already declares, so a mismatch here is a wiring error.
 | `TMC_SPI_CIPO`    | **Input**         | `tmc5130` `SDO`                                                 | output            |
 | `TMC_DIAG0`       | **Input**         | `tmc5130` `SWN_DIAG0`                                           | bidirectional     |
 | `TMC_DIAG1`       | **Input**         | `tmc5130` `SWP_DIAG1`                                           | bidirectional     |
-| `LIMIT_SW`        | **Input**         | `limit_switch_debounced_input` `LIMIT_SW`, and `tmc5130` `REFL` | output / input    |
 | `HV_EN`           | **Output**        | `hv_input_36V_terminal_2pos_5p08_protected` `ENABLE`            | input             |
 | `HV_SNS`          | **Input**         | `hv_input_36V_terminal_2pos_5p08_protected` `SNS`               | output            |
 | `~{HV_FAULT}`     | **Input**         | `hv_input_36V_terminal_2pos_5p08_protected` `~{FAULT}`          | output            |
-| `V5_SENSE`        | **Input**         | board-local divider off `+5V_SW`                                | passive           |
+| `SW_RAIL_SENSE`   | **Input**         | board-local ÷2 divider off `+3V3_SW`                            | passive           |
 | `FW_TRIG0`        | **Output**        | test pad and buffer `U_B`                                       | input             |
 | `FW_TRIG1`        | **Output**        | test pad and buffer `U_B`                                       | input             |
 | `~{INSTR_BUF_OE}` | **Output**        | `~{OE}` on all five buffer instances                            | input             |
@@ -152,15 +233,18 @@ what the mating block already declares, so a mismatch here is a wiring error.
 | `+3V3_MCU`        | Passive           | `GP1` pull-up, buffers, and the input block's `+3.3V_MCU`       | passive           |
 | `GND`             | Passive           | board ground                                                    | passive           |
 
-**Twenty-two pins in Rev 0.** Reserved signals get no pin until their far end
-exists — their A-side channels are wired inside `mcu` and stop at the bus switch.
-When they arrive: `DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_LDAC}`, `~{DAC_CS}`,
-`~{DAC_CLR}`, `PYC_PULL_EVENT`, and `PYC_FAULT` are **Output**; `ENC_A`, `ENC_B`,
-`ENC_N`, and `PYC_RSYNC_IN` are **Input**.
+**Twenty pins in Rev 0** — nine Output, six Input, two Bidirectional, three
+Passive. Note there is no `LIMIT_SW` and no encoder pin on this sheet; those
+signals never reach the MCU.
+
+Reserved signals get no pin until their far end exists — their A-side channels are
+wired inside `mcu` and stop at the bus switch. When they arrive: `DAC_SPI_SCK`,
+`DAC_SPI_COPI`, `~{DAC_LDAC}`, `~{DAC_CS}`, `~{DAC_CLR}`, `PYC_PULL_EVENT`, and
+`PYC_FAULT` are **Output**; `PYC_RSYNC_IN` is **Input**.
 
 #### The Bus Switch Does Not Change Direction
 
-Eight of the Rev 0 pins above — the `sw` group, `GP2`-`GP8` and `GP18` — leave
+Seven of the Rev 0 pins above — the `sw` group, `GP2`-`GP8` — leave
 `mcu` from the **B side** of the isolation bus switch, whose A and B pins the
 block correctly declares `passive`, because a FET pass gate is passive silicon.
 That means the B-side net inside `mcu` has no driver of its own, and **the sheet
@@ -182,7 +266,7 @@ or a passive network, and KiCad's "input not driven" check will say so:
 |-------------------------|--------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | `PYC_UART_RX`           | Driven by the pyControl host through an all-passive block boundary | **Change `PYC_DIO_A`/`PYC_DIO_B` to `bidirectional`** — see below                     |
 | `ENC_A`/`ENC_B`/`ENC_N` | Driven by the encoder through a passive connector                  | Accept, or give the connector pins a driving type                                     |
-| `V5_SENSE`, `HV_SNS`    | Resistive divider and an analog sense output                       | `HV_SNS` is fine, the block declares it `output`; `V5_SENSE` is a genuine passive net |
+| `SW_RAIL_SENSE`         | A ÷2 divider off `+3V3_SW` is a genuinely passive net              | Accept. `HV_SNS` is fine — the input block declares `SNS` as `output`                 |
 
 Decide once whether to change the source pin types or to exclude the specific ERC
 item, and record it. Do not lower the rule's severity board-wide — it is the check
@@ -202,8 +286,11 @@ topology change, no PCB impact.
 ### The Bus Switch Costs A Pin
 
 Rev 0 adds the `rp2040_gpio_isolation_sn74cb3q3245` block, whose shared
-active-low enable needs one GPIO. The previous allocation was already at 29 of 30
-with a single spare, so the enable had to come from somewhere.
+active-low enable needs one GPIO. The allocation was at 29 of 30 with a single
+spare **when this was decided on 2026-08-13**, so the enable had to come from
+somewhere. The 2026-08-16 encoder and limit-switch cut has since freed four more
+pins, which makes the trade below look cheap in hindsight — it was not cheap at
+the time, and `TMC_REF_STIM` is not coming back regardless.
 
 It is paid for by **permanently dropping `TMC_REF_STIM`**, the synthetic homing
 stimulus that used to sit on `GP9`. That was already item 2 in the reclaim order
@@ -212,9 +299,8 @@ through a real debouncer on its own terminal block, so homing is exercised by
 closing the actual switch rather than by a GPIO impersonating one. Leave a test
 pad on the `REFL` net so a jumper can still force a closure.
 
-Net effect: **the trade is one-for-one and the map still ends at 29 of 30 with
-`GP27` spare.** Without it, full scope would be 30 of 30 with nothing left and
-`EXT_FAULT_IN` would be impossible.
+Net effect: **the trade was one-for-one.** Full scope is now 25 of 30 with five
+spares, but that headroom arrived three days later and by a different route.
 
 ### Reclaim Order If More Pins Are Needed
 
@@ -227,24 +313,24 @@ loss first:
 2. **Drop `TMC_DIAG1`**, freeing `GP8`. `DIAG0` alone, configured to report what
    matters. Route `DIAG1` to a test point.
 
-Do not reclaim by moving an encoder pin — `GP14`/`GP15`/`GP16` contiguity is
-worth more than either of the above, even though Rev 0 does not use them.
+**Neither is needed today.** Five spares exist — `GP14`, `GP15`, `GP16`, `GP18`,
+and `GP27` — so spend a spare before spending a function. Keep the list for the
+case where rev 2 turns out to need more than five.
 
 Notes:
 
 - `GP23`, `GP24`, and `GP25` are free on the bare RP2040 QFN-56. They are
   reserved on Raspberry Pi Pico modules but not on a custom board.
   `tmc51x0-driver-dev-pcb` already uses `GP23` this way.
-- `GP14`/`GP15`/`GP16` are contiguous so one PIO state machine can read A, B, and
-  the index with a single input mapping. **Preserve that contiguity if the
-  allocation is edited**, including while they are unpopulated.
-- **Rev 0 routes the encoder to the TMC5130A only.** `ENCA`/`ENCB`/`ENCN` go
-  straight from the 5-pin encoder connector to the driver. The PIO cross-check
-  and the `ENCODER_MISMATCH` fault that depends on it are rev 1 features; see
-  [What Rev 0 Gives Up](#what-rev-0-gives-up).
-- The limit switch reaches the TMC5130A `REFL` pin through the debouncer.
-  `REFL` is the hardware-latched homing path; `GP18` is the MCU's independent
-  copy, taken from the same debounced node.
+- **`GP14`/`GP15`/`GP16` no longer need to be contiguous.** That constraint
+  existed only for a single PIO input mapping, and the PIO cross-check is gone.
+  They are ordinary spares.
+- **The encoder reaches the TMC5130A only, in every revision.** `ENCA`/`ENCB`/`ENCN`
+  go straight from the 5-pin connector to the driver. See [The Encoder And Limit
+  Switch Do Not Reach The MCU](#the-encoder-and-limit-switch-do-not-reach-the-mcu).
+- The limit switch reaches the TMC5130A `REFL` pin through the debouncer, and
+  goes nowhere else on the MCU. `REFL` is the hardware-latched homing path;
+  firmware reads homing state from the driver over SPI.
 - `GP19` drives the `hv_input_36V_terminal_2pos_5p08_protected` block's `ENABLE`
   input. That block pulls `ENABLE` low, so the 36 V rail is **off until firmware
   drives it** — and so the board's power-on state is the idle state, with the MCU
@@ -346,8 +432,8 @@ the cross-board fault discussion in `docs/pycontrol-interface.md`.
 | `UART0`    | pyControl link, 115200 8N1                                | `GP0`, `GP1`                                    | yes   |
 | `SPI0`     | TMC5130A                                                  | `GP6` SCK, `GP7` TX, `GP4` RX, `GP2` CS as GPIO | yes   |
 | `SPI1`     | DAC8563, write-only                                       | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO        | rev 1 |
-| PIO0 SM0   | Encoder A/B/N quadrature decode                           | `GP14`-`GP16`                                   | rev 1 |
-| ADC        | `V5_SENSE`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29`                                   | yes   |
+| PIO0       | **Unallocated** — the encoder cross-check was deleted     | —                                               | —     |
+| ADC        | `SW_RAIL_SENSE`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29`                              | yes   |
 | USB        | Debug console, CDC                                        | dedicated USB pins                              | yes   |
 | QSPI       | External flash                                            | dedicated QSPI pins                             | yes   |
 
@@ -382,10 +468,12 @@ rule:
 | Iso   | Applies to                                                                                                                                            | Because                                                  |
 |-------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | `sw`  | TMC5130A SPI, enable, and diagnostics; the MAX6816 debouncer's output copy; the encoder PIO tap and DAC bus in rev 1                                  | All of them are parts that lose power when `HV_EN` drops |
-| `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_SNS`, `~{HV_FAULT}`; `V5_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_OE}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN`      |
+| `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_SNS`, `~{HV_FAULT}`; `SW_RAIL_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_OE}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN`      |
 
-**Rev 0 isolates 8 channels; full scope isolates 16.** The bypass group is 13 at
-full scope, which is larger than a first pass suggests, and each entry earns it:
+**Rev 0 isolates 7 channels; full scope isolates 12.** Both dropped by four on
+2026-08-16, when the encoder and limit switch stopped reaching the MCU — those
+were `sw` entries. The bypass group is 13 at full scope, which is larger than a
+first pass suggests, and each entry earns it:
 
 | Net                                                   | Why it bypasses                                                                                                                                                                                              |
 |-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -393,7 +481,7 @@ full scope, which is larger than a first pass suggests, and each entry earns it:
 | `~{BUS_SW_OE}`                                        | Circular otherwise — the enable cannot be behind the switch it enables                                                                                                                                       |
 | `HV_EN`                                               | The `TPS1HTC100-Q1` runs from `HV_IN` and is never switched off. Rail control must not depend on bus state, and the MCU must be able to switch the rail back on while everything downstream is dark          |
 | `HV_SNS`, `~{HV_FAULT}`                               | Same device, same always-on supply, and their pull-ups sit on `+3V3_MCU`. Fault status must be readable precisely when the rail is off                                                                       |
-| `V5_SENSE`                                            | It reports whether `+5V_SW` came up, which is the precondition for enabling the bus. Reading it through the bus would be circular                                                                            |
+| `SW_RAIL_SENSE`                                       | It reports whether `+3V3_SW` came up, which is the precondition for enabling the bus. Reading it through the bus would be circular                                                                           |
 | `FW_TRIG0`, `FW_TRIG1`                                | Test points only — no chip at the far end — and they must stay observable while the bus is isolated                                                                                                          |
 | `PYC_PULL_EVENT`, `PYC_FAULT`, `PYC_RSYNC_IN` (rev 1) | BNC connectors and pyControl, both outside the switched domain                                                                                                                                               |
 | `~{INSTR_BUF_OE}` (rev 1)                             | The `SN74LVC125A` buffers sit on `+3V3_MCU` so the board can be observed while the switched domain is off                                                                                                    |
@@ -411,9 +499,12 @@ wired into `mcu.kicad_sch`. Deliberate divergence, noted so nobody "fixes" it.
 ### The Block Is Oversized For This Board — Accepted
 
 The block is four packages because it is built to isolate all 30 GPIOs. Under the
-rule above this board isolates **8 in Rev 0 and 16 at full scope**, so three of
+rule above this board isolates **7 in Rev 0 and 12 at full scope**, so three of
 the four `SN74CB3Q3245` packages are dead weight in Rev 0 and two are at full
-scope.
+scope. The 2026-08-16 encoder and limit-switch cut made this worse, not better —
+twelve channels fit in two packages with four to spare. The decision to place the
+proven block whole still stands on schedule grounds, but it is now carrying twice
+the packages it needs rather than a bit over.
 
 | Option                                                          | Cost                                                    | Benefit                                                        |
 |-----------------------------------------------------------------|---------------------------------------------------------|----------------------------------------------------------------|
@@ -452,7 +543,7 @@ Falls straight out of the architecture, and firmware must follow it:
 
 1. Drive `HV_EN` high.
 2. Wait for the buck and LDO to settle.
-3. Confirm `+5V_SW` is up on `V5_SENSE` — which is readable because it bypasses.
+3. Confirm `+3V3_SW` is up on `SW_RAIL_SENSE` — readable because it bypasses.
 4. Assert `~{BUS_SW_OE}` low — connect last.
 
 Isolating first and connecting last means no MCU pin is ever driving a rail that
@@ -469,15 +560,17 @@ Properties of the hardware, not choices:
   rail is off. This is the behaviour the architecture is for.
 - **The USB CDC console is likewise unaffected** — USB uses dedicated pins, not
   the GPIO matrix.
-- **The power-monitoring group is readable at all times.** `V5_SENSE`, `HV_SNS`,
-  and `~{HV_FAULT}` all bypass, so firmware can diagnose the switched domain
-  without enabling anything. The earlier boot-order awkwardness is gone.
-- **Nothing on the switched domain is reachable until the bus is enabled.** SPI
-  to the driver, the debounced limit-switch copy on `GP18`, and in rev 1 the
-  encoder tap and DAC. Firmware must treat a read from any of them as invalid
-  while `~{BUS_SW_OE}` is high rather than returning stale or floating data.
-- **`GP18` floats while isolated.** Enable an internal pull on it so the MCU's
-  limit-switch copy has a defined level in the idle state.
+- **The power-monitoring group is readable at all times.** `SW_RAIL_SENSE`,
+  `HV_SNS`, and `~{HV_FAULT}` all bypass, so firmware can diagnose the switched
+  domain without enabling anything. The earlier boot-order awkwardness is gone.
+- **Nothing on the switched domain is reachable until the bus is enabled.** SPI to
+  the driver, and in rev 1 the DAC. Firmware must treat a read from either as
+  invalid while `~{BUS_SW_OE}` is high rather than returning stale or floating
+  data.
+- **Position and homing come only from the driver.** The encoder and the limit
+  switch never reach a GPIO, so while the bus is isolated firmware has no
+  position and no homing state at all — not stale data, none. Report that
+  honestly in `STATUS` rather than caching the last value.
 - **`GP1` has a hardware pull-up, and firmware should still enable its own.**
   The external 10 kΩ defines RX before firmware runs; the internal pull is the
   second layer. Do not treat the hardware part as permission to skip it. See
@@ -541,13 +634,17 @@ analysis is unchanged and is why `J8` and `J9` keep their designators.
 
 Stated plainly so nobody discovers it during bring-up:
 
-- **No independent encoder cross-check.** The encoder reaches the TMC5130A only.
-  The `ENCODER_MISMATCH` fault in `docs/uart-protocol.md` has no second count to
-  compare against and is not implementable in Rev 0. Encoder integrity rests on
-  the driver's own count plus the index pulse. **The InstrumentPort narrows this**
-  — `ENC_A` and `ENC_B` are captured alongside the SPI reads of `X_ENC`, so the
-  driver's decoding can be checked by hand even though firmware cannot check it
-  automatically. That is a bench capability, not a runtime fault.
+- **No independent encoder cross-check, ever.** As of 2026-08-16 this is
+  permanent rather than deferred: the encoder reaches the TMC5130A only, in every
+  revision. `ENCODER_MISMATCH` in `docs/uart-protocol.md` has no second count to
+  compare against and should be retired rather than left reserved. Encoder
+  integrity rests on the driver's own count plus the index pulse. **The
+  InstrumentPort narrows this** — `ENC_A` and `ENC_B` are captured alongside the
+  SPI reads of `X_ENC`, so the decoding can be checked by hand. That is a bench
+  capability, not a runtime fault, and it goes away at rev 2.
+- **No MCU copy of the limit switch.** Firmware learns a homing event from the
+  driver over SPI, not from a GPIO. `LIMIT_SW` is on the InstrumentPort in Rev 0
+  and on a test pad always.
 - **No analog angle output.** The researcher-facing 0-5 V BNC is rev 1. Angle is
   available over the UART only.
 - **Eight of the eighteen InstrumentPort digital Strands are unrouted**, and two
@@ -598,7 +695,7 @@ I2C overlay.
 | 14                                         | `DIG8`              | `PYC_DIO_B`                                     | **Rev 0**                 |                                                                                      |
 | 16                                         | `DIG9`              | `DAC_SPI_SCK`                                   | rev 1                     | Lets a capture recover the commanded angle code                                      |
 | 17                                         | `DIG10`             | `DAC_SPI_COPI`                                  | rev 1                     |                                                                                      |
-| 19                                         | `DIG11`             | `BRAKE_DIM`                                     | rev 2                     | Brake PWM, on the slot the profile names for PWM                                     |
+| 19                                         | `DIG11`             | `LIMIT_SW` → `BRAKE_DIM`                        | **Rev 0**, swaps at rev 2 | Homing witness now; brake PWM later, on the slot the profile names for PWM           |
 | 20                                         | `DIG12`             | `~{BRAKE_FAULT}`                                | rev 2                     | Brake overcurrent latch, on the slot the profile names for fault                     |
 | 22                                         | `DIG13`             | `PYC_PULL_EVENT`                                | rev 1                     | Behavioral event                                                                     |
 | 23                                         | `DIG14`             | `PYC_FAULT`                                     | rev 1                     | Fault, experiment-critical                                                           |
@@ -611,43 +708,57 @@ I2C overlay.
 | 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                  | —                         | Per profile                                                                          |
 | 31, 34, 37, 40                             | `AGND`              | Analog return                                   | —                         | Per profile                                                                          |
 
-**Ten Strands live in Rev 0**: the four TMC SPI signals, the two pyControl serial
-lines, the two firmware triggers, and the two encoder channels. Eight more are
-allocated and unrouted.
+**Eleven Strands live in Rev 0**: the four TMC SPI signals, the two pyControl
+serial lines, the two firmware triggers, the two encoder channels, and the limit
+switch. Seven more are allocated and unrouted.
 
-### `DIG0`/`DIG1` Are The Swap Slots
+### `DIG0`, `DIG1`, And `DIG11` Are The Swap Slots
 
-**Decided 2026-08-16.** `ENC_A` and `ENC_B` occupy the two slots reserved for the
-rev 2 torque front-end bus, and give them up when it arrives.
+**Decided 2026-08-16.** `ENC_A`, `ENC_B`, and `LIMIT_SW` occupy three of the four
+slots reserved for the rev 2 brake and torque circuits, and give them up when
+those arrive. All three are in buffer package `U_E`.
 
-**What they buy in Rev 0.** Rev 0 wires the encoder to the TMC5130A only — there
-is no PIO cross-check — so the driver's `X_ENC`/`XACTUAL` register is the *only*
-count anything on this board has. With the raw quadrature edges and the SPI reads
-of that register in the same capture, the driver's decoding is checkable directly:
-count the edges, read the register, compare. Without them, a driver that is
-miscounting looks exactly like a driver that is counting correctly. That question
-is at its most urgent when the board is new, which is precisely when the port is
-now present.
+**These are the board's only independent witnesses to the driver's inputs.** None
+of `ENC_A`, `ENC_B`, `ENC_N`, or `LIMIT_SW` reaches an RP2040 pin in any revision
+— the TMC5130A owns them — so firmware's entire picture of position and homing is
+the driver's own report over SPI. If the driver miscounts, or latches `REFL` when
+nothing closed, nothing in the system disagrees with it. Putting the raw signals
+next to the SPI traffic in one capture is what makes that checkable:
 
-**Why these two slots and not others.** `DIG0`/`DIG1` belong to buffer package
-`U_E`, the rev 2 package. `U_C` and `U_D` fill at rev 1. So the encoder survives
-Rev 0 *and* rev 1 untouched and is evicted only at rev 2 — the latest eviction any
-pair of slots offers.
+- **Encoder:** count quadrature edges over a known sweep, read `X_ENC`, compare.
+- **Limit switch:** see the edge, then see the driver react in the next SPI poll.
+  Without it a homing failure cannot be attributed to the switch, the debouncer,
+  or the driver.
+
+**Why these three slots and not others.** They belong to `U_E`, the rev 2 buffer
+package; `U_C` and `U_D` fill at rev 1. So all three survive Rev 0 *and* rev 1 and
+are evicted only at rev 2 — the latest eviction available.
 
 **`ENC_N` stays off the port.** The index fires once per revolution; `ENC_A` and
-`ENC_B` are what a decode check needs. It goes to a test pad.
+`ENC_B` are what a decode check needs. Test pad only.
 
-**When the torque front end lands**, reassign `DIG0`/`DIG1` to `TQ_I2C_SCL` and
-`TQ_I2C_SDA` and drop the encoder taps to test pads. By then the PIO cross-check
-in rev 1 gives firmware a second count of its own, so the port no longer has to
-provide the comparison.
+**When the brake and torque circuits land**, reassign `DIG0`/`DIG1` to the torque
+bus and `DIG11` to `BRAKE_DIM`, and drop all three taps to test pads. There is no
+PIO cross-check coming to replace them — that was deleted, not deferred — so this
+is a real loss of observability, accepted on the grounds that by rev 2 the
+encoder decode and the homing path are verified, settled behaviour rather than
+open questions.
 
-**Two 100 kΩ pull-downs to GND on the encoder taps**, at the buffer inputs. The
-encoder is on the **switched** domain, so `ENC_A`/`ENC_B` float whenever `HV_EN`
-is low — the board's normal idle state — while `U_E` stays powered from
-`+3V3_MCU`. Pull-*down* works whether the encoder turns out push-pull or
-open-collector, which matters because the encoder part is still an open blocking
-item; against a 2.2 kΩ pull-up to `+3V3_SW` a 100 kΩ pull-down still reads 3.2 V.
+**Three 100 kΩ pull-downs to GND**, at the buffer inputs, on `ENC_A`, `ENC_B`, and
+`LIMIT_SW`. All three sit in the **switched** domain and float whenever `HV_EN` is
+low — the board's normal idle state — while `U_E` runs from `+3V3_MCU`.
+
+Pull-*down*, not up, for two reasons. It works whether the encoder turns out
+push-pull or open-collector, which matters because the encoder part is still an
+open blocking item; against a 2.2 kΩ pull-up to `+3V3_SW` a 100 kΩ pull-down still
+reads 3.2 V. And a pull-*up* would have to go to `+3V3_MCU`, which would
+back-power the MAX6816's and the encoder's output pins through their clamps
+whenever the switched domain is dark — the exact failure the limit-switch block's
+own description warns about.
+
+`LIMIT_SW` is active low, so a pull-down makes it read as *closed* while the
+switched domain is off. Harmless: the TMC5130A is unpowered in that state and
+nothing else reads the net.
 
 ### If Brake And Torque Need More Than Four Slots
 
@@ -671,15 +782,16 @@ time in pyControl's frame, and nothing else in the capture substitutes for it.
 `TMC_DIAG0` did not earn a slot because a driver fault reaches the capture
 through `PYC_FAULT` anyway, one firmware latency later. It goes to a test point.
 
-Labelled test pads, not bare vias: `ENC_N`, `LIMIT_SW`, `TMC_DIAG0`,
+Labelled test pads, not bare vias: `ENC_N`, `TMC_DIAG0`,
 `TMC_DIAG1`, `~{TMC_DRV_EN}`, `HV_EN`, `HV_SNS`, `REFL`, `SWSEL`,
 `~{INSTR_BUF_OE}`, and in later revisions `~{DAC_LDAC}`, `~{DAC_CLR}`, and
 `TQ_DRDY`. `TQ_DRDY` has no slot because the I2C capture already shows when the
 host reads a conversion.
 
-**Also pad `ENC_A` and `ENC_B`**, even though Rev 0 carries them on the port.
-They lose their slots at rev 2 and the pads are what they fall back to, so
-placing them now costs nothing and saves a layout change later.
+**Also pad `ENC_A`, `ENC_B`, and `LIMIT_SW`**, even though Rev 0 carries them on
+the port. They lose their slots at rev 2 and the pads are what they fall back to,
+so placing them now costs nothing and saves a layout change later. Since none of
+them reaches the MCU, the pads are the only access once the port slots go.
 
 ### Where Each Signal Is Tapped
 
@@ -751,8 +863,13 @@ them: the comparison is against the driver's own decoded count, so the tap belon
 where the driver sees the signal, not where the cable delivers it. Each tap gets
 its own 100 kΩ pull-down, as above.
 
-**Three pull-downs total**, then: `TMC_SPI_CIPO`, `ENC_A`, `ENC_B`. They are the
-only new passives the instrument port adds.
+**Limit switch: the `LIMIT_SW` net between the debouncer and the TMC5130A
+`REFL` pin.** Same reasoning — the capture should show what the driver's homing
+input receives.
+
+**Four pull-downs total**, then: `TMC_SPI_CIPO`, `ENC_A`, `ENC_B`, `LIMIT_SW`.
+With the ÷2 divider on `SW_RAIL_SENSE`, that is the whole passive cost of the
+instrumentation added on 2026-08-16.
 
 ### AIN Assignment Keeps 36 V Off The Connector
 
@@ -806,20 +923,20 @@ deferred group never leaves a powered CMOS input undriven.
 | `U_B`   | `DIG7`, `DIG8`, `TRIG0`, `TRIG1`                             | pyControl serial and firmware markers       | **Rev 0** |
 | `U_C`   | `DIG6`, `DIG9`, `DIG10`, + 1 spare                           | DAC group                                   | rev 1     |
 | `U_D`   | `DIG13`, `DIG14`, `DIG15`, + 1 spare                         | pyControl event lines                       | rev 1     |
-| `U_E`   | `DIG0`, `DIG1` (encoder now, torque later), `DIG11`, `DIG12` | Encoder in Rev 0; brake and torque at rev 2 | **Rev 0** |
+| `U_E`   | `DIG0`, `DIG1`, `DIG11` (encoder and limit switch now, torque and brake later), `DIG12` | Driver-input witnesses in Rev 0; brake and torque at rev 2 | **Rev 0** |
 
 **Place all five footprints in Rev 0 and populate `U_A`, `U_B`, and `U_E`.** `U_C`
 and `U_D` are DNP with their inputs unrouted, which costs board area now and saves
 a placement pass later. Reserving the area is the whole point — see
 `docs/design-block-map.md` on leaving room for the rev 1 and rev 2 additions.
 
-`U_E` is the one package that does carry a mix, because the encoder taps sit in it
-and the brake does not exist yet. **Tie its `DIG11` and `DIG12` inputs directly to
-GND in Rev 0** — a net, not a part. Those two channels drive a static low onto
-their `DIG` pins, which reads as a dead channel at the analyzer and is the correct
-thing for an unused LVC125A input. At rev 2 the ties are removed and the brake
-signals routed in their place, at the same time the encoder taps hand `DIG0`/`DIG1`
-to the torque bus — one package, one change.
+`U_E` is the one package that carries a mix, because three driver-input witnesses
+sit in it and the brake does not exist yet. **Tie its `DIG12` input directly to
+GND in Rev 0** — a net, not a part. That channel drives a static low onto `DIG12`,
+which reads as a dead channel at the analyzer and is the correct thing for an
+unused LVC125A input. At rev 2 the tie is removed, `~{BRAKE_FAULT}` routes in its
+place, and the three witnesses hand `DIG0`/`DIG1` to the torque bus and `DIG11` to
+`BRAKE_DIM` — one package, one change.
 
 The two spare channels in `U_C` and `U_D` also need their inputs tied to GND when
 those packages are fitted at rev 1.

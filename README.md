@@ -25,7 +25,7 @@ carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
 - **One TMC5130A** stepper driver section in SPI mode, on a 4-pin motor terminal.
 - **One single-ended encoder** on a 5-pin terminal, read by the TMC5130A only.
 - **One limit switch** on a 2-pin terminal through a hardware debouncer, to
-  `REFL` and to an MCU GPIO.
+  `REFL`, and to no MCU GPIO.
 - **pyControl RJ-45** behavior port carrying the serial link, 115200 8N1 — and
   nothing else.
 
@@ -33,8 +33,7 @@ carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
   serial link at the connector and the TMC5130A SPI bus in one capture.
 
 Deferred to rev 1: the 0-5 V analog angle output and its BNC, the
-`PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs, and the RP2040 PIO encoder
-cross-check. Every one of them lands on pins Rev 0 has already allocated and left
+`PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs. Every one of them lands on pins Rev 0 has already allocated and left
 unconnected.
 
 Assembled from `kicad-libs` design blocks — **fifteen instances**, including two
@@ -70,52 +69,52 @@ instrument tooling.
 
 All in [Interface Map](docs/interface-map.md).
 
-**Rev 0 connects 17 of 30 GPIOs. Full scope is 29 of 30 with 1 spare.** The
+**Rev 0 connects 17 of 30 GPIOs. Full scope is 25 of 30 with 5 spares.** The
 allocation is written so that **no pin moves between Rev 0 and full scope** — Rev
-0 leaves the other twelve reserved and routed nowhere, and rev 1 makes them live
-without disturbing anything Rev 0 established.
+0 leaves eight reserved and routed nowhere, and rev 1 makes them live without
+disturbing anything Rev 0 established. Four more were freed on 2026-08-16 when
+the encoder and limit switch stopped reaching the MCU.
 
 | Group | Pins | Rev 0 |
 | --- | --- | --- |
 | pyControl `UART0` | `GP0` TX, `GP1` RX | yes |
 | TMC5130A `SPI0` | `GP6` SCK, `GP7` COPI, `GP4` CIPO, `GP2` CS, `GP3` `~DRV_EN`, `GP5` `DIAG0`, `GP8` `DIAG1` | yes |
 | GPIO isolation enable | `GP9` `~BUS_SW_OE` | yes |
-| Limit switch | `GP18` | yes |
-| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `V5_SENSE` (ADC0), `GP29` `~HV_FAULT` | yes |
+| Power control | `GP19` `HV_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `SW_RAIL_SENSE` (ADC0), `GP29` `~HV_FAULT` | yes |
 | Firmware markers | `GP25` `FW_TRIG0`, `GP21` `FW_TRIG1` — test points in Rev 0 | yes |
 | DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` | rev 1 |
-| Encoder PIO | `GP14` A, `GP15` B, `GP16` N — contiguous | rev 1 |
 | pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` | rev 1 |
 | Instrument buffer enable | `GP24` `~INSTR_BUF_OE` | yes |
-| Spare | `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
+| Spare | `GP14`, `GP15`, `GP16`, `GP18`, and `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
 
 **One pin was traded, not found.** The isolation bus switch needs an enable, and
-the map was already at 29 of 30. It is paid for by permanently dropping
+the map was at 29 of 30 when that was decided. It is paid for by permanently dropping
 `TMC_REF_STIM`, the synthetic homing stimulus that sat on `GP9` — the limit
 switch now arrives through a real debouncer, so homing is exercised by closing
 the actual switch. One-for-one, and `GP27` survives as the spare.
 
 **A GPIO goes through the isolation switch if and only if its far end sits on the
-switched domain.** That isolates 8 channels in Rev 0 and 16 at full scope — the
-TMC bus, and the limit-switch copy. Everything else bypasses, including the
+switched domain.** That isolates 7 channels in Rev 0 and 12 at full scope — the
+TMC bus in Rev 0, the DAC group later. Everything else bypasses, including the
 pyControl UART, so **the board still answers `ID`/`STATUS` with the motor rail
 switched off**. That is the whole point of the arrangement. Per-signal rationale
 in the interface map.
 
 **InstrumentPort-40 is in Rev 0** as of 2026-08-16, for firmware development
-rather than for experiments. Ten of its eighteen digital Strands are live: the
+rather than for experiments. Eleven of its eighteen digital Strands are live: the
 four TMC5130A SPI signals, both directions of the pyControl serial link, the two
-firmware triggers, and the two encoder quadrature channels. The other eight are
+firmware triggers, the two encoder quadrature channels, and the limit switch.
+The other seven are
 allocated and unrouted, **four of them reserved for the rev 2 electronic brake
 and torque sensor**.
 
-`ENC_A` and `ENC_B` are borrowing two of those reserved slots. Rev 0 has no PIO
-cross-check, so the TMC5130A's own count is the only one on the board and nothing
-in firmware can contradict it — capturing the raw edges beside the SPI reads of
-that register is what confirms the driver is decoding the encoder correctly. They
-sit in the slots belonging to the rev 2 buffer package, so they survive rev 1 and
-hand over only when the torque front end arrives. Full allocation in the
-interface map.
+`ENC_A`, `ENC_B`, and `LIMIT_SW` are borrowing three of those reserved slots.
+**None of them reaches an RP2040 pin in any revision** — the TMC5130A owns the
+encoder and the limit switch, so the driver's own report over SPI is firmware's
+entire picture of position and homing, and nothing can contradict it. Capturing
+the raw signals beside the SPI traffic is what makes that picture checkable. They
+sit in the rev 2 buffer package's slots, so they survive rev 1 and hand over only
+when the brake and torque front end arrive. Full allocation in the interface map.
 
 ## The High-Side Switch Is A Reset Button
 
