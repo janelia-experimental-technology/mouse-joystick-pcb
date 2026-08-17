@@ -1504,7 +1504,7 @@
         "uuid": "004d6f75-7365-204a-6f79-737469636b00"
       }
     ],
-    "used_designators": "X1201,C201-202,C301,C501-514,C601-604,C701-702,C801,C1001-1002,C1201-1214,C1301,D201,D801,J201,J301,J801,J1101,J1301,R201-207,R301-302,R501-505,R601,R801-803,R1201-1204,U201,U301,U501-502,U601-604,U701,U801,U1001,U1201,U1301,#FLG101,#FLG201,#FLG301,#FLG801,SW501,Y501",
+    "used_designators": "Y501,SW501,#FLG101,#FLG201,#FLG301,#FLG401,#FLG801,U201,U301,U501-502,U601-604,U701,U801,U1001,U1201,U1301,U1701,U1801,R201-207,R301-302,R501-505,R601,R801-803,R1201-1205,R1701-1705,R1801-1805,J201,J301,J801,J1101-1102,J1301,J1401,J1501,D201,D801,C201-202,C301,C501-514,C601-604,C701-702,C801,C1001-1002,C1101,C1201-1214,C1301,C1701,C1801,X1201",
     "variants": []
   },
   "sheets": [
@@ -1559,6 +1559,26 @@
     [
       "ca65f961-6ddd-440d-9e9e-e541f04cf110",
       "limit_switch_debounced_input"
+    ],
+    [
+      "06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf",
+      "instrument_port"
+    ],
+    [
+      "e63f1139-ad87-47db-b44f-a07853aa94c4",
+      "instrument_port_40_dut_ffc_boundary"
+    ],
+    [
+      "fe6d41ea-f690-4202-9816-a8f6f3e0c72f",
+      "instrumentation_signal_buffer_sn74lvc125a_1"
+    ],
+    [
+      "b84a43bc-aa0e-45b1-a359-dd4cf0ca2c52",
+      "instrumentation_signal_buffer_sn74lvc125a_2"
+    ],
+    [
+      "23bb01c7-eb64-4892-8263-1b70140ea735",
+      "instrumentation_signal_buffer_sn74lvc125a_3"
     ]
   ],
   "text_variables": {},

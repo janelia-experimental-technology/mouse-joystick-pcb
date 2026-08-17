@@ -1,8 +1,9 @@
 # Design Block Map
 
 **Status:** Rev 0 rescoped 2026-08-13, InstrumentPort added back 2026-08-16;
-KiCad project scaffolded, schematic in progress
-**Date:** 2026-08-16
+**schematic complete and reviewed 2026-08-17** — twelve findings open, see
+`.agents/handoff.local.md`. Layout not started.
+**Date:** 2026-08-17
 
 This board is assembled from `kicad-libs` design blocks wherever practical.
 Board-specific work should mostly be block composition, connector placement,
@@ -24,7 +25,7 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 | Stepper driver section | `tmc5130` | 1 | available, proven ×2 |
 | USB device connection | `usb2` | 1 | available, proven; now carries `USBLC6-2P6` ESD and a shell-to-GND tie |
 | Limit switch input conditioning | `limit_switch_debounced_input` | 1 | available 2026-08-15, **never placed anywhere** |
-| pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary` | 1 | available 2026-08-16, **never placed anywhere**; place as-is, no changes needed |
+| pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary` | 1 | available 2026-08-16, **placed 2026-08-17**; no new pins, but two pin shapes should change — see below |
 | InstrumentPort-40 DUT boundary | `instrument_port_40_dut_ffc_boundary` | 1 | available, **never placed anywhere** |
 | Instrumentation signal buffers | `instrumentation_signal_buffer_sn74lvc125a` | **5** | available, composed ×5 into `tmc51x0-driver-dev-pcb`; **3 fitted in Rev 0, 2 DNP** |
 
@@ -48,7 +49,9 @@ See `docs/power.md`.
 
 That leaves **one** board-local section that is not a block: the encoder input —
 `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`. Still too
-thin to abstract.
+thin to abstract. **As drawn on 2026-08-17 the conditioning is absent, `ENC_N` is
+unwired, and the 5 V encoder supply against 3.3 V TMC inputs is unresolved** —
+`.agents/handoff.local.md` finding 5.
 
 ### The pyControl Block Needs No New Pins, But Two Shape Edits
 
@@ -74,7 +77,9 @@ pyControl DIO line.
 
 Leave `PYC_5V`, `+5V_PYC`, and `GND` passive. Two attribute edits, no topology
 change, no parts change, no PCB impact — but still do them before the block is
-placed, and re-run `make design-blocks-scrub-private` then
+placed. It is now placed, so this is a re-place rather than a free edit — low
+urgency, since the block works and only ERC driver analysis is affected. Re-run
+`make design-blocks-scrub-private` then
 `make design-blocks-validate`. Full reasoning in `docs/interface-map.md`,
 "Signal Direction And Sheet Pin Types".
 
@@ -177,7 +182,7 @@ Rev 0 placement table above. What remains here is future work.
 
 | Board function | Candidate block | Rev 0 | Notes |
 | --- | --- | --- | --- |
-| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`, **and nowhere near the MCU in any revision**. Encoder supply comes from the **switched** domain, so the encoder resets with everything else. `ENC_A`/`ENC_B` are tapped on the driver side of the filter into InstrumentPort `DIG0`/`DIG1`, each with a 100 kΩ pull-down; `ENC_N` goes to a test pad only. Stays board-local — the PIO tap that might have justified a block was deleted, not deferred. |
+| Encoder input | — | **yes** | Board-local, not a block: `OW-CONN-1844249` → filtering and ESD → TMC5130A `ENCA`/`ENCB`/`ENCN`, **and nowhere near the MCU in any revision**. **As drawn on 2026-08-17 the conditioning is missing and `ENC_N` is unwired**, and the connector supplies the encoder from `+5V_SW` while the TMC inputs are 3.3 V — see `.agents/handoff.local.md` finding 5. Encoder supply comes from the **switched** domain, so the encoder resets with everything else. `ENC_A`/`ENC_B` are tapped on the driver side of the filter into InstrumentPort `DIG0`/`DIG1`, each with a 100 kΩ pull-down; `ENC_N` goes to a test pad only. Stays board-local — the PIO tap that might have justified a block was deleted, not deferred. |
 | Analog angle output | `dac8563_analog_output` | rev 1 | `DAC8563SDSCR`, channel A to BNC, channel B spare, protection, and any level translation. See `docs/encoder-analog-output.md`. Feeds `DIG6`, `DIG9`, `DIG10`, and `AIN0`. |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. Feeds `DIG13`-`DIG15`. |
 | Brake current driver | `b5z_brake_current_driver` | rev 2 | Placid `B5Z`, constant-current, `LM3404HV` switching versus `BCR421UE6327` linear still undecided. Feeds `DIG11` `BRAKE_DIM`, `DIG12` `~{BRAKE_FAULT}`, and possibly `AIN1`. See `../mouse-joysticks-pcb/docs/deferred-subsystems.md`. |

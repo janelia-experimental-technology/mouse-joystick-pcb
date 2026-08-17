@@ -148,6 +148,12 @@ Source-of-truth sibling repositories:
    the `tmc5130` block's 200 µF bulk question — see `.agents/handoff.local.md`.
 2. **Encoder part.** Sets single-ended versus differential receive, the encoder
    supply voltage and current, and the harness conductor count. Owner: Peter.
+   **Sharpened 2026-08-17 by the schematic review:** the board as drawn supplies
+   the encoder from `+5V_SW` and runs `ENC_A`/`ENC_B` straight into the
+   TMC5130A's `VCC_IO`-referenced 3.3 V inputs, with no conditioning. A 5 V
+   push-pull encoder overdrives those and the instrumentation buffer inputs too.
+   This is no longer only a part choice — it gates a schematic change. `ENC_N` is
+   also unwired today. See `.agents/handoff.local.md` finding 5.
 3. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
    assembly, so how a per-axis board mounts is a decision — but pick a rectangle
    and move on rather than blocking the fab order on it.
@@ -177,6 +183,47 @@ protect the switch and the buck at hot-plug, not on the motor rail to protect th
 driver — nothing can do the latter at 36 V. `SMBJ40A` is the part to order, and
 the stocked `SMF48A` works for first boards, so it is **not a fabrication
 blocker**. See `docs/power.md`.
+
+## Open Schematic Findings — 2026-08-17
+
+From the Rev 0 schematic review. **Full detail, reproduction steps, and the
+reasoning behind each are in `.agents/handoff.local.md`**, which is gitignored by
+convention — this list is the tracked copy so the findings survive a clone.
+
+Blockers, do not fabricate with any of these open:
+
+- [ ] **1.** `R1203`/`R1204` still 0.12 Ω — change to 0.15 Ω
+  (`OW-PASS-RLH12FTCR150`). ~25% overcurrent as drawn.
+- [ ] **2.** TMC `SWSEL` no-connected — SPI/UART mode select floating, tie low.
+  `REFR` likewise.
+- [ ] **3.** Two `pin_not_connected` ERC errors on `GPIO18` and `B20`, caused by
+  wire endpoints ~0.15 mm off grid. Fix the grid, then no-connect.
+- [ ] **4.** No `PWR_FLAG` on `+5V_MCU` — `power_pin_not_driven` on the MCU LDO.
+- [ ] **5.** Encoder input bare: `ENC_N` unwired, and `+5V_SW`-supplied encoder
+  feeding the TMC's 3.3 V `ENCA`/`ENCB` with no conditioning. **Gated on the
+  encoder part decision** — see Blocking Items.
+
+Fix before layout:
+
+- [ ] **6.** `SW_RAIL_SENSE` tied bare from the switched LDO output to `GP26`.
+  Needs at least a 1 kΩ series resistor; the ÷2 divider is better.
+- [ ] **7.** Bus switch wired A = TMC side, B = MCU side — inverted from the docs,
+  so the instrument taps sit on the switched side and float when isolated. Pick a
+  direction and make `docs/interface-map.md` agree.
+- [ ] **8.** No pull resistors exist yet — the `GP1` 10 kΩ pull-up and the 100 kΩ
+  buffer-input pull-downs are all missing.
+- [ ] **9.** `+3.3V`/`+5V` local labels in `mcu` shadow `+3.3V_MCU`/`+5V_MCU`;
+  netclass patterns will not match. Delete the local labels.
+- [ ] **10.** `PMC_UART_TX_BUF`/`PMC_UART_RX_BUF` typo — should be `PYC`.
+- [ ] **11.** Buffer grouping differs from the documented one. Not a defect;
+  accept and update the doc, or regroup.
+- [ ] **12.** 127 `lib_symbol_mismatch` warnings — update symbols from library
+  before generating the BOM.
+
+Verified correct and not to be re-derived: the InstrumentPort mapping (all 11
+Strands), the two-domain power architecture, the `DIO-A`→RX / `DIO-B`→TX
+crossover, buffer supply and enable wiring, per-instance annotation, and the
+absence of any global power symbol that could merge domains.
 
 ## Milestones
 
@@ -214,6 +261,28 @@ Ready for active PCB work when:
 - Gate A items in `docs/validation-plan.md` have explicit status.
 
 ## Progress Log
+
+- 2026-08-17: **Reviewed the completed Rev 0 schematic.** Ran `kicad-cli sch erc`
+  plus a flattened-netlist check against `docs/interface-map.md`. **The
+  InstrumentPort mapping is exactly right** — all 11 Rev 0 Strands where the
+  allocation says — and the power architecture verifies clean: `+5V_MCU` fed only
+  by `+5V_USB` and `+5V_PYC`, `hv_to_5v_tpsm365r6` on `+36V_SW`, the MCU LDO on
+  `+5V_MCU`, the two 5 V rails never meeting, and the `DIO-A`→RX / `DIO-B`→TX
+  crossover the right way round. Annotation is per-instance distinct across the
+  twice-placed LDO sheet, and there are no global power symbols, so no
+  cross-domain name collision is possible.
+  **Twelve findings, five of them blockers**, all recorded in
+  `.agents/handoff.local.md` with reproduction steps: sense resistors still
+  0.12 Ω; TMC `SWSEL` floating; two `pin_not_connected` errors caused by
+  off-grid wire endpoints; no `PWR_FLAG` on `+5V_MCU`; and the encoder input bare
+  with `ENC_N` unwired and a 5 V-supplied encoder feeding 3.3 V TMC inputs.
+  Then: `SW_RAIL_SENSE` tied bare to `GP26`, the bus switch wired A/B inverted so
+  the instrument taps sit on the switched side, no pull resistors anywhere yet,
+  `+3.3V`/`+5V` local labels shadowing the hierarchical names, a `PMC`/`PYC`
+  typo, a buffer grouping that differs from the documented one, and 127
+  `lib_symbol_mismatch` warnings.
+  Corrected two design-record items that the review found the board disagreeing
+  with, rather than leaving the docs lying — see Resolved.
 
 - 2026-08-16 (later): **Cut the encoder and limit switch off the MCU, and
   retargeted the rail sense.** `ENC_A`/`ENC_B`/`ENC_N` and `LIMIT_SW` now reach

@@ -1,7 +1,8 @@
 # Interface Map
 
-**Status:** Rev 0 scope frozen for allocation, not for layout
-**Date:** 2026-08-16
+**Status:** Rev 0 allocation frozen; schematic drawn and reviewed 2026-08-17,
+with open findings in `.agents/handoff.local.md`
+**Date:** 2026-08-17
 **Board:** single-axis, RP2040, one TMC5130A
 **Source profile:** `board-interfaces/docs/instrument-port-40.md`
 
@@ -49,38 +50,38 @@ the powered domain of the far end**, not convenience — see
 hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 [Signal Direction And Sheet Pin Types](#signal-direction-and-sheet-pin-types).
 
-| GPIO   | Net               | Function                                        | Rev 0    | Iso   | Dir   |
-|--------|-------------------|-------------------------------------------------|----------|-------|-------|
-| `GP0`  | `PYC_UART_TX`     | UART TX to pyControl (`UART0 TX`)               | **yes**  | `byp` | `out` |
-| `GP1`  | `PYC_UART_RX`     | UART RX from pyControl (`UART0 RX`)             | **yes**  | `byp` | `in`  |
-| `GP2`  | `~{TMC_CS}`       | Driver chip select                              | **yes**  | `sw`  | `out` |
-| `GP3`  | `~{TMC_DRV_EN}`   | Driver enable, active low                       | **yes**  | `sw`  | `out` |
-| `GP4`  | `TMC_SPI_CIPO`    | Driver SPI MISO (`SPI0 RX`)                     | **yes**  | `sw`  | `in`  |
-| `GP5`  | `TMC_DIAG0`       | Driver diagnostic 0                             | **yes**  | `sw`  | `in`  |
-| `GP6`  | `TMC_SPI_SCK`     | Driver SPI clock (`SPI0 SCK`)                   | **yes**  | `sw`  | `out` |
-| `GP7`  | `TMC_SPI_COPI`    | Driver SPI MOSI (`SPI0 TX`)                     | **yes**  | `sw`  | `out` |
-| `GP8`  | `TMC_DIAG1`       | Driver diagnostic 1                             | **yes**  | `sw`  | `in`  |
-| `GP9`  | `~{BUS_SW_OE}`    | GPIO isolation enable, active low               | **yes**  | `byp` | `out`² |
-| `GP10` | `DAC_SPI_SCK`     | DAC SPI clock (`SPI1 SCK`)                      | reserved | `sw`  | `out` |
-| `GP11` | `DAC_SPI_COPI`    | DAC SPI MOSI (`SPI1 TX`)                        | reserved | `sw`  | `out` |
-| `GP12` | `~{DAC_LDAC}`     | DAC synchronous load                            | reserved | `sw`  | `out` |
-| `GP13` | `~{DAC_CS}`       | DAC chip select (`~SYNC`)                       | reserved | `sw`  | `out` |
-| `GP14` | spare             | **Freed 2026-08-16** — encoder reaches the driver only³ | spare | — | —  |
-| `GP15` | spare             | **Freed 2026-08-16**                            | spare    | —     | —     |
-| `GP16` | spare             | **Freed 2026-08-16**                            | spare    | —     | —     |
-| `GP17` | `~{DAC_CLR}`      | DAC clear                                       | reserved | `sw`  | `out` |
-| `GP18` | spare             | **Freed 2026-08-16** — limit switch reaches `REFL` only³ | spare | — | —  |
-| `GP19` | `HV_EN`           | 36 V input switch enable                        | **yes**  | `byp` | `out` |
-| `GP20` | `PYC_PULL_EVENT`  | Pull event out                                  | reserved | `byp` | `out` |
-| `GP21` | `FW_TRIG1`        | Firmware timing marker                          | **yes**¹ | `byp` | `out` |
-| `GP22` | `PYC_FAULT`       | Latched fault out                               | reserved | `byp` | `out` |
-| `GP23` | `PYC_RSYNC_IN`    | Rsync edges in                                  | reserved | `byp` | `in`  |
-| `GP24` | `~{INSTR_BUF_OE}` | Instrumentation buffer enable                   | **yes**  | `byp` | `out` |
-| `GP25` | `FW_TRIG0`        | Firmware timing marker                          | **yes**¹ | `byp` | `out` |
-| `GP26` | `SW_RAIL_SENSE`   | `+3V3_SW` presence and level, ÷2 divider⁴       | **yes**  | `byp` | `in`  |
-| `GP27` | spare             | Reserved — `EXT_FAULT_IN` candidate, see below  | spare    | —     | —     |
-| `GP28` | `HV_SNS`          | 36 V input load-current sense, `R_SNS` = 249 Ω  | **yes**  | `byp` | `in`  |
-| `GP29` | `~{HV_FAULT}`     | 36 V switch fault, open-drain, pull-up to 3.3 V | **yes**  | `byp` | `in`  |
+| GPIO   | Net               | Function                                                 | Rev 0    | Iso   | Dir    |
+|--------|-------------------|----------------------------------------------------------|----------|-------|--------|
+| `GP0`  | `PYC_UART_TX`     | UART TX to pyControl (`UART0 TX`)                        | **yes**  | `byp` | `out`  |
+| `GP1`  | `PYC_UART_RX`     | UART RX from pyControl (`UART0 RX`)                      | **yes**  | `byp` | `in`   |
+| `GP2`  | `~{TMC_CS}`       | Driver chip select                                       | **yes**  | `sw`  | `out`  |
+| `GP3`  | `~{TMC_DRV_EN}`   | Driver enable, active low                                | **yes**  | `sw`  | `out`  |
+| `GP4`  | `TMC_SPI_CIPO`    | Driver SPI MISO (`SPI0 RX`)                              | **yes**  | `sw`  | `in`   |
+| `GP5`  | `TMC_DIAG0`       | Driver diagnostic 0                                      | **yes**  | `sw`  | `in`   |
+| `GP6`  | `TMC_SPI_SCK`     | Driver SPI clock (`SPI0 SCK`)                            | **yes**  | `sw`  | `out`  |
+| `GP7`  | `TMC_SPI_COPI`    | Driver SPI MOSI (`SPI0 TX`)                              | **yes**  | `sw`  | `out`  |
+| `GP8`  | `TMC_DIAG1`       | Driver diagnostic 1                                      | **yes**  | `sw`  | `in`   |
+| `GP9`  | `~{BUS_SW_OE}`    | GPIO isolation enable, active low                        | **yes**  | `byp` | `out`² |
+| `GP10` | `DAC_SPI_SCK`     | DAC SPI clock (`SPI1 SCK`)                               | reserved | `sw`  | `out`  |
+| `GP11` | `DAC_SPI_COPI`    | DAC SPI MOSI (`SPI1 TX`)                                 | reserved | `sw`  | `out`  |
+| `GP12` | `~{DAC_LDAC}`     | DAC synchronous load                                     | reserved | `sw`  | `out`  |
+| `GP13` | `~{DAC_CS}`       | DAC chip select (`~SYNC`)                                | reserved | `sw`  | `out`  |
+| `GP14` | spare             | **Freed 2026-08-16** — encoder reaches the driver only³  | spare    | —     | —      |
+| `GP15` | spare             | **Freed 2026-08-16**                                     | spare    | —     | —      |
+| `GP16` | spare             | **Freed 2026-08-16**                                     | spare    | —     | —      |
+| `GP17` | `~{DAC_CLR}`      | DAC clear                                                | reserved | `sw`  | `out`  |
+| `GP18` | spare             | **Freed 2026-08-16** — limit switch reaches `REFL` only³ | spare    | —     | —      |
+| `GP19` | `HV_EN`           | 36 V input switch enable                                 | **yes**  | `byp` | `out`  |
+| `GP20` | `PYC_PULL_EVENT`  | Pull event out                                           | reserved | `byp` | `out`  |
+| `GP21` | `FW_TRIG1`        | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
+| `GP22` | `PYC_FAULT`       | Latched fault out                                        | reserved | `byp` | `out`  |
+| `GP23` | `PYC_RSYNC_IN`    | Rsync edges in                                           | reserved | `byp` | `in`   |
+| `GP24` | `~{INSTR_BUF_OE}` | Instrumentation buffer enable                            | **yes**  | `byp` | `out`  |
+| `GP25` | `FW_TRIG0`        | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
+| `GP26` | `SW_RAIL_SENSE`   | `+3V3_SW` presence and level, ÷2 divider⁴                | **yes**  | `byp` | `in`   |
+| `GP27` | spare             | Reserved — `EXT_FAULT_IN` candidate, see below           | spare    | —     | —      |
+| `GP28` | `HV_SNS`          | 36 V input load-current sense, `R_SNS` = 249 Ω           | **yes**  | `byp` | `in`   |
+| `GP29` | `~{HV_FAULT}`     | 36 V switch fault, open-drain, pull-up to 3.3 V          | **yes**  | `byp` | `in`   |
 
 ¹ Rev 0 lands `FW_TRIG0`/`FW_TRIG1` on both labelled test points **and**
 `TRIG0`/`TRIG1` of the InstrumentPort. They are the cheapest bring-up
@@ -465,9 +466,9 @@ rule:
 > **A GPIO goes through the bus switch if and only if its far end sits on the
 > switched domain** (`+36V_SW`, `+5V_SW`, `+3V3_SW`). Everything else bypasses.
 
-| Iso   | Applies to                                                                                                                                            | Because                                                  |
-|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| `sw`  | TMC5130A SPI, enable, and diagnostics; the MAX6816 debouncer's output copy; the encoder PIO tap and DAC bus in rev 1                                  | All of them are parts that lose power when `HV_EN` drops |
+| Iso   | Applies to                                                                                                                                                 | Because                                                  |
+|-------|------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| `sw`  | TMC5130A SPI, enable, and diagnostics; the MAX6816 debouncer's output copy; the encoder PIO tap and DAC bus in rev 1                                       | All of them are parts that lose power when `HV_EN` drops |
 | `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_SNS`, `~{HV_FAULT}`; `SW_RAIL_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_OE}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN`      |
 
 **Rev 0 isolates 7 channels; full scope isolates 12.** Both dropped by four on
@@ -844,6 +845,15 @@ switch that can be *open* absolutely can. Where the series element has two
 distinguishable states, which side you tap is a real choice — and the near side is
 the one that stays in the always-on domain and stays driven.
 
+> **The board does not currently implement this.** The 2026-08-17 schematic review
+> found the bus switch wired with **A on the TMC side and B on the MCU side**,
+> inverted from this document, so the instrument taps sit on the switched side and
+> their buffer inputs float whenever the bus is isolated. The part is a symmetric
+> FET pass gate, so it functions either way. **Resolve the disagreement in one
+> direction or the other** — move the taps to the MCU-side nets, or keep the
+> orientation and pull down all four SPI taps, then correct this section.
+> `.agents/handoff.local.md` finding 7.
+
 Tapping the B side would put always-on buffer inputs on switched-domain nets that
 float whenever `HV_EN` is low, which is this board's normal idle state. That is
 the floating-CMOS-input problem the design avoids everywhere else, arriving by a
@@ -917,12 +927,12 @@ Every `DIG*` and `TRIG*` signal above is buffered with
 **The grouping is chosen so each revision populates whole packages**, so a
 deferred group never leaves a powered CMOS input undriven.
 
-| Package | Channels                                                     | Zone                                        | Fitted    |
-|---------|--------------------------------------------------------------|---------------------------------------------|-----------|
-| `U_A`   | `DIG2`, `DIG3`, `DIG4`, `DIG5`                               | TMC SPI bus and chip select                 | **Rev 0** |
-| `U_B`   | `DIG7`, `DIG8`, `TRIG0`, `TRIG1`                             | pyControl serial and firmware markers       | **Rev 0** |
-| `U_C`   | `DIG6`, `DIG9`, `DIG10`, + 1 spare                           | DAC group                                   | rev 1     |
-| `U_D`   | `DIG13`, `DIG14`, `DIG15`, + 1 spare                         | pyControl event lines                       | rev 1     |
+| Package | Channels                                                                                | Zone                                                       | Fitted    |
+|---------|-----------------------------------------------------------------------------------------|------------------------------------------------------------|-----------|
+| `U_A`   | `DIG2`, `DIG3`, `DIG4`, `DIG5`                                                          | TMC SPI bus and chip select                                | **Rev 0** |
+| `U_B`   | `DIG7`, `DIG8`, `TRIG0`, `TRIG1`                                                        | pyControl serial and firmware markers                      | **Rev 0** |
+| `U_C`   | `DIG6`, `DIG9`, `DIG10`, + 1 spare                                                      | DAC group                                                  | rev 1     |
+| `U_D`   | `DIG13`, `DIG14`, `DIG15`, + 1 spare                                                    | pyControl event lines                                      | rev 1     |
 | `U_E`   | `DIG0`, `DIG1`, `DIG11` (encoder and limit switch now, torque and brake later), `DIG12` | Driver-input witnesses in Rev 0; brake and torque at rev 2 | **Rev 0** |
 
 **Place all five footprints in Rev 0 and populate `U_A`, `U_B`, and `U_E`.** `U_C`
