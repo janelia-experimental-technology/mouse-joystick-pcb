@@ -1529,10 +1529,6 @@
       "rp2040"
     ],
     [
-      "3aed5e2f-6c3a-4628-8397-3bf31551e598",
-      "rp2040_gpio_isolation_sn74cb3q3245"
-    ],
-    [
       "d87eabb6-24d1-4fcc-abf8-544fae2aa273",
       "5v_to_3v3_tps73733"
     ],

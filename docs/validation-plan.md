@@ -162,8 +162,18 @@ see the audit in `docs/power.md`.
 ### Sensors and outputs
 
 - The encoder is identified, and the input path is single-ended or differential
-  accordingly.
+  accordingly. **Settled 2026-08-17: single-ended 5 V push-pull, received through
+  `quadrature_encoder_input_5v_sn74lvc2g17`.**
+- **Peak encoder channel frequency is measured on `ENC_A_FILT` during the fastest
+  motor-commanded move** (homing or recentering — not the animal's pull, which is
+  the slow case), and `C802`/`C803` are confirmed. Fitted at 470 pF, which covers
+  `f_ch = CPR × RPM / 60` up to 44.9 kHz. If chopper hash rides on the line, step
+  to 1 nF (21.2 kHz ceiling); only a genuinely fast axis needs to go back toward
+  27 pF. Both channels must keep the same value so A/B delay stays matched.
 - `ENC_N` is wired to the TMC5130A `ENCN` and a test pad, and **to no GPIO**.
+  **Currently tied to GND through `R1201` (10 kΩ)**, which satisfies the TMC5130A
+  requirement to pull `ENCN` to GND or `VCC_IO` when unused. `J1102` pin 2 is
+  reserved for the index channel if the chosen encoder has one.
 - The limit switch is identified and the debounce path is reviewed.
 - A test point exists on the `REFL` net, and `GP9` drives it through a series
   resistor weak enough that the real switch always wins.

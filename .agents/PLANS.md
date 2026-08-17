@@ -145,22 +145,52 @@ Source-of-truth sibling repositories:
 
 1. **Joystick motor part number.** Sets the motor connector, supply envelope,
    `ILIM`, and confirms whether 0.67 A is RMS or peak. Owner: Peter. Also settles
-   the `tmc5130` block's 200 µF bulk question — see `.agents/handoff.local.md`.
-2. **Encoder part.** Sets single-ended versus differential receive, the encoder
-   supply voltage and current, and the harness conductor count. Owner: Peter.
-   **Sharpened 2026-08-17 by the schematic review:** the board as drawn supplies
-   the encoder from `+5V_SW` and runs `ENC_A`/`ENC_B` straight into the
-   TMC5130A's `VCC_IO`-referenced 3.3 V inputs, with no conditioning. A 5 V
-   push-pull encoder overdrives those and the instrumentation buffer inputs too.
-   This is no longer only a part choice — it gates a schematic change. `ENC_N` is
-   also unwired today. See `.agents/handoff.local.md` finding 5.
+   the `tmc5130` block's bulk-capacitance question, restated here so it survives a
+   clone: the block ships **200 µF on `VM`** (`C1213`+`C1214`, 2× 100 µF 50 V,
+   `OW-PASS-EEEHAH101UAP`, D8×10.2 mm) sitting on switched `+36V_SW`, where
+   `docs/power.md` bounds bulk at "tens of µF, not hundreds". 200 µF at 36 V is
+   **130 mJ** per `HV_EN` turn-on into an HTSSOP-14. **Unresolved.** Options:
+   depopulate `C1214` (65 mJ), keep both and verify a clean turn-on cold and hot
+   at Gate B, or decide once the motor is identified. 50 V on 36 V is 1.39×, and
+   110 mA ripple each is thin for motor bulk.
+2. **Encoder part.** **Largely resolved 2026-08-17 — no longer gates the
+   schematic, and no longer gates fabrication.** The receive path is decided and
+   built: single-ended 5 V push-pull, conditioned by the new
+   `quadrature_encoder_input_5v_sn74lvc2g17` block. Confirmed against the
+   encoder's own spec (4.5-5.5 V supply, 25-42 mA, `VOH` ≥ 2.4 V at −8/−5 mA,
+   `VOL` ≤ 0.4 V, tr 100 ns / tf 50 ns), which closes against the SN74LVC2G17's
+   `VT+` ≤ 2.0 V and `VT−` ≥ 0.8 V with 400 mV of margin on both rails.
+
+   What still needs the part number, and **only** this: **CPR and maximum shaft
+   RPM**, to confirm the `C802`/`C803` filter value. They are fitted at 470 pF,
+   which covers a channel frequency up to 44.9 kHz — `f_ch = CPR × RPM / 60`.
+   Note the number to size against is the fastest **motor-commanded** move
+   (homing, recentering), not how fast the mouse pulls; the animal is the slow
+   case. A low-pass has no lower limit, so slower motion never requires a
+   different value — only a faster axis would. Sizing table with `R = 4.7 kΩ`:
+
+   | Cap | f_c | max `f_ch` | atten @10 MHz |
+   | --- | --- | --- | --- |
+   | 27 pF | 1.09 MHz | 685 kHz | −19 dB |
+   | **470 pF (fitted)** | 71.4 kHz | **44.9 kHz** | −43 dB |
+   | 1 nF | 33.7 kHz | 21.2 kHz | −49 dB |
+   | 2.2 nF | 15.3 kHz | 9.7 kHz | −56 dB |
+
+   Verify at bring-up by scoping `ENC_A_FILT` during the fastest commanded move.
+   Both channels must keep the same value so A/B propagation delay stays matched.
+   Still open from the part choice: whether the encoder has an index channel —
+   `J1102` pin 2 is reserved for it, and `ENCN` is currently tied to GND through
+   `R1201`. Also confirm the 25-42 mA draw lands in `docs/power.md` (it is ~7% of
+   the TPSM365R6's 600 mA).
 3. Board outline and mounting. `../mouse-joysticks-mech` is a two-joystick
    assembly, so how a per-axis board mounts is a decision — but pick a rectangle
    and move on rather than blocking the fab order on it.
 
-**Not blocking, but do not lose:** the schematic is far less connected than
-`README.md` states, netclass patterns match none of this board's rail names, and
-the `rp2040` block exposes no `RUN`/`SWD`. All in `.agents/handoff.local.md`.
+**Not blocking, but do not lose:** netclass patterns match none of this board's
+rail names, and the `rp2040` block exposes no `RUN`/`SWD`. Both are carried as
+findings B and G in **Open Schematic Findings** below, which is the tracked
+record. (`.agents/handoff.local.md` is gitignored and will not be present on a
+fresh clone — do not rely on it.)
 
 **Resolved 2026-08-13, no longer blocking:**
 
@@ -184,46 +214,158 @@ driver — nothing can do the latter at 36 V. `SMBJ40A` is the part to order, an
 the stocked `SMF48A` works for first boards, so it is **not a fabrication
 blocker**. See `docs/power.md`.
 
-## Open Schematic Findings — 2026-08-17
+## Open Schematic Findings — re-reviewed 2026-08-17 (pre-layout)
 
-From the Rev 0 schematic review. **Full detail, reproduction steps, and the
-reasoning behind each are in `.agents/handoff.local.md`**, which is gitignored by
-convention — this list is the tracked copy so the findings survive a clone.
+Second full review, run after the `quadrature_encoder_input_5v_sn74lvc2g17` block
+was integrated. This section is **self-contained on purpose** — it is the tracked
+record, and `.agents/handoff.local.md` is gitignored and will not survive a clone
+onto another machine. Everything needed to act is here.
 
-Blockers, do not fabricate with any of these open:
+### Current verification state
 
-- [ ] **1.** `R1203`/`R1204` still 0.12 Ω — change to 0.15 Ω
-  (`OW-PASS-RLH12FTCR150`). ~25% overcurrent as drawn.
-- [ ] **2.** TMC `SWSEL` no-connected — SPI/UART mode select floating, tie low.
-  `REFR` likewise.
-- [ ] **3.** Two `pin_not_connected` ERC errors on `GPIO18` and `B20`, caused by
-  wire endpoints ~0.15 mm off grid. Fix the grid, then no-connect.
-- [ ] **4.** No `PWR_FLAG` on `+5V_MCU` — `power_pin_not_driven` on the MCU LDO.
-- [ ] **5.** Encoder input bare: `ENC_N` unwired, and `+5V_SW`-supplied encoder
-  feeding the TMC's 3.3 V `ENCA`/`ENCB` with no conditioning. **Gated on the
-  encoder part decision** — see Blocking Items.
+**ERC is clean: 0 violations at every severity** (was 9 errors + 129 warnings).
+133 components, no duplicate refdes, every part has a footprint assigned.
 
-Fix before layout:
+Reproduce:
 
-- [ ] **6.** `SW_RAIL_SENSE` tied bare from the switched LDO output to `GP26`.
-  Needs at least a 1 kΩ series resistor; the ÷2 divider is better.
-- [ ] **7.** Bus switch wired A = TMC side, B = MCU side — inverted from the docs,
-  so the instrument taps sit on the switched side and float when isolated. Pick a
-  direction and make `docs/interface-map.md` agree.
-- [ ] **8.** No pull resistors exist yet — the `GP1` 10 kΩ pull-up and the 100 kΩ
-  buffer-input pull-downs are all missing.
-- [ ] **9.** `+3.3V`/`+5V` local labels in `mcu` shadow `+3.3V_MCU`/`+5V_MCU`;
-  netclass patterns will not match. Delete the local labels.
-- [ ] **10.** `PMC_UART_TX_BUF`/`PMC_UART_RX_BUF` typo — should be `PYC`.
-- [ ] **11.** Buffer grouping differs from the documented one. Not a defect;
-  accept and update the doc, or regroup.
-- [ ] **12.** 127 `lib_symbol_mismatch` warnings — update symbols from library
-  before generating the BOM.
+```sh
+export ORB_WEAVER_KICAD_LIBS=$HOME/Repositories/orb-weaver/kicad-libs
+kicad-cli sch erc -o /tmp/mj-all.rpt kicad/mouse-joystick-pcb.kicad_sch
+kicad-cli sch export netlist --format kicadxml -o /tmp/mj.xml \
+  kicad/mouse-joystick-pcb.kicad_sch
+```
 
-Verified correct and not to be re-derived: the InstrumentPort mapping (all 11
-Strands), the two-domain power architecture, the `DIO-A`→RX / `DIO-B`→TX
-crossover, buffer supply and enable wiring, per-instance annotation, and the
-absence of any global power symbol that could merge domains.
+**ERC cannot see the two blockers below.** Both were found by walking the
+flattened netlist, and both will still pass ERC after any edit — re-check them by
+netlist, not by ERC.
+
+### Blockers — do not route with these open
+
+- [ ] **A. `TMC_DIAG1` does not cross the isolation barrier, and is shorted to
+  GND.** The two halves land on different bus-switch channels:
+  - `/TMC_DIAG1` (`U1201.27`) → `U603.2` (A1). U603's mating **B1 is pin 18 =
+    `/GND`**, so with `~BUS_SW_EN` asserted the TMC's DIAG1 output drives into a
+    hard ground.
+  - `/mcu/TMC_DIAG1_` (`U501.11`, `GPIO8`) → `U602.18` (B1). U602's mating **A1
+    is pin 2 = net `A17`, dangling.**
+
+  Root cause is in `kicad-libs`, not this repo: in
+  `design_blocks/orb_weaver_private.kicad_blocks/rp2040_gpio_isolation_sn74cb3q3245.kicad_block`
+  the A-side and B-side label numbering are crossed on the two middle switches.
+  The four SN74CB3Q3245 sit in a 2x2 grid:
+
+  | Chip | position | A labels | B labels | |
+  | --- | --- | --- | --- | --- |
+  | U601 | top-left | A1–A8 | B1–B8 | consistent |
+  | U603 | top-right | A9–A16 | **B17–B24** | crossed |
+  | U602 | bottom-left | A17–A24 | **B9–B16** | crossed |
+  | U604 | bottom-right | A25–A32 | B25–B32 | consistent |
+
+  So for every channel 9–24, `An` and `Bn` are on different physical chips and
+  never connect. Fix the block labels in `kicad-libs` and re-place, **or** rewire
+  `TMC_DIAG1` at board level onto a matched pair on U601 (which is wired
+  correctly). If you fix the block, audit every other `An`/`Bn` pair on this board
+  before trusting it.
+
+- [ ] **B. Netclass patterns match none of this board's rails.** All 26 power and
+  bus nets fall to `Default`, including `/+36V_SW` (the motor rail), `/+5V_SW`,
+  `/+3.3V_SW`, `/+5V_MCU`, `/+3.3V_MCU`, `/HV_RAW`. Only `/GND` and one nested
+  `HV_IN` match any of the 108 inherited patterns. DRC will **not** complain; it
+  will simply route the 36 V motor rail at Default width. Add glob patterns to
+  `kicad/mouse-joystick-pcb.kicad_pro` before routing — suggested shape in
+  `.agents/handoff.local.md` section 3 if present, otherwise: `+5V*` → `PWR_5V`,
+  `+3.3V*` → `PWR_3V3`, `+36V*` → `PWR_HV_BUS`, `HV_IN`/`HV_RAW` →
+  `PWR_HV_ENTRY`, with `*/+5V*`-style variants for the nested local copies.
+
+### Fix before layout
+
+- [ ] **C. `GP1` pull-up still missing.** `/PYC_UART_RX` = `R1901` (100 Ω series,
+  inside the port block) + `U1601.9` + `U501.3`. There is no 10 kΩ to
+  `+3.3V_MCU`, so `GP1` floats whenever no pyControl cable is plugged in. Board
+  level part, near the RP2040: **10 kΩ 0402, `OW-RES-10K-0402`, from
+  `PYC_UART_RX` to `+3.3V_MCU`.** Rationale in `docs/interface-map.md` →
+  "`GP1` Gets A Hardware Pull-Up".
+
+- [ ] **D. Five instrumentation buffer inputs float when the switched domain is
+  off.** `U1601`/`U1701`/`U1801` are all supplied from `+3.3V_MCU` (always on),
+  but these five sources are on the switched domain:
+
+  | Input | Net | Source |
+  | --- | --- | --- |
+  | `U1701.1A/2A/3A/4A` | `TMC_SPI_SCK` / `COPI` / `CIPO` / `~TMC_CS` | TMC (switched) + bus-switch A side |
+  | `U1801.1A` | `LIMIT_SW` | `U1301` MAX6816 on `+3.3V_SW` |
+
+  The SPI four are the worse case — they float in **two** states: switched domain
+  off, and bus switch isolated (the A side goes high-Z). Either add 100 kΩ
+  pull-downs (`OW-PASS-RC0402JR-07100KL`) the way the encoder block does, or move
+  `U1701`/`U1801` to `+3.3V_SW`. The encoder pair is already covered by
+  `R805`/`R806` inside the new block.
+
+- [ ] **E. `X1201` pin 1 (`Tri-State`) floating.** 16 MHz oscillator output
+  enable, left open. Tie to `+3.3V_SW`.
+
+- [ ] **F. `PMC_UART_TX_BUF` / `PMC_UART_RX_BUF` typo — still present.** Four
+  labels in `kicad/instrument_port.kicad_sch` at lines 594, 624, 734, 804. Should
+  be `PYC`. Confirmed still in the exported netlist.
+
+- [ ] **G. No reset and no SWD.** `U501` `RUN` (26), `SWCLK` (24), `SWD` (25) are
+  all unconnected, because the `rp2040` block never exposed them. `J10`, listed as
+  a Rev 0 connector in `docs/interface-map.md`, is therefore not buildable, and
+  the only way into BOOTSEL is unplugging both USB and pyControl. Decide
+  deliberately: edit the block to expose them, or accept and record the
+  limitation.
+
+- [ ] **H. Bus switch direction versus the docs.** A = TMC/switched side, B = MCU
+  side, which is inverted from `docs/interface-map.md`. The encoder taps no longer
+  care (they now come off the block's buffered 3.3 V output), but the SPI and
+  `LIMIT_SW` instrument taps still sit on the switched A side — which is what
+  finding D is about. Pick a direction and make the doc agree.
+
+- [ ] **I. Buffer grouping differs from the documented one.** Actual grouping is
+  `U1601` = ENC_A / ENC_B / PYC_UART_RX / PYC_UART_TX, `U1701` = SPI SCK / COPI /
+  CIPO / ~CS, `U1801` = LIMIT_SW / FW_TRIG0 / FW_TRIG1 / spare-to-GND. Not a
+  defect — accept and update the doc, or regroup.
+
+### Resolved since the first 2026-08-17 review — do not re-derive
+
+- **Sense resistors.** `R1203`/`R1204` are now 0.15 Ω. Still record `vsense = 1`,
+  `IRUN = 28` alongside.
+- **TMC `SWSEL`** tied to GND (`U1201.28` → `/GND`); `REFR` carries an explicit
+  no-connect.
+- **Off-grid wire endpoints** and both `pin_not_connected` errors cleared.
+- **`PWR_FLAG` on `+5V_MCU`** — no `power_pin_not_driven` remains.
+- **Encoder input conditioned.** `quadrature_encoder_input_5v_sn74lvc2g17` is
+  placed: `U801` (SN74LVC2G17 dual Schmitt) on `+3.3V_SW`, `R801`/`R802` 100 kΩ
+  harness-side pull-downs, `R803`/`R804` 4.7 kΩ series, `C802`/`C803` **470 pF**
+  filters, `R805`/`R806` 100 kΩ output pull-downs. `ENC_A`/`ENC_B` now reach both
+  the TMC and the instrument tap as clean 3.3 V logic. Connector `J1102` is a
+  5-position terminal with **pin 2 reserved for a future index channel**.
+- **`ENCN` tied.** `R1201` 10 kΩ from `U1201.23` to GND, satisfying the TMC5130A
+  datasheet requirement to pull it to GND or `VCC_IO` when unused.
+- **`SW_RAIL_SENSE` divider.** `R401`/`R402` 1 kΩ/1 kΩ from `+3.3V_SW` to GND with
+  the tap on `GP26`/`ADC0`. 500 Ω source impedance is well inside the RP2040 ADC
+  requirement. Draws 1.65 mA continuously from the switched rail — acceptable.
+- **Shadow labels deleted** — no `multiple_net_names` warnings remain.
+- **All 125 `lib_symbol_mismatch` warnings cleared.**
+
+### Verified correct — do not re-derive
+
+InstrumentPort mapping (all 11 Rev 0 Strands); the two-domain power architecture
+(`+5V_MCU` ORed from USB `D301` and pyControl `D1901` into `U701`; `+5V_SW` from
+`U901`; `+36V_SW` from `U201`; four distinct rails, one source each, the two 5 V
+rails never meeting); the `DIO-A`→RX / `DIO-B`→TX crossover; buffer supply and
+enable wiring; per-instance annotation; no global power symbol that could merge
+domains; and `R601` (7.87 kΩ) pulling `~BUS_SW_EN` high to `+3.3V_MCU` so the bus
+switches **default to isolated at reset**.
+
+Checked and explicitly **not** defects — do not chase these: `U901` `BOOT`/`SW`
+unconnected (the TPSM365R6 bootstrap capacitor is internal, per its pin table);
+`U1201` `SPI_MODE` pin 12 floating (internal 166 kΩ pull-up defaults it HIGH =
+SPI, which matches `SD_MODE`=0 and `SWSEL`=0); `U1201` `AIN_IREF` pin 30 floating
+(`GCONF.I_scale_analog` resets to 0, so the internal reference is used);
+`R1805.2` dangling (spare 12th buffer channel, its input grounded); `J1102` pin 2
+(reserved index, NC-flagged); `J301` SBU1/SBU2; `J1901` pins 3/5/7/8; the TMC
+`DNC` pins; spare RP2040 GPIOs; and the LDO `NR` pins.
 
 ## Milestones
 
@@ -261,6 +403,31 @@ Ready for active PCB work when:
 - Gate A items in `docs/validation-plan.md` have explicit status.
 
 ## Progress Log
+
+- 2026-08-17 (later): **Re-reviewed the schematic after integrating the new
+  encoder block. ERC is now clean at every severity — 0 violations, down from 9
+  errors and 129 warnings.** 133 components, no duplicate refdes, every part
+  footprinted. Ten of the twelve original findings are closed, including the
+  encoder input, which is now conditioned by
+  `quadrature_encoder_input_5v_sn74lvc2g17` (SN74LVC2G17 dual Schmitt on
+  `+3.3V_SW`, 4.7 kΩ series, 470 pF filters, 100 kΩ pull-downs on both the harness
+  and output sides) with `ENCN` tied to GND through `R1201`. The rail-sense divider,
+  sense resistors, `SWSEL`, shadow labels, off-grid endpoints, `PWR_FLAG`, and all
+  125 symbol mismatches are resolved.
+  **Two blockers remain and neither is visible to ERC** — both were found by
+  walking the flattened netlist and both will keep passing ERC after any edit.
+  First, `TMC_DIAG1` never crosses the isolation barrier and is shorted to GND:
+  its two halves land on different bus-switch channels because the
+  `rp2040_gpio_isolation_sn74cb3q3245` block in `kicad-libs` cross-maps its A and
+  B labels on the two middle switches. Second, netclass patterns still match none
+  of this board's rails, so the 36 V motor rail would route at Default width.
+  Then seven pre-layout items: the `GP1` pull-up, five floating buffer inputs on
+  the switched domain, `X1201`'s floating enable, the `PMC`/`PYC` typo, no
+  reset/SWD, bus-switch direction versus the docs, and buffer grouping. Full
+  detail with refdes, pin numbers, and repro commands in **Open Schematic
+  Findings** above — written self-contained because `handoff.local.md` does not
+  travel between machines. Sharpened Blocking Item 2: the encoder part no longer
+  gates the schematic, only the `C802`/`C803` filter value.
 
 - 2026-08-17: **Reviewed the completed Rev 0 schematic.** Ran `kicad-cli sch erc`
   plus a flattened-netlist check against `docs/interface-map.md`. **The

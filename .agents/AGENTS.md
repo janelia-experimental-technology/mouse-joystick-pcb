@@ -180,8 +180,12 @@ pin carries 10.0.5 or newer.
 
 ### KiCad Project State
 
-**Schematic capture is under way; layout has not started.** See
-`.agents/handoff.local.md` for exactly what is placed and what is left.
+**Schematic capture is complete and ERC-clean (0 violations at every severity);
+layout has not started.** See **Open Schematic Findings** in `.agents/PLANS.md`
+for what still has to change before routing — including two blockers that ERC
+cannot detect and that must be re-checked by netlist export, not by ERC.
+(`.agents/handoff.local.md` is gitignored and absent on a fresh clone; treat
+`.agents/PLANS.md` as the tracked record.)
 
 The project carries 21 netclasses, 108 netclass patterns, the 4-layer stackup,
 plot/fabrication setup, and the JLCPCB design rules, inherited from
