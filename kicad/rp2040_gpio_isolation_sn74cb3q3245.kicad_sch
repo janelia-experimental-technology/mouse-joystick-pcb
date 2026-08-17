@@ -101,6 +101,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10211"
 				(at 0 0 0)
 				(show_name yes)
@@ -443,6 +465,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_misc_sn74cb3q3245rgyr"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C201559"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C201559"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1123,6 +1167,28 @@
 				)
 			)
 			(property "PartID" "mpn_frc0402f7871ts_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C2998145"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2998145"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3609,6 +3675,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C201559"
+			(at 165.1 60.96 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C201559"
+			(at 165.1 60.96 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "13"
 			(uuid "d85a8dd9-f1c5-4e17-998a-fabefd564203")
 		)
@@ -3944,6 +4032,28 @@
 			)
 		)
 		(property "ReqNotes" "Power from the switched target-domain 3.3-V rail so Ioff provides isolation at VCC=0; pull ~OE up to VCC for a disabled default while powered; solder exposed pad 21 per TI RGY0020A guidance without assuming an electrical tie."
+			(at 101.6 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C201559"
+			(at 101.6 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C201559"
 			(at 101.6 121.92 0)
 			(hide yes)
 			(show_name yes)
@@ -4299,6 +4409,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C201559"
+			(at 101.6 60.96 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C201559"
+			(at 101.6 60.96 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "13"
 			(uuid "22d59d3a-49eb-49c3-8fb6-cda97aa8c247")
 		)
@@ -4634,6 +4766,28 @@
 			)
 		)
 		(property "ReqNotes" "Power from the switched target-domain 3.3-V rail so Ioff provides isolation at VCC=0; pull ~OE up to VCC for a disabled default while powered; solder exposed pad 21 per TI RGY0020A guidance without assuming an electrical tie."
+			(at 165.1 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C201559"
+			(at 165.1 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C201559"
 			(at 165.1 121.92 0)
 			(hide yes)
 			(show_name yes)
@@ -4987,6 +5141,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C162178"
+			(at 187.96 62.23 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
+			(at 187.96 62.23 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "f2a41acf-4c1f-4561-9dd5-50c8de6b5315")
 		)
@@ -5263,6 +5439,28 @@
 			)
 		)
 		(property "ReqNotes" "X7R or C0G is also acceptable when available"
+			(at 187.96 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C162178"
+			(at 187.96 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
 			(at 187.96 123.19 0)
 			(hide yes)
 			(show_name yes)
@@ -5559,6 +5757,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C2998145"
+			(at 50.8 54.61 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2998145"
+			(at 50.8 54.61 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "968495cb-0f84-4f93-90f2-1e15a8bc94d8")
 		)
@@ -5845,6 +6065,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C162178"
+			(at 124.46 62.23 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
+			(at 124.46 62.23 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "ee0c15e3-4538-4115-87ac-3c6ea9d86f11")
 		)
@@ -6121,6 +6363,28 @@
 			)
 		)
 		(property "ReqNotes" "X7R or C0G is also acceptable when available"
+			(at 124.46 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C162178"
+			(at 124.46 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
 			(at 124.46 123.19 0)
 			(hide yes)
 			(show_name yes)

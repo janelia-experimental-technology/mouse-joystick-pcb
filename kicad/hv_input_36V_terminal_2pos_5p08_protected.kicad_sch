@@ -101,6 +101,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C513710"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C513710"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "3000"
 				(at 0 0 0)
 				(show_name yes)
@@ -444,6 +466,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_connectors_term_blk_hdr_2pos_90deg_0_2in"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C90074"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C90074"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -809,6 +853,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_misc_d_50v_15a"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C211388"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C211388"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1185,6 +1251,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C482112"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C482112"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "390"
 				(at 0 0 0)
 				(show_name yes)
@@ -1517,6 +1605,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_passives_c_22nf_100v_0603"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C161234"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C161234"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1881,6 +1991,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C106235"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C106235"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10200"
 				(at 0 0 0)
 				(show_name yes)
@@ -2223,6 +2355,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C3016445"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C3016445"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "4900"
 				(at 0 0 0)
 				(show_name yes)
@@ -2552,6 +2706,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_power_tps1htc100qpwprq1"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C41558366"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C41558366"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3129,6 +3305,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C278577"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -4611,6 +4809,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C161234"
+			(at 200.66 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C161234"
+			(at 200.66 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "e840e63c-bac1-4609-af69-54c7e2e51494")
 		)
@@ -4888,6 +5108,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 182.88 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C482112"
+			(at 182.88 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C482112"
 			(at 182.88 123.19 0)
 			(hide yes)
 			(show_name yes)
@@ -5184,6 +5426,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C513710"
+			(at 83.82 171.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C513710"
+			(at 83.82 171.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "6088defa-dbc2-450b-a610-efa34103ccd6")
 		)
@@ -5462,6 +5726,28 @@
 			)
 		)
 		(property "ReqNotes" "Use for protected high-side load switching; tie all VS and VOUT pads plus the exposed ground pad; select ILIM and the LATCH/DIAG_EN behavior for the application."
+			(at 144.78 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C41558366"
+			(at 144.78 121.92 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C41558366"
 			(at 144.78 121.92 0)
 			(hide yes)
 			(show_name yes)
@@ -5796,6 +6082,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C106235"
+			(at 77.47 144.78 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 77.47 144.78 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "fecf9a84-5a26-4105-bf1b-fc4961a51185")
 		)
@@ -6072,6 +6380,28 @@
 			)
 		)
 		(property "ReqDielectric" ""
+			(at 140.97 78.74 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C211388"
+			(at 140.97 78.74 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C211388"
 			(at 140.97 78.74 0)
 			(hide yes)
 			(show_name yes)
@@ -6367,6 +6697,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C106235"
+			(at 77.47 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 77.47 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "c3892bf6-cc72-43df-928c-849b8f2de4bc")
 		)
@@ -6412,14 +6764,13 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 68.58 166.3699 0)
+			(at 66.04 162.56 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -6737,6 +7088,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C106235"
+			(at 77.47 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 77.47 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "4290783d-b8f0-44bf-8892-e0c45308ce7f")
 		)
@@ -7013,6 +7386,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 109.22 110.49 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 109.22 110.49 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
 			(at 109.22 110.49 0)
 			(hide yes)
 			(show_name yes)
@@ -7311,6 +7706,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C3016445"
+			(at 170.18 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C3016445"
+			(at 170.18 123.19 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "aefd9807-aa1f-40ee-acfd-2e6ebfcde804")
 		)
@@ -7597,6 +8014,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C90074"
+			(at 101.6 80.01 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C90074"
+			(at 101.6 80.01 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "e0d39875-c129-4ff0-ac38-c2b7e43a9370")
 		)
@@ -7873,6 +8312,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
 			(at 109.22 148.59 0)
 			(hide yes)
 			(show_name yes)

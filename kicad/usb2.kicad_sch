@@ -101,6 +101,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10211"
 				(at 0 0 0)
 				(show_name yes)
@@ -442,6 +464,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_connectors_connector_usb_c_receptacle_usb2_0_16p_gt_usb_7047c"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C963218"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C963218"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1375,6 +1419,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C223608"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C223608"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "35"
 				(at 0 0 0)
 				(show_name yes)
@@ -1767,7 +1833,29 @@
 					)
 				)
 			)
-			(property "JLC Qty" "20"
+			(property "LCSC" "C2827693"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2827693"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "1020"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2419,6 +2507,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_passives_r_5_1k_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C413002"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C413002"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3734,6 +3844,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C223608"
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C223608"
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "2ac09782-969c-4455-9c04-622b726612f5")
 		)
@@ -4010,6 +4142,28 @@
 			)
 		)
 		(property "ReqNotes" "X7R or C0G is also acceptable when available"
+			(at 152.4 64.77 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C162178"
+			(at 152.4 64.77 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
 			(at 152.4 64.77 0)
 			(hide yes)
 			(show_name yes)
@@ -4307,6 +4461,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C413002"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C413002"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "fcc6c7ac-4bbb-4d48-b7ac-63073ce1ce0b")
 		)
@@ -4583,6 +4759,28 @@
 			)
 		)
 		(property "ReqDielectric" ""
+			(at 111.76 93.98 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C963218"
+			(at 111.76 93.98 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C963218"
 			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
@@ -5011,6 +5209,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C413002"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C413002"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "4aa108d0-7fc7-4871-87d6-a2ffed680334")
 		)
@@ -5135,7 +5355,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "20"
+		(property "JLC Qty" "1020"
 			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name yes)
@@ -5301,6 +5521,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 144.78 93.98 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2827693"
+			(at 144.78 93.98 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2827693"
 			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name yes)

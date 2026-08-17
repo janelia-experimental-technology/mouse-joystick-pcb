@@ -101,6 +101,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10211"
 				(at 0 0 0)
 				(show_name yes)
@@ -450,6 +472,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C2652108"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2652108"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "500"
 				(at 0 0 0)
 				(show_name yes)
@@ -615,7 +659,7 @@
 					)
 				)
 			)
-			(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+			(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1078,6 +1122,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C2906868"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2906868"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10000"
 				(at 0 0 0)
 				(show_name yes)
@@ -1406,6 +1472,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C278577"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2572,6 +2660,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C2906868"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "d0bea8b6-3810-415d-9d75-5f3d5f35a743")
 		)
@@ -2858,6 +2968,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C278577"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "44b44eb5-b0e6-4a3a-9b10-0deaae23acc5")
 		)
@@ -3132,6 +3264,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906868"
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
 			(at 148.59 127 0)
 			(hide yes)
 			(show_name yes)
@@ -3428,6 +3582,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C162178"
+			(at 134.62 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
+			(at 134.62 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "17ac2905-3a3c-4c67-badc-17a99bba01ff")
 		)
@@ -3712,6 +3888,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C2906868"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a1e742e6-02d0-4c78-8156-b16d08926cf2")
 		)
@@ -3985,7 +4183,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 101.6 0)
 			(hide yes)
 			(show_name yes)
@@ -4308,7 +4528,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 76.2 0)
 			(hide yes)
 			(show_name yes)
@@ -4631,7 +4873,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 152.4 0)
 			(hide yes)
 			(show_name yes)
@@ -4954,7 +5218,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 127 0)
 			(hide yes)
 			(show_name yes)
@@ -5278,7 +5564,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 157.48 43.18 0)
 			(hide yes)
 			(show_name yes)
@@ -5602,6 +5910,28 @@
 			)
 		)
 		(property "ReqNotes" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906868"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
 			(at 148.59 76.2 0)
 			(hide yes)
 			(show_name yes)

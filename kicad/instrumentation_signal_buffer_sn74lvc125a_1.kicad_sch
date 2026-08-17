@@ -101,6 +101,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C162178"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10211"
 				(at 0 0 0)
 				(show_name yes)
@@ -450,6 +472,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C2652108"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2652108"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "500"
 				(at 0 0 0)
 				(show_name yes)
@@ -615,7 +659,7 @@
 					)
 				)
 			)
-			(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+			(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1078,6 +1122,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C2906868"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C2906868"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10000"
 				(at 0 0 0)
 				(show_name yes)
@@ -1416,6 +1482,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "9700"
 				(at 0 0 0)
 				(show_name yes)
@@ -1670,193 +1758,13 @@
 	)
 	(wire
 		(pts
-			(xy 134.62 38.1) (xy 134.62 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "00562c9d-8fb4-44ab-9ea0-b542996a554a")
-	)
-	(wire
-		(pts
-			(xy 152.4 127) (xy 154.94 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "09edd8a0-403d-46ad-b5c9-8d5874f0eecd")
-	)
-	(wire
-		(pts
-			(xy 134.62 50.8) (xy 134.62 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b4f4dcb-a0c7-4637-b431-fd2c5dffbee3")
-	)
-	(wire
-		(pts
 			(xy 152.4 101.6) (xy 154.94 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2118f9a3-19ad-4981-b710-279be446cc13")
-	)
-	(wire
-		(pts
-			(xy 99.06 101.6) (xy 101.6 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "345623f8-71f7-438f-9fdd-30a4b28960ec")
-	)
-	(wire
-		(pts
-			(xy 144.78 101.6) (xy 142.24 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a48d5f5-8575-4ec4-ac05-f911d32f2a7d")
-	)
-	(wire
-		(pts
-			(xy 81.28 38.1) (xy 81.28 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "46b8f4d1-d8f4-4317-a589-75399580b954")
-	)
-	(wire
-		(pts
-			(xy 109.22 139.7) (xy 109.22 137.16)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4a70cc43-6425-4119-b649-97b52d65f01d")
-	)
-	(wire
-		(pts
-			(xy 109.22 165.1) (xy 109.22 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69f878e0-f720-4127-b764-040885943d05")
-	)
-	(wire
-		(pts
-			(xy 116.84 76.2) (xy 119.38 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b6bf85e-a3b5-4c37-b1da-ba5eadebbf3d")
-	)
-	(wire
-		(pts
-			(xy 116.84 101.6) (xy 119.38 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7024a059-4627-49e9-82f9-25e12838a82c")
-	)
-	(wire
-		(pts
-			(xy 53.34 25.4) (xy 50.8 25.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7203d52d-a5cb-4fce-9b18-23bc3b802801")
-	)
-	(wire
-		(pts
-			(xy 157.48 27.94) (xy 157.48 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8591b822-6b26-4fe6-afe5-eaff8631f294")
-	)
-	(wire
-		(pts
-			(xy 144.78 127) (xy 142.24 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "876c65d5-874e-4b59-9ad1-7b02fb9d4e89")
-	)
-	(wire
-		(pts
-			(xy 81.28 50.8) (xy 81.28 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "890e872c-4a57-4942-b033-05d38a652c24")
-	)
-	(wire
-		(pts
-			(xy 152.4 76.2) (xy 154.94 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8c62783d-0e30-4fd7-b67f-ce840b54ec44")
-	)
-	(wire
-		(pts
-			(xy 116.84 127) (xy 119.38 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "90876907-1a1f-4fbf-a243-a2f5ace36ebd")
-	)
-	(wire
-		(pts
-			(xy 154.94 58.42) (xy 154.94 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9de02da7-92b0-4f5f-bccb-63a37990cce3")
-	)
-	(wire
-		(pts
-			(xy 144.78 152.4) (xy 142.24 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a7c06ca1-2b46-4191-a983-ea702a746cf4")
+		(uuid "08faf17e-b250-488e-8a4a-fa79cae15c84")
 	)
 	(wire
 		(pts
@@ -1866,97 +1774,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "aa6d4172-95f0-454d-a7b1-2e33a139df3d")
-	)
-	(wire
-		(pts
-			(xy 99.06 76.2) (xy 101.6 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ad222fda-5bdb-4765-a803-88a4de012179")
-	)
-	(wire
-		(pts
-			(xy 152.4 152.4) (xy 154.94 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b27a219b-5bbe-4003-a146-42f47d8bcae8")
-	)
-	(wire
-		(pts
-			(xy 53.34 27.94) (xy 50.8 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c44b67be-373a-4b89-9ee9-c69fc9af5a0b")
-	)
-	(wire
-		(pts
-			(xy 99.06 127) (xy 101.6 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d93fa9d7-f0c6-4975-8225-23fac51a3013")
-	)
-	(wire
-		(pts
-			(xy 160.02 58.42) (xy 160.02 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e11fdd1b-d24d-4bbc-81c5-3365dd1ba7f6")
-	)
-	(wire
-		(pts
-			(xy 116.84 152.4) (xy 119.38 152.4)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e37d7129-e1cc-432f-8c28-493a43ec38c8")
-	)
-	(wire
-		(pts
-			(xy 109.22 114.3) (xy 109.22 111.76)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e5879a0e-77e7-4588-a00d-f26ae1239071")
-	)
-	(wire
-		(pts
-			(xy 53.34 30.48) (xy 50.8 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e658f2bb-21a2-4104-8a8b-7aece2f7a965")
-	)
-	(wire
-		(pts
-			(xy 144.78 76.2) (xy 142.24 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ea4616fd-8e82-48f3-97de-684b3c3b6959")
+		(uuid "159277d8-da35-42f3-a86d-4ba35750b51c")
 	)
 	(wire
 		(pts
@@ -1966,217 +1784,277 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ee8c53bb-ec3b-4699-89c2-1c1e6b85271d")
+		(uuid "289a657c-1481-42dc-b992-0b7b8d090a96")
 	)
-	(label "4B"
-		(at 142.24 152.4 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 144.78 101.6) (xy 142.24 101.6)
 		)
-		(uuid "0ad9f46a-3367-4cb1-af33-ec75996ab524")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33b92881-c4c5-4787-85c3-2b0de871a20e")
 	)
-	(label "3B"
-		(at 119.38 127 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 157.48 27.94) (xy 157.48 30.48)
 		)
-		(uuid "10b89de6-a55f-4a77-9dcd-154b515dc5d2")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "33e498d7-d7b4-4e06-becc-58157ea072f4")
 	)
-	(label "1B"
-		(at 119.38 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 99.06 127) (xy 101.6 127)
 		)
-		(uuid "11650f9e-c4af-43dd-a07a-26975c694c24")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "389083cc-5a57-424e-89e7-17b8f791913a")
 	)
-	(label "~{OE}"
-		(at 109.22 165.1 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 154.94 58.42) (xy 154.94 55.88)
 		)
-		(uuid "1a4a4c19-7adf-4977-b109-de42368c36c0")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a797033-deef-4e70-93fe-d318a618c428")
 	)
-	(label "~{OE}"
-		(at 109.22 114.3 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 144.78 76.2) (xy 142.24 76.2)
 		)
-		(uuid "33d08430-04ea-4bba-943e-fd2421fd8c02")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ada2c54-38ee-4037-9aef-bfe4c3d75dcd")
 	)
-	(label "1B"
-		(at 142.24 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 99.06 76.2) (xy 101.6 76.2)
 		)
-		(uuid "51f97a21-f6a3-4e0a-a47a-7ee66dd6e361")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4065be27-f8d0-4bbf-8039-e5bb99d30254")
 	)
-	(label "+3.3V"
-		(at 157.48 27.94 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 116.84 127) (xy 119.38 127)
 		)
-		(uuid "5458cb35-081c-4f55-8663-7b7ac852388b")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "475da73c-46e7-4849-bb8a-64042f7a04b3")
 	)
-	(label "GND"
-		(at 134.62 50.8 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 144.78 152.4) (xy 142.24 152.4)
 		)
-		(uuid "5e7beb32-bc8d-4810-b3d3-0672e6b776dc")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d9d429e-a414-4df9-bd9d-578b9e0bad94")
 	)
-	(label "2B"
-		(at 142.24 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 152.4 152.4) (xy 154.94 152.4)
 		)
-		(uuid "629eba28-21d7-43c1-a30c-b1f4e7da5cd1")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54032339-9ce1-476a-9659-c53ed8a4854c")
 	)
-	(label "GND"
-		(at 53.34 27.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 160.02 58.42) (xy 160.02 55.88)
 		)
-		(uuid "6ce71214-4097-40ff-90fd-034cba4dc4c2")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61b318b4-543f-4aaf-ae09-ca7c2a622ddc")
 	)
-	(label "+3.3V"
-		(at 53.34 25.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 116.84 152.4) (xy 119.38 152.4)
 		)
-		(uuid "736f43e9-ff75-453c-a374-a2a42b2b4562")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "66b5ab13-3ecf-4df7-b432-31e26268eab7")
 	)
-	(label "+3.3V"
-		(at 81.28 38.1 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 116.84 76.2) (xy 119.38 76.2)
 		)
-		(uuid "7847e301-282a-4084-baf4-b64b58ab526e")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a8cc52e-6e87-4ba8-9b3d-0b6975411f23")
 	)
-	(label "~{OE}"
-		(at 109.22 88.9 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 144.78 127) (xy 142.24 127)
 		)
-		(uuid "8a455569-cb9d-4948-a30c-dbd056ba0da5")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "726f362c-5c8f-4b35-a63a-42a1fd57d67e")
 	)
-	(label "+3.3V"
-		(at 134.62 38.1 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 109.22 114.3) (xy 109.22 111.76)
 		)
-		(uuid "934e5df0-e902-43fd-ae4c-3ecafd4b3ea5")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73364eec-c5e8-46e3-affa-aa1d348a3fad")
 	)
-	(label "4B"
-		(at 119.38 152.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 81.28 38.1) (xy 81.28 40.64)
 		)
-		(uuid "9c0f678d-2459-4675-ba03-d4518f22941e")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "831a8775-1661-459a-9e06-721872f56958")
 	)
-	(label "GND"
-		(at 160.02 58.42 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 134.62 38.1) (xy 134.62 40.64)
 		)
-		(uuid "aa5ef07f-45a4-4334-8d12-c746f97038b5")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "af07a3c5-53d0-423b-9de8-478cdc8bfc5d")
 	)
-	(label "GND"
-		(at 154.94 58.42 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 53.34 25.4) (xy 50.8 25.4)
 		)
-		(uuid "abfe6c40-972d-4206-bc7b-6818b2baa2c8")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b3619435-82c7-407d-afa3-80d330df837b")
 	)
-	(label "~{OE}"
-		(at 53.34 30.48 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 109.22 165.1) (xy 109.22 162.56)
 		)
-		(uuid "bd10c09e-4d06-4ef5-b1fd-c72637eadc94")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9bef4ce-7a2b-4bef-947f-b7d9542d8587")
 	)
-	(label "2B"
-		(at 119.38 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 134.62 50.8) (xy 134.62 48.26)
 		)
-		(uuid "e4a2953e-5c4c-4d45-a29d-b5ba3b083be3")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba53f275-4ae3-4c68-9423-cee956571ea7")
 	)
-	(label "~{OE}"
-		(at 109.22 139.7 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 53.34 30.48) (xy 50.8 30.48)
 		)
-		(uuid "e77d2ee1-69b5-47c8-8cf6-f0de3aad7212")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bb9ab5d2-dc8e-4d24-9049-28ae54efad19")
 	)
-	(label "~{OE}"
-		(at 81.28 50.8 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 116.84 101.6) (xy 119.38 101.6)
 		)
-		(uuid "f2c180a7-d558-4958-ad2d-def5f1d8083b")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc879bf6-ae7c-4ca7-adb3-b69675d98742")
+	)
+	(wire
+		(pts
+			(xy 152.4 127) (xy 154.94 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c14074cf-ceb8-410c-b777-3df47cdafb32")
+	)
+	(wire
+		(pts
+			(xy 81.28 50.8) (xy 81.28 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c33cf262-51cd-4472-8f5b-899a289bb23f")
+	)
+	(wire
+		(pts
+			(xy 109.22 139.7) (xy 109.22 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d514d4f1-f86b-487f-9d7f-c985b11a2d09")
+	)
+	(wire
+		(pts
+			(xy 53.34 27.94) (xy 50.8 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d78ef3e5-4e38-4573-bbe6-dcf89f0c4990")
+	)
+	(wire
+		(pts
+			(xy 152.4 76.2) (xy 154.94 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dab3dc66-7dcc-4a1f-b01c-cf103099ca57")
+	)
+	(wire
+		(pts
+			(xy 99.06 101.6) (xy 101.6 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f57cdcd1-28d5-4f97-8d00-a0805fb385c6")
 	)
 	(label "3B"
 		(at 142.24 127 180)
@@ -2186,7 +2064,217 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "fb9485ef-905a-4490-a699-9c1d4378a164")
+		(uuid "0409cd4a-d1b5-46d2-ab26-c83180aa07df")
+	)
+	(label "4B"
+		(at 119.38 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0979f579-5dac-4440-8cd6-ec836073144d")
+	)
+	(label "~{OE}"
+		(at 81.28 50.8 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1b2a53e7-9d9e-42ba-8785-bc06fef1c3eb")
+	)
+	(label "~{OE}"
+		(at 109.22 114.3 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1c92951f-bf8f-40b5-92d7-88f9252645e6")
+	)
+	(label "GND"
+		(at 160.02 58.42 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1f7cb008-912c-46ea-89af-d13c552ee8c3")
+	)
+	(label "2B"
+		(at 119.38 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "214e0bf5-5627-4fba-ab68-1df1916dbf03")
+	)
+	(label "+3.3V"
+		(at 53.34 25.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "27fb4ffe-362d-4b81-94e7-4293f62bb60a")
+	)
+	(label "GND"
+		(at 134.62 50.8 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2af87ec3-484e-4cae-a656-bc107339b18a")
+	)
+	(label "~{OE}"
+		(at 109.22 139.7 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2bd1bd58-448f-4247-b0ef-481e359e07ad")
+	)
+	(label "4B"
+		(at 142.24 152.4 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "313a6c99-53ac-4941-afb4-8bdf706faa46")
+	)
+	(label "GND"
+		(at 53.34 27.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4a45877a-e687-4b86-8803-464663819db9")
+	)
+	(label "2B"
+		(at 142.24 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4cc62ef6-26ac-461f-8140-adb5f21c16bd")
+	)
+	(label "1B"
+		(at 119.38 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "68eabcf4-0d32-4f62-855c-643ef5aa47e2")
+	)
+	(label "+3.3V"
+		(at 81.28 38.1 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6ae83534-e091-4ca5-bc7f-76804df8d699")
+	)
+	(label "~{OE}"
+		(at 109.22 165.1 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "81616826-a888-42ca-afaa-eedcad48b8e5")
+	)
+	(label "+3.3V"
+		(at 134.62 38.1 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "93415e55-b150-48c9-823d-25de55ce31c8")
+	)
+	(label "~{OE}"
+		(at 53.34 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a69ee878-e0a0-414b-be98-f842c6061c1f")
+	)
+	(label "3B"
+		(at 119.38 127 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a7dafcc0-ef9f-4729-bc8b-855822fc0d3f")
+	)
+	(label "1B"
+		(at 142.24 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b6ef3881-b12e-4d56-a0de-667472e02f7b")
+	)
+	(label "GND"
+		(at 154.94 58.42 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d718e1fd-aed9-4078-96b4-36f6bb8c4ee5")
+	)
+	(label "+3.3V"
+		(at 157.48 27.94 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "da0af60a-118b-4e00-bfa3-270718bfcf99")
+	)
+	(label "~{OE}"
+		(at 109.22 88.9 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e72b56ce-e22a-49d8-9e0d-5463c4c16a52")
 	)
 	(hierarchical_label "3Y"
 		(shape output)
@@ -2197,106 +2285,7 @@
 			)
 			(justify left)
 		)
-		(uuid "05131564-8264-4ad3-9bbd-e4331bbbc11e")
-	)
-	(hierarchical_label "3A"
-		(shape input)
-		(at 99.06 127 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0ed13407-103f-4e14-a66f-9889e3d95834")
-	)
-	(hierarchical_label "1A"
-		(shape input)
-		(at 99.06 76.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "830214e0-37ae-443e-8379-bdeec04ea314")
-	)
-	(hierarchical_label "4Y"
-		(shape output)
-		(at 154.94 152.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "84530e76-6df5-4638-b338-b0862d1af533")
-	)
-	(hierarchical_label "~{OE}"
-		(shape input)
-		(at 50.8 30.48 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "948b4903-1d4f-4665-aec5-2a368039314a")
-	)
-	(hierarchical_label "2Y"
-		(shape output)
-		(at 154.94 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "95f1b5b0-ec84-4aa8-a243-f9c3cebe3be5")
-	)
-	(hierarchical_label "1Y"
-		(shape output)
-		(at 154.94 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a3997cbb-9388-461f-8ade-d3779b448d6f")
-	)
-	(hierarchical_label "+3.3V"
-		(shape passive)
-		(at 50.8 25.4 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "ad0e1c40-f802-4db6-958b-ab056fb032c0")
-	)
-	(hierarchical_label "GND"
-		(shape passive)
-		(at 50.8 27.94 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "c17e60b2-1535-46a4-a705-c2a6c5e49537")
-	)
-	(hierarchical_label "2A"
-		(shape input)
-		(at 99.06 101.6 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "cfee5539-ccef-4a93-ac69-f8dd6a99f878")
+		(uuid "0c266997-bf92-4ded-a8e5-2756616eb78b")
 	)
 	(hierarchical_label "4A"
 		(shape input)
@@ -2307,7 +2296,758 @@
 			)
 			(justify right)
 		)
-		(uuid "fbc8e27c-3afa-4dc6-80a8-6c2409ecb752")
+		(uuid "209d66d7-22ea-4596-880f-7a2f7bf80982")
+	)
+	(hierarchical_label "~{OE}"
+		(shape input)
+		(at 50.8 30.48 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2ba5a80d-40a6-4584-b6ca-869d636e0311")
+	)
+	(hierarchical_label "2Y"
+		(shape output)
+		(at 154.94 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3dc19e7e-713f-4ed7-9e98-8f8d97c4560e")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 50.8 27.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5fd782a5-ffb2-4297-923c-07e441584861")
+	)
+	(hierarchical_label "1Y"
+		(shape output)
+		(at 154.94 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a0b0ae98-27ce-45a4-8e94-889fcecd308f")
+	)
+	(hierarchical_label "1A"
+		(shape input)
+		(at 99.06 76.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c2739557-c543-40ac-bf58-06f82d7a1bfd")
+	)
+	(hierarchical_label "+3.3V"
+		(shape passive)
+		(at 50.8 25.4 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d555696b-0b07-4ec3-84b6-a72f98fc4aa2")
+	)
+	(hierarchical_label "4Y"
+		(shape output)
+		(at 154.94 152.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d66a2940-feb9-46ce-908d-27312337a339")
+	)
+	(hierarchical_label "3A"
+		(shape input)
+		(at 99.06 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e2c22b6f-6ae1-49d8-bc60-bf6b74f26264")
+	)
+	(hierarchical_label "2A"
+		(shape input)
+		(at 99.06 101.6 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e5100a1c-3a31-448c-93a7-91e906bbf034")
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
+		(at 157.48 43.18 0)
+		(unit 5)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "04db2ddc-d51d-481f-b8ab-8c1589312f87")
+		(property "Reference" "U1601"
+			(at 163.322 39.878 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74LVC125ARGYR"
+			(at 163.322 38.1 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_74xx_74lvc125"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "500"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "SN74LVC125A quad tri-state buffer"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "misc"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "logic-buffer"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "SN74LVC125ARGYR"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" "1.65V"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" "24mA"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" "CMOS/LVC"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "instrumentation-signal-buffer"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "SN74LVC125ARGYR"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
+			(at 157.48 43.18 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e4b")
+		)
+		(pin "12"
+			(uuid "d002b796-2405-4850-a680-393812acfd9c")
+		)
+		(pin "8"
+			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27ce")
+		)
+		(pin "14"
+			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60d")
+		)
+		(pin "6"
+			(uuid "87428cc7-cadc-4d91-9835-929d2a29f022")
+		)
+		(pin "2"
+			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f2050")
+		)
+		(pin "9"
+			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7678")
+		)
+		(pin "1"
+			(uuid "cf369d32-3369-421d-888e-e9be4915e0f9")
+		)
+		(pin "13"
+			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e60368c")
+		)
+		(pin "5"
+			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87bd")
+		)
+		(pin "11"
+			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f063")
+		)
+		(pin "4"
+			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642824")
+		)
+		(pin "10"
+			(uuid "a2ec0828-dc7b-474c-a526-3632922b6844")
+		)
+		(pin "7"
+			(uuid "60f52700-16f3-4363-a5e1-429d21f0664f")
+		)
+		(pin "15"
+			(uuid "f8467181-f34d-447e-b8b1-36a600605b49")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "U1601")
+					(unit 5)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "U26001")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
+		(at 148.59 76.2 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2a03ee30-c334-45b1-b16c-cd49dbcd7e5c")
+		(property "Reference" "R1602"
+			(at 148.59 69.85 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "33"
+			(at 148.59 72.39 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 77.978 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "mpn_frc0402f33r0ts_0402"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "10000"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "33"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906868"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "b9ed2ae7-52af-4742-82d8-f0ef7bdb296f")
+		)
+		(pin "2"
+			(uuid "34c46315-3701-408f-b683-93ef2393d49c")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "R1602")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "R26002")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
@@ -2319,7 +3059,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "26ce7467-9483-4902-9545-249abbd21738")
+		(uuid "39466153-3937-474d-89dc-098a1fafd573")
 		(property "Reference" "U1601"
 			(at 109.22 148.082 0)
 			(show_name no)
@@ -2561,7 +3301,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 152.4 0)
 			(hide yes)
 			(show_name yes)
@@ -2633,1183 +3395,6 @@
 		)
 	)
 	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
-		(at 148.59 101.6 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "49c22a15-f65f-4eb6-bbe0-6d7325706ffc")
-		(property "Reference" "R1603"
-			(at 148.59 95.25 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "33"
-			(at 148.59 97.79 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 103.378 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "mpn_frc0402f33r0ts_0402"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "10000"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "33"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 148.59 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "a1e742e6-02d0-4c78-8156-b16d08926cf2")
-		)
-		(pin "2"
-			(uuid "d1187113-723c-4ca4-a1ff-0c12eb21fe39")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "R1603")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "R26003")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
-		(at 109.22 101.6 0)
-		(unit 2)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "7a5201d0-1c7b-468c-94c9-07d36b2ba909")
-		(property "Reference" "U1601"
-			(at 109.22 97.282 0)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74LVC125ARGYR"
-			(at 109.22 95.25 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_74xx_74lvc125"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "500"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "SN74LVC125A quad tri-state buffer"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "logic-buffer"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "SN74LVC125ARGYR"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" "1.65V"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" "24mA"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" "CMOS/LVC"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "instrumentation-signal-buffer"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "SN74LVC125ARGYR"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
-			(at 109.22 101.6 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e48")
-		)
-		(pin "12"
-			(uuid "d002b796-2405-4850-a680-393812acfd99")
-		)
-		(pin "8"
-			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27cb")
-		)
-		(pin "14"
-			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60a")
-		)
-		(pin "6"
-			(uuid "87428cc7-cadc-4d91-9835-929d2a29f01f")
-		)
-		(pin "2"
-			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f204d")
-		)
-		(pin "9"
-			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7675")
-		)
-		(pin "1"
-			(uuid "cf369d32-3369-421d-888e-e9be4915e0f6")
-		)
-		(pin "13"
-			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e603689")
-		)
-		(pin "5"
-			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87ba")
-		)
-		(pin "11"
-			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f060")
-		)
-		(pin "4"
-			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642821")
-		)
-		(pin "10"
-			(uuid "a2ec0828-dc7b-474c-a526-3632922b6841")
-		)
-		(pin "7"
-			(uuid "60f52700-16f3-4363-a5e1-429d21f0664c")
-		)
-		(pin "15"
-			(uuid "aae9f894-4a5f-4410-b2d4-b54c1d7058f8")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "U1601")
-					(unit 2)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "U26001")
-					(unit 2)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
-		(at 81.28 44.45 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8bf456a3-98b9-4458-8046-242682b75d07")
-		(property "Reference" "R1601"
-			(at 83.82 43.1799 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 83.82 45.7199 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 79.502 44.45 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic 10k 0402 resistor"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-RES-10K-0402"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "9700"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "10k 0402 resistor"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "10k"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" "62.5mW"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" "<=5%"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "pullup-pulldown"
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 81.28 44.45 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "44b44eb5-b0e6-4a3a-9b10-0deaae23acc5")
-		)
-		(pin "1"
-			(uuid "5604348b-4a8b-4d53-98a3-395587441a86")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "R1601")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "R26001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
-		(at 148.59 152.4 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8d306d85-e79c-44d7-854b-f35dce2eeb6a")
-		(property "Reference" "R1605"
-			(at 148.59 146.05 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "33"
-			(at 148.59 148.59 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 154.178 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "mpn_frc0402f33r0ts_0402"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "10000"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "33"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 148.59 152.4 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d0bea8b6-3810-415d-9d75-5f3d5f35a743")
-		)
-		(pin "2"
-			(uuid "11066a3f-492c-4340-a3ef-7baf41ce3d33")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "R1605")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "R26005")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "orb_weaver_internal:All/OW-CAP-100N-0402-X5R-16V")
 		(at 134.62 44.45 0)
 		(unit 1)
@@ -3820,7 +3405,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9bbdb8dd-7ff9-4c4e-85ce-653ca3e91aef")
+		(uuid "3be21789-9d7d-42ac-a53e-65d2d8ced494")
 		(property "Reference" "C1601"
 			(at 138.43 43.1799 0)
 			(show_name no)
@@ -4074,6 +3659,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C162178"
+			(at 134.62 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C162178"
+			(at 134.62 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "17ac2905-3a3c-4c67-badc-17a99bba01ff")
 		)
@@ -4096,6 +3703,1616 @@
 		)
 	)
 	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
+		(at 109.22 101.6 0)
+		(unit 2)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "89314906-f0d9-4f39-ba3f-9f4c2ce15bd0")
+		(property "Reference" "U1601"
+			(at 109.22 97.282 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74LVC125ARGYR"
+			(at 109.22 95.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_74xx_74lvc125"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "500"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "SN74LVC125A quad tri-state buffer"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "misc"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "logic-buffer"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "SN74LVC125ARGYR"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" "1.65V"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" "24mA"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" "CMOS/LVC"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "instrumentation-signal-buffer"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "SN74LVC125ARGYR"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
+			(at 109.22 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e48")
+		)
+		(pin "12"
+			(uuid "d002b796-2405-4850-a680-393812acfd99")
+		)
+		(pin "8"
+			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27cb")
+		)
+		(pin "14"
+			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60a")
+		)
+		(pin "6"
+			(uuid "87428cc7-cadc-4d91-9835-929d2a29f01f")
+		)
+		(pin "2"
+			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f204d")
+		)
+		(pin "9"
+			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7675")
+		)
+		(pin "1"
+			(uuid "cf369d32-3369-421d-888e-e9be4915e0f6")
+		)
+		(pin "13"
+			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e603689")
+		)
+		(pin "5"
+			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87ba")
+		)
+		(pin "11"
+			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f060")
+		)
+		(pin "4"
+			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642821")
+		)
+		(pin "10"
+			(uuid "a2ec0828-dc7b-474c-a526-3632922b6841")
+		)
+		(pin "7"
+			(uuid "60f52700-16f3-4363-a5e1-429d21f0664c")
+		)
+		(pin "15"
+			(uuid "aae9f894-4a5f-4410-b2d4-b54c1d7058f8")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "U1601")
+					(unit 2)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "U26001")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
+		(at 148.59 101.6 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a74b5d86-ddd0-4fb7-9639-71b75bf0c599")
+		(property "Reference" "R1603"
+			(at 148.59 95.25 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "33"
+			(at 148.59 97.79 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 103.378 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "mpn_frc0402f33r0ts_0402"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "10000"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "33"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906868"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 101.6 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a1e742e6-02d0-4c78-8156-b16d08926cf2")
+		)
+		(pin "2"
+			(uuid "d1187113-723c-4ca4-a1ff-0c12eb21fe39")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "R1603")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "R26003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
+		(at 81.28 44.45 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a7ec950c-2d26-40c4-92b6-95873be7d05e")
+		(property "Reference" "R1601"
+			(at 83.82 43.1799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 83.82 45.7199 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 79.502 44.45 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic 10k 0402 resistor"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-RES-10K-0402"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "9700"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "10k 0402 resistor"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "10k"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" "62.5mW"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" "<=5%"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "pullup-pulldown"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 81.28 44.45 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "44b44eb5-b0e6-4a3a-9b10-0deaae23acc5")
+		)
+		(pin "1"
+			(uuid "5604348b-4a8b-4d53-98a3-395587441a86")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "R1601")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "R26001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
+		(at 148.59 152.4 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "aff0bbdf-376c-42f3-83af-6c02092ebf5e")
+		(property "Reference" "R1605"
+			(at 148.59 146.05 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "33"
+			(at 148.59 148.59 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 154.178 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "mpn_frc0402f33r0ts_0402"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "10000"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "33"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2906868"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 152.4 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d0bea8b6-3810-415d-9d75-5f3d5f35a743")
+		)
+		(pin "2"
+			(uuid "11066a3f-492c-4340-a3ef-7baf41ce3d33")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "R1605")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "R26005")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
+		(at 109.22 127 0)
+		(unit 3)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "d0d3954a-36da-4f54-8c12-0cb1d565d0bf")
+		(property "Reference" "U1601"
+			(at 108.966 122.682 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "SN74LVC125ARGYR"
+			(at 109.22 120.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_74xx_74lvc125"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "500"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "SN74LVC125A quad tri-state buffer"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "misc"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "logic-buffer"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "SN74LVC125ARGYR"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" "1.65V"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" "24mA"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" "CMOS/LVC"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "instrumentation-signal-buffer"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "SN74LVC125ARGYR"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e49")
+		)
+		(pin "12"
+			(uuid "d002b796-2405-4850-a680-393812acfd9a")
+		)
+		(pin "8"
+			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27cc")
+		)
+		(pin "14"
+			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60b")
+		)
+		(pin "6"
+			(uuid "87428cc7-cadc-4d91-9835-929d2a29f020")
+		)
+		(pin "2"
+			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f204e")
+		)
+		(pin "9"
+			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7676")
+		)
+		(pin "1"
+			(uuid "cf369d32-3369-421d-888e-e9be4915e0f7")
+		)
+		(pin "13"
+			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e60368a")
+		)
+		(pin "5"
+			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87bb")
+		)
+		(pin "11"
+			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f061")
+		)
+		(pin "4"
+			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642822")
+		)
+		(pin "10"
+			(uuid "a2ec0828-dc7b-474c-a526-3632922b6842")
+		)
+		(pin "7"
+			(uuid "60f52700-16f3-4363-a5e1-429d21f0664d")
+		)
+		(pin "15"
+			(uuid "c81fce66-2954-4994-b1c2-8ee004eeb8d4")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
+					(reference "U1601")
+					(unit 3)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
+					(reference "U26001")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
 		(at 148.59 127 90)
 		(unit 1)
@@ -4106,7 +5323,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "9f4c51c5-38c9-4a9f-86f0-3831f0ec0a49")
+		(uuid "f613d362-2319-482c-b0bb-1192ea7addff")
 		(property "Reference" "R1604"
 			(at 148.59 120.65 90)
 			(show_name no)
@@ -4358,6 +5575,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C2906868"
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2906868"
+			(at 148.59 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "3259b870-2b9b-4556-80a2-2bf322fbef09")
 		)
@@ -4381,613 +5620,6 @@
 	)
 	(symbol
 		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
-		(at 109.22 127 0)
-		(unit 3)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a95ef0f7-22bb-4b61-b6ae-82bf5650cb18")
-		(property "Reference" "U1601"
-			(at 108.966 122.682 0)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74LVC125ARGYR"
-			(at 109.22 120.65 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_74xx_74lvc125"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "500"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "SN74LVC125A quad tri-state buffer"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "logic-buffer"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "SN74LVC125ARGYR"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" "1.65V"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" "24mA"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" "CMOS/LVC"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "instrumentation-signal-buffer"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "SN74LVC125ARGYR"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e49")
-		)
-		(pin "12"
-			(uuid "d002b796-2405-4850-a680-393812acfd9a")
-		)
-		(pin "8"
-			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27cc")
-		)
-		(pin "14"
-			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60b")
-		)
-		(pin "6"
-			(uuid "87428cc7-cadc-4d91-9835-929d2a29f020")
-		)
-		(pin "2"
-			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f204e")
-		)
-		(pin "9"
-			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7676")
-		)
-		(pin "1"
-			(uuid "cf369d32-3369-421d-888e-e9be4915e0f7")
-		)
-		(pin "13"
-			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e60368a")
-		)
-		(pin "5"
-			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87bb")
-		)
-		(pin "11"
-			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f061")
-		)
-		(pin "4"
-			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642822")
-		)
-		(pin "10"
-			(uuid "a2ec0828-dc7b-474c-a526-3632922b6842")
-		)
-		(pin "7"
-			(uuid "60f52700-16f3-4363-a5e1-429d21f0664d")
-		)
-		(pin "15"
-			(uuid "c81fce66-2954-4994-b1c2-8ee004eeb8d4")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "U1601")
-					(unit 3)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "U26001")
-					(unit 3)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-FRC0402F33R0TS")
-		(at 148.59 76.2 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "be9fa6e6-f04b-4091-a168-ece52ab299c9")
-		(property "Reference" "R1602"
-			(at 148.59 69.85 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "33"
-			(at 148.59 72.39 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 77.978 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 33Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-FRC0402F33R0TS"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "mpn_frc0402f33r0ts_0402"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "10000"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "33 FRC0402F33R0TS 0402 Resistors"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "33"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 148.59 76.2 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b9ed2ae7-52af-4742-82d8-f0ef7bdb296f")
-		)
-		(pin "2"
-			(uuid "34c46315-3701-408f-b683-93ef2393d49c")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "R1602")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "R26002")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
 		(at 109.22 76.2 0)
 		(unit 1)
 		(body_style 1)
@@ -4996,7 +5628,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "f33f6b51-e7ee-4722-842a-4ec610d01876")
+		(uuid "ff19f718-951d-4506-9ead-4ba69ac99a24")
 		(property "Reference" "U1601"
 			(at 109.22 71.882 0)
 			(show_name no)
@@ -5238,7 +5870,29 @@
 				)
 			)
 		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
+		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR), no longer the official 74xx:74LVC125."
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2652108"
+			(at 109.22 76.2 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2652108"
 			(at 109.22 76.2 0)
 			(hide yes)
 			(show_name yes)
@@ -5305,330 +5959,6 @@
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
 					(reference "U26001")
 					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-SN74LVC125ARGYR")
-		(at 157.48 43.18 0)
-		(unit 5)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "fb617c09-5f1e-4072-8284-21d26eea4f96")
-		(property "Reference" "U1601"
-			(at 163.322 39.878 0)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SN74LVC125ARGYR"
-			(at 163.322 38.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc125a.pdf"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Quad non-inverting tri-state LVC buffer for compact DUT-side instrumentation buffering"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-SN74LVC125ARGYR"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_74xx_74lvc125"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "500"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "SN74LVC125A quad tri-state buffer"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "logic-buffer"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "SN74LVC125ARGYR"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:Texas_RGY_R-PVQFN-N14_EP2.05x2.05mm"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "VQFN-14-EP(3.5x3.5)"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" "1.65V"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" "24mA"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" "CMOS/LVC"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "instrumentation-signal-buffer"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "SN74LVC125ARGYR"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" "Use when buffering four DUT signals from one package; note the 3.6 V max supply from the selected catalog part. Symbol is a local editable copy (orb_weaver_misc:SN74LVC125ARGYR)"
-			(at 157.48 43.18 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "a6c174fd-74d7-4c79-a54b-dc7299db8e4b")
-		)
-		(pin "12"
-			(uuid "d002b796-2405-4850-a680-393812acfd9c")
-		)
-		(pin "8"
-			(uuid "b6084b72-940c-4bb2-8dba-0ffe5e4f27ce")
-		)
-		(pin "14"
-			(uuid "8fab7dac-fed0-4bfe-9289-336627ace60d")
-		)
-		(pin "6"
-			(uuid "87428cc7-cadc-4d91-9835-929d2a29f022")
-		)
-		(pin "2"
-			(uuid "aa1aabc7-ebbb-421a-97ff-e1e3e62f2050")
-		)
-		(pin "9"
-			(uuid "a11c8507-7073-4b39-ab3f-f8e2933f7678")
-		)
-		(pin "1"
-			(uuid "cf369d32-3369-421d-888e-e9be4915e0f9")
-		)
-		(pin "13"
-			(uuid "01ecbe16-6bf7-42c6-9136-1dfa1e60368c")
-		)
-		(pin "5"
-			(uuid "f8cc5e74-b009-4f4b-8e19-cc1aff9e87bd")
-		)
-		(pin "11"
-			(uuid "73ebb84f-883a-49c2-a298-7581e8f0f063")
-		)
-		(pin "4"
-			(uuid "31f5a456-b0a4-4ad2-ab95-3d18d8642824")
-		)
-		(pin "10"
-			(uuid "a2ec0828-dc7b-474c-a526-3632922b6844")
-		)
-		(pin "7"
-			(uuid "60f52700-16f3-4363-a5e1-429d21f0664f")
-		)
-		(pin "15"
-			(uuid "f8467181-f34d-447e-b8b1-36a600605b49")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf/fe6d41ea-f690-4202-9816-a8f6f3e0c72f"
-					(reference "U1601")
-					(unit 5)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/be4ca613-55ec-4e66-9ad1-0f00b811d87a"
-					(reference "U26001")
-					(unit 5)
 				)
 			)
 		)

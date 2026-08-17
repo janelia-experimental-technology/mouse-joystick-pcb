@@ -97,6 +97,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C588009"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C588009"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "490"
 				(at 0 0 0)
 				(show_name yes)
@@ -2590,6 +2612,28 @@
 			)
 		)
 		(property "JLC Qty" "490"
+			(at 132.08 99.06 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C588009"
+			(at 132.08 99.06 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C588009"
 			(at 132.08 99.06 0)
 			(hide yes)
 			(show_name yes)

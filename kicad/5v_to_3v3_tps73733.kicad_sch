@@ -103,6 +103,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C307413"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C307413"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "34"
 				(at 0 0 0)
 				(show_name yes)
@@ -443,6 +465,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_power_regulator_linear_3_3v_1a_5_5vin_tps73733qdrbrq1"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C523768"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C523768"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1393,6 +1437,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C523768"
+			(at 119.38 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C523768"
+			(at 119.38 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "9"
 			(uuid "aa747a39-164e-4060-a20f-52f974547e31")
 		)
@@ -1705,6 +1771,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C307413"
+			(at 144.78 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C307413"
+			(at 144.78 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "83e8360a-6794-47b1-86a6-51e37e61e073")
 		)
@@ -1986,6 +2074,28 @@
 			)
 		)
 		(property "ReqDielectric" ""
+			(at 83.82 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C307413"
+			(at 83.82 81.28 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C307413"
 			(at 83.82 81.28 0)
 			(hide yes)
 			(show_name yes)

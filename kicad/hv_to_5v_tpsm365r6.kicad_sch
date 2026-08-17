@@ -99,6 +99,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C25803"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C25803"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "5000"
 				(at 0 0 0)
 				(show_name yes)
@@ -429,6 +451,28 @@
 				)
 			)
 			(property "PartID" "mpn_0805b105k250nt_0805"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C89190"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C89190"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -792,6 +836,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C91151"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C91151"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "2000"
 				(at 0 0 0)
 				(show_name yes)
@@ -1135,6 +1201,28 @@
 				)
 			)
 			(property "PartID" "mpn_1206x226m100nt_1206"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C108717"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C108717"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1498,6 +1586,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C77058"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C77058"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "4000"
 				(at 0 0 0)
 				(show_name yes)
@@ -1840,6 +1950,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_power_tpsm365r6v5rdnr"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C19078014"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C19078014"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3136,6 +3268,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C91151"
+			(at 50.8 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C91151"
+			(at 50.8 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "6e1c56d4-8e09-4c27-a1a7-bf23cae6709d")
 		)
@@ -3412,6 +3566,28 @@
 			)
 		)
 		(property "ReqExactMPN" ""
+			(at 66.04 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C91151"
+			(at 66.04 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C91151"
 			(at 66.04 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -3708,6 +3884,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C77058"
+			(at 96.52 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C77058"
+			(at 96.52 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "8a91885e-2bb6-4f07-aeb5-847c67143ed9")
 		)
@@ -3984,6 +4182,28 @@
 			)
 		)
 		(property "ReqDielectric" ""
+			(at 203.2 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25803"
+			(at 203.2 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C25803"
 			(at 203.2 85.09 0)
 			(hide yes)
 			(show_name yes)
@@ -4280,6 +4500,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C108717"
+			(at 233.68 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C108717"
+			(at 233.68 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "5e4616d3-30a1-4806-be35-a265ec41186b")
 		)
@@ -4556,6 +4798,28 @@
 			)
 		)
 		(property "ReqExactMPN" ""
+			(at 81.28 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C91151"
+			(at 81.28 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C91151"
 			(at 81.28 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -4852,6 +5116,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C89190"
+			(at 111.76 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C89190"
+			(at 111.76 82.55 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "cb4dbf83-322b-4951-982d-fbaeb1aba9bb")
 		)
@@ -5128,6 +5414,28 @@
 			)
 		)
 		(property "ReqExactMPN" ""
+			(at 218.44 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C108717"
+			(at 218.44 85.09 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C108717"
 			(at 218.44 85.09 0)
 			(hide yes)
 			(show_name yes)
@@ -5415,6 +5723,28 @@
 			)
 		)
 		(property "ReqDielectric" ""
+			(at 167.64 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C19078014"
+			(at 167.64 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C19078014"
 			(at 167.64 88.9 0)
 			(hide yes)
 			(show_name yes)
