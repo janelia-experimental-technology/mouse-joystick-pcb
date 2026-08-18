@@ -1129,7 +1129,7 @@
 		(uuid "0e9cfbb5-db54-453f-a7f6-91d5df25b68f")
 	)
 	(label "PYC_UART_TX_BUF"
-		(at 104.14 73.66 0)
+		(at 104.14 71.12 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1179,7 +1179,7 @@
 		(uuid "23860570-e3ab-4933-971b-d82e545b0a03")
 	)
 	(label "PYC_UART_RX_BUF"
-		(at 104.14 71.12 0)
+		(at 104.14 73.66 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1782,7 +1782,7 @@
 	)
 	(hierarchical_label "PYC_UART_TX"
 		(shape input)
-		(at 73.66 73.66 180)
+		(at 73.66 71.12 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1804,7 +1804,7 @@
 	)
 	(hierarchical_label "PYC_UART_RX"
 		(shape input)
-		(at 73.66 71.12 180)
+		(at 73.66 73.66 180)
 		(effects
 			(font
 				(size 1.27 1.27)
