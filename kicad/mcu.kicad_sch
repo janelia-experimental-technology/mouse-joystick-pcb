@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-17")
+		(date "2026-08-18")
 		(rev "0.1")
 		(company "Janelia Research Campus")
 	)
@@ -3834,7 +3834,7 @@
 			)
 		)
 	)
-	(group "5v_to_3v3_tps73733"
+	(group "5v_to_3v3_tps73733_1"
 		(uuid "1521f945-008a-4e2e-bc60-42e8f5f63cd3")
 		(lib_id "orb_weaver_private:5v_to_3v3_tps73733")
 		(members "d87eabb6-24d1-4fcc-abf8-544fae2aa273")
@@ -4927,7 +4927,7 @@
 			(color 0 0 0 0)
 		)
 		(uuid "d87eabb6-24d1-4fcc-abf8-544fae2aa273")
-		(property "Sheetname" "5v_to_3v3_tps73733"
+		(property "Sheetname" "5v_to_3v3_tps73733_1"
 			(at 101.6 24.6884 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4938,7 +4938,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "5v_to_3v3_tps73733.kicad_sch"
+		(property "Sheetfile" "5v_to_3v3_tps73733_1.kicad_sch"
 			(at 101.6 33.6046 0)
 			(show_name no)
 			(do_not_autoplace no)

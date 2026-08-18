@@ -5,8 +5,10 @@
 	(uuid "c1b4b83c-b2a5-4505-b710-f28fc6ce6db7")
 	(paper "A4")
 	(title_block
-		(title "Orb Weaver Design Block Mining")
-		(date "2026-08-16")
+		(title "mouse-joystick-pcb")
+		(date "2026-08-18")
+		(rev "0.1")
+		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -3798,7 +3800,7 @@
 		(property "LCSC" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3809,7 +3811,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4105,7 +4107,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4116,7 +4118,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4413,7 +4415,7 @@
 		(property "LCSC" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4424,7 +4426,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4735,7 +4737,7 @@
 		(property "LCSC" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4746,7 +4748,7 @@
 		(property "Vendor SKU" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5053,7 +5055,7 @@
 		(property "LCSC" "C293550"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5064,7 +5066,7 @@
 		(property "Vendor SKU" "C293550"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5378,7 +5380,7 @@
 		(property "LCSC" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5389,7 +5391,7 @@
 		(property "Vendor SKU" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5685,7 +5687,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5696,7 +5698,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font

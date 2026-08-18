@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-17")
+		(date "2026-08-18")
 		(rev "0.1")
 		(company "Janelia Research Campus")
 	)
@@ -1692,15 +1692,15 @@
 		(lib_id "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected")
 		(members "4f1e0583-f92e-4c49-a761-6760724f5077")
 	)
-	(group "5v_to_3v3_tps73733"
+	(group "5v_to_3v3_tps73733_2"
 		(uuid "5c57b5d4-d1ab-47ee-aa2e-677d67fc6d60")
 		(lib_id "orb_weaver_private:5v_to_3v3_tps73733")
 		(members "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
 	)
 	(group "usb2"
-		(uuid "ff67af53-f1ba-433e-ac30-c1aa96f5bb9f")
+		(uuid "cca39a23-2437-40f9-98a0-a89657538488")
 		(lib_id "orb_weaver_private:usb2")
-		(members "20cdec53-3c5f-4386-9051-cc6f3a67407b")
+		(members "2c80acc7-cd89-43f8-bb5d-529b30ced6f8")
 	)
 	(sheet
 		(at 228.6 48.26)
@@ -2179,7 +2179,7 @@
 		(fill
 			(color 0 0 0 0)
 		)
-		(uuid "20cdec53-3c5f-4386-9051-cc6f3a67407b")
+		(uuid "2c80acc7-cd89-43f8-bb5d-529b30ced6f8")
 		(property "Sheetname" "usb2"
 			(at 50.8 50.0884 0)
 			(show_name no)
@@ -2204,7 +2204,7 @@
 		)
 		(pin "+5V_USB" passive
 			(at 76.2 55.88 0)
-			(uuid "204291d0-4f14-4e08-afbc-5205c1f0f458")
+			(uuid "a8a6f7b1-314b-4060-8bdf-f2436322be1c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2214,7 +2214,7 @@
 		)
 		(pin "GND" passive
 			(at 76.2 58.42 0)
-			(uuid "2d0d8646-7a25-4cd7-bb94-73c8798256e2")
+			(uuid "adcf530a-b636-4840-9f70-9974a56e9648")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2224,7 +2224,7 @@
 		)
 		(pin "USB_D+" bidirectional
 			(at 76.2 60.96 0)
-			(uuid "8047f222-cd5c-4170-9b81-dd5fe8db84dd")
+			(uuid "b1cd63ca-a04b-4544-81be-2d46061ab0c0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2234,7 +2234,7 @@
 		)
 		(pin "USB_D-" bidirectional
 			(at 76.2 63.5 0)
-			(uuid "62a8cd6b-9a14-4350-a9a6-aaede16c238d")
+			(uuid "56c07442-05a4-4ee1-befb-095a5b293b46")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2244,7 +2244,7 @@
 		)
 		(pin "VBUS" passive
 			(at 76.2 53.34 0)
-			(uuid "718b3c9e-17b5-40b9-9000-bb514fa68933")
+			(uuid "518b876e-4c9e-49c8-bb97-1b7859af065b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2498,7 +2498,7 @@
 			(color 0 0 0 0)
 		)
 		(uuid "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
-		(property "Sheetname" "5v_to_3v3_tps73733"
+		(property "Sheetname" "5v_to_3v3_tps73733_2"
 			(at 203.2 24.6884 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2509,7 +2509,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "5v_to_3v3_tps73733.kicad_sch"
+		(property "Sheetfile" "5v_to_3v3_tps73733_2.kicad_sch"
 			(at 203.2 33.6046 0)
 			(show_name no)
 			(do_not_autoplace no)

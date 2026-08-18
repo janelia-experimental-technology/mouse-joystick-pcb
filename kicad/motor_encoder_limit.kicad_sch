@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-17")
+		(date "2026-08-18")
 		(rev "0.1")
 		(company "Janelia Research Campus")
 	)
@@ -1357,6 +1357,10 @@
 		)
 	)
 	(no_connect
+		(at 101.6 104.14)
+		(uuid "1857b2a0-d795-4bd3-87d4-b3c57b889ac5")
+	)
+	(no_connect
 		(at 127 104.14)
 		(uuid "45d9f0ba-7a4c-44ac-8488-d56963826cd0")
 	)
@@ -1850,16 +1854,6 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 104.14) (xy 99.06 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e596eb22-037c-435d-ba9c-980012b54754")
-	)
-	(wire
-		(pts
 			(xy 203.2 86.36) (xy 200.66 86.36)
 		)
 		(stroke
@@ -1987,16 +1981,6 @@
 			(justify left bottom)
 		)
 		(uuid "21d47ff8-e37b-4689-8bf7-c6b5c1b38d60")
-	)
-	(label "GND"
-		(at 99.06 104.14 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "226089cf-fe1f-4c33-bde4-b4b367962822")
 	)
 	(label "VM"
 		(at 99.06 78.74 180)
@@ -4071,9 +4055,265 @@
 		(members "ca65f961-6ddd-440d-9e9e-e541f04cf110")
 	)
 	(group "tmc5130"
-		(uuid "decbddf3-94a0-4552-bacd-514026f1ecfb")
+		(uuid "e1dbb2ab-2fac-4374-a8f6-ddb1ebf9e8cc")
 		(lib_id "orb_weaver_private:tmc5130")
-		(members "f6d27586-38ad-4ba0-b6d4-cf456932c6c7")
+		(members "8a48c44b-14a3-493a-ae50-8a9a036fc774")
+	)
+	(sheet
+		(at 101.6 76.2)
+		(size 25.4 40.64)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "8a48c44b-14a3-493a-ae50-8a9a036fc774")
+		(property "Sheetname" "tmc5130"
+			(at 101.6 75.4884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "tmc5130.kicad_sch"
+			(at 101.6 117.4246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 101.6 83.82 180)
+			(uuid "97664dfe-6c94-45c4-a638-e00a95ca9147")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" passive
+			(at 101.6 81.28 180)
+			(uuid "3ef2d7de-9a84-4ca4-8c1a-35451b57e565")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ENCA" input
+			(at 127 99.06 0)
+			(uuid "88cdafd5-dba7-43f4-9944-39f33387fad8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCB" input
+			(at 127 101.6 0)
+			(uuid "4a4056c6-ae6f-4b1a-a74d-0bb1f63855df")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCN" input
+			(at 127 104.14 0)
+			(uuid "45d4ed69-e4ff-40c0-b5a9-749438755ea1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 101.6 86.36 180)
+			(uuid "d77e7e11-515a-43d8-be5b-7dfa8dfc95bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "OA1" passive
+			(at 127 78.74 0)
+			(uuid "40feea2d-6350-45e9-860f-86467d61f50b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OA2" passive
+			(at 127 81.28 0)
+			(uuid "089a92ae-2980-4377-b1c5-92a91dec8e96")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OB1" passive
+			(at 127 83.82 0)
+			(uuid "a538f998-8996-4abb-9c2c-c86946ba1e3b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "OB2" passive
+			(at 127 86.36 0)
+			(uuid "db765dc4-67a3-49a5-bdf1-6af5b96b5a4d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "REFL" input
+			(at 127 91.44 0)
+			(uuid "be19ca75-172e-4b4b-aa5d-5844270bfc4a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "REFR" input
+			(at 127 93.98 0)
+			(uuid "326800cf-22e0-40c5-89e0-c1a96c193c2f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SCK" input
+			(at 101.6 91.44 180)
+			(uuid "3e8cf2b9-03f7-45b1-a041-8ceeb96f8429")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDI" input
+			(at 101.6 93.98 180)
+			(uuid "8a8e3f51-63aa-494c-a811-bddf38f11e85")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDO" output
+			(at 101.6 96.52 180)
+			(uuid "f7ab6db1-e99f-4e2c-a2de-ef1c08548242")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWN_DIAG0" bidirectional
+			(at 101.6 106.68 180)
+			(uuid "b5321d8b-2f71-4a9b-9431-86be1b5f782a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWP_DIAG1" bidirectional
+			(at 101.6 109.22 180)
+			(uuid "4e1e7114-8f35-4bb3-b05d-9490e95af192")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SWSEL" input
+			(at 101.6 104.14 180)
+			(uuid "b78bfc1a-88fb-4e3e-bf0b-11df6d2a9fe1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VM" passive
+			(at 101.6 78.74 180)
+			(uuid "7f81167d-bb5a-4e2a-b76e-6b01c99b6623")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{CS}" input
+			(at 101.6 99.06 180)
+			(uuid "369c5805-5225-42c2-8ef0-26aee8454b54")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{DRV_EN}" input
+			(at 101.6 114.3 180)
+			(uuid "532667b9-bbfa-4afd-ab4e-b59231f4837f")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "12")
+				)
+			)
+		)
 	)
 	(sheet
 		(at 203.2 101.6)
@@ -4263,262 +4503,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "8")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 101.6 76.2)
-		(size 25.4 40.64)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "f6d27586-38ad-4ba0-b6d4-cf456932c6c7")
-		(property "Sheetname" "tmc5130"
-			(at 101.6 75.4884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "tmc5130.kicad_sch"
-			(at 101.6 117.4246 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V" passive
-			(at 101.6 83.82 180)
-			(uuid "f9aad1e6-5868-44ee-b67a-d3229cac1798")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "+5V" passive
-			(at 101.6 81.28 180)
-			(uuid "2d6244af-e32b-41f9-851d-52935465b06b")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "ENCA" input
-			(at 127 99.06 0)
-			(uuid "8f8e112d-9639-4f5c-8d52-5d3cb32fc345")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "ENCB" input
-			(at 127 101.6 0)
-			(uuid "7ddc72d6-9548-41b7-b4b6-b7d18e9f392e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "ENCN" input
-			(at 127 104.14 0)
-			(uuid "98f7a394-faf4-4cb2-bb3a-fc650d23f5b6")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "GND" passive
-			(at 101.6 86.36 180)
-			(uuid "7e02c917-c54a-4390-b2e4-8773757d9d8a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "OA1" passive
-			(at 127 78.74 0)
-			(uuid "31eb6992-a934-4085-98dc-5ecabc2f9bf7")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "OA2" passive
-			(at 127 81.28 0)
-			(uuid "92633e7d-7bd3-47f3-b2a5-4d4b10e3ddaa")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "OB1" passive
-			(at 127 83.82 0)
-			(uuid "3426a3f1-3274-433c-90d6-b4b0236226f3")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "OB2" passive
-			(at 127 86.36 0)
-			(uuid "109f620d-70dc-4cf4-86b8-6b32f648a619")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "REFL" input
-			(at 127 91.44 0)
-			(uuid "0da10a89-bf02-487c-b7ee-be7752f9f485")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "REFR" input
-			(at 127 93.98 0)
-			(uuid "b0748990-07d8-4598-ada0-c7da0048885a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "SCK" input
-			(at 101.6 91.44 180)
-			(uuid "f7235361-1c4d-45f4-8600-222481c921eb")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDI" input
-			(at 101.6 93.98 180)
-			(uuid "80ffcabe-47d6-4dc0-9c65-bf7f0cd40db9")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDO" output
-			(at 101.6 96.52 180)
-			(uuid "5c3d3c91-6a6b-4495-be20-9ded7df83f70")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWN_DIAG0" bidirectional
-			(at 101.6 106.68 180)
-			(uuid "4dca36e9-bb6d-49e5-88bc-10590f578939")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWP_DIAG1" bidirectional
-			(at 101.6 109.22 180)
-			(uuid "a37d2361-54f4-4f84-847c-9019e48828a4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SWSEL" input
-			(at 101.6 104.14 180)
-			(uuid "c70f30c6-dc30-4507-b842-d11790fbe939")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "VM" passive
-			(at 101.6 78.74 180)
-			(uuid "5546246e-6336-428c-b80d-dae78853d5dc")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "~{CS}" input
-			(at 101.6 99.06 180)
-			(uuid "216f965d-a655-4c88-a84c-113e291d9b4b")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "~{DRV_EN}" input
-			(at 101.6 114.3 180)
-			(uuid "2582e057-d033-41ba-b331-3a4f6e4af5df")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "12")
 				)
 			)
 		)
