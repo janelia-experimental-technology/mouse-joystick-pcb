@@ -1,7 +1,9 @@
 # Mouse Joystick PCB Rev 0 Plan
 
-**Status:** Planning, rescoped 2026-08-13, InstrumentPort added back 2026-08-16
-**Date:** 2026-08-16
+**Status:** Rescoped 2026-08-13, InstrumentPort added back 2026-08-16;
+**schematic capture complete and ERC-clean 2026-08-17** — 0 violations at every
+severity, 142 components. Layout not started.
+**Date:** 2026-08-17
 **Purpose:** Get a manufacturable single-axis board designed and ordered as fast
 as possible, so the researcher can **exercise the interfaces** — motor, encoder,
 limit switch, and the pyControl serial link — while the twin-axis form factor is
@@ -35,10 +37,17 @@ development, not experiments:** seeing the pyControl link at the cable and the
 TMC5130A SPI bus in one capture is what makes protocol and driver bring-up
 tractable, and that value is highest exactly when the board is new.
 
-Rev 0 populates `J4`, buffer packages `U_A`, `U_B`, and `U_E`, and **eleven of the
-eighteen digital Strands**. The other seven are allocated and unrouted, four of
-them reserved for the rev 2 brake and torque sensor so those circuits do not have
-to renegotiate the pinout.
+Rev 0 populates `J1501`, buffer packages `U1601`, `U1701`, and `U1801`, and
+**eleven of the eighteen digital Strands**. The other seven are allocated and
+unrouted, four of them reserved for the rev 2 brake and torque sensor so those
+circuits do not have to renegotiate the pinout.
+
+**The buffer grouping as built is not the documented one, and that is accepted.**
+`U1601` carries `ENC_A`, `ENC_B`, `PYC_UART_RX`, `PYC_UART_TX`; `U1701` the four
+TMC SPI signals; `U1801` `LIMIT_SW`, `FW_TRIG0`, `FW_TRIG1`, and one spare
+channel whose input is grounded. The property that matters — no buffer input
+floats — holds. The cost is that the grouping mixes domains, so the rev 2 swap
+touches two packages instead of one.
 
 `ENC_A`, `ENC_B`, and `LIMIT_SW` borrow three of those reserved slots until rev 2. Rev 0 has no
 cross-check at all — the encoder never reaches the MCU — so the TMC5130A's
@@ -48,11 +57,15 @@ with no `GP18` copy either, `LIMIT_SW` on the port is the only witness that the
 switch closed when the driver says it did. All three sit in the rev 2 package's
 slots, so they survive rev 1 and are evicted as late as possible. Full allocation and reasoning in `docs/interface-map.md`.
 
-**This costs schedule.** It adds a 40-pin FFC, five buffer footprints of which
-three are populated, four pull-down resistors, and eighteen more routed nets to a
-board whose layout was already the long pole — see `.agents/handoff.local.md`. It
-is the researcher's call whether that is worth a slip; the design record's job is
-to say plainly that it is a slip.
+**This costs schedule.** It adds a 40-pin FFC, **three** buffer packages, five
+board-level termination resistors (`R1401`-`R1405`), and eighteen more routed
+nets to a board whose layout was already the long pole — see
+`.agents/handoff.local.md`. It is the researcher's call whether that is worth a
+slip; the design record's job is to say plainly that it is a slip.
+**Corrected 2026-08-17**; this said "five buffer footprints of which three are
+populated" and "four pull-down resistors". Only three packages were ever drawn,
+and the terminations came out at 10 kΩ rather than the 100 kΩ pull-downs
+originally specified — see `docs/design-block-map.md`, "Board-Level Terminations".
 
 `TMC_REF_STIM` is not deferred, it is deleted. The limit switch now arrives
 through a real debouncer on its own terminal block, so homing is exercised by
@@ -91,12 +104,12 @@ for it. This board exists because it can be finished sooner:
 
 | Twin-axis board | This board |
 | --- | --- |
-| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 25 of 30 at full scope with five spares; **17 of 30 in Rev 0** |
+| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 26 of 30 at full scope with four spares; **18 of 30 in Rev 0** |
 | Event-line routing is an open blocking question: 4 lines, no home | Deferred entirely in Rev 0; 3 lines and 4 BNCs when it returns |
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One motor section, one encoder path, no analog output |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
 | Two motors' supply current, doubled bulk and protection | One motor |
-| Two of every harness and connector | Eight connectors total |
+| Two of every harness and connector | **Seven connectors in Rev 0** — `J201` 36 V, `J301` USB-C, `J1101` motor, `J1102` encoder, `J1301` limit switch, `J1501` InstrumentPort FFC, `J1901` pyControl RJ-45 |
 
 See `docs/relationship-to-twin-axis-board.md` for what is being traded away and
 what carries forward.
@@ -126,12 +139,28 @@ board is the Rev 1 brake and torque GPIO count, and this board carries neither.
 Required support:
 
 - USB device connection via `usb2` for firmware load and diagnostics.
-- Boot and reset access, SWD header.
+- Boot access. `SW501` BOOTSEL is fitted.
 - **Debug console over USB CDC.** `UART0` is committed to pyControl, and in Rev 0
   USB CDC is the only rich observation path on the board.
 - Stable 3.3 V logic rail.
 - `UART0` pyControl, `SPI0` TMC5130A. `SPI1` and PIO0 are unallocated in Rev 0
   but their pins are reserved.
+
+**The SWD header and the `RUN` connection are deferred to a future board
+revision. Reversed 2026-08-17**; the list above said "Boot and reset access, SWD
+header", and the `rp2040` block description still names `RUN` and `SWD` among
+what it provides. As built, `RUN` (pin 26) and `SWCLK`/`SWD` (pins 24, 25) are
+unconnected and no-connect-flagged, **by explicit decision on 2026-08-17**, not
+by oversight.
+
+This is an **access limitation, not an electrical defect**. RP2040 `RUN` has an
+internal 50-80 kΩ pull-up and the datasheet permits leaving it open or tying it
+to `IOVDD`, so the part comes out of reset on its own; what is missing is a way
+to force a reset without power-cycling, and a way to attach a debug probe.
+Rev 0's development path is BOOTSEL plus USB CDC, which is why the trade was
+judged acceptable for a bench board. Restore both in the revision that adds the
+DAC — a hard reset and a probe are worth more once there is firmware complex
+enough to hang.
 
 Full allocation in `docs/interface-map.md`.
 
@@ -147,23 +176,37 @@ the MCU back-powering a chip it just switched off, which is the board's normal
 idle state rather than an edge case.
 
 - **Isolated in Rev 0 — 7 channels:** the TMC5130A SPI bus, enable, and
-  diagnostics (`GP2`-`GP8`). Twelve at full scope.
-  Full scope reaches 16 with the rev 1 encoder tap and DAC bus.
-- **Bypassed:** the pyControl UART above all, plus `~{BUS_SW_OE}`, `HV_EN`,
-  `HV_SNS`, `~{HV_FAULT}`, `SW_RAIL_SENSE`, and both `FW_TRIG` markers. Nothing at
-  those far ends is ever unpowered by `HV_EN`. Per-signal rationale in
-  `docs/interface-map.md`.
-- Wire the **A side of all 16 isolated GPIOs now**, including the 8 reserved for
-  rev 1, so a later revision adds board-side wiring only.
+  diagnostics (`GP2`-`GP8`). Twelve at full scope, with the rev 1 DAC bus.
+  As built, six of the seven are on `U601` and the seventh (`TMC_DIAG1`) is on
+  `U602`; **`U603` and `U604` carry nothing at all.**
+- **Bypassed:** the pyControl UART above all, plus `~{BUS_SW_EN}`, `HV_EN`,
+  `HV_DIAG_EN`, `HV_SNS`, `~{HV_FAULT}`, `SW_RAIL_SENSE`, and both `FW_TRIG`
+  markers. Nothing at those far ends is ever unpowered by `HV_EN`. Per-signal
+  rationale in `docs/interface-map.md`.
+- Wire the **A side of all 12 isolated GPIOs now**, including those reserved for
+  rev 1, so a later revision adds board-side wiring only. **Not done.** Only the
+  seven Rev 0 channels are wired; every unused channel has its A pin open and its
+  **B (MCU-side) pin tied to GND**, so the rev 1 DAC channels are not pre-wired
+  and rev 1 must edit this block regardless.
 - **Sequencing:** isolate before dropping `HV_EN`, and reconnect only after
-  `SW_RAIL_SENSE` confirms `+3V3_SW` is up. Both it and `HV_EN` bypass, so
+  `SW_RAIL_SENSE` confirms `+3.3V_SW` is up. Both it and `HV_EN` bypass, so
   firmware can do this with the bus isolated.
+- **A side is the TMC/switched side, B side is the MCU side.** Inverted from
+  `docs/interface-map.md`; the board is the authority, and the part is a
+  symmetric FET pass gate so it works either way.
 
 **Decided 2026-08-13: place the proven block whole.** Four `SN74CB3Q3245`
-packages isolate 30 GPIOs and this board needs 16, so two packages and their
-decoupling are dead weight. Accepted deliberately — schedule beats parts count
-for Rev 0, and the block is already placed and proven. Revisit in a later
-revision if board area gets tight.
+packages isolate 30 GPIOs and this board needs 12, so two packages and their
+decoupling are dead weight — and as built they are literally empty, not merely
+under-used. Accepted deliberately — schedule beats parts count for Rev 0, and the
+block is already placed and proven. Revisit in a later revision if board area
+gets tight, and decide what to do with `U603`/`U604` before layout.
+
+**The block runs from `+3.3V_MCU`, which diverges from its own part note.** The
+note says to power it from the switched target-domain rail so `Ioff` provides
+isolation at `VCC` = 0. Here isolation is a firmware property instead, defaulting
+safe because `R601` 7.87 kΩ pulls `~{BUS_SW_EN}` high at reset. Deliberate; see
+`docs/design-block-map.md`.
 
 Proven on `tmc51x0-driver-dev-pcb`, which bypasses the same *kind* of control
 group — but bypasses far fewer signals, because it has no two-domain power tree.
@@ -174,8 +217,15 @@ One instance of `orb_weaver_private:tmc5130`, composed twice into
 `tmc51x0-driver-dev-pcb` with board ERC at zero.
 
 - TMC5130A-TA (`OW-PWR-TMC5130A-TA-T`), verified official symbol and footprint.
-- Strapped and routed for SPI operation. Bring the `SWSEL` strap to a pad.
-- `DIAG0` and `DIAG1` both routed to the MCU — this board has the pins.
+  Annotated `U1201`.
+- Strapped and routed for SPI operation: `SWSEL` and `SD_MODE` to GND, `SPI_MODE`
+  left on its internal pull-up. Bring the `SWSEL` strap to a pad.
+- `DIAG0` and `DIAG1` both routed to the MCU — this board has the pins. Both are
+  open-drain and get 10 kΩ pull-ups to `+3.3V_SW` (`R1101`/`R1102`), as the
+  datasheet's ≤47 kΩ requires.
+- `ENCN` is unused and terminated by `R1201` 10 kΩ to GND; `REFR` and `AIN_IREF`
+  are no-connects. `VSA` is fed from `+5V_SW` rather than `VS`, a deliberate
+  deviation that keeps 36 V off the analog supply.
 - `DRV_ENN` pulled to the disabled state so the driver is off before firmware
   configures it, and behind the bus switch so it stays that way.
 - The block includes a 16 MHz oscillator and the charge-pump and `5VOUT`
@@ -209,6 +259,14 @@ I_RMS = (CS+1)/32 × V_FS/(R_SENSE + 20 mΩ) × 1/√2
 both positions to 0.15 Ω when the block is placed, and check the placed value
 before ERC rather than after fabrication.
 
+**Done — and it is now the one place where the board diverges from `kicad-libs`.**
+`R1203`/`R1204` are 0.15 Ω on this board; `kicad-libs` moved to 0.12 Ω in commit
+`a8dca31`. Thirteen of the fourteen placed block copies are byte-identical to
+their sources and this is the exception, with **the board being the correct one**.
+**Re-placing the `tmc5130` block silently reverts both resistors** and puts
+roughly 25% over the intended 0.679 A RMS. Either fix the library down to 0.15 Ω
+or never re-place that block. See `docs/design-block-map.md`.
+
 ### `vsense = 1` Is A Firmware Dependency
 
 Unchanged, and Rev 0's reduced scope does not reduce this hazard at all.
@@ -234,10 +292,28 @@ register bit.
 
 ## Encoder
 
-**Rev 0 decides single-ended.** `A`, `B`, and `N` route from a 5-pos 3.5 mm
+**Rev 0 decides single-ended, and it is a design block now.**
+`quadrature_encoder_input_5v_sn74lvc2g17` was built in `kicad-libs` and placed on
+2026-08-17, so this section is no longer board-local glue. **Reversed
+2026-08-17**; this paragraph read "`A`, `B`, and `N` route from a 5-pos 3.5 mm
 terminal (`OW-CONN-1844249`, stocked) directly to the TMC5130A
-`ENCA`/`ENCB`/`ENCN` pins with local filtering and ESD protection. The connector
-carries encoder supply, return, and the three channels.
+`ENCA`/`ENCB`/`ENCN` pins with local filtering and ESD protection".
+
+Three of those words are wrong as built. There is **no `N`** — `J1102` pin 2 is a
+reserved index no-connect, there is no `ENC_N` net, and the TMC's `ENCN` is
+terminated by `R1201` 10 kΩ to GND, which is what the datasheet asks for on an
+unused pin. There is **no ESD device** anywhere in the encoder path. And nothing
+routes **directly**: the chain is `J1102` → `R801`/`R802` 100 kΩ pull-downs →
+`R803`/`R804` 4.7 kΩ → `C802`/`C803` 470 pF → `U801` `SN74LVC2G17` dual Schmitt on
+**`+3.3V_SW`** → `R805`/`R806` 100 kΩ → `ENC_A`/`ENC_B`.
+
+`J1102` is 5-position: pin 1 GND, pin 2 reserved index no-connect, pin 3
+`ENC_A_RAW`, pin 4 `+5V_SW`, pin 5 `ENC_B_RAW`.
+
+**The 5 V-encoder-against-3.3 V-inputs problem is solved in hardware.** `U801`
+runs from `+3.3V_SW`, so it takes the 5 V swing and re-emits 3.3 V logic before
+anything reaches the TMC's `VCC_IO`-referenced inputs or the always-on
+instrumentation buffers.
 
 `differential_encoder_receiver` is **not placed in Rev 0**. If the chosen encoder
 turns out to be RS-422, that block exists and is proven three times on
@@ -246,13 +322,20 @@ conductor count changes with it.
 
 **The encoder does not reach the MCU, in any revision.** Decided 2026-08-16;
 `GP14`/`GP15`/`GP16` went back to the spare pool and the PIO cross-check was
-deleted rather than deferred. The consequence is that `ENCODER_MISMATCH` has
-nothing to compare and is never
-implementable; encoder integrity rests on the driver's count and the index pulse.
+deleted rather than deferred. **`GP14` did not stay spare** — it was taken on
+2026-08-17 for `HV_DIAG_EN`. The consequence is unchanged: `ENCODER_MISMATCH` has
+nothing to compare and is never implementable; encoder integrity rests on the
+driver's count. It no longer rests on the index pulse either, since there is not
+one.
 
-**Still open:** the encoder part number, and therefore the supply voltage and
-whether single-ended survives contact with the real device. The previous-generation
-rig used a Broadcom `HEDR-5421-EP111`.
+**Still open, and still the decision that can invalidate the board:** the encoder
+part number, and therefore the supply voltage and whether single-ended survives
+contact with the real device. The previous-generation rig used a Broadcom
+`HEDR-5421-EP111`. Two things the placed block now has a stake in that answer:
+the 100 kΩ **pull-downs** assume a **push-pull** 5 V encoder and become pull-ups
+for an open-collector part, and the 4.7 kΩ + 470 pF filter is a 72 kHz corner
+(τ = 2.2 µs) that must clear the encoder's maximum output frequency. The pin
+order of `J1102` depends on the answer too.
 
 ## Limit Switch And Homing
 
@@ -269,9 +352,14 @@ independent of the encoder harness:
 - Route the debounced output to the TMC5130A `REFL` input only — **not** to any
   GPIO. Tap it to InstrumentPort `DIG11` and a test pad.
   `REFL` is the hardware-latched reference; the MCU copy allows independent state
-  reporting and fault detection.
+  reporting and fault detection. As built the connector is `J1301`, the debouncer
+  is `U1301`, `DIG11` is live — and **the test pad does not exist**, because no
+  test point exists anywhere on the board yet.
 - **No synthetic stimulus.** `TMC_REF_STIM` is gone. Bring `REFL` to a labelled
-  test pad so a jumper can still force a closure during bring-up.
+  test pad so a jumper can still force a closure during bring-up. Still owed.
+- The always-on instrumentation buffer input on this net is defined by `R1405`
+  10 kΩ to GND in `instrument_port`, so it does not float when the switched
+  domain is off.
 - Homing must be deterministic and bounded: travel limit and timeout, both
   enforced locally, with a fault if either is exceeded.
 
@@ -286,11 +374,22 @@ against pyControl v2.1.1. See `docs/pycontrol-port-pinout.md`.
 
 | RJ-45 pin | Signal | Rev 0 |
 | --- | --- | --- |
-| 1 | `DIO-A` | RP2040 `UART0 RX` (`GP1`) |
+| 1 | `DIO-A` | RP2040 `UART0 RX` (`GP1`), with `R403` 10 kΩ pull-up to `+3.3V_MCU` |
 | 2 | `GND` | Ground |
 | 4 | `DIO-B` | RP2040 `UART0 TX` (`GP0`) |
-| 6 | `5V` | Footprint only; population gated on the port's 5 V budget |
+| 6 | `5V` | **Populated**: `PYC_CONN_5V` → `R1903` → `PYC_5V_FUSED` → `D1901` → `+5V_MCU` |
 | 3, 5, 7, 8 | `POW-A`, `SPECIAL`, `POW-B`, `12V` | Not connected |
+
+**Reversed 2026-08-13, built 2026-08-17**; pin 6 was to be a footprint only,
+gated on the port's 5 V budget. It is populated, because `+3.3V_MCU` comes from
+USB or pyControl and from nowhere else — an unpopulated branch means the board is
+dark whenever USB is unplugged. `R1903` is a **polyfuse position holding a 0.36 Ω
+jumper**, not protection; see `docs/design-block-map.md`. The connector is
+`J1901`.
+
+`R403` exists because the RP2040 resets every GPIO with its internal pull-*down*
+enabled, and a UART RX line must idle **high** — without it the port looks like a
+permanent break.
 
 115200 8N1, newline-terminated ASCII, `;`-delimited fields.
 
@@ -314,15 +413,15 @@ follows from that. Read `docs/power.md` before drawing the power section.
 **Switched domain**, all of it downstream of `HV_EN`:
 
 ```text
-36 V ─[switch]─ +36V_SW ─┬─> TMC5130A VS
-                         └─> hv_to_5v_tpsm365r6 ─> +5V_SW ─┬─> TMC VCC, encoder
-                                                           └─> 5v_to_3v3 #2 ─> +3V3_SW ─> TMC VCC_IO, MAX6816
+HV_RAW ─|>|─ HV_IN ─[switch]─ +36V_SW ─┬─> TMC5130A VS
+                                       └─> hv_to_5v_tpsm365r6 ─> +5V_SW ─┬─> TMC VCC, encoder
+                                                                         └─> 5v_to_3v3 #2 ─> +3.3V_SW ─> TMC VCC_IO, MAX6816, SN74LVC2G17
 ```
 
 **Always-on domain**, which the switch cannot reach:
 
 ```text
-USB VBUS ─────────|>|─┬─> +5V_MCU ─> 5v_to_3v3 #1 ─> +3V3_MCU ─> RP2040, bus switch, input-block pull-ups
+USB VBUS ─────────|>|─┬─> +5V_MCU ─> 5v_to_3v3 #1 ─> +3.3V_MCU ─> RP2040, bus switch, buffers, input-block pull-ups
 pyControl pin 6 ──|>|─┘
 ```
 
@@ -342,9 +441,11 @@ The two mistakes that still look correct on a schematic:
 - **Merging the two 5 V rails.** ORing USB and pyControl onto the rail that feeds
   the TMC would drop it below the 4.6 V `VCC` minimum. The domains keep them
   structurally separate; do not "simplify" them together.
-- **Putting the bus switch on `+3V3_SW`.** It would isolate for free via `Ioff`,
+- **Putting the bus switch on `+3.3V_SW`.** It would isolate for free via `Ioff`,
   and it would also take the sequencing away from firmware. It goes on
-  `+3V3_MCU`.
+  `+3.3V_MCU`. Note that this is the opposite of what the block's own part note
+  recommends; the divergence is deliberate and recorded in
+  `docs/design-block-map.md`.
 
 **Fit a TVS on `HV_IN`, not on the motor rail.** At hot-plug the switch is off, so
 the exposed parts are the `TPS1HTC100-Q1` (70 V) and the `TPSM365R6V5` (65 V).
@@ -353,14 +454,33 @@ the exposed parts are the `TPS1HTC100-Q1` (70 V) and the `TPSM365R6V5` (65 V).
 bulk capacitance downstream of the soft-start switch — **tens of µF, not
 hundreds** — tight `VS`/`GND` layout, and measurement at Gate B.
 
+**Still owed: no TVS is populated as built.** Related bench item: `C1213`/`C1214`
+are 100 µF **50 V** parts on a 36 V rail, 72% of rating, which is acceptable but
+leans on the ringing being measured rather than assumed. The `+36V_SW` bulk comes
+to roughly 208 µF.
+
 **The input block needs six edits when placed**, two of them functional defects
 for this board: the `EN` divider gives only 150 mV of threshold margin from 3.3 V
 logic, and `DIAG_EN` left unconnected disables the `SNS` current sense entirely.
 Full audit in `docs/power.md`.
 
+**All six are made in the placed copy**, with two revisions to the audit itself.
+`ILIM` (`R206`) is 40 kΩ and `SNS` (`R207`) is **249 Ω**, not the 1 kΩ an earlier
+note suggested — 1 kΩ would have driven `GP28` past its absolute maximum on a
+fault. And `DIAG_EN` (`R202`) goes to **`GP14`**, not to a fixed pull-up:
+**Reversed 2026-08-17**; earlier guidance said tie it high. Held high, the
+switch's OFF-state open-load detection keeps an internal 150 kΩ pull-up from `VS`
+to `VOUT` enabled, trickling ~240 µA into the ~208 µF of `+36V_SW` so the rail
+creeps up and the buck hiccups instead of the domain switching cleanly off. That
+would break the reset-button property this whole architecture exists for.
+Firmware must raise `GP14` before reading `HV_SNS` or `~{HV_FAULT}`; current
+limit and thermal shutdown are unaffected either way. Full reasoning in
+`docs/design-block-map.md`.
+
 ## Blocks To Place
 
-Eight instances in Rev 0. Full list and status in `docs/design-block-map.md`.
+**Fifteen instances, all placed.** Full list and status in
+`docs/design-block-map.md`.
 
 | Block | Instances |
 | --- | --- |
@@ -371,13 +491,28 @@ Eight instances in Rev 0. Full list and status in `docs/design-block-map.md`.
 | `5v_to_3v3_tps73733` | **2** — one per power domain |
 | `tmc5130` | 1 |
 | `usb2` | 1 |
+| `pycontrol_behavior_port_rj45_boundary` | 1 |
+| `quadrature_encoder_input_5v_sn74lvc2g17` | 1 |
+| `limit_switch_debounced_input` | 1 |
+| `instrument_port_40_dut_ffc_boundary` | 1 |
+| `instrumentation_signal_buffer_sn74lvc125a` | **3** |
 
-**Eight instances**, not seven: the two-domain power tree needs a 3.3 V regulator
-on each side.
+**Two `5v_to_3v3_tps73733` instances**, not one: the two-domain power tree needs
+a 3.3 V regulator on each side.
 
-Plus three board-local sections that are not blocks: the pyControl RJ-45
-boundary, the new `limit_switch_debounced_input`, and the two-diode OR feeding
-`+5V_MCU`.
+**Corrected 2026-08-17**; this table listed eight instances and named three
+"board-local sections that are not blocks: the pyControl RJ-45 boundary, the new
+`limit_switch_debounced_input`, and the two-diode OR feeding `+5V_MCU`". Three of
+those became blocks — the RJ-45 boundary, the limit switch, and (added since) the
+encoder input — and the two-diode OR dissolved entirely: `usb2` emits `+5V_USB`
+through its own diode and `pycontrol_behavior_port_rj45_boundary` emits `+5V_PYC`
+through `D1901`, so the board only ties them together at `+5V_MCU`. The
+InstrumentPort and its three buffers arrived with the 2026-08-16 rescope.
+
+**Nothing in Rev 0 is board-local circuitry any more.** What the board itself
+authors is three wrapper sheets — `mcu`, `motor_encoder_limit`, and
+`instrument_port` — which hold the block instances and the nine termination
+resistors, and nothing else.
 
 ## Open Decisions Before Layout Freeze
 
@@ -388,14 +523,18 @@ what blocks the schedule:
    (0.15 Ω, `vsense = 1`, `IRUN = 28`). Still needed for the supply envelope, the
    `ILIM` resistor, and to confirm whether 0.67 A is RMS or peak. It is **not**
    the previous rig's Lin Engineering `WO-208-13-01D`, which is 0.6 A.
-2. **The encoder part**, which sets the encoder supply voltage and confirms that
-   single-ended receive is correct. Rev 0 assumes single-ended.
+2. **The encoder part**, which sets the encoder supply voltage, confirms that
+   single-ended receive is correct, and now also validates the placed block's
+   push-pull assumption, its 72 kHz filter corner, and `J1102`'s pin order. Rev 0
+   assumes single-ended.
 3. **pyControl pin 6's 5 V current budget**, and whether it is shared across
    ports. It is now load-bearing: with USB unplugged it is the only thing
    powering the board. Measure at Gate A. Pin 6 **is** 5 V — that part is
-   confirmed from the reference design's netlist.
+   confirmed from the reference design's netlist. Related: **`R1903` is a
+   polyfuse position holding a 0.36 Ω jumper**; source a 1206 PPTC with a
+   250-500 mA hold, or accept the jumper and record it.
 4. Whether screw terminals are acceptable for the motor and encoder harnesses, or
-   whether a locking 4-pos motor connector must be sourced. Confined to `J5`.
+   whether a locking 4-pos motor connector must be sourced. Confined to `J1101`.
 5. Which breakout the lab deploys, and which port is assigned to this board.
 6. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
    describes the **two**-joystick assembly, so a single-axis board's mechanical
@@ -414,15 +553,23 @@ now rev 1 decisions. See `docs/encoder-analog-output.md` and
 
 **Resolved by the two-domain power architecture:** exactly two
 `5v_to_3v3_tps73733` instances, one per domain, with no third and no split of
-`+3V3_SW`; the regulator chain is fed **post**-switch; `+3V3_MCU` comes from USB or pyControl only, with no always-on
+`+3.3V_SW`; the regulator chain is fed **post**-switch; `+3.3V_MCU` comes from USB or pyControl only, with no always-on
 converter on `HV_IN`; both ORing diodes are populated rather than one being
 conditional; and whether the TMC5130A tolerates `VCC_IO` without `VCC`/`VS` no
 longer needs an answer, because all three now fall together. See `docs/power.md`.
+
+**Resolved 2026-08-17, by decision rather than by design:** no SWD header and no
+`RUN` connection in Rev 0. Deferred to a future board revision — see "Controller
+MCU" above. RP2040 `RUN` has an internal 50-80 kΩ pull-up, so this costs debug
+access, not correct start-up.
 
 **Not on this list:** the `HV_IN` TVS. `SMBJ40A` is worth ordering, but the
 stocked `SMF48A` builds a working first board, so it never blocks a fab order.
 
 ## First Schematic Pass
+
+**Complete as of 2026-08-17**, with steps 7 and 10 taken differently from the
+plan. Kept as the record of the intended order and of where reality diverged.
 
 Once the parts above are settled, in this order:
 
@@ -430,17 +577,21 @@ Once the parts above are settled, in this order:
 2. Insert `rp2040_gpio_isolation_sn74cb3q3245`. Wire the A side of all 29
    allocated GPIOs; leave the B side of the 12 reserved channels unconnected.
    Route the four bypass signals directly to the MCU and leave their channels
-   unused.
+   unused. **Built differently:** only the seven Rev 0 channels are wired, A is
+   the TMC side rather than the MCU side, and unused **B** pins are tied to GND
+   rather than left open.
 3. Build the **always-on domain first**: the two ORing diodes from USB `VBUS`
    and pyControl pin 6 into `+5V_MCU`, then `5v_to_3v3_tps73733` #1 to
-   `+3V3_MCU`. This is what powers the MCU and the bus switch, so everything
-   else depends on it existing.
+   `+3.3V_MCU`. This is what powers the MCU and the bus switch, so everything
+   else depends on it existing. **Both diodes now live inside their own boundary
+   blocks**, emitting `+5V_USB` and `+5V_PYC`; the board only joins them.
 4. Build the **switched domain**: `hv_input_36V_terminal_2pos_5p08_protected`
    feeding `hv_to_5v_tpsm365r6` from the **switched** `+36V_SW`, then
-   `5v_to_3v3_tps73733` #2 to `+3V3_SW`. Put the bulk capacitance downstream of
+   `5v_to_3v3_tps73733` #2 to `+3.3V_SW`. Put the bulk capacitance downstream of
    the switch. Confirm exactly one `PWR_FLAG` per input net — the 36 V block and
-   the `usb2` block each carry one already; add one for the pyControl 5 V branch.
-   **The two 5 V rails must not touch.**
+   the `usb2` block each carry one already; add one for the pyControl 5 V branch,
+   and one for `+5V_MCU` itself, which is downstream of both ORing diodes and so
+   has no driver without it. **The two 5 V rails must not touch.**
 5. Insert `tmc5130`. Change both sense resistors from the block default 0.12 Ω to
    **0.15 Ω** (`OW-PASS-RLH12FTCR150`). Record `vsense = 1` and `IRUN = 28`
    alongside. Confirm `VCC` is fed from the external `+5V` rail. Land the motor
@@ -448,18 +599,31 @@ Once the parts above are settled, in this order:
 6. Insert `usb2`. It now carries `USBLC6-2P6` ESD protection and a shell-to-GND
    tie; confirm both are present in the placed copy.
 7. Draw the encoder input: `OW-CONN-1844249` → filtering and ESD → TMC5130A
-   `ENCA`/`ENCB`/`ENCN`. No MCU connection.
+   `ENCA`/`ENCB`/`ENCN`. No MCU connection. **Done as a block instead** —
+   `quadrature_encoder_input_5v_sn74lvc2g17`, which owns the connector, and with
+   no ESD part and no `ENCN` connection. See "Encoder" above.
 8. Draw `limit_switch_debounced_input`: `OW-CONN-1844210` → `MAX6816` → `REFL`
-   only, plus `REFL` and `LIMIT_SW` test pads.
+   only, plus `REFL` and `LIMIT_SW` test pads. **Test pads not done.**
 9. Draw the pyControl RJ-45 boundary: pins 1, 2, 4 with series resistors and ESD,
-   pin 6 footprint for the ORing branch.
+   pin 6 footprint for the ORing branch. **Done as a block**, with pin 6
+   populated rather than footprint-only.
 10. Add test points for the Rev 0 test-point list in `docs/interface-map.md`.
+    **Not done. There are no test points anywhere on the board.** This is the
+    largest single gap between the plan and the schematic, and it is a layout
+    item rather than a schematic one only if the pads are added as footprints.
+11. Add the board-level terminations: `R403` on `PYC_UART_RX`, `R1101`-`R1103` in
+    `motor_encoder_limit`, `R1401`-`R1405` in `instrument_port`. **Not in the
+    original plan**; added 2026-08-17 when it became clear that leaving the
+    always-on buffer inputs and the switched-domain control lines undefined was
+    not survivable. All nine sit in board-authored wrapper sheets so a block
+    re-place cannot lose them. See `docs/design-block-map.md`.
 
 Run per-block ERC as you go:
 `kicad-cli sch erc --severity-error <block>.kicad_sch` with
 `ORB_WEAVER_KICAD_LIBS` set. Expect only `pin_not_connected`, `pin_not_driven`,
 and `power_pin_not_driven` on an isolated fragment; anything else is a real
-defect.
+defect. **Whole-design ERC is at 0 violations at every severity** as of
+2026-08-17.
 
 ## What Rev 1 Adds
 
@@ -468,10 +632,25 @@ already allocated and left unconnected:
 
 | Addition | Pins | Blocks | InstrumentPort Strands |
 | --- | --- | --- | --- |
-| DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new | `DIG6`, `DIG9`, `DIG10`, `AIN0`; buffer `U_C` |
-| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; buffer `U_D` |
-| Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs buffer `U_E` |
+| DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new | `DIG6`, `DIG9`, `DIG10`, `AIN0`; a **fourth** buffer package |
+| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; a **fifth** buffer package |
+| Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs `U1601` and `U1801` |
 
 Nothing in that table requires moving a Rev 0 pin, changing a Rev 0 connector, or
 rewriting Rev 0 firmware. That is the property the Rev 0 allocation was built to
 have; see `docs/interface-map.md`.
+
+**Two Rev 0 outcomes did erode that property**, and both are worth knowing before
+rev 1 is scoped:
+
+- **The rev 1 buffer packages are new placements, not stuffing changes.** The
+  `U_C`/`U_D` footprints this table assumed were never drawn. Board area for them
+  has to be reserved deliberately.
+- **The rev 1 DAC channels are not pre-wired through the bus switch.** Unused
+  channels have their MCU-side pins tied to GND, so rev 1 edits
+  `rp2040_gpio_isolation_sn74cb3q3245` regardless. `U603` and `U604` are entirely
+  empty and are the obvious home for it.
+
+The pin allocation itself still holds — with the one exception that **`GP14` is
+no longer spare**. It carries `HV_DIAG_EN` as of 2026-08-17, so the spare pool is
+`GP15`, `GP16`, `GP18`, and `GP27`.

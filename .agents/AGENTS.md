@@ -47,15 +47,21 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
 - **Do not port twin-axis complexity here.** Axis symmetry rules, cross-axis
   fault policy, `XFAULT`, and the `B`-for-both protocol argument belong in
   `../mouse-joysticks-pcb`. Their absence is the point.
-- **Rev 0 is deliberately scoped down; the pin map is not.** Rev 0 connects 17
-  of 30 GPIOs and reserves 8 more at fixed numbers so rev 1 adds them without
-  moving anything. Full scope is 25 of 30 with five spares — `GP14`, `GP15`,
-`GP16`, `GP18`, `GP27`. If a change needs
-  more pins than are free, say so rather than quietly cutting a reserved
-  function. See `docs/interface-map.md` and `docs/rev0-plan.md`.
+- **Rev 0 is deliberately scoped down; the pin map is not.** Rev 0 connects 18
+  of 30 GPIOs and reserves more at fixed numbers so rev 1 adds them without
+  moving anything. **Spares are now `GP15`, `GP16`, `GP18` and `GP27` — four, not
+  five.** `GP14` was consumed on 2026-08-17 by `HV_DIAG_EN`; see the `DIAG_EN`
+  rule below. If a change needs more pins than are free, say so rather than
+  quietly cutting a reserved function. See `docs/interface-map.md` and
+  `docs/rev0-plan.md`.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
-  default — change it.** `vsense` is CHOPCONF bit 17 and its reset default is 0;
+  default — change it.** As of 2026-08-17 this is the *only* electrical difference
+  between the board and its `kicad-libs` sources, and it runs in the board's
+  favour: `kicad-libs` moved to 0.12 Ω in commit `a8dca31`. **Re-placing the
+  `tmc5130` block silently reverts the shunts** and puts roughly 25% over the
+  intended current. Fix the library down to 0.15 Ω, or never re-place that block.
+  `vsense` is CHOPCONF bit 17 and its reset default is 0;
   leaving it at 0 with 0.15 Ω installed drives roughly 1.8× the motor's rated
   current. Firmware must set and read back `vsense = 1` before raising
   `DRV_ENN`. The shunt value and the `vsense` setting are one decision — never
@@ -73,6 +79,26 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   2026-08-13**; earlier guidance said feed pre-switch. Putting the *MCU* on the
   switched chain is still the way to make an unbootable board. See
   `docs/power.md`.
+- **`DIAG_EN` must stay on a GPIO. Never tie it high.** Added 2026-08-17, and it
+  is not obvious: holding the TPS1HTC100's `DIAG_EN` high keeps its OFF-state
+  open-load detection enabled, which switches in an internal 150 kΩ pull-up from
+  `VS` to `VOUT`. At 36 V that trickles ~240 µA into `+36V_SW`'s ~208 µF, the
+  rail creeps past the buck's 3.6 V minimum `VIN` in about three seconds, and the
+  switched domain hiccups instead of staying off — which silently destroys the
+  power-cycle-as-reset property above. `DIAG_EN` has an internal pull-down, so
+  `GP14` high-Z at reset means diagnostics off and `+36V_SW` at true zero.
+  Protection still works with diagnostics off; only reporting is gated, so
+  firmware must raise `GP14` before reading current sense or faults.
+- **Anything that must read HIGH while the driver is powered pulls up to
+  `+3.3V_SW`, never `+3.3V_MCU`.** Pulling a cross-domain net up to the always-on
+  rail back-powers `+3.3V_SW` to roughly 1.3 V through the TMC's protection
+  diodes, defeats the `HV_EN` power-cycle, and corrupts `SW_RAIL_SENSE` — the very
+  reading firmware uses to decide the switched rail is down. This was built the
+  wrong way once. Pulls that may read LOW go straight to GND. The nine board-level
+  termination resistors and the reasoning for each are in `.agents/PLANS.md`.
+- **`+3.3V_SW` is held at 0 V when off by `R401`/`R402`**, the `SW_RAIL_SENSE`
+  divider. That is what makes a pull-up to that rail a valid LOW in the off state.
+  Delete the divider and four termination resistors silently stop working.
 - pyControl owns experiment sequencing. This board owns local motion timing and
   safety. Never move experiment-level decisions into this firmware, and never
   expose unbounded trajectories or raw motor power as the normal API.
@@ -124,6 +150,12 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
 - **Two interchangeable boards in one rig is a new failure mode.** Calibration
   belongs to a board serial, not to a joystick position. `ID` reports the serial.
   Silkscreen a unit identifier.
+- **Rev 0 has no SWD header and no reset connection**, decided 2026-08-17. `RUN`,
+  `SWCLK` and `SWD` are no-connect flagged. RP2040 `RUN` has an internal 50–80 kΩ
+  pull-up so this is an access limitation, not an electrical defect — but it means
+  no debugger during bring-up, and BOOTSEL recovery needs both USB *and* pyControl
+  unplugged, because the MCU domain is ORed from two sources. Revisit in a future
+  revision rather than treating it as an oversight.
 - Distinguish cited claims from bench-verified claims. Unknowns stay explicit
   unknowns with an owner.
 - Use `kicad-libs` for shared symbols, footprints, internal parts, vendor
@@ -180,25 +212,35 @@ pin carries 10.0.5 or newer.
 
 ### KiCad Project State
 
-**Schematic capture is complete and ERC-clean (0 violations at every severity);
-layout has not started.** See **Open Schematic Findings** in `.agents/PLANS.md`
-for what still has to change before routing — including two blockers that ERC
-cannot detect and that must be re-checked by netlist export, not by ERC.
-(`.agents/handoff.local.md` is gitignored and absent on a fresh clone; treat
-`.agents/PLANS.md` as the tracked record.)
+**Schematic capture is complete and cleared for layout as of 2026-08-17. Layout
+has not started.** ERC is clean at 0 violations across every severity, 142
+components, no duplicate refdes, every part footprinted, and zero undefined
+cross-domain nets. **ERC could not see most of what mattered** — every real
+finding in this review came from walking the flattened netlist against the
+manufacturer datasheets, and all of them passed ERC before and after the fix.
+Re-check by netlist export, not by ERC. See **Open Schematic Findings** in
+`.agents/PLANS.md` for the tracked record, including the layout decisions that are
+still open. (`.agents/handoff.local.md` is gitignored and absent on a fresh clone;
+treat `.agents/PLANS.md` as the tracked record.)
 
-The project carries 21 netclasses, 108 netclass patterns, the 4-layer stackup,
+The project carries 21 netclasses, **124** netclass patterns, the 4-layer stackup,
 plot/fabrication setup, and the JLCPCB design rules, inherited from
-`tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb`.
+`tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb` and extended for this
+board on 2026-08-17.
 
 `kicad/mouse-joystick-pcb.kicad_pcb` is still empty, so DRC reports exactly one
 violation, `invalid_outline` — no edges on `Edge.Cuts`. Expected until an outline
 is drawn, not a defect to chase.
 
-The netclass patterns are generic rail and signal names (`+24V`, `VM`, `PGND`,
-`+3V3`, `USB_HS`, encoder and instrument differential pairs). **The rail here is
-`+36V`, not `+24V`** — extend the patterns rather than assuming the inherited
-ones cover it.
+The inherited patterns were generic names (`+24V`, `VM`, `PGND`, `+3V3`,
+`USB_HS`) that matched almost nothing here — 146 of 156 nets fell to `Default` at
+0.2 mm, including the 36 V rail and all four motor phases, and `*/HV_IN` was
+silently matching `PWR_HV_LOCAL` at 0.25 mm. **Fixed 2026-08-17.** Two things to
+know before touching them again: this board's rails are spelled `+3.3V_*`, not
+`+3V3_*`; and `BRA`/`BRB` are **not** Kelvin sense nets on a TMC5130A — they carry
+full coil current into the sense resistor, so they are sized with the motor
+phases. `SENSE_KELVIN` exists for the TMC5160's `SRA`/`SRB`. If you add patterns,
+re-check that no net matches more than one netclass.
 
 ## Validation
 

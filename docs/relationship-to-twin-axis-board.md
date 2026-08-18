@@ -36,7 +36,7 @@ gone:
 
 | Twin-axis work item | Status here |
 | --- | --- |
-| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 25 of 30 at full scope, 17 of 30 in Rev 0, and pins to spend on supply diagnostics. One thing was cut, deliberately: the synthetic homing stimulus, traded for the GPIO isolation enable. |
+| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 26 of 30 at full scope, 18 of 30 in Rev 0, and pins to spend on supply diagnostics. One thing was cut, deliberately: the synthetic homing stimulus, traded for the GPIO isolation enable. *(Updated 2026-08-17: `GP14` went to `HV_DIAG_EN`, leaving four spares rather than five.)* |
 | Deciding where four TTL event lines land — the twin board's blocking question | Reduced to three lines; four BNCs is a workable complement. Deferred out of Rev 0 entirely. |
 | Axis symmetry as a layout constraint and a scientific confound | Not applicable |
 | Zoning two motor sections and two encoder paths away from two analog outputs | One of each |

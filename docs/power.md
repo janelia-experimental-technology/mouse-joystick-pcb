@@ -1,7 +1,9 @@
 # Power
 
-**Status:** Draft. The 36 V input block has been audited against
-`tps1htc100-q1.pdf` and needs six edits when placed; see below.
+**Status:** Draft. The 36 V input block was audited against
+`tps1htc100-q1.pdf` and needed six edits when placed; **at least five of them are
+now in place on the board and verified against the flattened netlist on
+2026-08-17**; see below.
 **Date:** 2026-08-14
 **Input:** 36 V through a 2-position 5.08 mm pluggable terminal block
 
@@ -12,12 +14,34 @@ this board now **requires a polyfuse on its pin 6 branch**. See
 [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). One open
 decision closed, one new part.
 
+**Updated 2026-08-17, from the flattened as-built netlist.** Five things in this
+document changed:
+
+- **`DIAG_EN` is now driven from `GP14`** (net `HV_DIAG_EN`), not tied high.
+  **Reversed 2026-08-17**; earlier guidance in this document said to tie it to
+  `+3.3V_MCU` through a 1 kΩ `RPROT` and that it "needs no GPIO". It does need
+  one, and the reason is a leakage path this document's own analysis missed. See
+  [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up).
+- **Reference designators were renumbered on placement.** `U27001`→`U201`,
+  `J27001`→`J201`, `D27001`→`D201`, `R27001`–`R27007`→`R201`–`R207`,
+  `U4001`→`U1201`, `R4002`→`R1202`, `D11001`→`D301`, `D29001`→`D1901`,
+  `R29001`/`R29002`→`R1901`/`R1902`, `R29003`→`R1903`. The two ORing diodes this
+  document calls `D1` and `D2` are `D301` (USB) and `D1901` (pyControl).
+- **The rails are spelled `+3.3V_MCU` and `+3.3V_SW`**, not `+3V3_*`, and `VAA`
+  is now `HV_RAW`. Both renames are done; see concerns 5 and 6 below.
+- **No TVS is populated.** The two passages that disagreed about this are
+  reconciled under [Transient Headroom](#1-transient-headroom).
+- **The instrumentation buffers are Rev 0 and there are three of them**
+  (`U1601`, `U1701`, `U1801`), not five in rev 1.
+
 **Rev 0 scope:** the power chain is unchanged by the 2026-08-13 rescope. `+5V`
 is still required — the TMC5130A's `VCC` minimum is 4.6 V — even though the
 DAC8563 that also needed it is deferred to rev 1. The argument against diode-ORing
 onto `+5V` therefore still holds, and the switched-rail sense on `GP26` is still
-populated — though as of 2026-08-16 it reads `+3V3_SW`, not `+5V_SW`, and the net
-is named `SW_RAIL_SENSE`.
+populated — though as of 2026-08-16 it reads `+3.3V_SW`, not `+5V_SW`. The `mcu`
+sheet pin that carries the raw rail into the sheet is named `SW_RAIL_SENSE`;
+`R401`/`R402` divide it inside the sheet, and the divided node actually on `GP26`
+is `SW_RAIL_SENSE_DIV_2`.
 One Rev 0 addition affects this document: `HV_EN` bypasses the new GPIO isolation
 bus switch, so the MCU can drive the 36 V enable regardless of bus state, while
 `HV_SNS` and `~{HV_FAULT}` sit behind it and cannot be read until firmware
@@ -27,50 +51,74 @@ enables the bus. See `docs/interface-map.md`.
 
 Reviewed against the block's netlist and `tps1htc100-q1.pdf` on 2026-08-12, after
 the first round of edits. Reference designators were renumbered during those
-edits; the list below uses the current ones.
+edits, and renumbered again when the block was placed on this board; the list
+below uses the **board's** designators — `U201`, `J201`, `D201`, `R201`–`R207`.
+Re-verified against the flattened as-built netlist on 2026-08-17.
 
 **Done and verified correct:**
 
 | Element | Value / connection | Check |
 | --- | --- | --- |
-| `R27001` + `R27004` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH` |
-| `R27002` | 1 kΩ, `+3V3_MCU` → `DIAG_EN` | Diagnostics enabled; `RPROT` per Table 4-2 |
-| `R27003` | 1 kΩ, `+3V3_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry |
-| `R27006` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label |
-| `R27007` | 249 Ω on `SNS` | Fault level 1.29-1.59 V, under the ADC limit |
-| `C27001` | 220 nF **100 V** on `HV_IN` | `VS` bypass, correctly placed and correctly derated |
-| `C27002` | 22 nF on `+36V` | `VOUT` bypass, correctly placed — but see the rating issue below |
-| `D27001` | Anode to `VAA`, cathode to `HV_IN` | Correct series blocking direction |
-| `U27001` pin 11 `NC` | Unconnected | Correct |
-| `U27001` pin 15 | Thermal pad to `GND` | Correct — internally shorted to ground |
+| `R201` + `R204` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH`. **Done, verified 2026-08-17** |
+| `R202` | 1 kΩ, **`GP14`** (`HV_DIAG_EN`) → `DIAG_EN` | `RPROT` per Table 4-2, but the far end is a GPIO, not the rail. **Reversed 2026-08-17** — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
+| `R203` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry. **Done, verified 2026-08-17** |
+| `R205` | 10 kΩ, `+3.3V_MCU` → `~FAULT` | Open-drain pull-up at the MCU supply level. **Done, verified 2026-08-17** |
+| `R206` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label. **Done, verified 2026-08-17** |
+| `R207` | 249 Ω on `SNS` | Fault level 1.3-1.6 V, well under the RP2040's `VPIN` absolute maximum. **Done, verified 2026-08-17**; arithmetic in [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one) |
+| `C201` | 220 nF **100 V** on `HV_IN` | `VS` bypass, correctly placed and correctly derated |
+| `C202` | 22 nF on `+36V` | `VOUT` bypass, correctly placed — but see the rating issue below |
+| `D201` | Anode to `HV_RAW`, cathode to `HV_IN` | Correct series blocking direction. Re-verified 2026-08-17 |
+| `U201` pin 11 `NC` | Unconnected | Correct |
+| `U201` pin 15 | Thermal pad to `GND` | Correct — internally shorted to ground |
 | `PWR_FLAG` | On `HV_IN` | Right net: only driver is a passive diode cathode and `VS` is `power_in`. Exactly one. |
 | Footprint | `Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm` | Matches the PWP package: 4.4 × 5 mm body, 6.4 mm lead span, 0.65 mm pitch |
 
-**Three defects, fix before layout:**
+**Three defects, fix before layout.** All three were raised against the unplaced
+block; the board's copy has been checked against them on 2026-08-17:
 
 | # | Defect | Fix |
 | --- | --- | --- |
-| 1 | **`R27005` pulls `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idles low, so it reads as a permanent fault and never presents a valid high. | Move `R27005`'s ground end to **`+3V3_MCU`**, matching `R27002`/`R27003`. 10 kΩ is the right value. |
-| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it to place the TVS at the entry point. (It no longer needs a second tap there: `+3V3_MCU` comes from USB/pyControl, not from `HV_IN`.) | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. |
-| 3 | **`SNS` is a plain local label**, so the board cannot read the current sense at all. | Promote `SNS` to a **hierarchical label**. Leave `ILIM` local — that one is correct. Schematic-only, no PCB impact. |
+| 1 | **`R205` pulled `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idled low, so it read as a permanent fault and never presented a valid high. | Move `R205`'s ground end to **`+3.3V_MCU`**, matching `R202`/`R203`. 10 kΩ is the right value. **Done, verified 2026-08-17:** `R205` = 10 kΩ to `+3.3V_MCU`. |
+| 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it to place the TVS at the entry point. (It no longer needs a second tap there: `+3.3V_MCU` comes from USB/pyControl, not from `HV_IN`.) | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. **Still open, but no longer urgent:** no TVS is populated as built, so nothing on the board needs to reach `HV_IN` yet. The `PWR_HV_ENTRY` netclass reaches it by pattern (`*/HV_RAW`, `*/HV_IN`) either way. |
+| 3 | **`SNS` is a plain local label**, so the board cannot read the current sense at all. | Promote `SNS` to a **hierarchical label**. Leave `ILIM` local — that one is correct. Schematic-only, no PCB impact. **Done, verified 2026-08-17:** `U201` `SNS` reaches `GP28` as `HV_SNS`. |
 
-The block's board-facing interface is currently only `+3V3_MCU`, `+36V`,
-`ENABLE`, `GND`, `~{FAULT}`. It needs `HV_IN` and `SNS` as well.
+The block's board-facing interface was originally only `+3.3V_MCU`, `+36V`,
+`ENABLE`, `GND`, `~{FAULT}`. As placed it also exposes `SNS`, and it gained
+`DIAG_EN` when that pin moved to `GP14`.
 
-**Three concerns, cheap to fix now:**
+**Three concerns, cheap to fix now — all three are now closed, 2026-08-17:**
 
 | # | Concern | Fix |
 | --- | --- | --- |
-| 4 | **`C27002` is 50 V on a 36 V rail** while `C27001` is 100 V. 1.4× margin; X7R in an 0402 at 72% of rated voltage loses most of its capacitance to DC bias; and the internal `V_DS` clamp can drive `VOUT` to roughly −43 V, which is 86% of a 50 V rating. Marginal rather than illegal, but inconsistent with `C27001`. | **`OW-PASS-GCM188R72A223KA37D`** — 22 nF 100 V X7R, stocked and already promoted. **Note it is 0603, not 0402, so this one does change the footprint and therefore the layout.** |
-| 5 | ~~`+3V3_MCU` should be renamed `+3.3V`.~~ **Withdrawn.** The pull-ups on `DIAG_EN`, `LATCH` and `~FAULT` must reference the same rail the MCU uses, or the logic levels do not match and the MCU's clamps become a back-power path. Naming the rail by its domain is the right call and is more precise than `+3.3V`. | Keep `+3V3_MCU`. Only consequence: `5v_to_3v3_tps73733` emits `+3.3V`, so either label the board's rail `+3V3_MCU` too or tie the two at board level — and add a netclass pattern for whichever name wins. |
-| 6 | **`VAA` is a misleading net name.** The TPS1HTC100-Q1 has no `VAA` pin — its pins are `GND`, `EN`, `DIAG_EN`, `~FAULT`, `LATCH`, `SNS`, `ILIM`, `VOUT`, `NC`, `VS`. It reads like a chip supply that does not exist. It is the raw connector node ahead of the reverse-polarity diode. | Rename to **`HV_RAW`** or `VIN_RAW`. Also affects netclass pattern matching. |
+| 4 | ~~**`C202` is 50 V on a 36 V rail** while `C201` is 100 V. 1.4× margin; X7R in an 0402 at 72% of rated voltage loses most of its capacitance to DC bias; and the internal `V_DS` clamp can drive `VOUT` to roughly −43 V, which is 86% of a 50 V rating. Marginal rather than illegal, but inconsistent with `C201`.~~ | **Done, verified 2026-08-17.** `C202` is now `OW-PASS-GCM188R72A223KA37D` — 22 nF **100 V** X7R **0603** — and `C201` is 220 nF 100 V X7R 0805. Both confirmed from the flattened netlist. The footprint change this fix implied is already carried in the block, so it costs the layout nothing now. |
+| 5 | ~~The rail should be renamed `+3.3V`.~~ **Withdrawn.** The pull-ups on `DIAG_EN`, `LATCH` and `~FAULT` must reference the same rail the MCU uses, or the logic levels do not match and the MCU's clamps become a back-power path. Naming the rail by its domain is the right call and is more precise than `+3.3V`. | Keep a domain-suffixed name. **Closed 2026-08-17: the board spells them `+3.3V_MCU` and `+3.3V_SW`,** not `+3V3_MCU`/`+3V3_SW` as earlier drafts of this document wrote them. The netclass patterns match that spelling (`/+3.3V_*` → `PWR_3V3`), so the decision is settled in the schematic and in the DRU together. |
+| 6 | **`VAA` is a misleading net name.** The TPS1HTC100-Q1 has no `VAA` pin — its pins are `GND`, `EN`, `DIAG_EN`, `~FAULT`, `LATCH`, `SNS`, `ILIM`, `VOUT`, `NC`, `VS`. It reads like a chip supply that does not exist. It is the raw connector node ahead of the reverse-polarity diode. | Rename to **`HV_RAW`** or `VIN_RAW`. Also affects netclass pattern matching. **Done, verified 2026-08-17:** the net is `HV_RAW`, and `*/HV_RAW` now matches the `PWR_HV_ENTRY` netclass at 1.5 mm. |
+
+**Capacitor voltage ratings, board-wide, checked 2026-08-17.** Every capacitor on
+the board sits at **≤80% of its rated voltage**, so concern 4 is the worst case
+rather than the only case. Two things are worth writing down because neither is
+visible from the schematic:
+
+- **`OW-CAP-100N-0402-X5R-16V` declares only `ReqMinVoltage = 16V`** while
+  resolving to LCSC `C162178` — a Murata `GRM155R62A104KE14D`, **100 V** X5R
+  0402. So the TMC5130A's `VS` bypass caps `C1209`/`C1210` are rated correctly
+  **by vendor mapping, not by requirement**. That is a latent trap: a future
+  re-map of the internal part to a genuinely 16 V component would silently put
+  16 V ceramics on a 36 V rail with nothing in the schematic to catch it. Prefer
+  a part whose requirement states the rail voltage —
+  `OW-PASS-GRM188R72A104KA35D` (100 V) is already catalogued.
+- **`C1213`/`C1214` are 100 µF 50 V on the 36 V rail** — 72%, the same ratio
+  concern 4 objects to. Acceptable, but **with no TVS fitted this is a
+  bench-measurement item**, not a settled one. Measure the `+36V_SW` excursion at
+  Gate B before calling it closed.
 
 **ERC:** 32 violations, none of them defects. 13 `lib_symbol_issues` and 12
 `footprint_link_issues` come from running `kicad-cli` outside the project's
 library tables. The remaining 7 are the expected isolated-fragment set: 5
 `pin_not_connected` for hierarchical labels with no parent sheet, 1
 `power_pin_not_driven` on `GND` which the board supplies, and 1
-`isolated_pin_label` on `ENABLE`.
+`isolated_pin_label` on `ENABLE`. **The board as a whole reports 0 ERC violations
+at every severity (2026-08-17).**
 
 ### Notes For The Block's PCB Layout
 
@@ -107,23 +155,26 @@ library tables. The remaining 7 are the expected isolated-fragment set: 5
     picks up thermal vias on its next update. Confirmed its `fp-lib-table` already
     carries `orb_weaver_smd`, so the footprint resolves. Re-run DRC there before
     fabrication.
-- `VAA`, `HV_IN`, and `+36V` carry the full motor current through `D27001`
-  (PowerDI-5, 15 A) and the switch. Wide pours, short loop, no necking.
-- `C27001` sits right at the `VS` pins 12/13/14; `C27002` right at `VOUT`
+- `HV_RAW`, `HV_IN`, and `+36V_SW` carry the full motor current through `D201`
+  (PowerDI-5, 15 A) and the switch. Wide pours, short loop, no necking. On this
+  board `*/HV_RAW` and `*/HV_IN` are on `PWR_HV_ENTRY` (1.5 mm) and `/+36V_SW` on
+  `PWR_HV_BUS` (1.2 mm), so the widths are enforced by netclass rather than by
+  hand.
+- `C201` sits right at the `VS` pins 12/13/14; `C202` right at `VOUT`
   8/9/10.
-- `R27006` (`ILIM`) and `R27007` (`SNS`) are small-signal. Keep them off the
+- `R206` (`ILIM`) and `R207` (`SNS`) are small-signal. Keep them off the
   power path and reference them to quiet ground — `SNS` feeds an ADC.
-- **Silkscreen the terminal block polarity: `J27001` pin 1 = `GND`, pin 2 =
+- **Silkscreen the terminal block polarity: `J201` pin 1 = `GND`, pin 2 =
   positive input.** This is the one that bites people.
-- `D27001` is rated 50 V reverse against a 36 V rail — 1.4×. Fine here, but note
+- `D201` is rated 50 V reverse against a 36 V rail — 1.4×. Fine here, but note
   it in the block description, because the block is advertised for reuse on
   "HV/VMOT entry rails" and at 48 V that margin is gone.
 
 Neither 470 Ω nor 24.9 kΩ — the arithmetically ideal values — is stocked. 249 Ω
 and 40 kΩ are, and both land in a better place than the ideal values would have.
 
-Both capacitors are in the right places and neither should move: `C27001` on
-`HV_IN` is the switch's `VS` bypass, `C27002` on `+36V` is the output bypass.
+Both capacitors are in the right places and neither should move: `C201` on
+`HV_IN` is the switch's `VS` bypass, `C202` on `+36V` is the output bypass.
 
 ## The High-Side Switch Is A Reset Button
 
@@ -149,40 +200,53 @@ Three requirements fall straight out of that:
 ## Rail Chain
 
 ```text
-36 V in ─> hv_input_36V_terminal_2pos_5p08_protected
+36 V in ─> hv_input_36V_terminal_2pos_5p08_protected  (J201, D201, U201)
              │
-             ├─ HV_IN (unswitched) ──> TVS, and the TPS1HTC100-Q1's own supply
+             ├─ HV_IN (unswitched) ──> TPS1HTC100-Q1's own supply. NO TVS FITTED.
              │
-             └─ +36V_SW (switched by HV_EN) ─┬─> TMC5130A VS
+             └─ +36V_SW (switched by HV_EN) ─┬─> TMC5130A VS (21, 40)
                                              └─> hv_to_5v_tpsm365r6 ─> +5V_SW
-                                                   ├─> TMC5130A VSA, VCC, 5VOUT
-                                                   ├─> encoder supply (if 5 V)
+                                                   ├─> TMC5130A VCC (34), VSA (39),
+                                                   │     and 5VOUT (33) via R1202 10R
+                                                   ├─> encoder supply (J1102 pin 4)
                                                    ├─> DAC8563 VDD (rev 1)
-                                                   └─> 5v_to_3v3_tps73733 #2 ─> +3V3_SW
+                                                   └─> 5v_to_3v3_tps73733 #2 ─> +3.3V_SW
                                                          ├─> TMC5130A VCC_IO
                                                          ├─> MAX6816 limit-switch debouncer
-                                                         └─> encoder supply (if 3.3 V)
+                                                         ├─> U801 encoder Schmitt
+                                                         ├─> X1201 16 MHz oscillator
+                                                         └─> SW_RAIL_SENSE divider (R401/R402)
 
-USB-C VBUS ──────────────|>|── D1 ──┬─> +5V_MCU ─> 5v_to_3v3_tps73733 #1 ─> +3V3_MCU
-pyControl RJ-45 pin 6 ───|>|── D2 ──┘                                        ├─> RP2040
-                                                                             ├─> SN74CB3Q3245 ×4 VCC
-                                                                             ├─> input block DIAG_EN / LATCH / ~FAULT pull-ups
-                                                                             └─> 5× SN74LVC125A (rev 1)
+USB-C VBUS ──────────────|>|── D301 ──┬─> +5V_MCU ─> 5v_to_3v3_tps73733 #1 ─> +3.3V_MCU
+pyControl RJ-45 pin 6 ──|>|── D1901 ──┘                                       ├─> RP2040
+                                                                              ├─> SN74CB3Q3245 ×4 VCC
+                                                                              ├─> input block LATCH / ~FAULT pull-ups
+                                                                              ├─> 3× SN74LVC125A (U1601/U1701/U1801)
+                                                                              └─> board-level pull resistors
 ```
+
+**There is no `+5V_USB` or `+5V_PYC` net.** Both ORing-diode cathodes land
+directly on `+5V_MCU`. The pyControl-side nets are `PYC_CONN_5V` (`J1901` pin 6
+to `R1903`) and `PYC_5V_FUSED` (`R1903` to `D1901`); `R1903` is the polyfuse
+position, currently jumpered. See
+[No Fuse Of Any Kind Is In The Parts Database](#no-fuse-of-any-kind-is-in-the-parts-database).
 
 ### Rail Names
 
 | Net | Domain | Source | Dies when |
 | --- | --- | --- | --- |
-| `HV_IN` | unswitched | 36 V terminal, after the reverse diode | 36 V supply unplugged |
+| `HV_RAW` | unswitched | 36 V terminal `J201` pin 2, *before* the reverse diode | 36 V supply unplugged |
+| `HV_IN` | unswitched | 36 V terminal, after the reverse diode `D201` | 36 V supply unplugged |
 | `+36V_SW` | switched | `TPS1HTC100-Q1` output | `HV_EN` low |
 | `+5V_SW` | switched | `TPSM365R6V5` from `+36V_SW` | `HV_EN` low |
-| `+3V3_SW` | switched | `TPS73733` #2 from `+5V_SW` | `HV_EN` low |
+| `+3.3V_SW` | switched | `TPS73733` #2 from `+5V_SW` | `HV_EN` low |
 | `+5V_MCU` | always-on | USB `VBUS` OR pyControl pin 6, two diodes | USB and pyControl both absent |
-| `+3V3_MCU` | always-on | `TPS73733` #1 from `+5V_MCU` | USB and pyControl both absent |
+| `+3.3V_MCU` | always-on | `TPS73733` #1 from `+5V_MCU` | USB and pyControl both absent |
 
 Older passages in this document say `+5V` and `+3.3V` from before the split; read
-those as `+5V_SW` and `+3V3_SW` unless the surrounding text is about the MCU.
+those as `+5V_SW` and `+3.3V_SW` unless the surrounding text is about the MCU.
+Older passages also spelled the 3.3 V rails `+3V3_MCU`/`+3V3_SW`; **the board
+spells them `+3.3V_MCU`/`+3.3V_SW`** and the netclass patterns match that.
 
 **Two independent domains, and the split is the point.**
 
@@ -204,9 +268,9 @@ the second. The consequence is explicit and accepted:
 Silkscreen it near the terminal block. A rig board that looks dead with its motor
 supply plugged in will otherwise be reported as broken.
 
-**The bus switch is powered from `+3V3_MCU`, not the switched rail.** It has to
+**The bus switch is powered from `+3.3V_MCU`, not the switched rail.** It has to
 be: the MCU must be able to isolate *before* dropping `HV_EN` and reconnect only
-*after* the rails are confirmed up. Powering it from `+3V3_SW` would give
+*after* the rails are confirmed up. Powering it from `+3.3V_SW` would give
 automatic isolation through the `SN74CB3Q3245`'s powered-off `Ioff` behaviour and
 cost no GPIO, but it would also hand control of the sequencing to a rail ramp
 instead of to firmware. Rejected deliberately; see the sequencing rule in
@@ -249,9 +313,20 @@ third of the remaining margin.
 **The 36 V input block populates no TVS.** Its description says so explicitly —
 it differs from both 24 V variants in exactly this way.
 
-**Fit a TVS on `HV_IN`** — but understand that it protects the switch and the
-buck, **not** the driver. The two jobs are separate and only one of them has a
-TVS-shaped answer:
+**Current decision, 2026-08-17: no TVS is populated on this board either.** This
+document previously said both "fit a TVS on `HV_IN`, order `SMBJ40A`" here and
+"the 36 V TVS is resolved and no longer a purchase item" under Open Decisions.
+Those contradicted each other; the second is what the board implements. The
+reasoning below is kept in full because it is the argument for *where* a TVS
+would go and *what* it could protect, and because it is what the Gate B
+measurement will be read against. **It is a bench-measurement item, not a
+fabrication blocker:** one SMB/SMA footprint decides it, and the `+36V_SW` bulk
+(`C1213`/`C1214`, 100 µF 50 V, 72% of rating) is the part with the least margin
+if the measurement comes back badly.
+
+**If a TVS is fitted, fit it on `HV_IN`** — but understand that it protects the
+switch and the buck, **not** the driver. The two jobs are separate and only one
+of them has a TVS-shaped answer:
 
 | Event | Exposed parts | Clamped by a 40 V TVS? |
 | --- | --- | --- |
@@ -273,17 +348,23 @@ weakening it.** The buck's 65 V rating is no longer exposed at hot-plug, which i
 good, but the few µF of ceramic that used to sit on `HV_IN` and absorb some of
 the ringing went with it. The TVS is now the only thing clamping that node.
 
-Part choice:
+As built, **nothing** clamps that node. That is the specific risk the Gate B
+hot-plug measurement exists to size.
+
+Part choice, if the measurement says one is needed:
 
 | Part | Standoff | Conducts from | Clamp | Verdict |
 | --- | --- | --- | --- | --- |
-| `SMBJ40A` | 40 V | 44.4-49.1 V | ≤64.5 V @ 9.3 A, 600 W | **Preferred.** Order it. |
+| `SMBJ40A` | 40 V | 44.4-49.1 V | ≤64.5 V @ 9.3 A, 600 W | **Preferred, if any.** Not ordered — no TVS is populated. |
 | `SMF48A` (stocked, `C1509577`, 120 on hand) | 48 V | ~53-59 V | 77.4 V @ 2.6 A, 200 W | **Usable now.** Stands off 36 V and holds `HV_IN` inside both parts' transient ratings at hot-plug currents. Prototype with this rather than waiting. |
 | `SMBJ28A` (stocked) | 28 V | — | — | No. Would conduct at the 36 V working voltage. |
 
-So: order `SMBJ40A`, and if the first boards need to go out before it arrives,
-build with the stocked `SMF48A` and swap later. **This is not a fabrication
-blocker either way** — it is one SMB/SMA footprint.
+~~So: order `SMBJ40A`, and if the first boards need to go out before it arrives,
+build with the stocked `SMF48A` and swap later.~~ **Superseded 2026-08-17: no TVS
+is populated and none is on order.** The rest of the sentence still holds — **this
+is not a fabrication blocker either way**, it is one SMB/SMA footprint, and it
+stays a bench-measurement item rather than a purchase item until Gate B says
+otherwise.
 
 What separately protects the driver, since the TVS does not:
 
@@ -399,13 +480,21 @@ comes from an LDO fed by that `+5V`, so `VCC` (5 V) is always up before `VCC_IO`
 | Supply voltage operating with inductive load (`V_VS` ≥ `V_VSA`) | `V_VS`, `V_VSA` | −0.5 V | 49 V |
 | **`VSA` when different from `VS`** | `V_VSA` | **−0.5 V** | **`V_VS` + 0.5 V** |
 
-The `tmc5130` design block ties **`VSA` (pin 39) to `+5V`**, not to `VM`:
+The `tmc5130` design block ties **`VSA` (pin 39) to `+5V`**, not to `VM`. As
+placed on this board (`U1201`, verified from the flattened netlist 2026-08-17):
 
 ```text
-/+5V   -> U4001.34 VCC,  U4001.39 VSA,  R4002 (10R) -> 5VOUT,  C4005 0.47uF
-/5VOUT -> U4001.33,      R4002,          C4008 4.7uF
-/VM    -> U4001.21 VS,   U4001.40 VS,   bulk + decoupling
++5V_SW  -> U1201.34 VCC,  U1201.39 VSA,  R1202 (10R) -> 5VOUT,  C1205 0.47uF
+5VOUT   -> U1201.33,      R1202,                                C1208 4.7uF
++36V_SW -> U1201.21 VS,   U1201.40 VS,   bulk + decoupling
 ```
+
+**`VSA` on `+5V_SW` is a deliberate deviation.** The datasheet says `VSA` is
+"normally tied to VS"; this board does not, in order to keep 36 V off the analog
+supply pin. It is harmless because `VCC` is supplied externally, so the internal
+regulator idles and `VSA` is not being asked to feed it. Recorded here so it is
+not read as an oversight, and so the next board that copies the block knows the
+deviation is intentional.
 
 Feeding the regulator chain **pre**-switch would leave `+5V` alive while `+36V`
 is off. That would put `VSA` at 5 V with `VS` at 0 V — **4.5 V above the `V_VS` +
@@ -427,11 +516,11 @@ benefit the external 5 V exists for, and that benefit is real:
   voltage can be used for VSA, if available" — its example is a 12 V `VSA` on a
   24 V motor rail, cutting regulator dissipation to about 37%.
 - Taking `VSA` to 5 V goes further and bypasses the regulator outright, which is
-  why the block also feeds `5VOUT` from `+5V` through `R4002`.
+  why the block also feeds `5VOUT` from `+5V` through `R1202`.
 - The magnitude matters. The datasheet warns the internal regulator "will
   contribute with up to 1 W" at 46 V. Even with `VCC` fed externally, `VSA` on
   `VM` would leave the regulator carrying its analog load plus whatever flows
-  through `R4002`'s 10 Ω — a few hundred mW in a package already dissipating
+  through `R1202`'s 10 Ω — a few hundred mW in a package already dissipating
   roughly 0.45 W of bridge `I²R` at 0.67 A/phase. Doubling the driver's
   dissipation to save a load switch is a bad trade.
 
@@ -450,8 +539,8 @@ means **two 3.3 V domains and therefore two `5v_to_3v3_tps73733` instances**:
 
 | Rail | Source | Powers |
 | --- | --- | --- |
-| `+3V3_MCU` | Always on, from the ORed USB / pyControl 5 V | RP2040, the four `SN74CB3Q3245` bus switches, the input block's `DIAG_EN`/`LATCH`/`~FAULT` pull-ups, instrumentation buffers (rev 1) |
-| `+3V3_SW` | Downstream of the switched `+5V_SW` | TMC5130A `VCC_IO`, the MAX6816 debouncer, encoder supply if 3.3 V |
+| `+3.3V_MCU` | Always on, from the ORed USB / pyControl 5 V | RP2040, the four `SN74CB3Q3245` bus switches, the input block's `LATCH`/`~FAULT` pull-ups (`DIAG_EN` is now a GPIO, not a pull-up), the three `SN74LVC125A` instrumentation buffers `U1601`/`U1701`/`U1801`, and the board-level pull resistors listed under [Supporting Measure 2](#mcu-alive-switched-rails-dead--the-normal-idle-state) |
+| `+3.3V_SW` | Downstream of the switched `+5V_SW` | TMC5130A `VCC_IO`, the MAX6816 debouncer, encoder supply if 3.3 V |
 
 Far from being a nuisance, this is what makes the switch a usable reset: the
 TMC's three supplies rise and fall together, so the sequencing rules hold by
@@ -485,15 +574,18 @@ three orderings are satisfied by construction with no sequencing logic:
 
 **This reverses the earlier recommendation in this document to feed the regulator
 chain pre-switch.** That recommendation existed so the MCU could boot and drive
-`ENABLE`; the separate always-on `+3V3_MCU` rail now does that job instead. The
+`ENABLE`; the separate always-on `+3.3V_MCU` rail now does that job instead. The
 underlying warning still stands: *something* must power the MCU independently of
 the switch, or the board cannot enable its own motor supply.
 
-Do **not** switch `+3V3_MCU`. The MCU runs on it and drives `ENABLE`, so
+Do **not** switch `+3.3V_MCU`. The MCU runs on it and drives `ENABLE`, so
 switching it off is a deadlock.
 
-Note also that `R4002` in the `tmc5130` block is 10 Ω where the datasheet
-recommends **2.2 or 3.3 Ω** between `VCC` and `5VOUT`.
+Note also that `R1202` in the `tmc5130` block is 10 Ω where the datasheet
+recommends **2.2 or 3.3 Ω** between `VCC` and `5VOUT`, and that it sits between
+`+5V_SW` and `5VOUT` rather than in the datasheet's position. **Decided
+2026-08-17: keep it** — reasoning under
+[Internal 5 V Regulator Dissipation](#3-internal-5-v-regulator-dissipation).
 
 ### 3. Internal 5 V Regulator Dissipation
 
@@ -515,15 +607,39 @@ its internal `5VOUT` net, which is exactly this arrangement — so connecting th
 block's `+5V` to the `hv_to_5v_tpsm365r6` output is not an optimization, it is a
 requirement at 36 V.
 
-**Confirm during schematic capture** that the block ties `VCC` to the external
+~~**Confirm during schematic capture** that the block ties `VCC` to the external
 `+5V` and leaves `5VOUT` as a decoupled local net rather than bridging them. If
-it bridges them, the external supply back-drives the internal regulator.
+it bridges them, the external supply back-drives the internal regulator.~~
+
+**Confirmed 2026-08-17: the board bridges them, deliberately, and it is signed
+off.** `+5V_SW` feeds `VCC` (pin 34) directly and reaches `5VOUT` (pin 33)
+through `R1202` = 10 Ω. That is the state the sentence above warned about, so it
+needs a recorded reason rather than a silent contradiction:
+
+- The back-drive the warning was about is benign here because **`VCC` is supplied
+  externally, so the internal regulator idles.** It is not being asked to source
+  current into a rail that is already held up; there is no fight, only a resistor
+  between two nodes at nearly the same potential.
+- The datasheet's sequencing requirement — "make sure that VCC comes up before or
+  in parallel to 5VOUT or VCC_IO, whichever comes up later" — **is satisfied**,
+  because `VCC_IO` is derived from `+5V_SW` through the switched-domain LDO and
+  therefore cannot precede `VCC`.
+- **The value and the position both differ from the datasheet.** The datasheet
+  recommends **2.2 or 3.3 Ω** for a resistor between `5VOUT` and `VCC`; `R1202`
+  is **10 Ω** and sits between `+5V_SW` and `5VOUT` instead. This document has
+  flagged the 10 Ω value twice without ever recording a decision. **The decision
+  is: keep it.** With the regulator idling the resistor carries only the `5VOUT`
+  decoupling and the analog load, so the extra drop is negligible; changing it
+  means editing the `kicad-libs` block, which is a bigger change than the benefit.
+  Revisit if the Gate D driver-temperature measurement is unexpected.
 
 `VSA` may also be supplied from a lower rail than `VS` to reduce dissipation
 further; the datasheet notes this reduces regulator dissipation to about 37% when
-a 12 V rail is used instead of 24 V. This board has no intermediate rail, so
-`VSA` ties to `VS` per the block default. Revisit only if driver temperature
-measurements at Gate D say to.
+a 12 V rail is used instead of 24 V. ~~This board has no intermediate rail, so
+`VSA` ties to `VS` per the block default.~~ **Corrected 2026-08-17: `VSA` is on
+`+5V_SW`, not on `VS`** — see [Supply Sequencing](#2-supply-sequencing--and-why-it-is-vsa-not-vcc)
+above, which says the same thing and which this passage contradicted. Revisit
+only if driver temperature measurements at Gate D say to.
 
 ## Why 36 V At All
 
@@ -599,10 +715,12 @@ That third row is the new finding. The board's supply and the experiment
 controller's own logic supply are the same 1 A rail, with nothing in between.
 
 **Requirement: a resettable polyfuse on the pin 6 branch, holding roughly
-250-500 mA, upstream of `D2`.** It confines a fault on this board to this board.
+250-500 mA, upstream of `D1901`.** It confines a fault on this board to this
+board. **As built the position is `R1903` and it is fitted with a jumper — no
+PPTC is populated**, so this requirement is stated but not yet met.
 
 It fails in the right direction, which is why it is cheap insurance rather than a
-new failure mode: if the polyfuse trips, `D2` simply stops conducting and the
+new failure mode: if the polyfuse trips, `D1901` simply stops conducting and the
 board falls back to USB power, or goes dark if USB is absent. Nothing is damaged
 and nothing is back-fed — the same fail-safe behavior already described for a
 starved pyControl branch.
@@ -632,6 +750,24 @@ nothing at these voltages; it is a jumper that happens to be stocked in the righ
 package. Until a PPTC is fitted, the hazard above stands, and Gate B's
 "pyControl-only, USB absent" test should be run with the controller's 5 V rail on
 a scope.
+
+**Verified as-built 2026-08-17, and it is worth being blunt about it.** The
+position is `R1903`, between `PYC_CONN_5V` and `PYC_5V_FUSED`. **Nothing is
+fitted yet** — the jumper is what is on the board. The block's own on-sheet note
+says the same thing in stronger terms:
+
+> `R29003` IS A POLYFUSE POSITION, NOT PROTECTION. The 0.36R part is a jumper.
+> Port 5 V is a shared 1.0 A that also feeds the pyControl controller's own logic
+> regulator, with no per-port fuse — a fault here can reset the controller.
+> Populate a 1206 PPTC, 250-500 mA hold.
+
+Two things that note does not tell you. First, it still names `R29003`, which is
+the design block's designator, **not this board's** — on the board it is `R1903`.
+Second, **there are no test points on either side of it**, so a tripped PPTC
+could not be diagnosed in circuit; it would present as a board that has gone dark
+on pyControl-only power, indistinguishable from a dead diode or an unplugged
+cable without lifting a probe onto the resistor's own pads. If a PPTC is ever
+fitted, add the two test points in the same revision.
 
 **Consequence for the load budget below:** size the MCU domain to stay well under
 the polyfuse hold current, not merely under 1.0 A. That is the binding number now.
@@ -671,13 +807,14 @@ domain's own LDO. The `TPS73733` regulates away both the diode drop and the
 difference between sources, and it only needs its input above roughly 3.8 V.
 
 ```text
-36 V in ─[reverse diode]─[TPS1HTC100 switch]─ +36V_SW ─┬─> TMC5130A VS
-                                                       └─> TPSM365R6V5 ─> +5V_SW ─> TMC VCC, encoder, DAC (rev 1)
-                                                                             │
-                                                                             └─> TPS73733 #2 ─> +3V3_SW ─> TMC VCC_IO, MAX6816
+36 V in ─[D201 reverse diode]─[U201 switch]─ +36V_SW ─┬─> TMC5130A VS
+                                                      └─> TPSM365R6V5 ─> +5V_SW ─> TMC VCC/VSA/5VOUT, encoder, DAC (rev 1)
+                                                                            │
+                                                                            └─> TPS73733 #2 ─> +3.3V_SW ─> TMC VCC_IO, MAX6816,
+                                                                                                           U801, X1201
 
-USB-C VBUS ──────────────|>|── D1 ──┬──> +5V_MCU ──> TPS73733 #1 ──> +3V3_MCU
-pyControl RJ-45 pin 6 ───|>|── D2 ──┘
+USB-C VBUS ─────────────|>|── D301 ──┬──> +5V_MCU ──> TPS73733 #1 ──> +3.3V_MCU
+pyControl RJ-45 pin 6 ──|>|── D1901 ─┘
 ```
 
 `+5V_SW` stays single-sourced and in spec. `+5V_MCU` is the ORed node and feeds
@@ -703,11 +840,12 @@ Notes:
   pyControl with USB unplugged and the 36 V rail off is an explicitly wanted
   operating mode. What remains conditional is whether the port can actually
   supply the current — measure it.
-- **Polyfuse on the pyControl branch, ~250-500 mA hold, upstream of `D2`.** Not
-  on the USB branch — a USB host already current-limits and will simply drop the
-  port. pyControl does not: its 5 V has no per-port protection and shares a
+- **Polyfuse on the pyControl branch, ~250-500 mA hold, upstream of `D1901`.**
+  Not on the USB branch — a USB host already current-limits and will simply drop
+  the port. pyControl does not: its 5 V has no per-port protection and shares a
   regulator with the controller's own logic. See
-  [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply).
+  [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). **As built
+  the position is `R1903` and it is jumpered, not fused.**
 - Each ORed source is a power-input net and needs exactly one `PWR_FLAG`. The
   `usb2` block already carries one (`#FLG011001`) on `VBUS`, pre-diode; the 36 V
   block carries one. Add one for the RJ-45 5 V branch.
@@ -722,7 +860,7 @@ Notes:
 
 USB-only or pyControl-only operation puts the board in a state the earlier
 architecture treated as an edge case: **the MCU is running at 3.3 V while
-`+36V_SW`, `+5V_SW`, and `+3V3_SW` are all at 0 V.**
+`+36V_SW`, `+5V_SW`, and `+3.3V_SW` are all at 0 V.**
 
 Under the reset-button architecture this is no longer an edge case. It is the
 board's **normal idle state**, reached three ways:
@@ -742,7 +880,7 @@ encoder is supplied from a switched rail, and the DAC control lines in rev 1.
 resistors. `rp2040_gpio_isolation_sn74cb3q3245` puts a `SN74CB3Q3245` channel in
 every MCU line that reaches the switched domain; disabled, those channels are
 high-Z and no clamp current flows regardless of what firmware does with the pin.
-The bus switch runs from `+3V3_MCU` so it is controllable in exactly the state
+The bus switch runs from `+3.3V_MCU` so it is controllable in exactly the state
 that needs controlling.
 
 Three supporting measures, and use all of them:
@@ -752,13 +890,46 @@ Three supporting measures, and use all of them:
 2. **Series resistors on every 3.3 V line that crosses into the switched
    domain.** Cheap backstop covering the window where firmware gets the order
    wrong, or where the bus switch itself fails. They cost nothing; fit them.
-3. **A `+3V3_SW` presence sense on `GP26` (`ADC0`)** through a ÷2 divider, so
+
+   **How this is actually satisfied, verified 2026-08-17.** Only two cross-domain
+   nets carry a literal series resistor — `HV_EN` through `R201` 1 kΩ (with
+   `R204` 10 kΩ to ground at `U201`), and `SW_RAIL_SENSE` through the
+   `R401`/`R402` 1 kΩ/1 kΩ divider. Every *other* cross-domain net is terminated
+   instead, by one of nine board-level pull resistors added on 2026-08-17. They
+   live in the board-authored `mcu`, `motor_encoder_limit` and `instrument_port`
+   sheets, **not** inside a design block, so re-placing a block cannot lose them:
+
+   | Ref | Value | Net | To | Sheet | Why |
+   |---|---|---|---|---|---|
+   | `R403` | 10 kΩ | `PYC_UART_RX` | `+3.3V_MCU` | `mcu` | UART RX must idle **high**; the RP2040's default pull-down would look like a permanent break |
+   | `R1401` | 10 kΩ | `TMC_SPI_SCK` | GND | `instrument_port` | define the `U1701` buffer input when the switched domain is off |
+   | `R1402` | 10 kΩ | `TMC_SPI_COPI` | GND | `instrument_port` | as above |
+   | `R1403` | 10 kΩ | `TMC_SPI_CIPO` | GND | `instrument_port` | as above; also gives the instrument tap a clean idle-low |
+   | `R1404` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `instrument_port` | CSN must idle **deasserted** — a pull-down would assert chip select |
+   | `R1405` | 10 kΩ | `LIMIT_SW` | GND | `instrument_port` | define the `U1801` buffer input |
+   | `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_limit` | DIAG is open-drain at reset; the datasheet requires ≤47 kΩ |
+   | `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_limit` | as above |
+   | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_limit` | guarantees the power stage is **disabled** in hardware |
+
+   **Why some reference `+3.3V_SW` and some GND.** Pulls that must read HIGH while
+   the driver is powered (`~TMC_CS`, both `DIAG`, `~TMC_DRV_EN`) reference
+   `+3.3V_SW`, so they collapse to 0 V with the domain instead of injecting
+   current into a dead rail. Pulls that may read LOW go straight to GND.
+   Referencing `+3.3V_MCU` would be the same mistake this whole section is about:
+   it would back-power `+3.3V_SW` to roughly 1.3 V through the TMC's protection
+   diodes, defeating the `HV_EN` power-cycle and corrupting `SW_RAIL_SENSE`.
+
+   Note the dependency this creates: **`+3.3V_SW` is held at 0 V when off by
+   `R401`/`R402`, 2 kΩ to ground** — the rail-sense divider of measure 3. That is
+   what makes a pull-up to `+3.3V_SW` a valid LOW in the off state. Remove the
+   divider and `R1404`/`R1101`/`R1102`/`R1103` stop defining their nets.
+3. **A `+3.3V_SW` presence sense on `GP26` (`ADC0`)** through a ÷2 divider, so
    firmware can confirm the switched domain is actually up before enabling the
    bus, refuse `ARM` with a meaningful reason when it is not, and report it.
    `GP26` therefore **bypasses the bus switch** — sensing the rail through the
    thing you are trying to decide whether to enable would be circular.
 
-   **Changed 2026-08-16 from `+5V_SW` to `+3V3_SW`**, same two resistors. It is
+   **Changed 2026-08-16 from `+5V_SW` to `+3.3V_SW`**, same two resistors. It is
    the end of the chain, so one reading confirms 36 V, 5 V, and 3.3 V together,
    and it is the rail that actually gates the decision because it powers the far
    side of the bus switch.
@@ -786,7 +957,7 @@ it, which is a rev 1 question.
 The earlier recommendation was to lay out the pyControl 5 V branch and leave it
 unpopulated, on the grounds that USB alone delivers the whole development
 benefit. That reasoning assumed the board had an always-on rail of its own. It
-does not: `+3V3_MCU` comes from USB or pyControl and from nowhere else, so an
+does not: `+3.3V_MCU` comes from USB or pyControl and from nowhere else, so an
 unpopulated pyControl branch means **the board is dark whenever USB is
 unplugged**, no matter what else is connected.
 
@@ -863,9 +1034,11 @@ Placement details that are easy to get wrong:
 ### Current Budget For The ORed Rail
 
 The MCU domain is the only thing on it: RP2040, the four `SN74CB3Q3245` bus
-switches, the input block's pull-ups, and the five `SN74LVC125A` buffers in
-rev 1. Roughly **100-150 mA typical**, up to ~250 mA with the rev 1 buffers
-switching. Rev 0 without the buffers is nearer 100 mA.
+switches, the input block's pull-ups, the board-level pull resistors, and the
+`SN74LVC125A` buffers. **Corrected 2026-08-17: the buffers are Rev 0, not rev 1,
+and there are three of them** — `U1601`, `U1701`, `U1801` — not five. `U_C` and
+`U_D` do not exist. Roughly **100-150 mA typical**, up to ~250 mA with the
+buffers switching.
 
 Comfortable on USB's 500 mA default. The `usb2` block presents `Rd` pulldowns
 only, so assume default USB power rather than a negotiated higher current.
@@ -879,7 +1052,7 @@ keeps the number small enough to be plausible on a shared port supply in the
 first place.
 
 **Size the MCU domain against the polyfuse hold current, not against 1.0 A.**
-At ~100 mA typical in Rev 0 and ~250 mA with the rev 1 buffers switching, a
+At ~100 mA typical in Rev 0 and ~250 mA with the three buffers switching, a
 500 mA hold leaves room for both; a 250 mA hold does not leave much for rev 1.
 Pick the value with rev 1 in mind, since changing it later is a rework on an
 assembled board.
@@ -896,19 +1069,31 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+5V_SW` | Encoder, if 5 V | **Unknown — the encoder part is not identified.** A Broadcom `HEDR-5421` class part draws 40-85 mA |
 | switched | `+5V_SW` | DAC8563 `VDD` (rev 1) | ~1 mA |
 | switched | `+5V_SW` | Level translator, if fitted (rev 1) | few mA |
-| switched | `+3V3_SW` | TMC5130A `VCC_IO` | few mA |
-| switched | `+3V3_SW` | MAX6816 debouncer | tens of µA |
-| switched | `+3V3_SW` | Differential encoder receiver, if fitted | ~10 mA |
-| always-on | `+3V3_MCU` | RP2040 | ~50 mA |
-| always-on | `+3V3_MCU` | 4× `SN74CB3Q3245` | µA static; charge transfer only when switching |
-| always-on | `+3V3_MCU` | Input block `DIAG_EN`/`LATCH`/`~FAULT` pull-ups | < 1 mA |
-| always-on | `+3V3_MCU` | 5× `SN74LVC125A` (rev 1) | few mA static, more when switching |
+| switched | `+3.3V_SW` | TMC5130A `VCC_IO` | few mA |
+| switched | `+3.3V_SW` | `U1301` MAX6816 debouncer | tens of µA |
+| switched | `+3.3V_SW` | **`U801` SN74LVC2G17 encoder Schmitt** | µA static; charge transfer when switching |
+| switched | `+3.3V_SW` | **`X1201` 16 MHz oscillator, ECS-2520S33** | **~7 mA** |
+| switched | `+3.3V_SW` | **`SW_RAIL_SENSE` divider `R401`/`R402`, 2 kΩ to GND** | **1.65 mA continuous whenever the rail is up** |
+| switched | `+3.3V_SW` | **`R1404`/`R1101`/`R1102`/`R1103` pull-ups, 4 × 10 kΩ** | **~0.33 mA typical** — a 10 kΩ pull-up only conducts while its net is held low, and normally at most one is |
+| switched | `+3.3V_SW` | Differential encoder receiver, if fitted | ~10 mA |
+| always-on | `+3.3V_MCU` | RP2040 | ~50 mA |
+| always-on | `+3.3V_MCU` | 4× `SN74CB3Q3245` | µA static; charge transfer only when switching |
+| always-on | `+3.3V_MCU` | Input block `LATCH`/`~FAULT` pull-ups (`DIAG_EN` is now a GPIO) | < 1 mA |
+| always-on | `+3.3V_MCU` | **3× `SN74LVC125A` (`U1601`/`U1701`/`U1801`), Rev 0** | few mA static, more when switching |
+| always-on | `+3.3V_MCU` | **`R403` 10 kΩ, `R601` 7.87 kΩ, `R1601`/`R1701`/`R1801` 10 kΩ pull-ups** | same ~0.33 mA-per-conducting-resistor arithmetic; sub-mA in every normal state |
 
 The 5 V rail's 600 mA is comfortable unless the encoder is unusually hungry.
 
-**Read the table by domain, not by voltage.** The `+5V_SW`/`+3V3_SW` column is
+**The `SW_RAIL_SENSE` divider's 1.65 mA is a permanent load and that is
+deliberate.** 2 kΩ across `+3.3V_SW` is more than the MAX6816 and the encoder
+Schmitt draw together, which looks wasteful until you notice it is also what
+holds `+3.3V_SW` at a true 0 V when the domain is off — the property the
+`+3.3V_SW`-referenced pull-ups depend on. Do not "optimise" it to 100 kΩ without
+re-reading [Supporting Measure 2](#mcu-alive-switched-rails-dead--the-normal-idle-state).
+
+**Read the table by domain, not by voltage.** The `+5V_SW`/`+3.3V_SW` column is
 what the 36 V chain must supply and what disappears when `HV_EN` drops; the
-`+3V3_MCU` column is what USB or pyControl must supply continuously. Sizing them
+`+3.3V_MCU` column is what USB or pyControl must supply continuously. Sizing them
 against the wrong source is the mistake this split exists to prevent.
 **Check the encoder's supply current once the part is identified** — it is the
 only line item here that could plausibly matter.
@@ -925,35 +1110,59 @@ which is one more reason this board is easier.
 ## Audit Of The 36 V Input Block
 
 Traced from `kicad-cli sch export netlist` on the block, 2026-08-12, against
-`tps1htc100-q1.pdf`. The block has never been placed on a board, and this is what
-that shows.
+`tps1htc100-q1.pdf`, when the block had never been placed on a board.
+
+**Read this section as the pre-fix state except where a subsection says
+otherwise.** Everything from here to
+[Reverse-Polarity Protection](#reverse-polarity-protection-is-the-series-diode-not-the-device-feature)
+describes the block *as the library shipped it*, which is what makes the
+arithmetic worth keeping. **The board's placed copy no longer looks like this** —
+it has all of the fixes, and its designators are `U201`, `J201`, `D201`,
+`R201`–`R207`. The as-built topology is immediately below; the pre-fix audit
+follows it; and the `DIAG_EN` and `SNS` subsections carry the 2026-08-17
+decisions.
 
 ### Actual Topology
 
+As built on this board, verified from the flattened netlist 2026-08-17. The two
+input-block ceramics keep the block's own designators here because this document
+has never recorded their board-level numbers:
+
 ```text
-J27001.2 ── VAA ── D27001 (SBRT15U50SP5, anode→cathode) ── HV_IN ──┬── U27001 VS (12,13,14)
-                                                                   └── C27001 220nF ── GND
-J27001.1 ── GND
+J201.2 ── HV_RAW ── D201 (SBRT15U50SP5, anode→cathode) ── HV_IN ──┬── U201 VS (12,13,14)
+                                                                  ├── 220nF VS bypass ── GND
+J201.1 ── GND                                                     └── (no TVS fitted)
 
-U27001 VOUT (8,9,10) ── +36V ──┬── C27002 22nF ── GND
-                               └── (board load)
+U201 VOUT (8,9,10) ── +36V_SW ──┬── 22nF VOUT bypass ── GND
+                                └── TMC5130A VS, TPSM365R6 VIN, C1213/C1214 100uF
 
+HV_EN ─────R201  1k──┬── U201 EN (2)         DIAG_EN (3) ──R202 1k── HV_DIAG_EN (GP14)
+                     └──R204 10k── GND       ~FAULT  (4) ──R205 10k── +3.3V_MCU, and GP29
+                                             LATCH   (5) ──R203 1k── +3.3V_MCU
+U201 ILIM (7) ──R206 40k── GND               NC     (11)  no-connect
+U201 SNS  (6) ──R207 249R── GND, and GP28
+```
+
+And as the block shipped, before any of the fixes — this is the state the audit
+below is written against:
+
+```text
 ENABLE ──R27001 10k──┬── U27001 EN (2)        DIAG_EN (3)  no-connect
-                     └──R27002 10k── GND      ~FAULT  (4)  no-connect
+                     └──R27002 10k── GND      ~FAULT  (4)  R27005 10k to GND
                                               LATCH   (5)  no-connect
 U27001 ILIM (7) ──R27003 10k── GND            NC     (11)  no-connect
 U27001 SNS  (6) ──R27004  1k── GND
 ```
 
-So: `VAA` is the raw connector node, `HV_IN` is post-reverse-polarity-diode, and
-`+36V` is the switched output.
+So: `HV_RAW` (formerly `VAA`) is the raw connector node, `HV_IN` is
+post-reverse-polarity-diode, and `+36V_SW` is the switched output.
 
 ### The Capacitors Are Correct Where They Are
 
-- **`C27001` 220 nF sits on `HV_IN`, at the switch's `VS` pins. Leave it there.**
+- **`C201` 220 nF sits on `HV_IN`, at the switch's `VS` pins. Leave it there.**
   It is the switch IC's supply bypass, not bulk. Moving it to `+36V` would leave
   `VS` unbypassed.
-- **`C27002` 22 nF sits on `+36V`, the switch output. Leave it there too.** The
+- **`C202` 22 nF sits on `+36V`, the switch output. Leave it there too.** The
   switch has a fixed internal output slew rate, `SRR` = 0.47 V/µs typical, so
   22 nF draws only about 10 mA during turn-on — it cannot interfere with the
   soft-start ramp.
@@ -992,18 +1201,75 @@ start.
 | # | Issue | Fix |
 | --- | --- | --- |
 | 1 | **`R27001`/`R27002` form a ÷2 divider on `EN`.** Both are 10 k, so a 3.3 V GPIO presents **1.65 V** at `EN` against a `VIH` of **1.5 V max** — 150 mV of margin, less at low `VDD` and with resistor tolerance. | Change `R27001` to **1 kΩ**, keeping `R27002` at 10 k. `EN` becomes 3.0 V. Keeps the external pulldown, which is genuinely wanted because RP2040 GPIOs are inputs with pulls disabled at reset. **Done 2026-08-12.** |
-| 2 | **`DIAG_EN` is left no-connect with a 200-500 kΩ internal pulldown, so diagnostics are off.** Table 4-2: "With DIAG_EN unused, the analog sense, open-load, and short-to-battery diagnostics are not available." Every `ISNS` specification is conditioned on `VEN = VDIAG_EN = 5V`. **With the block as-is, the `SNS` output does nothing and `HV_SNS` on `GP28` reads zero.** | Tie `DIAG_EN` to `+3.3V` through a 1 kΩ `RPROT`. Needs no GPIO. Safe with `VS` absent — see below. |
-| 3 | **`~FAULT` is left no-connect.** It is the open-drain global fault output for overload, short-circuit, and thermal shutdown — thrown away on a board that has spare pins. | Route to **`GP29`** with a pull-up to `+3.3V`. The datasheet notes an external pull-up is required to match the MCU supply. |
-| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V` through a 1 kΩ `RPROT` for latch-off. See below. |
+| 2 | **`DIAG_EN` is left no-connect with a 200-500 kΩ internal pulldown, so diagnostics are off.** Table 4-2: "With DIAG_EN unused, the analog sense, open-load, and short-to-battery diagnostics are not available." Every `ISNS` specification is conditioned on `VEN = VDIAG_EN = 5V`. **With the block as-is, the `SNS` output does nothing and `HV_SNS` on `GP28` reads zero.** | ~~Tie `DIAG_EN` to `+3.3V_MCU` through a 1 kΩ `RPROT`. Needs no GPIO.~~ **Reversed 2026-08-17.** `R202` 1 kΩ now goes to **`GP14`** (`HV_DIAG_EN`). Tying it high is wrong for a reason this table missed — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up). **Done, verified 2026-08-17.** Still safe with `VS` absent — see below. |
+| 3 | **`~FAULT` is left no-connect.** It is the open-drain global fault output for overload, short-circuit, and thermal shutdown — thrown away on a board that has spare pins. | Route to **`GP29`** with a pull-up to `+3.3V_MCU`. The datasheet notes an external pull-up is required to match the MCU supply. **Done, verified 2026-08-17:** `R205` = 10 kΩ to `+3.3V_MCU`, net `~{HV_FAULT}` on `GP29`. |
+| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V_MCU` through a 1 kΩ `RPROT` for latch-off. See below. **Done, verified 2026-08-17:** `R203` = 1 kΩ to `+3.3V_MCU`. |
 
-Items 2 and 3 are the ones that matter most: as placed, the block gives no load
-current reading and no fault signal, which is most of what the smart switch was
-chosen for.
+Items 2 and 3 were the ones that mattered most: as the block shipped, it gave no
+load current reading and no fault signal, which is most of what the smart switch
+was chosen for. **All four are now in place on the board**, with item 2 landing on
+a GPIO rather than on the rail.
+
+### `DIAG_EN` Must Be A GPIO, Not A Fixed Pull-Up
+
+**Reversed 2026-08-17**; earlier guidance in this document said to tie `DIAG_EN`
+to `+3.3V_MCU` through a 1 kΩ `RPROT` and that it "needs no GPIO". As built,
+`R202` 1 kΩ runs from `DIAG_EN` to **`GP14`**, net `HV_DIAG_EN`. `GP14` was a
+spare; it is not any more, and the spares are now `GP15`, `GP16`, `GP18`, `GP27`
+— four, not five.
+
+The reason is a leakage path the earlier analysis missed, and it defeats the
+organising principle of this entire document. Holding `DIAG_EN` high keeps the
+`TPS1HTC100-Q1`'s **OFF-state open-load detection permanently enabled**, and that
+detection works by switching in an internal pull-up from `VS` to `VOUT`.
+Datasheet §7.3.4.2:
+
+> TI implemented a switch in series with the pullup resistor controlled by the
+> DIAG_EN pin. The pull up resistor value is Rpu = 150 kΩ
+
+`ROL_OFF` is specified 110-166 kΩ. So with `DIAG_EN` high and the channel off,
+**36 V drives ~240 µA into `+36V_SW` through the part**. The consequences follow
+directly from the board's own numbers:
+
+| Step | Number |
+| --- | --- |
+| Injected current at 36 V through 150 kΩ | ~240 µA |
+| `+36V_SW` bulk (`C1213` + `C1214` + ceramics) | ~208 µF |
+| Rail slew, `I/C` | ~1.2 V/s |
+| Time to cross the `TPSM365R6`'s 3.6 V minimum `VIN` | **~3 s** |
+
+At that point the buck starts, draws far more than 240 µA, collapses the rail,
+and hiccups — forever. **The switched domain never cleanly powers off.** That
+breaks the "`HV_EN` power-cycles every resettable chip" property that
+[The High-Side Switch Is A Reset Button](#the-high-side-switch-is-a-reset-button)
+depends on, and it corrupts `SW_RAIL_SENSE`, which is the one reading firmware
+uses to decide whether the domain is up.
+
+**With `DIAG_EN` on a GPIO the failure disappears at reset, not merely under
+firmware control.** `DIAG_EN` has an internal pull-down (200-500 kΩ), so with
+`GP14` high-Z at RP2040 reset — which is every GPIO's reset state on this part —
+diagnostics are off and `+36V_SW` sits at a true zero.
+
+**What is *not* gated.** Per Table 7-1, `DIAG_EN` gates **reporting only**:
+current limit and thermal shutdown are unaffected. Dropping `DIAG_EN` does not
+make the switch less safe, it makes it quieter. So the firmware rule is simply:
+**raise `GP14` when you want current sense or fault reporting**, and drop it
+otherwise. In particular raise it before reading `HV_SNS`, since every `ISNS`
+specification is conditioned on `VDIAG_EN` being high.
+
+**The alternative that was considered and not taken:** a 10-15 kΩ bleeder on
+`+36V_SW`, which would sink the 240 µA and hold the rail down with `DIAG_EN`
+still tied high. It works, but it burns ~100 mW continuously whenever the rail
+*is* up, it adds a part, and it leaves the board depending on a resistor value to
+preserve a safety property. Spending a spare GPIO is cheaper and the failure mode
+is better: a missing GPIO drive means no diagnostics, not a rail that will not
+switch off.
 
 ### Driving `DIAG_EN` And `LATCH` With `VS` Unpowered Is Fine
 
 The board can run from USB with the 36 V supply absent, so these pins will sit at
-3.3 V while the switch's `VS` is at 0 V. That is in spec, not merely survivable:
+3.3 V while the switch's `VS` is at 0 V — `LATCH` permanently, `DIAG_EN` whenever
+firmware raises `GP14`. That is in spec, not merely survivable:
 
 | Pin | Recommended operating | Absolute max |
 | --- | --- | --- |
@@ -1042,17 +1308,18 @@ different job. The datasheet is explicit that "ILIM pin must be connected with
 device GND", and Table 4-2 warns that **leaving it floating selects the internal
 default and "is considered a fault state for the device."**
 
-`R27003` = 10 kΩ today. The datasheet tabulates the resulting limit directly:
+The block shipped with 10 kΩ here. **On this board it is `R206` = 40 kΩ, done and
+verified 2026-08-17.** The datasheet tabulates the resulting limit directly:
 
 | `R_ILIM` | `I_CL` min | typ | max |
 | --- | --- | --- | --- |
-| **10 kΩ (present)** | 4.0 A | **5.3 A** | 6.3 A |
+| **10 kΩ (as the block shipped)** | 4.0 A | **5.3 A** | 6.3 A |
 | 16.7 kΩ | 2.3 A | 3.0 A | 3.5 A |
 | **25 kΩ (recommended)** | 1.5 A | **1.96 A** | 2.3 A |
 | 50 kΩ | 0.73 A | 0.92 A | 1.11 A |
 | Open or GND | 6.1 A | 7.3 A | 8.6 A |
 
-The block's present setting is therefore **5.3 A typical, up to 6.3 A** — higher
+The block's shipped setting was therefore **5.3 A typical, up to 6.3 A** — higher
 than the 4.6 A quoted in an earlier draft of this document, which used the wrong
 `K_CL` row. The table above is authoritative.
 
@@ -1087,22 +1354,53 @@ Finalise the value once the motor is identified.
 
 ### `SNS` — Also One Resistor, And A Different One
 
-`SNS` also takes a single resistor to ground. **Change `R27004` from 1 kΩ to
-249 Ω and no divider is needed** — `OW-PASS-CRCW0402249RFKED`, 0402, 1%, stocked.
-This supersedes the 2:1 divider suggested earlier; changing the resistor is
-simpler, adds no parts, and gives a better ADC source impedance. 470 Ω would have
-been the arithmetic ideal but is not stocked, and 249 Ω is strictly safer.
+`SNS` also takes a single resistor to ground. The block shipped with 1 kΩ; **on
+this board it is `R207` = 249 Ω, done and verified 2026-08-17** —
+`OW-PASS-CRCW0402249RFKED`, 0402, 1%, stocked. This supersedes both the 2:1
+divider suggested earlier and the "change `R27004` from 1 kΩ to 249 Ω" framing
+that appeared elsewhere in this document: there is nothing left to change.
+470 Ω would have been the arithmetic ideal but is not stocked, and 249 Ω is
+strictly safer.
+
+**Why 249 Ω is right, in numbers.** This document asserted the value without ever
+writing the arithmetic down, so here it is:
+
+| Quantity | Value | Where it comes from |
+| --- | --- | --- |
+| `ISNSFLT` | **5.2-6.4 mA**, a *current source* | `tps1htc100-q1.pdf` |
+| Fault reading across `R207` | 5.2-6.4 mA × 249 Ω = **1.3-1.6 V** | arithmetic |
+| RP2040 `VPIN` absolute maximum | `IOVDD` + 0.5 = **3.8 V** | RP2040 datasheet |
+| Maximum normal-current reading, `KSNS` = 800 A/A, `I_CL` ≈ 1.2 A | **≤0.37 V** | arithmetic |
+| `VSNSFH` at `VDIAG_EN` = 3.3 V | **3.3 / 3.95 / 4.4 V** min/typ/max | `tps1htc100-q1.pdf` |
+
+Two conclusions fall out. First, 1.3-1.6 V is comfortably under 3.8 V *and*
+comfortably clear of the ≤0.37 V normal reading, so a fault is unambiguous
+without needing `~{HV_FAULT}` to confirm it. Second — and this is the part that
+mattered — **the original 1 kΩ would have driven `GP28` past its absolute
+maximum.** At 1 kΩ the pin hits its clamp rather than `ISNSFLT × RSNS`, and that
+clamp is `VSNSFH`, whose *typical* value at 3.3 V `DIAG_EN` is 3.95 V and whose
+maximum is 4.4 V. Both exceed 3.8 V. The 1 kΩ recommendation was not merely
+suboptimal; it was out of spec for this MCU.
+
+The safe upper bound is about **594 Ω** (3.8 V ÷ 6.4 mA). ~470 Ω would use more
+of the ADC range and is still safe, if resolution ever turns out to matter; 249 Ω
+trades that for margin, which is the right trade for a coarse supply monitor.
+
+**No series resistor is needed between `SNS` and `GP28`.** `SNS` is a current
+source, not a voltage driver — it cannot force a node harder than
+`ISNSFLT × R207` once `R207` sets the impedance to ground, so there is nothing
+for a series resistor to limit. Adding one would only add ADC source impedance.
 
 The problem being solved: the `SNS` pin reports faults by driving to a defined
 high level — the datasheet's "integrated fault sense voltage scaling for ADC"
 feature. In fault the pin sources `I_SNSFLT` = 5.2-6.4 mA into `R_SNS`, and the
 node settles at whichever is lower, `I_SNSFLT × R_SNS` or the clamp `V_SNSFH`:
 
-| `R_SNS` | Normal scaling, `K_SNS` = 800 | Fault level | Under the RP2040's `VDD + 0.3 V` = 3.6 V? |
+| `R_SNS` | Normal scaling, `K_SNS` = 800 | Fault level | Under the RP2040's `VPIN` maximum of `IOVDD + 0.5` = 3.8 V? |
 | --- | --- | --- | --- |
-| 1 kΩ (present) | 1.25 V/A, full scale at 2.6 A | 5.2-6.4 V, clamped to `V_SNSFH` ≈ 3.3-4.4 V | **No** |
-| 604 Ω (stocked) | 0.76 V/A | 3.14-3.87 V | **No** — top of range exceeds 3.6 V |
-| **249 Ω (recommended, stocked)** | **0.311 V/A**, full scale at 10.6 A | **1.29-1.59 V** | **Yes, with wide margin** |
+| 1 kΩ (as the block shipped) | 1.25 V/A, full scale at 2.6 A | 5.2-6.4 V, clamped to `V_SNSFH` = 3.3 / 3.95 / 4.4 V | **No** — typical and maximum both exceed 3.8 V |
+| 604 Ω (stocked) | 0.76 V/A | 3.14-3.87 V | **Marginal** — top of range just exceeds 3.8 V |
+| **249 Ω (fitted as `R207`)** | **0.311 V/A**, full scale at 10.6 A | **1.3-1.6 V** | **Yes, with wide margin** |
 
 At 249 Ω the pin never reaches its clamp, so the fault level is set by
 `I_SNSFLT × R_SNS` and is bounded by design rather than by tolerance.
@@ -1119,9 +1417,16 @@ This is a coarse supply monitor by construction, so amplitude was never the
 binding constraint. 0.311 V/A still gives about 386 ADC counts per amp at 12 bits.
 
 All `SNS` timing and accuracy specifications are characterised at `R_SNS` = 1 kΩ.
-If that fidelity matters more than simplicity, keep 1 kΩ and add a 100 k / 100 k
-divider tap, which loads the 1 kΩ by about 2%. **249 Ω is the recommended
-choice** — one stocked part, no divider, and the widest ADC margin.
+~~If that fidelity matters more than simplicity, keep 1 kΩ and add a 100 k / 100 k
+divider tap, which loads the 1 kΩ by about 2%.~~ **That option is off the table:**
+1 kΩ puts the un-divided node above the RP2040's absolute maximum, so it is only
+usable *with* a divider, and a divider costs the two parts and the source
+impedance that 249 Ω avoids. **249 Ω is the choice and it is fitted** — one
+stocked part, no divider, and the widest ADC margin.
+
+Note also that the `SNS` readings only exist while `DIAG_EN` is high, which on
+this board means while firmware is holding `GP14` high. See
+[`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up).
 
 ### Does `R_SNS` Have To Change When `R_ILIM` Does?
 
@@ -1130,7 +1435,7 @@ has two ceilings and only one of them scales with the current limit:
 
 | Ceiling | Formula, 3.3 V ADC | Depends on `I_CL`? |
 | --- | --- | --- |
-| Fault level — the pin sources 5.2-6.4 mA into `R_SNS` | `R_SNS` ≤ 515 Ω | **No** |
+| Fault level — the pin sources 5.2-6.4 mA into `R_SNS` | `R_SNS` ≤ 515 Ω to stay inside the 3.3 V ADC range; ≤ **594 Ω** to stay inside the 3.8 V `VPIN` absolute maximum | **No** |
 | Current range — `1.5 × I_CL` must still fit | `R_SNS` ≤ 1760 / `I_CL` | Yes |
 
 The two cross at `I_CL` ≈ 3.4 A. Below that the fault ceiling binds and `R_SNS`
@@ -1156,7 +1461,8 @@ cycles the motor rail at roughly 500 Hz: the TMC5130A repeatedly browns out and
 recovers, and a joystick held by an animal twitches while it does. Nothing
 upstream stops it.
 
-**Tie `LATCH` to `+3.3V` through a 1 kΩ `RPROT`.** That selects latch-off, and the
+**Tie `LATCH` to `+3.3V_MCU` through a 1 kΩ `RPROT`.** Done as `R203`, verified
+2026-08-17. That selects latch-off, and the
 clearing mechanism fits the board's existing design: "the device does not enable
 the channel until either the LATCH pin OR the EN pin is toggled." Firmware already
 owns `EN` on `GP19`, so the sequence is:
@@ -1172,15 +1478,19 @@ That is exactly the "latch faults, require explicit clearing" model in
 Driving `LATCH` from a GPIO instead would let firmware choose between behaviors,
 but there is no reason to want auto-retry here. Rev 0 has pins free, so the
 argument is now purely that auto-retry is the wrong behavior — not that the pin
-budget forbids it. Full scope is 25 of 30 with five spares as of 2026-08-16, so
-the budget argument has gone away entirely; only the behavioural one remains.
+budget forbids it. **Updated 2026-08-17: the spares are `GP15`, `GP16`, `GP18`
+and `GP27` — four, not five,** because `GP14` went to `HV_DIAG_EN`. The budget is
+still not the binding argument, but it is one pin tighter than this paragraph
+originally claimed, and `LATCH` is the right pin to have spent a resistor on
+rather than a GPIO.
 
 ### Reverse-Polarity Protection Is The Series Diode, Not The Device Feature
 
 The datasheet says of pin 1: "Ground of device. Connect to resistor-diode ground
 network to have reverse battery protection." The block ties `GND` straight to
 board ground, so that feature is **not** configured. Reverse protection comes
-solely from `D27001`, the `SBRT15U50SP5` series diode.
+solely from `D201`, the `SBRT15U50SP5` series diode — anode on `HV_RAW`, cathode
+on `HV_IN`, orientation verified 2026-08-17.
 
 That is a valid and simpler choice. Consequences to accept: a forward drop in the
 motor current path, and its dissipation. The part is rated 410 mV at 15 A, so
@@ -1189,19 +1499,21 @@ that much below the supply, which is irrelevant at 36 V.
 
 A useful side effect: because `VIL`/`VIH` on `EN` and `DIAG_EN` are specified "No
 GND Network", the logic thresholds above apply directly and 3.3 V drive is in
-spec once the `EN` divider is fixed.
+spec once the `EN` divider is fixed — which it is, `R201` 1 kΩ with `R204` 10 kΩ
+to ground.
 
 ## Enable, Current Limit, And Sense
 
 The `hv_input_36V_terminal_2pos_5p08_protected` block is not a passive input. It
-is a `TPS1HTC100-Q1` smart high-side switch, and it brings three board-level
-signals:
+is a `TPS1HTC100-Q1` smart high-side switch, and as placed it brings **four**
+board-level signals — three plus `DIAG_EN`, which was added on 2026-08-17:
 
 | Block label | Board connection | Note |
 | --- | --- | --- |
-| `ENABLE` | `HV_EN`, RP2040 `GP19` | Pulled low in the block — **the rail is off until firmware drives it** |
-| `ILIM` | Resistor to ground | Sets the adjustable current limit. Size from the motor's stall and inrush behavior |
-| `SNS` | `HV_SNS`, RP2040 `GP28` (`ADC2`) | Analog load-current sense. Confirm whether the block populates the sense resistor; scale so full-scale lands below 3.3 V |
+| `ENABLE` | `HV_EN`, RP2040 `GP19`, through `R201` 1 kΩ | Pulled low in the block by `R204` 10 kΩ — **the rail is off until firmware drives it** |
+| `DIAG_EN` | `HV_DIAG_EN`, RP2040 **`GP14`**, through `R202` 1 kΩ | **New 2026-08-17.** Internal pull-down, so diagnostics are off at reset and `+36V_SW` sits at true zero. Firmware raises it to read `HV_SNS` or `~{HV_FAULT}`. See [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
+| `ILIM` | `R206` 40 kΩ to ground, local to the block | Sets the adjustable current limit, `I_CL` ≈ 1.2 A. Finalise from the motor's stall and inrush behavior |
+| `SNS` | `HV_SNS`, RP2040 `GP28` (`ADC2`), `R207` 249 Ω to ground | Analog load-current sense, 0.311 V/A, fault at 1.3-1.6 V. The block **does** populate the sense resistor and the scaling is settled |
 
 Consequences worth stating plainly:
 
@@ -1212,10 +1524,16 @@ Consequences worth stating plainly:
 - `hv_to_5v_tpsm365r6` **is** fed from the switched `+36V_SW` output, on
   purpose, so that dropping `HV_EN` resets the whole switched domain. That would
   make the board unbootable if the MCU were also on that chain — which is exactly
-  why the MCU is not: `+3V3_MCU` comes from USB or pyControl through two ORing
+  why the MCU is not: `+3.3V_MCU` comes from USB or pyControl through two ORing
   diodes and never touches the 36 V chain. Verify **both halves** during
   schematic capture. Feeding the MCU from the switched rail is the single most
   likely way to make an unbootable board out of otherwise correct blocks.
+- **Diagnostics are off until firmware asks for them.** `GP14` is high-Z at
+  reset and `DIAG_EN` has an internal pull-down, so `HV_SNS` reads nothing and
+  `~{HV_FAULT}` reports nothing until firmware raises `GP14`. That is deliberate
+  — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) —
+  and it must be in the boot sequence next to raising `HV_EN`. Current limit and
+  thermal shutdown are **not** gated by it; only reporting is.
 - The block carries a `PWR_FLAG` (`#FLG027001`), unlike the 24 V terminal
   variant. Do not add a second one on the same net. Exactly one `PWR_FLAG` per
   net, on input and entry nets only.
@@ -1226,7 +1544,11 @@ Consequences worth stating plainly:
   kept away from the motor return path.
 - Kelvin connections at the sense resistors, no shared ground path between the
   two shunts, per the TMC5130A datasheet. The project already has a
-  `SENSE_KELVIN` netclass.
+  `SENSE_KELVIN` netclass — but **note it does not apply here.** On the TMC5130A,
+  `BRA`/`BRB` carry the full coil current into `R1203`/`R1204`, so they are sized
+  with the motor phases (`MOTOR_2A`, 0.8 mm) rather than as sense nets.
+  `SENSE_KELVIN` exists for the TMC5160's separate `SRA`/`SRB` pins. Verified
+  2026-08-17.
 - Establish the analog / digital / power zoning now even though this board has no
   torque bridge. If this design is ever carried into the twin-axis Rev 1 with
   brakes and bridges, retrofitting zoning means moving everything.
@@ -1240,10 +1562,18 @@ Consequences worth stating plainly:
    harness conductor count.
 3. **The polyfuse hold current on the pyControl branch** — 250 mA or 500 mA. A
    layout-time decision, not a fabrication blocker, but pick it against rev 1's
-   ~250 mA rather than Rev 0's ~100 mA.
-4. `SNS` scaling and whether the block already populates the sense resistor.
+   ~250 mA rather than Rev 0's ~100 mA. **Note the position `R1903` is fitted with
+   a jumper as built; no PPTC exists in the parts database yet.**
+4. ~~`SNS` scaling and whether the block already populates the sense resistor.~~
+   **Closed 2026-08-17.** It populates it: `R207` = 249 Ω, 0.311 V/A, fault at
+   1.3-1.6 V. Arithmetic in
+   [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one).
 5. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
    if the DAC's own `VIH` demands it rather than as a back-powering fix.
+6. **Whether a TVS is ever fitted on `HV_IN`** — a bench-measurement item, not a
+   purchase item and not a fabrication blocker. None is populated. Decided by the
+   Gate B hot-plug measurement; see
+   [Transient Headroom](#1-transient-headroom).
 
 **Resolved 2026-08-14 from the pyControl H7 breakout netlist:**
 
@@ -1260,17 +1590,39 @@ Consequences worth stating plainly:
 
 - The regulator chain is fed **post-switch**. Previously open, and previously
   recommended the other way; see the rail chain above for why it reversed.
-- `+3V3_MCU` comes from USB or pyControl only. No always-on converter taps
+- `+3.3V_MCU` comes from USB or pyControl only. No always-on converter taps
   `HV_IN`, and the board does not boot on 36 V alone.
 - Both ORing diodes are populated. The pyControl branch is no longer conditional.
 - Whether the `TMC5130A` tolerates `VCC_IO` present with `VCC` and `VS` absent no
   longer needs an answer: all three are on the switched domain and fall together.
 - **Exactly two `5v_to_3v3_tps73733` instances**, one per domain. Decided
   2026-08-13. The switched domain's 3.3 V is not split into analog and digital,
-  and `+3V3_SW` is not subdivided if rev 1 loads grow — a third instance would be
+  and `+3.3V_SW` is not subdivided if rev 1 loads grow — a third instance would be
   a new decision, not a pre-approved option.
 
 **Resolved, and no longer a purchase item:** the 36 V TVS. No standard TVS can
 protect the `TMC5130A` on a 36 V rail, and the other two parts on that rail do
 not need one. Protection comes from the soft-start switch, bulk placement, and
-layout. See above.
+layout. **As built, no TVS is populated** — this and the "order `SMBJ40A`"
+passage under [Transient Headroom](#1-transient-headroom) used to contradict each
+other; this is the one the board implements. What remains is the bench
+measurement, kept as open decision 6 above.
+
+**Resolved 2026-08-17 against the flattened as-built netlist:**
+
+- **`DIAG_EN` is a GPIO (`GP14`), not a fixed pull-up.** The reversal and its
+  reason are in [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up).
+  Spares drop to four: `GP15`, `GP16`, `GP18`, `GP27`.
+- **The 3.3 V rails are spelled `+3.3V_MCU` and `+3.3V_SW`**, and the netclass
+  patterns match. Concern 5 is closed.
+- **`VAA` is renamed `HV_RAW`.** Concern 6 is closed.
+- **`VSA` is on `+5V_SW`, not on `VS`** — a deliberate deviation from the
+  datasheet's "normally tied to VS", taken to keep 36 V off the analog supply
+  pin, and harmless because `VCC` is external so the internal regulator idles.
+- **`+5V_SW` bridges `VCC` and `5VOUT` through `R1202` 10 Ω** — also a deliberate
+  deviation, signed off under
+  [Internal 5 V Regulator Dissipation](#3-internal-5-v-regulator-dissipation).
+  The datasheet's value for that resistor is 2.2 or 3.3 Ω and its position is
+  between `5VOUT` and `VCC`; both differ here and both are accepted.
+- **The instrumentation buffers are Rev 0 and there are three of them**, not five
+  in rev 1.

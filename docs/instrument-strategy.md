@@ -4,9 +4,21 @@
 2026-08-12 deferral. The reason is firmware development rather than experiments:
 being able to see the pyControl serial link at the cable and the TMC5130A SPI bus
 in one capture is what makes protocol and driver bring-up tractable. Rev 0
-populates `J4`, three of the five buffer packages, and **eleven of the eighteen
+populates `J1501`, all **three** buffer packages, and **eleven of the eighteen
 digital Strands** — the four TMC SPI signals, both pyControl serial directions,
 both firmware triggers, `ENC_A`/`ENC_B`, and `LIMIT_SW`.
+
+**Corrected 2026-08-17 against the as-built schematic.** The connector is `J1501`,
+not `J4`. There are **three** `SN74LVC125A` packages on the board, not five:
+`U1601` (`ENC_A`, `ENC_B`, `PYC_UART_RX`, `PYC_UART_TX`), `U1701` (`TMC_SPI_SCK`,
+`TMC_SPI_COPI`, `TMC_SPI_CIPO`, `~TMC_CS`) and `U1801` (`LIMIT_SW`, `FW_TRIG0`,
+`FW_TRIG1`, and one spare). `U_C` and `U_D` were never drawn and `U_E` does not
+exist as a designator. All three run from `+3.3V_MCU`, all three take `~OE` from
+`~{INSTR_BUF_OE}` with their own 10 kΩ pull-up (`R1601`/`R1701`/`R1801`), and every
+output carries a 33 Ω series resistor. **The grouping mixes domains**, so the rev-2
+swap of `DIG0`/`DIG1`/`DIG11` touches two packages rather than one — the
+"deferred group in a whole package" property described further down was not
+achieved.
 
 `ENC_A`, `ENC_B`, and `LIMIT_SW` are temporary tenants of `DIG0`, `DIG1`, and
 `DIG11`, the slots the rev 2 torque bus and brake will take. They earn Rev 0
@@ -146,7 +158,9 @@ deliberately:
   rail. The motor rail never reaches the instrument connector. Its assignment is
   contested between `AUX_ANALOG_OUT` and a rev 2 `BRAKE_ISENSE`; if the brake
   monitor wins it must be low-side or ground-referenced, for this reason. See
-  `docs/interface-map.md`.
+  `docs/interface-map.md`. **In Rev 0 as built, `AIN0_P/N` and `AIN1_P/N` are
+  no-connect** — the constraint is forward-looking, not something to verify on this
+  board.
 
 Anything that would add a drive path from the instrument into the board — a
 bidirectional buffer, a populated `AOUT*`, an M2K used for stimulus — must be
@@ -169,33 +183,85 @@ needs.
 
 ## Overlay
 
-All 18 digital slots are allocated — 10 live in Rev 0, 6 more at rev 1, and 4
-reserved for the rev 2 brake and torque sensor, two of which the encoder occupies
+All 18 digital slots are allocated — **11 live in Rev 0**, 6 more at rev 1, and 4
+reserved for the rev 2 brake and torque sensor, **three** of which the encoder and
+the limit switch occupy
 meanwhile. The mapping, the buffer grouping, the tap-point rules, and the reclaim
 order if brake and torque need a fifth slot are all in `docs/interface-map.md`.
-Ten signals sit on labelled test pads, not vias, plus `ENC_A`/`ENC_B`/`LIMIT_SW`,
-which are padded as well because the pads become their only access at rev 2.
+~~Ten signals sit on labelled test pads, not vias, plus `ENC_A`/`ENC_B`/`LIMIT_SW`,
+which are padded as well because the pads become their only access at rev 2.~~
+**Struck 2026-08-17 — no test points exist anywhere on the board.** The reasoning
+is still right and the need is unmet: `ENC_A`/`ENC_B` lose their port slots at
+rev 2 and today have no fallback access at all. Either add the pads before
+fabrication or accept that those signals become unreachable at rev 2.
+
+The eleven live Strands as built: `DIG0` = `ENC_A_BUF` (`J1501` pin 2), `DIG1` =
+`ENC_B_BUF` (3), `DIG2` = `TMC_SPI_SCK_BUF` (5), `DIG3` = `TMC_SPI_COPI_BUF` (7),
+`DIG4` = `TMC_SPI_CIPO_BUF` (8), `DIG5` = `~TMC_CS_BUF` (10), `DIG7` =
+`PYC_UART_RX_BUF` (13), `DIG8` = `PYC_UART_TX_BUF` (14), `DIG11` = `LIMIT_SW_BUF`
+(19), `TRIG0` = `FW_TRIG0_BUF` (26), `TRIG1` = `FW_TRIG1_BUF` (28). `DIG6`, `DIG9`,
+`DIG10`, `DIG12`-`DIG15`, `AIN0_P/N`, `AIN1_P/N`, `AOUT0` and `AOUT1` are
+no-connect.
+
+**`AGND` (pins 31, 34, 37, 40) is tied to `GND`** as of 2026-08-17. It was
+previously an isolated four-pin island, which would have left the analog returns
+without a reference when rev 1 populates `AIN*`.
 
 ### No Buffer Input May Float
 
-`U_C` and `U_D` are DNP in Rev 0 with their inputs unrouted. The grouping in
+~~`U_C` and `U_D` are DNP in Rev 0 with their inputs unrouted.~~ **Struck
+2026-08-17 — `U_C` and `U_D` do not exist.** Rev 0 has exactly three packages and
+all three are fitted, so there is no deferred group to protect. The grouping in
 `docs/interface-map.md` puts each revision's signals in whole packages precisely
-so a deferred group never leaves a powered CMOS input undriven; if that grouping
-is edited, preserve the property.
+so a deferred group never leaves a powered CMOS input undriven; **as built the
+grouping mixes domains instead** — `U1601` carries both encoder channels and both
+pyControl serial directions, `U1701` carries all four TMC SPI signals, `U1801`
+carries `LIMIT_SW` and the two firmware triggers. Preserve the intent when rev 1
+adds packages, but do not assume it holds today.
 
-`U_E` is the exception — it is fitted in Rev 0 for the three driver-input
-witnesses while its fourth channel waits for the brake. **Its `DIG12` input is tied to GND**, which is a net
+`U1801` is the package with a spare — three signals in Rev 0 while its fourth
+channel waits for the brake. **Its fourth input is tied to GND**, which is a net
 rather than a part and is the correct treatment for an unused LVC125A input.
+**Note that this does not produce a buffered static low on `DIG12`:** that
+channel's output stops at `R1805` and `J1501` pin 20 is a no-connect, so nothing
+reaches the connector.
 
-Three inputs need pull-downs rather than ties:
+**The taps sit on the A / switched side of the bus switch.** `docs/interface-map.md`
+says A is the MCU side; **it is wrong and the board is the authority** — A is the
+TMC / switched side, B is the MCU side. That is why the terminations below matter:
+every tapped TMC signal goes to 0 V with the switched domain, not to whatever the
+MCU is driving.
 
-- `TMC_SPI_CIPO`, because the TMC5130A tri-states `SDO` between transactions.
-- `ENC_A`, `ENC_B`, and `LIMIT_SW`, because all three are on the switched domain
-  and float whenever `HV_EN` is low, while `U_E` runs from `+3V3_MCU`. Pull-down
-  rather than up: a pull-up would have to go to `+3V3_MCU` and would back-power
-  those chips through their output clamps while the domain is dark.
+Five inputs need defined levels rather than ties, and **as built they are 10 kΩ,
+not 100 kΩ** (`R1401`-`R1405`, in the board-authored `instrument_port` sheet so a
+design-block re-place cannot lose them):
 
-100 kΩ each, at the buffer input. These are the only new passives the port adds.
+- `TMC_SPI_SCK`, `TMC_SPI_COPI`, `TMC_SPI_CIPO` — 10 kΩ to GND. `TMC_SPI_CIPO`
+  needs it because the TMC5130A tri-states `SDO` between transactions; all three
+  need it because they float whenever the switched domain is off while `U1701` runs
+  from `+3.3V_MCU`.
+- `~{TMC_CS}` — 10 kΩ to **`+3.3V_SW`**, not to GND. A pull-down here would assert
+  chip select. Referencing the switched rail means it collapses with the domain
+  rather than injecting current into a dead rail, and `R401`/`R402` hold `+3.3V_SW`
+  at 0 V when the domain is off, so the pull-up still reads as a valid low.
+- `LIMIT_SW` — 10 kΩ to GND, defining the `U1801` input.
+
+**Do not "improve" these to 100 kΩ.** The TMC's `CSN`/`SCK`/`SDI`/`SDO` are marked
+`(tpu)` with `RPU` = 132/166/200 kΩ; 100 kΩ against that parks the node at ~1.9 V,
+straddling the `SN74LVC125A`'s 2.0 V `VIH`. 10 kΩ gives 0.28 V, a clean low.
+
+`ENC_A` and `ENC_B` are the exception: they keep 100 kΩ, because their pull-downs
+are `R805`/`R806` inside the encoder block on the Schmitt outputs rather than new
+passives at the buffer.
+
+Pull-down rather than up on the GND-referenced group for the original reason: a
+pull-up would have to go to `+3.3V_MCU` and would back-power those chips through
+their output clamps while the domain is dark.
+
+Note that `~OE` does **not** gate the input stage. `ΔICC` is 500 µA typ / 5000 µA
+max per partially biased input regardless of `OE`, against 40 µA max for the whole
+device with valid levels — so disabling the buffers is not a substitute for
+terminating their inputs.
 
 ## M2K Use
 
