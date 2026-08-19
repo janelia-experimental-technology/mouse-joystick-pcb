@@ -24,5 +24,4 @@ __pycache__/
 **/_autosave-*
 **/*.dsn
 **/*.ses
-/fab/
 /tmp/

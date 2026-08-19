@@ -1,0 +1,48 @@
+ERC report (2026-08-19T09:02:38, Encoding UTF8)
+Report includes: Errors
+
+***** Sheet /
+
+***** Sheet /hv_input_36V_terminal_2pos_5p08_protected/
+
+***** Sheet /usb2/
+
+***** Sheet /mcu/
+
+***** Sheet /mcu/rp2040/
+
+***** Sheet /mcu/rp2040_gpio_isolation_sn74cb3q3245/
+
+***** Sheet /mcu/5v_to_3v3_tps73733_1/
+
+***** Sheet /motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/
+
+***** Sheet /hv_to_5v_tpsm365r6/
+
+***** Sheet /5v_to_3v3_tps73733_2/
+
+***** Sheet /motor_encoder_limit/
+
+***** Sheet /motor_encoder_limit/tmc5130/
+
+***** Sheet /motor_encoder_limit/limit_switch_debounced_input/
+
+***** Sheet /instrument_port/
+
+***** Sheet /instrument_port/instrument_port_40_dut_ffc_boundary/
+
+***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_1/
+
+***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_2/
+
+***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_3/
+
+***** Sheet /pycontrol_behavior_port_rj45_boundary/
+
+ ** ERC messages: 0  Errors 0  Warnings 0
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters
