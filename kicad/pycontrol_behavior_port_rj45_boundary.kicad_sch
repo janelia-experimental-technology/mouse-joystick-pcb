@@ -5,10 +5,8 @@
 	(uuid "c1b4b83c-b2a5-4505-b710-f28fc6ce6db7")
 	(paper "A4")
 	(title_block
-		(title "mouse-joystick-pcb")
-		(date "2026-08-19")
-		(rev "0.1")
-		(company "Janelia Research Campus")
+		(title "Orb Weaver Design Block Mining")
+		(date "2026-08-21")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -377,583 +375,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "orb_weaver_internal:All/OW-CONN-438600001"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at -5.08 13.97 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify right)
-				)
-			)
-			(property "Value" "8P8C"
-				(at 2.54 13.97 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-				(at 0 0.635 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0.635 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "-40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-CONN-438600001"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "mpn_438600001_plugin"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C293550"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C293550"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "350"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "8P8C"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "connectors"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "connector"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "8P8C"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "Plugin"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" "438600001"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-CONN-438600001 8P8C connectors 8P8C -40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS Connector:8P8C orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-CONN-438600001_0_1"
-				(polyline
-					(pts
-						(xy -6.35 1.905) (xy -5.08 1.905) (xy -5.08 1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -6.35 0.635) (xy -5.08 0.635) (xy -5.08 0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -6.35 -0.635) (xy -5.08 -0.635) (xy -5.08 -0.635)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -6.35 -1.905) (xy -5.08 -1.905) (xy -5.08 -1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -6.35 -3.175) (xy -5.08 -3.175) (xy -5.08 -3.175)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -6.35 -4.445) (xy -6.35 6.985) (xy 3.81 6.985) (xy 3.81 4.445) (xy 5.08 4.445) (xy 5.08 3.175)
-						(xy 6.35 3.175) (xy 6.35 -0.635) (xy 5.08 -0.635) (xy 5.08 -1.905) (xy 3.81 -1.905) (xy 3.81 -4.445)
-						(xy -6.35 -4.445) (xy -6.35 -4.445)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 5.715) (xy -6.35 5.715)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 4.445) (xy -6.35 4.445)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -5.08 3.175) (xy -6.35 3.175) (xy -6.35 3.175)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 7.62 12.7)
-					(end -7.62 -10.16)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "All/OW-CONN-438600001_1_1"
-				(pin passive line
-					(at 10.16 -7.62 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 -5.08 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 0 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 5.08 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 7.62 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 10.16 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2790,6 +2211,572 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "orb_weaver_internal:Connectors/OW-CONN-438600001"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at -5.08 13.97 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify right)
+				)
+			)
+			(property "Value" "8P8C"
+				(at 2.54 13.97 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal"
+				(at 0 0.635 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0.635 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "-40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "OW_PART" "OW-CONN-438600001"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PartID" "mpn_438600001_plugin"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C293550"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C293550"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "350"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Name" "8P8C"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqType" "connector"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqValue" "8P8C"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqFootprint" "orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPackage" "Through Hole"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqExactMPN" "438600001"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "OW-CONN-438600001 8P8C connectors 8P8C -40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS Connector:8P8C orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal con"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Connectors/OW-CONN-438600001_0_1"
+				(polyline
+					(pts
+						(xy -6.35 1.905) (xy -5.08 1.905) (xy -5.08 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 0.635) (xy -5.08 0.635) (xy -5.08 0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 -0.635) (xy -5.08 -0.635) (xy -5.08 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 -1.905) (xy -5.08 -1.905) (xy -5.08 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 -3.175) (xy -5.08 -3.175) (xy -5.08 -3.175)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -6.35 -4.445) (xy -6.35 6.985) (xy 3.81 6.985) (xy 3.81 4.445) (xy 5.08 4.445) (xy 5.08 3.175)
+						(xy 6.35 3.175) (xy 6.35 -0.635) (xy 5.08 -0.635) (xy 5.08 -1.905) (xy 3.81 -1.905) (xy 3.81 -4.445)
+						(xy -6.35 -4.445) (xy -6.35 -4.445)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 5.715) (xy -6.35 5.715)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 4.445) (xy -6.35 4.445)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 3.175) (xy -6.35 3.175) (xy -6.35 3.175)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 7.62 12.7)
+					(end -7.62 -10.16)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "Connectors/OW-CONN-438600001_1_1"
+				(pin passive line
+					(at 10.16 -7.62 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -5.08 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 5.08 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 7.62 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 10.16 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:PWR_FLAG"
 			(power global)
 			(pin_numbers
@@ -2945,16 +2932,6 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 127) (xy 116.84 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2e35b84c-880a-4f1c-b7cb-22d65ab8315d")
-	)
-	(wire
-		(pts
 			(xy 109.22 121.92) (xy 109.22 119.38)
 		)
 		(stroke
@@ -2962,6 +2939,16 @@
 			(type default)
 		)
 		(uuid "2e57d462-23d5-40fb-85b1-d920a06d0af8")
+	)
+	(wire
+		(pts
+			(xy 114.3 127) (xy 116.84 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e004207-c4da-452c-a59a-3a678ccff10e")
 	)
 	(wire
 		(pts
@@ -3224,7 +3211,7 @@
 		(uuid "2031aac0-f461-4d8d-a6d4-67dd159fc754")
 	)
 	(label "DIO_A"
-		(at 116.84 127 0)
+		(at 116.84 129.54 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3244,7 +3231,7 @@
 		(uuid "50824d69-cca1-4bd7-bc85-788355fbc96f")
 	)
 	(label "DIO_A"
-		(at 101.6 127 180)
+		(at 101.6 129.54 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3284,7 +3271,7 @@
 		(uuid "8c9438f7-6fd6-4a19-8db3-2f1f9bdbd0b6")
 	)
 	(label "DIO_B"
-		(at 101.6 129.54 180)
+		(at 101.6 127 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3294,7 +3281,7 @@
 		(uuid "90bfed66-ce3d-4ade-b5f0-b8fd0aab148d")
 	)
 	(label "DIO_A"
-		(at 129.54 88.9 180)
+		(at 129.54 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3364,7 +3351,7 @@
 		(uuid "f4f59c52-23fb-4be8-9375-a8b1a08a6c81")
 	)
 	(label "DIO_B"
-		(at 116.84 129.54 0)
+		(at 116.84 127 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3374,7 +3361,7 @@
 		(uuid "f84b31ab-e9d9-4053-84de-e9c481b884db")
 	)
 	(label "DIO_B"
-		(at 129.54 99.06 180)
+		(at 129.54 88.9 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3417,7 +3404,7 @@
 	)
 	(hierarchical_label "PYC_DIO_B"
 		(shape bidirectional)
-		(at 147.32 99.06 0)
+		(at 147.32 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3439,7 +3426,7 @@
 	)
 	(hierarchical_label "PYC_DIO_A"
 		(shape bidirectional)
-		(at 147.32 88.9 0)
+		(at 147.32 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3472,13 +3459,14 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 83.82 43.18 0)
+			(at 86.36 46.9899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3519,7 +3507,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "#FLG01901")
 					(unit 1)
 				)
@@ -3800,7 +3788,7 @@
 		(property "LCSC" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3811,7 +3799,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3827,7 +3815,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "C1901")
 					(unit 1)
 				)
@@ -4107,7 +4095,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4118,7 +4106,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4134,7 +4122,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "R1902")
 					(unit 1)
 				)
@@ -4415,7 +4403,7 @@
 		(property "LCSC" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4426,7 +4414,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4442,7 +4430,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "D1901")
 					(unit 1)
 				)
@@ -4737,7 +4725,7 @@
 		(property "LCSC" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4748,7 +4736,7 @@
 		(property "Vendor SKU" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4776,7 +4764,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "U1901")
 					(unit 1)
 				)
@@ -4784,330 +4772,6 @@
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d64e8f3d-c2b7-4171-9d86-6d5b6a40d022"
 					(reference "U29001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-CONN-438600001")
-		(at 83.82 88.9 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "82f33a55-79a1-4dab-8f8a-27f8aa2b1960")
-		(property "Reference" "J1901"
-			(at 83.82 71.12 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "8P8C"
-			(at 83.82 73.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-			(at 83.82 88.265 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 83.82 88.265 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-CONN-438600001"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "mpn_438600001_plugin"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "350"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "8P8C"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "connectors"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "connector"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "8P8C"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_connectors:RJ45_Amphenol_54602-908LF_Horizontal"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "Plugin"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "438600001"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C293550"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C293550"
-			(at 83.82 88.9 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "5ede985a-b7a5-4f60-8360-9009d3b221ae")
-		)
-		(pin "5"
-			(uuid "d243bad7-3da3-453f-9a24-8845dbb727b7")
-		)
-		(pin "1"
-			(uuid "5137fba0-2421-4bd0-8eb0-02a41fc8aa87")
-		)
-		(pin "6"
-			(uuid "0421801e-c32d-44ea-ac21-e03c251e6399")
-		)
-		(pin "4"
-			(uuid "ec3fafc4-7035-4b36-a71b-c0e1c2dc3176")
-		)
-		(pin "7"
-			(uuid "160d800d-0d1e-4669-85f0-a3a4134fc2c2")
-		)
-		(pin "8"
-			(uuid "8efc8344-b7cd-4875-b34a-13d8ddaee067")
-		)
-		(pin "2"
-			(uuid "4465d481-fe37-4a05-8b46-bfa68f6cb00b")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
-					(reference "J1901")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d64e8f3d-c2b7-4171-9d86-6d5b6a40d022"
-					(reference "J29001")
 					(unit 1)
 				)
 			)
@@ -5380,7 +5044,7 @@
 		(property "LCSC" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5391,7 +5055,7 @@
 		(property "Vendor SKU" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5407,7 +5071,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "R1903")
 					(unit 1)
 				)
@@ -5415,6 +5079,319 @@
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d64e8f3d-c2b7-4171-9d86-6d5b6a40d022"
 					(reference "R29003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:Connectors/OW-CONN-438600001")
+		(at 83.82 88.9 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b50b3080-7368-4d4e-856a-891e05063d35")
+		(property "Reference" "J1901"
+			(at 83.82 71.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "8P8C"
+			(at 83.82 73.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal"
+			(at 83.82 88.265 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 83.82 88.265 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "-40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Right Angle Unshielded 弯插 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-CONN-438600001"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "mpn_438600001_plugin"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "350"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "8P8C"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "connector"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "8P8C"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "Through Hole"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "438600001"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C293550"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C293550"
+			(at 83.82 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2548016f-95b7-4340-a569-cc49f1ee3022")
+		)
+		(pin "4"
+			(uuid "37020869-c3a2-46c6-8c43-d164c3c730ba")
+		)
+		(pin "7"
+			(uuid "9bb199a7-892c-434b-81a2-daee70ee8a08")
+		)
+		(pin "2"
+			(uuid "3c79cd37-9803-414b-99b2-9fa3e2e9ae81")
+		)
+		(pin "5"
+			(uuid "3285d30c-f825-401f-abd3-e368d782d557")
+		)
+		(pin "3"
+			(uuid "2f5643d4-3abc-4bcc-a764-cbcbd8d124fb")
+		)
+		(pin "6"
+			(uuid "3af6036b-22e7-4e1e-9d8c-2a07df00643c")
+		)
+		(pin "8"
+			(uuid "e195cb04-840c-4509-876a-ee88bd09eb8e")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
+					(reference "J1901")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d64e8f3d-c2b7-4171-9d86-6d5b6a40d022"
+					(reference "J29001")
 					(unit 1)
 				)
 			)
@@ -5687,7 +5664,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5698,7 +5675,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5714,7 +5691,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/70e37a28-cdc5-4459-951e-ac355ead117c"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/6d9677f1-c939-48a1-9cbd-fd22c5bc15ff"
 					(reference "R1901")
 					(unit 1)
 				)

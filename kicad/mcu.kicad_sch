@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-19")
-		(rev "0.1")
+		(date "2026-08-21")
+		(rev "0.2")
 		(company "Janelia Research Campus")
 	)
 	(lib_symbols

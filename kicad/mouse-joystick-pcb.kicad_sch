@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-08-19")
-		(rev "0.1")
+		(date "2026-08-21")
+		(rev "0.2")
 		(company "Janelia Research Campus")
 	)
 	(lib_symbols
@@ -132,12 +132,12 @@
 		(uuid "230a8e9a-5b09-49eb-824b-d25cdfdc3acb")
 	)
 	(no_connect
-		(at 127 50.8)
-		(uuid "37f1735f-2c6f-4abe-8d2f-c3cd6521c214")
-	)
-	(no_connect
 		(at 76.2 53.34)
 		(uuid "a57caf76-ae50-49a9-ae5d-709997122d3a")
+	)
+	(no_connect
+		(at 127 50.8)
+		(uuid "e8f1c050-9e5f-40d3-ac0d-aaae38bb7fd3")
 	)
 	(wire
 		(pts
@@ -1682,11 +1682,6 @@
 		(lib_id "orb_weaver_private:hv_to_5v_tpsm365r6")
 		(members "f5a6a5ae-2414-49e1-a4d6-370fa53922e9")
 	)
-	(group "pycontrol_behavior_port_rj45_boundary"
-		(uuid "2e7da69b-8de9-4ea0-82e7-57331fb0eb4c")
-		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary")
-		(members "37f1735f-2c6f-4abe-8d2f-c3cd6521c214" "70e37a28-cdc5-4459-951e-ac355ead117c")
-	)
 	(group "hv_input_36V_terminal_2pos_5p08_protected"
 		(uuid "521284fb-53ef-47f7-b4aa-11075ee04a1d")
 		(lib_id "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected")
@@ -1696,6 +1691,11 @@
 		(uuid "5c57b5d4-d1ab-47ee-aa2e-677d67fc6d60")
 		(lib_id "orb_weaver_private:5v_to_3v3_tps73733")
 		(members "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
+	)
+	(group "pycontrol_behavior_port_rj45_boundary"
+		(uuid "8ea07b9a-e74b-40d3-9ff9-46f6b16b4ac0")
+		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary")
+		(members "6d9677f1-c939-48a1-9cbd-fd22c5bc15ff" "e8f1c050-9e5f-40d3-ac0d-aaae38bb7fd3")
 	)
 	(group "usb2"
 		(uuid "cca39a23-2437-40f9-98a0-a89657538488")
@@ -2401,7 +2401,7 @@
 		(fill
 			(color 0 0 0 0)
 		)
-		(uuid "70e37a28-cdc5-4459-951e-ac355ead117c")
+		(uuid "6d9677f1-c939-48a1-9cbd-fd22c5bc15ff")
 		(property "Sheetname" "pycontrol_behavior_port_rj45_boundary"
 			(at 101.6 47.5484 0)
 			(show_name no)
@@ -2426,7 +2426,7 @@
 		)
 		(pin "+5V_PYC" passive
 			(at 127 53.34 0)
-			(uuid "be5bcacc-0aee-48d2-b66b-0af5fe6f1b55")
+			(uuid "146e3b89-8dbd-4cf5-96fa-9cbbdbc08e10")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2436,7 +2436,7 @@
 		)
 		(pin "GND" passive
 			(at 127 55.88 0)
-			(uuid "bdb5a346-08d8-4a26-b3e9-d94787406346")
+			(uuid "5564b2a3-15dc-46f4-861f-a16d448003b1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2446,7 +2446,7 @@
 		)
 		(pin "PYC_CONN_5V" passive
 			(at 127 50.8 0)
-			(uuid "4162c7ca-65a2-4ea2-be40-fb7f2608589b")
+			(uuid "2d85c49f-c17c-42fe-9e66-738dd6510afd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2456,7 +2456,7 @@
 		)
 		(pin "PYC_DIO_A" bidirectional
 			(at 127 60.96 0)
-			(uuid "59ab1ef0-7ca2-4515-87d0-a277226175cf")
+			(uuid "6ea20a20-c25d-4abd-bbdc-da4569811eb6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2466,7 +2466,7 @@
 		)
 		(pin "PYC_DIO_B" bidirectional
 			(at 127 63.5 0)
-			(uuid "46a82aaf-a2dd-4f24-87b2-3c7bd63e5801")
+			(uuid "0ea2cb45-ee03-4443-92d9-58fb2922cbf7")
 			(effects
 				(font
 					(size 1.27 1.27)
