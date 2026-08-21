@@ -3,6 +3,15 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Active Task — v0.2 JLCPCB Fabrication Release (2026-08-21)
+
+- [x] Confirm the schematic, PCB title block, and front silkscreen identify v0.2.
+- [x] Confirm `J1901` uses the corrected
+  `orb_weaver_connectors:RJ45_Molex_43860-0001_Horizontal` footprint.
+- [x] Generate the managed JLCPCB fabrication package with ERC and DRC enabled.
+- [x] Verify the four copper layers, drill outputs, BOM/placement coverage, and
+  Gerber-only upload archive.
+
 ## Current Goal
 
 **Rev 0, rescoped 2026-08-13: get the interfaces on a board and send it to
@@ -534,7 +543,23 @@ Ready for active PCB work when:
 
 ## Progress Log
 
-- 2026-08-17 (latest): **Third pre-layout review. The schematic is cleared for
+- 2026-08-21 (latest): Generated the v0.2 JLCPCB fabrication release after the
+  corrected Molex 43860-0001 RJ45 footprint was propagated through
+  `kicad-libs`, the pyControl design block, and this board. ERC and DRC both
+  report zero violations and DRC reports zero unconnected pads. The release has
+  all four copper layers (`F.Cu`, `In1.Cu`, `In2.Cu`, `B.Cu`); the drill report
+  reflects the corrected RJ45 geometry with eight 0.89 mm plated signal holes
+  and two 3.25 mm unplated locating holes. The strict JLCPCB BOM resolves all 52
+  grouped rows / 142 unique physical designators, exactly matching 142 unique
+  placement rows with no missing or duplicate references. The Gerber-only
+  upload archive contains 14 files and has SHA-256
+  `fc628d4e5b39820e8a8128eaa3fcecd050a2dda82fce49c02ae428a683cf1976`.
+  The channel-pinned `orb-weaver-kicad-fab` was not used for the final package
+  because it emitted only the outer copper layers; the final release used the
+  current helper from the sibling `kicad-libs` checkout, which derives all
+  enabled copper layers from the board.
+
+- 2026-08-17: **Third pre-layout review. The schematic is cleared for
   layout.** ERC clean at every severity, 142 components, and — the check that
   actually mattered — **zero undefined cross-domain nets**, verified by walking the
   flattened netlist against the TMC5130A, RP2040, SN74LVC125A, SN74CB3Q3245,
