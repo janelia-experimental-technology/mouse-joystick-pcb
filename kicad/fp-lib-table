@@ -10,6 +10,8 @@
   (lib (name "Capacitor_SMD")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Capacitor_SMD.pretty")(options "")(descr "Official KiCad 10 SMD capacitor footprints")(hidden))
   (lib (name "Connector_PinHeader_2.54mm")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_PinHeader_2.54mm.pretty")(options "")(descr "Official KiCad 10 pin header footprints")(hidden))
   (lib (name "Connector_PinSocket_2.54mm")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_PinSocket_2.54mm.pretty")(options "")(descr "Official KiCad 10 pin sockets")(hidden))
+  (lib (name "Connector_Phoenix_MC")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_Phoenix_MC.pretty")(options "")(descr "Official KiCad 10 Phoenix Contact MC/MCV terminal block footprints")(hidden))
+  (lib (name "Connector_Phoenix_MSTB")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_Phoenix_MSTB.pretty")(options "")(descr "Official KiCad 10 Phoenix Contact MSTB/MSTBV terminal block footprints")(hidden))
   (lib (name "Connector_RJ")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_RJ.pretty")(options "")(descr "Official KiCad 10 RJ connector footprints")(hidden))
   (lib (name "Connector_USB")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Connector_USB.pretty")(options "")(descr "Official KiCad 10 USB connector footprints")(hidden))
   (lib (name "Crystal")(type "KiCad")(uri "${KICAD10_FOOTPRINT_DIR}/Crystal.pretty")(options "")(descr "Official KiCad 10 crystal footprints")(hidden))
