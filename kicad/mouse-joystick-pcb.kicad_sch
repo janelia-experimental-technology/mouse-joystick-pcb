@@ -1698,6 +1698,11 @@
 		(lib_id "orb_weaver_private:usb2_vertical")
 		(members "dad1e57c-854f-43f3-9db8-f09c341cb9f7")
 	)
+	(group "hv_input_36V_terminal_2pos_5p08_protected_vertical"
+		(uuid "a3cc5e7b-bed0-4ca1-b1ae-b9e54eff9a13")
+		(lib_id "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical")
+		(members "ba21fa9f-94ac-4c1f-9cf3-c5024c27dfc9")
+	)
 	(sheet
 		(at 228.6 48.26)
 		(size 25.4 78.74)
@@ -2514,6 +2519,132 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00"
 					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 50.8 25.4)
+		(size 25.4 15.24)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ba21fa9f-94ac-4c1f-9cf3-c5024c27dfc9")
+		(property "Sheetname" "hv_input_36V_terminal_2pos_5p08_protected_vertical"
+			(at 50.8 24.6884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "hv_input_36V_terminal_2pos_5p08_protected_vertical.kicad_sch"
+			(at 50.8 41.2246 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V_MCU" passive
+			(at 50.8 27.94 180)
+			(uuid "7b0acf9c-7a72-41a2-8d90-c279c72babf7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+36V" passive
+			(at 76.2 30.48 0)
+			(uuid "e37c6ae4-f705-4d30-8a87-e5cf3074ef64")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "DIAG_ENABLE" input
+			(at 50.8 38.1 180)
+			(uuid "0929f19c-659b-4b76-9974-75ae7e3d9a13")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ENABLE" input
+			(at 50.8 30.48 180)
+			(uuid "e1ee120d-0687-433f-9392-fd6745ff3ae9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 76.2 33.02 0)
+			(uuid "588f9b49-5933-4a31-a9f2-50e4b2401731")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "HV_IN" passive
+			(at 76.2 27.94 0)
+			(uuid "09a58514-a71c-4f1f-87c7-3f57d300062a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "SNS" output
+			(at 50.8 33.02 180)
+			(uuid "c61bbb42-241e-4531-9359-22b6e459e5a8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{FAULT}" output
+			(at 50.8 35.56 180)
+			(uuid "f6aac3b1-bfa5-441b-87e8-c60072929a68")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "19")
 				)
 			)
 		)
