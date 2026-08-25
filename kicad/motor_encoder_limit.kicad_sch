@@ -4022,6 +4022,11 @@
 			)
 		)
 	)
+	(group "limit_switch_debounced_input_vertical"
+		(uuid "5a3570dd-a0b5-402b-acfc-71fa1539381e")
+		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
+		(members "11ccfdba-bbcc-447f-9dc4-a218a8f48f58")
+	)
 	(group "quadrature_encoder_input_5v_sn74lvc2g17"
 		(uuid "834683ca-df57-4f65-a058-b53596a4edb1")
 		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
@@ -4031,6 +4036,82 @@
 		(uuid "e1dbb2ab-2fac-4374-a8f6-ddb1ebf9e8cc")
 		(lib_id "orb_weaver_private:tmc5130")
 		(members "8a48c44b-14a3-493a-ae50-8a9a036fc774")
+	)
+	(sheet
+		(at 203.2 101.6)
+		(size 25.4 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "11ccfdba-bbcc-447f-9dc4-a218a8f48f58")
+		(property "Sheetname" "limit_switch_debounced_input_vertical"
+			(at 203.2 100.8884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "limit_switch_debounced_input_vertical.kicad_sch"
+			(at 203.2 109.8046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V_SW" passive
+			(at 203.2 104.14 180)
+			(uuid "6c55dd0d-db9b-475a-a83d-cf053731f209")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 203.2 106.68 180)
+			(uuid "7fe96e7c-3fa1-441d-9c45-42330c44ab58")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LIMIT_SW" output
+			(at 228.6 104.14 0)
+			(uuid "bffe7809-c5c5-47b0-9715-c92cf2327db5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "13")
+				)
+			)
+		)
 	)
 	(sheet
 		(at 101.6 76.2)

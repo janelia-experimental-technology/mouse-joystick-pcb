@@ -1601,6 +1601,10 @@
       "tmc5130"
     ],
     [
+      "11ccfdba-bbcc-447f-9dc4-a218a8f48f58",
+      "limit_switch_debounced_input_vertical"
+    ],
+    [
       "06eec09a-0aa1-42bf-b6b4-8bb4568ed4cf",
       "instrument_port"
     ],
