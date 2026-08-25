@@ -121,7 +121,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "5000"
+			(property "JLC Qty" "4995"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -483,7 +483,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "3000"
+			(property "JLC Qty" "2980"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -858,7 +858,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "2000"
+			(property "JLC Qty" "1977"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1233,7 +1233,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "2000"
+			(property "JLC Qty" "1985"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1608,7 +1608,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "4000"
+			(property "JLC Qty" "3980"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1982,7 +1982,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "240"
+			(property "JLC Qty" "235"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3180,7 +3180,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "2000"
+		(property "JLC Qty" "1977"
 			(at 50.8 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -3488,7 +3488,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "2000"
+		(property "JLC Qty" "1977"
 			(at 66.04 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -3796,7 +3796,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "4000"
+		(property "JLC Qty" "3980"
 			(at 96.52 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -4104,7 +4104,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "5000"
+		(property "JLC Qty" "4995"
 			(at 203.2 85.09 0)
 			(hide yes)
 			(show_name yes)
@@ -4434,7 +4434,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "2000"
+		(property "JLC Qty" "1985"
 			(at 233.68 85.09 0)
 			(hide yes)
 			(show_name yes)
@@ -4720,7 +4720,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "2000"
+		(property "JLC Qty" "1977"
 			(at 81.28 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -5028,7 +5028,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "3000"
+		(property "JLC Qty" "2980"
 			(at 111.76 82.55 0)
 			(hide yes)
 			(show_name yes)
@@ -5358,7 +5358,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "2000"
+		(property "JLC Qty" "1985"
 			(at 218.44 85.09 0)
 			(hide yes)
 			(show_name yes)
@@ -5645,7 +5645,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "240"
+		(property "JLC Qty" "235"
 			(at 167.64 88.9 0)
 			(hide yes)
 			(show_name yes)

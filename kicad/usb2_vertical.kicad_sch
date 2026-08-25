@@ -5,10 +5,8 @@
 	(uuid "019304eb-05ff-4404-8cf0-5ac23f37fe01")
 	(paper "A4")
 	(title_block
-		(title "mouse-joystick-pcb")
-		(date "2026-08-25")
-		(rev "0.3")
-		(company "Janelia Research Campus")
+		(title "Orb Weaver Design Block Mining")
+		(date "2026-08-24")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -123,7 +121,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10211"
+			(property "JLC Qty" "10054"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -387,7 +385,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "orb_weaver_internal:All/OW-CONN-USB-C-USB2-SMD"
+		(symbol "orb_weaver_internal:All/OW-CONN-USB-C-USB2-SMD-VERT"
 			(pin_names
 				(offset 1.016)
 			)
@@ -408,7 +406,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" ""
+			(property "Value" "USB-C"
 				(at -11.176 0 90)
 				(show_name no)
 				(do_not_autoplace no)
@@ -419,7 +417,7 @@
 					)
 				)
 			)
-			(property "Footprint" "orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal"
+			(property "Footprint" "orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical"
 				(at 3.81 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -441,7 +439,7 @@
 					)
 				)
 			)
-			(property "Description" "USB-C receptacle for USB2 designs"
+			(property "Description" "USB-C receptacle for USB2 designs, vertical top-entry mount"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -452,7 +450,7 @@
 					)
 				)
 			)
-			(property "OW_PART" "OW-CONN-USB-C-USB2-SMD"
+			(property "OW_PART" "OW-CONN-USB-C-USB2-SMD-VERT"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -463,7 +461,7 @@
 					)
 				)
 			)
-			(property "PartID" "sym_orb_weaver_connectors_connector_usb_c_receptacle_usb2_0_16p_gt_usb_7047c"
+			(property "PartID" "sym_orb_weaver_connectors_usb_c_receptacle_usb2_0_16p_usb4145_03_0070_c"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -474,7 +472,7 @@
 					)
 				)
 			)
-			(property "LCSC" "C963218"
+			(property "LCSC" "C5815189"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -485,7 +483,7 @@
 					)
 				)
 			)
-			(property "Vendor SKU" "C963218"
+			(property "Vendor SKU" "C5815189"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -496,7 +494,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1775"
+			(property "JLC Qty" "200"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -507,7 +505,7 @@
 					)
 				)
 			)
-			(property "Name" "USB-C USB2 receptacle connector"
+			(property "Name" "USB-C USB2 receptacle connector, vertical"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -551,7 +549,7 @@
 					)
 				)
 			)
-			(property "ReqFootprint" "orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal"
+			(property "ReqFootprint" "orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -562,7 +560,7 @@
 					)
 				)
 			)
-			(property "ReqPackage" "USB-C-SMD"
+			(property "ReqPackage" "USB-C-SMD-VERTICAL"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -672,7 +670,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "OW-CONN-USB-C-USB2-SMD USB-C USB2 receptacle connector connectors USB-C receptacle for USB2 designs orb_weaver_connectors:USB_C_Receptacle_USB2.0_16P_GT-USB-7047C orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal connector USB-C or"
+			(property "ki_keywords" "OW-CONN-USB-C-USB2-SMD-VERT USB-C USB2 receptacle connector, vertical connectors USB-C USB-C receptacle for USB2 designs, vertical top-entry mount orb_weaver_connectors:USB_C_Receptacle_USB2.0_16P_USB4145-03-0070-C orb_weaver_connectors:USB_C_Receptacle_G"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -683,7 +681,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal"
+			(property "ki_fp_filters" "orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -694,7 +692,7 @@
 					)
 				)
 			)
-			(symbol "All/OW-CONN-USB-C-USB2-SMD_0_0"
+			(symbol "All/OW-CONN-USB-C-USB2-SMD-VERT_0_0"
 				(rectangle
 					(start -0.254 -17.78)
 					(end 0.254 -16.764)
@@ -795,7 +793,7 @@
 					)
 				)
 			)
-			(symbol "All/OW-CONN-USB-C-USB2-SMD_0_1"
+			(symbol "All/OW-CONN-USB-C-USB2-SMD-VERT_0_1"
 				(rectangle
 					(start -10.16 17.78)
 					(end 10.16 -17.78)
@@ -996,7 +994,7 @@
 					)
 				)
 			)
-			(symbol "All/OW-CONN-USB-C-USB2-SMD_1_1"
+			(symbol "All/OW-CONN-USB-C-USB2-SMD-VERT_1_1"
 				(pin passive line
 					(at 0 -22.86 90)
 					(length 5.08)
@@ -1324,6 +1322,44 @@
 						)
 					)
 				)
+				(pin passive line
+					(at -7.62 -22.86 90)
+					(length 5.08)
+					(hide yes)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -7.62 -22.86 90)
+					(length 5.08)
+					(hide yes)
+					(name "SHIELD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "S4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(embedded_fonts no)
 		)
@@ -1441,7 +1477,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "35"
+			(property "JLC Qty" "525"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1855,7 +1891,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1020"
+			(property "JLC Qty" "1008"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2539,7 +2575,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "4341"
+			(property "JLC Qty" "4321"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2907,292 +2943,42 @@
 		)
 	)
 	(junction
-		(at 129.54 93.98)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "056ac967-ec69-42e8-81f0-ec8c873125aa")
-	)
-	(junction
 		(at 109.22 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "1b76ac3f-4fac-4e75-9548-43a3f5b899d5")
+		(uuid "2fa315d4-56f0-4f68-9685-fa3a6413fd60")
 	)
 	(junction
 		(at 111.76 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "6f051ed1-69ad-4c40-8d22-57cb9a1f19e8")
+		(uuid "48310d61-5a5f-46d4-bb4a-2286a2d37b68")
 	)
 	(junction
 		(at 129.54 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f8b4b300-2ff8-4cb3-9cbf-ab765d5235f3")
+		(uuid "9d3a8b5d-e6fd-43b8-9ff2-017395b673b3")
+	)
+	(junction
+		(at 129.54 93.98)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bb0e0dc0-0e2a-408b-b6bc-77086130368a")
 	)
 	(junction
 		(at 114.3 68.58)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "fb28bb82-85e4-4a30-b2c8-185ff568f2c1")
-	)
-	(no_connect
-		(at 127 109.22)
-		(uuid "6b5d29b7-ba5e-4027-9765-bd007689c42d")
+		(uuid "c238d225-2b86-4c5a-93bc-eba38e33bca7")
 	)
 	(no_connect
 		(at 127 106.68)
-		(uuid "80b477c6-011a-488e-a1af-b18187275315")
+		(uuid "0fdc23de-3a5b-46ac-9bc8-de120407ec0d")
 	)
-	(wire
-		(pts
-			(xy 101.6 40.64) (xy 101.6 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "040083e1-6b30-47e1-9142-c3b29c84a066")
-	)
-	(wire
-		(pts
-			(xy 215.9 101.6) (xy 215.9 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "04170d69-5c97-4e3a-abf9-f5c8dc14940c")
-	)
-	(wire
-		(pts
-			(xy 104.14 116.84) (xy 104.14 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ef22a0a-7ac3-47c9-b381-6b9513a2f13a")
-	)
-	(wire
-		(pts
-			(xy 200.66 88.9) (xy 200.66 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0effff02-1a48-4407-b642-85874c7773a5")
-	)
-	(wire
-		(pts
-			(xy 127 91.44) (xy 129.54 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "109abee2-f3db-4f74-a4b7-3a5b22fbbcc4")
-	)
-	(wire
-		(pts
-			(xy 129.54 93.98) (xy 139.7 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "136f369f-39e9-4623-a57e-df7afa78895b")
-	)
-	(wire
-		(pts
-			(xy 111.76 116.84) (xy 111.76 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "27303873-c8cd-4452-8ab1-454382d9e43c")
-	)
-	(wire
-		(pts
-			(xy 152.4 68.58) (xy 152.4 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2dbb26ed-81e3-43ab-aaae-9ceb43ebd6d9")
-	)
-	(wire
-		(pts
-			(xy 76.2 45.72) (xy 78.74 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2eba9292-4259-4b7b-92ac-ead45f8a4073")
-	)
-	(wire
-		(pts
-			(xy 200.66 101.6) (xy 200.66 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3bc8d868-8f29-43e3-b37b-b908313b6767")
-	)
-	(wire
-		(pts
-			(xy 109.22 68.58) (xy 111.76 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3edc55f7-050d-47be-80ae-02d7e8c5d059")
-	)
-	(wire
-		(pts
-			(xy 187.96 63.5) (xy 185.42 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "47e5229b-1235-4a58-991f-977b34616d26")
-	)
-	(wire
-		(pts
-			(xy 127 96.52) (xy 129.54 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4a2f1444-e2f2-4774-b900-4c6d740ee323")
-	)
-	(wire
-		(pts
-			(xy 129.54 96.52) (xy 129.54 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6616418e-e991-4802-9ff7-951bdf496e34")
-	)
-	(wire
-		(pts
-			(xy 129.54 96.52) (xy 139.7 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "68b045ae-b4ec-4a78-85ef-f9e4ac4345f0")
-	)
-	(wire
-		(pts
-			(xy 177.8 63.5) (xy 180.34 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b687815-a7cf-4338-8d90-b55d16d5d11c")
-	)
-	(wire
-		(pts
-			(xy 109.22 68.58) (xy 109.22 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7629ff36-934f-45cb-85a1-88b03779b06b")
-	)
-	(wire
-		(pts
-			(xy 129.54 91.44) (xy 129.54 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "88398b83-fdf5-45e6-9560-00cc5dfdd13c")
-	)
-	(wire
-		(pts
-			(xy 127 99.06) (xy 129.54 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "91650601-8997-4da9-84d9-1d3b1184ddcd")
-	)
-	(wire
-		(pts
-			(xy 215.9 88.9) (xy 215.9 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9220abdd-da75-4051-b321-061e3b471ab4")
-	)
-	(wire
-		(pts
-			(xy 149.86 96.52) (xy 152.4 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "96ea5f3c-9675-470d-a0d0-f20769d75fac")
-	)
-	(wire
-		(pts
-			(xy 106.68 68.58) (xy 109.22 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99169e78-9ffd-4125-9af3-f9e1b5c1c534")
-	)
-	(wire
-		(pts
-			(xy 144.78 86.36) (xy 144.78 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9d8df0b6-2ed4-4b71-a9d8-4407916a1638")
-	)
-	(wire
-		(pts
-			(xy 111.76 68.58) (xy 114.3 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b12f948a-5572-4ff0-9cde-f7326809c8d5")
-	)
-	(wire
-		(pts
-			(xy 149.86 93.98) (xy 152.4 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b9322e3b-1b76-4f47-926c-da41261dca57")
+	(no_connect
+		(at 127 109.22)
+		(uuid "aefc0558-2f8e-47f0-89c0-f587439fbbf3")
 	)
 	(wire
 		(pts
@@ -3202,97 +2988,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ba7a80a8-0229-4202-baf6-bf32fb2b6986")
-	)
-	(wire
-		(pts
-			(xy 127 83.82) (xy 129.54 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bd263cab-b067-4752-bdb8-f485a2034ffb")
-	)
-	(wire
-		(pts
-			(xy 106.68 116.84) (xy 106.68 119.38)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c375d148-0710-4691-9950-7be0bea64b2f")
-	)
-	(wire
-		(pts
-			(xy 114.3 68.58) (xy 116.84 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c4d60c50-cf65-4343-a1c0-e4f85753c55b")
-	)
-	(wire
-		(pts
-			(xy 152.4 58.42) (xy 152.4 60.96)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d5e9be05-f838-4572-97bd-c96683ebccfa")
-	)
-	(wire
-		(pts
-			(xy 127 93.98) (xy 129.54 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db7a4c02-2fcc-4429-a962-e1fccf890a8b")
-	)
-	(wire
-		(pts
-			(xy 144.78 101.6) (xy 144.78 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e04831b7-6b99-4385-be32-51ad4aa49146")
-	)
-	(wire
-		(pts
-			(xy 76.2 48.26) (xy 78.74 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e581de02-ab9b-4aa3-8161-1b9047dec186")
-	)
-	(wire
-		(pts
-			(xy 111.76 66.04) (xy 111.76 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e70b10d1-d2ba-4d01-bf97-e3422e5fd0ec")
-	)
-	(wire
-		(pts
-			(xy 127 86.36) (xy 129.54 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "eb21993b-3643-467a-b78a-883dd653f6ea")
+		(uuid "0797edba-3faf-4d30-b431-7b50263ebe4b")
 	)
 	(wire
 		(pts
@@ -3302,17 +2998,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ebeaae52-61a1-466f-a0e8-0be2e89226aa")
-	)
-	(wire
-		(pts
-			(xy 116.84 68.58) (xy 116.84 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fabc9078-fda3-4363-b8ad-d5f7a18c2c95")
+		(uuid "0c352c26-377a-4eb2-a511-e751a86a388c")
 	)
 	(wire
 		(pts
@@ -3322,137 +3008,357 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fc770b5a-7e11-4afd-bae6-969ce84dd70c")
+		(uuid "0cd7dfb9-353e-4bcd-aed9-cfb46a55910d")
 	)
-	(label "GND"
-		(at 106.68 119.38 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 149.86 96.52) (xy 152.4 96.52)
 		)
-		(uuid "0516106c-cfc9-46d9-900f-0ee5faf729cc")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e630117-7789-4e05-bb09-6c4f0b120be1")
 	)
-	(label "VBUS"
-		(at 78.74 45.72 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 101.6 40.64) (xy 101.6 43.18)
 		)
-		(uuid "26d8b15e-366e-4fe1-afb6-c3e8489cb910")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "177897c6-d649-462b-a95a-668f53fa6171")
 	)
-	(label "GND"
-		(at 104.14 119.38 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 109.22 68.58) (xy 109.22 71.12)
 		)
-		(uuid "4382bada-a988-41c5-8cfe-ac03f1c31380")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cfaf47f-c604-461a-8b12-fedc3dc5fed2")
 	)
-	(label "CC1"
-		(at 129.54 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 111.76 116.84) (xy 111.76 119.38)
 		)
-		(uuid "43b9bb5c-762e-4232-81a9-db70c69d8cb6")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "22194cd4-2d56-4c47-95f0-78f7fb5304cb")
 	)
-	(label "+5V_USB"
-		(at 78.74 48.26 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 127 99.06) (xy 129.54 99.06)
 		)
-		(uuid "43be0099-2e9c-4e95-94e2-f82d44d4ec30")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b17b32a-4176-4798-b670-9c259fc9dbc2")
 	)
-	(label "GND"
-		(at 78.74 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 129.54 91.44) (xy 129.54 93.98)
 		)
-		(uuid "4542becd-b939-4174-ad47-4e1211e3558d")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2be60ded-9596-4657-b9d8-fbc0f39f73f8")
 	)
-	(label "VBUS"
-		(at 101.6 43.18 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 104.14 116.84) (xy 104.14 119.38)
 		)
-		(uuid "63038eb4-72b1-4ce1-87ed-5920b67a589d")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3dc5093c-dfc4-407d-a4a6-661f3c9605d8")
 	)
-	(label "VBUS"
-		(at 177.8 63.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 200.66 88.9) (xy 200.66 86.36)
 		)
-		(uuid "6806ed44-0574-4881-b1c7-232b00ef3f55")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b2e1311-e0d8-4320-aa83-c586aa278157")
 	)
-	(label "CC2"
-		(at 215.9 86.36 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 76.2 48.26) (xy 78.74 48.26)
 		)
-		(uuid "6e59fe46-edef-4414-9291-cb2768cca1ee")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5cc82928-1ba9-4fc0-bf8a-1a3b3f249abf")
 	)
-	(label "GND"
-		(at 111.76 119.38 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 106.68 68.58) (xy 109.22 68.58)
 		)
-		(uuid "79ed5af0-ae19-4808-ade4-605ded2c849c")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e2412de-7643-4616-ba7c-e2f751354df4")
 	)
-	(label "CC2"
-		(at 129.54 86.36 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(wire
+		(pts
+			(xy 111.76 66.04) (xy 111.76 68.58)
 		)
-		(uuid "7fee8e69-471e-48b7-98ca-29ec6750d327")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "73110215-839c-4b80-ba54-cd440daf1672")
 	)
-	(label "GND"
-		(at 144.78 104.14 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 149.86 93.98) (xy 152.4 93.98)
 		)
-		(uuid "841d66f5-b3b9-419f-986c-3f51797768c9")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7c9ff7bf-9217-47c7-9349-a84599eedee3")
 	)
-	(label "GND"
-		(at 215.9 104.14 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
+	(wire
+		(pts
+			(xy 127 93.98) (xy 129.54 93.98)
 		)
-		(uuid "9f17c50e-6e0b-4202-8b79-99e9e30462ae")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86797a5e-1908-4d63-a646-1ead685441ef")
+	)
+	(wire
+		(pts
+			(xy 152.4 58.42) (xy 152.4 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8792451c-fffc-4c75-b0e9-7a0ecaa7abdb")
+	)
+	(wire
+		(pts
+			(xy 215.9 101.6) (xy 215.9 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93986bc7-ae22-484c-a354-f6489c713ff1")
+	)
+	(wire
+		(pts
+			(xy 116.84 68.58) (xy 116.84 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "945412e8-55fa-4aeb-8079-59ad9cbf8404")
+	)
+	(wire
+		(pts
+			(xy 127 86.36) (xy 129.54 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "95ea4b12-c547-4211-8de2-8c45981420c1")
+	)
+	(wire
+		(pts
+			(xy 144.78 101.6) (xy 144.78 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cdc3bdb-0265-4b3c-ae91-708495262ee0")
+	)
+	(wire
+		(pts
+			(xy 111.76 68.58) (xy 114.3 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d6d0e8f-a91d-4b5a-bfb2-ca9cd5915744")
+	)
+	(wire
+		(pts
+			(xy 127 91.44) (xy 129.54 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a335254f-3e58-4d78-bf30-386a132831ec")
+	)
+	(wire
+		(pts
+			(xy 144.78 86.36) (xy 144.78 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6bdf757-975f-4616-a678-ba515665bede")
+	)
+	(wire
+		(pts
+			(xy 109.22 68.58) (xy 111.76 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaa300cb-e0d9-4288-9a26-0d914534198d")
+	)
+	(wire
+		(pts
+			(xy 114.3 68.58) (xy 116.84 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abfaa5b2-0d14-42b7-afd3-efd43735b26c")
+	)
+	(wire
+		(pts
+			(xy 200.66 101.6) (xy 200.66 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b31a7134-1898-4b2d-ba37-6954838845b5")
+	)
+	(wire
+		(pts
+			(xy 129.54 93.98) (xy 139.7 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba34b7f6-faad-4810-b612-80e90802c43a")
+	)
+	(wire
+		(pts
+			(xy 127 83.82) (xy 129.54 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc0cbde1-53f5-4d22-953f-f03fdc85f6f0")
+	)
+	(wire
+		(pts
+			(xy 187.96 63.5) (xy 185.42 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c03107ce-89b4-4101-a18f-863aef8a707c")
+	)
+	(wire
+		(pts
+			(xy 129.54 96.52) (xy 139.7 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7c15ed7-a589-4eea-9b7c-f8ba1970a30f")
+	)
+	(wire
+		(pts
+			(xy 76.2 45.72) (xy 78.74 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce4cc59f-be46-4471-b6cc-511ecae60839")
+	)
+	(wire
+		(pts
+			(xy 177.8 63.5) (xy 180.34 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d03dab9c-9de7-4804-8787-78f8fbb6522d")
+	)
+	(wire
+		(pts
+			(xy 129.54 96.52) (xy 129.54 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2a73073-cd4c-4bfa-8448-bd0585d28703")
+	)
+	(wire
+		(pts
+			(xy 106.68 116.84) (xy 106.68 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d762c032-5a98-4724-999d-fe7232667e3d")
+	)
+	(wire
+		(pts
+			(xy 127 96.52) (xy 129.54 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9294356-6208-4b68-af8c-c85ddc3aa15c")
+	)
+	(wire
+		(pts
+			(xy 215.9 88.9) (xy 215.9 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da8b8aa8-72dd-4780-802f-031b870b5a94")
+	)
+	(wire
+		(pts
+			(xy 152.4 68.58) (xy 152.4 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ebb8cee4-fe9a-4fdb-9faa-4249bc2cc70e")
 	)
 	(label "VBUS"
 		(at 111.76 66.04 90)
@@ -3462,37 +3368,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a97c311c-0f3e-46a4-91f8-b66e79fe3ecf")
-	)
-	(label "CC1"
-		(at 200.66 86.36 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "af77d962-38bd-4f18-8eff-eaa169280e29")
-	)
-	(label "+5V_USB"
-		(at 187.96 63.5 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c76279fd-92ff-46bd-bd35-713276abf9b1")
-	)
-	(label "GND"
-		(at 200.66 104.14 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ca2596de-c093-4a94-814b-19e386d587e0")
+		(uuid "00e221c1-d21a-420b-bf25-d16397f37261")
 	)
 	(label "VBUS"
 		(at 144.78 86.36 90)
@@ -3502,7 +3378,77 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "db5e48fc-4357-4ed6-8dd1-60ba36f86630")
+		(uuid "014daee8-262f-4070-b992-0b6bdc371379")
+	)
+	(label "CC1"
+		(at 129.54 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0b77019e-f19c-4447-92b8-224a06ee009d")
+	)
+	(label "VBUS"
+		(at 177.8 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "16c7ddd8-0bde-43d3-aae3-19b3762c6397")
+	)
+	(label "VBUS"
+		(at 101.6 43.18 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1e023201-3893-47a8-b683-a6c674121128")
+	)
+	(label "GND"
+		(at 111.76 119.38 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "29751409-7a13-422f-bf72-4b3f92d999b2")
+	)
+	(label "CC2"
+		(at 215.9 86.36 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "38a5b837-f46e-44cf-b8d2-40085fc509a5")
+	)
+	(label "CC1"
+		(at 200.66 86.36 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "40afad03-2a1c-4103-be92-036b49bb5313")
+	)
+	(label "CC2"
+		(at 129.54 86.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4315ee5b-3a00-4c05-9718-6080f18aa0c0")
 	)
 	(label "GND"
 		(at 152.4 71.12 270)
@@ -3512,7 +3458,87 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f90d528a-1f64-4da6-8c2c-d9c3a1dd39fb")
+		(uuid "5da0244d-b078-4a30-88a5-0bc1077587ee")
+	)
+	(label "+5V_USB"
+		(at 187.96 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "96b5d8ba-2af6-45ab-b50d-748ce82a8a0d")
+	)
+	(label "VBUS"
+		(at 78.74 45.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9814cbd3-d481-4296-a2d1-fa2b4205e6bc")
+	)
+	(label "GND"
+		(at 104.14 119.38 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "98a44f79-03e8-45d3-a513-55b94db7da77")
+	)
+	(label "GND"
+		(at 78.74 50.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "aea83565-360f-47e3-96a1-74e4e84c9ce7")
+	)
+	(label "GND"
+		(at 106.68 119.38 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c4d51f84-affc-46d4-ae9c-0da9e733ba69")
+	)
+	(label "+5V_USB"
+		(at 78.74 48.26 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "caa34f61-407a-49d5-a276-c455aa4e4926")
+	)
+	(label "GND"
+		(at 144.78 104.14 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d5d7fea7-c0d8-4262-bf76-5af008650e77")
+	)
+	(label "GND"
+		(at 215.9 104.14 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e5180e40-85b2-40f4-bf56-ac8f93d38f17")
 	)
 	(label "VBUS"
 		(at 152.4 58.42 90)
@@ -3522,51 +3548,17 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fba43900-12f1-43d8-b3ac-7f893f9a9b0e")
+		(uuid "f1379b7d-5ee4-4478-b93f-73eb0b38e6d8")
 	)
-	(hierarchical_label "USB_D+"
-		(shape bidirectional)
-		(at 152.4 96.52 0)
+	(label "GND"
+		(at 200.66 104.14 270)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right bottom)
 		)
-		(uuid "427134ea-3135-45d9-a314-004958f2c287")
-	)
-	(hierarchical_label "USB_D-"
-		(shape bidirectional)
-		(at 152.4 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6166f0d0-60ec-410c-9dbc-6ba527ca8f42")
-	)
-	(hierarchical_label "VBUS"
-		(shape passive)
-		(at 76.2 45.72 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "be3bf899-a273-4c53-823c-cb2a6c908864")
-	)
-	(hierarchical_label "GND"
-		(shape passive)
-		(at 76.2 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "de849835-d210-41ff-a2ff-7b61784fccfe")
+		(uuid "faa13e24-4e6d-4b63-8d14-50e2169f67c5")
 	)
 	(hierarchical_label "+5V_USB"
 		(shape passive)
@@ -3577,11 +3569,55 @@
 			)
 			(justify right)
 		)
-		(uuid "e9006e42-ff04-44dd-9388-53a7efc5298f")
+		(uuid "26047d3f-8792-4b31-a84e-c6559987054f")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 76.2 50.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "38f4efdb-4e40-489e-a9d2-cf7fe94656db")
+	)
+	(hierarchical_label "VBUS"
+		(shape passive)
+		(at 76.2 45.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "478e5ec3-3bc0-4818-8dd4-b3699f96adbe")
+	)
+	(hierarchical_label "USB_D+"
+		(shape bidirectional)
+		(at 152.4 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b75dc6c8-a7b9-4464-8119-10745100b7fa")
+	)
+	(hierarchical_label "USB_D-"
+		(shape bidirectional)
+		(at 152.4 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "efefeda5-9aae-4aac-b86b-56463c141535")
 	)
 	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-MBR120VLSFT1G")
-		(at 182.88 63.5 180)
+		(lib_id "orb_weaver_internal:All/OW-CONN-USB-C-USB2-SMD-VERT")
+		(at 111.76 93.98 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3590,9 +3626,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "09f9d174-64e8-46b9-8f48-06cbaf298dd9")
-		(property "Reference" "D301"
-			(at 183.007 57.15 0)
+		(uuid "209f383d-7927-4c04-b30a-21fe2c8eb9bb")
+		(property "Reference" "J301"
+			(at 100.33 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3600,10 +3636,11 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
+				(justify right)
 			)
 		)
-		(property "Value" "D_SCHOTTKY_20V_1A"
-			(at 183.007 59.69 0)
+		(property "Value" "USB-C"
+			(at 100.33 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3611,32 +3648,33 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
+				(justify right)
 			)
 		)
-		(property "Footprint" "orb_weaver_smd:SOD-123FL"
-			(at 186.69 62.992 0)
+		(property "Footprint" "orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical"
+			(at 115.57 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.27 1.27)
 				)
 			)
 		)
 		(property "Datasheet" ""
-			(at 184.15 65.532 0)
+			(at 115.57 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "-65℃~+125℃ 1 Independent 1A 20V 300mV@1A 45A 600uA@20V SOD-123FL Schottky Diodes ROHS"
-			(at 182.88 63.5 0)
+		(property "Description" "USB-C receptacle for USB2 designs, vertical top-entry mount"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3646,8 +3684,8 @@
 				)
 			)
 		)
-		(property "OW_PART" "OW-MISC-MBR120VLSFT1G"
-			(at 182.88 63.5 0)
+		(property "OW_PART" "OW-CONN-USB-C-USB2-SMD-VERT"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3657,8 +3695,8 @@
 				)
 			)
 		)
-		(property "PartID" "sym_orb_weaver_misc_d_schottky_20v_1a"
-			(at 182.88 63.5 0)
+		(property "PartID" "sym_orb_weaver_connectors_usb_c_receptacle_usb2_0_16p_usb4145_03_0070_c"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3668,8 +3706,8 @@
 				)
 			)
 		)
-		(property "JLC Qty" "35"
-			(at 182.88 63.5 0)
+		(property "JLC Qty" "200"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3679,8 +3717,8 @@
 				)
 			)
 		)
-		(property "Name" "D SCHOTTKY 20V 1A"
-			(at 182.88 63.5 0)
+		(property "Name" "USB-C USB2 receptacle connector, vertical"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3690,8 +3728,8 @@
 				)
 			)
 		)
-		(property "Group" "misc"
-			(at 182.88 63.5 0)
+		(property "Group" "connectors"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3701,8 +3739,8 @@
 				)
 			)
 		)
-		(property "ReqType" "diode"
-			(at 182.88 63.5 0)
+		(property "ReqType" "connector"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3712,8 +3750,8 @@
 				)
 			)
 		)
-		(property "ReqValue" "D_SCHOTTKY_20V_1A"
-			(at 182.88 63.5 0)
+		(property "ReqValue" "USB-C"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3723,8 +3761,8 @@
 				)
 			)
 		)
-		(property "ReqFootprint" "orb_weaver_smd:SOD-123FL"
-			(at 182.88 63.5 0)
+		(property "ReqFootprint" "orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3734,8 +3772,8 @@
 				)
 			)
 		)
-		(property "ReqPackage" "SOD-123FL"
-			(at 182.88 63.5 0)
+		(property "ReqPackage" "USB-C-SMD-VERTICAL"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3745,8 +3783,8 @@
 				)
 			)
 		)
-		(property "ReqMinVoltage" ""
-			(at 182.88 63.5 0)
+		(property "ReqMinVoltage" "5V"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3756,8 +3794,8 @@
 				)
 			)
 		)
-		(property "ReqMinCurrent" ""
-			(at 182.88 63.5 0)
+		(property "ReqMinCurrent" "3A"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3768,7 +3806,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 182.88 63.5 0)
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3779,7 +3817,7 @@
 			)
 		)
 		(property "ReqTolerance" ""
-			(at 182.88 63.5 0)
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3790,7 +3828,7 @@
 			)
 		)
 		(property "ReqDielectric" ""
-			(at 182.88 63.5 0)
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3800,8 +3838,8 @@
 				)
 			)
 		)
-		(property "ReqProtocol" ""
-			(at 182.88 63.5 0)
+		(property "ReqProtocol" "USB2"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3811,8 +3849,8 @@
 				)
 			)
 		)
-		(property "ReqRole" ""
-			(at 182.88 63.5 0)
+		(property "ReqRole" "usb-connector"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3822,8 +3860,8 @@
 				)
 			)
 		)
-		(property "ReqExactMPN" "MBR120VLSFT1G"
-			(at 182.88 63.5 0)
+		(property "ReqExactMPN" ""
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3834,7 +3872,7 @@
 			)
 		)
 		(property "ReqNotes" ""
-			(at 182.88 63.5 0)
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3844,8 +3882,8 @@
 				)
 			)
 		)
-		(property "LCSC" "C223608"
-			(at 182.88 63.5 0)
+		(property "LCSC" "C5815189"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3855,8 +3893,8 @@
 				)
 			)
 		)
-		(property "Vendor SKU" "C223608"
-			(at 182.88 63.5 0)
+		(property "Vendor SKU" "C5815189"
+			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3866,22 +3904,163 @@
 				)
 			)
 		)
-		(pin "2"
-			(uuid "2ac09782-969c-4455-9c04-622b726612f5")
+		(pin "A4"
+			(uuid "d3becb01-0f64-4cb1-850d-a5d802206624")
 		)
-		(pin "1"
-			(uuid "75783f7d-da7c-4243-94ee-1b962289c40c")
+		(pin "A6"
+			(uuid "133ab619-1c13-4d83-9717-7b8d88cb4ad5")
+		)
+		(pin "B12"
+			(uuid "d7d37151-03c4-4ca6-bdb4-268a44e004b0")
+		)
+		(pin "A7"
+			(uuid "2e010188-25c3-4932-a83c-0c24ff2c92b5")
+		)
+		(pin "B5"
+			(uuid "1df62ab6-07a2-4ab8-964b-3ec0a4cbcfd3")
+		)
+		(pin "B9"
+			(uuid "8d03125e-41b4-4298-8250-25657e6b6f61")
+		)
+		(pin "S3"
+			(uuid "70b839c9-ae01-459a-a741-f8faf364fc49")
+		)
+		(pin "S2"
+			(uuid "5d63f396-c00c-43b4-b160-1580952d002a")
+		)
+		(pin "A12"
+			(uuid "ab10b69f-544a-4aa3-a8ce-e704a310f66c")
+		)
+		(pin "S1"
+			(uuid "9aac5097-f256-4105-86f8-923f073f49d5")
+		)
+		(pin "B7"
+			(uuid "d94d2b17-c5f2-4ad9-9d7b-bc75d5722a5a")
+		)
+		(pin "A9"
+			(uuid "6bc89517-fec4-4e29-a3f6-bf9a997c9a21")
+		)
+		(pin "A1"
+			(uuid "0cb5c1ae-2e14-43ac-be66-53d2df5a3903")
+		)
+		(pin "B4"
+			(uuid "f40974f4-4c32-410a-8e49-a0b69f749823")
+		)
+		(pin "B1"
+			(uuid "65ad73f7-7fe5-41ad-8023-bb236aaa8fea")
+		)
+		(pin "A5"
+			(uuid "1b2e5d04-a441-4d16-b3cb-43de51f78fa5")
+		)
+		(pin "B8"
+			(uuid "bdc57032-ea50-4e29-8c21-d6df020c6a94")
+		)
+		(pin "B6"
+			(uuid "2d75ee09-3982-4908-acea-7ee99acbff4f")
+		)
+		(pin "A8"
+			(uuid "26e6d967-1786-4227-9e35-1650084fbf9a")
+		)
+		(pin "S4"
+			(uuid "458fc227-c5a2-49bd-8500-f30a0a8e879d")
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
-					(reference "D301")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
+					(reference "J301")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "J31001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 101.6 40.64 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "30c091a4-ef66-43a8-885e-5da175d5af5f")
+		(property "Reference" "#FLG0301"
+			(at 101.6 38.735 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 101.6 35.56 0)
+			(show_name no)
+			(do_not_autoplace yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 101.6 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "97c27481-00de-448d-9cb4-63a0f8d6abe5")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
+					(reference "#FLG0301")
 					(unit 1)
 				)
 			)
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
-					(reference "D11001")
+					(reference "#FLG011001")
+					(unit 1)
+				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "#FLG031001")
 					(unit 1)
 				)
 			)
@@ -3898,7 +4077,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "3b793ec3-8fe4-4850-a313-d39ac53fee14")
+		(uuid "7d317996-fe5e-4d1c-afb9-8653c242779c")
 		(property "Reference" "C301"
 			(at 156.21 63.4999 0)
 			(show_name no)
@@ -3976,7 +4155,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10211"
+		(property "JLC Qty" "10054"
 			(at 152.4 64.77 0)
 			(hide yes)
 			(show_name yes)
@@ -4175,14 +4354,14 @@
 			)
 		)
 		(pin "2"
-			(uuid "0339900e-d336-448a-bbbb-13d7ddc4d5fa")
+			(uuid "89d043ba-8014-4888-998d-cef08f55129e")
 		)
 		(pin "1"
-			(uuid "dbd1801d-68d5-4d76-abe3-ff3131f2b881")
+			(uuid "6ae5e1f4-cb60-4788-b741-f3e21a3568e7")
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
 					(reference "C301")
 					(unit 1)
 				)
@@ -4192,12 +4371,16 @@
 					(reference "C11001")
 					(unit 1)
 				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "C31001")
+					(unit 1)
+				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-ERJ2GEJ512X")
-		(at 200.66 95.25 0)
+		(lib_id "orb_weaver_internal:All/OW-MISC-MBR120VLSFT1G")
+		(at 182.88 63.5 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4206,9 +4389,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "490a7590-dd1c-4301-862c-d0c51a869bde")
-		(property "Reference" "R301"
-			(at 203.2 93.98 0)
+		(uuid "80f6a5a7-fb59-4c71-91f3-2d3c27fa892a")
+		(property "Reference" "D301"
+			(at 183.007 57.15 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4216,11 +4399,10 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "5.1k"
-			(at 203.2 96.52 0)
+		(property "Value" "D_SCHOTTKY_20V_1A"
+			(at 183.007 59.69 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4228,32 +4410,32 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 198.882 95.25 90)
+		(property "Footprint" "orb_weaver_smd:SOD-123FL"
+			(at 186.69 62.992 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.524 1.524)
 				)
 			)
 		)
 		(property "Datasheet" ""
-			(at 202.692 95.25 90)
+			(at 184.15 65.532 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
-			(at 200.66 95.25 0)
+		(property "Description" "-65℃~+125℃ 1 Independent 1A 20V 300mV@1A 45A 600uA@20V SOD-123FL Schottky Diodes ROHS"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4263,8 +4445,8 @@
 				)
 			)
 		)
-		(property "ReqExactMPN" ""
-			(at 200.66 95.25 0)
+		(property "OW_PART" "OW-MISC-MBR120VLSFT1G"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4274,8 +4456,8 @@
 				)
 			)
 		)
-		(property "PartID" "sym_orb_weaver_passives_r_5_1k_0402"
-			(at 200.66 95.25 0)
+		(property "PartID" "sym_orb_weaver_misc_d_schottky_20v_1a"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4285,8 +4467,8 @@
 				)
 			)
 		)
-		(property "ReqType" "resistor"
-			(at 200.66 95.25 0)
+		(property "JLC Qty" "525"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4296,8 +4478,8 @@
 				)
 			)
 		)
-		(property "Group" "passives"
-			(at 200.66 95.25 0)
+		(property "Name" "D SCHOTTKY 20V 1A"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4307,8 +4489,8 @@
 				)
 			)
 		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 200.66 95.25 0)
+		(property "Group" "misc"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4318,8 +4500,8 @@
 				)
 			)
 		)
-		(property "OW_PART" "OW-PASS-ERJ2GEJ512X"
-			(at 200.66 95.25 0)
+		(property "ReqType" "diode"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4329,8 +4511,8 @@
 				)
 			)
 		)
-		(property "Name" "5.1k 0402 resistor"
-			(at 200.66 95.25 0)
+		(property "ReqValue" "D_SCHOTTKY_20V_1A"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4340,8 +4522,8 @@
 				)
 			)
 		)
-		(property "ReqValue" "5.1k"
-			(at 200.66 95.25 0)
+		(property "ReqFootprint" "orb_weaver_smd:SOD-123FL"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4351,74 +4533,8 @@
 				)
 			)
 		)
-		(property "JLC Qty" "4341"
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 200.66 95.25 0)
+		(property "ReqPackage" "SOD-123FL"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4429,7 +4545,7 @@
 			)
 		)
 		(property "ReqMinVoltage" ""
-			(at 200.66 95.25 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4440,293 +4556,7 @@
 			)
 		)
 		(property "ReqMinCurrent" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C413002"
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C413002"
-			(at 200.66 95.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "fcc6c7ac-4bbb-4d48-b7ac-63073ce1ce0b")
-		)
-		(pin "1"
-			(uuid "eed1a866-74a2-43b9-9610-8f081f14ffb9")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
-					(reference "R301")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
-					(reference "R11001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-CONN-USB-C-USB2-SMD")
-		(at 111.76 93.98 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "5a478752-9958-41a8-b50b-c332df6536b0")
-		(property "Reference" "J301"
-			(at 121.92 73.66 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" ""
-			(at 100.584 93.98 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-			)
-		)
-		(property "Footprint" "orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal"
-			(at 115.57 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 115.57 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "USB-C receptacle for USB2 designs"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "usb-connector"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_connectors_connector_usb_c_receptacle_usb2_0_16p_gt_usb_7047c"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_connectors:USB_C_Receptacle_GT-USB-7047C_16P_TopMnt_Horizontal"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "connectors"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "connector"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" "USB2"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "USB-C-SMD"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "USB-C USB2 receptacle connector"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "USB-C"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-CONN-USB-C-USB2-SMD"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" "5V"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" "3A"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "1775"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 111.76 93.98 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4737,381 +4567,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C963218"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C963218"
-			(at 111.76 93.98 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "A8"
-			(uuid "9b9989de-02aa-452c-995a-46024cfc71d5")
-		)
-		(pin "B1"
-			(uuid "523644c8-3a7a-4a24-9177-7a4e72aa80f3")
-		)
-		(pin "S1"
-			(uuid "e59bedb6-adf4-4f9c-8e0f-a06bf5397423")
-		)
-		(pin "A6"
-			(uuid "9fa44347-3e49-44e2-83de-ba258fe6e7e2")
-		)
-		(pin "B5"
-			(uuid "12fe8d74-c649-4746-8f86-14cc1917d4c7")
-		)
-		(pin "B7"
-			(uuid "2ebbd1c6-831e-434d-b688-9127d75f373d")
-		)
-		(pin "B8"
-			(uuid "606d2e57-6ca6-42f9-b8b7-818aec6f5995")
-		)
-		(pin "A5"
-			(uuid "6b717d05-85bb-4ee6-9bd2-0d5b61163889")
-		)
-		(pin "B4"
-			(uuid "0e9ad5c1-2343-4e48-9024-cc0ec526898d")
-		)
-		(pin "B6"
-			(uuid "935819a4-8647-4c87-8052-8a59ecade0a2")
-		)
-		(pin "B12"
-			(uuid "92e1e29a-15d4-4f1c-aca5-213f93c61c84")
-		)
-		(pin "A9"
-			(uuid "7b27c364-ddf1-4c81-a6ed-b4ec4af85179")
-		)
-		(pin "S2"
-			(uuid "bd40df00-0de2-45be-928f-a537676378ee")
-		)
-		(pin "A12"
-			(uuid "7076bf4b-6630-42ad-8790-c6ebafb3d98b")
-		)
-		(pin "B9"
-			(uuid "5ee3a456-adeb-424f-8fb8-7555c95c8290")
-		)
-		(pin "A1"
-			(uuid "2dc7ea66-65e8-4ee6-af41-1e58b632e136")
-		)
-		(pin "A4"
-			(uuid "f8e3ee97-7a68-4c86-a88b-ff90f5b3b77c")
-		)
-		(pin "A7"
-			(uuid "4eb45720-a1dd-40f1-a417-96f93e1d200d")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
-					(reference "J301")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
-					(reference "J11001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 101.6 40.64 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "9b343ad1-9910-4e27-9715-bdcf7cb05963")
-		(property "Reference" "#FLG0301"
-			(at 101.6 38.735 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 101.6 35.56 0)
-			(show_name no)
-			(do_not_autoplace yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 101.6 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b74fdf32-cfa0-4d41-aa38-e34b14ecf92f")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
-					(reference "#FLG0301")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
-					(reference "#FLG011001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-ERJ2GEJ512X")
-		(at 215.9 95.25 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "abca7ffd-9613-4759-9be8-024aba49c982")
-		(property "Reference" "R302"
-			(at 218.44 93.98 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "5.1k"
-			(at 218.44 96.52 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 214.122 95.25 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 217.932 95.25 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 0.762 0.762)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_5_1k_0402"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-ERJ2GEJ512X"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "5.1k 0402 resistor"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "5.1k"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "4341"
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 215.9 95.25 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5122,7 +4578,7 @@
 			)
 		)
 		(property "ReqTolerance" ""
-			(at 215.9 95.25 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5132,8 +4588,8 @@
 				)
 			)
 		)
-		(property "ReqRole" ""
-			(at 215.9 95.25 0)
+		(property "ReqDielectric" ""
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5144,7 +4600,7 @@
 			)
 		)
 		(property "ReqProtocol" ""
-			(at 215.9 95.25 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5154,8 +4610,19 @@
 				)
 			)
 		)
-		(property "ReqPower" ""
-			(at 215.9 95.25 0)
+		(property "ReqRole" ""
+			(at 182.88 63.5 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "MBR120VLSFT1G"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5166,7 +4633,7 @@
 			)
 		)
 		(property "ReqNotes" ""
-			(at 215.9 95.25 0)
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -5176,41 +4643,8 @@
 				)
 			)
 		)
-		(property "ReqMinVoltage" ""
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 215.9 95.25 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C413002"
-			(at 215.9 95.25 0)
+		(property "LCSC" "C223608"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5220,8 +4654,8 @@
 				)
 			)
 		)
-		(property "Vendor SKU" "C413002"
-			(at 215.9 95.25 0)
+		(property "Vendor SKU" "C223608"
+			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5232,21 +4666,25 @@
 			)
 		)
 		(pin "2"
-			(uuid "4aa108d0-7fc7-4871-87d6-a2ffed680334")
+			(uuid "38b3ab23-63d4-4538-b3cf-3d25e3d5fbcc")
 		)
 		(pin "1"
-			(uuid "adeef637-dbea-47fb-96d9-f0f97cb38fbd")
+			(uuid "0c33a690-e2c4-41d0-a073-447c377ff0d9")
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
-					(reference "R302")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
+					(reference "D301")
 					(unit 1)
 				)
 			)
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
-					(reference "R11002")
+					(reference "D11001")
+					(unit 1)
+				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "D31001")
 					(unit 1)
 				)
 			)
@@ -5263,7 +4701,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "ed1b9170-4614-4af9-875f-6d5695a19815")
+		(uuid "8e0ee604-ed5e-48de-aaa2-e4d57250ec03")
 		(property "Reference" "U301"
 			(at 146.4311 86.36 0)
 			(show_name no)
@@ -5355,7 +4793,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1020"
+		(property "JLC Qty" "1008"
 			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name yes)
@@ -5554,26 +4992,26 @@
 			)
 		)
 		(pin "4"
-			(uuid "04dc647c-4adf-4a6c-9b93-fab05eacc032")
+			(uuid "985cf423-8521-40aa-9fb8-4b3d93a5cfb7")
 		)
 		(pin "2"
-			(uuid "87d9f2e8-1365-4f4f-ae4d-1b75121d3a14")
+			(uuid "47fbf703-8ab4-43c5-922b-2bafa44abbaf")
 		)
 		(pin "6"
-			(uuid "28d60287-9fe4-4327-82ca-da8eb8f1edeb")
+			(uuid "8e94e8e9-7179-4567-8861-f909eb828287")
 		)
 		(pin "1"
-			(uuid "1f3749c1-e965-46da-ba96-c144bcac07e4")
+			(uuid "50d51e51-61b4-4050-96af-a1383a70eb82")
 		)
 		(pin "3"
-			(uuid "94aece0d-8f31-4046-a04d-8f93ebfffcf5")
+			(uuid "363f20af-dc9e-4c57-a471-1e875d82bbf0")
 		)
 		(pin "5"
-			(uuid "3a72ef2f-8eff-42d1-a587-75a497c78ed5")
+			(uuid "5298c50b-8246-4104-9065-6df564e7c81e")
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/2c80acc7-cd89-43f8-bb5d-529b30ced6f8"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
 					(reference "U301")
 					(unit 1)
 				)
@@ -5581,6 +5019,636 @@
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
 					(reference "U11001")
+					(unit 1)
+				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "U31001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-ERJ2GEJ512X")
+		(at 200.66 95.25 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e0574d6f-c3cf-4023-bcca-2b89f01980b8")
+		(property "Reference" "R301"
+			(at 203.2 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5.1k"
+			(at 203.2 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 198.882 95.25 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 202.692 95.25 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_5_1k_0402"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-ERJ2GEJ512X"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "5.1k 0402 resistor"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "5.1k"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "4321"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C413002"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C413002"
+			(at 200.66 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ca67c677-836c-4e51-ad4b-e923f977f468")
+		)
+		(pin "1"
+			(uuid "11a0d94f-ee30-451f-b89b-305f9c5b025e")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
+					(reference "R301")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
+					(reference "R11001")
+					(unit 1)
+				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "R31001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-ERJ2GEJ512X")
+		(at 215.9 95.25 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e9b764a5-f224-4026-a384-e54737094fce")
+		(property "Reference" "R302"
+			(at 218.44 93.98 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "5.1k"
+			(at 218.44 96.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 214.122 95.25 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 217.932 95.25 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_5_1k_0402"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-ERJ2GEJ512X"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "5.1k 0402 resistor"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "5.1k"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "4321"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C413002"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C413002"
+			(at 215.9 95.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "e02238e6-6db2-4ab7-ba13-6ea7ec91d426")
+		)
+		(pin "1"
+			(uuid "d0496d16-1881-45c7-9d19-34145de9f72c")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/dad1e57c-854f-43f3-9db8-f09c341cb9f7"
+					(reference "R302")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/3e1fab28-d395-4b7d-a802-fb95d728c3e4"
+					(reference "R11002")
+					(unit 1)
+				)
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/c03fec82-bed6-4020-a050-8c99b52545ad"
+					(reference "R31002")
 					(unit 1)
 				)
 			)

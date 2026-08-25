@@ -123,7 +123,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10211"
+			(property "JLC Qty" "10054"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -498,7 +498,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "5000"
+			(property "JLC Qty" "4980"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -873,7 +873,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "9971"
+			(property "JLC Qty" "9957"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1240,7 +1240,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1000"
+			(property "JLC Qty" "995"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1752,7 +1752,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10015"
+			(property "JLC Qty" "9983"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2112,7 +2112,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "9805"
+			(property "JLC Qty" "9795"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3166,7 +3166,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9971"
+		(property "JLC Qty" "9957"
 			(at 101.6 54.61 0)
 			(hide yes)
 			(show_name yes)
@@ -3639,7 +3639,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10211"
+		(property "JLC Qty" "10054"
 			(at 195.58 54.61 0)
 			(hide yes)
 			(show_name yes)
@@ -3784,7 +3784,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10015"
+		(property "JLC Qty" "9983"
 			(at 185.42 128.27 0)
 			(hide yes)
 			(show_name yes)
@@ -4090,7 +4090,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1000"
+		(property "JLC Qty" "995"
 			(at 167.64 119.38 0)
 			(hide yes)
 			(show_name yes)
@@ -4408,7 +4408,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9805"
+		(property "JLC Qty" "9795"
 			(at 105.41 88.9 0)
 			(hide yes)
 			(show_name yes)
@@ -4716,7 +4716,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "5000"
+		(property "JLC Qty" "4980"
 			(at 114.3 92.71 0)
 			(hide yes)
 			(show_name yes)
@@ -5026,7 +5026,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10015"
+		(property "JLC Qty" "9983"
 			(at 96.52 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -5332,7 +5332,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9805"
+		(property "JLC Qty" "9795"
 			(at 105.41 119.38 0)
 			(hide yes)
 			(show_name yes)
@@ -5640,7 +5640,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "5000"
+		(property "JLC Qty" "4980"
 			(at 114.3 123.19 0)
 			(hide yes)
 			(show_name yes)
@@ -5946,7 +5946,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1000"
+		(property "JLC Qty" "995"
 			(at 167.64 88.9 0)
 			(hide yes)
 			(show_name yes)
@@ -6431,7 +6431,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10211"
+		(property "JLC Qty" "10054"
 			(at 116.84 54.61 0)
 			(hide yes)
 			(show_name yes)
@@ -6576,7 +6576,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10015"
+		(property "JLC Qty" "9983"
 			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name yes)
@@ -6886,7 +6886,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10015"
+		(property "JLC Qty" "9983"
 			(at 96.52 125.73 0)
 			(hide yes)
 			(show_name yes)
@@ -7194,7 +7194,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1000"
+		(property "JLC Qty" "995"
 			(at 218.44 60.96 0)
 			(hide yes)
 			(show_name yes)

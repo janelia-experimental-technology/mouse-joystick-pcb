@@ -11,483 +11,6 @@
 		(company "Janelia Research Campus")
 	)
 	(lib_symbols
-		(symbol "orb_weaver_internal:All/OW-CONN-1844236"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 0 5.207 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
-				(at 0 3.937 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
-				(at 0 35.56 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 20.32 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-CONN-1844236"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_horizontal_screw"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C480590"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C480590"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "490"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "Connector 01x04 P3.5mm TBH Horizontal Screw"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "connectors"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "connector"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "Push-Pull,P=3.5mm"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" "1844236"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-CONN-1844236 Connector 01x04 P3.5mm TBH Horizontal Screw connectors Conn_01x04_P3.5mm_TBH_Horizontal_Screw 1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS orb_weaver_connectors:"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-CONN-1844236_1_1"
-				(rectangle
-					(start 0.8636 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 -4.953)
-					(end 0 -5.207)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 2.54) (xy 0.8636 2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy 0.8636 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -5.08) (xy 0.8636 -5.08)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 5.08 2.54 180)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 3.81)
-					(name "Pin_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -5.08 180)
-					(length 3.81)
-					(name "Pin_4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "orb_weaver_internal:All/OW-RES-10K-0402"
 			(pin_numbers
 				(hide yes)
@@ -597,7 +120,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "9700"
+			(property "JLC Qty" "9610"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -848,7 +371,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "orb_weaver_internal:Connectors/OW-CONN-1844249"
+		(symbol "orb_weaver_internal:Connectors/OW-CONN-TBH-1X04-3P5-VERT"
 			(pin_names
 				(offset 1.016)
 				(hide yes)
@@ -859,7 +382,7 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "J"
-				(at 0 7.747 0)
+				(at 0 5.207 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -870,8 +393,8 @@
 					(justify left)
 				)
 			)
-			(property "Value" "Conn_01x05_P3.5mm_TBH_Horizontal_Screw"
-				(at 0 6.477 0)
+			(property "Value" "TBH-1x04-3.5mm"
+				(at 0 3.937 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
@@ -882,7 +405,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal_Screw"
+			(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical"
 				(at 0 35.56 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -904,7 +427,7 @@
 					)
 				)
 			)
-			(property "Description" "1 1x5P 3.5mm 300V 5 5P 8A Board Side/Socket - Closed Green Through Hole Plugin,P=3.5mm Pluggable System Terminal Block ROHS"
+			(property "Description" "4-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -915,7 +438,7 @@
 					)
 				)
 			)
-			(property "OW_PART" "OW-CONN-1844249"
+			(property "OW_PART" "OW-CONN-TBH-1X04-3P5-VERT"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -926,7 +449,7 @@
 					)
 				)
 			)
-			(property "PartID" "sym_orb_weaver_connectors_conn_01x05_p3_5mm_tbh_horizontal_screw"
+			(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_vertical_screw"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -937,7 +460,7 @@
 					)
 				)
 			)
-			(property "LCSC" "C5443566"
+			(property "LCSC" "C480549"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -948,7 +471,7 @@
 					)
 				)
 			)
-			(property "Vendor SKU" "C5443566"
+			(property "Vendor SKU" "C480549"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -959,7 +482,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "50"
+			(property "JLC Qty" "250"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -970,7 +493,7 @@
 					)
 				)
 			)
-			(property "Name" "Connector 01x05 P3.5mm TBH Horizontal Screw"
+			(property "Name" "Terminal block header 1x04 P3.5mm, vertical"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -992,7 +515,7 @@
 					)
 				)
 			)
-			(property "ReqValue" "Conn_01x05_P3.5mm_TBH_Horizontal_Screw"
+			(property "ReqValue" "TBH-1x04-3.5mm"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1003,7 +526,7 @@
 					)
 				)
 			)
-			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal_Screw"
+			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1014,7 +537,7 @@
 					)
 				)
 			)
-			(property "ReqPackage" "P=3.5mm"
+			(property "ReqPackage" "Plugin P=3.5mm"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1091,7 +614,7 @@
 					)
 				)
 			)
-			(property "ReqRole" ""
+			(property "ReqRole" "terminal-block-header"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1102,7 +625,7 @@
 					)
 				)
 			)
-			(property "ReqExactMPN" "1844249"
+			(property "ReqExactMPN" ""
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1124,7 +647,7 @@
 					)
 				)
 			)
-			(property "ki_keywords" "OW-CONN-1844249 Connector 01x05 P3.5mm TBH Horizontal Screw connectors Conn_01x05_P3.5mm_TBH_Horizontal_Screw 1 1x5P 3.5mm 300V 5 5P 8A Board Side/Socket - Closed Green Through Hole Plugin,P=3.5mm Pluggable System Terminal Block ROHS orb_weaver_connectors"
+			(property "ki_keywords" "OW-CONN-TBH-1X04-3P5-VERT Terminal block header 1x04 P3.5mm, vertical connectors TBH-1x04-3.5mm 4-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V orb_weaver_connectors:Conn_01x04_P3.5mm_TBH_Vertical_Screw orb_weav"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1135,7 +658,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal_Screw"
+			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1146,7 +669,473 @@
 					)
 				)
 			)
-			(symbol "Connectors/OW-CONN-1844249_1_1"
+			(symbol "Connectors/OW-CONN-TBH-1X04-3P5-VERT_1_1"
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -4.953)
+					(end 0 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 0.8636 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -5.08) (xy 0.8636 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -5.08 180)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "orb_weaver_internal:Connectors/OW-CONN-TBH-1X05-3P5-VERT"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 7.747 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "TBH-1x05-3.5mm"
+				(at 0 6.477 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical"
+				(at 0 35.56 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 20.32 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "5-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "OW_PART" "OW-CONN-TBH-1X05-3P5-VERT"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PartID" "sym_orb_weaver_connectors_conn_01x05_p3_5mm_tbh_vertical_screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C5451793"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C5451793"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "200"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Name" "Terminal block header 1x05 P3.5mm, vertical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqType" "connector"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqValue" "TBH-1x05-3.5mm"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPackage" "Plugin P=3.5mm"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqRole" "terminal-block-header"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "OW-CONN-TBH-1X05-3P5-VERT Terminal block header 1x05 P3.5mm, vertical connectors TBH-1x05-3.5mm 5-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V orb_weaver_connectors:Conn_01x05_P3.5mm_TBH_Vertical_Screw orb_weav"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Connectors/OW-CONN-TBH-1X05-3P5-VERT_1_1"
 				(rectangle
 					(start 0.8636 5.207)
 					(end 0 4.953)
@@ -2637,7 +2626,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9700"
+		(property "JLC Qty" "9610"
 			(at 55.88 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -2829,308 +2818,6 @@
 		)
 	)
 	(symbol
-		(lib_id "orb_weaver_internal:Connectors/OW-CONN-1844249")
-		(at 208.28 132.08 180)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3173dd0f-7627-4a40-a7ec-9a61d22bca55")
-		(property "Reference" "J1102"
-			(at 209.55 130.81 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Conn_01x05_P3.5mm_TBH_Horizontal_Screw"
-			(at 209.55 133.35 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal_Screw"
-			(at 208.28 167.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 208.28 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "1 1x5P 3.5mm 300V 5 5P 8A Board Side/Socket - Closed Green Through Hole Plugin,P=3.5mm Pluggable System Terminal Block ROHS"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-CONN-1844249"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_connectors_conn_01x05_p3_5mm_tbh_horizontal_screw"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C5443566"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C5443566"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "50"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "Connector 01x05 P3.5mm TBH Horizontal Screw"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "connector"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "Conn_01x05_P3.5mm_TBH_Horizontal_Screw"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_5-G-3.5_1x05_P3.50mm_Horizontal_Screw"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "P=3.5mm"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "1844249"
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 208.28 132.08 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "7d177d51-e181-43d1-aadd-932d8e0de2af")
-		)
-		(pin "3"
-			(uuid "cb585996-9a3e-4322-bf8d-0a02a83df77b")
-		)
-		(pin "1"
-			(uuid "a154d51d-cb54-4ba7-8ede-2dfd634f2359")
-		)
-		(pin "5"
-			(uuid "a2e96912-d136-4664-a285-b9aa2dfdcf55")
-		)
-		(pin "4"
-			(uuid "b26334f2-77a2-4202-928e-23283c60b61f")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(reference "J1102")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
 		(at 68.58 95.25 0)
 		(unit 1)
@@ -3241,7 +2928,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9700"
+		(property "JLC Qty" "9610"
 			(at 68.58 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -3543,7 +3230,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9700"
+		(property "JLC Qty" "9610"
 			(at 81.28 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -3735,7 +3422,309 @@
 		)
 	)
 	(symbol
-		(lib_id "orb_weaver_internal:All/OW-CONN-1844236")
+		(lib_id "orb_weaver_internal:Connectors/OW-CONN-TBH-1X05-3P5-VERT")
+		(at 208.28 132.08 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d4958376-3a4b-499b-8b50-a2e8e9c22a39")
+		(property "Reference" "J1102"
+			(at 209.55 130.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "TBH-1x05-3.5mm"
+			(at 209.55 133.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical"
+			(at 208.28 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 208.28 152.4 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "5-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-CONN-TBH-1X05-3P5-VERT"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_connectors_conn_01x05_p3_5mm_tbh_vertical_screw"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C5451793"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C5451793"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "200"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Terminal block header 1x05 P3.5mm, vertical"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "connector"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "TBH-1x05-3.5mm"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "Plugin P=3.5mm"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "terminal-block-header"
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 208.28 132.08 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "f4b5c414-e2dd-453a-b6c9-abcd213bbb1e")
+		)
+		(pin "2"
+			(uuid "5fee8d54-ecf7-4a3c-9b9d-2d40b537c705")
+		)
+		(pin "1"
+			(uuid "4048084d-6cce-45e0-8a89-e01a23090aa2")
+		)
+		(pin "4"
+			(uuid "fac806ad-5bbd-4a79-89f9-e1fb497f629c")
+		)
+		(pin "5"
+			(uuid "879a5bc4-4cf4-40e0-a4c6-356220170f41")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(reference "J1102")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:Connectors/OW-CONN-TBH-1X04-3P5-VERT")
 		(at 208.28 83.82 180)
 		(unit 1)
 		(body_style 1)
@@ -3745,7 +3734,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "fd3b3a16-7f18-491d-b349-a01e851f7aaf")
+		(uuid "e8911734-ac64-4710-a7e5-4c38e0f3e857")
 		(property "Reference" "J1101"
 			(at 209.55 81.28 0)
 			(show_name no)
@@ -3758,7 +3747,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+		(property "Value" "TBH-1x04-3.5mm"
 			(at 209.55 83.82 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3770,7 +3759,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+		(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical"
 			(at 208.28 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -3792,7 +3781,7 @@
 				)
 			)
 		)
-		(property "Description" "1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Right-Angle 弯插,P=3.5mm Pluggable System Terminal Block ROHS"
+		(property "Description" "4-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3803,7 +3792,7 @@
 				)
 			)
 		)
-		(property "OW_PART" "OW-CONN-1844236"
+		(property "OW_PART" "OW-CONN-TBH-1X04-3P5-VERT"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3814,7 +3803,7 @@
 				)
 			)
 		)
-		(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_horizontal_screw"
+		(property "PartID" "sym_orb_weaver_connectors_conn_01x04_p3_5mm_tbh_vertical_screw"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3825,7 +3814,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C480590"
+		(property "LCSC" "C480549"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3836,7 +3825,7 @@
 				)
 			)
 		)
-		(property "Vendor SKU" "C480590"
+		(property "Vendor SKU" "C480549"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3847,7 +3836,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "490"
+		(property "JLC Qty" "250"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3858,18 +3847,7 @@
 				)
 			)
 		)
-		(property "Name" "Connector 01x04 P3.5mm TBH Horizontal Screw"
-			(at 208.28 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "connectors"
+		(property "Name" "Terminal block header 1x04 P3.5mm, vertical"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3891,7 +3869,7 @@
 				)
 			)
 		)
-		(property "ReqValue" "Conn_01x04_P3.5mm_TBH_Horizontal_Screw"
+		(property "ReqValue" "TBH-1x04-3.5mm"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3902,7 +3880,7 @@
 				)
 			)
 		)
-		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MC_1,5_4-G-3.5_1x04_P3.50mm_Horizontal_Screw"
+		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3913,7 +3891,7 @@
 				)
 			)
 		)
-		(property "ReqPackage" "Push-Pull,P=3.5mm"
+		(property "ReqPackage" "Plugin P=3.5mm"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -3990,7 +3968,7 @@
 				)
 			)
 		)
-		(property "ReqRole" ""
+		(property "ReqRole" "terminal-block-header"
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -4001,7 +3979,7 @@
 				)
 			)
 		)
-		(property "ReqExactMPN" "1844236"
+		(property "ReqExactMPN" ""
 			(at 208.28 83.82 0)
 			(hide yes)
 			(show_name yes)
@@ -4023,17 +4001,17 @@
 				)
 			)
 		)
+		(pin "1"
+			(uuid "d7ece67b-151d-42c4-99f9-81ee5cefca6c")
+		)
 		(pin "2"
-			(uuid "b7ed3ab0-5c04-4c95-88f3-787a65e5ec79")
+			(uuid "38bf0be8-1aca-4aa7-a7dd-1a6a6e81db6b")
 		)
 		(pin "3"
-			(uuid "ad4b4654-a4c2-4913-961c-be8197ef212c")
+			(uuid "f5d9a028-5958-4c5d-8f44-11c9a57d11d9")
 		)
 		(pin "4"
-			(uuid "baab284c-052e-4221-a773-15bf96f94bf6")
-		)
-		(pin "1"
-			(uuid "8397f7b3-29fb-423d-a65f-93af80a34a15")
+			(uuid "b310cbf0-46c2-4f5a-8d0c-639c88105776")
 		)
 		(instances
 			(project "mouse-joystick-pcb"
