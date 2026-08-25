@@ -4027,11 +4027,6 @@
 		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
 		(members "f0355ad2-ee9d-4879-aa58-32744cd5e9dc")
 	)
-	(group "limit_switch_debounced_input"
-		(uuid "accdeab8-3193-43b2-b6fb-007cfa87e033")
-		(lib_id "orb_weaver_private:limit_switch_debounced_input")
-		(members "ca65f961-6ddd-440d-9e9e-e541f04cf110")
-	)
 	(group "tmc5130"
 		(uuid "e1dbb2ab-2fac-4374-a8f6-ddb1ebf9e8cc")
 		(lib_id "orb_weaver_private:tmc5130")
@@ -4289,82 +4284,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "12")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 203.2 101.6)
-		(size 25.4 7.62)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "ca65f961-6ddd-440d-9e9e-e541f04cf110")
-		(property "Sheetname" "limit_switch_debounced_input"
-			(at 203.2 100.8884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "limit_switch_debounced_input.kicad_sch"
-			(at 203.2 109.8046 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V_SW" passive
-			(at 203.2 104.14 180)
-			(uuid "d9cff9eb-5e8c-400f-b127-11d019aa783d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GND" passive
-			(at 203.2 106.68 180)
-			(uuid "b99e5af5-1d4e-4f33-8b5f-a0f0c7d755c0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "LIMIT_SW" output
-			(at 228.6 104.14 0)
-			(uuid "ff034ba0-89cc-423e-8d8b-fbbe892f9714")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "13")
 				)
 			)
 		)
