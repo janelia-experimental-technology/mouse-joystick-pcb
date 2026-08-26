@@ -865,10 +865,6 @@
 		(uuid "14d12fa8-066b-4bae-b9ce-66f0887a9d88")
 	)
 	(no_connect
-		(at 101.6 104.14)
-		(uuid "16b64cb7-7bb6-43d5-a453-9ab8da74eea2")
-	)
-	(no_connect
 		(at 101.6 116.84)
 		(uuid "178d7190-32d1-4b60-9add-088f1154b371")
 	)
@@ -879,10 +875,6 @@
 	(no_connect
 		(at 101.6 109.22)
 		(uuid "1d3a1bb2-7b79-447c-9b5b-100cd6966662")
-	)
-	(no_connect
-		(at 101.6 111.76)
-		(uuid "1f05070b-dd79-42a3-9409-236672d8afd1")
 	)
 	(no_connect
 		(at 177.8 139.7)
@@ -913,10 +905,6 @@
 		(uuid "6c6da316-1e95-4c52-b6e8-ec8f18749e06")
 	)
 	(no_connect
-		(at 177.8 111.76)
-		(uuid "6ce21f86-abbb-4564-b781-dc8509c8650a")
-	)
-	(no_connect
 		(at 101.6 121.92)
 		(uuid "787419a4-7a91-4600-8444-81d254d6d464")
 	)
@@ -929,20 +917,12 @@
 		(uuid "830573a2-09c6-4ed5-960f-ff9d09d93239")
 	)
 	(no_connect
-		(at 101.6 106.68)
-		(uuid "8ffc8c2e-4135-4a04-b3a7-46eb10dd4307")
-	)
-	(no_connect
 		(at 177.8 142.24)
 		(uuid "a91af843-e38a-454c-be95-741e93f04368")
 	)
 	(no_connect
 		(at 177.8 134.62)
 		(uuid "a9f876c6-fe52-4dec-b926-384766261ede")
-	)
-	(no_connect
-		(at 177.8 106.68)
-		(uuid "adc522b6-7388-450f-bbdd-49ccaa7220f8")
 	)
 	(no_connect
 		(at 177.8 132.08)
@@ -971,10 +951,6 @@
 	(no_connect
 		(at 177.8 78.74)
 		(uuid "e78cee25-96c4-4131-b77a-f05817ba551b")
-	)
-	(no_connect
-		(at 177.8 104.14)
-		(uuid "ebf2751a-2172-4752-a0bc-a7ade2189c33")
 	)
 	(no_connect
 		(at 177.8 119.38)
@@ -1015,6 +991,16 @@
 			(type default)
 		)
 		(uuid "088d36f9-4cb5-400a-b344-39c24ebc4189")
+	)
+	(wire
+		(pts
+			(xy 177.8 111.76) (xy 180.34 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "08f4f2c4-f298-4455-8d0d-d261aaba7b54")
 	)
 	(wire
 		(pts
@@ -1268,6 +1254,16 @@
 	)
 	(wire
 		(pts
+			(xy 177.8 106.68) (xy 180.34 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e9ffced-29f5-4caa-8442-b5c26660c85c")
+	)
+	(wire
+		(pts
 			(xy 152.4 91.44) (xy 149.86 91.44)
 		)
 		(stroke
@@ -1455,6 +1451,16 @@
 			(type default)
 		)
 		(uuid "8fa01602-7a61-458f-9632-f3fc5f8325c9")
+	)
+	(wire
+		(pts
+			(xy 177.8 104.14) (xy 180.34 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "943ceef4-eb0d-4844-9a46-6e150368233e")
 	)
 	(wire
 		(pts
@@ -1668,6 +1674,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 106.68) (xy 104.14 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c78967f2-59be-4809-90d0-2ff497920030")
+	)
+	(wire
+		(pts
 			(xy 152.4 93.98) (xy 149.86 93.98)
 		)
 		(stroke
@@ -1738,6 +1754,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 104.14) (xy 104.14 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db440143-4e90-4576-9561-b9eb95565875")
+	)
+	(wire
+		(pts
 			(xy 38.1 129.54) (xy 40.64 129.54)
 		)
 		(stroke
@@ -1755,6 +1781,16 @@
 			(type default)
 		)
 		(uuid "e1c8cf73-0282-4e81-be18-5f44da175712")
+	)
+	(wire
+		(pts
+			(xy 101.6 111.76) (xy 104.14 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ebae1054-cd53-4c75-8abf-de52c6da3ea9")
 	)
 	(wire
 		(pts
@@ -1896,16 +1932,6 @@
 		)
 		(uuid "0c406a0e-1f84-4e8e-a798-02569341492d")
 	)
-	(label "GND"
-		(at 149.86 104.14 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0e484890-a608-4e56-b975-50090f77531d")
-	)
 	(label "FW_TRIG0"
 		(at 104.14 142.24 0)
 		(effects
@@ -1945,6 +1971,16 @@
 			(justify left bottom)
 		)
 		(uuid "19ebb698-8701-4482-bf06-19c5d11b9654")
+	)
+	(label "~{DAC_CS_}"
+		(at 104.14 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1cd617ff-627e-4521-97d3-0652d6ccbd74")
 	)
 	(label "PYC_UART_TX"
 		(at 53.34 35.56 0)
@@ -1986,6 +2022,16 @@
 		)
 		(uuid "2232c493-445b-444d-a4ac-370b208684e4")
 	)
+	(label "DAC_SPI_SCK_"
+		(at 104.14 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "24fd54c0-aad9-4deb-b694-e1a15f5ba39b")
+	)
 	(label "GND"
 		(at 149.86 137.16 180)
 		(effects
@@ -2025,6 +2071,16 @@
 			(justify right bottom)
 		)
 		(uuid "31c7f92d-b556-4971-97ed-9c0b0016da6b")
+	)
+	(label "DAC_SPI_COPI_"
+		(at 149.86 106.68 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "32f87045-8c21-4ddb-a8d9-630dd94a1fbd")
 	)
 	(label "~{HV_FAULT}"
 		(at 53.34 55.88 0)
@@ -2446,6 +2502,16 @@
 		)
 		(uuid "b18dbdd2-ec7c-45d4-9b3a-0f97fd4dc389")
 	)
+	(label "~{DAC_CS_}"
+		(at 149.86 111.76 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b4fcd854-beff-471e-805d-883513b1a7ac")
+	)
 	(label "+3.3V_MCU"
 		(at 208.28 48.26 90)
 		(effects
@@ -2456,6 +2522,16 @@
 		)
 		(uuid "b5f11a44-a4d3-4965-8626-11b032bbea36")
 	)
+	(label "DAC_SPI_SCK_"
+		(at 149.86 104.14 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b83d6d1b-1242-40ca-bd34-8d97d6b7a11e")
+	)
 	(label "GND"
 		(at 149.86 129.54 180)
 		(effects
@@ -2465,26 +2541,6 @@
 			(justify right bottom)
 		)
 		(uuid "b890d344-7491-4b43-9a85-4c0affe462f9")
-	)
-	(label "GND"
-		(at 149.86 111.76 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ba441392-c238-4e15-a425-62901ccc75c5")
-	)
-	(label "GND"
-		(at 149.86 106.68 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "bc994f4a-0009-4fd1-9259-6d6c30c177c0")
 	)
 	(label "PYC_UART_RX"
 		(at 104.14 81.28 0)
@@ -2586,6 +2642,16 @@
 		)
 		(uuid "f222e01c-2fd5-4910-9ac6-4a9b98a8f8b6")
 	)
+	(label "DAC_SPI_COPI_"
+		(at 104.14 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f3c597b2-1378-46f3-b60c-87ea8dfdb832")
+	)
 	(label "PYC_UART_TX"
 		(at 104.14 78.74 0)
 		(effects
@@ -2639,6 +2705,28 @@
 		)
 		(uuid "1a15ed46-88b5-40c7-96e0-b64d85578dfb")
 	)
+	(hierarchical_label "~{DAC_CS}"
+		(shape output)
+		(at 180.34 111.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "26df3bed-990a-46a4-9aad-224a378ae6ae")
+	)
+	(hierarchical_label "DAC_SPI_SCK"
+		(shape output)
+		(at 180.34 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2b794e79-f36d-4563-8265-91f6da742910")
+	)
 	(hierarchical_label "GND"
 		(shape passive)
 		(at 50.8 30.48 180)
@@ -2671,6 +2759,17 @@
 			(justify right)
 		)
 		(uuid "46301c17-44e9-41b7-9d2c-46ce97edbd7e")
+	)
+	(hierarchical_label "DAC_SPI_COPI"
+		(shape output)
+		(at 180.34 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "525de59a-3b87-4e24-9320-de04b12aad7d")
 	)
 	(hierarchical_label "+3.3V_MCU"
 		(shape passive)

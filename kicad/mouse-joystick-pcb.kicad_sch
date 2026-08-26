@@ -171,6 +171,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 124.46) (xy 88.9 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "147ff2d3-a462-4561-a039-fd7cacaa994d")
+	)
+	(wire
+		(pts
 			(xy 50.8 78.74) (xy 48.26 78.74)
 		)
 		(stroke
@@ -181,7 +191,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 127) (xy 88.9 127)
+			(xy 86.36 144.78) (xy 88.9 144.78)
 		)
 		(stroke
 			(width 0)
@@ -201,7 +211,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 129.54) (xy 88.9 129.54)
+			(xy 86.36 147.32) (xy 88.9 147.32)
 		)
 		(stroke
 			(width 0)
@@ -221,6 +231,16 @@
 	)
 	(wire
 		(pts
+			(xy 152.4 119.38) (xy 149.86 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "24236b90-2811-491a-8e4e-96a61d1e6c33")
+	)
+	(wire
+		(pts
 			(xy 127 63.5) (xy 129.54 63.5)
 		)
 		(stroke
@@ -231,7 +251,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 132.08) (xy 88.9 132.08)
+			(xy 86.36 149.86) (xy 88.9 149.86)
 		)
 		(stroke
 			(width 0)
@@ -311,7 +331,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 124.46) (xy 88.9 124.46)
+			(xy 86.36 142.24) (xy 88.9 142.24)
 		)
 		(stroke
 			(width 0)
@@ -361,7 +381,7 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 119.38) (xy 88.9 119.38)
+			(xy 86.36 137.16) (xy 88.9 137.16)
 		)
 		(stroke
 			(width 0)
@@ -411,6 +431,26 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 119.38) (xy 88.9 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f1e6f0e-7f3c-430a-94bc-f2a95fcfc0d7")
+	)
+	(wire
+		(pts
+			(xy 152.4 116.84) (xy 149.86 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "53ba02ba-8a08-4333-ba8b-e0b27c7061d5")
+	)
+	(wire
+		(pts
 			(xy 152.4 27.94) (xy 149.86 27.94)
 		)
 		(stroke
@@ -428,6 +468,16 @@
 			(type default)
 		)
 		(uuid "560b183a-899e-4c33-902f-55278735ca60")
+	)
+	(wire
+		(pts
+			(xy 86.36 121.92) (xy 88.9 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "65f928d7-11fe-4557-9a5a-77f3b31cdcb7")
 	)
 	(wire
 		(pts
@@ -841,6 +891,16 @@
 	)
 	(wire
 		(pts
+			(xy 152.4 121.92) (xy 149.86 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8bd6731-74f4-4e80-9532-9bd55214d95e")
+	)
+	(wire
+		(pts
 			(xy 228.6 50.8) (xy 226.06 50.8)
 		)
 		(stroke
@@ -900,7 +960,7 @@
 		(uuid "02f73d9f-c3bd-4d08-be72-5844cc9e9e4c")
 	)
 	(label "+3.3V_SW"
-		(at 88.9 119.38 0)
+		(at 88.9 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -908,6 +968,16 @@
 			(justify left bottom)
 		)
 		(uuid "090e3ba5-697b-4307-8378-173a458bfedb")
+	)
+	(label "DAC_SPI_COPI"
+		(at 149.86 119.38 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0a3fe423-2562-464c-9176-f4a3a65b0b03")
 	)
 	(label "FW_TRIG0"
 		(at 226.06 71.12 180)
@@ -958,6 +1028,16 @@
 			(justify right bottom)
 		)
 		(uuid "1de7494b-e71f-4aa8-9ebb-008a2836729b")
+	)
+	(label "DAC_SPI_COPI"
+		(at 88.9 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1e1e4055-c80a-4946-9e74-12acd0b27205")
 	)
 	(label "LIMIT_SW"
 		(at 226.06 76.2 180)
@@ -1010,7 +1090,7 @@
 		(uuid "2cc07841-ce78-4dc7-bf4b-43bde52a1ad3")
 	)
 	(label "FW_TRIG1"
-		(at 88.9 132.08 0)
+		(at 88.9 149.86 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1030,7 +1110,7 @@
 		(uuid "33b3f8ed-8685-474d-a4f8-0604617479f9")
 	)
 	(label "FW_TRIG0"
-		(at 88.9 129.54 0)
+		(at 88.9 147.32 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1138,6 +1218,16 @@
 			(justify left bottom)
 		)
 		(uuid "4dd288c4-6642-44d8-9e90-a5e881576e82")
+	)
+	(label "DAC_SPI_SCK"
+		(at 88.9 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "50f712a7-a247-4af5-9109-1fccdd665e03")
 	)
 	(label "HV_EN"
 		(at 88.9 78.74 0)
@@ -1379,6 +1469,16 @@
 		)
 		(uuid "af147652-e496-445b-a3f8-2854ad0825c1")
 	)
+	(label "DAC_SPI_SCK"
+		(at 149.86 116.84 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b035ea30-8510-4c53-a047-1417c92a3107")
+	)
 	(label "~{HV_FAULT}"
 		(at 88.9 83.82 0)
 		(effects
@@ -1459,6 +1559,26 @@
 		)
 		(uuid "cbfb6e00-b9c8-4767-991e-ad21fcffcbfa")
 	)
+	(label "~{DAC_CS}"
+		(at 88.9 124.46 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cf4b131b-74bd-42dc-bcbe-070650c58ddb")
+	)
+	(label "~{DAC_CS}"
+		(at 149.86 121.92 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "cfda2764-07d1-467e-b432-66ae67468bf3")
+	)
 	(label "~{TMC_DRV_EN}"
 		(at 88.9 109.22 0)
 		(effects
@@ -1480,7 +1600,7 @@
 		(uuid "d5261663-dd51-4f64-9258-77067593bc0a")
 	)
 	(label "~{INSTR_BUF_OE}"
-		(at 88.9 127 0)
+		(at 88.9 144.78 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1520,7 +1640,7 @@
 		(uuid "e53ad284-570f-41bc-8811-bb33e004f2e6")
 	)
 	(label "+3.3V_MCU"
-		(at 88.9 124.46 0)
+		(at 88.9 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1978,7 +2098,7 @@
 			)
 		)
 		(pin "FW_TRIG0" output
-			(at 86.36 129.54 0)
+			(at 86.36 147.32 0)
 			(uuid "87259dc7-f7c6-4571-8baf-54d6aa9caae0")
 			(effects
 				(font
@@ -1988,7 +2108,7 @@
 			)
 		)
 		(pin "FW_TRIG1" output
-			(at 86.36 132.08 0)
+			(at 86.36 149.86 0)
 			(uuid "00a0859d-a11a-4ebd-b48a-5436156e3a66")
 			(effects
 				(font
@@ -2088,7 +2208,7 @@
 			)
 		)
 		(pin "~{INSTR_BUF_OE}" output
-			(at 86.36 127 0)
+			(at 86.36 144.78 0)
 			(uuid "ee545520-f7b0-400d-b99a-56518aecba70")
 			(effects
 				(font
@@ -2118,7 +2238,7 @@
 			)
 		)
 		(pin "SW_RAIL_SENSE" input
-			(at 86.36 119.38 0)
+			(at 86.36 137.16 0)
 			(uuid "7ba53d69-8d53-4114-a91b-40073368f04c")
 			(effects
 				(font
@@ -2128,7 +2248,7 @@
 			)
 		)
 		(pin "+3.3V_MCU" passive
-			(at 86.36 124.46 0)
+			(at 86.36 142.24 0)
 			(uuid "931355cc-38d2-420a-a593-123c7c1a8305")
 			(effects
 				(font
@@ -2150,6 +2270,36 @@
 		(pin "HV_DIAG_EN" output
 			(at 86.36 86.36 0)
 			(uuid "f7001a88-6c04-4514-89b5-d45ed5dbdcaf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "DAC_SPI_COPI" output
+			(at 86.36 121.92 0)
+			(uuid "4ebc3b3f-1f50-4fdc-b7db-5b8ab45257d3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "DAC_SPI_SCK" output
+			(at 86.36 119.38 0)
+			(uuid "f1a4f2f5-8ea9-4a5b-8835-c9d6913ff73a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{DAC_CS}" output
+			(at 86.36 124.46 0)
+			(uuid "c5f808cf-5955-437f-81d8-87ed850e8d99")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2329,49 +2479,9 @@
 				(justify left)
 			)
 		)
-		(pin "SCK" input
-			(at 152.4 91.44 180)
-			(uuid "6955a99a-a870-46b8-a090-9635ac8ebc28")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDI" input
-			(at 152.4 93.98 180)
-			(uuid "578d7b66-86eb-474c-8bb0-4b2c36345594")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDO" output
-			(at 152.4 96.52 180)
-			(uuid "6c7458d4-9923-41bf-b164-00013a0d5957")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "VM" passive
 			(at 152.4 78.74 180)
 			(uuid "f1a68952-4bbd-4f44-927d-d72944272f3a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "~{CS}" input
-			(at 152.4 99.06 180)
-			(uuid "95a9c7f8-9b5d-4efe-b52c-79c6bccb01fd")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2417,6 +2527,76 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+		(pin "TMC_SPI_CIPO" output
+			(at 152.4 96.52 180)
+			(uuid "4429c846-d92c-43f5-acff-c90ecb817a34")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TMC_SPI_COPI" input
+			(at 152.4 93.98 180)
+			(uuid "e7b22612-c3fd-4087-a664-e943c15430d8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TMC_SPI_SCK" input
+			(at 152.4 91.44 180)
+			(uuid "cae4b2b8-4deb-419f-8060-d7f79413edf2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{TMC_CS}" input
+			(at 152.4 99.06 180)
+			(uuid "73b4b4c3-da3f-4c47-8202-74da564f6971")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DAC_SPI_COPI" input
+			(at 152.4 119.38 180)
+			(uuid "024f220f-086d-4228-a4d1-48f8413ea3fc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "DAC_SPI_SCK" input
+			(at 152.4 116.84 180)
+			(uuid "98ceaab1-3023-435b-b9d2-4dd7bc46a10d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{DAC_CS}" input
+			(at 152.4 121.92 180)
+			(uuid "b1dbbe72-637f-4bb8-9d50-3fcad85d7bf0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances

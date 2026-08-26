@@ -549,15 +549,15 @@ the cross-board fault discussion in `docs/pycontrol-interface.md`.
 
 ### Peripheral Summary
 
-| Peripheral | Use                                                       | Pins                                            | Rev 0 |
-|------------|-----------------------------------------------------------|-------------------------------------------------|-------|
-| `UART0`    | pyControl link, 115200 8N1                                | `GP0`, `GP1`                                    | yes   |
-| `SPI0`     | TMC5130A                                                  | `GP6` SCK, `GP7` TX, `GP4` RX, `GP2` CS as GPIO | yes   |
-| `SPI1`     | DAC80501, write-only                                      | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO        | rev 1 |
-| PIO0       | **Unallocated** — the encoder cross-check was deleted     | —                                               | —     |
-| ADC        | `SW_RAIL_SENSE_DIV_2`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29`                        | yes   |
-| USB        | Debug console, CDC                                        | dedicated USB pins                              | yes   |
-| QSPI       | External flash                                            | dedicated QSPI pins                             | yes   |
+| Peripheral | Use                                                                  | Pins                                            | Rev 0 |
+|------------|----------------------------------------------------------------------|-------------------------------------------------|-------|
+| `UART0`    | pyControl link, 115200 8N1                                           | `GP0`, `GP1`                                    | yes   |
+| `SPI0`     | TMC5130A                                                             | `GP6` SCK, `GP7` TX, `GP4` RX, `GP2` CS as GPIO | yes   |
+| `SPI1`     | DAC80501, write-only                                                 | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO        | rev 1 |
+| PIO0       | **Unallocated** — the encoder cross-check was deleted                | —                                               | —     |
+| ADC        | `SW_RAIL_SENSE_DIV_2`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29`                                   | yes   |
+| USB        | Debug console, CDC                                                   | dedicated USB pins                              | yes   |
+| QSPI       | External flash                                                       | dedicated QSPI pins                             | yes   |
 
 There is no second UART. The debug console is **USB CDC**, because `UART0`
 belongs to pyControl. Rev 0's other rich observation path is the InstrumentPort,

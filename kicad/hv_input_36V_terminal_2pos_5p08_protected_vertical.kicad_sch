@@ -4799,7 +4799,7 @@
 		(property "LCSC" "C106235"
 			(at 77.47 132.08 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4810,7 +4810,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 77.47 132.08 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5111,7 +5111,7 @@
 		(property "LCSC" "C278577"
 			(at 109.22 110.49 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5122,7 +5122,7 @@
 		(property "Vendor SKU" "C278577"
 			(at 109.22 110.49 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5423,7 +5423,7 @@
 		(property "LCSC" "C278577"
 			(at 109.22 148.59 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5434,7 +5434,7 @@
 		(property "Vendor SKU" "C278577"
 			(at 109.22 148.59 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5734,7 +5734,7 @@
 		(property "LCSC" "C106235"
 			(at 77.47 144.78 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5745,7 +5745,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 77.47 144.78 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6048,7 +6048,7 @@
 		(property "LCSC" "C161234"
 			(at 200.66 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6059,7 +6059,7 @@
 		(property "Vendor SKU" "C161234"
 			(at 200.66 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6360,7 +6360,7 @@
 		(property "LCSC" "C211388"
 			(at 140.97 78.74 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6371,7 +6371,7 @@
 		(property "Vendor SKU" "C211388"
 			(at 140.97 78.74 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6672,7 +6672,7 @@
 		(property "LCSC" "C513710"
 			(at 83.82 171.45 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6683,7 +6683,7 @@
 		(property "Vendor SKU" "C513710"
 			(at 83.82 171.45 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6740,13 +6740,14 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 66.04 162.56 0)
+			(at 68.58 166.3699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -7074,7 +7075,7 @@
 		(property "LCSC" "C3016445"
 			(at 170.18 123.19 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7085,7 +7086,7 @@
 		(property "Vendor SKU" "C3016445"
 			(at 170.18 123.19 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7385,7 +7386,7 @@
 		(property "LCSC" "C106235"
 			(at 77.47 119.38 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7396,7 +7397,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 77.47 119.38 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7686,7 +7687,7 @@
 		(property "LCSC" "C480503"
 			(at 101.6 80.01 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7697,7 +7698,7 @@
 		(property "Vendor SKU" "C480503"
 			(at 101.6 80.01 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7995,7 +7996,7 @@
 		(property "LCSC" "C482112"
 			(at 182.88 123.19 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -8006,7 +8007,7 @@
 		(property "Vendor SKU" "C482112"
 			(at 182.88 123.19 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -8309,7 +8310,7 @@
 		(property "LCSC" "C41558366"
 			(at 144.78 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -8320,7 +8321,7 @@
 		(property "Vendor SKU" "C41558366"
 			(at 144.78 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
