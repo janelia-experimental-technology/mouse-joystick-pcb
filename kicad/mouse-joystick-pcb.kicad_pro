@@ -1360,11 +1360,11 @@
       },
       {
         "netclass": "MOTOR_2A",
-        "pattern": "/motor_encoder_limit/OA*"
+        "pattern": "/motor_encoder_switch/OA*"
       },
       {
         "netclass": "MOTOR_2A",
-        "pattern": "/motor_encoder_limit/OB*"
+        "pattern": "/motor_encoder_switch/OB*"
       },
       {
         "netclass": "MOTOR_2A",
@@ -1594,7 +1594,7 @@
     ],
     [
       "80cd7232-94ab-41ea-965f-e2da584d580d",
-      "motor_encoder_limit"
+      "motor_encoder_switch"
     ],
     [
       "8a48c44b-14a3-493a-ae50-8a9a036fc774",

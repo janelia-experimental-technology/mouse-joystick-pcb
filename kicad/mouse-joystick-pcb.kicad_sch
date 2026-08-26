@@ -1901,7 +1901,7 @@
 	)
 	(sheet
 		(at 50.8 76.2)
-		(size 35.56 58.42)
+		(size 35.56 76.2)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1927,7 +1927,7 @@
 			)
 		)
 		(property "Sheetfile" "mcu.kicad_sch"
-			(at 50.8 135.2046 0)
+			(at 50.8 152.9846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2257,7 +2257,7 @@
 			(color 0 0 0 0)
 		)
 		(uuid "80cd7232-94ab-41ea-965f-e2da584d580d")
-		(property "Sheetname" "motor_encoder_limit"
+		(property "Sheetname" "motor_encoder_switch"
 			(at 152.4 75.4884 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2268,7 +2268,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "motor_encoder_limit.kicad_sch"
+		(property "Sheetfile" "motor_encoder_switch.kicad_sch"
 			(at 152.4 127.5846 0)
 			(show_name no)
 			(do_not_autoplace no)

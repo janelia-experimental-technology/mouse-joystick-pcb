@@ -1722,7 +1722,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/fa49200e-ca5d-4379-af3a-48bc1a3ccb1d")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -2133,8 +2133,8 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/4a848b61-0404-4876-9089-a8a858fefa30")
-		(sheetname "/motor_encoder_limit/")
-		(sheetfile "motor_encoder_limit.kicad_sch")
+		(sheetname "/motor_encoder_switch/")
+		(sheetfile "motor_encoder_switch.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -2962,7 +2962,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/fcea27a1-25e8-4535-8db3-33361bde811c")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -3033,7 +3033,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/ENC_B_RAW")
+			(net "/motor_encoder_switch/ENC_B_RAW")
 			(pintype "passive")
 			(uuid "f69f5917-8da7-42f7-9316-13e9330c3973")
 		)
@@ -5798,7 +5798,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0603_1608Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/719914a8-df0e-45c3-aece-d94504f7c2a0")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -5869,7 +5869,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/CPO")
+			(net "/motor_encoder_switch/tmc5130/CPO")
 			(pintype "passive")
 			(uuid "9ae77584-23b8-4cb4-9b37-eceb83fa6292")
 		)
@@ -5878,7 +5878,7 @@
 			(size 0.9 0.95)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/CPI")
+			(net "/motor_encoder_switch/tmc5130/CPI")
 			(pintype "passive")
 			(uuid "b9016110-5415-4590-a3c3-9400d73a157f")
 		)
@@ -7462,7 +7462,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0805_2012Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/58861f02-8a9b-4956-95bc-2303cbd0efba")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -9334,7 +9334,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/a305d72b-1111-4933-8025-f63ece306fdf")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -9405,7 +9405,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 			(pintype "passive")
 			(uuid "b4517bbd-777c-4f10-9901-9ae58f7f48e8")
 		)
@@ -10992,7 +10992,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:DRY6")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/fdd2edbd-24fa-460f-8e8d-56e4d4752cb6")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -11093,7 +11093,7 @@
 			(size 0.4 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 			(pinfunction "1A_1")
 			(pintype "input")
 			(uuid "fac0941c-8e3b-4f20-891a-1a55a0e3c8ba")
@@ -11113,7 +11113,7 @@
 			(size 0.4 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 			(pinfunction "2A_3")
 			(pintype "input")
 			(uuid "fa8be166-71d8-491c-aed0-9479b9c5d1ac")
@@ -13288,7 +13288,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/3347de5d-a753-454e-ab35-f4f87e410fba")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -14944,7 +14944,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/6d1535c2-80f9-4b43-98b1-667f7a6325c8")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -15015,7 +15015,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 			(pintype "passive")
 			(uuid "08ac3448-6ee4-4f57-9911-14e64d5e3b9d")
 		)
@@ -18276,7 +18276,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/11ccfdba-bbcc-447f-9dc4-a218a8f48f58/fb560492-07c1-40ba-abbe-6bac76e602ff")
-		(sheetname "/motor_encoder_limit/limit_switch_debounced_input_vertical/")
+		(sheetname "/motor_encoder_switch/limit_switch_debounced_input_vertical/")
 		(sheetfile "limit_switch_debounced_input_vertical.kicad_sch")
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
@@ -18667,7 +18667,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/limit_switch_debounced_input_vertical/IN")
+			(net "/motor_encoder_switch/limit_switch_debounced_input_vertical/IN")
 			(pinfunction "Pin_2_2")
 			(pintype "passive")
 			(uuid "cd19abf9-4d92-43ad-9d42-5cbcf7f76da6")
@@ -23548,7 +23548,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/e69b9f00-5592-4480-9192-6b0f166869f7")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -25058,7 +25058,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0805_2012Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/2bd20a9e-33f0-4a32-a1b5-22084f033f7a")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -25473,7 +25473,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/e649e3cc-8b13-473b-b687-a057c945920c")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -25889,7 +25889,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/42b0183a-56ab-4816-a3be-1e1a54bb7267")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -25960,7 +25960,7 @@
 			(size 1.125 1.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.222222)
-			(net "/motor_encoder_limit/tmc5130/BRB")
+			(net "/motor_encoder_switch/tmc5130/BRB")
 			(pintype "passive")
 			(uuid "aaaf9b19-20f8-4d8f-8dff-3fce45fbf045")
 		)
@@ -26305,7 +26305,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/79c28129-1db5-4228-b75d-5e0c7ecd3466")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -26376,7 +26376,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/ENC_A_RAW")
+			(net "/motor_encoder_switch/ENC_A_RAW")
 			(pintype "passive")
 			(uuid "cc5f6ac6-ff40-4a83-9423-b4884997fdfa")
 		)
@@ -27137,7 +27137,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/2fd8aedf-b327-42c6-aa3f-6f0a7df52f87")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -27208,7 +27208,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/ENCN")
+			(net "/motor_encoder_switch/tmc5130/ENCN")
 			(pintype "passive")
 			(uuid "f4c0b559-46c4-4156-bbc2-a28b0ad1eafa")
 		)
@@ -27967,7 +27967,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:OSC_ECS-2520S33-160-FN-TR")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/d8e9dab7-a516-4a53-9b28-2ed109176fa7")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -28137,7 +28137,7 @@
 			(at 0.925 -0.725 180)
 			(size 0.9 0.8)
 			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "/motor_encoder_limit/tmc5130/CLK")
+			(net "/motor_encoder_switch/tmc5130/CLK")
 			(pinfunction "OUT_3")
 			(pintype "output")
 			(solder_mask_margin 0.05)
@@ -28485,7 +28485,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/533278ea-d0f9-4c1e-a477-91c96b62a9c2")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -28556,7 +28556,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/ENC_A_RAW")
+			(net "/motor_encoder_switch/ENC_A_RAW")
 			(pintype "passive")
 			(uuid "72282265-e24c-437a-8f4a-cb32de79ce8a")
 		)
@@ -28565,7 +28565,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 			(pintype "passive")
 			(uuid "3e1b3659-7946-4338-91b6-28e1ea2b3d97")
 		)
@@ -29823,8 +29823,8 @@
 		)
 		(property ki_fp_filters "orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/e8911734-ac64-4710-a7e5-4c38e0f3e857")
-		(sheetname "/motor_encoder_limit/")
-		(sheetfile "motor_encoder_limit.kicad_sch")
+		(sheetname "/motor_encoder_switch/")
+		(sheetfile "motor_encoder_switch.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -30489,7 +30489,7 @@
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(roundrect_rratio 0.138889)
-			(net "/motor_encoder_limit/OB2")
+			(net "/motor_encoder_switch/OB2")
 			(pinfunction "Pin_1_1")
 			(pintype "passive")
 			(uuid "f7889607-1ddb-4ee9-ba74-24c29a479011")
@@ -30500,7 +30500,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/OB1")
+			(net "/motor_encoder_switch/OB1")
 			(pinfunction "Pin_2_2")
 			(pintype "passive")
 			(uuid "34f311bc-53a4-4c55-ac45-2a7419b83321")
@@ -30511,7 +30511,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/OA2")
+			(net "/motor_encoder_switch/OA2")
 			(pinfunction "Pin_3_3")
 			(pintype "passive")
 			(uuid "af9f3de3-a051-4bda-9973-00fce884da73")
@@ -30522,7 +30522,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/OA1")
+			(net "/motor_encoder_switch/OA1")
 			(pinfunction "Pin_4_4")
 			(pintype "passive")
 			(uuid "70fc7c1b-fb29-40c4-b637-f627cb71b349")
@@ -33733,8 +33733,8 @@
 		)
 		(property ki_fp_filters "orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/d4958376-3a4b-499b-8b50-a2e8e9c22a39")
-		(sheetname "/motor_encoder_limit/")
-		(sheetfile "motor_encoder_limit.kicad_sch")
+		(sheetname "/motor_encoder_switch/")
+		(sheetfile "motor_encoder_switch.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -34562,7 +34562,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/ENC_A_RAW")
+			(net "/motor_encoder_switch/ENC_A_RAW")
 			(pinfunction "Pin_3_3")
 			(pintype "passive")
 			(uuid "af359b6a-48c9-488b-bbb0-bbb962364d01")
@@ -34584,7 +34584,7 @@
 			(drill 1.2)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net "/motor_encoder_limit/ENC_B_RAW")
+			(net "/motor_encoder_switch/ENC_B_RAW")
 			(pinfunction "Pin_5_5")
 			(pintype "passive")
 			(uuid "37c5bb36-4c34-4c13-9526-721512285373")
@@ -37920,7 +37920,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/9e763c16-dad3-484e-a669-01715055f5de")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -38000,7 +38000,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/5VOUT")
+			(net "/motor_encoder_switch/tmc5130/5VOUT")
 			(pintype "passive")
 			(uuid "78a400c5-314d-454b-944b-222ba7e3a056")
 		)
@@ -38335,7 +38335,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/6cbb887c-2606-45ed-9cb3-f97f490ad7b6")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -38414,7 +38414,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/VCP")
+			(net "/motor_encoder_switch/tmc5130/VCP")
 			(pintype "passive")
 			(uuid "a9d43f25-8ffc-487d-b83e-f82bb1a25dcd")
 		)
@@ -38746,7 +38746,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:SOT192P237X122-4N")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/11ccfdba-bbcc-447f-9dc4-a218a8f48f58/ed1d27a5-4fdc-4e73-a297-77a8487eb0d8")
-		(sheetname "/motor_encoder_limit/limit_switch_debounced_input_vertical/")
+		(sheetname "/motor_encoder_switch/limit_switch_debounced_input_vertical/")
 		(sheetfile "limit_switch_debounced_input_vertical.kicad_sch")
 		(units
 			(unit
@@ -38908,7 +38908,7 @@
 			(size 1.3 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.15)
-			(net "/motor_encoder_limit/limit_switch_debounced_input_vertical/IN")
+			(net "/motor_encoder_switch/limit_switch_debounced_input_vertical/IN")
 			(pinfunction "IN_2")
 			(pintype "passive")
 			(solder_mask_margin 0.05)
@@ -39266,7 +39266,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:CAP_EEEHAH101UAP")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/048d7189-492a-44cb-aa68-ec4f53470949")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -40358,7 +40358,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/47e64c39-7754-411a-80f2-f70556581f70")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -40429,7 +40429,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/BRB")
+			(net "/motor_encoder_switch/tmc5130/BRB")
 			(pintype "passive")
 			(uuid "858d72da-2020-455d-a5b5-7e9c56e38ab7")
 		)
@@ -44095,7 +44095,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/baf77421-44cb-40ec-8e1f-5b430d66d319")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -44165,7 +44165,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/5VOUT")
+			(net "/motor_encoder_switch/tmc5130/5VOUT")
 			(pintype "passive")
 			(uuid "4a5de565-b0fa-468f-9505-32e045c0cbd2")
 		)
@@ -44921,8 +44921,8 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/ae17075e-ad1c-4f7c-8f6b-ba64d466a2c8")
-		(sheetname "/motor_encoder_limit/")
-		(sheetfile "motor_encoder_limit.kicad_sch")
+		(sheetname "/motor_encoder_switch/")
+		(sheetfile "motor_encoder_switch.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -47414,7 +47414,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/c23806c4-7518-4c6e-a155-bbf6924f9995")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -47830,7 +47830,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/ae35752d-d241-43df-909b-31b506731f95")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -48289,7 +48289,7 @@
 			(size 1.475 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/CLK")
+			(net "/motor_encoder_switch/tmc5130/CLK")
 			(pinfunction "CLK_2")
 			(pintype "input")
 			(uuid "e8208c80-ae91-4ef4-949a-22f2eb975f63")
@@ -48359,7 +48359,7 @@
 			(size 1.475 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/REFR")
+			(net "/motor_encoder_switch/tmc5130/REFR")
 			(pinfunction "REFR_DIR_9")
 			(pintype "input+no_connect")
 			(uuid "390c1dee-aee4-4999-8233-f054c9000a8b")
@@ -48419,7 +48419,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/OB1")
+			(net "/motor_encoder_switch/OB1")
 			(pinfunction "OB1_15")
 			(pintype "output")
 			(uuid "ec67677e-c4b0-454a-ab14-db7001c0a26b")
@@ -48439,7 +48439,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/BRB")
+			(net "/motor_encoder_switch/tmc5130/BRB")
 			(pinfunction "BRB_17")
 			(pintype "passive")
 			(uuid "3fd1175c-39a9-4b72-9506-83a781ae1e83")
@@ -48459,7 +48459,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/OB2")
+			(net "/motor_encoder_switch/OB2")
 			(pinfunction "OB2_19")
 			(pintype "output")
 			(uuid "d5acc2e9-ce8e-4f32-bb62-6de15dfce35f")
@@ -48499,7 +48499,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/ENCN")
+			(net "/motor_encoder_switch/tmc5130/ENCN")
 			(pinfunction "ENCN_DCO_23")
 			(pintype "bidirectional")
 			(uuid "cc16b6b6-39df-4103-98dc-e9cf41ef610f")
@@ -48549,7 +48549,7 @@
 			(size 1.475 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/SWSEL")
+			(net "/motor_encoder_switch/tmc5130/SWSEL")
 			(pinfunction "SWSEL_28")
 			(pintype "input+no_connect")
 			(uuid "db61802f-6d0e-4666-b781-9617bd1470f5")
@@ -48599,7 +48599,7 @@
 			(size 1.475 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/5VOUT")
+			(net "/motor_encoder_switch/tmc5130/5VOUT")
 			(pinfunction "5VOUT_33")
 			(pintype "power_out")
 			(uuid "747b95ec-86a7-4ac9-8e57-ceddf885e9f1")
@@ -48619,7 +48619,7 @@
 			(size 1.475 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/CPO")
+			(net "/motor_encoder_switch/tmc5130/CPO")
 			(pinfunction "CP0_35")
 			(pintype "passive")
 			(uuid "e5b186d2-cdab-4076-9504-3e6cc268b84f")
@@ -48639,7 +48639,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/CPI")
+			(net "/motor_encoder_switch/tmc5130/CPI")
 			(pinfunction "CPI_37")
 			(pintype "passive")
 			(uuid "d665dc31-98b7-4068-b25e-4b21a2d461af")
@@ -48649,7 +48649,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/VCP")
+			(net "/motor_encoder_switch/tmc5130/VCP")
 			(pinfunction "VCP_38")
 			(pintype "passive")
 			(uuid "9ed5d831-805f-40f5-843f-a3a7e7414ffc")
@@ -48689,7 +48689,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/OA2")
+			(net "/motor_encoder_switch/OA2")
 			(pinfunction "OA2_42")
 			(pintype "output")
 			(uuid "9b23ad5d-299f-4611-9947-8022722efe4b")
@@ -48709,7 +48709,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/BRA")
+			(net "/motor_encoder_switch/tmc5130/BRA")
 			(pinfunction "BRA_44")
 			(pintype "passive")
 			(uuid "e915cb9a-90f6-47d4-85e2-7af1f69b8b3f")
@@ -48729,7 +48729,7 @@
 			(size 0.3 1.475)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/OA1")
+			(net "/motor_encoder_switch/OA1")
 			(pinfunction "OA1_46")
 			(pintype "output")
 			(uuid "1722f54b-5380-4679-8b7c-0d855faac69c")
@@ -49408,7 +49408,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/735d7528-e024-41da-8639-5a2475293264")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -49479,7 +49479,7 @@
 			(size 0.56 0.62)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/tmc5130/BRA")
+			(net "/motor_encoder_switch/tmc5130/BRA")
 			(pintype "passive")
 			(uuid "a015b717-d0d1-468f-90fd-df13f0a7b2da")
 		)
@@ -50704,7 +50704,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/14506acd-770d-4602-a934-c96be3627a02")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -51846,8 +51846,8 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/10c47ad7-796c-4083-b4e8-45ee44dece68")
-		(sheetname "/motor_encoder_limit/")
-		(sheetfile "motor_encoder_limit.kicad_sch")
+		(sheetname "/motor_encoder_switch/")
+		(sheetfile "motor_encoder_switch.kicad_sch")
 		(units
 			(unit
 				(name "A")
@@ -53608,7 +53608,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/0791d690-b611-471f-bc36-8c26ff6a5b7e")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -55701,7 +55701,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/11ccfdba-bbcc-447f-9dc4-a218a8f48f58/877edc0d-8517-4bfb-9a8a-87ef2f65742a")
-		(sheetname "/motor_encoder_limit/limit_switch_debounced_input_vertical/")
+		(sheetname "/motor_encoder_switch/limit_switch_debounced_input_vertical/")
 		(sheetfile "limit_switch_debounced_input_vertical.kicad_sch")
 		(units
 			(unit
@@ -60204,7 +60204,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/9c095d77-bc49-4401-aec8-d7ddc8bd052d")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -60275,7 +60275,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/ENC_B_RAW")
+			(net "/motor_encoder_switch/ENC_B_RAW")
 			(pintype "passive")
 			(uuid "33f45e90-2fcd-4353-9a0b-5773ec7dfaaf")
 		)
@@ -60284,7 +60284,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+			(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 			(pintype "passive")
 			(uuid "c6530afd-4b64-484c-808d-40241d925949")
 		)
@@ -65230,7 +65230,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/107b64cc-4b24-46ae-9fa0-7dea3aeaaa60")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -67726,7 +67726,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/71a16cf5-dc1e-47d5-ad3e-004ada028a7d")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -69388,7 +69388,7 @@
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/f0355ad2-ee9d-4879-aa58-32744cd5e9dc/27b1961b-dbb5-447e-98d1-8ba97d676414")
-		(sheetname "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/")
+		(sheetname "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/")
 		(sheetfile "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch")
 		(units
 			(unit
@@ -69804,7 +69804,7 @@
 		)
 		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/d3c56657-4bda-4df0-99bc-6fe5ef977e56")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -69875,7 +69875,7 @@
 			(size 1.125 1.75)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.222222)
-			(net "/motor_encoder_limit/tmc5130/BRA")
+			(net "/motor_encoder_switch/tmc5130/BRA")
 			(pintype "passive")
 			(uuid "71a6fd9e-55c0-492e-b382-8459a4deda92")
 		)
@@ -70218,7 +70218,7 @@
 		)
 		(property ki_fp_filters "orb_weaver_smd:CAP_EEEHAH101UAP")
 		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/8a48c44b-14a3-493a-ae50-8a9a036fc774/9e74d5e3-433b-48ec-9de8-b7463117718b")
-		(sheetname "/motor_encoder_limit/tmc5130/")
+		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
 			(unit
@@ -75912,7 +75912,7 @@
 		(end 150.75 70.5)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "13e3799e-6ba5-4c8f-97e0-e51e182c4d1b")
 	)
 	(segment
@@ -75920,7 +75920,7 @@
 		(end 153.12 72.87)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "1ce9fc2b-ec44-4e9b-bcb5-d03c57094565")
 	)
 	(segment
@@ -75928,7 +75928,7 @@
 		(end 155.230529 72.87)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "2339670d-f21b-4fde-aa6a-014164d4401a")
 	)
 	(segment
@@ -75936,7 +75936,7 @@
 		(end 143 67)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "42d2b426-8cb8-4668-ab02-ece885f2c08b")
 	)
 	(segment
@@ -75944,7 +75944,7 @@
 		(end 146.5 70.5)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "5510ad92-c689-4eca-a19b-37b34f8f7311")
 	)
 	(segment
@@ -75952,7 +75952,7 @@
 		(end 156.780529 72.42)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "8e5409bc-bbb6-4283-a95a-0792638b3385")
 	)
 	(segment
@@ -75960,7 +75960,7 @@
 		(end 143 64)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "cf58c4b2-c4ba-47f3-a769-c951bc2eb0ff")
 	)
 	(segment
@@ -75968,7 +75968,7 @@
 		(end 155.680529 72.42)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_B_RAW")
+		(net "/motor_encoder_switch/ENC_B_RAW")
 		(uuid "dd735796-3627-440d-8075-a3309cb3ed28")
 	)
 	(segment
@@ -78672,7 +78672,7 @@
 		(end 148.225 80.475)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CPO")
+		(net "/motor_encoder_switch/tmc5130/CPO")
 		(uuid "269b38aa-2bb7-4e5d-829e-54f86f64fd74")
 	)
 	(segment
@@ -78680,7 +78680,7 @@
 		(end 145.75 80.475)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CPO")
+		(net "/motor_encoder_switch/tmc5130/CPO")
 		(uuid "32251e8f-ecbc-4f10-9660-f7552e64f4d5")
 	)
 	(segment
@@ -78688,7 +78688,7 @@
 		(end 149 81.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CPO")
+		(net "/motor_encoder_switch/tmc5130/CPO")
 		(uuid "9b2b6ed4-4648-48c0-9922-43f1a3cdd6a5")
 	)
 	(segment
@@ -78696,7 +78696,7 @@
 		(end 145.75 82.1625)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CPI")
+		(net "/motor_encoder_switch/tmc5130/CPI")
 		(uuid "43d5d360-728f-431e-86cb-a7e461fe797a")
 	)
 	(segment
@@ -78704,7 +78704,7 @@
 		(end 145.75 82.025)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CPI")
+		(net "/motor_encoder_switch/tmc5130/CPI")
 		(uuid "c8cdcf4e-aea1-455f-826c-1e1df38a309d")
 	)
 	(segment
@@ -78928,7 +78928,7 @@
 		(end 155.240529 73.89)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "02681c63-81a6-40ee-a5f6-7ab4e874dbd9")
 	)
 	(segment
@@ -78936,7 +78936,7 @@
 		(end 156.480529 74.63)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "48208114-9ccf-406d-b014-3f1375750726")
 	)
 	(segment
@@ -78944,7 +78944,7 @@
 		(end 156.230529 72.9)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "60f5ad2e-ae49-4da6-8279-f9de24da4f2d")
 	)
 	(segment
@@ -78952,7 +78952,7 @@
 		(end 155.230529 73.89)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "7443627c-3b09-4cc8-8a6f-fff38d6eaa0f")
 	)
 	(segment
@@ -78960,7 +78960,7 @@
 		(end 157.180529 75.33)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "85cefbb1-4c93-446a-b9fc-ce1d0026252f")
 	)
 	(segment
@@ -78968,7 +78968,7 @@
 		(end 155.970529 74.63)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EB_FILT")
 		(uuid "c0fc5e77-0fd5-4929-a4b7-70733b64d9b4")
 	)
 	(segment
@@ -79208,7 +79208,7 @@
 		(end 159.230529 72.9)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 		(uuid "2dc9474c-8b01-459b-a572-4fcb4b5a36e8")
 	)
 	(segment
@@ -79216,7 +79216,7 @@
 		(end 160.220529 73.89)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 		(uuid "4d327068-9264-4ad5-8c17-903f4b880a68")
 	)
 	(segment
@@ -79224,7 +79224,7 @@
 		(end 158.890529 74.67)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 		(uuid "547519c1-1cd1-427c-981c-aea824dd9668")
 	)
 	(segment
@@ -79232,7 +79232,7 @@
 		(end 160.230529 73.89)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 		(uuid "d5a765a3-d72a-4139-a53d-25dbc4c5cad7")
 	)
 	(segment
@@ -79240,7 +79240,7 @@
 		(end 159.450529 74.67)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
+		(net "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/EA_FILT")
 		(uuid "eec18b62-46bf-4890-988b-e8ab5a7c2895")
 	)
 	(segment
@@ -80176,7 +80176,7 @@
 		(end 164.79 64.04)
 		(width 0.4)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/limit_switch_debounced_input_vertical/IN")
+		(net "/motor_encoder_switch/limit_switch_debounced_input_vertical/IN")
 		(uuid "883d5d2b-ad23-456c-8d62-9a8a880307b1")
 	)
 	(segment
@@ -80184,7 +80184,7 @@
 		(end 164.75 64)
 		(width 0.4)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/limit_switch_debounced_input_vertical/IN")
+		(net "/motor_encoder_switch/limit_switch_debounced_input_vertical/IN")
 		(uuid "f4b442e4-6896-43bb-b9f2-0038b081e0aa")
 	)
 	(segment
@@ -81696,7 +81696,7 @@
 		(end 158.75 86.7875)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRB")
+		(net "/motor_encoder_switch/tmc5130/BRB")
 		(uuid "198e33c4-a91c-40a2-833d-89e89a1bc3ea")
 	)
 	(segment
@@ -81704,7 +81704,7 @@
 		(end 158.75 86.7875)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRB")
+		(net "/motor_encoder_switch/tmc5130/BRB")
 		(uuid "246e9e6c-3dea-405b-b0c5-a0612a139297")
 	)
 	(segment
@@ -81712,7 +81712,7 @@
 		(end 158.5375 87)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRB")
+		(net "/motor_encoder_switch/tmc5130/BRB")
 		(uuid "6c2fd654-379f-4525-a30f-d00192fb355c")
 	)
 	(segment
@@ -81720,7 +81720,7 @@
 		(end 159.7325 87.77)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRB")
+		(net "/motor_encoder_switch/tmc5130/BRB")
 		(uuid "a0eff624-f785-4042-b592-8943b7d506cf")
 	)
 	(segment
@@ -81728,7 +81728,7 @@
 		(end 150 64)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "297f54ca-11ad-4ff7-9b1a-0d9ef5ebce68")
 	)
 	(segment
@@ -81736,7 +81736,7 @@
 		(end 158.680529 72.42)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "9574c250-56ae-477f-9080-35430b870e59")
 	)
 	(segment
@@ -81744,7 +81744,7 @@
 		(end 150 67)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "a29263df-47a0-4aea-8fe1-1703ee0d409c")
 	)
 	(segment
@@ -81752,7 +81752,7 @@
 		(end 159.780529 72.42)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "a87a15b2-3bc8-4d76-bce9-29271617f0b2")
 	)
 	(segment
@@ -81760,7 +81760,7 @@
 		(end 158.230529 72.87)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "b5e6542b-3321-4f1c-beba-f5464ca71c66")
 	)
 	(segment
@@ -81768,7 +81768,7 @@
 		(end 156.860529 71.5)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "f79817a2-efe4-4eaa-929e-285a010c9958")
 	)
 	(segment
@@ -81776,7 +81776,7 @@
 		(end 154.5 71.5)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/ENC_A_RAW")
+		(net "/motor_encoder_switch/ENC_A_RAW")
 		(uuid "fa4130b4-bb58-44da-9bac-99c97f505a5c")
 	)
 	(segment
@@ -81784,7 +81784,7 @@
 		(end 154.784012 84)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/ENCN")
+		(net "/motor_encoder_switch/tmc5130/ENCN")
 		(uuid "21952c72-019f-457a-819e-773ba094a922")
 	)
 	(segment
@@ -81792,7 +81792,7 @@
 		(end 155.4125 84)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/ENCN")
+		(net "/motor_encoder_switch/tmc5130/ENCN")
 		(uuid "77f2d3b6-6ed8-4563-ae57-7f579cc96e28")
 	)
 	(segment
@@ -81800,7 +81800,7 @@
 		(end 154.475 83.690988)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/ENCN")
+		(net "/motor_encoder_switch/tmc5130/ENCN")
 		(uuid "ccf5f119-4895-40cf-a29a-0da73b368c6b")
 	)
 	(segment
@@ -81808,7 +81808,7 @@
 		(end 155.274012 82.51)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/ENCN")
+		(net "/motor_encoder_switch/tmc5130/ENCN")
 		(uuid "dcd809e9-054d-4990-9e2b-adab492d3abc")
 	)
 	(segment
@@ -81816,7 +81816,7 @@
 		(end 154.475 83.309012)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/ENCN")
+		(net "/motor_encoder_switch/tmc5130/ENCN")
 		(uuid "f847c982-0f3e-4421-8dd3-e98685157cd6")
 	)
 	(segment
@@ -81864,7 +81864,7 @@
 		(end 148.925 92.275)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CLK")
+		(net "/motor_encoder_switch/tmc5130/CLK")
 		(uuid "3c3f50f8-cb4e-48c0-a0a2-8cd7f2b8d0ac")
 	)
 	(segment
@@ -81872,7 +81872,7 @@
 		(end 149 92.2)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/CLK")
+		(net "/motor_encoder_switch/tmc5130/CLK")
 		(uuid "5430a89c-b0a5-4f0a-9ae6-a1220b3b2e05")
 	)
 	(segment
@@ -81896,7 +81896,7 @@
 		(end 141.5 72.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "315cdb71-9f56-4986-a022-db383155dcf3")
 	)
 	(segment
@@ -81904,7 +81904,7 @@
 		(end 135.25 66)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "4f2acf4e-ef3f-4e08-90ab-0ba2d7838fa6")
 	)
 	(segment
@@ -81912,7 +81912,7 @@
 		(end 157 86)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "61a68200-c40d-4c5f-b790-e74212ddb493")
 	)
 	(segment
@@ -81920,7 +81920,7 @@
 		(end 135.25 64)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "7d89e3e5-8a04-4b0c-a18f-f9e6aeae6d47")
 	)
 	(segment
@@ -81928,7 +81928,7 @@
 		(end 150.5 72.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "9d656799-cc40-4a50-b48a-f508ca3a9a81")
 	)
 	(via
@@ -81936,7 +81936,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "01870205-c682-46c0-b652-e0cdb95d390b")
 	)
 	(via
@@ -81944,7 +81944,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "2d9dc790-87ff-4b13-9fd7-a497031ab04d")
 	)
 	(segment
@@ -81952,7 +81952,7 @@
 		(end 157 78.75)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "31e7140e-2201-4cef-a3ab-29692bb6ee01")
 	)
 	(segment
@@ -81960,7 +81960,7 @@
 		(end 153.5 75.25)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OB2")
+		(net "/motor_encoder_switch/OB2")
 		(uuid "f25c8c3f-2382-4093-b437-eb3f466c05b7")
 	)
 	(segment
@@ -81968,7 +81968,7 @@
 		(end 131.75 66)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "28584ea9-4873-43b8-a02e-4cd9100b56e6")
 	)
 	(segment
@@ -81976,7 +81976,7 @@
 		(end 131.75 64)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "4798e7ad-73b2-4846-ad32-96f2e09820c0")
 	)
 	(segment
@@ -81984,7 +81984,7 @@
 		(end 150 73.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "65373cbe-6685-45c8-967a-52dcffe916b6")
 	)
 	(segment
@@ -81992,7 +81992,7 @@
 		(end 157 88)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "f45357d0-d90c-46bf-875d-f25f7311db0c")
 	)
 	(segment
@@ -82000,7 +82000,7 @@
 		(end 139 73.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "f9c13849-91c1-47b2-abfb-a65573c0fc86")
 	)
 	(via
@@ -82008,7 +82008,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "2e43c7f6-1b67-4321-be05-cb9b6c4d5704")
 	)
 	(via
@@ -82016,7 +82016,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "accd2541-557e-4041-94e7-52bfbc952508")
 	)
 	(segment
@@ -82024,7 +82024,7 @@
 		(end 152 75.25)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "31e3ece0-46f8-4882-8e8c-c330800b99fe")
 	)
 	(segment
@@ -82032,7 +82032,7 @@
 		(end 155.75 86.75)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "8b834063-3111-4746-adf6-d3c1d9f797d4")
 	)
 	(segment
@@ -82040,7 +82040,7 @@
 		(end 155.75 79)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OB1")
+		(net "/motor_encoder_switch/OB1")
 		(uuid "c81a638c-1527-4165-a1c3-30064b07496f")
 	)
 	(segment
@@ -82048,7 +82048,7 @@
 		(end 128.25 66)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "5b31b6f3-7476-495c-9036-e5ffeb2db203")
 	)
 	(segment
@@ -82056,7 +82056,7 @@
 		(end 145.5 86)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "66f81ce1-dfb5-48af-9407-c70d3aeb0abb")
 	)
 	(segment
@@ -82064,7 +82064,7 @@
 		(end 128.25 64)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "7626d998-8132-4e82-b117-7c83f4b28479")
 	)
 	(segment
@@ -82072,7 +82072,7 @@
 		(end 136.5 74.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "c0612e57-803a-4748-b027-b6d1c4ba7098")
 	)
 	(segment
@@ -82080,7 +82080,7 @@
 		(end 149.5 74.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "ded2bf8a-8355-488e-9f9f-c02c4adadd30")
 	)
 	(via
@@ -82088,7 +82088,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "3ae16d66-8961-4d37-8550-f34e7d25f256")
 	)
 	(via
@@ -82096,7 +82096,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "8835602d-3071-4109-bfff-891224c47e16")
 	)
 	(segment
@@ -82104,7 +82104,7 @@
 		(end 145.5 80.25)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "9f2129b2-a077-4322-9561-5f4528b062cb")
 	)
 	(segment
@@ -82112,7 +82112,7 @@
 		(end 150.5 75.25)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OA2")
+		(net "/motor_encoder_switch/OA2")
 		(uuid "e3ec535b-eb73-42a6-a9e9-b3177d66042e")
 	)
 	(segment
@@ -82120,7 +82120,7 @@
 		(end 145.5 88)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "28428598-6591-43cb-b001-bef067a168e6")
 	)
 	(segment
@@ -82128,7 +82128,7 @@
 		(end 134 75.25)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "5a66e0d6-89eb-4125-9204-32c2cd8bed96")
 	)
 	(segment
@@ -82136,7 +82136,7 @@
 		(end 124.75 66)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "7c401afa-50ed-4943-935a-5f5cecb7eea9")
 	)
 	(segment
@@ -82144,7 +82144,7 @@
 		(end 124.75 64)
 		(width 0.6)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "ec8e314e-6144-45ef-add7-c863a1c90f4f")
 	)
 	(via
@@ -82152,7 +82152,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "0e033d59-a4f4-4878-b99a-f85ed3aeae10")
 	)
 	(via
@@ -82160,7 +82160,7 @@
 		(size 1)
 		(drill 0.5)
 		(layers "F.Cu" "B.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "be2f541c-5b96-49e3-bbd9-be73f1ee017e")
 	)
 	(segment
@@ -82168,7 +82168,7 @@
 		(end 149 75.25)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "0a260e28-bda0-4512-848d-f038ce45e707")
 	)
 	(segment
@@ -82176,7 +82176,7 @@
 		(end 144.5 79.75)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "34d54c22-9418-4909-9361-205ffcbfdb0b")
 	)
 	(segment
@@ -82184,7 +82184,7 @@
 		(end 144.5 87)
 		(width 0.6)
 		(layer "B.Cu")
-		(net "/motor_encoder_limit/OA1")
+		(net "/motor_encoder_switch/OA1")
 		(uuid "8ce2fb9f-7645-4052-89f4-95168680384c")
 	)
 	(segment
@@ -82552,7 +82552,7 @@
 		(end 150 80.75)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/5VOUT")
+		(net "/motor_encoder_switch/tmc5130/5VOUT")
 		(uuid "2e23891c-6ab0-4a87-b173-628e7e33caf9")
 	)
 	(segment
@@ -82560,7 +82560,7 @@
 		(end 149.5 80.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/5VOUT")
+		(net "/motor_encoder_switch/tmc5130/5VOUT")
 		(uuid "73d4448f-847d-47a6-817b-52b8ec0575d4")
 	)
 	(segment
@@ -82568,7 +82568,7 @@
 		(end 149.5 78.98)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/5VOUT")
+		(net "/motor_encoder_switch/tmc5130/5VOUT")
 		(uuid "9b4c77be-41fe-4783-886a-9c222323ef3d")
 	)
 	(segment
@@ -82576,7 +82576,7 @@
 		(end 149.5 78.98)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/5VOUT")
+		(net "/motor_encoder_switch/tmc5130/5VOUT")
 		(uuid "e99e4c4d-d2f4-4fc0-9747-40e4492d4e06")
 	)
 	(segment
@@ -82584,7 +82584,7 @@
 		(end 149.48 79)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/5VOUT")
+		(net "/motor_encoder_switch/tmc5130/5VOUT")
 		(uuid "f60e2e91-c578-4c9a-bb7c-fb341a75e0fc")
 	)
 	(segment
@@ -82592,7 +82592,7 @@
 		(end 145.48 84)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/VCP")
+		(net "/motor_encoder_switch/tmc5130/VCP")
 		(uuid "ad70a505-a6be-4825-ac79-bc749b5b5da6")
 	)
 	(segment
@@ -82600,7 +82600,7 @@
 		(end 145.25 83.77)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/VCP")
+		(net "/motor_encoder_switch/tmc5130/VCP")
 		(uuid "e579e2f1-caeb-45cf-a05f-e677b0d3ed5d")
 	)
 	(segment
@@ -82776,7 +82776,7 @@
 		(end 143.75 86.7875)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRA")
+		(net "/motor_encoder_switch/tmc5130/BRA")
 		(uuid "12595ac0-2c7e-49f6-946c-dd8c34ba464f")
 	)
 	(segment
@@ -82784,7 +82784,7 @@
 		(end 143.9625 87)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRA")
+		(net "/motor_encoder_switch/tmc5130/BRA")
 		(uuid "39cfc6b8-fef8-4406-88c1-0ef955fc49b9")
 	)
 	(segment
@@ -82792,7 +82792,7 @@
 		(end 143.75 86.7875)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRA")
+		(net "/motor_encoder_switch/tmc5130/BRA")
 		(uuid "b727da89-dfee-4831-b948-66b6d7dbfc91")
 	)
 	(segment
@@ -82800,7 +82800,7 @@
 		(end 142.7675 87.77)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/motor_encoder_limit/tmc5130/BRA")
+		(net "/motor_encoder_switch/tmc5130/BRA")
 		(uuid "e930ce21-9d20-4557-a877-8b44a62f0c7b")
 	)
 	(segment
