@@ -1,8 +1,10 @@
 # Interface Map
 
 **Status:** Rev 0 allocation frozen; schematic drawn and reviewed 2026-08-17,
-with open findings in `.agents/handoff.local.md`
-**Date:** 2026-08-17
+with open findings in `.agents/handoff.local.md`. **Rev 1 allocation revised
+2026-08-26** when the analog output block was built — `GP12` and `GP17` returned
+to the spare pool and no Rev 0 pin moved.
+**Date:** 2026-08-26
 **Board:** single-axis, RP2040, one TMC5130A
 **Source profile:** `board-interfaces/docs/instrument-port-40.md`
 
@@ -17,7 +19,7 @@ Rev 0 was scaled back to get testable hardware in the researcher's hands sooner.
 See `docs/rev0-plan.md` for what it contains and why.
 
 The allocation below is written so that **no pin moves between Rev 0 and full
-scope**. Rev 0 populates 18 of the 26 allocated GPIOs; the other 8 are reserved,
+scope**. Rev 0 populates 18 of the 24 allocated GPIOs; the other 6 are reserved,
 routed nowhere, and become live in later revisions without disturbing anything
 Rev 0 established. Firmware written against Rev 0 keeps working.
 
@@ -25,8 +27,10 @@ Rev 0 established. Firmware written against Rev 0 keeps working.
 into Rev 0; it was already allocated and already in the bypass group. The same
 day, `GP14`-`GP16` and `GP18` left the allocation entirely when the encoder and
 limit switch stopped reaching the MCU, which is why the denominator dropped from
-29 to 25. **`GP14` came back on 2026-08-17** as `HV_DIAG_EN`, which takes the
-denominator to 26 and leaves four spares rather than five.
+29 to 25. **`GP14` came back on 2026-08-17** as `HV_DIAG_EN`, taking the
+denominator to 26. **`GP12` and `GP17` left it on 2026-08-26** when the analog
+output block was built against a part with no `LDAC` or `CLR` pin, which takes
+the denominator to 24 and leaves six spares.
 
 That property is not free, and it cost exactly one trade — see
 [The Bus Switch Costs A Pin](#the-bus-switch-costs-a-pin).
@@ -34,7 +38,8 @@ That property is not free, and it cost exactly one trade — see
 ## RP2040 GPIO Allocation
 
 Checked against RP2040 peripheral pin muxing. `UART0` is the pyControl link,
-`SPI0` serves the TMC5130A, `SPI1` is reserved for the rev 1 DAC. Chip selects
+`SPI0` serves the TMC5130A, `SPI1` is reserved for the rev 1 DAC and needs only
+three of its pins — `SCK`, `TX`, and a GPIO chip select. Chip selects
 are plain GPIO, not hardware `CSn` — RP2040's PL022 hardware chip select does not
 hold `CS` low across the TMC5130A's 40-bit multi-byte datagrams.
 
@@ -65,12 +70,12 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP9`  | `~{BUS_SW_EN}`        | GPIO isolation enable, active low                        | **yes**  | `byp` | `out`² |
 | `GP10` | `DAC_SPI_SCK`         | DAC SPI clock (`SPI1 SCK`)                               | reserved | `sw`  | `out`  |
 | `GP11` | `DAC_SPI_COPI`        | DAC SPI MOSI (`SPI1 TX`)                                 | reserved | `sw`  | `out`  |
-| `GP12` | `~{DAC_LDAC}`         | DAC synchronous load                                     | reserved | `sw`  | `out`  |
+| `GP12` | spare                 | **Freed 2026-08-26** — the rev 1 DAC has no `LDAC` pin⁶  | spare    | —     | —      |
 | `GP13` | `~{DAC_CS}`           | DAC chip select (`~SYNC`)                                | reserved | `sw`  | `out`  |
 | `GP14` | `HV_DIAG_EN`          | 36 V switch diagnostics enable⁵                          | **yes**  | `byp` | `out`  |
 | `GP15` | spare                 | **Freed 2026-08-16**                                     | spare    | —     | —      |
 | `GP16` | spare                 | **Freed 2026-08-16**                                     | spare    | —     | —      |
-| `GP17` | `~{DAC_CLR}`          | DAC clear                                                | reserved | `sw`  | `out`  |
+| `GP17` | spare                 | **Freed 2026-08-26** — the rev 1 DAC has no `CLR` pin⁶   | spare    | —     | —      |
 | `GP18` | spare                 | **Freed 2026-08-16** — limit switch reaches `REFL` only³ | spare    | —     | —      |
 | `GP19` | `HV_EN`               | 36 V input switch enable                                 | **yes**  | `byp` | `out`  |
 | `GP20` | `PYC_PULL_EVENT`      | Pull event out                                           | reserved | `byp` | `out`  |
@@ -106,12 +111,25 @@ Is Actually For](#what-the-rail-sense-is-actually-for). The `mcu` sheet pin name
 ⁵ **Added 2026-08-17.** `GP14` drives the `TPS1HTC100-Q1`'s `DIAG_EN` through
 `R202` 1 kΩ. See the note on `DIAG_EN` below.
 
-**Rev 0: 18 connected, 8 reserved, 4 spare.**
-**Full scope: 26 connected, 4 spare (`GP15`, `GP16`, `GP18`, `GP27`).**
+⁶ **Freed 2026-08-26** when the rev 1 analog output block was built. The
+`DAC80501` has no hardware `LDAC` and no hardware `CLR` pin at all — synchronous
+update is the `DAC_SYNC_EN` bit plus the `TRIGGER` register's `LDAC` bit, and a
+soft reset writes `0x1010` to `TRIGGER`. Both functions survive; they cost zero
+pins instead of two. See `docs/encoder-analog-output.md`.
+
+**Rev 0: 18 connected, 6 reserved, 6 spare.**
+**Full scope: 24 connected, 6 spare (`GP12`, `GP15`, `GP16`, `GP17`, `GP18`,
+`GP27`).**
 
 **Four pins were freed on 2026-08-16** and the allocation went from comfortable to
 roomy. That matters for more than tidiness — see the note on rev 2 below. One of
 the four, `GP14`, was spent again on 2026-08-17.
+
+**Two more were freed on 2026-08-26**, and unlike every earlier reclaim these
+cost nothing at all. `GP12` and `GP17` were not traded away or descoped — the
+part chosen for the analog output simply does not have the pins they were
+reserved for. That is the difference between this reclaim and the
+`TMC_REF_STIM` trade below, and it is why the rev 2 arithmetic changes sign.
 
 `DIAG_EN` on the input block's switch is on **`GP14`, through `R202` 1 kΩ**.
 **Reversed 2026-08-17**; earlier guidance said tie it to `+3.3V`, not to a GPIO,
@@ -168,18 +186,25 @@ This frees `GP14`, `GP15`, `GP16`, and `GP18`. `GP14` was spent again on
 signals independently of the driver's own report. That is a stronger reason for
 them to be on the port than existed when the MCU also had copies.
 
-**Rev 2 may still fit on RP2040, but it is now one pin short of free.** Full scope
-is 26 of 30 with four spares, and the brake plus torque front end for a single
-axis needs about six GPIOs — `BRAKE_DIM`, `~{BRAKE_FAULT}`, a brake current
-monitor on ADC, two for the torque bus, and `TQ_DRDY`. Drop `TQ_DRDY`, which the
-bus capture already implies, and it is **five wanted against four spare**, with
-`GP27` ADC-capable for the current monitor. Item 1 of the reclaim order below —
-tie `~{DAC_CLR}` high in hardware, freeing `GP17` — closes the gap without
-costing a function. **Updated 2026-08-17**: until `GP14` became `HV_DIAG_EN` this
-was five for five with nothing to reclaim. **The twin-axis board
-needs RP2354B because it carries two of everything; this board may not.** Do not
-treat that as settled — it is an observation to check when the rev 2 circuits are
-actually specified, not a commitment.
+**Rev 2 fits on RP2040 with room, as of 2026-08-26.** Full scope is 24 of 30
+with six spares, and the brake plus torque front end for a single axis needs
+about six GPIOs — `BRAKE_DIM`, `~{BRAKE_FAULT}`, a brake current monitor on ADC,
+two for the torque bus, and `TQ_DRDY`. That is **six wanted against six spare**
+even keeping `TQ_DRDY`, with `GP27` ADC-capable for the current monitor. Drop
+`TQ_DRDY`, which the bus capture already implies, and there is a pin left over.
+
+**This reversed twice.** Until `GP14` became `HV_DIAG_EN` on 2026-08-17 it was
+five for five with nothing to reclaim; that day it became five wanted against
+four spare, one pin short of free, and the fix was to spend reclaim-order item 1.
+On 2026-08-26 the analog output block landed on a part with no `LDAC` or `CLR`
+pin and returned `GP12` and `GP17` for nothing, which closes the gap outright
+rather than by trading a function away. **Reclaim-order item 1 is now void** —
+see below.
+
+**The twin-axis board needs RP2354B because it carries two of everything; this
+board may not.** Do not treat that as settled — it is an observation to check
+when the rev 2 circuits are actually specified, not a commitment. It is a
+stronger observation than it was, but the rev 2 circuits are still unspecified.
 
 ### What The Rail Sense Is Actually For
 
@@ -295,8 +320,15 @@ channels are wired and stop at the bus switch; as built the unused bus-switch
 channels have their **A pins open and their B (MCU-side) pins tied to GND**, so
 rev 1 has to edit the isolation block regardless — see [The Block Is Oversized For
 This Board](#the-block-is-oversized-for-this-board--accepted). When they arrive:
-`DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_LDAC}`, `~{DAC_CS}`, `~{DAC_CLR}`,
-`PYC_PULL_EVENT`, and `PYC_FAULT` are **Output**; `PYC_RSYNC_IN` is **Input**.
+`DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`, `PYC_PULL_EVENT`, and `PYC_FAULT`
+are **Output**; `PYC_RSYNC_IN` is **Input**. (**Updated 2026-08-26**:
+`~{DAC_LDAC}` and `~{DAC_CLR}` are gone from this list — the part has neither
+pin.)
+
+Rev 1 also adds three pins that are **not** GPIOs and are easy to miss when
+counting: the analog output block needs `+5V_SW` and `GND`, and its `AOUT`
+leaves as an **Output** on whatever sheet holds it. `AOUT` does not cross the
+`mcu` boundary at all — it goes from the block to `J7`.
 
 #### The Bus Switch Does Not Change Direction
 
@@ -366,24 +398,28 @@ closing the actual switch rather than by a GPIO impersonating one. Leave a test
 pad on the `REFL` net so a jumper can still force a closure — **still outstanding
 as of 2026-08-17; no test pads exist anywhere on the board.**
 
-Net effect: **the trade was one-for-one.** Full scope is now 26 of 30 with four
-spares, and that headroom arrived three days later and by a different route.
+Net effect: **the trade was one-for-one.** Full scope is now 24 of 30 with six
+spares, and that headroom arrived by two later routes: four pins on 2026-08-16
+from the encoder and limit-switch cut, and two more on 2026-08-26 from the
+analog output part.
 
 ### Reclaim Order If More Pins Are Needed
 
-Item 2 of the previous list has been spent on `~{BUS_SW_EN}`. What remains, least
-loss first:
+Item 2 of the previous list has been spent on `~{BUS_SW_EN}`. **Item 1 became
+void on 2026-08-26.** What remains:
 
-1. **Tie `~{DAC_CLR}` high in hardware**, freeing `GP17`. Costs software clear;
-   the twin-axis board already accepts this. Mandatory anyway if a 4-bit level
-   translator is fitted. Rev 1 concern only.
+1. ~~**Tie `~{DAC_CLR}` high in hardware**, freeing `GP17`.~~ **Void.** The
+   `DAC80501` has no `CLR` pin, so `GP17` is already spare and there is no
+   software clear to give up — the function moved into the `TRIGGER` register.
+   `GP12` came back the same way. This is the only entry ever removed from this
+   list without being spent.
 2. **Drop `TMC_DIAG1`**, freeing `GP8`. `DIAG0` alone, configured to report what
    matters. Route `DIAG1` to a test point.
 
-**Neither is needed today.** Four spares exist — `GP15`, `GP16`, `GP18`, and
-`GP27` — so spend a spare before spending a function. **There were five until
-2026-08-17**, when `GP14` became `HV_DIAG_EN`, so item 1 is now closer than it
-was: see the rev 2 arithmetic above.
+**Neither is needed today, and the list is now one item long.** Six spares exist
+— `GP12`, `GP15`, `GP16`, `GP17`, `GP18`, and `GP27` — so spend a spare before
+spending a function. **There were five until 2026-08-17**, four after `GP14`
+became `HV_DIAG_EN`, and six from 2026-08-26: see the rev 2 arithmetic above.
 
 Notes:
 
@@ -428,8 +464,11 @@ Notes:
   low or the 36 V supply is absent, which is the board's normal idle state, so
   this is the MCU's primary evidence that the switched domain is actually up.
   It gates step 3 of the sequencing rule above. `+5V_SW` is still required in
-  Rev 0 — the TMC5130A's `VCC` minimum is 4.6 V — even though the DAC that also
-  needed it is deferred. See `docs/power.md`.
+  Rev 0 — the TMC5130A's `VCC` minimum is 4.6 V — even though the analog output
+  that also needs it is deferred to rev 1. **Updated 2026-08-26:** when it
+  arrives, its `OPA197` needs 4.5 V minimum, so `+5V_SW` acquires a second
+  independent reason to be a real regulated rail rather than the ORed MCU one.
+  See `docs/power.md`.
 - **`GP1` needs an external 10 kΩ pull-up to `+3.3V_MCU`; fitted 2026-08-17 as
   `R403`.** See
   [`GP1` Gets A Hardware Pull-Up](#gp1-gets-a-hardware-pull-up) below. This is a
@@ -514,7 +553,7 @@ the cross-board fault discussion in `docs/pycontrol-interface.md`.
 |------------|-----------------------------------------------------------|-------------------------------------------------|-------|
 | `UART0`    | pyControl link, 115200 8N1                                | `GP0`, `GP1`                                    | yes   |
 | `SPI0`     | TMC5130A                                                  | `GP6` SCK, `GP7` TX, `GP4` RX, `GP2` CS as GPIO | yes   |
-| `SPI1`     | DAC8563, write-only                                       | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO        | rev 1 |
+| `SPI1`     | DAC80501, write-only                                      | `GP10` SCK, `GP11` TX, `GP13` CS as GPIO        | rev 1 |
 | PIO0       | **Unallocated** — the encoder cross-check was deleted     | —                                               | —     |
 | ADC        | `SW_RAIL_SENSE_DIV_2`, `HV_SNS`, `~{HV_FAULT}` as digital, one spare | `GP26`-`GP29`                        | yes   |
 | USB        | Debug console, CDC                                        | dedicated USB pins                              | yes   |
@@ -565,16 +604,18 @@ rule:
 
 | Iso   | Applies to                                                                                                                                                               | Because                                                  |
 |-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| `sw`  | TMC5130A SPI, enable, and diagnostics; the DAC bus in rev 1                                                                                                              | All of them are parts that lose power when `HV_EN` drops |
+| `sw`  | TMC5130A SPI, enable, and diagnostics; the 3-wire DAC bus in rev 1                                                                                                       | All of them are parts that lose power when `HV_EN` drops |
 | `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_DIAG_EN`, `HV_SNS`, `~{HV_FAULT}`; `SW_RAIL_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_EN}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN`      |
 
-**Rev 0 isolates 7 channels; full scope isolates 12.** Both dropped by four on
+**Rev 0 isolates 7 channels; full scope isolates 10.** Both dropped by four on
 2026-08-16, when the encoder and limit switch stopped reaching the MCU — those
 were `sw` entries, which is why the `sw` row above no longer names the debouncer
-copy or the encoder PIO tap. The as-built netlist confirms the 7: six channels on
-`U601` and one on `U602`. The bypass group is **14** at full scope — 13 until
-`HV_DIAG_EN` arrived on 2026-08-17 — which is larger than a first pass suggests,
-and each entry earns it:
+copy or the encoder PIO tap. Full scope dropped by two more on **2026-08-26**,
+when the analog output turned out to need three channels rather than five: the
+`DAC80501` has no `LDAC` and no `CLR` pin. The as-built netlist confirms the 7:
+six channels on `U601` and one on `U602`. The bypass group is **14** at full
+scope — 13 until `HV_DIAG_EN` arrived on 2026-08-17 — which is larger than a
+first pass suggests, and each entry earns it:
 
 | Net                                                   | Why it bypasses                                                                                                                                                                                              |
 |-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -600,12 +641,14 @@ wired into `mcu.kicad_sch`. Deliberate divergence, noted so nobody "fixes" it.
 ### The Block Is Oversized For This Board — Accepted
 
 The block is four packages because it is built to isolate all 30 GPIOs. Under the
-rule above this board isolates **7 in Rev 0 and 12 at full scope**, so two of
-the four `SN74CB3Q3245` packages are dead weight in Rev 0 and two are at full
-scope. The 2026-08-16 encoder and limit-switch cut made this worse, not better —
-twelve channels fit in two packages with four to spare. The decision to place the
-proven block whole still stands on schedule grounds, but it is now carrying twice
-the packages it needs rather than a bit over.
+rule above this board isolates **7 in Rev 0 and 10 at full scope**, so two of
+the four `SN74CB3Q3245` packages are dead weight in Rev 0 **and at full scope
+too**. The 2026-08-16 encoder and limit-switch cut made this worse, not better,
+and the 2026-08-26 analog output part made it worse again — **ten channels fit
+in two packages with six to spare**, so `U603` and `U604` now have no path to
+ever carrying a signal on this board. The decision to place the proven block
+whole still stands on schedule grounds, but it is carrying twice the packages it
+needs and the second half is no longer "reserved for later".
 
 **As built 2026-08-17**, the seven live channels land on `U601` (six: `~{TMC_CS}`
 A3, `~{TMC_DRV_EN}` A4, `TMC_SPI_CIPO` A5, `TMC_DIAG0` A6, `TMC_SPI_SCK` A7,
@@ -639,6 +682,50 @@ means **rev 1 has to edit this block to reach the DAC channels**, so the
 "adds them without moving anything" property was never delivered. Plan for a block
 edit at rev 1, and prefer option B if that edit is happening anyway. Bypass-group
 signals stay off the switch entirely, which is unchanged.
+
+**Updated 2026-08-26 — option B is now the clear answer.** The rev 1 edit needs
+only **three** channels (`DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`), which fit
+in `U602`'s seven free channels without touching `U603` or `U604`. Since the
+block has to be edited anyway, and since the full-scope requirement is now ten
+channels against thirty-two placed, the schedule argument that carried option A
+has expired. Do the swap when rev 1 opens the block, not before — Rev 0 is
+already ERC-clean with option A placed.
+
+#### The DAC Bus Terminations — One Is In The Block, Two Are Not
+
+Isolated channels float when the switch is open, so rev 1 must define all three
+DAC lines. **The load-bearing one is inside the block**, which is a deliberate
+departure from the `R403` precedent:
+
+| Net              | Termination                  | Where        | Required? |
+|------------------|------------------------------|--------------|-----------|
+| `~{DAC_CS}`      | 10 kΩ **pull-up** `+3.3V_SW` | **In block** (`R35005`) | **Yes** |
+| `DAC_SPI_SCK`    | 10 kΩ pull-down to GND       | Board        | Hygiene   |
+| `DAC_SPI_COPI`   | 10 kΩ pull-down to GND       | Board        | Hygiene   |
+
+So the board's nine 10 kΩ terminations become **eleven**, not twelve.
+
+Only the pull-up is load-bearing: the `DAC80501` blocks `SCLK` and `SDIN`
+entirely while `SYNC` is high, and a frame interrupted before its 24th `SCLK`
+falling edge is discarded with no register update. The other two prevent
+floating CMOS inputs, not a functional failure. Because the required one is
+functional rather than board-dependent, hosting it in the block means no board
+can omit it — the trade is a seventh boundary pin.
+
+**That seventh pin is `+3.3V`, and it must bind to `+3.3V_SW`.** Binding it to
+`+3.3V_MCU` would hold `~{DAC_CS}` at 3.3 V while the DAC's own `VDD` is dead,
+pushing roughly 260 µA through the DAC's input clamp into `+5V_SW` — the exact
+back-power mechanism the bus switch exists to prevent, reintroduced inside a
+block where the bus switch cannot see it. This is the same rule the board
+already applies to the buffer terminations: *the switched-domain nets
+deliberately do not reference `+3.3V_MCU`.*
+
+**Do not pull any of the three to the DAC's 5 V rail.** The `SN74CB3Q3245` is a
+symmetric FET pass gate, so a 5 V pull-up on the switched side lands on an
+RP2040 pad and exceeds its `IOVDD + 0.3 V` limit. `+3.3V_SW` is correct and
+sufficient — the `DAC80501`'s `VIH` is 1.62 V, so even against the RP2040's
+internal pull-down the ~2.75 V divider result has margin, the same arithmetic
+that justifies `R403` on `GP1`.
 
 ### The Bus Switch Runs From `+3.3V_MCU`
 
@@ -719,7 +806,7 @@ their sheets exist and can number them.
 | `J1501` | 40-pin 0.5 mm FFC, `OW-CONN-5051104091`                                 | InstrumentPort-40                                       | **yes** |
 | `J1101` | 4-pos 3.5 mm terminal, `OW-CONN-1844236`                                | Stepper coils                                           | **yes** |
 | `J1102` | 5-pos 3.5 mm terminal, `OW-CONN-1844249`                                | Encoder: supply, return, `A`, `B`; pin 2 reserved       | **yes** |
-| `J7`    | Dual BNC, `DOSIN-801-0095`                                              | `ANGLE_OUT`, `AUX_ANALOG_OUT`                           | rev 1   |
+| `J7`    | Dual BNC `DOSIN-801-0095`, **or single `DOSIN-801-0050`** — see below    | `ANGLE_OUT`, `AUX_ANALOG_OUT`                           | rev 1   |
 | `J8`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_PULL_EVENT`, `PYC_FAULT`                           | rev 1   |
 | `J9`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_RSYNC_IN`, spare                                   | rev 1   |
 | `J10`   | SWD header                                                              | Debug — **not implemented**, see below                  | no      |
@@ -728,6 +815,24 @@ their sheets exist and can number them.
 **Seven connectors in Rev 0, four deferred.** `J1501` moved into Rev 0 on
 2026-08-16 with the InstrumentPort. **Corrected 2026-08-17**: the count used to
 say eight and three, which counted the SWD header as populated.
+
+#### `J7` Dual Versus Single — Reopened 2026-08-26
+
+`J7` was specified as a dual `DOSIN-801-0095` because the analog output was
+going to be a **dual** `DAC8563`, so the second channel cost a footprint and two
+passives and it would have been wasteful not to bring it out. The built block is
+**single-channel**, so `AUX_ANALOG_OUT` now costs a second full instance — one
+more `DAC80501`, one more `OPA197`, and thirteen passives.
+
+That does not settle it, but it changes the default. If `AUX_ANALOG_OUT` is
+populated, keep the dual jack. If it is not, the stocked single
+`DOSIN-801-0050` is the honest choice and saves the board edge. **Decide before
+layout**, because the two footprints are not interchangeable.
+
+The related question — whether channel B carries a validity signal — is in
+`docs/encoder-analog-output.md`. It was nearly free and is now not; the argument
+for encoding validity into the angle signal's own out-of-band levels
+correspondingly got stronger.
 
 ### The SWD Header Is Deferred, By Decision
 
@@ -854,7 +959,7 @@ I2C overlay.
 | 24                                         | `DIG15`             | `PYC_RSYNC_IN`                                  | rev 1                     | Time alignment; places everything else in pyControl time                             |
 | 26                                         | `TRIG0`             | `FW_TRIG0`                                      | **Rev 0**                 | Firmware timing marker                                                               |
 | 28                                         | `TRIG1`             | `FW_TRIG1`                                      | **Rev 0**                 | Firmware timing marker                                                               |
-| 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at the BNC centre / `AGND`          | rev 1                     | Verifies the researcher-facing BNC against the driver's own count in one capture     |
+| 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at the BNC centre / `AGND`, 0-3.3 V | rev 1                     | Verifies the researcher-facing BNC against the driver's own count in one capture. **The tap must be ≥100 kΩ** — see below |
 | 35/36                                      | `AIN1_P` / `AIN1_N` | `AUX_ANALOG_OUT` **or** `BRAKE_ISENSE` / `AGND` | rev 1-2                   | Contested; see below                                                                 |
 | 38, 39                                     | `AOUT0`, `AOUT1`    | **No-connect**                                  | never                     | No stimulus path into a board used with animals                                      |
 | 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                  | —                         | Per profile                                                                          |
@@ -863,6 +968,26 @@ I2C overlay.
 **Eleven Strands live in Rev 0**: the four TMC SPI signals, the two pyControl
 serial lines, the two firmware triggers, the two encoder channels, and the limit
 switch. Seven more are allocated and unrouted.
+
+#### `AIN0` Shares A Node With The Researcher's Instrument — 2026-08-26
+
+`AIN0_P` taps `ANGLE_OUT` at the BNC centre, which is the same node the
+researcher's DAQ or OneBox is connected to, on the far side of the analog
+block's **249 Ω** source resistor. That resistor is sized for the
+short-circuit case, and the price is that **every load on this net is a gain
+error**: 100 kΩ costs 0.25%, 1 MΩ costs 0.025%, and anything near 50 Ω reads a
+fraction of the correct voltage.
+
+Two consequences. The adapter's `AIN0` front end must be high-impedance, and if
+it is not, the capture and the researcher's recording disagree by an amount that
+looks like a calibration error rather than an instrumentation artifact. And the
+OneBox manual does not specify its ADC input impedance at all, so it must be
+measured before either reading is trusted — see the checklist in
+`../kicad-libs/docs/onebox-analog-interface.md`.
+
+**Do not fit a 50 Ω shunt anywhere on this net.** The series resistor is source
+isolation, not a transmission-line termination; the signal is a joystick angle
+with mechanical bandwidth far below anything that would need matching.
 
 **`AGND` is bonded to `GND`, 2026-08-17.** Pins 31, 34, 37, and 40 used to be an
 isolated four-pin island with no net of its own, which left four connector pins
@@ -969,9 +1094,16 @@ through `PYC_FAULT` anyway, one firmware latency later. It goes to a test point.
 
 Labelled test pads, not bare vias: `TMC_DIAG0`,
 `TMC_DIAG1`, `~{TMC_DRV_EN}`, `HV_EN`, `HV_SNS`, `REFL`,
-`~{INSTR_BUF_OE}`, and in later revisions `~{DAC_LDAC}`, `~{DAC_CLR}`, and
-`TQ_DRDY`. `TQ_DRDY` has no slot because the I2C capture already shows when the
-host reads a conversion.
+`~{INSTR_BUF_OE}`, and in later revisions `TQ_DRDY`. `TQ_DRDY` has no slot
+because the I2C capture already shows when the host reads a conversion.
+
+**Two more entries left this list on 2026-08-26.** `~{DAC_LDAC}` and
+`~{DAC_CLR}` are moot for the same reason `SWSEL` is: the nets do not exist,
+because the `DAC80501` has neither pin. What replaces them is better — the
+analog output block carries **its own** pads on `VREFIO`, `AMP_VOUT`, and
+`AOUT`, so one probe each verifies the 2.500 V reference, the 1.32 gain, and the
+249 Ω drop. Those are block-level and arrive with every instance; nothing is
+owed at board level for the analog section.
 
 Two entries left this list on 2026-08-17. **`SWSEL` is moot**: the TMC5130A's pin
 28 is tied directly to GND with no net, so there is nothing to pad and nothing a
@@ -1150,9 +1282,13 @@ misplaced or a divider node is probed while the rail is live.
 **`AIN1_P/N` is contested and does not need resolving for Rev 0**, since neither
 candidate exists yet:
 
-- `AUX_ANALOG_OUT`, DAC channel B — the rev-1 assignment, and it survives only if
-  the researcher wants a second analog output. That is the same question that
-  decides dual versus quad DAC; see `../mouse-joysticks-pcb/docs/encoder-analog-output.md`.
+- `AUX_ANALOG_OUT` — the rev-1 assignment, and it survives only if the
+  researcher wants a second analog output. **Weakened 2026-08-26:** this used to
+  be "DAC channel B", nearly free on a dual `DAC8563`. The built block is
+  single-channel, so a second output is a second full instance and a second BNC
+  position. The question is no longer "does anyone object" but "is it worth a
+  second DAC and amplifier"; see `docs/encoder-analog-output.md` and the `J7`
+  note above.
 - `BRAKE_ISENSE`, the rev-2 brake current monitor — a natural use for a
   differential input, and the measurement that verifies commanded against actual
   brake current.
@@ -1192,6 +1328,12 @@ Every `DIG*` and `TRIG*` signal above is buffered with
 - 18 signals at 4 channels per package would be **5 packages**, 2 channels spare,
   at full scope. **Rev 0 places three** — `U1601`, `U1701`, `U1801` — covering the
   eleven live Strands with one channel spare.
+- **Rev 1 needs a fourth package.** The three placed ones carry 12 of 12
+  channels, so the analog output's three digital taps — `~{DAC_CS}` on `DIG6`,
+  `DAC_SPI_SCK` on `DIG9`, `DAC_SPI_COPI` on `DIG10` — have nowhere to go.
+  Budget one more `SN74LVC125A`, its decoupling, and three 33 Ω resistors when
+  the analog output lands, and note that it leaves one channel spare rather than
+  filling the package. `AIN0` needs no buffer; it is a direct analog tap.
 
 **Superseded 2026-08-17.** The intent was that **the grouping is chosen so each
 revision populates whole packages**, so a deferred group never leaves a powered

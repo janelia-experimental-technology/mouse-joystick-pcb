@@ -36,7 +36,7 @@ gone:
 
 | Twin-axis work item | Status here |
 | --- | --- |
-| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. 26 of 30 at full scope, 18 of 30 in Rev 0, and pins to spend on supply diagnostics. One thing was cut, deliberately: the synthetic homing stimulus, traded for the GPIO isolation enable. *(Updated 2026-08-17: `GP14` went to `HV_DIAG_EN`, leaving four spares rather than five.)* |
+| Fitting two axes into 30 GPIOs, and the descope table that makes it fit | Gone. **24 of 30 at full scope**, 18 of 30 in Rev 0, and pins to spend on supply diagnostics. One thing was cut, deliberately: the synthetic homing stimulus, traded for the GPIO isolation enable. *(Updated 2026-08-17: `GP14` went to `HV_DIAG_EN`, leaving four spares rather than five. Updated 2026-08-26: `GP12` and `GP17` came back for free when the analog output landed on a part with no `LDAC`/`CLR` pin, leaving six.)* |
 | Deciding where four TTL event lines land — the twin board's blocking question | Reduced to three lines; four BNCs is a workable complement. Deferred out of Rev 0 entirely. |
 | Axis symmetry as a layout constraint and a scientific confound | Not applicable |
 | Zoning two motor sections and two encoder paths away from two analog outputs | One of each |
@@ -96,12 +96,22 @@ tolerable rather than wasteful.
 - UART protocol framing, verbs, events, fault model, and heartbeat semantics —
   the twin board adds an axis field, this board omits it
 - TMC5130A section, `R_SENSE` 0.15 Ω, `vsense = 1`, `IRUN = 28`
-- The DAC8563 choice, the analog output design, and its calibration semantics
+- The analog output design and its calibration semantics. **Changed 2026-08-26:**
+  the shared part is now a **`DAC80501`** with an `OPA197` gain stage, not the
+  `DAC8563` this line used to name, and the contract is 0-3.3 V rather than
+  0-5 V. The design block is `analog_output_0_3v3_dac80501` in `kicad-libs`, so
+  both boards inherit it — but the twin board carries **two** axes and therefore
+  two instances of a single-channel block where one dual package used to serve
+  both. That is a real cost the twin board did not previously have; see
+  `docs/encoder-analog-output.md`
 - InstrumentPort-40 buffering pattern, the `~OE` default, and the enable-at-startup
   rule
 - Safety model: boot-safe outputs, heartbeat, bounded motion, latched faults
 - The four new circuit sections neither board has yet: pyControl port boundary,
-  event BNC group, DAC output section, debounced limit input
+  event BNC group, DAC output section, debounced limit input. **Two of the four
+  now exist** as `kicad-libs` blocks — `limit_switch_debounced_input` and
+  `analog_output_0_3v3_dac80501` — and both are shared, so the twin board
+  inherits them rather than re-deriving them
 
 **Different:**
 

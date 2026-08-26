@@ -36,7 +36,7 @@ document changed:
 
 **Rev 0 scope:** the power chain is unchanged by the 2026-08-13 rescope. `+5V`
 is still required — the TMC5130A's `VCC` minimum is 4.6 V — even though the
-DAC8563 that also needed it is deferred to rev 1. The argument against diode-ORing
+analog output that also needs it is deferred to rev 1. The argument against diode-ORing
 onto `+5V` therefore still holds, and the switched-rail sense on `GP26` is still
 populated — though as of 2026-08-16 it reads `+3.3V_SW`, not `+5V_SW`. The `mcu`
 sheet pin that carries the raw rail into the sheet is named `SW_RAIL_SENSE`;
@@ -209,7 +209,7 @@ Three requirements fall straight out of that:
                                                    ├─> TMC5130A VCC (34), VSA (39),
                                                    │     and 5VOUT (33) via R1202 10R
                                                    ├─> encoder supply (J1102 pin 4)
-                                                   ├─> DAC8563 VDD (rev 1)
+                                                   ├─> analog output block (rev 1)
                                                    └─> 5v_to_3v3_tps73733 #2 ─> +3.3V_SW
                                                          ├─> TMC5130A VCC_IO
                                                          ├─> MAX6816 limit-switch debouncer
@@ -787,18 +787,36 @@ obvious "simplification" of merging them would reintroduce it.
 
 | Consumer | Requirement |
 | --- | --- |
-| `DAC8563` `VDD` | 5 V, because full-scale output is `VDD`. A 4.6 V rail silently makes the "0-5 V" output a 0-4.6 V output. |
+| Analog output `OPA197` (rev 1) | **4.5 V minimum supply.** Below that the gain stage is out of spec — this is now the analog section's binding 5 V requirement |
+| Analog output `DAC80501` `VDD` (rev 1) | ≥ the 2.5 V reference with `REF-DIV=1`; 5 V gives ample margin |
 | `TMC5130A` `VCC` | **4.6 V to 5.25 V** operating range, per rev 1.21 chapter 30 |
 | Encoder, if 5 V | Per its datasheet |
+
+**Corrected 2026-08-26.** This table used to read *"`DAC8563` `VDD` | 5 V,
+because full-scale output is `VDD`. A 4.6 V rail silently makes the '0-5 V'
+output a 0-4.6 V output."* That was true of the part originally planned and is
+false of the one built. The `DAC80501`'s full scale is set by its **internal
+2.5 V reference and the gain resistors**, not by `VDD`, so a sagging rail does
+not truncate the output. The 5 V requirement did not go away — it moved to the
+`OPA197`, which simply stops working correctly below 4.5 V rather than degrading
+gracefully. See `docs/encoder-analog-output.md`.
 
 USB `VBUS` is 4.75-5.25 V at the source and sags further over the cable — call it
 4.4-5.25 V at the connector. Subtract a Schottky drop of 0.3-0.4 V and the ORed
 rail is **4.0-4.9 V**.
 
-That is out of spec for the TMC5130A's `VCC` and it quietly truncates the analog
-angle output, which is this board's headline deliverable. A researcher would see
-a full-scale output of 4.6 V instead of 5.0 V and have no indication why. **This
-is the trap in the obvious implementation.**
+That is out of spec for the TMC5130A's `VCC`, and at the bottom of that range it
+is also out of spec for the rev 1 analog output's `OPA197`. **This is the trap in
+the obvious implementation.**
+
+**Restated 2026-08-26.** The analog half of this argument used to be that a
+4.6 V rail would silently truncate a 0-5 V output to 0-4.6 V, so a researcher
+would see a wrong full scale with no indication why. That failure mode no longer
+exists — the built output's full scale comes from a reference, not the rail. The
+replacement is less tidy but not weaker: an `OPA197` below its 4.5 V minimum is
+simply operating outside its datasheet, with no specified behaviour to reason
+about, and the ORed rail's 4.0 V floor is well inside that region. The
+conclusion is unchanged and now rests on two independent parts rather than one.
 
 ### OR The Two Host Sources At `+5V_MCU`
 
@@ -808,7 +826,7 @@ difference between sources, and it only needs its input above roughly 3.8 V.
 
 ```text
 36 V in ─[D201 reverse diode]─[U201 switch]─ +36V_SW ─┬─> TMC5130A VS
-                                                      └─> TPSM365R6V5 ─> +5V_SW ─> TMC VCC/VSA/5VOUT, encoder, DAC (rev 1)
+                                                      └─> TPSM365R6V5 ─> +5V_SW ─> TMC VCC/VSA/5VOUT, encoder, analog output (rev 1)
                                                                             │
                                                                             └─> TPS73733 #2 ─> +3.3V_SW ─> TMC VCC_IO, MAX6816,
                                                                                                            U801, X1201
@@ -947,8 +965,10 @@ Three supporting measures, and use all of them:
 **Two open questions this architecture closed.** Whether the `TMC5130A` tolerates
 `VCC_IO` present with `VCC` and `VS` absent no longer matters — all three are on
 `+36V_SW` and fall together. And the dual-supply level translator that was one
-candidate fix for the DAC case is now needed only if the DAC's own `VIH` demands
-it, which is a rev 1 question.
+candidate fix for the DAC case is not needed at all: **closed 2026-08-26**, the
+`DAC80501` specifies `VIH` at 1.62 V minimum flat across `VDD` = 2.7-5.5 V, so
+3.3 V logic drives it directly at `VDD` = 5 V. The isolation bus switch remains
+the back-powering fix; the translator was only ever the alternative.
 
 ### Taking pyControl's 5 V Is No Longer Optional
 
@@ -1067,8 +1087,7 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+36V_SW` | TMC5130A quiescent and gate drive | tens of mA |
 | switched | `+5V_SW` | TMC5130A `VCC` | ~20-30 mA |
 | switched | `+5V_SW` | Encoder, if 5 V | **Unknown — the encoder part is not identified.** A Broadcom `HEDR-5421` class part draws 40-85 mA |
-| switched | `+5V_SW` | DAC8563 `VDD` (rev 1) | ~1 mA |
-| switched | `+5V_SW` | Level translator, if fitted (rev 1) | few mA |
+| switched | `+5V_SW` | Analog output block, `DAC80501` + `OPA197` + output load (rev 1) | **~3 mA** |
 | switched | `+3.3V_SW` | TMC5130A `VCC_IO` | few mA |
 | switched | `+3.3V_SW` | `U1301` MAX6816 debouncer | tens of µA |
 | switched | `+3.3V_SW` | **`U801` SN74LVC2G17 encoder Schmitt** | µA static; charge transfer when switching |
@@ -1290,10 +1309,10 @@ domain.
 including with the 36 V supply absent. Any USB-only operation already applies
 3.3 V logic to this IC with `VS` at 0 V. `DIAG_EN` and `LATCH` add nothing new.
 
-**Do not confuse this with the `DAC8563` back-powering hazard** described later in
+**Do not confuse this with the analog output DAC's back-powering hazard** described later in
 this document. They look similar and are not. TI specifies these pins against
 `GND` with their own limits, which is a deliberate design choice for a switch that
-must survive losing its supply. The `DAC8563`'s digital inputs are specified
+must survive losing its supply. The `DAC80501`'s digital inputs are specified
 relative to *its* `VDD`, so driving them with `VDD` at 0 V forward-biases clamps
 into a dead rail. The difference is what the datasheet promises, not the topology.
 
@@ -1541,7 +1560,11 @@ Consequences worth stating plainly:
 ## Grounding
 
 - One solid ground plane. Analog return for the DAC output and the BNC shell
-  kept away from the motor return path.
+  kept away from the motor return path. **Added 2026-08-26:** the rev 1 analog
+  block must sit **at** its connector — its ESD clamp's ground via has to land
+  on the connector ground pin — and the ground pour must be pulled back from
+  under the `AMP_FB` summing node, where stray capacitance changes the
+  amplifier's compensation. Both are recorded in the block's own description.
 - Kelvin connections at the sense resistors, no shared ground path between the
   two shunts, per the TMC5130A datasheet. The project already has a
   `SENSE_KELVIN` netclass — but **note it does not apply here.** On the TMC5130A,
@@ -1568,8 +1591,10 @@ Consequences worth stating plainly:
    **Closed 2026-08-17.** It populates it: `R207` = 249 Ω, 0.311 V/A, fault at
    1.3-1.6 V. Arithmetic in
    [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one).
-5. Whether the DAC gets a dual-supply level translator (rev 1), now needed only
-   if the DAC's own `VIH` demands it rather than as a back-powering fix.
+5. ~~Whether the DAC gets a dual-supply level translator (rev 1).~~ **Closed
+   2026-08-26: no.** The `DAC80501` specifies `VIH` at 1.62 V minimum flat
+   across `VDD` = 2.7-5.5 V, so 3.3 V logic drives it directly at `VDD` = 5 V.
+   The bus switch remains the back-powering fix.
 6. **Whether a TVS is ever fitted on `HV_IN`** — a bench-measurement item, not a
    purchase item and not a fabrication blocker. None is populated. Decided by the
    Gate B hot-plug measurement; see

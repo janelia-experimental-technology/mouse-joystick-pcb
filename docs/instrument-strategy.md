@@ -154,13 +154,21 @@ deliberately:
 - `AOUT0` and `AOUT1` are **no-connect** on this board. There is no analog
   stimulus path.
 - No target power is injected through the connector.
-- `AIN1_P/N` observes a ground-referenced 0-5 V board node, not a divided 36 V
-  rail. The motor rail never reaches the instrument connector. Its assignment is
-  contested between `AUX_ANALOG_OUT` and a rev 2 `BRAKE_ISENSE`; if the brake
-  monitor wins it must be low-side or ground-referenced, for this reason. See
-  `docs/interface-map.md`. **In Rev 0 as built, `AIN0_P/N` and `AIN1_P/N` are
-  no-connect** — the constraint is forward-looking, not something to verify on this
-  board.
+- `AIN1_P/N` observes a ground-referenced board node no wider than 0-5 V, not a
+  divided 36 V rail. The motor rail never reaches the instrument connector. Its
+  assignment is contested between `AUX_ANALOG_OUT` and a rev 2 `BRAKE_ISENSE`;
+  if the brake monitor wins it must be low-side or ground-referenced, for this
+  reason. See `docs/interface-map.md`. **In Rev 0 as built, `AIN0_P/N` and
+  `AIN1_P/N` are no-connect** — the constraint is forward-looking, not something
+  to verify on this board.
+- **`AIN0_P` will be 0-3.3 V, and its input must be high-impedance.**
+  **Added 2026-08-26.** It taps `ANGLE_OUT` at the BNC centre, on the far side of
+  the analog block's 249 Ω source resistor and on the *same node* as the
+  researcher's instrument. Any load below about 100 kΩ becomes a gain error
+  shared by both — 100 kΩ costs 0.25%, 1 MΩ costs 0.025% — and it will read as a
+  calibration discrepancy rather than as an instrumentation artifact. Do not fit
+  a 50 Ω shunt on this net; the series resistor is source isolation, not a
+  termination, and the signal has mechanical bandwidth.
 
 Anything that would add a drive path from the instrument into the board — a
 bidirectional buffer, a populated `AOUT*`, an M2K used for stimulus — must be

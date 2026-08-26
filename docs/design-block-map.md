@@ -344,7 +344,6 @@ routed to a test pad** — `J1102` pin 2 is a reserved no-connect and the TMC's
 
 | Board function | Candidate block | Rev 0 | Notes |
 | --- | --- | --- | --- |
-| Analog angle output | `dac8563_analog_output` | rev 1 | `DAC8563SDSCR`, channel A to BNC, channel B spare, protection, and any level translation. See `docs/encoder-analog-output.md`. Feeds `DIG6`, `DIG9`, `DIG10`, and `AIN0`. |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. Feeds `DIG13`-`DIG15`. |
 | Brake current driver | `b5z_brake_current_driver` | rev 2 | Placid `B5Z`, constant-current, `LM3404HV` switching versus `BCR421UE6327` linear still undecided. Feeds `DIG11` `BRAKE_DIM`, `DIG12` `~{BRAKE_FAULT}`, and possibly `AIN1`. See `../mouse-joysticks-pcb/docs/deferred-subsystems.md`. |
 | Torque bridge front end | `torque_bridge_frontend` | rev 2 | Wheatstone bridge conditioner, `PGA305` (I2C, stocked, board precedent) versus `ADS1220` (SPI). **Takes `DIG0`/`DIG1` back from the Rev 0 encoder taps.** The I2C-versus-SPI choice decides whether two slots are enough — see `docs/interface-map.md`. |
@@ -352,6 +351,35 @@ routed to a test pad** — `J1102` pin 2 is a reserved no-connect and the TMC's
 Do not create the rev 1 and rev 2 candidates speculatively, and do not promote any
 block to `kicad-libs` until this board verifies it and a second use shows the
 abstraction is real.
+
+### The Analog Output Block Exists — 2026-08-26
+
+**`analog_output_0_3v3_dac80501` left this table on 2026-08-26.** It was listed
+here as `dac8563_analog_output` — "`DAC8563SDSCR`, channel A to BNC, channel B
+spare, protection, and any level translation". Three of those four clauses are
+now wrong, and the block was built in `kicad-libs` ahead of the board rather
+than alongside it, which is a deliberate exception to the paragraph above: the
+part choice was the open question, so resolving it needed a real schematic.
+
+| Was | Is |
+| --- | --- |
+| `DAC8563SDSCR`, dual | `DAC80501ZDGSR`, single, plus an `OPA197` gain stage |
+| Channel B spare on the same package | A second output is a second **instance** |
+| "any level translation" | None — `VIH` is 1.62 V flat |
+| Protection unspecified | 249 Ω series, `TPD1E05U06` ESD, 100 kΩ output pull-down |
+
+Feeds `DIG6`, `DIG9`, `DIG10`, and `AIN0`, unchanged — the tap count did not
+move, because `~{DAC_LDAC}` and `~{DAC_CLR}` were never on the port.
+
+**It needs three things from the board when it is placed**, none of them inside
+the block: the three bus terminations below, `+5V_SW` rather than `+5V_MCU`, and
+placement hard against its connector so the ESD clamp's ground via lands on the
+connector ground pin. Full detail in `docs/encoder-analog-output.md` and in the
+block's own description, which is the copy that travels with a placed instance.
+
+**It is not yet placed, and it has never been on a bench.** Treat it as
+unproven in the same sense the 36 V input block was before Rev 0 — an audit of
+its netlist against the datasheet found six issues in that one.
 
 ### `limit_switch_debounced_input` — Built 2026-08-15
 
@@ -392,7 +420,8 @@ pull-downs on `ENC_A`, `ENC_B`, `LIMIT_SW`, and the SPI taps. The reasoning was
 sound — an always-on buffer input must not float — but the value was wrong, and
 one of the nets needed a pull-**up** rather than a pull-down. Nine resistors were
 placed instead, all of them in the board-authored wrapper sheets so a block
-re-place cannot lose them:
+re-place cannot lose them. **Rev 1 adds three more for the DAC bus** — see the
+end of this section:
 
 | Ref | Value | Net | To | Sheet | Why |
 | --- | --- | --- | --- | --- | --- |
@@ -405,6 +434,29 @@ re-place cannot lose them:
 | `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_limit` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ |
 | `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_limit` | as above |
 | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_limit` | guarantees the power stage is **disabled** in hardware |
+
+**Two more arrive with rev 1**, taking the count from nine to **eleven** — not
+three and twelve, because **the required one lives inside the block**. Same
+rule, same sheet discipline for the two that are board-level; the DAC's digital
+pins sit on the switched side of the bus switch and float when it is open:
+
+| Ref | Value | Net | To | Where | Why |
+| --- | --- | --- | --- | --- | --- |
+| `R35005` | 10 kΩ | `~{DAC_CS}` | `+3.3V_SW` | **In the block** | **The only required one.** `SYNC` must idle deasserted; while it is high the `DAC80501` blocks `SCLK` and `SDIN` outright, which is what makes a floating bus harmless. It is functional rather than board-dependent, so the block owns it and no board can forget it |
+| — | 10 kΩ | `DAC_SPI_SCK` | GND | Board | Hygiene — prevents a floating CMOS input, not a functional failure |
+| — | 10 kΩ | `DAC_SPI_COPI` | GND | Board | as above |
+
+**The block's `+3.3V` port must bind to `+3.3V_SW`, not `+3.3V_MCU`.** On the
+always-on rail, `R35005` would hold `~{DAC_CS}` at 3.3 V while the DAC's `VDD`
+is dead and push ~260 µA through its input clamp into `+5V_SW` — back-powering
+the switched domain from inside a block, where the bus switch cannot intervene.
+
+**None of the three may be pulled to the DAC's 5 V rail.** The `SN74CB3Q3245` is
+a symmetric FET pass gate, so a 5 V pull-up on the switched side lands on an
+RP2040 pad and exceeds its `IOVDD + 0.3 V` limit. `+3.3V_SW` is sufficient: the
+`DAC80501`'s `VIH` is 1.62 V, so even divided against the RP2040's internal
+pull-down the ~2.75 V result has margin — the same arithmetic that justifies
+`R403`.
 
 `ENC_A` and `ENC_B` are not in this table because the encoder block terminates
 them itself, with `R805`/`R806` 100 kΩ on `U801`'s outputs. 100 kΩ is correct

@@ -34,9 +34,10 @@ carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
 - **InstrumentPort-40** on a 40-pin FFC, so a logic analyzer sees the pyControl
   serial link at the connector and the TMC5130A SPI bus in one capture.
 
-Deferred to rev 1: the 0-5 V analog angle output and its BNC, the
+Deferred to rev 1: the **0-3.3 V** analog angle output and its BNC, the
 `PULL_EVENT`/`FAULT`/`RSYNC` TTL lines and their BNCs. Every one of them lands on pins Rev 0 has already allocated and left
-unconnected.
+unconnected. The analog output's design block was built and validated in
+`kicad-libs` on 2026-08-26, ahead of the board; it is not placed here yet.
 
 Assembled from `kicad-libs` design blocks — **fifteen instances across fourteen
 distinct block copies**, including two `5v_to_3v3_tps73733`, one per power
@@ -76,12 +77,14 @@ instrument tooling.
 
 All in [Interface Map](docs/interface-map.md).
 
-**Rev 0 connects 18 of 30 GPIOs. Full scope is 26 of 30 with 4 spares.** The
+**Rev 0 connects 18 of 30 GPIOs. Full scope is 24 of 30 with 6 spares.** The
 allocation is written so that **no pin moves between Rev 0 and full scope** — Rev
-0 leaves eight reserved and routed nowhere, and rev 1 makes them live without
+0 leaves six reserved and routed nowhere, and rev 1 makes them live without
 disturbing anything Rev 0 established. Four were freed on 2026-08-16 when the
 encoder and limit switch stopped reaching the MCU, and one of those four was
-taken back on 2026-08-17 for `HV_DIAG_EN`.
+taken back on 2026-08-17 for `HV_DIAG_EN`. **`GP12` and `GP17` were freed on
+2026-08-26** — the analog output's DAC has no hardware `LDAC` or `CLR` pin, so
+those two reservations cost nothing to return and rev 2 now fits with room.
 
 | Group | Pins | Rev 0 |
 | --- | --- | --- |
@@ -90,10 +93,10 @@ taken back on 2026-08-17 for `HV_DIAG_EN`.
 | GPIO isolation enable | `GP9` `~BUS_SW_EN` | yes |
 | Power control | `GP19` `HV_EN`, `GP14` `HV_DIAG_EN`, `GP28` `HV_SNS` (ADC2), `GP26` `SW_RAIL_SENSE_DIV_2` (ADC0), `GP29` `~HV_FAULT` | yes |
 | Firmware markers | `GP25` `FW_TRIG0`, `GP21` `FW_TRIG1` — InstrumentPort `TRIG0`/`TRIG1` in Rev 0 | yes |
-| DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS, `GP12` `~LDAC`, `GP17` `~CLR` | rev 1 |
+| DAC `SPI1` | `GP10` SCK, `GP11` COPI, `GP13` CS | rev 1 |
 | pyControl TTL | `GP20` `PULL_EVENT`, `GP22` `FAULT`, `GP23` `RSYNC` | rev 1 |
 | Instrument buffer enable | `GP24` `~INSTR_BUF_OE` | yes |
-| Spare | `GP15`, `GP16`, `GP18`, and `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
+| Spare | `GP12`, `GP15`, `GP16`, `GP17`, `GP18`, and `GP27` (ADC1, `EXT_FAULT_IN` candidate) | — |
 
 **`GP14` was spare and is not any more.** It drives the high-side switch's
 `DIAG_EN` through `R202` 1 kΩ. Tying `DIAG_EN` high instead — the earlier plan —
@@ -123,8 +126,8 @@ switch now arrives through a real debouncer, so homing is exercised by closing
 the actual switch. One-for-one, and `GP27` survives as the spare.
 
 **A GPIO goes through the isolation switch if and only if its far end sits on the
-switched domain.** That isolates 7 channels in Rev 0 and 12 at full scope — the
-TMC bus in Rev 0, the DAC group later. Everything else bypasses, including the
+switched domain.** That isolates 7 channels in Rev 0 and 10 at full scope — the
+TMC bus in Rev 0, the DAC's three wires later. Everything else bypasses, including the
 pyControl UART, so **the board still answers `ID`/`STATUS` with the motor rail
 switched off**. That is the whole point of the arrangement. Per-signal rationale
 in the interface map.
@@ -153,10 +156,13 @@ sit in the rev 2 buffer package's slots, so they survive rev 1 and hand over onl
 when the brake and torque front end arrive. Full allocation in the interface map.
 
 The three buffer packages carry these eleven signals plus one spare channel whose
-input is grounded. The buffers are always powered but their inputs sit on the
+input is grounded — **12 of 12 channels, so rev 1's three DAC taps need a fourth
+package.** The buffers are always powered but their inputs sit on the
 switched side of the bus switch, so **nine 10 kΩ resistors define every one of
 those nets** when the switched domain is off: four to GND, four to `+3.3V_SW`,
 and one — the pyControl UART RX pull-up, which must idle high — to `+3.3V_MCU`.
+Rev 1 adds two more for the DAC bus, taking it to eleven; the third and only
+required one ships inside the analog output block.
 The switched-domain nets deliberately do *not* reference `+3.3V_MCU`; that would
 back-power `+3.3V_SW` to roughly 1.3 V through the driver's protection diodes and
 defeat the power-cycle. See the design block map.
@@ -209,8 +215,13 @@ at **tens of µF, since the switch dissipates ½CV² charging it** — plus a ti
 
 The MCU rail is diode-ORed from USB `VBUS` and pyControl pin 6 — **and never
 from the onboard buck**. The two 5 V rails are structurally separate, which is
-what keeps `+5V_SW` in spec for the TMC5130A's 4.6 V `VCC` minimum. Merging them
-is the mistake that would quietly truncate the rev 1 "0-5 V" analog output.
+what keeps `+5V_SW` in spec for the TMC5130A's 4.6 V `VCC` minimum, and for the
+rev 1 analog output's `OPA197` 4.5 V minimum. Merging them puts both out of
+spec. (**Corrected 2026-08-26**: this used to say merging would "quietly
+truncate the rev 1 0-5 V analog output". That failure mode belonged to the
+originally planned `DAC8563`, whose full scale was `VDD`-referenced. The built
+output takes its full scale from an internal reference, so a low rail does not
+scale it down — it just runs the amplifier outside its datasheet.)
 
 There is still one way to make an unbootable board out of correct blocks: putting
 the **MCU** on the switched chain, so it cannot enable its own supply. Feeding
@@ -287,10 +298,11 @@ Rev 0 was scoped.
 
 Everything else can be resolved during layout.
 
-**Resolved since this list was written.** The rescope removed the DAC8563 `VIH`
-question outright — now a rev 1 concern; see
-[Encoder Analog Output](docs/encoder-analog-output.md), which stays valid for
-rev 1. The two-domain power architecture settled the other two: the regulator
+**Resolved since this list was written.** The rescope deferred the DAC `VIH`
+question, and 2026-08-26 answered it: the analog output block is built around a
+`DAC80501`, whose `VIH` is 1.62 V minimum flat across `VDD` = 2.7-5.5 V, so
+3.3 V logic drives it directly and no level translator is needed. See
+[Encoder Analog Output](docs/encoder-analog-output.md), rewritten the same day. The two-domain power architecture settled the other two: the regulator
 chain is fed **post**-switch, and whether the TMC5130A tolerates `VCC_IO` with
 `VCC`/`VS` absent no longer needs an answer, because all three now fall together.
 

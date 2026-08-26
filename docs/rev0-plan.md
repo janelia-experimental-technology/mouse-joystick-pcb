@@ -22,7 +22,7 @@ experiments start.
 
 | Moved out of Rev 0 | Returns in |
 | --- | --- |
-| DAC8563 0-5 V analog angle output and its BNC | rev 1 |
+| DAC80501 0-3.3 V analog angle output and its BNC | rev 1 |
 | `PULL_EVENT`, `FAULT`, `RSYNC` and their BNCs | rev 1 |
 | Electronic brake, torque sensor, extra analog outputs | rev 2+ |
 | Synthetic homing stimulus (`TMC_REF_STIM`) | **never** — dropped permanently |
@@ -104,7 +104,7 @@ for it. This board exists because it can be finished sooner:
 
 | Twin-axis board | This board |
 | --- | --- |
-| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 26 of 30 at full scope with four spares; **18 of 30 in Rev 0** |
+| 28 of 30 GPIOs, reached only after cutting encoder index, `DIAG1`, homing stimulus, and DAC `~LDAC`/`~CLR` | 24 of 30 at full scope with six spares; **18 of 30 in Rev 0**. The DAC `~LDAC`/`~CLR` pins cost nothing to give up here — the part chosen on 2026-08-26 does not have them |
 | Event-line routing is an open blocking question: 4 lines, no home | Deferred entirely in Rev 0; 3 lines and 4 BNCs when it returns |
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One motor section, one encoder path, no analog output |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
@@ -176,9 +176,11 @@ the MCU back-powering a chip it just switched off, which is the board's normal
 idle state rather than an edge case.
 
 - **Isolated in Rev 0 — 7 channels:** the TMC5130A SPI bus, enable, and
-  diagnostics (`GP2`-`GP8`). Twelve at full scope, with the rev 1 DAC bus.
+  diagnostics (`GP2`-`GP8`). **Ten** at full scope, with the rev 1 DAC bus
+  (**revised 2026-08-26** from twelve; the DAC needs three wires, not five).
   As built, six of the seven are on `U601` and the seventh (`TMC_DIAG1`) is on
-  `U602`; **`U603` and `U604` carry nothing at all.**
+  `U602`; **`U603` and `U604` carry nothing at all**, and at ten channels of
+  thirty-two placed they never will.
 - **Bypassed:** the pyControl UART above all, plus `~{BUS_SW_EN}`, `HV_EN`,
   `HV_DIAG_EN`, `HV_SNS`, `~{HV_FAULT}`, `SW_RAIL_SENSE`, and both `FW_TRIG`
   markers. Nothing at those far ends is ever unpowered by `HV_EN`. Per-signal
@@ -544,10 +546,17 @@ what blocks the schedule:
 Items 1 through 3 can stop a fabrication order. Everything else can be resolved
 during layout.
 
-**Resolved by the rescope:** the DAC8563 `VIH` question, whether `AUX_ANALOG_OUT`
+**Resolved by the rescope:** the DAC `VIH` question, whether `AUX_ANALOG_OUT`
 gets a populated BNC, and the InstrumentPort cable and mounting arrangement — all
 now rev 1 decisions. See `docs/encoder-analog-output.md` and
 `docs/instrument-strategy.md`, both of which remain valid for rev 1.
+
+**`VIH` was then resolved on its merits, 2026-08-26**, rather than merely
+deferred: the analog output block was built around a `DAC80501`, whose `VIH` is
+1.62 V minimum flat across `VDD` = 2.7-5.5 V, so 3.3 V logic drives it directly
+and no level translator is needed. `AUX_ANALOG_OUT` is still open and has become
+more expensive — the block is single-channel, so a second output is a second
+instance.
 
 **Also resolved:** the oversized GPIO isolation block is accepted as-is.
 
@@ -632,7 +641,7 @@ already allocated and left unconnected:
 
 | Addition | Pins | Blocks | InstrumentPort Strands |
 | --- | --- | --- | --- |
-| DAC8563 analog angle output + dual BNC | `GP10`-`GP13`, `GP17` | `dac8563_analog_output`, new | `DIG6`, `DIG9`, `DIG10`, `AIN0`; a **fourth** buffer package |
+| DAC80501 analog angle output + BNC | `GP10`, `GP11`, `GP13` | `analog_output_0_3v3_dac80501`, **built 2026-08-26** | `DIG6`, `DIG9`, `DIG10`, `AIN0`; a **fourth** buffer package |
 | pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; a **fifth** buffer package |
 | Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs `U1601` and `U1801` |
 

@@ -138,8 +138,8 @@ Still:
 | `MOVE` | `deg [profile]` | `ack` then `!TARGET` | Relative; rejected if the result is outside limits |
 | `STOP` | — | `ack` | Controlled stop; always permitted |
 | `ARMPULL` | `threshold` | `ack` | Arms pull detection; `!PULL` and the TTL line follow |
-| `ANGOUT` | `ON`/`OFF` | `ack` | Enables the 0-5 V analog output |
-| `ANGSCALE` | `deg_lo deg_hi` | `ack` | Maps the angle range onto 0-5 V |
+| `ANGOUT` | `ON`/`OFF` | `ack` | Enables the 0-3.3 V analog output |
+| `ANGSCALE` | `deg_lo deg_hi` | `ack` | Maps the angle range onto 0.05-3.300 V; see below |
 | `FAULTS` | — | fault mask with per-bit detail | Readable while faulted |
 | `CLRFAULT` | — | `ack` or `nak;latched` | Clears only clearable faults whose cause has gone |
 | `CAL` | `get` / `set k v` | calibration values | Encoder offset, angle zero, travel limits |
@@ -156,6 +156,29 @@ calibration matches the joystick in front of it. Do not omit it.
 `HV` exists because the 36 V input block's `ENABLE` is pulled low and the rail is
 genuinely off at boot. It is a state the host can observe and should not have to
 infer.
+
+`ANGSCALE` maps onto **0.05-3.300 V, not 0-3.300 V**, and both ends of that are
+deliberate. **Updated 2026-08-26**; the range used to read 0-5 V, changed to
+0-3.3 V by the OneBox acquisition contract in
+`../kicad-libs/docs/onebox-analog-interface.md`.
+
+- The **top** is a hardware limit: the DAC cannot exceed its own 2.5 V reference,
+  so the gain stage cannot exceed 3.300 V. Firmware cannot overshoot it.
+- The **bottom** is a hardware limit too, in the other direction: the output
+  amplifier sits about 25 mV off ground at light load, so a commanded 0 V is not
+  achievable. Starting the valid range at 50 mV keeps **0 V as an out-of-band
+  level** meaning unhomed, disarmed, faulted, or unpowered.
+
+**`ANGOUT OFF`, a fault, and a dead switched rail all produce the same 0 V.**
+That is intended — one out-of-band level, not three — but it means the analog
+signal alone cannot say which. `STATUS` must report the output as invalid in
+every one of those cases, because the recorded trace will not.
+
+**Firmware ordering, not a protocol matter but easy to get wrong here:** the
+DAC's `GAIN` register must be written to `0x0101` before the first data write.
+Its reset value selects a 0-5 V span, and until that write lands a full-scale
+code drives roughly 4.85 V into whatever is on the BNC. `ANGOUT ON` is the
+natural place to enforce it.
 
 ## Events
 

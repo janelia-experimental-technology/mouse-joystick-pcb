@@ -147,8 +147,10 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 ### Power — multi-source logic rail
 
 - **The ORing diodes are at the `TPS73733` input, not on `+5V`.** ORing onto
-  `+5V` drops it below the TMC5130A's 4.6 V `VCC` minimum and truncates the DAC's
-  full-scale output.
+  `+5V` drops it below the TMC5130A's 4.6 V `VCC` minimum, and below the rev 1
+  `OPA197`'s 4.5 V minimum. (**Corrected 2026-08-26**: it does not "truncate the
+  DAC's full-scale output" — that failure mode belonged to the `DAC8563` plan,
+  where full scale was `VDD`-referenced.)
 - `+5V` is single-sourced from the `TPSM365R6V5`.
 - Diode orientation blocks current back into the USB host and into pyControl.
 - The `SW_RAIL_SENSE` ÷2 divider off `+3.3V_SW` is fitted on `GP26`, and firmware
@@ -307,12 +309,31 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   `GP9` is `~{BUS_SW_EN}`, the stimulus net was deleted on 2026-08-13, and the board
   has no test points. Replaced by: `REFL` is exercised by closing the real switch
   and observed on InstrumentPort `DIG11`.
-- DAC8563 `VIH` at `VDD = 5 V` is checked; a dual-supply level translator is
-  added or explicitly ruled out. An `SN74LVC125A` is **not** a valid translator
-  here.
-- `~LDAC` is wired for synchronous update.
+- ~~DAC8563 `VIH` at `VDD = 5 V` is checked; a dual-supply level translator is
+  added or explicitly ruled out.~~ **Closed 2026-08-26.** The part is a
+  `DAC80501`, whose `VIH` is 1.62 V minimum flat across `VDD` = 2.7-5.5 V. No
+  translator. The warning that an `SN74LVC125A` is **not** a valid translator
+  stands for any other 5 V path.
+- ~~`~LDAC` is wired for synchronous update.~~ **Void 2026-08-26** — the part has
+  no `LDAC` pin. Replaced by a firmware check: synchronous update uses
+  `DAC_SYNC_EN` plus the `TRIGGER` register.
+- **The `GAIN` register is written to `0x0101` before the first DAC data write.**
+  Reset is `0x0001`, which is the 0-5 V range; until that write lands the 3.3 V
+  hardware bound does not hold. This is the single most important firmware
+  ordering check on the analog output.
+- `VREFIO` measures 2.500 V, and the gain from `DAC_VOUT` to `AMP_VOUT` measures
+  1.32. Both have block-level test pads.
 - The analog output's fault and reset behavior is decided and documented.
-- Whether `AUX_ANALOG_OUT` is populated is decided.
+- Whether `AUX_ANALOG_OUT` is populated is decided, and `J7` is a dual or single
+  BNC to match.
+- The DAC bus terminations are fitted: `~{DAC_CS}` 10 kΩ to `+3.3V_SW` **inside
+  the block** as `R35005`, and `DAC_SPI_SCK` / `DAC_SPI_COPI` 10 kΩ to GND at
+  board level — and **none of them to 5 V**.
+- **The block's `+3.3V` port is bound to `+3.3V_SW`, not `+3.3V_MCU`.** On the
+  always-on rail `R35005` back-powers `+5V_SW` through the DAC's input clamp
+  whenever the switched domain is down. Verify this on the netlist before
+  fabrication and measure `+5V_SW` with `HV_EN` low at Gate B.
+- A fourth `SN74LVC125A` package is placed for the `DIG6`/`DIG9`/`DIG10` taps.
 
 ### pyControl and instrument
 
@@ -494,9 +515,11 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   property and therefore worth proving on the scope rather than reasoning about.
 - No current flows back into the USB host or into pyControl from any other
   source.
-- The analog output reaches a true 5.00 V full scale with the 36 V supply
-  present. If it tops out below 5 V, something is ORed onto `+5V` that should
-  not be.
+- The analog output reaches a true **3.300 V** full scale with the 36 V supply
+  present. **Updated 2026-08-26**; this used to say 5.00 V, and the diagnostic
+  attached to it no longer applies — full scale now comes from the DAC's
+  internal reference, so a low `+5V_SW` does not scale the output down. Check
+  the rail directly instead: it must be above the `OPA197`'s 4.5 V minimum.
 - Rail voltages, sequencing, and ripple are measured with the motor loaded.
 - Motor-rail transient overshoot is measured at the TMC5130A `VS` pins during
   motion start, stop, and a deliberate stall. **Compare against the 46 V
@@ -542,7 +565,13 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - Event and sync line levels and edge quality are measured.
 - Reset, disconnect, and power-cycle behavior reach a safe state.
 - No motor current is present on any pyControl port conductor.
-- The analog output reaches 0 V and 5 V at its commanded endpoints, measured.
+- The analog output reaches its commanded endpoints, measured: **3.300 V at full
+  scale, and within about 25 mV of ground at zero**. **Updated 2026-08-26** —
+  this used to demand "0 V and 5 V". Both numbers were wrong and the first would
+  have failed a correct board: the `OPA197`'s output stage sits about 5 mV
+  typical and 25 mV maximum off the negative rail at light load, so a true 0.000 V
+  is not achievable and is not a defect. The valid angle range starts at 50 mV;
+  0 V is the out-of-band fault level.
 
 ## Gate C: Protocol Conformance
 
