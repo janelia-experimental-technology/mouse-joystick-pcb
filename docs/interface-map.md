@@ -151,14 +151,14 @@ reading `HV_SNS` or `~{HV_FAULT}`**. Without it neither works at all; see
 ### The Encoder And Limit Switch Do Not Reach The MCU
 
 **Decided 2026-08-16.** `ENC_A`, `ENC_B`, and `LIMIT_SW` are the TMC5130A's
-business. The encoder goes from `J1102` through the board's conditioning chain to
+business. The encoder goes from `J1103` through the board's conditioning chain to
 `ENCA`/`ENCB`; the debounced limit switch goes to `REFL`. **Neither reaches an
 RP2040 pin, in any revision.** Firmware gets position from the driver's
 `X_ENC`/`XACTUAL` register and homing state from the driver's status, both over
 SPI.
 
 **There is no `ENC_N` net on the board.** Earlier drafts of this section listed
-one alongside `ENC_A`/`ENC_B`; as built (2026-08-17) `J1102` pin 2 is a reserved
+one alongside `ENC_A`/`ENC_B`; as built (2026-08-17) `J1103` pin 2 is a reserved
 index **no-connect** and the TMC5130A's `ENCN` pin is terminated by `R1201` 10 kΩ
 to GND, which is what the datasheet asks for on an unused encoder input. The
 index is a rev-1 decision, not a Rev 0 signal.
@@ -328,7 +328,7 @@ pin.)
 Rev 1 also adds three pins that are **not** GPIOs and are easy to miss when
 counting: the analog output block needs `+5V_SW` and `GND`, and its `AOUT`
 leaves as an **Output** on whatever sheet holds it. `AOUT` does not cross the
-`mcu` boundary at all — it goes from the block to `J7`.
+`mcu` boundary at all — it goes from the block to the BNC (`J1101`).
 
 #### The Bus Switch Does Not Change Direction
 
@@ -432,7 +432,7 @@ Notes:
   to take `HV_DIAG_EN` on 2026-08-17.
 - **The encoder reaches the TMC5130A only, in every revision.** It does **not** go
   straight from the connector to the driver, contrary to what this note used to
-  say. As built (2026-08-17) the path is `J1102` → `R801`/`R802` 100 kΩ
+  say. As built (2026-08-17) the path is `J1103` → `R801`/`R802` 100 kΩ
   harness-side pull-downs → `R803`/`R804` 4.7 kΩ series → `C802`/`C803` 470 pF →
   `U801` `SN74LVC2G17` dual Schmitt on `+3.3V_SW` → `R805`/`R806` 100 kΩ output
   pull-downs → `ENC_A`/`ENC_B` → `ENCA`/`ENCB`. See [The Encoder And Limit
@@ -691,19 +691,27 @@ channels against thirty-two placed, the schedule argument that carried option A
 has expired. Do the swap when rev 1 opens the block, not before — Rev 0 is
 already ERC-clean with option A placed.
 
-#### The DAC Bus Terminations — One Is In The Block, Two Are Not
+#### The DAC Bus Terminations — All Three Are In The Block
 
-Isolated channels float when the switch is open, so rev 1 must define all three
-DAC lines. **The load-bearing one is inside the block**, which is a deliberate
-departure from the `R403` precedent:
+**Corrected 2026-08-27.** This section previously said one was in the block and
+two were board-level. All three now live in the block, and the board owns none of
+them:
 
 | Net              | Termination                  | Where        | Required? |
 |------------------|------------------------------|--------------|-----------|
-| `~{DAC_CS}`      | 10 kΩ **pull-up** `+3.3V_SW` | **In block** (`R35005`) | **Yes** |
-| `DAC_SPI_SCK`    | 10 kΩ pull-down to GND       | Board        | Hygiene   |
-| `DAC_SPI_COPI`   | 10 kΩ pull-down to GND       | Board        | Hygiene   |
+| `~{DAC_CS}`      | 10 kΩ **pull-up** `+3.3V_SW` | **In block** (`R2006`) | **Yes** |
+| `DAC_SPI_SCK`    | 10 kΩ pull-down to GND       | **In block** (`R2009`) | Hygiene |
+| `DAC_SPI_COPI`   | 10 kΩ pull-down to GND       | **In block** (`R2008`) | Hygiene |
 
-So the board's nine 10 kΩ terminations become **eleven**, not twelve.
+So the board's nine 10 kΩ terminations stay **nine**, not eleven. The two
+pull-downs moved into the block on 2026-08-27 because nothing about them is
+board-dependent — 10 kΩ to GND is right on any board — and a block re-place
+cannot then lose them.
+
+**Do not add board-level copies when the `DIG9`/`DIG10`/`DIG6` instrument taps go
+in.** Those taps sit on the A / switched side of the bus switch and need defined
+levels for exactly the reason `R1401`-`R1404` exist on the TMC taps, but these
+three resistors already provide them. A second set in parallel would halve them.
 
 Only the pull-up is load-bearing: the `DAC80501` blocks `SCLK` and `SDIN`
 entirely while `SYNC` is high, and a frame interrupted before its 24th `SCLK`
@@ -792,11 +800,40 @@ Designators are assigned for the **full** scope and Rev 0 populates a subset.
 
 **Renumbered 2026-08-17 to the as-built annotation.** The flat `J1`-`J11`
 sequence this section used is not what the board carries; annotation is
-sheet-scoped, so the 36 V terminal is `J201`, USB-C is `J301`, the motor terminal
-is `J1101`, and so on. Gaps within each sheet's hundred are still deliberate:
-renumbering later would break the silkscreen, the documentation, and the bring-up
-log for no benefit. The rev-1 BNCs keep placeholder designators (`J7`-`J9`) until
-their sheets exist and can number them.
+sheet-scoped, so the 36 V terminal is `J201` and USB-C is `J301`.
+
+**Renumbered again 2026-08-27, and the no-renumbering policy is withdrawn.** This
+paragraph used to say that gaps within each sheet's hundred were deliberate and
+that "renumbering later would break the silkscreen, the documentation, and the
+bring-up log for no benefit." A global re-annotation then happened by choice, when
+the analog output block gained its filter and the decision was taken to use
+KiCad's automatic annotation rather than hand-preserving numbers. Automatic
+annotation orders by sheet position, so inserting parts rotates everything after
+them.
+
+Three connectors in the `motor_encoder_switch` sheet rotated:
+
+| Carries                       | Was            | **Now**   |
+|-------------------------------|----------------|-----------|
+| Analog angle out, BNC         | `J7` (placeholder) | **`J1101`** |
+| Stepper coils, 4-pos 3.5 mm   | `J1101`        | **`J1102`** |
+| Encoder, 5-pos 3.5 mm         | `J1102`        | **`J1103`** |
+| Limit switch, 2-pos 3.5 mm    | `J1301`        | `J1301` (unchanged) |
+
+The 4-, 5- and 2-position housings are not mechanically interchangeable, so no
+harness can be plugged into the wrong terminal. The hazard is documentary, not
+electrical.
+
+**Rev-0 boards in hand carry the old silkscreen.** A technician holding a rev-0
+board reads `J1101` = motor while this document says `J1101` = BNC. `docs/bringup-log.md`
+keeps one section set per board serial; record the designator scheme in each
+board's section rather than assuming the current table applies to older units.
+
+**The consequence for this document, and every other one:** designator numbers are
+no longer stable across revisions. Name things by role and net — "the encoder
+terminal", "the `~{DAC_CS}` pull-up" — and give the designator as a
+current-as-of-date convenience rather than as the identifier. Tables like the one
+below are the right place for designators; prose is not.
 
 | Ref     | Connector                                                               | Carries                                                 | Rev 0   |
 |---------|-------------------------------------------------------------------------|---------------------------------------------------------|---------|
@@ -804,34 +841,48 @@ their sheets exist and can number them.
 | `J301`  | USB-C receptacle (`usb2` block)                                         | Firmware load, USB CDC console, logic-rail power source | **yes** |
 | `J1901` | RJ-45, `OW-CONN-J1B1211CCD` or `OW-CONN-438600001`                      | pyControl port: UART + GND only in Rev 0                | **yes** |
 | `J1501` | 40-pin 0.5 mm FFC, `OW-CONN-5051104091`                                 | InstrumentPort-40                                       | **yes** |
-| `J1101` | 4-pos 3.5 mm terminal, `OW-CONN-1844236`                                | Stepper coils                                           | **yes** |
-| `J1102` | 5-pos 3.5 mm terminal, `OW-CONN-1844249`                                | Encoder: supply, return, `A`, `B`; pin 2 reserved       | **yes** |
-| `J7`    | Dual BNC `DOSIN-801-0095`, **or single `DOSIN-801-0050`** — see below    | `ANGLE_OUT`, `AUX_ANALOG_OUT`                           | rev 1   |
+| `J1101` | Single BNC, `OW-CONN-HL-BNC-KHDA` (vertical)                             | `ANGLE_OUT` — **rev 1, placed 2026-08-27**              | rev 1   |
+| `J1102` | 4-pos 3.5 mm terminal, `OW-CONN-TBH-1X04-3P5-VERT`                      | Stepper coils                                           | **yes** |
+| `J1103` | 5-pos 3.5 mm terminal, `OW-CONN-TBH-1X05-3P5-VERT`                      | Encoder: supply, return, `A`, `B`; pin 2 reserved       | **yes** |
 | `J8`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_PULL_EVENT`, `PYC_FAULT`                           | rev 1   |
 | `J9`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_RSYNC_IN`, spare                                   | rev 1   |
 | `J10`   | SWD header                                                              | Debug — **not implemented**, see below                  | no      |
-| `J1301` | 2-pos 3.5 mm terminal, `OW-CONN-1844210`                                | Limit switch, inside the debounced input block          | **yes** |
+| `J1301` | 2-pos 3.5 mm terminal, `OW-CONN-TBH-1X02-3P5-VERT`                      | Limit switch, inside the debounced input block          | **yes** |
 
-**Seven connectors in Rev 0, four deferred.** `J1501` moved into Rev 0 on
+**Seven connectors in Rev 0, three deferred.** `J1501` moved into Rev 0 on
 2026-08-16 with the InstrumentPort. **Corrected 2026-08-17**: the count used to
-say eight and three, which counted the SWD header as populated.
+say eight and three, which counted the SWD header as populated. **Updated
+2026-08-27**: the analog BNC is placed as `J1101`, so four deferred becomes three
+(`J8`, `J9`, `J10`). `J8` and `J9` keep placeholder numbers until their sheets
+exist — expect them to renumber when they do.
 
-#### `J7` Dual Versus Single — Reopened 2026-08-26
+The three terminals switched to the vertical `OW-CONN-TBH-*-VERT` family in the
+same pass that made the other connectors vertical; the horizontal Phoenix
+`OW-CONN-1844236`/`1844249`/`1844210` parts this table used to name are no longer
+what the board carries.
 
-`J7` was specified as a dual `DOSIN-801-0095` because the analog output was
-going to be a **dual** `DAC8563`, so the second channel cost a footprint and two
-passives and it would have been wasteful not to bring it out. The built block is
-**single-channel**, so `AUX_ANALOG_OUT` now costs a second full instance — one
-more `DAC80501`, one more `OPA197`, and thirteen passives.
+#### `AUX_ANALOG_OUT` And The Dual BNC — Closed 2026-08-27
 
-That does not settle it, but it changes the default. If `AUX_ANALOG_OUT` is
-populated, keep the dual jack. If it is not, the stocked single
-`DOSIN-801-0050` is the honest choice and saves the board edge. **Decide before
-layout**, because the two footprints are not interchangeable.
+~~`J7` Dual Versus Single — Reopened 2026-08-26.~~ **Closed by construction.**
 
-The related question — whether channel B carries a validity signal — is in
-`docs/encoder-analog-output.md`. It was nearly free and is now not; the argument
-for encoding validity into the angle signal's own out-of-band levels
+The board carries a **single vertical `HL-BNC-KHDA`** as `J1101` — neither of the
+two options this section debated. The dual `DOSIN-801-0095` was specified when the
+analog output was going to be a dual `DAC8563` and the second channel cost a
+footprint and two passives. The built block is single-channel, so
+`AUX_ANALOG_OUT` costs a second full instance — one more `DAC80501`, one more
+`OPA197`, and the passives — and it is not populated. The stocked single
+`DOSIN-801-0050` was the fallback but was not what got placed; the vertical
+`HL-BNC-KHDA` matches the rest of the board's vertical connector direction and has
+four ground pins at ±5 mm around the centre pin, which is what lets `D2001`'s
+ground via land on a connector ground pin.
+
+`AUX_ANALOG_OUT` is therefore **not on this board at rev 1**, and `AIN1_P/N` stay
+no-connect. If it is ever wanted, it is a second block instance on its own
+hierarchical sheet plus a second jack, not a stuffing option.
+
+The related question — whether a second channel would carry a validity signal —
+is in `docs/encoder-analog-output.md`. It was nearly free and is now not, so the
+argument for encoding validity into the angle signal's own out-of-band levels
 correspondingly got stronger.
 
 ### The SWD Header Is Deferred, By Decision
@@ -856,15 +907,19 @@ What it costs, stated plainly so bring-up does not discover it:
   unplugged** before power returns — pulling the USB cable alone leaves the board
   alive on pyControl 5 V. Write that into the bring-up procedure.
 
-`J1101`, `J1102`, and `J1301` are one stocked 3.5 mm horizontal screw-terminal
-family (`OW-CONN-1844236`, `-1844249`, `-1844210`), which keeps the harness story
-uniform and needs no purchase.
+The motor terminal (`J1102`), the encoder terminal (`J1103`), and the limit-switch
+terminal (`J1301`) are one stocked 3.5 mm screw-terminal family
+(`OW-CONN-TBH-1X04-3P5-VERT`, `-1X05-`, `-1X02-`), which keeps the harness story
+uniform and needs no purchase. **Updated 2026-08-27**: these are the vertical
+`TBH` parts, not the horizontal Phoenix `OW-CONN-1844236`/`-1844249`/`-1844210`
+this paragraph used to name, and the motor and encoder designators rotated — see
+the renumbering note above.
 
 **They are screw terminals, not locking.** The earlier plan called for a locking
 motor connector because the rig gets handled. Screw terminals unblock Rev 0
 today; if the rig proves that insufficient, sourcing a locking 4-pos motor
-connector is a rev 1 change confined to `J1101`. Decide before the harness is
-built, not after.
+connector is a rev 1 change confined to the motor terminal. Decide before the
+harness is built, not after.
 
 ## pyControl Port In Rev 0
 
@@ -959,7 +1014,7 @@ I2C overlay.
 | 24                                         | `DIG15`             | `PYC_RSYNC_IN`                                  | rev 1                     | Time alignment; places everything else in pyControl time                             |
 | 26                                         | `TRIG0`             | `FW_TRIG0`                                      | **Rev 0**                 | Firmware timing marker                                                               |
 | 28                                         | `TRIG1`             | `FW_TRIG1`                                      | **Rev 0**                 | Firmware timing marker                                                               |
-| 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at the BNC centre / `AGND`, 0-3.3 V | rev 1                     | Verifies the researcher-facing BNC against the driver's own count in one capture. **The tap must be ≥100 kΩ** — see below |
+| 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at **`AMP_VOUT` through 1 kΩ** / `AGND`, 0-3.3 V | rev 1                     | Times the analog output against the driver's own count in one capture. **Tapped before `R2007`, not at the BNC** — see below |
 | 35/36                                      | `AIN1_P` / `AIN1_N` | `AUX_ANALOG_OUT` **or** `BRAKE_ISENSE` / `AGND` | rev 1-2                   | Contested; see below                                                                 |
 | 38, 39                                     | `AOUT0`, `AOUT1`    | **No-connect**                                  | never                     | No stimulus path into a board used with animals                                      |
 | 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                  | —                         | Per profile                                                                          |
@@ -969,25 +1024,47 @@ I2C overlay.
 serial lines, the two firmware triggers, the two encoder channels, and the limit
 switch. Seven more are allocated and unrouted.
 
-#### `AIN0` Shares A Node With The Researcher's Instrument — 2026-08-26
+#### `AIN0` Taps `AMP_VOUT`, Not The Researcher's Node — Changed 2026-08-27
 
-`AIN0_P` taps `ANGLE_OUT` at the BNC centre, which is the same node the
-researcher's DAQ or OneBox is connected to, on the far side of the analog
-block's **249 Ω** source resistor. That resistor is sized for the
-short-circuit case, and the price is that **every load on this net is a gain
-error**: 100 kΩ costs 0.25%, 1 MΩ costs 0.025%, and anything near 50 Ω reads a
-fraction of the correct voltage.
+~~`AIN0_P` taps `ANGLE_OUT` at the BNC centre, which is the same node the
+researcher's DAQ or OneBox is connected to.~~ **Struck 2026-08-27 — that is the
+wrong side of `R2007`.**
 
-Two consequences. The adapter's `AIN0` front end must be high-impedance, and if
-it is not, the capture and the researcher's recording disagree by an amount that
-looks like a calibration error rather than an instrumentation artifact. And the
-OneBox manual does not specify its ADC input impedance at all, so it must be
-measured before either reading is trusted — see the checklist in
-`../kicad-libs/docs/onebox-analog-interface.md`.
+Tapping the BNC centre puts a permanently DC-connected stub from the researcher's
+signal onto a 40-pin unshielded 0.5 mm FFC carrying SPI and UART edges. The stub
+exists whether or not an instrument is plugged in, and it is on a signal that
+lands in a recorded dataset. That is a bad trade for a bench convenience.
 
-**Do not fit a 50 Ω shunt anywhere on this net.** The series resistor is source
-isolation, not a transmission-line termination; the signal is a joystick angle
-with mechanical bandwidth far below anything that would need matching.
+**As specified now:** `AIN0_P` taps **`AMP_VOUT`** — the `OPA197` output, before
+the 249 Ω `R2007` — through a **series 1 kΩ**, and `AIN0_N` ties to `AGND` at the
+connector. Crosstalk injected on the FFC stub then lands on the op amp's
+low-impedance output and never reaches the BNC. The researcher's node keeps its
+249 Ω source with no stub on it.
+
+What this gives up is verifying `R2007` and the BNC solder joint through the
+port. Do that once with a DVM at build time; it is not something a capture needs
+to re-answer.
+
+**The instrument's own input impedance still matters, just less.** 1 kΩ into the
+M2K's 1 MΩ ‖ 30 pF is 0.1%, negligible at its resolution. On the researcher's
+side, `R2007`'s 249 Ω into the OneBox's **1 MΩ** is a −0.025% gain error, or
+−0.82 mV at full scale, which calibration absorbs. That figure is now known
+rather than assumed: the OneBox ADC is an `AD7616-P` and its datasheet specifies
+1 MΩ. See `../kicad-libs/docs/onebox-analog-interface.md`.
+
+**Do not fit a 50 Ω shunt anywhere on this net.** `R2007` is source isolation,
+not a transmission-line termination; the signal is a joystick angle band-limited
+to 987 Hz on the board.
+
+**`AIN0` answers timing, not amplitude.** The M2K's analog inputs are 12-bit over
+±25 V, and its high-gain range is ±2.5 V which clips a 3.3 V full scale — so on
+the usable range it resolves about 12 mV, roughly 240 DAC codes against a 50.4 µV
+LSB. Use it to confirm the output steps when the code was written and tracks the
+encoder. Amplitude, gain and linearity are a 6½-digit-DMM job at the BNC.
+
+**Every latency measured through `AIN0` includes 266 µs of filter group delay**
+from the analog block's 2-pole 987 Hz Sallen-Key. Subtract it or report it
+explicitly; it is not firmware latency. See `docs/encoder-analog-output.md`.
 
 **`AGND` is bonded to `GND`, 2026-08-17.** Pins 31, 34, 37, and 40 used to be an
 isolated four-pin island with no net of its own, which left four connector pins
@@ -1027,7 +1104,7 @@ still stands on its own — these are the profile's brake and torque slots — b
 "whole package turns over at rev 2" argument no longer holds.
 
 **`ENC_N` stays off the port** — and, as of 2026-08-17, off the board. There is no
-`ENC_N` net: `J1102` pin 2 is a reserved index no-connect and the TMC5130A's
+`ENC_N` net: `J1103` pin 2 is a reserved index no-connect and the TMC5130A's
 `ENCN` is terminated by `R1201` 10 kΩ to GND. The original reasoning is
 unaffected: the index fires once per revolution, and `ENC_A`/`ENC_B` are what a
 decode check needs. The test pad it was to get does not exist either.
@@ -1100,15 +1177,25 @@ because the I2C capture already shows when the host reads a conversion.
 **Two more entries left this list on 2026-08-26.** `~{DAC_LDAC}` and
 `~{DAC_CLR}` are moot for the same reason `SWSEL` is: the nets do not exist,
 because the `DAC80501` has neither pin. What replaces them is better — the
-analog output block carries **its own** pads on `VREFIO`, `AMP_VOUT`, and
-`AOUT`, so one probe each verifies the 2.500 V reference, the 1.32 gain, and the
-249 Ω drop. Those are block-level and arrive with every instance; nothing is
-owed at board level for the analog section.
+analog output block exposes `VREFIO`, `AMP_VOUT` and `AOUT` as distinct nets, so
+one probe each would verify the 2.500 V reference, the 1.32 gain, and the 249 Ω
+drop.
+
+**Corrected 2026-08-27: the block carries no test pads.** This paragraph claimed
+it did. Checked against the block schematic and its layout fragment — there is no
+`TestPoint` symbol or pad anywhere in `analog_output_0_3v3_dac80501`, which agrees
+with `docs/bringup-log.md`'s standing note that no test points exist anywhere on
+this board. The three nets are still the right ones to pad; they are simply not
+padded yet, and adding them is a block change, not a board change.
+
+**Two things are owed at board level for the analog section**, contrary to the
+last sentence this paragraph used to carry: the `AIN0_P` instrument tap's series
+1 kΩ from `AMP_VOUT`, and `AIN0_N` to `AGND`. Neither is in the block.
 
 Two entries left this list on 2026-08-17. **`SWSEL` is moot**: the TMC5130A's pin
 28 is tied directly to GND with no net, so there is nothing to pad and nothing a
 jumper could change — SPI mode is strapped, not selected. **`ENC_N` is moot**: the
-net does not exist, `J1102` pin 2 is a reserved no-connect, and `ENCN` is
+net does not exist, `J1103` pin 2 is a reserved no-connect, and `ENCN` is
 terminated at `R1201`.
 
 **Also pad `ENC_A`, `ENC_B`, and `LIMIT_SW`**, even though Rev 0 carries them on
@@ -1191,12 +1278,16 @@ normal idle state. That is the floating-CMOS-input problem the design avoids
 everywhere else, arriving by a new route — and closing it is exactly what the
 table below is for.
 
-#### Pull And Termination Resistors, As Built 2026-08-17
+#### Pull And Termination Resistors, As Built 2026-08-17, Updated 2026-08-27
 
 **Superseded: this section used to call for four 100 kΩ pull-downs** on
-`TMC_SPI_CIPO`, `ENC_A`, `ENC_B`, and `LIMIT_SW`. Nine resistors are fitted
+`TMC_SPI_CIPO`, `ENC_A`, `ENC_B`, and `LIMIT_SW`. Ten resistors are fitted
 instead, all in the board-authored `mcu`, `motor_encoder_limit`, and
 `instrument_port` sheets, so a design-block re-place cannot lose them.
+
+**`R1104` added 2026-08-27**, and the three DAC-bus terminations are **not** in
+this table — they live inside the analog output block as `R2006`, `R2008` and
+`R2009`. See "The DAC Bus Terminations" above.
 
 | Ref     | Value | Net             | To          | Sheet                 | Why                                                                                          |
 |---------|-------|-----------------|-------------|-----------------------|----------------------------------------------------------------------------------------------|
@@ -1209,6 +1300,7 @@ instead, all in the board-authored `mcu`, `motor_encoder_limit`, and
 | `R1101` | 10 kΩ | `TMC_DIAG0`     | `+3.3V_SW`  | `motor_encoder_limit` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ                                 |
 | `R1102` | 10 kΩ | `TMC_DIAG1`     | `+3.3V_SW`  | `motor_encoder_limit` | As above                                                                                     |
 | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW`  | `motor_encoder_limit` | Guarantees the power stage is **disabled** in hardware                                       |
+| `R1104` | 10 kΩ | `REFR`          | GND         | `motor_encoder_limit` | **Added 2026-08-27.** TMC5130A `REFR_DIR` (pin 9) is a plain `DI` with **no** internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`). It was floating; a floating right-stop input next to a 36 V bridge can trip a stop and draws ΔICC |
 
 **Why some reference `+3.3V_SW` and some GND.** A pull that must read HIGH while
 the driver is powered — `~{TMC_CS}`, both `DIAG` lines, `~{TMC_DRV_EN}` —
@@ -1244,7 +1336,7 @@ are tapped on the board-local encoder section on the driver side of the chain, s
 the capture shows what the TMC5130A's `ENCA`/`ENCB` pins actually receive. That is
 the point of having them: the comparison is against the driver's own decoded
 count, so the tap belongs where the driver sees the signal, not where the cable
-delivers it. **Corrected 2026-08-17**: the chain is `J1102`, not `J6`, and it is
+delivers it. **Corrected 2026-08-17**: the chain is `J1103`, not `J6`, and it is
 filtering only — **there is no ESD device anywhere in the encoder path**, contrary
 to what this paragraph used to say. The taps need no pull-down of their own
 because `U801` drives them and `R805`/`R806` hold them low when it does not.
@@ -1259,7 +1351,7 @@ reason the encoder part remains the open decision that can invalidate the board:
 2. **72 kHz filter corner.** `R803`/`R804` 4.7 kΩ with `C802`/`C803` 470 pF gives
    τ = 2.2 µs. Check it against the encoder's maximum output frequency at the
    fastest sweep the rig will command.
-3. **The 5-position pin order is fixed by the block.** `J1102` pin 1 = GND, pin 2
+3. **The 5-position pin order is fixed by the block.** `J1103` pin 1 = GND, pin 2
    = reserved index no-connect, pin 3 = `ENC_A_RAW`, pin 4 = `+5V_SW`, pin 5 =
    `ENC_B_RAW`. A 5 V encoder is assumed. If the chosen part wants a different
    order or a different supply, the harness or the block changes.
@@ -1287,8 +1379,9 @@ candidate exists yet:
   be "DAC channel B", nearly free on a dual `DAC8563`. The built block is
   single-channel, so a second output is a second full instance and a second BNC
   position. The question is no longer "does anyone object" but "is it worth a
-  second DAC and amplifier"; see `docs/encoder-analog-output.md` and the `J7`
-  note above.
+  second DAC and amplifier"; see `docs/encoder-analog-output.md` and the
+  `AUX_ANALOG_OUT` note above. **As of 2026-08-27 it is not populated**, so
+  `AIN1_P/N` stay no-connect at rev 1.
 - `BRAKE_ISENSE`, the rev-2 brake current monitor — a natural use for a
   differential input, and the measurement that verifies commanded against actual
   brake current.
@@ -1333,7 +1426,21 @@ Every `DIG*` and `TRIG*` signal above is buffered with
   `DAC_SPI_SCK` on `DIG9`, `DAC_SPI_COPI` on `DIG10` — have nowhere to go.
   Budget one more `SN74LVC125A`, its decoupling, and three 33 Ω resistors when
   the analog output lands, and note that it leaves one channel spare rather than
-  filling the package. `AIN0` needs no buffer; it is a direct analog tap.
+  filling the package.
+
+  **This is a new placement, not a stuffing change** — no fourth footprint was
+  drawn in Rev 0, so board area has to be reserved deliberately. `U603` and
+  `U604` are two entirely empty `SN74CB3Q3245` packages (all B-side pins tied to
+  GND, all A-side pins no-connect, 14 channels of nothing); removing them frees
+  roughly the area the fourth buffer needs. See `docs/design-block-map.md`.
+
+  **The three taps need no new terminations.** They sit on the A / switched side
+  of the bus switch, but `R2006`/`R2008`/`R2009` inside the analog output block
+  already define all three. Do not add board-level copies.
+
+- **`AIN0` needs no buffer; it is a direct analog tap** — `AMP_VOUT` through a
+  series 1 kΩ to `AIN0_P`, with `AIN0_N` to `AGND`. That 1 kΩ is the only new part
+  on the analog side of the port.
 
 **Superseded 2026-08-17.** The intent was that **the grouping is chosen so each
 revision populates whole packages**, so a deferred group never leaves a powered

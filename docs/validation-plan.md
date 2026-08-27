@@ -23,7 +23,7 @@ through InstrumentPort-40.
 
 **Reference designators were annotated on 2026-08-17.** Where this document still
 uses a pre-placement name, the as-built name is given alongside it: `J1501`
-(InstrumentPort, was `J4`), `J1101` (motor, was `J5`), `J1102` (encoder, was `J6`),
+(InstrumentPort, was `J4`), `J1102` (motor, was `J5` then `J1101`), `J1103` (encoder, was `J6` then `J1102`), `J1101` (analog BNC, was the `J7` placeholder),
 `J1901` (pyControl RJ-45, was `J3`), `U201` (high-side switch, was `U27001`),
 `U1201` (TMC5130A, was `U4001`). Net names are `+3.3V_MCU`/`+3.3V_SW` (not
 `+3V3_*`), `HV_RAW` (not `VAA`), and `~{BUS_SW_EN}` (not `~{BUS_SW_OE}`).
@@ -267,7 +267,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - The encoder is identified, and the input path is single-ended or differential
   accordingly. **Settled 2026-08-17: single-ended 5 V push-pull, received through
   `quadrature_encoder_input_5v_sn74lvc2g17`, which is placed.** The chain is
-  `J1102` → `R801`/`R802` 100 kΩ harness-side pull-downs → `R803`/`R804` 4.7 kΩ
+  `J1103` → `R801`/`R802` 100 kΩ harness-side pull-downs → `R803`/`R804` 4.7 kΩ
   series → `C802`/`C803` 470 pF → `U801` SN74LVC2G17 dual Schmitt on `+3.3V_SW` →
   `R805`/`R806` 100 kΩ output pull-downs → `ENC_A`/`ENC_B`.
 - **The push-pull assumption is in the hardware, not just the prose.** `R801`/`R802`
@@ -275,7 +275,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   or open-drain encoder will not work without changing them to pull-ups**, so
   confirm the output stage of the chosen part before fabrication. This is one of the
   two things the encoder decision can still invalidate.
-- **Confirm `J1102`'s pin order against the chosen encoder's harness:** pin 1 =
+- **Confirm `J1103`'s pin order against the chosen encoder's harness:** pin 1 =
   `GND`, pin 2 = **reserved index, no-connect**, pin 3 = `ENC_A_RAW`, pin 4 =
   `+5V_SW`, pin 5 = `ENC_B_RAW`. Note that supply sits between the two channels, so
   a harness wired to a different convention will put 5 V onto a signal pin.
@@ -298,7 +298,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - `ENC_N` is wired to the TMC5130A `ENCN` and a test pad, and **to no GPIO**.
   **Corrected 2026-08-17: there is no `ENC_N` net and no test pad.** `ENCN` is
   **tied to GND through `R1201` (10 kΩ)**, which satisfies the TMC5130A
-  requirement to pull `ENCN` to GND or `VCC_IO` when unused. `J1102` pin 2 is
+  requirement to pull `ENCN` to GND or `VCC_IO` when unused. `J1103` pin 2 is
   reserved for the index channel if the chosen encoder has one, but it is a
   no-connect today, so adopting an index channel is a schematic change.
 - The limit switch is identified and the debounce path is reviewed. As built the
@@ -324,15 +324,32 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - `VREFIO` measures 2.500 V, and the gain from `DAC_VOUT` to `AMP_VOUT` measures
   1.32. Both have block-level test pads.
 - The analog output's fault and reset behavior is decided and documented.
-- Whether `AUX_ANALOG_OUT` is populated is decided, and `J7` is a dual or single
-  BNC to match.
-- The DAC bus terminations are fitted: `~{DAC_CS}` 10 kΩ to `+3.3V_SW` **inside
-  the block** as `R35005`, and `DAC_SPI_SCK` / `DAC_SPI_COPI` 10 kΩ to GND at
-  board level — and **none of them to 5 V**.
+- ~~Whether `AUX_ANALOG_OUT` is populated is decided, and `J7` is a dual or single
+  BNC to match.~~ **Closed 2026-08-27:** a single vertical `HL-BNC-KHDA` is placed
+  as `J1101`, `AUX_ANALOG_OUT` is not populated, and `AIN1_P/N` stay no-connect.
+- The DAC bus terminations are fitted — **all three inside the block** as of
+  2026-08-27: `~{DAC_CS}` 10 kΩ to `+3.3V_SW` (`R2006`), `DAC_SPI_COPI` 10 kΩ to
+  GND (`R2008`), `DAC_SPI_SCK` 10 kΩ to GND (`R2009`) — and **none of them to
+  5 V**. This item used to say the two pull-downs were board-level. **Add no
+  board-level copies when the `DIG9`/`DIG10`/`DIG6` taps go in**; they would
+  parallel these and halve them.
 - **The block's `+3.3V` port is bound to `+3.3V_SW`, not `+3.3V_MCU`.** On the
-  always-on rail `R35005` back-powers `+5V_SW` through the DAC's input clamp
-  whenever the switched domain is down. Verify this on the netlist before
-  fabrication and measure `+5V_SW` with `HV_EN` low at Gate B.
+  always-on rail the `~{DAC_CS}` pull-up back-powers `+5V_SW` through the DAC's
+  input clamp whenever the switched domain is down. **Verified on the netlist
+  2026-08-27**; still measure `+5V_SW` with `HV_EN` low at Gate B.
+- **The 987 Hz output filter is verified.** Measure the corner and the group delay
+  rather than assuming them: expect −3 dB at about 827 Hz and 266 µs of DC group
+  delay from `R2001` 20 kΩ / `R2002` 13 kΩ / `C2003` and `C2007` 10 nF C0G. Record
+  both as measured numbers, because every latency measured through `AIN0` and every
+  latency the researcher sees at the BNC includes the delay.
+- **`C2003` and `C2007` are C0G, not X7R.** Confirm on the assembled board. A
+  class-2 substitution puts a ±15% tempco on the corner and the reported delay, and
+  adds a dielectric-absorption tail that reads as hysteresis in the angle channel.
+- **The chopper-alias check.** Sweep the TMC chopper frequency while recording the
+  angle channel. If a periodic artifact moves with it, it is aliasing of the
+  16-30 kHz chopper into 0-15 kHz past the OneBox's fixed 30.3 kHz sampler, not
+  joystick motion. This is the measurement that says whether 987 Hz was the right
+  corner.
 - A fourth `SN74LVC125A` package is placed for the `DIG6`/`DIG9`/`DIG10` taps.
 
 ### pyControl and instrument

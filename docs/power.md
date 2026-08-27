@@ -208,7 +208,7 @@ Three requirements fall straight out of that:
                                              └─> hv_to_5v_tpsm365r6 ─> +5V_SW
                                                    ├─> TMC5130A VCC (34), VSA (39),
                                                    │     and 5VOUT (33) via R1202 10R
-                                                   ├─> encoder supply (J1102 pin 4)
+                                                   ├─> encoder supply (J1103 pin 4)
                                                    ├─> analog output block (rev 1)
                                                    └─> 5v_to_3v3_tps73733 #2 ─> +3.3V_SW
                                                          ├─> TMC5130A VCC_IO

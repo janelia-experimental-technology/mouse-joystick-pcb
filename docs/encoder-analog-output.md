@@ -3,9 +3,10 @@
 **Rev 0 scope:** deferred to rev 1. The rescope of 2026-08-13 removed the analog
 angle output from Rev 0; see `docs/rev0-plan.md`.
 
-**Status:** the design block exists and is validated in `kicad-libs`; it has not
-been placed on this board and has not been on a bench.
-**Date:** 2026-08-26 (supersedes the 2026-08-12 draft)
+**Status:** the design block exists and is validated in `kicad-libs`, and a copy
+with the 987 Hz output filter is **placed on this board as of 2026-08-27**
+(schematic only — layout and routing are not done). It has not been on a bench.
+**Date:** 2026-08-27 (supersedes the 2026-08-26 revision and the 2026-08-12 draft)
 **Requirement:** joystick encoder angle as a **0-3.3 V** analog voltage on a BNC
 connector. One joystick, one output.
 
@@ -40,16 +41,20 @@ about, and `docs/rev0-plan.md` lists it first for that reason.
 ## The Block
 
 `orb_weaver_private:analog_output_0_3v3_dac80501`, built and validated
-2026-08-26. Sixteen parts in the 35xxx designator range, all stocked. Seven
-boundary ports: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`, `~{CS}`, `AOUT`.
+2026-08-26, **filter added 2026-08-27**. Twenty-two parts, all stocked. Seven
+boundary ports, unchanged by the filter: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`,
+`~{CS}`, `AOUT`.
 
 ```text
-+5V_SW ─FB─┬─ DAC80501ZDGSR ──> OPA197 (gain 1.32) ──> 249R ──> ESD ──> BNC
-           │  internal 2.5 V ref        │
-           │  GAIN = 0x0101             └── 100k to GND
++5V_SW ─FB─┬─ DAC80501ZDGSR ──> 2-pole 987 Hz ──> OPA197 ──> 249R ──> ESD ──> BNC
+           │  internal 2.5 V ref   Sallen-Key    (gain 1.32)    │
+           │  GAIN = 0x0101        20k/13k/10nF x2              └── 100k to GND
            │  0-2.5 V out
            └─ decoupling
 ```
+
+The `OPA197` is both the gain stage and the filter's active element, so the two
+poles cost four passives and no extra amplifier.
 
 | Property | Value |
 | --- | --- |
@@ -58,15 +63,65 @@ boundary ports: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`, `~{CS}`, `AOUT`.
 | Reference | Internal 2.5 V, +/-0.1% initial, **5 ppm/C max** |
 | DAC span | 0-2.5 V (`GAIN` register 4h = `0x0101`) |
 | Gain stage | `OPA197IDBVR`, non-inverting **1.32**, 10 kohm / 3.2 kohm 0.1% 25 ppm/C |
+| **Filter** | **2-pole Sallen-Key, f0 987 Hz, Q 0.606, -3 dB at 827 Hz** |
+| **Filter parts** | **20 k / 13 k 1% and two 10 nF C0G 0805, `OW-CAP-10N-0805-C0G-50V`** |
+| **Group delay** | **266 us at DC, near-flat in band** |
 | Full scale | **3.300 V** |
 | Interface | SPI, write-only, 3 wires, up to 50 MHz |
 | Supply | `+5V_SW` for the analog section |
 | `+3.3V` port | `~{CS}` pull-up reference only — **must bind to `+3.3V_SW`** |
 
-Full block documentation — layout constraints, firmware ordering, failure modes
-— lives in the block's own description in `kicad-libs`, which is the copy that
-travels with a placed instance. This section records only what the board needs
-to know.
+**Designators are not stable.** The project uses automatic annotation, so
+inserting a part rotates everything after it. A global re-annotation happened on
+2026-08-27; the analog block's board-side designators are now `R2001`-`R2009`,
+`C2001`-`C2009`, `U2001` (DAC) and `U2002` (op amp) — note the two ICs swapped.
+Where this document names one, treat the net and the role as the identifier and
+the number as a convenience.
+
+Full block documentation — layout constraints, firmware ordering, failure modes,
+the filter's retune ladder — lives in the block's own description in `kicad-libs`,
+which is the copy that travels with a placed instance. This section records only
+what the board needs to know.
+
+## The Filter Is Not Optional
+
+Added 2026-08-27, and the reason is specific to this board rather than general
+good practice.
+
+The acquisition side is a Neuropixels OneBox, whose ADC is an **`AD7616-P`
+sampling at a fixed 30.3 kHz** behind only a **first-order ~39 kHz** on-chip
+antialias filter — about 1 dB of rejection at 20 kHz, so it effectively does not
+antialias. The TMC5130A chopper runs at the datasheet-recommended **16-30 kHz**,
+and *every* value in that range folds into 0-15 kHz, where it is
+indistinguishable from real joystick motion. Nothing else in the chain band-limits
+the signal, so this filter is the only thing standing between motor chopper ripple
+and a researcher's dataset.
+
+Second benefit: the DAC's code-change glitch is 4 nV-s / 7.5 mV, which is 9.9 mV
+after the 1.32 gain — 65 OneBox LSBs of outlier on any sample that lands in it.
+The filter reduces it to about 14 uV.
+
+**Noise is not the reason.** Unfiltered output noise at the BNC is about 39 uV RMS
+— roughly a quarter of the OneBox's 152.6 uV LSB on its +/-5 V range. Filtering
+for noise would buy nothing measurable.
+
+What it costs: **266 us of group delay**, and about 2 ms to settle a full-scale
+step to one OneBox LSB. Both are small against behavioural timescales, and both
+must be reported as measured numbers rather than assumed.
+
+**The capacitors must be C0G.** Class-2 dielectric is piezoelectric and this board
+is mechanically coupled to a stepper and a hand-driven joystick; the series
+resistor can only bleed self-generated charge with time constant `R*C`, which is
+pinned by the corner, so it cannot be filtered away. C0G also removes the +/-15%
+X7R tempco from the corner and from the reported group delay, and its low
+dielectric absorption removes a history-dependent settling tail that would read as
+hysteresis in an angle channel. TI's DACx0501 datasheet section 9.2.2.6 asks for
+NP0/C0G in exactly this position. 10 nF C0G needs an 0805 body; that is the cost
+and it is worth paying.
+
+To retune, scale **both** series resistors by the same factor and leave the
+capacitors alone — `Q` depends only on their ratio. The full ladder is in the
+block description.
 
 ## What Changed From The 2026-08-12 Draft
 
@@ -109,50 +164,73 @@ cannot queue behind a motor register access.
 
 ## What The Board Owns
 
-Mostly the block does not contain these; they are board-level and belong in a
-board-authored wrapper sheet, so a block re-place cannot lose them. The one
-exception is called out below.
-
 **Before anything else: bind the block's `+3.3V` port to `+3.3V_SW`.** It exists
-only to reference `R35005`, the `~{CS}` pull-up. On `+3.3V_MCU` that resistor
+only to reference the `~{CS}` pull-up (`R2006`). On `+3.3V_MCU` that resistor
 holds `~{CS}` at 3.3 V while the DAC's `VDD` is dead and pushes roughly 260 uA
 through the DAC's input clamp into `+5V_SW` — back-powering the switched domain
 from inside a block, where the isolation bus switch cannot intervene. This is
 the same rule the board already applies to its buffer terminations, and it is
-the easiest thing on this page to get wrong.
+the easiest thing on this page to get wrong. **Verified correct on the placed
+instance, 2026-08-27.**
 
-1. **Two termination resistors — the third is in the block.** The DAC's digital
-   pins sit on the switched side of the isolation bus switch and float when it is
-   open.
-   - `~{DAC_CS}` — 10 kohm pull-up, **already fitted inside the block as
-     `R35005`**. This is the required one: the DAC blocks `SCLK` and `SDIN`
-     entirely while `SYNC` is high, which is what makes a floating bus harmless.
-     Because it is functional rather than board-dependent, the block owns it.
-   - `DAC_SPI_SCK`, `DAC_SPI_COPI` — 10 kohm to GND, **board-level**. Hygiene
-     against floating CMOS inputs, not a functional requirement.
+1. **No termination resistors. All three are in the block.** **Changed
+   2026-08-27**; this item used to say two were board-level.
+   - `~{DAC_CS}` — 10 kohm pull-up to the `+3.3V` port, `R2006`. The required
+     one: the DAC blocks `SCLK` and `SDIN` entirely while `SYNC` is high, which
+     is what makes a floating bus harmless.
+   - `DAC_SPI_COPI` — 10 kohm to GND, `R2008`.
+   - `DAC_SPI_SCK` — 10 kohm to GND, `R2009`.
+
+   The two pull-downs moved in-block because nothing about them is
+   board-dependent — 10 kohm to GND is right on any board — and a block re-place
+   cannot then lose them. **The board's nine 10 kohm terminations stay nine.**
+
+   **This matters when the instrument-port taps go in.** `DIG9`/`DIG10`/`DIG6`
+   tap these same nets on the switched side of the bus switch and need defined
+   levels for the same reason `R1401`-`R1404` exist on the TMC taps — but these
+   three resistors already provide them. Do not add board-level copies; a second
+   set in parallel would halve them.
 
    **Never pull any of them to the DAC's 5 V rail.** The `SN74CB3Q3245` is a
    symmetric FET pass gate, so a 5 V pull-up on the DAC side lands on an RP2040
-   pad and exceeds its `IOVDD + 0.3 V` limit. This takes the board's nine 10 kohm
-   terminations to eleven.
+   pad and exceeds its `IOVDD + 0.3 V` limit.
 
 2. **`+5V_SW`, not `+5V_MCU`.** The `OPA197` needs 4.5 V minimum and the ORed
    MCU rail can sit at 4.0-4.9 V. The switched rail is also semantically right:
    no motor rail means no valid angle, and the output section goes dark with its
    data source rather than holding a stale value. See `docs/power.md`.
+   **Verified on the placed instance, 2026-08-27.**
 
-3. **The connector.** `J7`, and placement — see below.
+3. **The connector.** A single vertical `HL-BNC-KHDA`, placed as **`J1101`**, and
+   placement — see below. The dual-versus-single question is closed; see
+   `docs/interface-map.md`.
 
-4. **Three isolation bus-switch channels.** `U603`/`U604` currently have their
-   MCU-side pins tied to GND, so rev 1 edits that block regardless. Three
-   channels fit in `U601`/`U602`'s spare capacity with six left over.
+4. **Three isolation bus-switch channels.** Satisfied by `U602`'s spare capacity
+   (`A3`/`A4`/`A6`) as placed — no block edit was needed after all. `U603` and
+   `U604` remain entirely empty, 14 channels of nothing, and are the obvious
+   deletion when board area is wanted for the fourth buffer package.
+
+5. **The `AIN0_P` instrument tap and its series 1 kohm**, if the instrument port
+   is wired. Tap `AMP_VOUT`, **not** the BNC node. See
+   `docs/instrument-strategy.md`.
 
 ## Placement Is A Constraint, Not A Preference
 
-`R35004` and `D35001` are inside the block but `J7` is not. **The block must sit
-at the connector.** `D35001`'s ground via has to land on the connector ground
-pin, or its clamping voltage is dominated by connection inductance — the same
-argument this repository already makes for the `USBLC6` on `usb2`.
+The 249 ohm series resistor (`R2007`) and the ESD clamp (`D2001`) are inside the
+block but the BNC (`J1101`) is not. **The block must sit at the connector.**
+`D2001`'s ground via has to land on a connector ground pin, or its clamping
+voltage is dominated by connection inductance — the same argument this repository
+already makes for the `USBLC6` on `usb2`. The vertical `HL-BNC-KHDA` has four
+ground pins at +/-5 mm around the centre pin, so that via placement is easy.
+
+**Also keep the filter tight.** The two series resistors, the shunt capacitor and
+the op amp's `+` input — nets `DAC_VOUT_FILT_MID` and `DAC_VOUT_FILT` — want short
+traces guarded by analog ground. At 13 kohm the node is not fragile, but it is the
+one place where board contamination becomes a gain term.
+
+**Put the BNC on the opposite board edge from the motor and encoder terminals
+(`J1102`, `J1103`) and from the FFC (`J1501`).** On a 100 x 80 mm board with the
+motor section already placed, this is the first placement decision, not the last.
 
 On this board that is no conflict: the analog section wants to be near the BNC
 and away from the motor section anyway. Keep the analog return to the BNC shell
@@ -175,16 +253,25 @@ encoder ──> TMC5130A X_ENC counter ──> RP2040 reads over SPI0
   `~{DAC_CS}` in asynchronous mode.
 - **The load must be 100 kohm or more.** 249 ohm of source resistance costs
   0.25% into 100 kohm and 0.025% into 1 Mohm; a 50-ohm terminated input reads a
-  fraction of the correct voltage. The OneBox manual does not specify its ADC
-  input impedance, so measure it — see the checklist in
+  fraction of the correct voltage. **Resolved 2026-08-27: the OneBox's ADC is an
+  `AD7616-P` and its datasheet specifies 1 Mohm**, so the loading error is
+  -0.025%, or -0.82 mV at full scale, which per-board calibration absorbs. No
+  bench measurement is needed — see
   `../kicad-libs/docs/onebox-analog-interface.md`.
 - **The output cannot reach a true 0 V.** The `OPA197`'s output stage sits about
   25 mV off the negative rail at light load. Map the valid angle range to start
   at 50 mV or above.
-- Update rate is an open decision. Settling is 5 us and a 24-bit frame at even
-  1 MHz takes 24 us, so the DAC is not the limit. Choose the rate against the
-  mouse's actual pull dynamics, and document the achieved rate and latency as a
-  **measured** claim, not a target.
+- Update rate is an open decision, but **the filter is now the limit, not the
+  DAC**. **Corrected 2026-08-27**: this bullet used to say that the DAC's 5 us
+  settling and 24 us frame meant the DAC was not the limit. The 987 Hz filter
+  contributes 266 us of group delay and about 2 ms to settle a full-scale step to
+  one OneBox LSB, so it dominates both figures by an order of magnitude. The
+  encoder-read loop is the other limit: TMC SPI is <=4 MHz and a 40-bit `X_ENC`
+  read is ~10 us plus overhead, so roughly 1 kHz of real angle bandwidth is what
+  the loop can sustain alongside motor control. 10 kHz is not reachable on this
+  architecture, which is a second reason not to raise the filter corner. Choose
+  the rate against the mouse's actual pull dynamics, and document the achieved
+  rate and latency as a **measured** claim, not a target.
 - The DAC bus and `~{DAC_CS}` are on InstrumentPort-40 (`DIG9`, `DIG10`,
   `DIG6`), and `ANGLE_OUT` is on `AIN0`, so one capture recovers the commanded
   code, the analog output, and the encoder together. Use that at Gate D rather
@@ -200,16 +287,17 @@ passives, against the previous cost of a footprint and two passives.
 Two consequences:
 
 - **If two instances land on the same hierarchical sheet their internal labels
-  merge** — `+5V_FILT`, `AMP_VOUT`, `AMP_FB`, `DAC_VOUT`, `VREFIO` — the
-  ferrites parallel and the `PWR_FLAG`s conflict. Give each instance its own
-  sheet.
-- **The dual BNC is no longer free.** `J7` is a `DOSIN-801-0095` dual jack
-  chosen when the second channel cost almost nothing. If `AUX_ANALOG_OUT` is not
-  populated, the stocked single `DOSIN-801-0050` is now the honest choice.
-  Decide before layout.
+  merge** — `+5V_FILT`, `AMP_VOUT`, `AMP_FB`, `DAC_VOUT`, `DAC_VOUT_FILT_MID`,
+  `DAC_VOUT_FILT`, `VREFIO` — the ferrites parallel and the `PWR_FLAG`s conflict.
+  Give each instance its own sheet. **The two filter labels were added
+  2026-08-27.**
+- **The dual BNC question is closed, 2026-08-27.** The board carries a single
+  vertical `HL-BNC-KHDA` as `J1101` — neither the dual `DOSIN-801-0095` nor the
+  single `DOSIN-801-0050` this section debated. `AUX_ANALOG_OUT` is not
+  populated at rev 1 and `AIN1_P/N` stay no-connect.
 
-This weakens but does not kill the case for a validity output on channel B; see
-below.
+This weakens but does not kill the case for a validity output on a second
+channel; see below.
 
 ## Calibration And Semantics
 
@@ -236,18 +324,28 @@ ambiguous, because this signal ends up in a researcher's recorded dataset with n
 other indication of board state.
 
 Two hardware failure modes produce 0 V and must not be confused with the fault
-level in analysis: an unpowered output section, held at 0 V by `R35003`, and a
+level in analysis: an unpowered output section, held at 0 V by the 100 kohm
+output pull-down (`R2005`), and a
 reference alarm from a misconfigured `REF-DIV`. Both read as a legitimate end of
 travel. `STATUS` must report the output as invalid in either case.
 
 ## Open Decisions
 
-- Whether `AUX_ANALOG_OUT` is populated, and what it carries — validity, a second
-  derived quantity, or nothing. Now costs a full second instance.
-- Whether `J7` stays a dual BNC or becomes a single, which follows from the above.
-- DAC update rate and the resulting latency budget.
+- Whether `AUX_ANALOG_OUT` is ever populated, and what it would carry —
+  validity, a second derived quantity, or nothing. Costs a full second instance
+  plus a second jack. **Not populated at rev 1.**
+- DAC update rate and the resulting latency budget, now including the filter's
+  266 us.
 - Output behavior when unhomed, disarmed, or faulted.
-- Measured OneBox ADC input impedance, which sets the loading error.
+- **Whether the 987 Hz corner is right**, which only a bench measurement of the
+  chopper artifact on `AIN0` can answer. Sweep the chopper frequency and see
+  whether the artifact moves; if it does, it is aliasing rather than motion.
+  Retune by scaling both series resistors — the ladder is in the block
+  description.
+
+**Closed 2026-08-27:** whether `J7` is dual or single (single `HL-BNC-KHDA` as
+`J1101`), and the OneBox ADC input impedance (1 Mohm, from the `AD7616-P`
+datasheet).
 
 **Closed since the 2026-08-12 draft:** the `DAC8563` `VIH` question, whether a
 level translator is required, whether to buffer the output, and how the output is

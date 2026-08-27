@@ -25,12 +25,38 @@ independently calibrated and independently suspect.
 
 - Revision:
 - **Serial / unit:**
+- **Designator scheme this board's silkscreen uses** — see the warning below:
 - Joystick this unit is calibrated for:
 - Assembly date:
 - Assembler:
 - Firmware commit / image hash:
 - Protocol version:
 - Notes:
+
+### Designators Are Not Stable Across Revisions — Read Before Wiring A Harness
+
+The project uses KiCad automatic annotation, which orders by sheet position, so
+inserting a part rotates every designator after it. A global re-annotation
+happened on **2026-08-27** when the analog output block gained its filter, and
+three connectors in the motor/encoder sheet rotated:
+
+| Carries                     | Rev 0 silkscreen | Rev 1 onward |
+|-----------------------------|------------------|--------------|
+| Analog angle out, BNC       | *not fitted*     | **`J1101`**  |
+| Stepper coils, 4-pos 3.5 mm | `J1101`          | **`J1102`**  |
+| Encoder, 5-pos 3.5 mm       | `J1102`          | **`J1103`**  |
+| Limit switch, 2-pos 3.5 mm  | `J1301`          | `J1301`      |
+
+**A rev-0 board in your hand is silkscreened with the left column.** The rest of
+this file, and the rest of the repository, uses the right column. The 4-, 5- and
+2-position housings are not interchangeable so a harness cannot physically go into
+the wrong terminal, but read the position count, not the number, when you are
+working from a board rather than from a document. Record which scheme this unit
+carries in the field above.
+
+The analog output block's own designators rotated wholesale in the same pass
+(`R2001`-`R2009`, `C2001`-`C2009`, and `U2001`/`U2002` swapped between the DAC and
+the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 
 ## Inspection
 
@@ -170,8 +196,18 @@ switch still isolated:
 - `TMC_SPI_SCK` / `TMC_SPI_COPI` / `TMC_SPI_CIPO` idle levels, domain on and bus
   isolated (expect ≈0.28 V each; ~1.9 V means 100 kΩ was fitted instead of the
   10 kΩ `R1401`-`R1403` and the taps straddle the `SN74LVC125A` 2.0 V `VIH`):
-- All five of the above measured again with the switched domain **off** (expect
-  0 V on every one):
+- **`REFR_DIR` at `U1201` pin 9 (expect ≈0 V).** **Added 2026-08-27** with
+  `R1104` 10 kΩ to GND. This pin is a plain `DI` with **no** internal pull —
+  unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`) — and it was floating
+  before rev 1. A reading near mid-rail means `R1104` is missing or unpopulated,
+  and a floating right-stop input next to a 36 V bridge can trip a stop:
+- `DAC_SPI_SCK` / `DAC_SPI_COPI` idle levels, domain on and bus isolated (expect
+  ≈0 V from `R2009`/`R2008`, the block's own 10 kΩ pull-downs), and `~{DAC_CS}`
+  idle level (expect ≈3.3 V from `R2006` to `+3.3V_SW`, deasserted — a low here
+  would assert `SYNC` and let a floating bus clock data in):
+- All of the above measured again with the switched domain **off** (expect
+  0 V on every one, including `~{DAC_CS}`, because its pull-up references
+  `+3.3V_SW` which `R401`/`R402` hold at 0 V):
 
 - Motor part:
 - Motor rated current per phase, and whether RMS or peak:
@@ -194,7 +230,7 @@ switch still isolated:
 - **Output stage: push-pull or open-collector.** The board assumes **push-pull** —
   `R801`/`R802` are 100 kΩ pull-**downs**. An open-collector part needs them changed
   to pull-ups:
-- `J1102` pin order confirmed against the encoder's harness (board expects pin 1 =
+- `J1103` pin order confirmed against the encoder's harness (board expects pin 1 =
   `GND`, pin 2 = reserved index **NC**, pin 3 = `ENC_A_RAW`, pin 4 = `+5V_SW`,
   pin 5 = `ENC_B_RAW`; supply sits between the two channels):
 - Supply voltage and measured current (from `+5V_SW`, so the encoder resets with
@@ -204,7 +240,7 @@ switch still isolated:
   (`R803`/`R804` 4.7 kΩ × `C802`/`C803` 470 pF, τ = 2.2 µs):
 - TMC5130A `X_ENC` versus quadrature edges captured on `DIG0`/`DIG1`:
 - ~~Index (`ENC_N`) behavior:~~ **struck** — there is no `ENC_N` net; TMC `ENCN` is
-  tied to GND through `R1201` 10 kΩ and `J1102` pin 2 is a no-connect:
+  tied to GND through `R1201` 10 kΩ and `J1103` pin 2 is a no-connect:
 - Angle versus independent angular measurement:
 - ~~Deliberate mismatch raises `ENCODER_MISMATCH`~~ **struck**, fault retired:
 
@@ -225,19 +261,69 @@ switch still isolated:
 
 ## Analog Angle Output
 
+Expected configuration as placed 2026-08-27: `DAC80501` (`U2001`) on its internal
+2.5 V reference, `GAIN` register 4h = `0x0101`, a 2-pole 987 Hz Sallen-Key
+(`R2001` 20 kΩ, `R2002` 13 kΩ, `C2003`/`C2007` 10 nF **C0G**), `OPA197` (`U2002`)
+at DC gain 1.32, `R2007` 249 Ω, `D2001` ESD, out to the BNC `J1101`. Full scale
+3.300 V, LSB 50.4 µV.
+
 - DAC part and `VDD`:
-- Level translation required, and part used:
-- `~LDAC` synchronous update confirmed:
-- Output at commanded 0 V:
-- Output at commanded 5 V:
+- `GAIN` register read back as `0x0101` **before** any data write (reset value is
+  `0x0001`, the 0-5 V range; the 3.3 V ceiling only holds after this write):
+- `VREFIO` measures 2.500 V:
+- Level translation required, and part used (expect **none** — `DAC80501` `VIH` is
+  1.62 V flat across `VDD` 2.7-5.5 V):
+- Software `LDAC` synchronous update confirmed (`DAC_SYNC_EN` plus the `TRIGGER`
+  register; there is no hardware `~LDAC` or `~CLR` pin):
+- Output at commanded zero code (expect ~25 mV, not 0 V — the `OPA197` light-load
+  floor; the valid range should start at 50 mV or above):
+- Output at commanded full scale (expect **3.300 V**, not 5 V):
 - Linearity across range:
-- Latency from motion to output voltage, **measured from the InstrumentPort
-  capture** (DAC bus, encoder, and analog output in one file):
-- Output at boot, before firmware runs:
+- Output at boot, before firmware runs (expect 0 V; the `Z` suffix resets to zero
+  code):
 - Output when unhomed / disarmed / faulted:
 - Update rate achieved:
 - Behavior into the researcher's actual recording input:
-- `AUX_ANALOG_OUT` populated, and what it carries:
+- ~~`AUX_ANALOG_OUT` populated, and what it carries:~~ **struck 2026-08-27** — not
+  populated. `J1101` is a single BNC and a second channel would be a second full
+  block instance.
+
+### Filter — Measure It, Do Not Assume It
+
+- **Corner measured** (expect −3 dB at ~827 Hz; `f0` 987 Hz, `Q` 0.606):
+- **DC group delay measured** (expect **266 µs**, near-flat in band):
+- Full-scale settling to one OneBox LSB (expect ~2 ms):
+- `C2003`/`C2007` confirmed **C0G**, not X7R, on the assembled board:
+- **Latency from motion to output voltage, measured from the InstrumentPort
+  capture** (DAC bus, encoder, and analog output in one file). **Report the
+  filter's 266 µs separately** — it is not firmware latency, and every latency
+  measured through `AIN0` or seen at the BNC includes it:
+
+### Chopper Alias Check — The Measurement That Justifies The Filter
+
+The OneBox ADC is an `AD7616-P` at a **fixed 30.3 kHz** behind only a first-order
+~39 kHz filter, and the TMC chopper runs at 16-30 kHz, so any chopper setting
+folds into 0-15 kHz. Sweep the chopper frequency while recording the angle
+channel:
+
+- Artifact amplitude on the angle channel, at each chopper setting tried:
+- **Does a periodic artifact move with the chopper frequency?** If it moves, it is
+  aliasing, not joystick motion:
+- Whether 987 Hz gave enough rejection, or the corner should be retuned (scale
+  `R2001` and `R2002` by the same factor; the ladder is in the block description):
+
+### If The Angle Channel Misbehaves, Check In This Order
+
+1. Hysteresis after large excursions, or motor-correlated noise: **suspect
+   `C2003`/`C2007` dielectric first.** They should be C0G; a class-2 substitution
+   adds a dielectric-absorption tail and a piezoelectric path from the stepper.
+2. A periodic artifact: run the chopper sweep above.
+3. A gain error near 0.025%: that is `R2007` 249 Ω into the OneBox's 1 MΩ input.
+   Expected, and calibration absorbs it.
+4. Output stuck at 0 V: distinguish an unpowered output section (held there by
+   `R2005` 100 kΩ) from a reference alarm caused by a misconfigured `REF-DIV`.
+   Both read as a legitimate end of travel, so `STATUS` must report the output
+   invalid in either case.
 
 ## Protocol
 

@@ -60,11 +60,14 @@ not.
   SPI reads of that register, in one capture, make the comparison by hand.
 - **Verifying the analog output.** `DAC_SPI_SCK`, `DAC_SPI_COPI`, `~{DAC_CS}`, and
   the analog output on `AIN0` are all in the capture from rev 1. "Does the voltage
-  match the encoder?" is answerable from one file — against the raw edges while
-  the encoder holds `DIG0`/`DIG1`, and against the driver's `X_ENC` reads after
-  the torque bus takes those slots at rev 2. Nothing replaces the raw edges then —
-  the cross-check was deleted, not deferred. See `docs/interface-map.md`,
-  "`DIG0`, `DIG1`, And `DIG11` Are The Swap Slots".
+  step when the code was written, and does it track the encoder?" is answerable
+  from one file — against the raw edges while the encoder holds `DIG0`/`DIG1`, and
+  against the driver's `X_ENC` reads after the torque bus takes those slots at
+  rev 2. Nothing replaces the raw edges then — the cross-check was deleted, not
+  deferred. See `docs/interface-map.md`, "`DIG0`, `DIG1`, And `DIG11` Are The Swap
+  Slots". **The question the port answers is timing, not amplitude**, and the
+  answer carries 266 µs of filter delay — see the `AIN0_P` bullet under "Safety
+  With Animals Present".
 - **Time alignment.** `RSYNC` in the same capture as everything else means the
   board's local time can be placed in pyControl's frame with measured, not
   assumed, uncertainty.
@@ -160,15 +163,41 @@ deliberately:
   if the brake monitor wins it must be low-side or ground-referenced, for this
   reason. See `docs/interface-map.md`. **In Rev 0 as built, `AIN0_P/N` and
   `AIN1_P/N` are no-connect** — the constraint is forward-looking, not something
-  to verify on this board.
-- **`AIN0_P` will be 0-3.3 V, and its input must be high-impedance.**
-  **Added 2026-08-26.** It taps `ANGLE_OUT` at the BNC centre, on the far side of
-  the analog block's 249 Ω source resistor and on the *same node* as the
-  researcher's instrument. Any load below about 100 kΩ becomes a gain error
-  shared by both — 100 kΩ costs 0.25%, 1 MΩ costs 0.025% — and it will read as a
-  calibration discrepancy rather than as an instrumentation artifact. Do not fit
-  a 50 Ω shunt on this net; the series resistor is source isolation, not a
-  termination, and the signal has mechanical bandwidth.
+  to verify on this board. `AIN0_P/N` are wired at rev 1; `AIN1_P/N` stay
+  no-connect until the `AUX_ANALOG_OUT` versus `BRAKE_ISENSE` contest is settled.
+- **`AIN0_P` taps `AMP_VOUT`, not the BNC centre.** **Added 2026-08-26, tap point
+  changed 2026-08-27.** The 2026-08-26 version of this bullet put `AIN0_P` on the
+  BNC centre node, on the far side of the analog block's 249 Ω source resistor
+  (`R2007`) and on the *same node* as the researcher's instrument. **That is the
+  wrong side.** It creates a permanently DC-connected stub from the researcher's
+  signal onto a 40-pin unshielded 0.5 mm FFC carrying SPI and UART edges, present
+  whether or not an instrument is plugged in, on a signal that lands in a recorded
+  dataset.
+
+  As specified now: `AIN0_P` taps **`AMP_VOUT`** — the `OPA197` output, *before*
+  `R2007` — through a **series 1 kΩ**, and `AIN0_N` ties to `AGND` at the
+  connector. Crosstalk injected on the FFC stub then lands on the op amp's
+  low-impedance output and never reaches the BNC, while the researcher's node
+  keeps its clean 249 Ω source with no stub on it. What this gives up is
+  verifying `R2007` and the BNC joint through the port; do that once with a DVM
+  at build time, not on every capture.
+
+  The instrument input must still be high impedance: 1 kΩ into the M2K's 1 MΩ is
+  0.1%, which is nothing at its resolution. Do not fit a 50 Ω shunt on this net;
+  `R2007` is source isolation, not a termination.
+
+- **`AIN0` is for timing, not amplitude.** **Added 2026-08-27.** The M2K's analog
+  inputs are 12-bit over ±25 V — and its high-gain range is ±2.5 V, which clips a
+  3.3 V full scale — so on the range that fits this signal it resolves about
+  12 mV, roughly 240 DAC codes against a 50.4 µV LSB. It can confirm that the
+  voltage steps when the code was written and that it tracks the encoder; it
+  cannot verify the ±0.4% accuracy claim. Amplitude and linearity are a
+  6½-digit-DMM job at the BNC.
+
+  Note also that the analog block carries a **2-pole 987 Hz Sallen-Key** ahead of
+  its output as of 2026-08-27, so **every latency measured through `AIN0` includes
+  266 µs of filter group delay**. Subtract it or report it; do not attribute it to
+  firmware. See `docs/encoder-analog-output.md`.
 
 Anything that would add a drive path from the instrument into the board — a
 bidirectional buffer, a populated `AOUT*`, an M2K used for stimulus — must be
@@ -210,6 +239,25 @@ The eleven live Strands as built: `DIG0` = `ENC_A_BUF` (`J1501` pin 2), `DIG1` =
 (19), `TRIG0` = `FW_TRIG0_BUF` (26), `TRIG1` = `FW_TRIG1_BUF` (28). `DIG6`, `DIG9`,
 `DIG10`, `DIG12`-`DIG15`, `AIN0_P/N`, `AIN1_P/N`, `AOUT0` and `AOUT1` are
 no-connect.
+
+**Rev 1 adds four Strands, and they need a fourth buffer package.** Confirmed
+against the netlist on 2026-08-27: `DIG6`, `DIG9`, `DIG10`, `AIN0_P` and `AIN0_N`
+are still 1-node no-connects at `J1501` pins 11, 16, 17, 32 and 33. The rev 1
+wiring is `DIG9` = `DAC_SPI_SCK_BUF` (16), `DIG10` = `DAC_SPI_COPI_BUF` (17),
+`DIG6` = `~DAC_CS_BUF` (11), and `AIN0_P` = `ANGLE_OUT` tapped at `AMP_VOUT`
+through 1 kΩ (32) with `AIN0_N` to `AGND` (33).
+
+The three digital taps need a **fourth `SN74LVC125A`** — `U1601`/`U1701`/`U1801`
+carry 12 of 12 channels, so this is a new placement, not a stuffing change, and
+board area has to be reserved for it deliberately. `U603`/`U604` are two entirely
+empty `SN74CB3Q3245` packages whose removal frees roughly the area needed; see
+`docs/design-block-map.md`.
+
+**These three taps need no new terminations.** They sit on the A / switched side
+of the bus switch like the TMC taps, but the analog block now owns all three
+defining resistors internally — `R2006` 10 kΩ pull-up on `~{DAC_CS}` to
+`+3.3V_SW`, and `R2008`/`R2009` 10 kΩ pull-downs on `DAC_SPI_COPI`/`DAC_SPI_SCK`
+to GND. Do **not** add board-level copies; that would halve them.
 
 **`AGND` (pins 31, 34, 37, 40) is tied to `GND`** as of 2026-08-17. It was
 previously an isolated four-pin island, which would have left the analog returns

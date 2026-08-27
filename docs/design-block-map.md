@@ -26,9 +26,16 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 
 **`motor_encoder_limit`, `mcu`, and `instrument_port` are board-authored wrapper
 sheets, not design blocks.** Nothing re-places them, so edits made there cannot
-be lost the way a block edit can. That is why the nine board-level termination
-resistors (`R403`, `R1101`-`R1103`, `R1401`-`R1405`) live in them rather than
-inside the blocks whose pins they terminate.
+be lost the way a block edit can. That is why the **ten** board-level termination
+resistors (`R403`, `R1101`-`R1104`, `R1401`-`R1405`) live in them rather than
+inside the blocks whose pins they terminate. **`R1104` added 2026-08-27** — a
+10 kΩ pull-down on the TMC5130A's `REFR_DIR` (pin 9), which is a plain `DI` with
+no internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`), and was
+floating.
+
+**The analog output block's three DAC-bus terminations are the exception to that
+rule** — they live inside the block on purpose, because 10 kΩ is right on any
+board and a re-place cannot then lose them. See the DAC termination table below.
 
 **Some placement intent exists only in the library block's `.kicad_pcb` and will
 not arrive through "Update PCB from Schematic".** Two that matter on this board:
@@ -92,7 +99,7 @@ thin to abstract". `quadrature_encoder_input_5v_sn74lvc2g17` was built in
 block or a board-authored wrapper sheet**, and none of the three defects that
 paragraph recorded survives in the form it recorded them.
 
-As built the chain is `J1102` → `R801`/`R802` 100 kΩ harness-side pull-downs →
+As built the chain is `J1103` → `R801`/`R802` 100 kΩ harness-side pull-downs →
 `R803`/`R804` 4.7 kΩ series → `C802`/`C803` 470 pF → `U801` `SN74LVC2G17` dual
 Schmitt on **`+3.3V_SW`** → `R805`/`R806` 100 kΩ output pull-downs →
 `ENC_A`/`ENC_B`.
@@ -103,7 +110,7 @@ Schmitt on **`+3.3V_SW`** → `R805`/`R806` 100 kΩ output pull-downs →
   always-on instrumentation buffers. The Schmitt hysteresis also cleans the
   filtered edges. `.agents/handoff.local.md` finding 5's second half is closed,
   and it is closed by the block rather than by a board-local patch.
-- **Only the "no `ENC_N`" half is still true.** There is no `ENC_N` net. `J1102`
+- **Only the "no `ENC_N`" half is still true.** There is no `ENC_N` net. `J1103`
   pin 2 is a **reserved index no-connect**, and the TMC5130A's `ENCN` is
   terminated by `R1201` 10 kΩ to GND — which is exactly what the datasheet asks
   for on an unused pin ("pull to GND or VCC_IO, if the pin is not used"). So the
@@ -339,7 +346,7 @@ and the PIO tap that might have justified a block was deleted rather than
 deferred. Three details changed: the conditioning now exists (`U801` and its
 filter), the tap pull-downs are the block's own `R805`/`R806` 100 kΩ output
 pull-downs rather than board-local parts, and **`ENC_N` was dropped rather than
-routed to a test pad** — `J1102` pin 2 is a reserved no-connect and the TMC's
+routed to a test pad** — `J1103` pin 2 is a reserved no-connect and the TMC's
 `ENCN` is held low by `R1201`. Full as-built chain above.
 
 | Board function | Candidate block | Rev 0 | Notes |
@@ -413,7 +420,7 @@ Prior art on the previous-generation board used the same debouncer with a MiSUMi
 `D2F-01FL` switch. **The twin-axis board needs this circuit too**, so design it
 to be promotable to `kicad-libs` once bring-up verifies it.
 
-## Board-Level Terminations — As Built, 2026-08-17
+## Board-Level Terminations — As Built 2026-08-17, Updated 2026-08-27
 
 **Reversed 2026-08-17**; this document previously called for **100 kΩ**
 pull-downs on `ENC_A`, `ENC_B`, `LIMIT_SW`, and the SPI taps. The reasoning was
@@ -437,19 +444,30 @@ end of this section:
 
 **Two more arrive with rev 1**, taking the count from nine to **eleven** — not
 three and twelve, because **the required one lives inside the block**. Same
-rule, same sheet discipline for the two that are board-level; the DAC's digital
-pins sit on the switched side of the bus switch and float when it is open:
+rule; the DAC's digital pins sit on the switched side of the bus switch and float
+when it is open. **Updated 2026-08-27: all three are now in the block, and the
+board owns none of them.**
 
 | Ref | Value | Net | To | Where | Why |
 | --- | --- | --- | --- | --- | --- |
-| `R35005` | 10 kΩ | `~{DAC_CS}` | `+3.3V_SW` | **In the block** | **The only required one.** `SYNC` must idle deasserted; while it is high the `DAC80501` blocks `SCLK` and `SDIN` outright, which is what makes a floating bus harmless. It is functional rather than board-dependent, so the block owns it and no board can forget it |
-| — | 10 kΩ | `DAC_SPI_SCK` | GND | Board | Hygiene — prevents a floating CMOS input, not a functional failure |
-| — | 10 kΩ | `DAC_SPI_COPI` | GND | Board | as above |
+| `R2006` | 10 kΩ | `~{DAC_CS}` | `+3.3V_SW` | **In the block** | **The load-bearing one.** `SYNC` must idle deasserted; while it is high the `DAC80501` blocks `SCLK` and `SDIN` outright, which is what makes a floating bus harmless |
+| `R2009` | 10 kΩ | `DAC_SPI_SCK` | GND | **In the block** | Hygiene — prevents a floating CMOS input, not a functional failure |
+| `R2008` | 10 kΩ | `DAC_SPI_COPI` | GND | **In the block** | as above |
+
+The two pull-downs moved in-block on 2026-08-27 because nothing about them is
+board-dependent — 10 kΩ to GND is right on any board — and a block re-place cannot
+then lose them. The board's nine 10 kΩ terminations stay nine.
+
+**When the `DIG9`/`DIG10`/`DIG6` instrument taps go in, add nothing.** Those taps
+sit on the same switched-side nets and need defined levels for the reason
+`R1401`-`R1404` exist on the TMC taps, but these three resistors already supply
+them. A board-level second set in parallel would halve them.
 
 **The block's `+3.3V` port must bind to `+3.3V_SW`, not `+3.3V_MCU`.** On the
-always-on rail, `R35005` would hold `~{DAC_CS}` at 3.3 V while the DAC's `VDD`
-is dead and push ~260 µA through its input clamp into `+5V_SW` — back-powering
-the switched domain from inside a block, where the bus switch cannot intervene.
+always-on rail, the `~{DAC_CS}` pull-up would hold `~{DAC_CS}` at 3.3 V while the
+DAC's `VDD` is dead and push ~260 µA through its input clamp into `+5V_SW` —
+back-powering the switched domain from inside a block, where the bus switch cannot
+intervene. Verified correct on the placed instance, 2026-08-27.
 
 **None of the three may be pulled to the DAC's 5 V rail.** The `SN74CB3Q3245` is
 a symmetric FET pass gate, so a 5 V pull-up on the switched side lands on an
@@ -533,12 +551,17 @@ both hostage to the still-open encoder part number.
 - Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
   describes the two-joystick assembly, so decide how a per-axis board mounts in
   it before fixing the outline.
-- **Connector family.** `J1101` motor, `J1102` encoder, and `J1301` limit switch
-  are one stocked 3.5 mm horizontal screw-terminal family (`OW-CONN-1844236`,
-  `-1844249`, `-1844210`). Uniform harness story, no purchase, no lead time —
+- **Connector family.** `J1102` motor, `J1103` encoder, and `J1301` limit switch
+  are one stocked 3.5 mm screw-terminal family (`OW-CONN-TBH-1X04-3P5-VERT`,
+  `-1X05-`, `-1X02-`). Uniform harness story, no purchase, no lead time —
   but **screw terminals are not locking**, and the earlier plan wanted a locking
   motor connector for a rig that gets handled. Decide before the harness is
-  built; the change is confined to `J1101`.
+  built; the change is confined to the motor terminal.
+  **Renumbered 2026-08-27**: the motor terminal was `J1101` and the encoder
+  terminal was `J1102` before the analog BNC took `J1101`. These are also the
+  vertical `TBH` parts now, not the horizontal Phoenix `OW-CONN-1844236`/
+  `-1844249`/`-1844210` this entry used to name. See `docs/interface-map.md`,
+  "Connector Complement".
 - **If two of these boards end up in one rig, silkscreen a unit identifier
   field** — a blank box, a set of jumper-selectable ID pads, or both. Two
   identical boards with swapped harnesses is a plausible and confusing failure,
@@ -551,11 +574,14 @@ both hostage to the still-open encoder part number.
   question; Rev 0 is bench firmware development, so a short cable is acceptable —
   but place `J1501` where the cable exits cleanly and does not cross the 36 V or
   motor zone.
-- Reserve board area for the remaining rev 1 additions — three dual BNCs
-  (`J7`-`J9`) — and for the **fourth and fifth buffer packages, which are not on
+- Reserve board area for the remaining rev 1 additions — two dual BNCs (`J8`,
+  `J9`; the analog BNC is placed as `J1101` since 2026-08-27) — and for the
+  **fourth and fifth buffer packages, which are not on
   the board**. **Corrected 2026-08-17**; this said their footprints are placed in
   Rev 0 as DNP `U_C` and `U_D`. They are not, so the area must be reserved
-  deliberately or rev 1 pays for it. Also leave room for the rev 2 brake driver
+  deliberately or rev 1 pays for it. **Removing `U603`/`U604`, two entirely empty
+  `SN74CB3Q3245` packages, frees roughly the area the fourth buffer needs.** Also
+  leave room for the rev 2 brake driver
   and torque front end, or accept that rev 2 is a new outline. Decide
   deliberately; it is cheaper to leave the space than to re-do mechanical work.
 - **The InstrumentPort is currently Rev 0's *only* instrumentation.** It carries

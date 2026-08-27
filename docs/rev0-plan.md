@@ -109,7 +109,7 @@ for it. This board exists because it can be finished sooner:
 | Layout zoning across two motor sections, two encoder paths, two analog outputs | One motor section, one encoder path, no analog output |
 | Axis symmetry is a first-class layout and scientific constraint | Not applicable |
 | Two motors' supply current, doubled bulk and protection | One motor |
-| Two of every harness and connector | **Seven connectors in Rev 0** — `J201` 36 V, `J301` USB-C, `J1101` motor, `J1102` encoder, `J1301` limit switch, `J1501` InstrumentPort FFC, `J1901` pyControl RJ-45 |
+| Two of every harness and connector | **Seven connectors in Rev 0** — `J201` 36 V, `J301` USB-C, `J1101` analog BNC, `J1102` motor, `J1103` encoder, `J1301` limit switch, `J1501` InstrumentPort FFC, `J1901` pyControl RJ-45 |
 
 See `docs/relationship-to-twin-axis-board.md` for what is being traded away and
 what carries forward.
@@ -301,15 +301,15 @@ register bit.
 terminal (`OW-CONN-1844249`, stocked) directly to the TMC5130A
 `ENCA`/`ENCB`/`ENCN` pins with local filtering and ESD protection".
 
-Three of those words are wrong as built. There is **no `N`** — `J1102` pin 2 is a
+Three of those words are wrong as built. There is **no `N`** — `J1103` pin 2 is a
 reserved index no-connect, there is no `ENC_N` net, and the TMC's `ENCN` is
 terminated by `R1201` 10 kΩ to GND, which is what the datasheet asks for on an
 unused pin. There is **no ESD device** anywhere in the encoder path. And nothing
-routes **directly**: the chain is `J1102` → `R801`/`R802` 100 kΩ pull-downs →
+routes **directly**: the chain is `J1103` → `R801`/`R802` 100 kΩ pull-downs →
 `R803`/`R804` 4.7 kΩ → `C802`/`C803` 470 pF → `U801` `SN74LVC2G17` dual Schmitt on
 **`+3.3V_SW`** → `R805`/`R806` 100 kΩ → `ENC_A`/`ENC_B`.
 
-`J1102` is 5-position: pin 1 GND, pin 2 reserved index no-connect, pin 3
+`J1103` is 5-position: pin 1 GND, pin 2 reserved index no-connect, pin 3
 `ENC_A_RAW`, pin 4 `+5V_SW`, pin 5 `ENC_B_RAW`.
 
 **The 5 V-encoder-against-3.3 V-inputs problem is solved in hardware.** `U801`
@@ -337,7 +337,7 @@ contact with the real device. The previous-generation rig used a Broadcom
 the 100 kΩ **pull-downs** assume a **push-pull** 5 V encoder and become pull-ups
 for an open-collector part, and the 4.7 kΩ + 470 pF filter is a 72 kHz corner
 (τ = 2.2 µs) that must clear the encoder's maximum output frequency. The pin
-order of `J1102` depends on the answer too.
+order of `J1103` depends on the answer too.
 
 ## Limit Switch And Homing
 
@@ -527,7 +527,7 @@ what blocks the schedule:
    the previous rig's Lin Engineering `WO-208-13-01D`, which is 0.6 A.
 2. **The encoder part**, which sets the encoder supply voltage, confirms that
    single-ended receive is correct, and now also validates the placed block's
-   push-pull assumption, its 72 kHz filter corner, and `J1102`'s pin order. Rev 0
+   push-pull assumption, its 72 kHz filter corner, and `J1103`'s pin order. Rev 0
    assumes single-ended.
 3. **pyControl pin 6's 5 V current budget**, and whether it is shared across
    ports. It is now load-bearing: with USB unplugged it is the only thing
@@ -536,7 +536,7 @@ what blocks the schedule:
    polyfuse position holding a 0.36 Ω jumper**; source a 1206 PPTC with a
    250-500 mA hold, or accept the jumper and record it.
 4. Whether screw terminals are acceptable for the motor and encoder harnesses, or
-   whether a locking 4-pos motor connector must be sourced. Confined to `J1101`.
+   whether a locking 4-pos motor connector must be sourced. Confined to the motor terminal (`J1102` as of 2026-08-27).
 5. Which breakout the lab deploys, and which port is assigned to this board.
 6. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
    describes the **two**-joystick assembly, so a single-axis board's mechanical

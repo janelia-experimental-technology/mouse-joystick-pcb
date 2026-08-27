@@ -104,6 +104,19 @@ tolerable rather than wasteful.
   two instances of a single-channel block where one dual package used to serve
   both. That is a real cost the twin board did not previously have; see
   `docs/encoder-analog-output.md`
+- **The analog output's 987 Hz band limit, added 2026-08-27**, and the reasoning
+  behind it, which the twin board inherits unchanged: the OneBox's `AD7616-P`
+  samples at a fixed 30.3 kHz behind only a first-order ~39 kHz filter, and a
+  TMC5130A chopper at 16-30 kHz folds into 0-15 kHz. Any board that puts a
+  motor-driver chopper and a OneBox-facing analog output on the same PCB needs
+  this filter. The twin board needs it **twice**, and its two instances must sit
+  on separate hierarchical sheets — the block's internal labels, now including
+  `DAC_VOUT_FILT` and `DAC_VOUT_FILT_MID`, merge otherwise
+- **Two lessons from the 2026-08-27 pass that are process, not circuit.**
+  Designators are not stable under automatic annotation, so documentation should
+  name parts by role and net; and a design block's `.kicad_pcb` layout fragment
+  and `.json` description both go stale when the schematic changes, and neither is
+  caught by ERC
 - InstrumentPort-40 buffering pattern, the `~OE` default, and the enable-at-startup
   rule
 - Safety model: boot-safe outputs, heartbeat, bounded motion, latched faults

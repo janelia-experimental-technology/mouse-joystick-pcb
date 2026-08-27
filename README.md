@@ -288,7 +288,7 @@ Rev 0 was scoped.
 2. The encoder part. Rev 0 assumes single-ended; the part sets the supply
    voltage, confirms that assumption, and now also validates the placed
    conditioning block — its 100 kΩ pull-downs assume a **push-pull** output, its
-   filter corner is 72 kHz, and `J1102`'s pin order depends on the answer. **This
+   filter corner is 72 kHz, and `J1103`'s pin order depends on the answer. **This
    is the one open item that can invalidate the board.**
 3. `R1903`, the pyControl 5 V polyfuse position. Source a 1206 PPTC with a
    250-500 mA hold, or accept the 0.36 Ω jumper and record it.
