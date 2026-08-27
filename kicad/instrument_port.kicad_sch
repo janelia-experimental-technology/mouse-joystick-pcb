@@ -774,16 +774,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 172.72) (xy 76.2 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93d6fa49-8a0b-4c98-9e2a-2af9b19c36dc")
-	)
-	(wire
-		(pts
 			(xy 73.66 93.98) (xy 76.2 93.98)
 		)
 		(stroke
@@ -1114,6 +1104,16 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 172.72) (xy 76.2 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7f4296f-0045-4334-aa49-f7e5563669ba")
+	)
+	(wire
+		(pts
 			(xy 73.66 104.14) (xy 76.2 104.14)
 		)
 		(stroke
@@ -1151,6 +1151,16 @@
 			(type default)
 		)
 		(uuid "ed240d19-aec2-4ed0-b8dc-4eb1875624f2")
+	)
+	(wire
+		(pts
+			(xy 73.66 139.7) (xy 76.2 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0d3d45a-27b0-407b-b289-d2fd8b67fa9f")
 	)
 	(wire
 		(pts
@@ -1201,16 +1211,6 @@
 			(type default)
 		)
 		(uuid "f7a963d9-82dc-4c61-ab06-4eec1d81dc24")
-	)
-	(wire
-		(pts
-			(xy 73.66 139.7) (xy 76.2 139.7)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f9aca855-1fc5-4195-8d06-b3e303196c6f")
 	)
 	(wire
 		(pts
@@ -1522,6 +1522,16 @@
 		)
 		(uuid "5ef294ac-fbbc-4b6e-a1e0-22fc06d117e9")
 	)
+	(label "GND"
+		(at 73.66 139.7 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "643dc45c-fb05-488f-b061-74c283e203f9")
+	)
 	(label "TMC_SPI_CIPO"
 		(at 127 27.94 90)
 		(effects
@@ -1541,16 +1551,6 @@
 			(justify left bottom)
 		)
 		(uuid "688fc84d-365d-487f-b3b1-b11a4b81f90c")
-	)
-	(label "GND"
-		(at 73.66 139.7 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "75d72a01-c2be-40f4-a942-37bbe6e0f20b")
 	)
 	(label "TMC_SPI_COPI"
 		(at 114.3 27.94 90)
@@ -1882,6 +1882,16 @@
 		)
 		(uuid "dce7629b-a3cd-44f9-bdb2-0a47817e00ec")
 	)
+	(label "GND"
+		(at 73.66 172.72 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "de5af981-8897-44e7-8588-b160cec1b7ec")
+	)
 	(label "DAC_SPI_COPI"
 		(at 38.1 43.18 0)
 		(effects
@@ -1921,16 +1931,6 @@
 			(justify right bottom)
 		)
 		(uuid "eaef0dd6-f0e0-4519-8dfd-412bac5b990a")
-	)
-	(label "GND"
-		(at 73.66 172.72 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "f425f600-04ce-4266-9649-a4dbf9f99bce")
 	)
 	(label "LIMIT_SW_BUF"
 		(at 104.14 165.1 0)
