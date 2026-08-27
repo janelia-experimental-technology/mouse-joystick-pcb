@@ -1749,10 +1749,6 @@
 		(uuid "45d9f0ba-7a4c-44ac-8488-d56963826cd0")
 	)
 	(no_connect
-		(at 109.22 93.98)
-		(uuid "61323aac-d374-4c20-9fbb-2ba4d9a56ea6")
-	)
-	(no_connect
 		(at 254 134.62)
 		(uuid "f2841869-c62d-41cf-9c33-e3d93ecb80b8")
 	)
@@ -1785,6 +1781,16 @@
 			(type default)
 		)
 		(uuid "035717cc-e67f-4875-8cf6-358e53dfa4d9")
+	)
+	(wire
+		(pts
+			(xy 132.08 109.22) (xy 132.08 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0379ccdd-8d4b-4cd6-a1cb-58179ef306a0")
 	)
 	(wire
 		(pts
@@ -2008,13 +2014,23 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 167.64) (xy 144.78 167.64)
+			(xy 129.54 129.54) (xy 127 129.54)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "60f98005-c98d-4647-a6a5-aa5f792b235b")
+	)
+	(wire
+		(pts
+			(xy 109.22 93.98) (xy 111.76 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "619dde9a-a2e7-41cb-b43f-0d7bc52c0073")
 	)
 	(wire
 		(pts
@@ -2168,7 +2184,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 172.72) (xy 152.4 175.26)
+			(xy 134.62 134.62) (xy 134.62 137.16)
 		)
 		(stroke
 			(width 0)
@@ -2185,6 +2201,16 @@
 			(type default)
 		)
 		(uuid "b0775760-ce12-4630-8729-82f742f2718f")
+	)
+	(wire
+		(pts
+			(xy 132.08 99.06) (xy 132.08 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b40e16c1-40aa-400e-ab17-a760bb4516eb")
 	)
 	(wire
 		(pts
@@ -2497,7 +2523,7 @@
 		(uuid "2b6f335c-1123-4d34-9faf-96cd9c784110")
 	)
 	(label "GND"
-		(at 152.4 175.26 270)
+		(at 134.62 137.16 270)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2627,7 +2653,7 @@
 		(uuid "6bb07465-8667-4da4-bfb9-4ad8bb8f1c96")
 	)
 	(label "AOUT"
-		(at 144.78 167.64 180)
+		(at 127 129.54 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2716,6 +2742,26 @@
 		)
 		(uuid "8f1089ca-7eb4-4ecb-8420-156321f55099")
 	)
+	(label "REFR"
+		(at 132.08 96.52 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8f46e455-070f-4d27-9743-e383216e80ab")
+	)
+	(label "GND"
+		(at 132.08 109.22 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "90161256-2a1f-4230-93d0-529ee37fd77c")
+	)
 	(label "DIAG0"
 		(at 81.28 106.68 180)
 		(effects
@@ -2755,6 +2801,16 @@
 			(justify right bottom)
 		)
 		(uuid "a4325ec3-7f3c-4346-ac3a-b72926e5625c")
+	)
+	(label "REFR"
+		(at 111.76 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a526fff6-3516-4a57-b521-8f985210ef40")
 	)
 	(label "ENC_A"
 		(at 213.36 129.54 0)
@@ -4011,7 +4067,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4958376-3a4b-499b-8b50-a2e8e9c22a39")
-		(property "Reference" "J1102"
+		(property "Reference" "J1103"
 			(at 260.35 130.81 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4295,7 +4351,309 @@
 		(instances
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(reference "J1102")
+					(reference "J1103")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
+		(at 132.08 102.87 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d6891a40-8814-43ae-8689-aa2f73785340")
+		(property "Reference" "R1104"
+			(at 134.62 101.5999 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 134.62 104.1399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 130.302 102.87 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic 10k 0402 resistor"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-RES-10K-0402"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "9610"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "10k 0402 resistor"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "10k"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" "62.5mW"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" "<=5%"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "pullup-pulldown"
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 132.08 102.87 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "5efd4371-1927-49a9-a8cc-32945bfe6e1d")
+		)
+		(pin "1"
+			(uuid "416319a1-2b38-44b8-9afa-063db69a9f61")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(reference "R1104")
 					(unit 1)
 				)
 			)
@@ -4303,7 +4661,7 @@
 	)
 	(symbol
 		(lib_id "orb_weaver_internal:All/OW-CONN-HL-BNC-KHDA")
-		(at 152.4 167.64 0)
+		(at 134.62 129.54 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4313,8 +4671,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e5998dbe-0824-494c-84d9-87b19fdcc177")
-		(property "Reference" "J1103"
-			(at 154.94 166.6875 0)
+		(property "Reference" "J1101"
+			(at 137.16 128.5875 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4326,7 +4684,7 @@
 			)
 		)
 		(property "Value" "Conn_Coaxial_HL-BNC-KHDA"
-			(at 154.94 169.2275 0)
+			(at 137.16 131.1275 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4338,7 +4696,7 @@
 			)
 		)
 		(property "Footprint" "orb_weaver_connectors:CONN_BNC_HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4349,7 +4707,7 @@
 			)
 		)
 		(property "Datasheet" "https://jlcpcb.com/partdetail/C19712152"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4360,7 +4718,7 @@
 			)
 		)
 		(property "Description" "-55℃~+125℃ 1 4GHz 50Ω 9.5mm BNC Board Side Inner hole Positive Pin Plugin Coaxial Connectors (RF) ROHS"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4371,7 +4729,7 @@
 			)
 		)
 		(property "OW_PART" "OW-CONN-HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4382,7 +4740,7 @@
 			)
 		)
 		(property "PartID" "sym_orb_weaver_connectors_conn_coaxial_hl_bnc_khda"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4393,7 +4751,7 @@
 			)
 		)
 		(property "LCSC" "C19712152"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4404,7 +4762,7 @@
 			)
 		)
 		(property "Vendor SKU" "C19712152"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4415,7 +4773,7 @@
 			)
 		)
 		(property "JLC Qty" "100"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4426,7 +4784,7 @@
 			)
 		)
 		(property "Name" "Connector Coaxial HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4437,7 +4795,7 @@
 			)
 		)
 		(property "Group" "connectors"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4448,7 +4806,7 @@
 			)
 		)
 		(property "ReqType" "connector"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4459,7 +4817,7 @@
 			)
 		)
 		(property "ReqValue" "Conn_Coaxial_HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4470,7 +4828,7 @@
 			)
 		)
 		(property "ReqFootprint" "orb_weaver_connectors:CONN_BNC_HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4481,7 +4839,7 @@
 			)
 		)
 		(property "ReqPackage" "插件"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4492,7 +4850,7 @@
 			)
 		)
 		(property "ReqMinVoltage" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4503,7 +4861,7 @@
 			)
 		)
 		(property "ReqMinCurrent" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4514,7 +4872,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4525,7 +4883,7 @@
 			)
 		)
 		(property "ReqTolerance" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4536,7 +4894,7 @@
 			)
 		)
 		(property "ReqDielectric" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4547,7 +4905,7 @@
 			)
 		)
 		(property "ReqProtocol" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4558,7 +4916,7 @@
 			)
 		)
 		(property "ReqRole" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4569,7 +4927,7 @@
 			)
 		)
 		(property "ReqExactMPN" "HL-BNC-KHDA"
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4580,7 +4938,7 @@
 			)
 		)
 		(property "ReqNotes" ""
-			(at 152.4 167.64 0)
+			(at 134.62 129.54 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -4599,7 +4957,7 @@
 		(instances
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(reference "J1103")
+					(reference "J1101")
 					(unit 1)
 				)
 			)
@@ -4617,7 +4975,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e8911734-ac64-4710-a7e5-4c38e0f3e857")
-		(property "Reference" "J1101"
+		(property "Reference" "J1102"
 			(at 184.15 78.74 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4898,7 +5256,7 @@
 		(instances
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(reference "J1101")
+					(reference "J1102")
 					(unit 1)
 				)
 			)
@@ -4908,6 +5266,11 @@
 		(uuid "5a3570dd-a0b5-402b-acfc-71fa1539381e")
 		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
 		(members "11ccfdba-bbcc-447f-9dc4-a218a8f48f58")
+	)
+	(group "analog_output_0_3v3_dac80501"
+		(uuid "7c51a402-eb6e-4a28-bb75-e89de9f437ea")
+		(lib_id "orb_weaver_private:analog_output_0_3v3_dac80501")
+		(members "ddac8004-937f-4893-85af-24a7c2becc18")
 	)
 	(group "quadrature_encoder_input_5v_sn74lvc2g17"
 		(uuid "834683ca-df57-4f65-a058-b53596a4edb1")
@@ -5247,6 +5610,122 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "12")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 83.82 127)
+		(size 25.4 20.32)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "ddac8004-937f-4893-85af-24a7c2becc18")
+		(property "Sheetname" "analog_output_0_3v3_dac80501"
+			(at 83.82 126.2884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "analog_output_0_3v3_dac80501.kicad_sch"
+			(at 83.82 147.9046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 83.82 132.08 180)
+			(uuid "895c9bd2-615e-4325-9c69-d4de37a28dcf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" passive
+			(at 83.82 129.54 180)
+			(uuid "55d3d6d3-f61c-4076-bbce-9e367b75791d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "AOUT" output
+			(at 109.22 129.54 0)
+			(uuid "a1f24ac8-7120-4fdf-9972-ba8ade33efda")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 83.82 134.62 180)
+			(uuid "5e17472f-64d1-466c-a365-3e4760a079d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" input
+			(at 83.82 139.7 180)
+			(uuid "3d4375fd-4a85-4f89-8dd3-333d4959e114")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDI" input
+			(at 83.82 142.24 180)
+			(uuid "00f7eb29-f29d-4bde-bbb2-40447d148237")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "~{CS}" input
+			(at 83.82 144.78 180)
+			(uuid "15bf34ff-3085-4dc4-93aa-05371e0335bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "20")
 				)
 			)
 		)
