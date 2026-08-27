@@ -4904,11 +4904,6 @@
 			)
 		)
 	)
-	(group "analog_output_0_3v3_dac80501"
-		(uuid "559e88c4-7bf8-41a3-976b-8f6d3f9cc1d2")
-		(lib_id "orb_weaver_private:analog_output_0_3v3_dac80501")
-		(members "6378a64b-5df5-4631-8a5d-c779edf3030e")
-	)
 	(group "limit_switch_debounced_input_vertical"
 		(uuid "5a3570dd-a0b5-402b-acfc-71fa1539381e")
 		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
@@ -4996,122 +4991,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "13")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 83.82 127)
-		(size 25.4 20.32)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "6378a64b-5df5-4631-8a5d-c779edf3030e")
-		(property "Sheetname" "analog_output_0_3v3_dac80501"
-			(at 83.82 126.2884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "analog_output_0_3v3_dac80501.kicad_sch"
-			(at 83.82 147.9046 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V" passive
-			(at 83.82 132.08 180)
-			(uuid "d1b1222b-ab43-486a-88d8-9524fe22b339")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "+5V" passive
-			(at 83.82 129.54 180)
-			(uuid "f5568749-3fd5-45c5-9c4c-d4fa6fc81d23")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "AOUT" output
-			(at 109.22 129.54 0)
-			(uuid "23fedaa1-06a3-4ca3-8c85-ea4a467dcd7f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "GND" passive
-			(at 83.82 134.62 180)
-			(uuid "ed5c681d-be25-4e5d-aae7-d2c94f81a957")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SCK" input
-			(at 83.82 139.7 180)
-			(uuid "62a46f38-0721-42c1-a1ff-ce3051d0e798")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDI" input
-			(at 83.82 142.24 180)
-			(uuid "17c7104a-23d9-4125-9f5b-47dad23c5c9d")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "~{CS}" input
-			(at 83.82 144.78 180)
-			(uuid "d1927e64-e3f6-45d4-a690-3f5b66e9e502")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "20")
 				)
 			)
 		)

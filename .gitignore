@@ -9,7 +9,7 @@
 # Local tool state
 /.metadata/
 /.cache/
-/.guix/.config/kicad/
+/.guix/.config/
 __pycache__/
 *.pyc
 *.tmp

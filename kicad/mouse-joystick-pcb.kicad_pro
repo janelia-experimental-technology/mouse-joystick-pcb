@@ -1627,10 +1627,6 @@
     [
       "ba21fa9f-94ac-4c1f-9cf3-c5024c27dfc9",
       "hv_input_36V_terminal_2pos_5p08_protected_vertical"
-    ],
-    [
-      "6378a64b-5df5-4631-8a5d-c779edf3030e",
-      "analog_output_0_3v3_dac80501"
     ]
   ],
   "text_variables": {},
