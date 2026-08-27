@@ -256,7 +256,7 @@ empty `SN74CB3Q3245` packages whose removal frees roughly the area needed; see
 **These three taps need no new terminations.** They sit on the A / switched side
 of the bus switch like the TMC taps, but the analog block now owns all three
 defining resistors internally — `R2006` 10 kΩ pull-up on `~{DAC_CS}` to
-`+3.3V_SW`, and `R2008`/`R2009` 10 kΩ pull-downs on `DAC_SPI_COPI`/`DAC_SPI_SCK`
+`+3.3V_SW`, and `R2009`/`R2010` 10 kΩ pull-downs on `DAC_SPI_COPI`/`DAC_SPI_SCK`
 to GND. Do **not** add board-level copies; that would halve them.
 
 **`AGND` (pins 31, 34, 37, 40) is tied to `GND`** as of 2026-08-17. It was

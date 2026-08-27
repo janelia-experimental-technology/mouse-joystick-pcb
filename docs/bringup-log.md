@@ -55,7 +55,7 @@ working from a board rather than from a document. Record which scheme this unit
 carries in the field above.
 
 The analog output block's own designators rotated wholesale in the same pass
-(`R2001`-`R2009`, `C2001`-`C2009`, and `U2001`/`U2002` swapped between the DAC and
+(`R2001`-`R2010`, `C2001`-`C2009`, and `U2001`/`U2002` swapped between the DAC and
 the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 
 ## Inspection
@@ -196,13 +196,15 @@ switch still isolated:
 - `TMC_SPI_SCK` / `TMC_SPI_COPI` / `TMC_SPI_CIPO` idle levels, domain on and bus
   isolated (expect ≈0.28 V each; ~1.9 V means 100 kΩ was fitted instead of the
   10 kΩ `R1401`-`R1403` and the taps straddle the `SN74LVC125A` 2.0 V `VIH`):
-- **`REFR_DIR` at `U1201` pin 9 (expect ≈0 V).** **Added 2026-08-27** with
-  `R1104` 10 kΩ to GND. This pin is a plain `DI` with **no** internal pull —
-  unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`) — and it was floating
-  before rev 1. A reading near mid-rail means `R1104` is missing or unpopulated,
-  and a floating right-stop input next to a 36 V bridge can trip a stop:
+- **`REFR_DIR` at `U1201` pin 9 (expect a hard 0 V).** **Added 2026-08-27**, now
+  **tied directly to GND** — a 10 kΩ pull-down (`R1104`) was fitted first and
+  replaced by the hard tie, which is the more robust treatment and what the
+  datasheet asks for on an unused input. This pin is a plain `DI` with **no**
+  internal pull — unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`) — and it
+  was floating before rev 1. Anything other than ~0 V means the tie is broken, and
+  a floating right-stop input next to a 36 V bridge can trip a stop:
 - `DAC_SPI_SCK` / `DAC_SPI_COPI` idle levels, domain on and bus isolated (expect
-  ≈0 V from `R2009`/`R2008`, the block's own 10 kΩ pull-downs), and `~{DAC_CS}`
+  ≈0 V from `R2010`/`R2009`, the block's own 10 kΩ pull-downs), and `~{DAC_CS}`
   idle level (expect ≈3.3 V from `R2006` to `+3.3V_SW`, deasserted — a low here
   would assert `SYNC` and let a floating bus clock data in):
 - All of the above measured again with the switched domain **off** (expect

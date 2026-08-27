@@ -329,7 +329,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   as `J1101`, `AUX_ANALOG_OUT` is not populated, and `AIN1_P/N` stay no-connect.
 - The DAC bus terminations are fitted — **all three inside the block** as of
   2026-08-27: `~{DAC_CS}` 10 kΩ to `+3.3V_SW` (`R2006`), `DAC_SPI_COPI` 10 kΩ to
-  GND (`R2008`), `DAC_SPI_SCK` 10 kΩ to GND (`R2009`) — and **none of them to
+  GND (`R2009`), `DAC_SPI_SCK` 10 kΩ to GND (`R2010`) — and **none of them to
   5 V**. This item used to say the two pull-downs were board-level. **Add no
   board-level copies when the `DIG9`/`DIG10`/`DIG6` taps go in**; they would
   parallel these and halve them.

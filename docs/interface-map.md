@@ -700,8 +700,8 @@ them:
 | Net              | Termination                  | Where        | Required? |
 |------------------|------------------------------|--------------|-----------|
 | `~{DAC_CS}`      | 10 kΩ **pull-up** `+3.3V_SW` | **In block** (`R2006`) | **Yes** |
-| `DAC_SPI_SCK`    | 10 kΩ pull-down to GND       | **In block** (`R2009`) | Hygiene |
-| `DAC_SPI_COPI`   | 10 kΩ pull-down to GND       | **In block** (`R2008`) | Hygiene |
+| `DAC_SPI_SCK`    | 10 kΩ pull-down to GND       | **In block** (`R2010`) | Hygiene |
+| `DAC_SPI_COPI`   | 10 kΩ pull-down to GND       | **In block** (`R2009`) | Hygiene |
 
 So the board's nine 10 kΩ terminations stay **nine**, not eleven. The two
 pull-downs moved into the block on 2026-08-27 because nothing about them is
@@ -718,9 +718,9 @@ entirely while `SYNC` is high, and a frame interrupted before its 24th `SCLK`
 falling edge is discarded with no register update. The other two prevent
 floating CMOS inputs, not a functional failure. Because the required one is
 functional rather than board-dependent, hosting it in the block means no board
-can omit it — the trade is a seventh boundary pin.
+can omit it — the trade is a boundary pin.
 
-**That seventh pin is `+3.3V`, and it must bind to `+3.3V_SW`.** Binding it to
+**The `+3.3V` pin is that trade, and it must bind to `+3.3V_SW`.** Binding it to
 `+3.3V_MCU` would hold `~{DAC_CS}` at 3.3 V while the DAC's own `VDD` is dead,
 pushing roughly 260 µA through the DAC's input clamp into `+5V_SW` — the exact
 back-power mechanism the bus switch exists to prevent, reintroduced inside a
@@ -994,31 +994,31 @@ the pyControl serial pair on the first UART pair, the brake's PWM and fault on
 the slots the profile names for PWM and fault, and the torque front end on the
 I2C overlay.
 
-| DUT pin                                    | Strand              | Board signal                                    | Live                      | Why                                                                                  |
-|--------------------------------------------|---------------------|-------------------------------------------------|---------------------------|--------------------------------------------------------------------------------------|
-| 2                                          | `DIG0(I2C_SCL)`     | `ENC_A` → `TQ_I2C_SCL`                          | **Rev 0**, swaps at rev 2 | Encoder quadrature now; torque front-end bus later, on the profile's own I2C overlay |
-| 3                                          | `DIG1(I2C_SDA)`     | `ENC_B` → `TQ_I2C_SDA`                          | **Rev 0**, swaps at rev 2 |                                                                                      |
-| 5                                          | `DIG2(SPI_SCK)`     | `TMC_SPI_SCK`                                   | **Rev 0**                 | Driver transactions; correctness and fault diagnosis                                 |
-| 7                                          | `DIG3(SPI_MOSI)`    | `TMC_SPI_COPI`                                  | **Rev 0**                 |                                                                                      |
-| 8                                          | `DIG4(SPI_MISO)`    | `TMC_SPI_CIPO`                                  | **Rev 0**                 | Also the witness for bus-switch state — see below                                    |
-| 10                                         | `DIG5(SPI_CS0)`     | `~{TMC_CS}`                                     | **Rev 0**                 | Frames each driver transaction                                                       |
-| 11                                         | `DIG6(SPI_CS1)`     | `~{DAC_CS}`                                     | rev 1                     | Frames each DAC write                                                                |
-| 13                                         | `DIG7`              | `PYC_DIO_A`                                     | **Rev 0**                 | Host link, both directions, on the profile's first UART pair                         |
-| 14                                         | `DIG8`              | `PYC_DIO_B`                                     | **Rev 0**                 |                                                                                      |
-| 16                                         | `DIG9`              | `DAC_SPI_SCK`                                   | rev 1                     | Lets a capture recover the commanded angle code                                      |
-| 17                                         | `DIG10`             | `DAC_SPI_COPI`                                  | rev 1                     |                                                                                      |
-| 19                                         | `DIG11`             | `LIMIT_SW` → `BRAKE_DIM`                        | **Rev 0**, swaps at rev 2 | Homing witness now; brake PWM later, on the slot the profile names for PWM           |
-| 20                                         | `DIG12`             | `~{BRAKE_FAULT}`                                | rev 2                     | Brake overcurrent latch, on the slot the profile names for fault                     |
-| 22                                         | `DIG13`             | `PYC_PULL_EVENT`                                | rev 1                     | Behavioral event                                                                     |
-| 23                                         | `DIG14`             | `PYC_FAULT`                                     | rev 1                     | Fault, experiment-critical                                                           |
-| 24                                         | `DIG15`             | `PYC_RSYNC_IN`                                  | rev 1                     | Time alignment; places everything else in pyControl time                             |
-| 26                                         | `TRIG0`             | `FW_TRIG0`                                      | **Rev 0**                 | Firmware timing marker                                                               |
-| 28                                         | `TRIG1`             | `FW_TRIG1`                                      | **Rev 0**                 | Firmware timing marker                                                               |
+| DUT pin                                    | Strand              | Board signal                                                 | Live                      | Why                                                                                                                          |
+|--------------------------------------------|---------------------|--------------------------------------------------------------|---------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| 2                                          | `DIG0(I2C_SCL)`     | `ENC_A` → `TQ_I2C_SCL`                                       | **Rev 0**, swaps at rev 2 | Encoder quadrature now; torque front-end bus later, on the profile's own I2C overlay                                         |
+| 3                                          | `DIG1(I2C_SDA)`     | `ENC_B` → `TQ_I2C_SDA`                                       | **Rev 0**, swaps at rev 2 |                                                                                                                              |
+| 5                                          | `DIG2(SPI_SCK)`     | `TMC_SPI_SCK`                                                | **Rev 0**                 | Driver transactions; correctness and fault diagnosis                                                                         |
+| 7                                          | `DIG3(SPI_MOSI)`    | `TMC_SPI_COPI`                                               | **Rev 0**                 |                                                                                                                              |
+| 8                                          | `DIG4(SPI_MISO)`    | `TMC_SPI_CIPO`                                               | **Rev 0**                 | Also the witness for bus-switch state — see below                                                                            |
+| 10                                         | `DIG5(SPI_CS0)`     | `~{TMC_CS}`                                                  | **Rev 0**                 | Frames each driver transaction                                                                                               |
+| 11                                         | `DIG6(SPI_CS1)`     | `~{DAC_CS}`                                                  | rev 1                     | Frames each DAC write                                                                                                        |
+| 13                                         | `DIG7`              | `PYC_DIO_A`                                                  | **Rev 0**                 | Host link, both directions, on the profile's first UART pair                                                                 |
+| 14                                         | `DIG8`              | `PYC_DIO_B`                                                  | **Rev 0**                 |                                                                                                                              |
+| 16                                         | `DIG9`              | `DAC_SPI_SCK`                                                | rev 1                     | Lets a capture recover the commanded angle code                                                                              |
+| 17                                         | `DIG10`             | `DAC_SPI_COPI`                                               | rev 1                     |                                                                                                                              |
+| 19                                         | `DIG11`             | `LIMIT_SW` → `BRAKE_DIM`                                     | **Rev 0**, swaps at rev 2 | Homing witness now; brake PWM later, on the slot the profile names for PWM                                                   |
+| 20                                         | `DIG12`             | `~{BRAKE_FAULT}`                                             | rev 2                     | Brake overcurrent latch, on the slot the profile names for fault                                                             |
+| 22                                         | `DIG13`             | `PYC_PULL_EVENT`                                             | rev 1                     | Behavioral event                                                                                                             |
+| 23                                         | `DIG14`             | `PYC_FAULT`                                                  | rev 1                     | Fault, experiment-critical                                                                                                   |
+| 24                                         | `DIG15`             | `PYC_RSYNC_IN`                                               | rev 1                     | Time alignment; places everything else in pyControl time                                                                     |
+| 26                                         | `TRIG0`             | `FW_TRIG0`                                                   | **Rev 0**                 | Firmware timing marker                                                                                                       |
+| 28                                         | `TRIG1`             | `FW_TRIG1`                                                   | **Rev 0**                 | Firmware timing marker                                                                                                       |
 | 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at **`AMP_VOUT` through 1 kΩ** / `AGND`, 0-3.3 V | rev 1                     | Times the analog output against the driver's own count in one capture. **Tapped before `R2007`, not at the BNC** — see below |
-| 35/36                                      | `AIN1_P` / `AIN1_N` | `AUX_ANALOG_OUT` **or** `BRAKE_ISENSE` / `AGND` | rev 1-2                   | Contested; see below                                                                 |
-| 38, 39                                     | `AOUT0`, `AOUT1`    | **No-connect**                                  | never                     | No stimulus path into a board used with animals                                      |
-| 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                  | —                         | Per profile                                                                          |
-| 31, 34, 37, 40                             | `AGND`              | Analog return                                   | —                         | Per profile; **tied to `GND` on this board, 2026-08-17**                             |
+| 35/36                                      | `AIN1_P` / `AIN1_N` | `AUX_ANALOG_OUT` **or** `BRAKE_ISENSE` / `AGND`              | rev 1-2                   | Contested; see below                                                                                                         |
+| 38, 39                                     | `AOUT0`, `AOUT1`    | **No-connect**                                               | never                     | No stimulus path into a board used with animals                                                                              |
+| 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                               | —                         | Per profile                                                                                                                  |
+| 31, 34, 37, 40                             | `AGND`              | Analog return                                                | —                         | Per profile; **tied to `GND` on this board, 2026-08-17**                                                                     |
 
 **Eleven Strands live in Rev 0**: the four TMC SPI signals, the two pyControl
 serial lines, the two firmware triggers, the two encoder channels, and the limit
@@ -1188,9 +1188,11 @@ with `docs/bringup-log.md`'s standing note that no test points exist anywhere on
 this board. The three nets are still the right ones to pad; they are simply not
 padded yet, and adding them is a block change, not a board change.
 
-**Two things are owed at board level for the analog section**, contrary to the
-last sentence this paragraph used to carry: the `AIN0_P` instrument tap's series
-1 kΩ from `AMP_VOUT`, and `AIN0_N` to `AGND`. Neither is in the block.
+**One thing is owed at board level for the analog section**, contrary to the last
+sentence this paragraph used to carry: `AIN0_N` to `AGND`. The instrument tap's
+series 1 kΩ started out board-level (`R1409`) and moved **into** the block on
+2026-08-27 as `R2008` behind the new `AOUT_MON` port, so the isolation resistor
+now travels with the thing it protects.
 
 Two entries left this list on 2026-08-17. **`SWSEL` is moot**: the TMC5130A's pin
 28 is tied directly to GND with no net, so there is nothing to pad and nothing a
@@ -1285,9 +1287,16 @@ table below is for.
 instead, all in the board-authored `mcu`, `motor_encoder_limit`, and
 `instrument_port` sheets, so a design-block re-place cannot lose them.
 
-**`R1104` added 2026-08-27**, and the three DAC-bus terminations are **not** in
-this table — they live inside the analog output block as `R2006`, `R2008` and
-`R2009`. See "The DAC Bus Terminations" above.
+~~**`R1104` added 2026-08-27**~~ — **struck the same day.** `REFR_DIR` is now
+**hard-tied to GND** rather than pulled down through 10 kΩ, so `R1104` no longer
+exists and this table is back to **nine** resistors. A direct tie is the more
+robust treatment and is what the datasheet asks for on an unused input; the pin
+simply can never serve as a right-reference switch input, which nothing on this
+board wants.
+
+The three DAC-bus terminations are **not** in this table — they live inside the
+analog output block as `R2006`, `R2009` and `R2010`. See "The DAC Bus
+Terminations" above.
 
 | Ref     | Value | Net             | To          | Sheet                 | Why                                                                                          |
 |---------|-------|-----------------|-------------|-----------------------|----------------------------------------------------------------------------------------------|
@@ -1300,7 +1309,13 @@ this table — they live inside the analog output block as `R2006`, `R2008` and
 | `R1101` | 10 kΩ | `TMC_DIAG0`     | `+3.3V_SW`  | `motor_encoder_limit` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ                                 |
 | `R1102` | 10 kΩ | `TMC_DIAG1`     | `+3.3V_SW`  | `motor_encoder_limit` | As above                                                                                     |
 | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW`  | `motor_encoder_limit` | Guarantees the power stage is **disabled** in hardware                                       |
-| `R1104` | 10 kΩ | `REFR`          | GND         | `motor_encoder_limit` | **Added 2026-08-27.** TMC5130A `REFR_DIR` (pin 9) is a plain `DI` with **no** internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`). It was floating; a floating right-stop input next to a 36 V bridge can trip a stop and draws ΔICC |
+
+**Not a resistor, but it belongs with them: TMC5130A `REFR_DIR` (pin 9) is tied
+directly to GND** as of 2026-08-27. It is a plain `DI` with **no** internal pull,
+unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`), and it was floating before
+rev 1 — a floating right-stop input next to a 36 V bridge can trip a stop and
+draws ΔICC. A 10 kΩ pull-down (`R1104`) was fitted first and then replaced by the
+hard tie.
 
 **Why some reference `+3.3V_SW` and some GND.** A pull that must read HIGH while
 the driver is powered — `~{TMC_CS}`, both `DIAG` lines, `~{TMC_DRV_EN}` —
@@ -1435,12 +1450,16 @@ Every `DIG*` and `TRIG*` signal above is buffered with
   roughly the area the fourth buffer needs. See `docs/design-block-map.md`.
 
   **The three taps need no new terminations.** They sit on the A / switched side
-  of the bus switch, but `R2006`/`R2008`/`R2009` inside the analog output block
-  already define all three. Do not add board-level copies.
+  of the bus switch, but `R2006`/`R2009`/`R2010` inside the analog output block
+  already define all three. Do not add board-level copies. Three board-level
+  copies were fitted briefly on 2026-08-27 as `R1406`-`R1408` and removed the same
+  day; they had halved all three to 5 kΩ.
 
 - **`AIN0` needs no buffer; it is a direct analog tap** — `AMP_VOUT` through a
-  series 1 kΩ to `AIN0_P`, with `AIN0_N` to `AGND`. That 1 kΩ is the only new part
-  on the analog side of the port.
+  series 1 kΩ to `AIN0_P`, with `AIN0_N` to `AGND`. **The 1 kΩ is inside the
+  block** as `R2008`, reached through the block's eighth boundary port `AOUT_MON`,
+  so the only board-level work on the analog side of the port is routing that port
+  to `J1501` pin 32 and tying pin 33 to `AGND`.
 
 **Superseded 2026-08-17.** The intent was that **the grouping is chosen so each
 revision populates whole packages**, so a deferred group never leaves a powered

@@ -26,12 +26,15 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 
 **`motor_encoder_limit`, `mcu`, and `instrument_port` are board-authored wrapper
 sheets, not design blocks.** Nothing re-places them, so edits made there cannot
-be lost the way a block edit can. That is why the **ten** board-level termination
-resistors (`R403`, `R1101`-`R1104`, `R1401`-`R1405`) live in them rather than
-inside the blocks whose pins they terminate. **`R1104` added 2026-08-27** — a
-10 kΩ pull-down on the TMC5130A's `REFR_DIR` (pin 9), which is a plain `DI` with
-no internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL` (`pd`), and was
-floating.
+be lost the way a block edit can. That is why the **nine** board-level termination
+resistors (`R403`, `R1101`-`R1103`, `R1401`-`R1405`) live in them rather than
+inside the blocks whose pins they terminate.
+
+**TMC5130A `REFR_DIR` (pin 9) is tied directly to GND** as of 2026-08-27. It is a
+plain `DI` with no internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL`
+(`pd`), and it was floating before rev 1. A 10 kΩ pull-down (`R1104`) was fitted
+first and then replaced by the hard tie, which is the more robust treatment and
+what the datasheet asks for on an unused input.
 
 **The analog output block's three DAC-bus terminations are the exception to that
 rule** — they live inside the block on purpose, because 10 kΩ is right on any
@@ -451,8 +454,8 @@ board owns none of them.**
 | Ref | Value | Net | To | Where | Why |
 | --- | --- | --- | --- | --- | --- |
 | `R2006` | 10 kΩ | `~{DAC_CS}` | `+3.3V_SW` | **In the block** | **The load-bearing one.** `SYNC` must idle deasserted; while it is high the `DAC80501` blocks `SCLK` and `SDIN` outright, which is what makes a floating bus harmless |
-| `R2009` | 10 kΩ | `DAC_SPI_SCK` | GND | **In the block** | Hygiene — prevents a floating CMOS input, not a functional failure |
-| `R2008` | 10 kΩ | `DAC_SPI_COPI` | GND | **In the block** | as above |
+| `R2010` | 10 kΩ | `DAC_SPI_SCK` | GND | **In the block** | Hygiene — prevents a floating CMOS input, not a functional failure |
+| `R2009` | 10 kΩ | `DAC_SPI_COPI` | GND | **In the block** | as above |
 
 The two pull-downs moved in-block on 2026-08-27 because nothing about them is
 board-dependent — 10 kΩ to GND is right on any board — and a block re-place cannot

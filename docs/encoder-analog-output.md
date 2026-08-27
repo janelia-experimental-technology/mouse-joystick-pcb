@@ -41,20 +41,31 @@ about, and `docs/rev0-plan.md` lists it first for that reason.
 ## The Block
 
 `orb_weaver_private:analog_output_0_3v3_dac80501`, built and validated
-2026-08-26, **filter added 2026-08-27**. Twenty-two parts, all stocked. Seven
-boundary ports, unchanged by the filter: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`,
-`~{CS}`, `AOUT`.
+2026-08-26, **filter added and monitor tap added 2026-08-27**. Twenty-four parts,
+all stocked. **Eight boundary ports**: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`,
+`~{CS}`, `AOUT`, and `AOUT_MON`.
 
 ```text
-+5V_SW ─FB─┬─ DAC80501ZDGSR ──> 2-pole 987 Hz ──> OPA197 ──> 249R ──> ESD ──> BNC
-           │  internal 2.5 V ref   Sallen-Key    (gain 1.32)    │
-           │  GAIN = 0x0101        20k/13k/10nF x2              └── 100k to GND
-           │  0-2.5 V out
-           └─ decoupling
++5V_SW ─FB─┬─ DAC80501ZDGSR ──> 2-pole 987 Hz ──> OPA197 ─┬─ 249R ─┬─> AOUT ──> BNC
+           │  internal 2.5 V ref   Sallen-Key    (gain     │        └─ ESD
+           │  GAIN = 0x0101        20k/13k/10nF   1.32)    │
+           │  0-2.5 V out           x2                    ├─ 1k ────> AOUT_MON ──> AIN0_P
+           └─ decoupling                                  └─ 100k to GND
 ```
 
 The `OPA197` is both the gain stage and the filter's active element, so the two
 poles cost four passives and no extra amplifier.
+
+**`AOUT` and `AOUT_MON` are not interchangeable.** `AOUT` carries the 249 Ω source
+resistor *and* the ESD clamp and goes to the BNC; `AOUT_MON` carries a 1 kΩ
+isolation resistor and goes to InstrumentPort `AIN0_P`. Crossing them was a real
+defect on 2026-08-27, caught on the netlist and fixed the same day: it left the
+BNC — the human-accessible connector, and the whole reason the clamp exists — with
+**no ESD protection**, put 1 kΩ of source resistance in front of the researcher
+(−0.1% into 1 MΩ instead of −0.025%), and made the block's own placement rule
+unsatisfiable because the clamp was no longer on the connector's net. **ERC cannot
+catch this**; both nets are validly driven and terminated either way. Check it on
+the netlist, not by eye.
 
 | Property | Value |
 | --- | --- |
@@ -70,10 +81,12 @@ poles cost four passives and no extra amplifier.
 | Interface | SPI, write-only, 3 wires, up to 50 MHz |
 | Supply | `+5V_SW` for the analog section |
 | `+3.3V` port | `~{CS}` pull-up reference only — **must bind to `+3.3V_SW`** |
+| `AOUT` port | 249 Ω source + ESD clamp — **goes to the BNC** |
+| `AOUT_MON` port | 1 kΩ isolation — **goes to InstrumentPort `AIN0_P`** |
 
 **Designators are not stable.** The project uses automatic annotation, so
 inserting a part rotates everything after it. A global re-annotation happened on
-2026-08-27; the analog block's board-side designators are now `R2001`-`R2009`,
+2026-08-27; the analog block's board-side designators are now `R2001`-`R2010`,
 `C2001`-`C2009`, `U2001` (DAC) and `U2002` (op amp) — note the two ICs swapped.
 Where this document names one, treat the net and the role as the identifier and
 the number as a convenience.
@@ -178,8 +191,8 @@ instance, 2026-08-27.**
    - `~{DAC_CS}` — 10 kohm pull-up to the `+3.3V` port, `R2006`. The required
      one: the DAC blocks `SCLK` and `SDIN` entirely while `SYNC` is high, which
      is what makes a floating bus harmless.
-   - `DAC_SPI_COPI` — 10 kohm to GND, `R2008`.
-   - `DAC_SPI_SCK` — 10 kohm to GND, `R2009`.
+   - `DAC_SPI_COPI` — 10 kohm to GND, `R2009`.
+   - `DAC_SPI_SCK` — 10 kohm to GND, `R2010`.
 
    The two pull-downs moved in-block because nothing about them is
    board-dependent — 10 kohm to GND is right on any board — and a block re-place
@@ -210,8 +223,11 @@ instance, 2026-08-27.**
    `U604` remain entirely empty, 14 channels of nothing, and are the obvious
    deletion when board area is wanted for the fourth buffer package.
 
-5. **The `AIN0_P` instrument tap and its series 1 kohm**, if the instrument port
-   is wired. Tap `AMP_VOUT`, **not** the BNC node. See
+5. **Route `AOUT_MON` to InstrumentPort `AIN0_P` and tie `AIN0_N` to `AGND`**, if
+   the instrument port is wired. The series 1 kohm is **inside the block** as
+   `R2008` — the board owns no resistor here, only the routing. A board-level
+   1 kohm (`R1409`) was fitted briefly on 2026-08-27 and replaced by the in-block
+   version, so the isolation resistor now travels with the thing it protects. See
    `docs/instrument-strategy.md`.
 
 ## Placement Is A Constraint, Not A Preference
@@ -231,6 +247,12 @@ one place where board contamination becomes a gain term.
 **Put the BNC on the opposite board edge from the motor and encoder terminals
 (`J1102`, `J1103`) and from the FFC (`J1501`).** On a 100 x 80 mm board with the
 motor section already placed, this is the first placement decision, not the last.
+
+**The `AOUT_MON` route to `J1501` pin 32 is a long trace by construction** — the
+block sits at the BNC and the FFC is elsewhere. That is fine and is what the 1 kohm
+is for: crosstalk picked up along it lands on the op amp's low-impedance output
+rather than on the researcher's node. Do not "improve" it by moving the block
+toward the FFC; the ESD clamp's ground via has the stronger claim.
 
 On this board that is no conflict: the analog section wants to be near the BNC
 and away from the motor section anyway. Keep the analog return to the BNC shell
