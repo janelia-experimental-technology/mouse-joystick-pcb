@@ -1,11 +1,11 @@
-ERC report (2026-08-21T10:12:59, Encoding UTF8)
+ERC report (2026-08-28T15:16:04, Encoding UTF8)
 Report includes: Errors
 
 ***** Sheet /
 
-***** Sheet /hv_input_36V_terminal_2pos_5p08_protected/
+***** Sheet /usb2_vertical/
 
-***** Sheet /usb2/
+***** Sheet /pycontrol_behavior_port_rj45_boundary_vertical/
 
 ***** Sheet /mcu/
 
@@ -15,17 +15,17 @@ Report includes: Errors
 
 ***** Sheet /mcu/5v_to_3v3_tps73733_1/
 
-***** Sheet /motor_encoder_limit/quadrature_encoder_input_5v_sn74lvc2g17/
+***** Sheet /motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/
 
 ***** Sheet /hv_to_5v_tpsm365r6/
 
 ***** Sheet /5v_to_3v3_tps73733_2/
 
-***** Sheet /motor_encoder_limit/
+***** Sheet /motor_encoder_switch/
 
-***** Sheet /motor_encoder_limit/tmc5130/
+***** Sheet /motor_encoder_switch/tmc5130/
 
-***** Sheet /motor_encoder_limit/limit_switch_debounced_input/
+***** Sheet /motor_encoder_switch/limit_switch_debounced_input_vertical/
 
 ***** Sheet /instrument_port/
 
@@ -35,9 +35,13 @@ Report includes: Errors
 
 ***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_2/
 
-***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_3/
+***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_4/
 
-***** Sheet /pycontrol_behavior_port_rj45_boundary/
+***** Sheet /hv_input_36V_terminal_2pos_5p08_protected_vertical/
+
+***** Sheet /motor_encoder_switch/analog_output_0_3v3_dac80501/
+
+***** Sheet /instrument_port/instrumentation_signal_buffer_sn74lvc125a_3/
 
  ** ERC messages: 0  Errors 0  Warnings 0
 

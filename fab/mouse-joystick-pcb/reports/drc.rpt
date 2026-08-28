@@ -1,8 +1,14 @@
 ** Drc report for mouse-joystick-pcb.kicad_pcb **
-** Created on 2026-08-21T10:13:01 **
+** Created on 2026-08-28T15:16:08 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 0 DRC violations **
+** Found 2 DRC violations **
+[via_dangling]: Via is not connected or connected on only one layer
+    Local override; warning
+    @(104.5000 mm, 111.5000 mm): Via [/USB_D+] on F.Cu - B.Cu
+[via_dangling]: Via is not connected or connected on only one layer
+    Local override; warning
+    @(105.5000 mm, 110.5000 mm): Via [/USB_D+] on F.Cu - B.Cu
 
 ** Found 0 unconnected pads **
 

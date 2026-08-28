@@ -5,13 +5,13 @@
       "Application": "Pcbnew",
       "Version": "10.0.5"
     },
-    "CreationDate": "2026-08-21T10:13:04-04:00"
+    "CreationDate": "2026-08-28T15:16:15-04:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "mouse-joystick-pcb",
       "GUID": "6d6f7573-652d-46a6-9f79-737469636b2d",
-      "Revision": "0.2"
+      "Revision": "0.3"
     },
     "Size": {
       "X": 100.05,
