@@ -19,12 +19,19 @@ spare.
 **Status:** Pinout derived from two pyControl-compatible schematics — a shipping
 module and the controller breakout itself. Bench verification still required for
 continuity and cable behavior.
-**Date:** 2026-08-14
+**Date:** 2026-08-14, amended 2026-08-28.
 **Derived from:** `../mouse-joysticks-pcb/docs/pycontrol-port-pinout.md`. The
 pinout is a property of pyControl, not of either board, so it is identical in
-both repositories. **If it changes, change it in both.** The 2026-08-14 findings
-below are not yet mirrored there.
+both repositories. **If it changes, change it in both.** The 2026-08-14 and
+2026-08-28 findings are mirrored there.
 **Destined for:** `board-interfaces`, once bench-verified.
+**Partially promoted 2026-08-28.** The *controller-side capability map* — which
+MCU pin each port's `DIO-A`/`DIO-B`/`DIO-C` reaches on Breakout 1.0, Breakout 1.2
+and the H7 breakout, and the alternate functions that follow — now lives in
+`../board-interfaces/docs/pycontrol-behavior-port.md`. It went early because it
+is datasheet- and vendor-source-derived and makes no claim about our physical
+link. **The connector profile in this file is still not promoted** and still
+waits on Gate B.
 
 ## Sources
 
@@ -251,29 +258,39 @@ From `pump_controller.py` and the device firmware:
 
 > The pump must be plugged into a port that has a serial UART.
 
-| Breakout board | UART-capable ports |
-| --- | --- |
-| Breakout board 1.2 | ports **1, 3, 4** |
-| D-series Breakout Board 1.6 | ports **8, 10, 11, 12** |
-| **H7 breakout (10 ports)** | **unknown — see below** |
+**Resolved for the H7 breakout on 2026-08-28.** The full controller-side
+capability map — which MCU pin every port's `DIO-A`/`DIO-B`/`DIO-C` reaches on
+each breakout, and what each of those pins can do — now lives in
+`../board-interfaces/docs/pycontrol-behavior-port.md`. Read that before
+assigning a port. The summary below is what this board needs.
 
-**The H7 breakout is a third design and neither list covers it.** It has ten
-ports, and which of them pyControl exposes as a UART cannot be read out of the
-netlist: every port's `DIO-A`/`DIO-B` reaches an STM32H743 GPIO, and UART
-capability depends on the H743's alternate-function mapping *and* on what
-pyControl's firmware chooses to instantiate. Deriving it from LQFP-100 pin
-numbers alone would be a guess.
+| Breakout board | UART-capable ports | Evidence |
+| --- | --- | --- |
+| Breakout board 1.0 | port **1** (`UART4`) | `devices/breakout_1_0.py` |
+| Breakout board 1.2 | ports **1** (`UART4`), **3** (`USART1`), **4** (`USART3`) | `devices/breakout_1_2.py` |
+| D-series Breakout Board 1.6 | ports **8, 10, 11, 12** | **unverified** — see below |
+| **H7 breakout (10 ports)** | **1, 2, 3, 4, 5, 9, 10** — seven of ten | `h7_breakout.kicad_sch` v0.7 |
 
-**So "which port is assigned" is still an open item if the lab deploys the H7
-breakout**, and it is a firmware question for the pyControl discussion thread,
-not something the schematic can settle. It does not block fabrication — this
-board's end of the link is the same on any port.
+**The H7 breakout's hardware question is answered; its firmware question is
+not.** Its ten ports were traced by netlist export, and the MCU symbol's own pin
+names declare the intent: ports 1–5, 9 and 10 land on `USART3`, `UART4`, `UART5`,
+`USART6`, `UART7`, `USART1` and `USART2` respectively, with `DIO-A` on TX and
+`DIO-B` on RX every time. Ports 7 and 8 are wired as SPI and port 6 as I2C1.
 
-**Consequence for a two-board rig.** On the 1.2 and 1.6 breakouts, three or four
-UART-capable ports means two single-axis boards both fit with one or two left
-over. The H7 breakout's ten ports make this comfortably easier if even a few are
-UART-capable. UART availability is therefore not an argument against the
-two-board form factor. Total I/O across the whole rig still is — see
+But **there is no `breakout_h7.py`** in `pycontrol/code` at v2.1.1, so pyControl
+does not yet declare *any* H7 port as `UART=n`, and a device class that asserts
+on `port.UART` will fail there today. That remains a firmware question for the
+pyControl discussion thread. It does not block fabrication — this board's end of
+the link is identical on every port and every breakout.
+
+**The 1.6 row is carried forward unverified.** That board is not in any local
+checkout of `pycontrol-hardware`, `pycontrol-docs`, or `pycontrol-code`. Treat
+it as hearsay until a source turns up.
+
+**Consequence for a two-board rig.** Three UART ports on the 1.2 and seven on
+the H7 means two single-axis boards fit with room to spare on either. UART
+availability is not an argument against the two-board form factor. Total I/O
+across the whole rig still is — see
 `docs/relationship-to-twin-axis-board.md`.
 
 Confirm which breakout the lab deploys and which ports are assigned, and record
@@ -282,6 +299,29 @@ it. The device class asserts on this:
 ```python
 assert port.UART is not None, "! Pump needs port with UART."
 ```
+
+### What `DIO-A` And `DIO-B` Actually Are
+
+Checked across every port of all three controller designs, with no exceptions on
+UART, I2C or SPI:
+
+| Line | RJ-45 pin | Controller role | This board's role |
+| --- | --- | --- | --- |
+| `DIO-A` | 1 | **TX** / **SCL** / **MOSI** | **RX** |
+| `DIO-B` | 4 | **RX** / **SDA** / **MISO** | **TX** |
+
+So on Breakout 1.2 port 3, `DIO-3A` is `X9` = `PB6` = `USART1_TX` **and**
+`I2C1_SCL` — the controller's transmit, this board's receive. That is the
+concrete case that anchors the rule.
+
+Two traps that follow, both recorded in full in the `board-interfaces` map:
+
+- **Analog input on a 1.2 `DIO` line works only on ports 1 and 6.** Ports 2–5
+  sit on `GPIOB` pins 6–13, which have no ADC channel on the STM32F405. Not
+  stated anywhere in the pyControl documentation.
+- **Breakout 1.2 port 6 `DIO-B` is the same net as `BNC-2`** — both `X11`/`PC4`,
+  which also has no serial and no timer at all. Port 6 and `BNC-2` are mutually
+  exclusive.
 
 ## The DIO Lines Are Consumed By The UART
 
@@ -366,8 +406,12 @@ Bench items these sources cannot settle:
 - **The controller's own 5 V draw**, which is what decides how much of the 1.0 A
   is spare. The ceiling itself is now known — see
   [The Port 5 V Supply](#the-port-5-v-supply-and-what-shares-it).
-- **Which H7 breakout ports expose a UART**, if that is the deployed controller.
-  A firmware question, not a schematic one.
+- **Which H7 breakout ports pyControl *firmware* exposes as a UART.** The
+  hardware side is resolved — seven of ten ports are routed to a UART, see
+  [Which Ports Have A UART](#which-ports-have-a-uart) — but no `breakout_h7.py`
+  exists yet, so no port is declared. Firmware question, upstream.
+- **The D-series Breakout Board 1.6 UART port list** (8, 10, 11, 12). Carried
+  forward from an earlier source; that board is in no local checkout.
 - 12 V budget on pin 8. Not used by this board, but it shares `SW1` and the
   barrel input with the 5 V regulator's supply.
 - BNC count, direction configurability, and whether six lines are available.
@@ -406,3 +450,17 @@ separate.
 
 Record the pinout's provenance in the block's own description so a future reader
 knows it was schematic-derived rather than bench-verified.
+
+**Amended 2026-08-28: the capability map went first, and on purpose.**
+`../board-interfaces/docs/pycontrol-behavior-port.md` now holds the
+controller-side capability map — port → MCU pin → alternate functions, for all
+three breakouts. That is a *different kind of claim* from the connector profile
+and it was promoted on different evidence: an ST datasheet, pyControl's own
+device-definition source, and the controllers' own schematics. None of it
+depends on measuring our cable, so Gate B does not gate it.
+
+The connector profile in this file — pin numbering, the 5 V and 12 V rails and
+their budgets, ESD and series-resistance conventions, the mechanical part — is
+still a claim about a physical link nobody has put a meter on. **It stays here
+until Gate B.** Keep the two apart; the reason the capability map could move
+early is precisely that it is not the profile.

@@ -1643,7 +1643,7 @@
 		(uuid "8f377140-8e23-434b-a8a4-cf705b634619")
 	)
 	(label "~{DAC_CS_BUF}"
-		(at 104.14 137.16 0)
+		(at 104.14 132.08 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1673,7 +1673,7 @@
 		(uuid "a2f1b960-6330-4152-8981-61d033c94692")
 	)
 	(label "DAC_SPI_COPI"
-		(at 73.66 134.62 180)
+		(at 73.66 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1823,7 +1823,7 @@
 		(uuid "c8bc684b-da3c-4fb8-84c6-116cdc02c74e")
 	)
 	(label "DAC_SPI_SCK"
-		(at 73.66 132.08 180)
+		(at 73.66 134.62 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1843,7 +1843,7 @@
 		(uuid "ce6b63e4-4670-4669-bd8f-e0e2661a37a0")
 	)
 	(label "DAC_SPI_SCK_BUF"
-		(at 104.14 132.08 0)
+		(at 104.14 134.62 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1953,7 +1953,7 @@
 		(uuid "f7c0180a-89dd-407c-95ad-3c13b4f23f45")
 	)
 	(label "~{DAC_CS}"
-		(at 73.66 137.16 180)
+		(at 73.66 132.08 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1963,7 +1963,7 @@
 		(uuid "fd2295e7-c350-4eb1-9871-96b35e8cebe1")
 	)
 	(label "DAC_SPI_COPI_BUF"
-		(at 104.14 134.62 0)
+		(at 104.14 137.16 0)
 		(effects
 			(font
 				(size 1.27 1.27)

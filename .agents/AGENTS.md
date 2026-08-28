@@ -107,7 +107,11 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   serial parameters in `docs/pycontrol-port-pinout.md` are **cited, not
   bench-verified**.
 - The assigned pyControl port must be UART-capable: ports 1, 3, or 4 on Breakout
-  board 1.2, or 8, 10, 11, or 12 on the D-series Breakout Board 1.6.
+  board 1.2; ports 1, 2, 3, 4, 5, 9, or 10 on the H7 breakout — **but the H7's
+  UARTs are routed, not yet declared**, because `pycontrol/code` v2.1.1 has no
+  `breakout_h7.py`. The D-series Breakout Board 1.6 list (8, 10, 11, 12) is
+  carried forward unverified; that board is in no local checkout. The full
+  controller-side map is `../board-interfaces/docs/pycontrol-behavior-port.md`.
 - Both DIO lines on the assigned port are consumed by the UART. The three TTL
   lines land on BNCs **in rev 1** — Rev 0 carries the serial link only.
 - **`DIO-A` is this board's RX; `DIO-B` is this board's TX.** The alphabetical

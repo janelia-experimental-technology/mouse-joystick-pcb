@@ -7,8 +7,6 @@
 	(title_block
 		(title "Orb Weaver Design Block Mining")
 		(date "2026-08-28")
-		(rev "0.3")
-		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -1419,7 +1417,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-666"
+			(property "Footprint" "orb_weaver_smd:USBLC6-2P6_SOT-666"
 				(at 1.016 -6.731 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1455,7 +1453,7 @@
 					)
 				)
 			)
-			(property "ow_note" "Forked from KiCad Power_Protection:USBLC6-2P6 to declare jumper_pin_groups 1/6 and 3/4, which are internally connected in the die."
+			(property "ow_note" "Forked from KiCad Power_Protection:USBLC6-2P6 to declare jumper_pin_groups 1/6 and 3/4, which are internally connected in the die. Pair it only with orb_weaver_smd:USBLC6-2P6_SOT-666, which carries the matching jumper_pad_groups. The two halves must stay together: with the generic Package_TO_SOT_SMD:SOT-666, DRC reports the unrouted pad of each pair as an unconnected item even when the copper is correct."
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -1565,7 +1563,7 @@
 					)
 				)
 			)
-			(property "ReqFootprint" "Package_TO_SOT_SMD:SOT-666"
+			(property "ReqFootprint" "orb_weaver_smd:USBLC6-2P6_SOT-666"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1697,7 +1695,7 @@
 					)
 				)
 			)
-			(property "ki_fp_filters" "Package_TO_SOT_SMD:SOT-666"
+			(property "ki_fp_filters" "orb_weaver_smd:USBLC6-2P6_SOT-666"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2924,16 +2922,16 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "pin 1 DIO-A = HOST TX = THIS BOARD'S RX.  pin 4 DIO-B = this board's TX.\nR29003 IS A POLYFUSE POSITION, NOT PROTECTION.  The 0.36R part is a\njumper.  Port 5 V is a shared 1.0 A that also feeds the pyControl\ncontroller's own logic regulator, with no per-port fuse — a fault here\ncan reset the controller.  Populate a 1206 PPTC, 250-500 mA hold.\nPins 3/5/7 are host driver outputs or a port-dependent DIO-C.  Leave NC.\nNOT ETHERNET.  No magnetics."
+	(text "DIO_A (pin 1) is ALWAYS the host's driving line: UART TX, I2C SCL, SPI MOSI.\n▎ DIO_B (pin 4) is the host's input: UART RX, I2C SDA, SPI MISO. No exceptions\n▎ on any pyControl breakout. So DIO_A = this board's RX.\n▎ Breakout 1.2 UART ports: 1 (UART4), 3 (USART1), 4 (USART3). I2C only on 3, 4.\n▎ H7 breakout UART ports: 1,2,3,4,5,9,10. I2C on 1, 6. SPI on 7, 8.\n▎ Breakout 1.2 analog-in on DIO_A/B works on ports 1 and 6 ONLY (2/3/4/5 are\n▎ GPIOB6-13, no ADC channel). Port 6 DIO_B is the same net as BNC-2.\n▎ DIO_C (pin 5) is NOT 5V tolerant where it is a DAC (PA4/PA5). DIO_A/DIO_B are FT."
 		(exclude_from_sim no)
-		(at 101.6 152.4 0)
+		(at 152.4 58.42 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "5e5c93a2-1ffe-4dbe-971e-66f4e165e03a")
+		(uuid "0ed1eea7-8797-4c87-b391-4eacb562cb3c")
 	)
 	(no_connect
 		(at 93.98 81.28)
@@ -3252,7 +3250,7 @@
 		(uuid "2031aac0-f461-4d8d-a6d4-67dd159fc754")
 	)
 	(label "DIO_A"
-		(at 116.84 129.54 0)
+		(at 116.84 127 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3272,7 +3270,7 @@
 		(uuid "50824d69-cca1-4bd7-bc85-788355fbc96f")
 	)
 	(label "DIO_A"
-		(at 101.6 129.54 180)
+		(at 101.6 127 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3312,7 +3310,7 @@
 		(uuid "8c9438f7-6fd6-4a19-8db3-2f1f9bdbd0b6")
 	)
 	(label "DIO_B"
-		(at 101.6 127 180)
+		(at 101.6 129.54 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3322,7 +3320,7 @@
 		(uuid "90bfed66-ce3d-4ade-b5f0-b8fd0aab148d")
 	)
 	(label "DIO_A"
-		(at 129.54 99.06 180)
+		(at 129.54 88.9 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3402,7 +3400,7 @@
 		(uuid "f4f59c52-23fb-4be8-9375-a8b1a08a6c81")
 	)
 	(label "DIO_B"
-		(at 116.84 127 0)
+		(at 116.84 129.54 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3412,7 +3410,7 @@
 		(uuid "f84b31ab-e9d9-4053-84de-e9c481b884db")
 	)
 	(label "DIO_B"
-		(at 129.54 88.9 180)
+		(at 129.54 99.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3453,9 +3451,9 @@
 		)
 		(uuid "476a7e03-6d75-466f-b2bb-1ee1e546aedc")
 	)
-	(hierarchical_label "PYC_DIO_B"
+	(hierarchical_label "PYC_DIO_B_HOSTRX_SDA_MISO"
 		(shape bidirectional)
-		(at 147.32 88.9 0)
+		(at 147.32 99.06 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3475,9 +3473,9 @@
 		)
 		(uuid "af52d692-a550-4b0d-8285-31d993d32a4e")
 	)
-	(hierarchical_label "PYC_DIO_A"
+	(hierarchical_label "PYC_DIO_A_HOSTTX_SCL_MOSI"
 		(shape bidirectional)
-		(at 147.32 99.06 0)
+		(at 147.32 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3498,7 +3496,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "12d19810-2b24-4895-928c-f9c8b4872ff4")
-		(property "Reference" "#FLG0201"
+		(property "Reference" "#FLG0301"
 			(at 83.82 46.355 0)
 			(hide yes)
 			(show_name no)
@@ -3510,14 +3508,13 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 86.36 46.9899 0)
+			(at 83.82 43.18 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3558,8 +3555,8 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "#FLG0201")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "#FLG0301")
 					(unit 1)
 				)
 			)
@@ -3583,7 +3580,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3a18ddf5-1a49-4a68-9246-f01a86a3a8ad")
-		(property "Reference" "C201"
+		(property "Reference" "C301"
 			(at 123.19 60.9599 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3839,7 +3836,7 @@
 		(property "LCSC" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3850,7 +3847,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3866,8 +3863,8 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "C201")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "C301")
 					(unit 1)
 				)
 			)
@@ -3891,7 +3888,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "47e56d03-98c6-43ee-9728-332e5044ac5c")
-		(property "Reference" "R202"
+		(property "Reference" "R302"
 			(at 138.43 92.71 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4146,7 +4143,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4157,7 +4154,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4173,8 +4170,8 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "R202")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "R302")
 					(unit 1)
 				)
 			)
@@ -4198,7 +4195,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "68d4fb06-543a-4879-ba8d-7f948c719952")
-		(property "Reference" "D201"
+		(property "Reference" "D301"
 			(at 193.167 115.57 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4454,7 +4451,7 @@
 		(property "LCSC" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4465,7 +4462,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4481,348 +4478,14 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "D201")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "D301")
 					(unit 1)
 				)
 			)
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/cab3231c-cb7d-4774-9852-a81466e29b73"
 					(reference "D32001")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-USBLC6-2P6")
-		(at 109.22 127 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "82e21780-20b4-4fb0-9c8e-f100f9f19f62")
-		(property "Reference" "U201"
-			(at 110.8711 119.38 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "USBLC6-2P6"
-			(at 110.8711 121.92 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-666"
-			(at 110.236 133.731 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
-			(at 110.236 135.636 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Description" "2-line plus VBUS ESD protection array for USB 2.0 up to 480 Mb/s; IEC 61000-4-2 level 4 (15kV air / 8kV contact); 3.5pF max I/O-to-GND; 1.2pF typ I/O-to-I/O; 150nA max leakage at 5.25V; 6V min VBUS breakdown; -40℃~+150℃ junction; SOT-666-6 ESD and Surge Protection (TVS/ESD) ROHS"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ow_note" "Forked from KiCad Power_Protection:USBLC6-2P6 to declare jumper_pin_groups 1/6 and 3/4, which are internally connected in the die."
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-USBLC6-2P6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "mpn_usblc6_2p6_sot_666_6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "1008"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "USBLC6-2P6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "circuit-protection"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "USBLC6-2P6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Package_TO_SOT_SMD:SOT-666"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "SOT-666-6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "USBLC6-2P6"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C2827693"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C2827693"
-			(at 109.22 127 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "5"
-			(uuid "7f98c9cd-23b9-4e27-b033-5cbf40cf6879")
-		)
-		(pin "6"
-			(uuid "5e4be8c3-ddec-428b-9a79-1b85f0d94b50")
-		)
-		(pin "4"
-			(uuid "cbab9475-cc41-48b9-a4aa-edbe3abcc37b")
-		)
-		(pin "3"
-			(uuid "55ee8e66-7881-4172-a64e-5ff52970e26c")
-		)
-		(pin "1"
-			(uuid "a80fa5e3-af0f-48ea-a6eb-c3621e62f20c")
-		)
-		(pin "2"
-			(uuid "dd324d98-9bf2-4ba5-9906-ff253e42102b")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "U201")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/cab3231c-cb7d-4774-9852-a81466e29b73"
-					(reference "U32001")
 					(unit 1)
 				)
 			)
@@ -4840,7 +4503,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "aaadbed3-b7b1-4b40-896d-f506d8dbaf59")
-		(property "Reference" "R203"
+		(property "Reference" "R303"
 			(at 189.23 102.87 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5095,7 +4758,7 @@
 		(property "LCSC" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5106,7 +4769,7 @@
 		(property "Vendor SKU" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5122,8 +4785,8 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "R203")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "R303")
 					(unit 1)
 				)
 			)
@@ -5147,7 +4810,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dcabc325-b008-4566-9bd8-5d9f33a3ddd9")
-		(property "Reference" "J201"
+		(property "Reference" "J301"
 			(at 83.82 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5401,7 +5064,7 @@
 		(property "LCSC" "C588558"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5412,7 +5075,7 @@
 		(property "Vendor SKU" "C588558"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5449,8 +5112,8 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "J201")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "J301")
 					(unit 1)
 				)
 			)
@@ -5474,7 +5137,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e48050c4-7c3e-4feb-a8bf-c915c166209c")
-		(property "Reference" "R201"
+		(property "Reference" "R301"
 			(at 138.43 82.55 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5729,7 +5392,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5740,7 +5403,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5756,14 +5419,348 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/a3f4f46b-f788-476b-9f89-cbb84588c5a6"
-					(reference "R201")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "R301")
 					(unit 1)
 				)
 			)
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/cab3231c-cb7d-4774-9852-a81466e29b73"
 					(reference "R32001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MISC-USBLC6-2P6")
+		(at 109.22 127 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f93728e2-2141-439d-b216-bcf1db600f7d")
+		(property "Reference" "U301"
+			(at 110.8711 119.38 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "USBLC6-2P6"
+			(at 110.8711 121.92 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:USBLC6-2P6_SOT-666"
+			(at 110.236 133.731 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
+			(at 110.236 135.636 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Description" "2-line plus VBUS ESD protection array for USB 2.0 up to 480 Mb/s; IEC 61000-4-2 level 4 (15kV air / 8kV contact); 3.5pF max I/O-to-GND; 1.2pF typ I/O-to-I/O; 150nA max leakage at 5.25V; 6V min VBUS breakdown; -40℃~+150℃ junction; SOT-666-6 ESD and Surge Protection (TVS/ESD) ROHS"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ow_note" "Forked from KiCad Power_Protection:USBLC6-2P6 to declare jumper_pin_groups 1/6 and 3/4, which are internally connected in the die. Pair it only with orb_weaver_smd:USBLC6-2P6_SOT-666, which carries the matching jumper_pad_groups. The two halves must stay together: with the generic Package_TO_SOT_SMD:SOT-666, DRC reports the unrouted pad of each pair as an unconnected item even when the copper is correct."
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MISC-USBLC6-2P6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "mpn_usblc6_2p6_sot_666_6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "1008"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "USBLC6-2P6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "misc"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "circuit-protection"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "USBLC6-2P6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_smd:USBLC6-2P6_SOT-666"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "SOT-666-6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "USBLC6-2P6"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C2827693"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C2827693"
+			(at 109.22 127 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "b9060d4b-1722-4099-bf3b-681db706e9d7")
+		)
+		(pin "5"
+			(uuid "570d731c-baca-4263-992a-8464fac8ed98")
+		)
+		(pin "2"
+			(uuid "f2381915-6c92-458c-88d8-12c4580554a5")
+		)
+		(pin "4"
+			(uuid "738b3fd9-7abb-4b71-8fd5-e5e174bf66ee")
+		)
+		(pin "6"
+			(uuid "7b618feb-ff70-48f9-b431-2052de5439c5")
+		)
+		(pin "1"
+			(uuid "23ba21ee-d4d9-4c5f-82e5-27ce33b93967")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/cbd92ac5-c563-4176-af81-b008c5188178"
+					(reference "U301")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/cab3231c-cb7d-4774-9852-a81466e29b73"
+					(reference "U32001")
 					(unit 1)
 				)
 			)
