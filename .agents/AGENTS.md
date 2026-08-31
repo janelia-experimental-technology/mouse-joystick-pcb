@@ -208,11 +208,11 @@ Prefer Makefile targets:
 
 ### Local KiCad Overlay
 
-The pinned channel carries KiCad 10.0.4. `.guix/manifest-kicad-local.scm` and
-`.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in 10.0.5
+The pinned channel carries KiCad 10.0.5. `.guix/manifest-kicad-local.scm` and
+`.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in 10.0.6
 overlay: `make kicad-version-local`, `kicad-shell-local`, `kicad-edits-local`,
 `fab-local`. Delete the overlay files and the `-local` targets once the channel
-pin carries 10.0.5 or newer.
+pin carries 10.0.6 or newer.
 
 ### KiCad Project State
 

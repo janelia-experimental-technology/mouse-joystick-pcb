@@ -9,9 +9,9 @@
 ;; lookup for the default manifests stays on Guix proper. Add temporary KiCad
 ;; package overrides here only when the Guix channel is waiting for an update.
 ;;
-;; Current override: KiCad 10.0.5 while the corresponding Guix update is waiting
+;; Current override: KiCad 10.0.6 while the corresponding Guix update is waiting
 ;; to land upstream. Drop these overrides back to plain upstream aliases once the
-;; pinned Guix channel in .guix/channels.scm carries 10.0.5 or newer.
+;; pinned Guix channel in .guix/channels.scm carries 10.0.6 or newer.
 
 (define (resolve-package-module name)
   (catch #t
@@ -24,7 +24,7 @@
         electronics
         (resolve-interface '(gnu packages engineering)))))
 
-(define %kicad-version "10.0.5")
+(define %kicad-version "10.0.6")
 
 (define-public kicad
   (package
@@ -38,7 +38,7 @@
              (commit %kicad-version)))
        (sha256
         (base32
-         "11ssgv2ycc4ad7wz7ijdd3x4fmdnwmxjjyjx1rrvrrlsz2k4nddg"))
+         "0x9376x4nigqnx4d82qixz41p779svjdsgkxv6l0kmn3snvwbcgk"))
        (file-name (git-file-name "kicad" %kicad-version))))))
 
 (define-public kicad-doc
@@ -53,7 +53,7 @@
              (commit %kicad-version)))
        (sha256
         (base32
-         "1fi2zvpz0qzjjmv6407qw5bwhc4950nlqkk68a7mpjhgzx0gjbn8"))
+         "0y82qkks3l003d7fka3aicmrx8qa7ch819y8kgghpxc5nqzw8nz8"))
        (file-name (git-file-name "kicad-doc" %kicad-version))))))
 
 (define-public kicad-symbols
@@ -68,7 +68,7 @@
              (commit %kicad-version)))
        (sha256
         (base32
-         "12w7qbqm9wk6b7d8ljdd46afskkqc2aanh8fyf36frwqy1mjfx87"))
+         "0ynmi6qg5cac37vn0q986vh2a560ab8vb24yg7bfbkyj8b5xk353"))
        (file-name (git-file-name "kicad-symbols" %kicad-version))))))
 
 (define-public kicad-footprints
@@ -83,7 +83,7 @@
              (commit %kicad-version)))
        (sha256
         (base32
-         "0jr9q1yrlxbb796wrsrnlplb2a05k3z0g1m1dn3c87cf9ffmlaz0"))
+         "11hhdk8g7hsm50817x7204lzm1qpjpfjr82gyrnhdshnnzd0hbf7"))
        (file-name (git-file-name "kicad-footprints" %kicad-version))))))
 
 (define-public kicad-packages3d
@@ -98,7 +98,7 @@
              (commit %kicad-version)))
        (sha256
         (base32
-         "1gqqi91g1yynfgmxl5l34g1rg3gjksl54xd1zsgp4kvyi5w50b3r"))
+         "1mkcf6yn64pqjk51srnv5cidcji0hrx8nfh0q5zyc4ca7p7984li"))
        (file-name (git-file-name "kicad-packages3d" %kicad-version))))))
 
 (define-public kicad-templates

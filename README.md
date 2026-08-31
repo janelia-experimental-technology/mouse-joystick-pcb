@@ -349,9 +349,9 @@ Open the board with:
 make kicad-edits
 ```
 
-The pinned channel carries KiCad 10.0.4. While the Guix update for 10.0.5 waits
+The pinned channel carries KiCad 10.0.5. While the Guix update for 10.0.6 waits
 to land upstream, `.guix/manifest-kicad-local.scm` and
-`.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in 10.0.5
+`.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in 10.0.6
 overlay: `make kicad-edits-local`, `kicad-shell-local`, `kicad-version-local`,
 `fab-local`. Drop the overlay once the channel pin carries it.
 
