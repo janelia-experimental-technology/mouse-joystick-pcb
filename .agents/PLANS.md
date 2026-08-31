@@ -543,7 +543,43 @@ Ready for active PCB work when:
 
 ## Progress Log
 
-- 2026-08-31 (latest): Bumped the opt-in local KiCad overlay
+- 2026-08-31 (latest): **Rev-2 brake driver design settled in `kicad-libs`, and
+  the InstrumentPort allocation changed as a result.** The block is
+  `brake_current_sink_0_49ma_dac80501` — renamed from
+  `b5z_brake_current_driver` — a DAC-programmed linear current sink. Full
+  specification, values, BOM, and open items:
+  `../kicad-libs/docs/brake-current-sink-design.md`. **The schematic is not
+  drawn and nothing is bench validated.** What this board needs to know:
+  - **`DIG11` becomes `BRAKE_CS`, not `BRAKE_DIM`.** There is no PWM in the
+    design, so a `BRAKE_DIM` net does not exist in any revision. The DAC chip
+    select is the truthful equivalent of a brake-command edge, and with
+    `DIG9`/`DIG10` already carrying the shared DAC `SCK`/`COPI`, one capture can
+    now recover both the commanded angle *and* the commanded brake current.
+  - **`AIN1_P/N` resolved to `BRAKE_ISENSE`**, 0-2.01 V through 249 Ω, needs a
+    >=100 kΩ load, floor about 25 mV. `AUX_ANALOG_OUT` loses the slot; it was
+    already unpopulated. The "must be low-side or ground-referenced" constraint
+    is satisfied by construction — the sink is low-side, so no high-side node
+    exists to put on the connector.
+  - **`~{BRAKE_FAULT}` on `DIG12` is a continuous limiter output, not a latch**,
+    and it arrives already at 3.3 V logic from the block's own optional
+    `SN74LVC2G17`, so it needs a route but not an `SN74LVC125A` channel.
+  - **Rev-2 GPIO cost dropped from about 6 to about 4.** The brake side is 1 GPIO
+    plus 1 ADC, because both DACs share one write-only 3-wire bus.
+  - **The 36 V decision is vindicated and now quantified.** The sink needs at
+    least about 31 V for 49 mA through a 605 Ω hot winding; 36 V −5% leaves 4.2 V
+    of compliance and 36 V +5% costs 0.71 W in the pass device. A 24 V rail could
+    not drive the brake at all. Propagated to `docs/relationship-to-twin-axis-board.md`.
+  - **New load-budget rows:** 48.8 mA DC on `+36V_SW`, about 3 mA on `+5V_SW`,
+    about 2 mA on `+3.3V_SW`. **No electrolytic** in the brake zone — the 150 µF
+    63 V can was sized for the dropped `LM3404HV` fallback.
+  - **One measurement this board owes rev 2:** `+36V_SW` maximum and ringing at
+    the future brake-stage location with the TMC5130A driving. The pass device
+    sees the full rail whenever the brake is off, so this is what decides between
+    a 60 V `BUK7D36-60EX` and the 80 V `BSC072N08NS5ATMA1` DNP alternate.
+  Updated `docs/design-block-map.md`, `docs/interface-map.md`, `docs/power.md`,
+  `docs/rev0-plan.md`, `docs/prior-art.md`, `docs/instrument-strategy.md`, and
+  `docs/relationship-to-twin-axis-board.md`.
+- 2026-08-31: Bumped the opt-in local KiCad overlay
   (`.guix/local-modules/orb-weaver/kicad-local.scm`) from 10.0.5 to **10.0.6**,
   matching the same bump in `kicad-libs`; the two overlay modules stay
   byte-identical. KiCad, `kicad-doc`, and the symbol, footprint, 3D model, and

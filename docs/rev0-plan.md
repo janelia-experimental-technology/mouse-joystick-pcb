@@ -643,7 +643,7 @@ already allocated and left unconnected:
 | --- | --- | --- | --- |
 | DAC80501 analog angle output + BNC | `GP10`, `GP11`, `GP13` | `analog_output_0_3v3_dac80501`, **built 2026-08-26** | `DIG6`, `DIG9`, `DIG10`, `AIN0`; a **fourth** buffer package |
 | pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; a **fifth** buffer package |
-| Brake driver + torque front end (rev 2) | ~6 more, needs RP2354B | `b5z_brake_current_driver`, `torque_bridge_frontend`, both new | `DIG11`, `DIG12`, maybe `AIN1`; **takes `DIG0`/`DIG1` back from the encoder**; re-inputs `U1601` and `U1801` |
+| Brake driver + torque front end (rev 2) | ~4 more — **revised 2026-08-31**, was ~6 | `brake_current_sink_0_49ma_dac80501` (specified, not drawn), `torque_bridge_frontend`, both new | `DIG11` (`BRAKE_CS`, **not** `BRAKE_DIM`), `DIG12`, `AIN1` (`BRAKE_ISENSE`, resolved); **takes `DIG0`/`DIG1` back from the encoder**; re-inputs `U1601` and `U1801` |
 
 Nothing in that table requires moving a Rev 0 pin, changing a Rev 0 connector, or
 rewriting Rev 0 firmware. That is the property the Rev 0 allocation was built to

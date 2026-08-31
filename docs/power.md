@@ -446,6 +446,13 @@ The two reasons for 36 V were motor performance and Rev-1 brake-rail headroom.
 previous-generation rig ran the same class of joystick motor at 24 V and produced
 the published work, so 24 V is demonstrably adequate for the application.
 
+**Reinforced 2026-08-31, and now with numbers.** The second reason applies at
+rev 2 and it is decisive there, so do not drop to 24 V on this outline. The
+settled brake sink needs, at 48.8 mA and a worst-case 605 Ω hot winding, a rail of
+at least `29.5 V + 0.49 V + 1 V ≈ 31 V`. A 36 V rail at −5% is 34.2 V, leaving
+**4.2 V** of pass-device compliance; a 24 V rail cannot maintain rated current at
+all. Choosing 36 V here was the right call and rev 2 collects the benefit.
+
 36 V is still defensible: a 0.67 A/phase stepper has high winding inductance, and
 a higher rail means faster coil current rise and better torque at speed. But a
 joystick is not a high-speed positioner, so the benefit is smaller here than the
@@ -649,12 +656,18 @@ attributed to a benefit:
 - **Motor performance.** Higher rail voltage means faster current rise in the
   coil, so the same motor holds torque to a higher step rate. On a joystick that
   has to feel responsive to a mouse, that is the whole point.
-- **Rev-1 brake headroom.** `kicad-libs/docs/b5z-magnetic-particle-brake-controller.md`
-  assumes a **36 V** input as constant-current compliance, because a 24 V rail
-  cannot force 49 mA through a 560 Ω hot coil. The twin-axis board records this
-  as an unresolved tension between its 24 V plan and the brake note. Choosing
-  36 V here removes it in advance: whatever this board learns about a 36 V rail
-  transfers directly to the brake design.
+- **Rev-2 brake headroom.** `../kicad-libs/docs/brake-current-sink-design.md`
+  requires a **36 V** input as constant-current compliance, because a 24 V rail
+  cannot force 49 mA through a 605 Ω hot coil. **Quantified 2026-08-31:** the
+  settled design has 4.2 V of pass-device compliance at 36 V −5% with the hot
+  winding, and 0.71 W of pass-device dissipation at 36 V +5% with the cold
+  winding. The twin-axis board records this as an unresolved tension between its
+  24 V plan and the brake note. Choosing 36 V here removes it in advance:
+  whatever this board learns about a 36 V rail transfers directly to the brake
+  design — **including the ringing.** The pass device sees the *full* rail
+  whenever the brake is off, so this document's own warning about TMC5130A-induced
+  ringing on `+36V_SW` is what decides between a 60 V and an 80 V pass device.
+  **Measure it at the future brake stage's location, with the driver running.**
 
 ## Multiple Logic Power Sources
 
@@ -789,6 +802,8 @@ obvious "simplification" of merging them would reintroduce it.
 | --- | --- |
 | Analog output `OPA197` (rev 1) | **4.5 V minimum supply.** Below that the gain stage is out of spec — this is now the analog section's binding 5 V requirement |
 | Analog output `DAC80501` `VDD` (rev 1) | ≥ the 2.5 V reference with `REF-DIV=1`; 5 V gives ample margin |
+| Brake block, 3× `OPA197` (rev 2) | **4.5 V minimum**, same binding requirement. The loop amplifier must reach the pass device's `V_GS` plus the 0.49 V shunt drop, about 3.2 V worst case, which a 5 V RRIO output clears comfortably |
+| Brake block `DAC80501` `VDD` (rev 2) | **3.3 V, deliberately not 5 V.** `+3.3V_SW`, not this rail. At 3.3 V the reset `REF-DIV = 0` is out of spec, and the datasheet forces all outputs to 0 V on improper reference-divider configuration, so the 0-2.5 V span becomes a hardware property and a wrong-`GAIN` write is fail-safe. It also removes the 5 V back-powering path the angle block had to reason about. See `../kicad-libs/docs/brake-current-sink-design.md` |
 | `TMC5130A` `VCC` | **4.6 V to 5.25 V** operating range, per rev 1.21 chapter 30 |
 | Encoder, if 5 V | Per its datasheet |
 
@@ -1088,6 +1103,9 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+5V_SW` | TMC5130A `VCC` | ~20-30 mA |
 | switched | `+5V_SW` | Encoder, if 5 V | **Unknown — the encoder part is not identified.** A Broadcom `HEDR-5421` class part draws 40-85 mA |
 | switched | `+5V_SW` | Analog output block, `DAC80501` + `OPA197` + output load (rev 1) | **~3 mA** |
+| switched | `+36V_SW` | **Brake coil, rev 2** | **48.8 mA maximum, DC and constant** — a linear current sink, so no switching component and no bulk capacitance needed. Negligible against the 1.2 A `ILIM` |
+| switched | `+5V_SW` | **Brake block, 3× `OPA197`, rev 2** | **~3 mA** |
+| switched | `+3.3V_SW` | **Brake block `DAC80501` `VDD` + optional `SN74LVC2G17`, rev 2** | **~2 mA** |
 | switched | `+3.3V_SW` | TMC5130A `VCC_IO` | few mA |
 | switched | `+3.3V_SW` | `U1301` MAX6816 debouncer | tens of µA |
 | switched | `+3.3V_SW` | **`U801` SN74LVC2G17 encoder Schmitt** | µA static; charge transfer when switching |

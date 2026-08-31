@@ -158,13 +158,17 @@ deliberately:
   stimulus path.
 - No target power is injected through the connector.
 - `AIN1_P/N` observes a ground-referenced board node no wider than 0-5 V, not a
-  divided 36 V rail. The motor rail never reaches the instrument connector. Its
-  assignment is contested between `AUX_ANALOG_OUT` and a rev 2 `BRAKE_ISENSE`;
-  if the brake monitor wins it must be low-side or ground-referenced, for this
-  reason. See `docs/interface-map.md`. **In Rev 0 as built, `AIN0_P/N` and
-  `AIN1_P/N` are no-connect** — the constraint is forward-looking, not something
-  to verify on this board. `AIN0_P/N` are wired at rev 1; `AIN1_P/N` stay
-  no-connect until the `AUX_ANALOG_OUT` versus `BRAKE_ISENSE` contest is settled.
+  divided 36 V rail. The motor rail never reaches the instrument connector.
+  **Settled 2026-08-31: `AIN1_P/N` is `BRAKE_ISENSE`**, and it satisfies this
+  constraint by construction rather than by promise — the brake driver is a
+  low-side current sink, so its sense node is a 10 Ω shunt referenced to `PGND`
+  and buffered to 0-2.01 V. There is no high-side node in the design to put on
+  the connector. `AUX_ANALOG_OUT` loses the slot; it was already down to "is a
+  second DAC and amplifier worth it" and is not populated at rev 1, so nothing
+  that exists is given up. See `docs/interface-map.md`. **In Rev 0 as built,
+  `AIN0_P/N` and `AIN1_P/N` are no-connect** — the constraint is forward-looking,
+  not something to verify on this board. `AIN0_P/N` are wired at rev 1;
+  `AIN1_P/N` at rev 2 with the brake.
 - **`AIN0_P` taps `AMP_VOUT`, not the BNC centre.** **Added 2026-08-26, tap point
   changed 2026-08-27.** The 2026-08-26 version of this bullet put `AIN0_P` on the
   BNC centre node, on the far side of the analog block's 249 Ω source resistor

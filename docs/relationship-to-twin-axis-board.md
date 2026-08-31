@@ -149,7 +149,11 @@ Switching to `../mouse-joysticks-pcb` later costs:
   pyControl transport code carries over.
 - Re-deciding 24 V versus 36 V. If this board's 36 V rail works well, the twin
   board should probably adopt it — its own notes record the 24 V/36 V tension as
-  unresolved for the Rev 1 brake.
+  unresolved for the Rev 1 brake. **Resolved in favour of 36 V, 2026-08-31:** the
+  settled brake current sink needs at least about 31 V to hold 49 mA through a
+  605 Ω hot winding, so a 24 V rail cannot drive the brake at rated torque at all.
+  Any board that carries a `B5Z` needs 36 V. See
+  `../kicad-libs/docs/brake-current-sink-design.md`.
 
 What it does **not** cost: the pyControl integration evidence, the device class,
 the protocol, the calibration semantics, or the instrument tooling. Those are the

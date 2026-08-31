@@ -193,6 +193,15 @@ two for the torque bus, and `TQ_DRDY`. That is **six wanted against six spare**
 even keeping `TQ_DRDY`, with `GP27` ADC-capable for the current monitor. Drop
 `TQ_DRDY`, which the bus capture already implies, and there is a pin left over.
 
+**Got easier 2026-08-31.** The settled brake driver needs **one** new GPIO, not
+two or three: `~{BRAKE_CS}` for its DAC, sharing `SCK` and `SDI` with the angle
+DAC — both are write-only 3-wire devices, so bus sharing carries no contention
+risk. `~{BRAKE_FAULT}` is optional and only exists if the `SN74LVC2G17` fault
+buffer is populated; `BRAKE_ENABLE` is a stuffing option and largely redundant
+with `HV_EN`. So the brake side is **1 GPIO plus 1 ADC**, against the 3 GPIOs plus
+1 ADC this paragraph budgeted. That leaves more slack for the torque bus, which is
+where it is actually wanted.
+
 **This reversed twice.** Until `GP14` became `HV_DIAG_EN` on 2026-08-17 it was
 five for five with nothing to reclaim; that day it became five wanted against
 four spare, one pin short of free, and the fix was to spend reclaim-order item 1.
@@ -994,6 +1003,13 @@ the pyControl serial pair on the first UART pair, the brake's PWM and fault on
 the slots the profile names for PWM and fault, and the torque front end on the
 I2C overlay.
 
+**Amended 2026-08-31: there is no brake PWM.** The brake driver is a
+DAC-programmed linear current sink, so `DIG11` carries the brake DAC's chip
+select instead. The slot is still the right one — the profile names it for PWM,
+and a chip-select frame is the closest true equivalent of a brake command edge —
+but the signal name and what a capture sees are different. See [`DIG11` Carries
+The Brake DAC Frame, Not A PWM](#dig11-carries-the-brake-dac-frame-not-a-pwm).
+
 | DUT pin                                    | Strand              | Board signal                                                 | Live                      | Why                                                                                                                          |
 |--------------------------------------------|---------------------|--------------------------------------------------------------|---------------------------|------------------------------------------------------------------------------------------------------------------------------|
 | 2                                          | `DIG0(I2C_SCL)`     | `ENC_A` → `TQ_I2C_SCL`                                       | **Rev 0**, swaps at rev 2 | Encoder quadrature now; torque front-end bus later, on the profile's own I2C overlay                                         |
@@ -1007,15 +1023,15 @@ I2C overlay.
 | 14                                         | `DIG8`              | `PYC_DIO_B`                                                  | **Rev 0**                 |                                                                                                                              |
 | 16                                         | `DIG9`              | `DAC_SPI_SCK`                                                | rev 1                     | Lets a capture recover the commanded angle code                                                                              |
 | 17                                         | `DIG10`             | `DAC_SPI_COPI`                                               | rev 1                     |                                                                                                                              |
-| 19                                         | `DIG11`             | `LIMIT_SW` → `BRAKE_DIM`                                     | **Rev 0**, swaps at rev 2 | Homing witness now; brake PWM later, on the slot the profile names for PWM                                                   |
-| 20                                         | `DIG12`             | `~{BRAKE_FAULT}`                                             | rev 2                     | Brake overcurrent latch, on the slot the profile names for fault                                                             |
+| 19                                         | `DIG11`             | `LIMIT_SW` → `BRAKE_CS`                                      | **Rev 0**, swaps at rev 2 | Homing witness now; **brake DAC frame later — `BRAKE_DIM` until 2026-08-31**, see below                                      |
+| 20                                         | `DIG12`             | `~{BRAKE_FAULT}`                                             | rev 2                     | Brake ceiling amplifier output, active low; continuous limiter, not a latch                                                  |
 | 22                                         | `DIG13`             | `PYC_PULL_EVENT`                                             | rev 1                     | Behavioral event                                                                                                             |
 | 23                                         | `DIG14`             | `PYC_FAULT`                                                  | rev 1                     | Fault, experiment-critical                                                                                                   |
 | 24                                         | `DIG15`             | `PYC_RSYNC_IN`                                               | rev 1                     | Time alignment; places everything else in pyControl time                                                                     |
 | 26                                         | `TRIG0`             | `FW_TRIG0`                                                   | **Rev 0**                 | Firmware timing marker                                                                                                       |
 | 28                                         | `TRIG1`             | `FW_TRIG1`                                                   | **Rev 0**                 | Firmware timing marker                                                                                                       |
 | 32/33                                      | `AIN0_P` / `AIN0_N` | `ANGLE_OUT` at **`AMP_VOUT` through 1 kΩ** / `AGND`, 0-3.3 V | rev 1                     | Times the analog output against the driver's own count in one capture. **Tapped before `R2007`, not at the BNC** — see below |
-| 35/36                                      | `AIN1_P` / `AIN1_N` | `AUX_ANALOG_OUT` **or** `BRAKE_ISENSE` / `AGND`              | rev 1-2                   | Contested; see below                                                                                                         |
+| 35/36                                      | `AIN1_P` / `AIN1_N` | `BRAKE_ISENSE` at **0-2.01 V through 249 Ω** / `AGND`        | rev 2                     | **Resolved to `BRAKE_ISENSE` 2026-08-31**; ground-referenced low-side shunt buffer, needs a >=100 kΩ load. See below           |
 | 38, 39                                     | `AOUT0`, `AOUT1`    | **No-connect**                                               | never                     | No stimulus path into a board used with animals                                                                              |
 | 1, 4, 6, 9, 12, 15, 18, 21, 25, 27, 29, 30 | `GND`               | Digital return                                               | —                         | Per profile                                                                                                                  |
 | 31, 34, 37, 40                             | `AGND`              | Analog return                                                | —                         | Per profile; **tied to `GND` on this board, 2026-08-17**                                                                     |
@@ -1110,7 +1126,8 @@ unaffected: the index fires once per revolution, and `ENC_A`/`ENC_B` are what a
 decode check needs. The test pad it was to get does not exist either.
 
 **When the brake and torque circuits land**, reassign `DIG0`/`DIG1` to the torque
-bus and `DIG11` to `BRAKE_DIM`, and drop all three taps to test pads. There is no
+bus and `DIG11` to **`BRAKE_CS`** — corrected 2026-08-31; this said `BRAKE_DIM`
+— and drop all three taps to test pads. There is no
 PIO cross-check coming to replace them — that was deleted, not deferred — so this
 is a real loss of observability, accepted on the grounds that by rev 2 the
 encoder decode and the homing path are verified, settled behaviour rather than
@@ -1140,6 +1157,38 @@ domain instead of injecting into it.
 `LIMIT_SW` is active low, so a pull-down makes it read as *closed* while the
 switched domain is off. Harmless: the TMC5130A is unpowered in that state and
 nothing else reads the net.
+
+### `DIG11` Carries The Brake DAC Frame, Not A PWM
+
+**Decided 2026-08-31.** The brake driver is a DAC-programmed linear current sink,
+so `BRAKE_DIM` does not exist as a net anywhere in any revision. `DIG11` gets
+`~{BRAKE_CS}`, the brake DAC's chip select.
+
+**Why this slot is still right.** The v0.3 profile names slot 11 for PWM, and the
+nearest true equivalent of "the edge on which brake torque changed" is the frame
+that carried the new code. A capture with `DIG11` plus the shared `DAC_SPI_SCK`
+and `DAC_SPI_COPI` on `DIG9`/`DIG10` can recover **both** the commanded angle and
+the commanded brake current from the same acquisition, because both DACs sit on
+one write-only 3-wire bus with independent chip selects. That is strictly more
+observability than a PWM duty line would have given.
+
+**Why not manufacture a PWM signal to fill the slot.** `../kicad-libs/docs/b5z-magnetic-particle-brake-controller.md`
+raised this and it is worth keeping: a fabricated `BRAKE_DIM` would be a name for
+something the hardware does not do, and anyone reading a capture would draw the
+wrong conclusion about how torque is set. Chopped brake current was rejected
+precisely because it would alias into the torque measurement.
+
+**What `~{BRAKE_FAULT}` on `DIG12` actually is.** The output of the brake block's
+independent ceiling amplifier, buffered to 3.3 V logic, active low. It is a
+**continuous limiter, not a latch** — corrected 2026-08-31; the table used to call
+it a latch. It asserts while measured current exceeds about 56 mA and releases
+when it does not, so a capture sees its duration, not a one-way trip. It exists
+only if the optional `SN74LVC2G17` buffer is populated; firmware can detect the
+same condition by comparing the commanded code against `BRAKE_ISENSE`.
+
+**`BRAKE_ENABLE` is not on the port** and does not need to be. It is a stuffing
+option in the block, largely redundant with `HV_EN`, which the MCU can always
+drive because it bypasses the GPIO isolation bus switch.
 
 ### If Brake And Torque Need More Than Four Slots
 
@@ -1406,6 +1455,28 @@ current-monitor output**. A high-side sense on the brake rail would put that
 rail's common-mode voltage on the instrument connector, which is the thing this
 section exists to prevent.
 
+**Resolved 2026-08-31: `BRAKE_ISENSE` wins, and it satisfies the constraint by
+construction.** The settled brake block is a low-side current sink, so the sense
+node is a 10 Ω shunt referenced to `PGND`; the block buffers it with an `OPA197`
+at a gain of 4.125 and presents **0-2.01 V over 0-48.78 mA** through a 249 Ω
+source resistor and a `TPD1E05U06` clamp. There is no high-side node anywhere in
+the design to put on the connector. Three properties to carry into the port
+documentation:
+
+- **It needs a >=100 kΩ load**, like `ANGLE_OUT`. A 50 Ω terminated input reads a
+  fraction of the correct value.
+- **Full scale is 2.01 V, not 3.3 V.** This is a diagnostic monitor, not one of
+  the researcher-facing 0-3.3 V scientific outputs, so the 0-3.3 V contract does
+  not apply. It reads correctly up to 2.33 V, which is the block's 56 mA hardware
+  ceiling, so a limit event is visible rather than clipped.
+- **The floor is about 25 mV**, because the gain network and the output pulldown
+  both return to ground and the `OPA197`'s light-load swing figure applies. Treat
+  true 0 V as unpowered rather than as zero brake current.
+
+`AUX_ANALOG_OUT` therefore loses the slot rather than staying contested. It was
+already down to "is it worth a second DAC and amplifier" as of 2026-08-26, and it
+is not populated at rev 1, so nothing is given up that exists.
+
 Motor-supply monitoring uses the onboard ADC instead: `GP28` for load current
 through the smart switch's `SNS` pin, and `GP26` for the **`+3.3V_SW`** rail —
 **corrected 2026-08-17**, this said `+5V`, which the 2026-08-16 move to the end of
@@ -1482,7 +1553,8 @@ adding the rev 1 buffers is now a placement pass with no room set aside; see
 packages, not one.** `ENC_A` and `ENC_B` are in `U1601` alongside the pyControl
 serial pair, while `LIMIT_SW` is in `U1801` alongside the firmware markers. When
 the brake and torque circuits land, `DIG0`/`DIG1` move to the torque bus in
-`U1601` and `DIG11` moves to `BRAKE_DIM` in `U1801`. Neither package turns over
+`U1601` and `DIG11` moves to `BRAKE_CS` in `U1801` — corrected 2026-08-31; this
+said `BRAKE_DIM`, and there is no PWM in the settled brake design. Neither package turns over
 cleanly, and each retains channels that must keep working across the change. Plan
 the rev-2 edit as two package edits.
 
@@ -1498,6 +1570,12 @@ the **output stops at `R1805` and `J1501` pin 20 is a no-connect**, so nothing
 reaches the port. It is a one-wire change: connect `R1805`'s far end to `DIG12`.
 Until that is done, do not describe `DIG12` as driven. At rev 2 the ground tie is
 removed and `~{BRAKE_FAULT}` routes in its place either way.
+
+**Note 2026-08-31:** `~{BRAKE_FAULT}` arrives already at 3.3 V logic from the
+brake block's own optional `SN74LVC2G17` buffer, so it does **not** need an
+`SN74LVC125A` channel to reach the port — only the route. If the fault buffer is
+not populated, leave the `DIG12` ground tie in place and detect the condition in
+firmware from `BRAKE_ISENSE` instead.
 
 Any spare channel in the rev-1 packages will need its input tied to GND when those
 packages are fitted — and its output actually routed, which is the lesson from
