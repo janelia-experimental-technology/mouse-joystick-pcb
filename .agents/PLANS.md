@@ -543,7 +543,23 @@ Ready for active PCB work when:
 
 ## Progress Log
 
-- 2026-08-31 (latest): **Rev-2 brake driver design settled in `kicad-libs`, and
+- 2026-08-31 (latest): **Rev-2 brake block schematic drawn and netlist-verified in
+  `kicad-libs`** — 47 parts, 26 named nets, no floating pins. Not laid out, not
+  bench validated. Two consequences for this board:
+  - **The pass device is final at 60 V (`BUK7D36-60EX`) with no alternate**, so the
+    brake zone needs **one** land pattern, not two. The 80 V `BSC072N08NS5ATMA1`
+    was rejected on gate-drive headroom.
+  - **The `+36V_SW` ringing measurement no longer chooses the brake FET.** This
+    board's own TMC5130A limit is the binding one: 49 V absolute maximum with an
+    inductive load is 80% of the brake FET's 60 V rating. What the measurement
+    decides is whether to populate a **TVS at the 36 V entry**, which would protect
+    the driver and the brake stage together. Recorded in `docs/power.md`.
+  Brake-zone area is now known from the drawn sheet: 36 small passives, three
+  SOT-23-5 amplifiers, a VSSOP-10 DAC, a DFN2020 pass device, two SOD-123FL
+  diodes, an X1SON clamp, two 0603 ferrites, one 2-position 3.5 mm **vertical**
+  terminal, and **no electrolytic**. Leave pads for an RC snubber from the
+  pass-device drain to GND. Updated `docs/design-block-map.md` and `docs/power.md`.
+- 2026-08-31: **Rev-2 brake driver design settled in `kicad-libs`, and
   the InstrumentPort allocation changed as a result.** The block is
   `brake_current_sink_0_49ma_dac80501` — renamed from
   `b5z_brake_current_driver` — a DAC-programmed linear current sink. Full

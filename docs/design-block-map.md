@@ -355,7 +355,7 @@ routed to a test pad** — `J1103` pin 2 is a reserved no-connect and the TMC's
 | Board function | Candidate block | Rev 0 | Notes |
 | --- | --- | --- | --- |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. Feeds `DIG13`-`DIG15`. |
-| Brake current driver | `brake_current_sink_0_49ma_dac80501` | rev 2 | **Decided 2026-08-31**, renamed from `b5z_brake_current_driver` — nothing in the block is B5Z-specific except the connector and one divider ratio. DAC-programmed linear current sink: a second `DAC80501ZDGSR` at **3.3 V** (not the angle DAC's 5 V), a 0.19512 precision divider giving 48.78 mA full scale, three `OPA197` singles (loop error amplifier, independent 56 mA ceiling, `BRAKE_ISENSE` buffer), a `BUK7D36-60EX` pass device with the 80 V `BSC072N08NS5ATMA1` as a DNP alternate, a 10 Ω Kelvin shunt, and an `S115Q` flyback across the in-block connector. **`LM3404HV` and `BCR421UE6327` are both rejected, not undecided.** Feeds `DIG11` **`BRAKE_CS`** — not `BRAKE_DIM`; there is no PWM in this design — `DIG12` `~{BRAKE_FAULT}`, and `AIN1` `BRAKE_ISENSE`. Every part is in stock and in the parts DB. Full specification, values, BOM, and open items: `../kicad-libs/docs/brake-current-sink-design.md`. |
+| Brake current driver | `brake_current_sink_0_49ma_dac80501` | rev 2 | **Decided 2026-08-31**, renamed from `b5z_brake_current_driver` — nothing in the block is B5Z-specific except the connector and one divider ratio. DAC-programmed linear current sink: a second `DAC80501ZDGSR` at **3.3 V** (not the angle DAC's 5 V), a 0.19512 precision divider giving 48.78 mA full scale, three `OPA197` singles (loop error amplifier, independent 56 mA ceiling, `BRAKE_ISENSE` buffer), a `BUK7D36-60EX` pass device, a 10 Ω Kelvin shunt, and an `S115Q` flyback across the in-block connector. **`LM3404HV` and `BCR421UE6327` are both rejected, not undecided**, and there is **no alternate pass device** — the 80 V `BSC072N08NS5ATMA1` was briefly carried as a DNP option and rejected on gate-drive headroom, so only one land pattern is needed. **Schematic drawn and netlist-verified 2026-08-31**: 47 parts, 26 named nets, no floating pins. Not laid out, not bench validated. Feeds `DIG11` **`BRAKE_CS`** — not `BRAKE_DIM`; there is no PWM in this design — `DIG12` `~{BRAKE_FAULT}` (optional buffer), and `AIN1` `BRAKE_ISENSE`. Every part is in stock and in the parts DB. Full specification, values, connection table, BOM, and open items: `../kicad-libs/docs/brake-current-sink-design.md`. |
 | Torque bridge front end | `torque_bridge_frontend` | rev 2 | Wheatstone bridge conditioner, `PGA305` (I2C, stocked, board precedent) versus `ADS1220` (SPI). **Takes `DIG0`/`DIG1` back from the Rev 0 encoder taps.** The I2C-versus-SPI choice decides whether two slots are enough — see `docs/interface-map.md`. |
 
 Do not create the rev 1 and rev 2 candidates speculatively, and do not promote any
@@ -587,14 +587,16 @@ both hostage to the still-open encoder part number.
   leave room for the rev 2 brake driver
   and torque front end, or accept that rev 2 is a new outline. Decide
   deliberately; it is cheaper to leave the space than to re-do mechanical work.
-  **Brake area sharpened 2026-08-31:** the settled brake block is about 30 small
-  passives, three SOT-23-5 amplifiers, a VSSOP-10 DAC, a DFN2020 pass device, an
-  SOD-123FL diode, and one 2-position 3.5 mm terminal — **and no electrolytic**,
-  because the 150 µF 63 V can was sized for the dropped switching fallback. It
-  must sit at the 36 V entry and the brake connector, at the **opposite side of
-  the board** from the bridge connector, excitation, PGA/ADC, reference, and
-  anti-alias filter. Reserve two pass-device land patterns if you want the 80 V
-  alternate as a stuffing option.
+  **Brake area, from the drawn sheet 2026-08-31:** 47 parts — 36 small passives,
+  three SOT-23-5 amplifiers, a VSSOP-10 DAC, a DFN2020 pass device, two SOD-123FL
+  diodes, an X1SON ESD clamp, two 0603 ferrites, and one 2-position 3.5 mm
+  vertical terminal. **No electrolytic**, because the 150 µF 63 V can was sized
+  for the dropped switching fallback, and **one pass-device land pattern only** —
+  the 80 V alternate was rejected, so no second footprint is needed. It must sit
+  at the 36 V entry and the brake connector, at the **opposite side of the board**
+  from the bridge connector, excitation, PGA/ADC, reference, and anti-alias
+  filter. Leave pads for an RC snubber from the pass-device drain to GND in case
+  the ringing measurement comes back badly.
 - **The InstrumentPort is currently Rev 0's *only* instrumentation.** It carries
   the TMC SPI bus, both pyControl serial directions, both firmware triggers,
   `ENC_A`/`ENC_B`, and `LIMIT_SW`. **There are no test points anywhere on the

@@ -666,8 +666,15 @@ attributed to a benefit:
   whatever this board learns about a 36 V rail transfers directly to the brake
   design — **including the ringing.** The pass device sees the *full* rail
   whenever the brake is off, so this document's own warning about TMC5130A-induced
-  ringing on `+36V_SW` is what decides between a 60 V and an 80 V pass device.
+  ringing on `+36V_SW` matters to the brake too.
   **Measure it at the future brake stage's location, with the driver running.**
+  **Sharpened 2026-08-31:** that measurement does *not* choose the brake pass
+  device — that is settled at 60 V. **This document's own TMC5130A limit is the
+  binding one:** 49 V absolute maximum with an inductive load is 80% of the brake
+  FET's 60 V rating, so the brake FET can never be the weakest thing on the rail.
+  What the measurement decides is whether the board needs a **TVS at the 36 V
+  entry** — currently not populated — which would protect the driver and the brake
+  stage together.
 
 ## Multiple Logic Power Sources
 
