@@ -23,15 +23,29 @@ independently calibrated and independently suspect.
 
 ## Board
 
-- Revision:
-- **Serial / unit:**
+- Revision: **rev 0**, PCB git tag `v0.1`. Confirmed from the `.kicad_pcb` at
+  that tag: three `SN74LVC125A` buffers, no analog output block, `GP10`/`GP11`/
+  `GP13` unrouted. Tags `v0.1` and `v0.2` have byte-identical RP2040 pad-to-net
+  maps, so which of the two was fabricated does not affect firmware.
+- **Serial / unit:** `E4654C159F2C2534` — RP2040 flash unique ID, read over USB.
 - **Designator scheme this board's silkscreen uses** — see the warning below:
+  **rev 0 / left column.** Confirmed from the `v0.1` netlist: `J1101` is the
+  4-position stepper terminal, `J1102` the 5-position encoder, `J1301` the
+  2-position limit switch. The 36 V input block is `U201` with `R201`-`R207`,
+  **not** `U1901`/`R1901`-`R1907` as elsewhere in this file. Note the collision:
+  at `v0.1` `R1901`/`R1902` are the 100 Ω pyControl series resistors, while at
+  HEAD those numbers are the 1 kΩ `HV_EN`/`HV_DIAG_EN` series resistors.
+  `R1903` 0.36 Ω is the pyControl 5 V jumper in both schemes.
 - Joystick this unit is calibrated for:
 - Assembly date:
 - Assembler:
-- Firmware commit / image hash:
-- Protocol version:
-- Notes:
+- Firmware commit / image hash: `mouse-joystick-firm`, uncommitted working tree,
+  `examples/RP2040SelfTest` on env `mouse_joystick`, built `Sep  1 2026 13:31:32`.
+  Flashed and byte-verified by `picotool`.
+- Protocol version: n/a — no pyControl protocol implemented yet.
+- Notes: **Stage 1 (RP2040 subsystem) passed 2026-09-01: 27 checks, 0 failed.**
+  USB power only; 36 V has never been connected to this board. Full record under
+  [Controller](#controller).
 
 ### Designators Are Not Stable Across Revisions — Read Before Wiring A Harness
 
@@ -65,6 +79,10 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 - Unit identifier legible on silkscreen:
 - Sense resistor value populated at `R1203`/`R1204` (expect 0.15 Ω, **not** the
   `kicad-libs` block default 0.12 Ω — a re-placed `tmc5130` block reverts them):
+  **0.15 Ω in the `v0.1` netlist** for both positions, so the design is correct.
+  *Not* visually confirmed on the physical board — check the part marking before
+  stage 3 relies on it, because the shunt value and the `vsense` bit are one
+  decision.
 - Solder issues:
 - Rework:
 
@@ -72,7 +90,7 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 
 | Source powering the board | `+3.3V_MCU` | `+5V_SW` | `+3.3V_SW` | Responds to `ID` | Notes |
 | --- | --- | --- | --- | --- | --- |
-| USB only | | 0 V expected | 0 V expected | | |
+| USB only | not measured — `ADC_AVDD` is tied to it, so the RP2040 cannot measure its own reference | 0 V expected, not measured | **0.034 V** measured via `GP26` | no protocol yet | board boots and runs; die temperature read a plausible 26.2 °C, which weakly bounds `ADC_AVDD` |
 | pyControl only | | 0 V expected | 0 V expected | | measure port current too |
 | 36 V only | 0 V expected | 0 V expected | 0 V expected | **no** expected | board deliberately does not boot |
 | 36 V + USB, `HV_EN` low | | 0 V expected | 0 V expected | | the normal idle state |
@@ -85,6 +103,10 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 - Current into the dead `+5V` rail under USB-only power (expect ~0):
 - `SW_RAIL_SENSE_DIV_2` on `GP26` versus measured `+3.3V_SW`, rail up and rail
   down (`R401`/`R402` 1 kΩ/1 kΩ; expect ~0 V down and ~1.65 V up):
+  **rail down: 21 counts = 0.0169 V at the pin = 0.034 V undivided** (12-bit,
+  `ADC_AVDD` reference), repeatable across reboots. Rail up not yet measured —
+  36 V not connected. No independent meter reading taken, so this confirms the
+  divider reads *something sane when off*, not its gain.
 - **Back-power: `+3.3V_MCU` and `+3.3V_SW` measured with 36 V applied and both USB
   and pyControl unplugged** (expect 0 V on both; the `SN74LVC125A` has no `Ioff` and
   TI does not specify leakage at `VCC` = 0, so this is unspecified, not guaranteed):
@@ -94,8 +116,11 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 
 ## Power — 36 V
 
-- Input voltage / current limit used:
-- Board boots with motor rail off, `HV_EN` low:
+- Input voltage / current limit used: **36 V not yet connected.** Everything in
+  this section is outstanding.
+- Board boots with motor rail off, `HV_EN` low: **yes** — with USB only, the
+  firmware's safe state drives `HV_EN` low and `+3.3V_SW` reads 0.034 V. Note
+  the stage 1 firmware has no code path that can raise `HV_EN` at all.
 - Regulator chain confirmed fed **post**-switch, and `+3.3V_MCU` confirmed fed
   from USB/pyControl only:
 - **`+36V_SW` measured with 36 V applied, `GP14` (`HV_DIAG_EN`) low and `GP19`
@@ -107,7 +132,8 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
   `C1213` + `C1214` 100 µF **50 V** each plus ceramics; no TVS populated):
 - Inrush:
 - `HV_EN` assertion behavior, rail rise time:
-- `ILIM` resistor `R206` value and measured current limit:
+- `ILIM` resistor `R206` value and measured current limit: **`R206` = 40 kΩ** in
+  the `v0.1` netlist, design I_CL ≈ 1.2 A. Not measured.
 - `HV_SNS` reading versus measured load current, **with `GP14` (`HV_DIAG_EN`)
   raised** — `HV_SNS` and `~{HV_FAULT}` report nothing while `DIAG_EN` is low:
 - `HV_SNS` reading at `GP28` during a provoked fault (expect 1.3-1.6 V from
@@ -148,12 +174,87 @@ the margin to 50 V as well — this capture is the only evidence for either.
 
 ## Controller
 
-- RP2040 boot behavior:
-- USB CDC console:
+- RP2040 boot behavior: **works.** BOOTSEL (hold `SW501`, apply USB) enumerates
+  `2e8a:0003 RP2 Boot` and mounts `RPI-RP2`, bootrom `UF2 Bootloader v3.0`,
+  `Board-ID: RPI-RP2`. Firmware boots and runs. **The 1200-baud touch works**, so
+  reflashing needs no button and no physical access — `picotool` reported
+  "Device rebooted into BOOTSEL mode successfully".
+- USB CDC console: **works** at 115200. Enumerates as `2e8a:f00a`, manufacturer
+  `Orb Weaver`, product `mouse-joystick-pcb`, USB serial `E4654C159F2C2534`.
+  `/dev/ttyACM0`.
 - ~~SWD access:~~ **struck** — no SWD header and no reset button in Rev 0, by
   decision; `RUN`, `SWCLK` and `SWDIO` are unconnected and NC-flagged:
-- Clock verified:
+  confirmed unconnected in the `v0.1` netlist. No debugger was used or needed.
+- Clock verified: **yes.** `clk_ref` (XOSC) 12000 kHz, `clk_sys` 133000 kHz
+  measured by the RP2040's own frequency counter against `clk_ref`,
+  `clk_peri`/`clk_usb`/`clk_adc` 48000 kHz. For the crystal's *absolute* accuracy
+  see the note below — the on-chip counter measures everything against `Y501` and
+  so cannot see an error in it.
 - ~~PIO encoder decode functional~~ **struck** — no PIO decode exists:
+
+### Stage 1 Self-Test, 2026-09-01
+
+`mouse-joystick-firm`, `examples/RP2040SelfTest`, env `mouse_joystick`
+(`MJ_BOARD_REV=0`). USB power only, 36 V not connected, `HV_EN` low, GPIO
+isolation bus open throughout. **27 checks, 0 failed.** Designators below are
+`v0.1` designators.
+
+**Crystal `Y501`, absolute.** −18.7 ppm apparent over 9 s, comparing the RP2040's
+`micros()` against the host's `time.monotonic()` across ten 1 Hz ticks. USB CDC
+scheduling jitter is order 1 ms over that span, i.e. ~110 ppm, so this is *below
+the noise floor of the method* — consistent with a healthy ±30 ppm part but not a
+measurement of it. Independently, USB full-speed enumeration requires 48 MHz
+within 0.25 % derived from `Y501`, which bounds it regardless.
+
+**QSPI flash `U502` (W25Q128JVZPIQ, 16 MiB).** Unique ID read back over QSPI
+(`0x4B`) plausible, so the part is present and responding. Declared size 16 MiB.
+Address-aliasing probe at +2, +4 and +8 MiB: none aliases offset 0, so the
+fitted part really is at least 16 MiB rather than a smaller part wrapping its
+address space. `picotool` additionally verified the whole 181 760-byte image
+byte-for-byte after writing.
+
+**RAM.** Heap total 252 228 B, free 252 128 B. Four-pattern walk over a 16 KiB
+heap block clean.
+
+**Resistor-defined levels**, captured in the first instruction of `setup()` with
+internal pulls disabled and before anything drove a pin. Each of these maps to
+one part, so a failure here is an assembly defect rather than firmware:
+
+| Pin | Net | Read | Held by | Verdict |
+| --- | --- | --- | --- | --- |
+| `GP9` | `~{BUS_SW_EN}` | high | `R601` 7.87 kΩ to `+3.3V_MCU` | ok — GPIO bus isolated at reset, which every later stage depends on |
+| `GP24` | `~{INSTR_BUF_OE}` | high | `R1601`/`R1701`/`R1801` 10 kΩ | ok — instrument port silent before firmware |
+| `GP1` | `PYC_UART_RX` | high | `R403` 10 kΩ to `+3.3V_MCU` | ok — cable unplugged, so this is `R403` and not an idle far-end TX |
+| `GP29` | `~{HV_FAULT}` | high | `R205` 10 kΩ to `+3.3V_MCU` | ok — pull-up present, on the right rail, no latched fault |
+
+**Spare pads.** All twelve unrouted GPIOs — `GP10`, `GP11`, `GP12`, `GP13`,
+`GP15`, `GP16`, `GP17`, `GP18`, `GP20`, `GP22`, `GP23`, `GP27` — moved correctly
+under both an internal pull-up and an internal pull-down. No solder defects on
+any of them. `GP10`/`GP11`/`GP13` are testable this way only because rev 0 leaves
+them unrouted.
+
+**ADC.** 12-bit, reference is `ADC_AVDD` tied directly to `+3.3V_MCU` with no
+separate reference and no filter, so absolute accuracy is bounded by that rail.
+
+| Channel | Net | Reading |
+| --- | --- | --- |
+| `GP26` / ADC0 | `SW_RAIL_SENSE_DIV_2` | 21 counts = 0.0169 V at the pin = **0.034 V** on `+3.3V_SW` — switched domain genuinely off, `R401`/`R402` holding it there |
+| `GP28` / ADC2 | `HV_SNS` | 18-20 counts = **0.015 V** across `R207` 249 Ω. Reads zero regardless while `HV_DIAG_EN` is low, which stage 1 keeps it, so this confirms the quiet state and not the sense chain |
+| ADC4 | internal temperature | **26.2 °C** — proves the ADC and `ADC_AVDD` are alive |
+
+**Reset reason.** Reported `software` with `watchdog caused reboot: yes` after a
+`picotool` upload, which is correct rather than a fault: `picotool` reboots the
+chip through the watchdog. A cold power-on reads `power-on`.
+
+**Boot latency.** From the RP2040 releasing `FW_TRIG0` at reset to the first
+firmware-driven edge on `FW_TRIG1`: **~143 ms** (measured on the logic analyser,
+6.948 ms → 149.626 ms in the same capture). That is bootrom, `boot2`, XIP setup,
+C runtime and `setup()`. Relevant because `HV_EN` is held low only by `R204`
+during that window.
+
+**Not covered by stage 1.** Anything past `HV_EN`: the switched rails, the
+TMC5130A, the 16 MHz oscillator `X1201` (itself on `+3.3V_SW`), the motor,
+encoder and limit switch. The pyControl link beyond `GP1`'s idle level.
 
 ## pyControl Port
 
@@ -167,6 +268,8 @@ the margin to 50 V as well — this capture is the only evidence for either.
 - UART idle state, measured at the RP2040 pin with the cable unplugged (expect
   `PYC_UART_RX` **high** on `R403` 10 kΩ to `+3.3V_MCU`; a low idle means `R403` is
   missing or on the wrong rail and every frame looks like a break):
+  **high**, read at `GP1` with internal pulls disabled, cable unplugged,
+  2026-09-01. `R403` is present and on the correct rail.
 - `R1903` populated as a jumper (0.36 Ω) or as a 1206 PPTC, and which:
 - pyControl port 5 V current measured through `R1903` (shared 1.0 A port budget
   that also feeds the controller's own logic regulator; no test points either side):
@@ -354,17 +457,46 @@ channel:
 
 ## InstrumentPort-40
 
-- Adapter used:
-- `J1501` cable orientation confirmed by continuity, pin-1 to pin-1:
+- Adapter used: **`la5032-instrument-port-adapter` v1.0** with a Kingst LA5032,
+  2026-09-01. Host path: `sigrok-cli` 0.7.2 / libsigrok 0.6.0 from
+  `instrument-control`'s Guix manifest, driver `kingst-la2016`, FPGA bitstream
+  `kingst-la5032a0-fpga.bitstream` extracted into `instrument-nonfree`. The
+  device identifies as *"Kingst LA5032 with 34 channels"*. **This was also the
+  adapter's own first bench validation** — see that repository's bring-up log.
+- `J1501` cable orientation confirmed by continuity, pin-1 to pin-1: **not by
+  continuity — confirmed functionally, which is stronger.** `FW_TRIG0` and
+  `FW_TRIG1` carry deliberately different patterns (1 Hz square wave versus three
+  10 ms pulses at boot), and each appeared on its expected channel: `TRIG0` on
+  LA5032 ch 16, `TRIG1` on ch 17. **The cable is not mirrored.** A pin-1-to-pin-1
+  continuity check is still worth doing for the other 38 conductors.
 - Buffer `~OE` state at power-on, before firmware, confirmed high-Z
-  (`R1601`/`R1701`/`R1801`, 10 kΩ each to `+3.3V_MCU`):
-- Firmware enables buffers at startup:
-- Buffer state reported in `ID`/`STATUS`:
+  (`R1601`/`R1701`/`R1801`, 10 kΩ each to `+3.3V_MCU`): **yes** — `GP24` read
+  high at boot, sampled before firmware drove any pin.
+- Firmware enables buffers at startup: **yes.** `examples/RP2040SelfTest` enables
+  them to emit a boot signature and then a 1 Hz heartbeat on `FW_TRIG0`. On a
+  board with no LEDs, no test points and no SWD header, that is the only evidence
+  of firmware execution that does not depend on USB. The `i` command toggles it.
+- Buffer state reported in `ID`/`STATUS`: n/a — no protocol yet.
 - All 11 Rev 0 Strands present and correctly mapped: `DIG0` `ENC_A_BUF`, `DIG1`
   `ENC_B_BUF`, `DIG2` `TMC_SPI_SCK_BUF`, `DIG3` `TMC_SPI_COPI_BUF`, `DIG4`
   `TMC_SPI_CIPO_BUF`, `DIG5` `~TMC_CS_BUF`, `DIG7` `PYC_UART_RX_BUF`, `DIG8`
   `PYC_UART_TX_BUF`, `DIG11` `LIMIT_SW_BUF`, `TRIG0` `FW_TRIG0_BUF`, `TRIG1`
   `FW_TRIG1_BUF`:
+  **2 of 11 verified.** `TRIG0` (pin 26, ch 16) and `TRIG1` (pin 28, ch 17) both
+  confirmed carrying the expected patterns, which also validates `U1801` and the
+  `~{INSTR_BUF_OE}` enable path. The other nine are untested; `DIG2`-`DIG5` get
+  exercised by stage 2 and `DIG7`/`DIG8` by stage 4. Measured timing on the two
+  that work, against firmware nominals:
+
+  | Strand | Nominal | Measured |
+  | --- | --- | --- |
+  | `TRIG1` boot signature | 3 pulses, 10 ms half-period | 3 pulses; 10.135, 10.018, 10.005, 10.002, 10.001 ms |
+  | `TRIG0` boot signature | 8 pulses, 1 ms half-period | 8 pulses; 1.001-1.009 ms |
+  | `TRIG0` heartbeat | 1 Hz | 500.26 ms half-period, jitter ±20 µs |
+
+  The 0.26 ms on the heartbeat is `loop()` quantisation (a `delay(10)` poll), not
+  clock error. Captures: `signature.vcd`, `heartbeat.vcd` — session scratch, not
+  archived.
 - `DIG12` confirmed **inactive**, not a stuck low — `U1801`'s spare output stops at
   `R1805` and `J1501` pin 20 is a no-connect:
 - pyControl serial decodes at 115200 8N1 on `DIG7`/`DIG8`, both directions:
@@ -416,5 +548,31 @@ gets its evidence.
   comparison:
 
 ## Open Issues Found During Bring-Up
+
+### `docs/power.md` is stale about `HV_SNS` and `~{HV_FAULT}`
+
+`power.md` says both "sit behind" the GPIO isolation bus switch and cannot be
+read until firmware enables it. `docs/interface-map.md` marks both `byp`, and the
+pad-to-net map agrees at `v0.1` and at HEAD: `GP28`/`GP29` reach the 36 V switch
+directly, with no underscore-suffixed twin net. `interface-map.md` is right —
+the switch sits *upstream* of the switched domain, so the bypass rule applies.
+Firmware follows the netlist. Worth correcting in `power.md`.
+
+### Designator collision between `v0.1` and HEAD is a live hazard
+
+`R1901`/`R1902` are the 100 Ω pyControl series resistors at `v0.1` and the 1 kΩ
+`HV_EN`/`HV_DIAG_EN` series resistors at HEAD. Anyone reading a HEAD-era document
+while holding a rev 0 board can probe the wrong part and draw a confident wrong
+conclusion. The existing warning in this file covers the three motor/encoder
+connectors but not the 36 V input block, which moved wholesale from
+`U201`/`R201`-`R207` to `U1901`/`R1901`-`R1907`. Consider extending the table.
+
+### No test points remains the binding constraint
+
+Every stage 1 result above came from the RP2040's own ADC and GPIOs or from the
+InstrumentPort. No independent meter reading was taken anywhere, so the ADC
+figures confirm self-consistency rather than absolute accuracy — and `ADC_AVDD` is
+tied straight to `+3.3V_MCU`, so the ADC cannot measure its own reference. A
+single meter reading of `+3.3V_MCU` and `+5V_MCU` would close that gap.
 
 ## Changes Recommended For The Next Revision
