@@ -116,8 +116,9 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
 
 ## Power — 36 V
 
-- Input voltage / current limit used: **36 V not yet connected.** Everything in
-  this section is outstanding.
+- Input voltage / current limit used: **36 V, not current-limited** (supply
+  capable of 4 A), 2026-09-01. See the subsection below — the rail comes up and
+  then collapses, so most of this section is still outstanding.
 - Board boots with motor rail off, `HV_EN` low: **yes** — with USB only, the
   firmware's safe state drives `HV_EN` low and `+3.3V_SW` reads 0.034 V. Note
   the stage 1 firmware has no code path that can raise `HV_EN` at all.
@@ -128,18 +129,38 @@ the op amp). Where this file names one, it names the post-2026-08-27 assignment.
   the 5 V rail hiccups every few seconds, `DIAG_EN` is high and the TPS1HTC100's
   OFF-state 150 kΩ open-load pull-up from `VS` to `VOUT` is enabled. Record the
   voltage at t = 0, 10 s and 60 s, not a yes/no:
+  **`+36V_SW` not measured directly — no test point and it does not reach the
+  MCU.** Measured instead on `+3.3V_SW` downstream, sampled over 60 s with 36 V
+  applied and both `HV_EN` and `HV_DIAG_EN` low: **t=0 s 0.0338 V, t=10 s
+  0.0338 V, t=30 s 0.0306 V, t=60 s 0.0322 V.** Range 0.0306-0.0338 V, drift
+  −0.0016 V, which is ±1 ADC count. **No creep, and the 5 V rail did not hiccup.**
+  Creep would have pushed `+36V_SW` past the buck's 3.6 V minimum in ~3 s and
+  shown here as the rail twitching. The `DIAG_EN` leakage failure mode is ruled
+  out on this board. A direct `+36V_SW` reading is still wanted.
 - `+36V_SW` bulk capacitance measured or confirmed (design value ~208 µF,
   `C1213` + `C1214` 100 µF **50 V** each plus ceramics; no TVS populated):
-- Inrush:
-- `HV_EN` assertion behavior, rail rise time:
+- Inrush: **not measured** — needs a current probe or a monitoring supply.
+- `HV_EN` assertion behavior, rail rise time: **`+3.3V_SW` reaches 3.309 V in
+  3 ms**, then holds steady, then **collapses at 56-57 ms** and stays down.
+  Repeatable to ±1 ms across two runs. See the subsection below.
 - `ILIM` resistor `R206` value and measured current limit: **`R206` = 40 kΩ** in
   the `v0.1` netlist, design I_CL ≈ 1.2 A. Not measured.
 - `HV_SNS` reading versus measured load current, **with `GP14` (`HV_DIAG_EN`)
   raised** — `HV_SNS` and `~{HV_FAULT}` report nothing while `DIAG_EN` is low:
+  **not obtained.** Every reading taken with `DIAG_EN` raised sat at 1.56-1.63 V,
+  which is `ISNSFLT` (5.2-6.4 mA into `R207` 249 Ω), i.e. the *fault* level rather
+  than a load-current reading. With `K_SNS` = 800 A/A and `R207` = 249 Ω a load
+  reading would be 0.311 V/A, so a legitimate reading at the 1.15 A current limit
+  would be 0.37 V. No valid load-current measurement exists yet.
 - `HV_SNS` reading at `GP28` during a provoked fault (expect 1.3-1.6 V from
   `ISNSFLT` 5.2-6.4 mA into `R207` 249 Ω; RP2040 `VPIN` absolute max is 3.8 V):
-- 5 V rail, measured:
-- 3.3 V rail, measured:
+- 5 V rail, measured: **not measured.** `+5V_SW` reaches neither the MCU nor
+  InstrumentPort-40, and there is no test point. Needs a meter or scope on
+  `U901`'s output / `U1001`'s input.
+- 3.3 V rail, measured: **`+3.3V_SW` = 3.309 V** during the 53 ms it is live,
+  read through the `R401`/`R402` divider on `GP26` at 12-bit resolution. 0.3% of
+  nominal. `+3.3V_MCU` not measured — it is the ADC reference, so the RP2040
+  cannot measure it.
 - RP2040 core rail, measured:
 - Rail ripple, motor idle:
 - Rail ripple, motor moving:
@@ -171,6 +192,63 @@ the margin to 50 V as well — this capture is the only evidence for either.
 - 3.3 V LDO temperature:
 - Sequencing at power-up:
 - Behavior at power-down:
+
+### The Rail Comes Up And Then Collapses — Open, 2026-09-01
+
+**Symptom.** 36 V on `J201`, not current-limited, supply capable of 4 A. Firmware
+raises `HV_EN` with the GPIO isolation bus still open and the driver disabled:
+
+| t | `+3.3V_SW` | `HV_SNS` (`DIAG_EN` high) |
+| --- | --- | --- |
+| 0 ms | 0.034 V | 0.015 V — no fault |
+| 1 ms | 0.032 V | **1.607 V — fault asserts, before the rail rises** |
+| 3 ms | **3.309 V** | 1.608 V |
+| 3-56 ms | steady 3.309 V | steady ~1.59 V |
+| 57 ms | collapsing | ~1.59 V |
+| 252 ms | 0.047 V | ~1.59 V |
+
+Repeatable to ±1 ms across two runs. Raw 1 ms-resolution data in
+`captures/2026-09-01/hv-powerup-profile-{1,2}.txt`.
+
+**What this proves works.** `U201` passes, `U901` TPSM365R6 buck works, `U1001`
+TPS73733 LDO works, and `+3.3V_SW` regulates to within 0.3% in 3 ms. The chain is
+not broken; something shuts it down.
+
+**Ruled out.**
+
+- **A resistive short.** `+36V_SW` to `GND` measures **0.87 MΩ** with a DMM across
+  `C1213`, board fully unpowered. Caveat: a DMM probes at 1-3 V, so this does not
+  rule out a voltage-dependent load.
+- **A too-low supply current limit.** The supply was not limited.
+
+**Leading hypothesis: capacitive-charging thermal shutdown in `U201`.**
+`tps1htc100-q1.pdf` warns about exactly this — *"the system must be designed so
+that the TPS1HTC100-Q1 does not hit thermal shutdown while charging the
+capacitor"* — and notes that with high enough load impedance, hitting thermal
+shutdown and retrying is acceptable. 0.87 MΩ is high load impedance. Relevant
+numbers: charging `+36V_SW`'s ~208 µF to 36 V costs ½CV² = **135 mJ regardless of
+the current limit**, `T_REL` = 60 °C relative shutdown, `t_RETRY` = 2 ms, and
+`I_CL` ≈ 1.15 A from `R206` 40 kΩ.
+
+**`R203` may be the wrong choice.** It ties `LATCH` to `+3.3V_MCU`, selecting
+latch-off over 2 ms auto-retry — recorded elsewhere in this repository as a
+deliberate decision, verified 2026-08-17. If the cause is capacitive-charging
+thermal shutdown, latch-off converts a survivable retry sequence into a hard
+stop. Worth revisiting.
+
+**Do not trust `HV_SNS` to identify the fault.** Per Table 7-2, `VSNSFH` is shared
+by overcurrent, overvoltage, short-to-ground and thermal shutdown, and with `EN`
+low it also indicates OFF-state open-load. The fault above asserted at t=1 ms,
+*before* the rail rose, which is when firmware had just raised `DIAG_EN` with `EN`
+still low — so it is an open-load indication, not overcurrent. An earlier
+diagnosis of "continuous 1.15 A load" was derived from misreading this and was
+wrong.
+
+**Next measurement, and firmware cannot substitute for it.** Scope on `+36V_SW`
+(at `C1213`) and `+5V_SW` (at `U901`'s output or `U1001`'s input), triggered on
+the 56 ms window. Only `+3.3V_SW` is instrumented, so "`U201` turned off" and
+"`U901`/`U1001` shut down" are currently indistinguishable. InstrumentPort-40
+carries no divided motor rail to any `AIN` by design, so this is direct probing.
 
 ## Controller
 
@@ -520,7 +598,7 @@ channel:
   difference:
 - Session-length capture demonstrated:
 - Physical cable arrangement after a realistic session:
-- Captures archived at:
+- Captures archived at: `captures/2026-09-01/` — see the README there.
 
 ## pyControl Integration
 

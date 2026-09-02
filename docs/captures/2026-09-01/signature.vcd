@@ -1,0 +1,39 @@
+FRAME-BEGIN
+$date Tue Sep  1 13:47:36 2026 $end
+$version libsigrok 0.6.0 $end
+$comment
+  Acquisition with 2/34 channels at 1 MHz
+$end
+$timescale 1 us $end
+$scope module libsigrok $end
+$var wire 1 ! CH16 $end
+$var wire 1 " CH17 $end
+$upscope $end
+$enddefinitions $end
+
+#0  1! 0"
+#6948  0!
+#149626  1"
+#159761  0"
+#169779  1"
+#179784  0"
+#189786  1"
+#199787  0"
+#209796  1!
+#210804  0!
+#211813  1!
+#212814  0!
+#213815  1!
+#214816  0!
+#215817  1!
+#216818  0!
+#217819  1!
+#218820  0!
+#219821  1!
+#220822  0!
+#221823  1!
+#222824  0!
+#223825  1!
+#224826  0!FRAME-END
+
+#302075

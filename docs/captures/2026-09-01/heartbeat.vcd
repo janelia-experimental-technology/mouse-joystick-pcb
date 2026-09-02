@@ -1,0 +1,22 @@
+FRAME-BEGIN
+$date Tue Sep  1 13:46:33 2026 $end
+$version libsigrok 0.6.0 $end
+$comment
+  Acquisition with 2/34 channels at 100 kHz
+$end
+$timescale 10 us $end
+$scope module libsigrok $end
+$var wire 1 ! CH16 $end
+$var wire 1 " CH17 $end
+$upscope $end
+$enddefinitions $end
+
+#0  1! 0"
+#46770  0!
+#96797  1!
+#146823  0!
+#196848  1!
+#246874  0!
+#296901  1!FRAME-END
+
+#301651
