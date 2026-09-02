@@ -62,7 +62,29 @@ Rejected alternatives, with the reasoning so it is not re-derived:
 `+36V_SW` means clipping onto `C1213`'s can pads, and that measurement still has
 not been taken.
 
-### 3. Carried forward unchanged
+### 3. Not a required change, but know it before the next layout
+
+**The limit switch is at the positive end of travel and wired to `REFL`.**
+Measured 2026-09-02 on board `E4654C159F4D1334` during stage 3. `REFL` is the
+TMC5130A's *left* switch and stops *negative* motion, so `SW_MODE.swap_lr` has
+to be set or the hardware stop guards the direction that moves away from the
+switch. Firmware sets it, so **nothing has to change on the board** — but it is
+a mismatch between the wiring and the chip's natural sense, and a future
+revision or `../mouse-joysticks-pcb` could avoid it by putting the switch at the
+negative end of travel or wiring it to `REFR`. Full note in
+`docs/bringup-log.md`.
+
+**The left and right joysticks use different harnesses so the boards and the
+firmware are identical.** Decided 2026-09-02. The left mechanism is mirrored, so
+its harness swaps one motor coil's leads and the encoder's A/B channels; nothing
+else differs and the boards carry no left/right state. Tables, the reasoning,
+and the verification procedure are in `docs/harness-pinouts.md`.
+
+**Travel is only ~4000 microsteps, 28 deg at the motor shaft**, bounded by the
+limit switch at the positive end and a mechanical stop at the negative end. Any
+future firmware or motion envelope has to fit inside it.
+
+### 4. Carried forward unchanged
 
 - TVS footprint on `HV_IN` — still a populate decision, still no evidence either
   way. `docs/power.md` → Transient Headroom.

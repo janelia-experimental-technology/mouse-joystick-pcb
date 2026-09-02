@@ -30,7 +30,7 @@ byte-identical pad-to-net map — so measurements transfer between the tags but
 | Unit | RP2040 flash unique ID | State |
 | --- | --- | --- |
 | **Board 1** | `E4654C159F2C2534` | Stage 1 + stage 2 passed. **`R203` DEPOPULATED 2026-09-02** — `LATCH` released, so a plain `HV_EN` assertion works on this unit and it no longer represents an as-built board |
-| **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. Stage 2 passed 2026-09-02 using the firmware staircase. See [Board 2](#board-2--e4654c159f4d1334) |
+| **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
 
 Everything from here to [Board 2](#board-2--e4654c159f4d1334) is **board 1**
 unless a line says otherwise.
@@ -598,7 +598,10 @@ switch still isolated:
   to pull-ups:
 - `J1103` pin order confirmed against the encoder's harness (board expects pin 1 =
   `GND`, pin 2 = reserved index **NC**, pin 3 = `ENC_A_RAW`, pin 4 = `+5V_SW`,
-  pin 5 = `ENC_B_RAW`; supply sits between the two channels):
+  pin 5 = `ENC_B_RAW`; supply sits between the two channels): **confirmed
+  2026-09-02**. Left and right harness tables are in `harness-pinouts.md`,
+  which is also where the two-swap mirroring for the left joystick is
+  specified.
 - Supply voltage and measured current (from `+5V_SW`, so the encoder resets with
   the switched domain):
 - Counts per revolution:
@@ -844,7 +847,158 @@ flashed `examples/TMC5130Communication` on env `mouse_joystick` by
 - Captures: `captures/2026-09-02/board-E4654C159F4D1334/`.
 
 Still outstanding on this unit: the whole of stage 1, every meter measurement,
-transient headroom, thermal, and everything downstream of the driver.
+transient headroom, and thermal.
+
+### Stage 3 — Motion, Encoder And Homing, 2026-09-02
+
+**Passed.** First time anything downstream of the driver has been exercised on
+either board. Run with `mouse-joystick-firm` `examples/MotionAndHoming` on env
+`mouse_joystick`, over TMC51X0 4.0.3. Motor, encoder and limit switch all
+connected, motor installed in the rig through the gear pair.
+
+Parts, identified the same day: motor **Lin Engineering WO-208-13-01D** (NEMA
+08, 1.8 deg/step, 4-lead bipolar, 0.6 A/phase, 6.5 ohm/phase, 3 oz-in, no
+gearbox, rear shaft), encoder **US Digital E4T-1000** single-ended (1000 CPR,
+4000 quadrature counts/rev, 5 V push-pull). Datasheets in `docs/datasheets/`.
+
+**Rail and bus.** `+3.3V_SW` up in **132 ms**, peak **3.317 V**, firmware
+staircase. Bus closed after. Note that `+3.3V_SW` reads **3.3169 V immediately
+after `HV_EN` drops** and 0.033 V a few seconds later — that is `+36V_SW`'s bulk
+bleeding down through the buck, not a stuck rail.
+
+**Driver, over SPI.**
+
+| Reading | Value | Verdict |
+| --- | --- | --- |
+| `IOIN.VERSION` | `0x11` | TMC5130A |
+| `IOIN.SD_MODE` | 0 | motion-controller mode |
+| `GSTAT` | `drv_err` 0, `uv_cp` 0 | charge pump happy, so `VS` is genuinely up |
+| `CHOPCONF` written and read back | `0x10430153` | **`vsense` = 1**, `TOFF` 3, `TBL` 2, `CHM` 0 (SpreadCycle), `HSTRT` 5, `HEND` 2, `MRES` 0 (256 usteps), `intpol` 1, `SYNC` 4 |
+| `IHOLD_IRUN` written | `IRUN` 8, `IHOLD` 2 | 0.211 A and 0.070 A RMS/coil. **Write-only, so as-written, not read back** |
+| `DRV_STATUS` standstill, driver off | `0x80020000` | `stst` 1, `cs_actual` 2 |
+| `DRV_STATUS` standstill, driver on | `0xA0020036` | `ola` 1 — expected false detection at standstill, per the datasheet |
+
+`intpol` = 1 and `SYNC` = 4 were not chosen: TMC51X0 seeds its register mirror
+with the datasheet's CHOPCONF reset default `0x10410150` and writes whole
+registers, so those fields ride along. `SYNC` = 4 puts chopSync at
+fCLK/(4*64) = 62.5 kHz; with `TOFF` = 3 the chopper cycle ends well before each
+sync pulse, which is the arrangement the datasheet asks for. Benign, but it is
+inherited rather than decided, and it fixes the chopper frequency — worth
+knowing before the angle-channel alias sweep on rev 1.
+
+**Current.** `vsense` = 1 read back before the output stage was ever enabled,
+which is the whole gate. The firmware ceiling is `IRUN` 17 = 0.421 A RMS, from
+reading the vendor's 0.6 A as a **sine peak** — the conservative of the two
+possible readings, since Lin Engineering does not say which it is. The
+equal-heating reading would allow 0.600 A RMS (`IRUN` 24-25). **Unresolved, and
+it needs a coil-current measurement and a case temperature to settle.** The
+`IRUN` = 28 figure that `docs/rev0-plan.md` and the firmware's AGENTS.md still
+carry predates the motor being identified: it is 0.679 A RMS, above the rating
+on either reading, and should be revised.
+
+**Motion.** One jog step = 1280 usteps = 9.00 deg at the motor shaft.
+
+- `VMAX` 5368 = 5119 usteps/s = 0.100 rev/s, `AMAX` = `DMAX` = `D1` = 219 = 0.5 rev/s^2.
+- Jog time **459-460 ms** for 1280 usteps, repeatably. Matches the ramp.
+- Encoder follow ratio in free travel: **1.0000** and **1.0102**.
+- Audible behaviour: not recorded. Coil current: not measured.
+
+**Encoder.**
+
+- `ENC_CONST` must be written — it resets to **zero**, so `X_ENC` does not count
+  at all until firmware sets it. Scaled to 12.8 usteps per quadrature count
+  (51200/4000) in **decimal** mode, since 12.8 is exact there and recurring in
+  binary. `X_ENC` then reads in microsteps and compares directly with `XACTUAL`.
+- **The encoder counts down as `XACTUAL` counts up.** A positive constant gave a
+  follow ratio of −0.82; the negated constant gives +1.00. The negation is
+  **−13 integer + 0.2 fractional**, not −12 and 0.8: `ENC_CONST` is one signed
+  fixed-point value and the fraction is always added. That encoding is now
+  bench-confirmed rather than inferred.
+- Round trip ±1280 usteps: residual **−51 usteps = −4 quadrature counts**. That
+  is about three encoder quanta, so backlash between the motor shaft and the
+  encoder is at or below the measurement floor — expected, since the E4T is on
+  the motor's own rear shaft and the gear pair is downstream of it.
+- **1000 CPR confirmed** against 51200 usteps/rev. A ratio near 2 or 0.5 would
+  have meant the fitted part was not the CPR the firmware was told about.
+- Maximum output frequency versus the fitted ~72 kHz RC corner: not stressed.
+  At 0.1 rev/s the A/B channels run at 100 Hz, four orders below the corner.
+- `X_ENC` versus quadrature edges captured on `DIG0`/`DIG1`: not done.
+
+**Homing.** See also the polarity finding under Open Issues.
+
+- Resting `IOIN.REFL_STEP` = **0**, triggered = **1**, so the switch is
+  **active high** and `SW_MODE.pol_stop` = 0. Consistent with a
+  normally-closed switch to GND through the MAX6816.
+- **The `J1301` → `U1301` → `LIMIT_SW` → TMC `REFL` path works on this board.**
+  Driven by the motor, `REFL_STEP` went 0 → 1 on engage and 1 → 0 on release.
+- Switch throw: **512-630 usteps** at the motor shaft between engage and
+  release, from the stepped sweep and the homing creep respectively.
+- **The switch is at the POSITIVE end of travel.** It is wired to `REFL`, which
+  on the TMC5130A stops *negative* motion, so `SW_MODE.swap_lr` has to be set or
+  the hardware stop guards the wrong direction entirely. Firmware sets it.
+- **The switch's reporting delay is 8.74 ms** — debounce plus signal path,
+  measured by taking two closing-edge latches at two approach velocities in one
+  position frame: 85 usteps apart at 10240 and 512 usteps/s. Substantially
+  shorter than the tens of milliseconds a MAX6816 might have suggested, and it
+  needed no instrument. This fills the "debounce behavior observed" field.
+- **Homing is two-stage**, which is what the delay above justifies. Fast
+  approach at **0.200 rev/s** latching the closing edge, then a slow creep off
+  the switch at **0.010 rev/s** latching the **releasing** edge, and the release
+  position is the datum. `XLATCH` is written by the chip at the edge, so neither
+  stage is limited by firmware's poll interval.
+- `XLATCH` equalled the settled `XACTUAL` on the fast approach: **overshoot
+  0 usteps**, which is what a hard stop should give.
+- Closing edge to release edge: **691-728 usteps** across runs. That is the
+  approach's 89-ustep debounce overshoot plus the switch's own throw.
+- **Repeatability: 2 to 5 quadrature counts, in BOTH schemes.** Four series of
+  five runs: single-stage at 0.050 rev/s gave 51 usteps (4 counts); two-stage
+  gave 25 usteps (2 counts), then 64 (5), then 64 (5) again with a throwaway
+  home first. **The rig cannot distinguish the two schemes at n = 5**, and an
+  earlier entry claiming the second stage halved the scatter was reading a
+  single lucky series. Retracted.
+- **Why that is expected, not disappointing:** the reporting delay is 8.74 ms
+  and highly repeatable, so it is a *systematic* offset. It moves where zero is;
+  it does not widen run-to-run spread. What the second stage buys is that the
+  datum no longer depends on approach velocity (89 usteps of offset at
+  0.200 rev/s, 4.5 usteps at the creep), and that the primary approach can run
+  four times faster than a single-stage home that has to be slow because it *is*
+  the datum.
+- **The residual 2-5 counts is unexplained.** 64 usteps is five encoder quanta,
+  so it is not quantisation. Most likely the switch's own mechanical
+  repeatability amplified through the gear pair — testable by homing against a
+  hand-held short at `J1301` instead of the mechanism. Backlash between motor
+  shaft and lever, and variation in the reporting delay, are the other
+  candidates.
+- **Record the velocities with any future figure** — the datum moves with
+  approach speed, so a repeatability number without a velocity is meaningless.
+- Homing time: **2531 ms** per two-stage run, of which the fast approach is
+  365 ms and most of the rest is the creep (768 usteps at 512 usteps/s). Raising
+  the creep to 0.020 rev/s would roughly halve it and still keep the creep's
+  share of the delay under one encoder count. Single-stage was ~1015 ms.
+- Switch throw, engage to release: **512-630 usteps**, 3.6-4.4 deg at the motor.
+  (An earlier 256-ustep figure came from a coarser stepped sweep.)
+- Behaviour when the switch is never reached: bounded. The approach targets a
+  position two motor revolutions away, far beyond the rig's travel, so a switch
+  that never asserts ends the move rather than running the mechanism.
+- Hardware latch versus software position agreement: `XLATCH` and `XACTUAL`
+  agree exactly. `ENC_LATCH` is latched in the same event.
+
+**Travel, measured — this was not known before.**
+
+- Positive end: the limit switch.
+- Negative end: a **mechanical stop**, found by the firmware's encoder follow
+  check. `XACTUAL` reached −4330 usteps while `X_ENC` stopped following at about
+  −3276, i.e. the ramp kept going and the shaft did not.
+- **Usable travel ≈ 4000 usteps ≈ 28 deg at the motor shaft**, less at the
+  joystick through the gear pair. Every bring-up distance has to fit inside
+  this; the first encoder round trip was written at 5120 usteps and ran straight
+  off the end of the mechanism.
+- Nothing was strained finding it. At `IRUN` 8 the motor simply stalls, and the
+  follow check ends the move within one 200-ustep window.
+
+**Not yet measured on this unit:** coil current RMS, sense-resistor
+temperature, `DIAG0`/`DIAG1` behaviour, microstep smoothness, step-rate ceiling,
+encoder supply current, and any of it at a current above `IRUN` 8.
 
 ## Open Issues Found During Bring-Up
 
@@ -866,7 +1020,29 @@ conclusion. The existing warning in this file covers the three motor/encoder
 connectors but not the 36 V input block, which moved wholesale from
 `U201`/`R201`-`R207` to `U1901`/`R1901`-`R1907`. Consider extending the table.
 
-### The two rig boards disagree on `REFL_STEP` and `ENCB` — RETRACTION
+### The two rig boards disagree on `REFL_STEP` and `ENCB` — HALF RESOLVED
+
+**Resolved for board `E4654C159F4D1334` on 2026-09-02 by stage 3, with the
+switch and encoder connected.** Both of its "unexpected" readings were the
+connectors being empty, not defects:
+
+- **`REFL_STEP`.** With the limit switch fitted the resting level is **0** and
+  the triggered level is **1**, and the motor drove it through both transitions.
+  So `U1301`'s output path is intact on this board, and its empty-connector 0
+  was simply `R1405` holding `LIMIT_SW` low with nothing driving it. The
+  hand-short test proposed below was never needed.
+- **`ENCB`.** With the E4T-1000 fitted, `ENCA`/`ENCB` read as a legitimate
+  quadrature state and change as the shaft turns — observed going 1/1 → 1/0 →
+  0/1 → 0/0 across moves. Its empty-connector 1 was a floating CMOS input.
+
+**Still open for board `E4654C159F2C2534`**, whose empty-connector `REFL_STEP`
+read 1. That is the reading the netlist argument below predicts, and it is now
+the odd one out: the same net reads 0 on the other board with the connector
+empty. Nothing has been connected to board 1 yet, so run stage 3 on it before
+drawing any conclusion — and note that board 1 has `R203` depopulated, so it no
+longer represents an as-built board for anything.
+
+**The original entry, kept because it is the reasoning that got here:**
 
 **Written 2026-09-02, then contradicted the same day by the second board.** The
 subsection below argued from the netlist that `REFL_STEP` = 1 is correct because
@@ -971,6 +1147,46 @@ The `build` task scopes `PLATFORMIO_BUILD_DIR` per example; the `test` task does
 not, so running tests deletes every example's build output including
 `firmware.uf2`. Bit once mid-session, between a `B` into BOOTSEL and the flash
 that was supposed to follow it.
+
+### The limit switch is at the positive end of travel, on the `REFL` input
+
+**Found 2026-09-02 on board `E4654C159F4D1334`.** A firmware-level problem with
+a hardware cause, so it is recorded here rather than only in the firmware
+repository.
+
+`J1301` feeds TMC pin 8, `REFL` — the **left** reference switch, which the
+TMC5130A uses to stop **negative** motion (datasheet rev 1.21 section 14.4: "a
+stop occurs when the velocity sign matches the reference switch position, REFL
+for negative velocities, REFR for positive velocities"). The switch is
+physically at the **positive** end of the joystick's travel.
+
+So `stop_l_enable` alone arms the stop against the direction that moves *away*
+from the switch, and leaves the direction that drives *into* it unguarded. The
+fix is `SW_MODE.swap_lr`, which routes the `REFL` pin to the right-stop logic;
+firmware now sets it from a `HomeEnd` setting and homes positive.
+
+**Nothing to change on the board** — `swap_lr` exists for exactly this, and
+`REFR` is tied to GND so the swapped-in left stop reads a harmless 0. Worth
+knowing before anyone wires the second joystick, or `../mouse-joysticks-pcb`,
+and assumes the switch end is a free choice. If a future revision wants the
+hardware default to be the natural one, put the switch at the negative end of
+travel or wire it to `REFR`.
+
+### `IRUN` = 28 predates the motor and is above its rating
+
+`docs/rev0-plan.md` and `mouse-joystick-firm`'s `.agents/AGENTS.md` both carry
+"`vsense` = 1 with the 0.15 ohm shunts, `IRUN` = 28", against a target of
+0.679 A RMS. That target was set before the motor was identified.
+
+The fitted motor is a **WO-208-13-01D rated 0.6 A per phase**, so `IRUN` = 28 is
+above the rating on either reading of that figure — 13% over the equal-heating
+reading, 60% over the peak-of-sine reading. `vsense` = 1 is still correct and
+still load-bearing; the current scale is what needs revising.
+
+Firmware currently enforces `IRUN` <= 17 (0.421 A RMS, the peak-of-sine
+reading) and runs bring-up at `IRUN` = 8 (0.211 A RMS). **Settle it with a coil
+current measurement and a case temperature**, then change the number in one
+place and record which reading won.
 
 ### No test points remains the binding constraint
 
