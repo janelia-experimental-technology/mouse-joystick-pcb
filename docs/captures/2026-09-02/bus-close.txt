@@ -1,0 +1,2 @@
+Bus closed, SPI0 up, ~{TMC_DRV_EN} still high.
+'r' and 'i' work now.

@@ -1,0 +1,19 @@
+Staircase soft-start.
+  30 bursts of 1200 us on / 800 us off, then HV_EN held high for 1000 ms.
+  HV_DIAG_EN stays low for the train.
+
+  bursts issued:   30
+  rail after train:3.309 V
+  rail peak:       3.320 V
+  rail final:      3.309 V
+  held up for:     999 ms of 1000 ms
+    HV_SNS: 0.0177 V across R207 249R (22 counts) -- at the offset floor, no measurable load
+      Quiet state with HV_EN low reads 18-22 counts and one
+      count is 2.6 mA, so idle draw is unresolvable. All
+      this says is 'far below the 1.15 A limit'.
+    ~{HV_FAULT}: high, no latched fault
+
+  [ ok ] the rail came up and STAYED up. The single-shot
+  turn-on failure is an inrush-energy problem, not a load
+  fault. Rail left live -- send 'b' to close the bus.
+

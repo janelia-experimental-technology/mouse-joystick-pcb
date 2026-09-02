@@ -1,0 +1,17 @@
+LATCH probe: a plain single-shot HV_EN assertion.
+  On pcb v0.1-v0.3 `R203` straps the 36 V switch's LATCH to
+  +3.3V_MCU, so it latches off 1-2 ms into charging 208 uF at
+  only ~10-12 V and the rail collapses when the stored charge
+  runs out. Expect FAIL on those, and PASS once LATCH reaches
+  a GPIO or is tied low.
+
+  rail came up:  yes
+  rail held:     no
+  held for:      24 ms of 250 ms
+  rail peak:     3.320 V
+  ~{HV_FAULT}:   LOW, FAULT LATCHED
+
+  [FAIL] this board still needs the workaround, as
+  expected on pcb v0.1-v0.3. powerUp() uses the staircase
+  automatically -- nothing to do.
+

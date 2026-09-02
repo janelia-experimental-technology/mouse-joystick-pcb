@@ -61,7 +61,7 @@ Re-verified against the flattened as-built netlist on 2026-08-17.
 | --- | --- | --- |
 | `R201` + `R204` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH`. **Done, verified 2026-08-17** |
 | `R202` | 1 kΩ, **`GP14`** (`HV_DIAG_EN`) → `DIAG_EN` | `RPROT` per Table 4-2, but the far end is a GPIO, not the rail. **Reversed 2026-08-17** — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
-| `R203` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry. **Done, verified 2026-08-17** |
+| `R203` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry. Verified 2026-08-17 — and **shown to be the wrong choice on the bench 2026-09-02.** It prevents the switch from ever charging this board's 208 µF. See [`LATCH` — Tie It High For Latch-Off](#latch--tie-it-high-for-latch-off) |
 | `R205` | 10 kΩ, `+3.3V_MCU` → `~FAULT` | Open-drain pull-up at the MCU supply level. **Done, verified 2026-08-17** |
 | `R206` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label. **Done, verified 2026-08-17** |
 | `R207` | 249 Ω on `SNS` | Fault level 1.3-1.6 V, well under the RP2040's `VPIN` absolute maximum. **Done, verified 2026-08-17**; arithmetic in [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one) |
@@ -1247,7 +1247,7 @@ start.
 | 1 | **`R27001`/`R27002` form a ÷2 divider on `EN`.** Both are 10 k, so a 3.3 V GPIO presents **1.65 V** at `EN` against a `VIH` of **1.5 V max** — 150 mV of margin, less at low `VDD` and with resistor tolerance. | Change `R27001` to **1 kΩ**, keeping `R27002` at 10 k. `EN` becomes 3.0 V. Keeps the external pulldown, which is genuinely wanted because RP2040 GPIOs are inputs with pulls disabled at reset. **Done 2026-08-12.** |
 | 2 | **`DIAG_EN` is left no-connect with a 200-500 kΩ internal pulldown, so diagnostics are off.** Table 4-2: "With DIAG_EN unused, the analog sense, open-load, and short-to-battery diagnostics are not available." Every `ISNS` specification is conditioned on `VEN = VDIAG_EN = 5V`. **With the block as-is, the `SNS` output does nothing and `HV_SNS` on `GP28` reads zero.** | ~~Tie `DIAG_EN` to `+3.3V_MCU` through a 1 kΩ `RPROT`. Needs no GPIO.~~ **Reversed 2026-08-17.** `R202` 1 kΩ now goes to **`GP14`** (`HV_DIAG_EN`). Tying it high is wrong for a reason this table missed — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up). **Done, verified 2026-08-17.** Still safe with `VS` absent — see below. |
 | 3 | **`~FAULT` is left no-connect.** It is the open-drain global fault output for overload, short-circuit, and thermal shutdown — thrown away on a board that has spare pins. | Route to **`GP29`** with a pull-up to `+3.3V_MCU`. The datasheet notes an external pull-up is required to match the MCU supply. **Done, verified 2026-08-17:** `R205` = 10 kΩ to `+3.3V_MCU`, net `~{HV_FAULT}` on `GP29`. |
-| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V_MCU` through a 1 kΩ `RPROT` for latch-off. See below. **Done, verified 2026-08-17:** `R203` = 1 kΩ to `+3.3V_MCU`. |
+| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V_MCU` through a 1 kΩ `RPROT` for latch-off. **Done, verified 2026-08-17:** `R203` = 1 kΩ to `+3.3V_MCU`. **Reversed on the bench 2026-09-02** — the block as originally placed was right and this "fix" broke power-up. `LATCH` belongs on a GPIO. See below. |
 
 Items 2 and 3 were the ones that mattered most: as the block shipped, it gave no
 load current reading and no fault signal, which is most of what the smart switch
@@ -1496,17 +1496,45 @@ block itself once this board proves it.
 
 ### `LATCH` — Tie It High For Latch-Off
 
+> **SUPERSEDED ON THE BENCH, 2026-09-02. `LATCH` must go to a GPIO.**
+>
+> This section's reasoning about *steady-state* fault behaviour is still right
+> and is why the answer is not simply "tie it low". What it missed is that
+> latch-off and **power-up** are in direct conflict on this board: the switch
+> trips its relative thermal shutdown 1-2 ms into charging `+36V_SW`'s 208 µF,
+> at only ~10-12 V, so **auto-retry is the only mechanism that can bring the
+> rail up at all**. With `R203` fitted the rail comes up on stored charge and
+> collapses 17-68 ms later, every time, on both rig boards.
+>
+> Depopulating `R203` on board `E4654C159F2C2534` fixed it outright: a plain
+> `HV_EN` assertion then works, with a 10-12 ms retry window. Full evidence in
+> `docs/bringup-log.md` →
+> [The Rail Comes Up And Then Collapses — RESOLVED](bringup-log.md#the-rail-comes-up-and-then-collapses--resolved-2026-09-02).
+>
+> **v0.4: `LATCH` on a spare GPIO through the same 1 kΩ `RPROT`.** Low for the
+> power-up ramp, high once the rail is established. That gets retry-based
+> soft-start *and* the latch-off behaviour argued for below, and it defaults to
+> auto-retry when the MCU is unpowered or at reset — which is the safe default,
+> because that is exactly when the rail has to be able to charge. Until then
+> firmware emulates the retry: `PowerSequence::staircaseStart()`.
+>
+> Do **not** simply tie `LATCH` low. Read the paragraph below about a joystick
+> twitching in an animal's paw — that hazard is real and a permanent tie
+> reintroduces it.
+
 Table 4-2 settles it: "With LATCH unused, the device performs an auto-retry after
 a fault," and `t_RETRY` is **2 ms**. The internal 0.7-1.3 MΩ pulldown means the
 block as placed gets auto-retry.
 
-**On this board that is the wrong behavior.** Auto-retry into a persistent fault
-cycles the motor rail at roughly 500 Hz: the TMC5130A repeatedly browns out and
-recovers, and a joystick held by an animal twitches while it does. Nothing
-upstream stops it.
+**On this board that is the wrong behavior _in steady state_.** Auto-retry into a
+persistent fault cycles the motor rail at roughly 500 Hz: the TMC5130A repeatedly
+browns out and recovers, and a joystick held by an animal twitches while it does.
+Nothing upstream stops it. (It is the *right* behaviour during power-up, which is
+the conflict this section originally missed.)
 
 **Tie `LATCH` to `+3.3V_MCU` through a 1 kΩ `RPROT`.** Done as `R203`, verified
-2026-08-17. That selects latch-off, and the
+2026-08-17, **and superseded 2026-09-02 — see the box above.** That selects
+latch-off, and the
 clearing mechanism fits the board's existing design: "the device does not enable
 the channel until either the LATCH pin OR the EN pin is toggled." Firmware already
 owns `EN` on `GP19`, so the sequence is:
@@ -1517,7 +1545,11 @@ owns `EN` on `GP19`, so the sequence is:
 3. Recovery requires an explicit `CLRFAULT` followed by toggling `HV_EN`.
 
 That is exactly the "latch faults, require explicit clearing" model in
-`.agents/AGENTS.md`, achieved with one resistor and no GPIO.
+`.agents/AGENTS.md`, achieved with one resistor and no GPIO — **and it is worth
+one GPIO after all**, because the same resistor that buys the model also
+prevents the rail from ever coming up. The three-step recovery sequence above is
+unchanged by moving `LATCH` to a GPIO; firmware simply drives the pin instead of
+relying on a strap.
 
 Driving `LATCH` from a GPIO instead would let firmware choose between behaviors,
 but there is no reason to want auto-retry here. Rev 0 has pins free, so the

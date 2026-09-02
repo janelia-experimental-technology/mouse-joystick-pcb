@@ -1,0 +1,89 @@
+
+================================================================
+ mouse-joystick-pcb  stage 2: TMC5130A communication
+================================================================
+ Raises HV_EN. The driver output stage stays disabled.
+
+[1] before: rail must be off
+    +3.3V_SW: 0.0338 V (21 counts, 0.0169 V divided) -- off
+    [ ok ] switched domain dead, as it must be before HV_EN
+
+[2] raising HV_EN
+    method: firmware staircase (R203 straps LATCH high)
+    [ ok ] +3.3V_SW came up in 132 ms, peak 3.3137 V
+    +3.3V_SW: 3.3137 V (2056 counts, 1.6568 V divided) -- live
+
+[3] 36 V switch diagnostics
+    HV_SNS: 0.0258 V across R207 249R (32 counts) -- at the offset floor, no measurable load
+      Quiet state with HV_EN low reads 18-22 counts and one
+      count is 2.6 mA, so idle draw is unresolvable. All
+      this says is 'far below the 1.15 A limit'.
+    ~{HV_FAULT}: high, no latched fault
+
+[4] closing the GPIO isolation bus switch
+    Only now, with the driver's VCC_IO rail established. Before
+    this point every MCU pin on the switched side was isolated.
+    [ ok ] bus closed, ~{TMC_DRV_EN} still high
+
+[5] TMC5130A registers, driver disabled throughout
+    IOIN      (0x04) = 0x11000014  status=0x39
+      sent 1: 04 00 00 00 00
+      got  1: 00 00 00 00 00
+      sent 2: 04 00 00 00 00
+      got  2: 39 11 00 00 14
+    VERSION = 0x11  [ ok ] TMC5130A
+    DRV_ENN = 1  [ ok ] driver disabled, and GP3 reaches the chip
+    SD_MODE = 0  [ ok ] motion-controller mode, tied to GND
+    inputs: REFL_STEP=0 REFR_DIR=0 ENCA=0 ENCB=1 ENCN=0 SWCOMP=0
+      With nothing plugged into the motor, encoder or limit
+      switch connectors these should all read 0, held there by
+      R1405, the GND tie on REFR, R805/R806 and R1201.
+    [FAIL] IOIN does not match the expected 0x11000010
+    GSTAT     (0x01) = 0x00000001  status=0x39
+      sent 1: 01 00 00 00 00
+      got  1: 39 11 00 00 14
+      sent 2: 01 00 00 00 00
+      got  2: 39 00 00 00 01
+      reset=1 drv_err=0 uv_cp=0
+      reset=1 is expected on the first read after a power-up,
+      and reading GSTAT is what clears it.
+    GCONF     (0x00) = 0x00000000  status=0x38
+      sent 1: 00 00 00 00 00
+      got  1: 38 00 00 00 00
+      sent 2: 00 00 00 00 00
+      got  2: 38 00 00 00 00
+    CHOPCONF  (0x6C) = 0x00000000  status=0x38
+      sent 1: 6C 00 00 00 00
+      got  1: 38 00 00 00 00
+      sent 2: 6C 00 00 00 00
+      got  2: 38 00 00 00 00
+      vsense = 0
+      This board fits 0.15 ohm shunts. vsense resets to 0, and
+      0 with 0.15 ohm is roughly 1.8x the motor's rated current.
+      Stage 3 must set it to 1 and read it back BEFORE it lowers
+      ~{TMC_DRV_EN}. Stage 2 only reports it.
+    DRV_STATUS (0x6F) = 0x80000000  status=0x38
+      sent 1: 6F 00 00 00 00
+      got  1: 38 00 00 00 00
+      sent 2: 6F 00 00 00 00
+      got  2: 38 80 00 00 00
+    XACTUAL   (0x21) = 0x00000000  status=0x38
+      sent 1: 21 00 00 00 00
+      got  1: 38 80 00 00 00
+      sent 2: 21 00 00 00 00
+      got  2: 38 00 00 00 00
+    X_ENC     (0x39) = 0x00000000  status=0x38
+      sent 1: 39 00 00 00 00
+      got  1: 38 00 00 00 00
+      sent 2: 39 00 00 00 00
+      got  2: 38 00 00 00 00
+      Position comes from here and XACTUAL, never from a GPIO.
+      The encoder does not reach the MCU on any revision.
+
+    register checks: 5, 1 FAILED
+
+----------------------------------------------------------------
+ The rail is still up and the bus is still closed, so 'r' and
+ 'i' work now. Send 'x' to power down when you are done.
+----------------------------------------------------------------
+

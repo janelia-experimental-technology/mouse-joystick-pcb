@@ -1,0 +1,1 @@
+Powered down: bus open, HV_EN low, HV_DIAG_EN low.

@@ -1,0 +1,5 @@
+    HV_SNS: 0.0169 V across R207 249R (21 counts) -- at the offset floor, no measurable load
+      Quiet state with HV_EN low reads 18-22 counts and one
+      count is 2.6 mA, so idle draw is unresolvable. All
+      this says is 'far below the 1.15 A limit'.
+    ~{HV_FAULT}: high, no latched fault

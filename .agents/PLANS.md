@@ -12,6 +12,86 @@ sessions.
 - [x] Verify the four copper layers, drill outputs, BOM/placement coverage, and
   Gerber-only upload archive.
 
+## Next Revision — v0.4 Required Changes (opened 2026-09-02)
+
+**Carry these forward. v0.2 and v0.3 are electrically identical on the 36 V
+path, so v0.3 boards will reproduce every problem below.** Verified by diffing
+`kicad/` at `v0.2` against `cab25b3` ("Generated v0.3 fab files"): `R206`/`R1906`
+= 40 kΩ, `LATCH` strapped through 1 kΩ, `C1213`+`C1214` = 2 × 100 µF, unchanged.
+
+### 1. `LATCH` to a GPIO — blocking, and the reason this section exists
+
+`R203` (0402, 1 kΩ) straps the TPS1HTC100-Q1's `LATCH` to `+3.3V_MCU`, selecting
+latch-off. **That prevents the 36 V rail from ever coming up.** The switch trips
+its relative thermal shutdown 1-2 ms into charging `+36V_SW`'s 208 µF, at only
+~10-12 V, and with latch-off it never retries — so the rail lives on stored
+charge for 17-68 ms and collapses. Measured on **both** rig boards.
+
+**Change: move `R203`'s far end from `+3.3V_MCU` to a spare GPIO.** Keep the
+1 kΩ `RPROT`. Firmware drives it low for the power-up ramp and high once the
+rail is up, which gets retry-based soft-start *and* latch-off for real faults.
+It also defaults to auto-retry when the MCU is unpowered or at reset, which is
+the safe default — that is exactly when the rail must be able to charge.
+
+Spare GPIOs proven good by stage 1: `GP15`, `GP16`, `GP17`, `GP18`, `GP20`,
+`GP22`, `GP23`, `GP27`. (`GP10`/`GP11`/`GP13` are the rev-1 DAC bus — do not
+use those.)
+
+Rejected alternatives, with the reasoning so it is not re-derived:
+
+- **Tie `LATCH` low permanently.** Works — proved it by depopulating `R203` —
+  but the part then auto-retries every 2 ms *forever* into a genuine fault,
+  cycling the motor rail at ~500 Hz. `docs/power.md` is right that a joystick
+  twitching in an animal's paw is unacceptable. Fine as a bench configuration,
+  wrong as a shipped one.
+- **Halve the bulk instead.** The switch delivers ~70 mJ before tripping, so
+  ½CV² = 70 mJ at 36 V puts the one-burst ceiling at **~108 µF** — depopulating
+  `C1214` lands on break-even, not under it. Real margin needs ≤ 50-60 µF, and
+  that bulk is what absorbs motor inductive turn-off on a rail with 49 V of
+  driver headroom and **no TVS**. Do not trade a protection for a convenience.
+- **Raise `I_CL`.** FET energy is ½CV² regardless of the limit; the time is
+  ∝ 1/I, so peak junction rise goes as roughly ½VI·Zθ(t) ∝ √I. **A higher limit
+  is hotter.** Separately, check `R206` still leaves motion headroom once the
+  motor is known — 0.679 A RMS/phase draws an estimated 0.2-0.7 A from 36 V
+  depending on winding resistance, against a 1.15 A limit.
+
+### 2. Test points — the binding constraint all session
+
+`+36V_SW`, `+5V_SW`, `+3.3V_SW`, `+3.3V_MCU`, `+5V_MCU`, and both sides of
+`R1903`. The entire 36 V diagnosis rested on energy accounting because reading
+`+36V_SW` means clipping onto `C1213`'s can pads, and that measurement still has
+not been taken.
+
+### 3. Carried forward unchanged
+
+- TVS footprint on `HV_IN` — still a populate decision, still no evidence either
+  way. `docs/power.md` → Transient Headroom.
+- 1206 PPTC on the pyControl 5 V branch (`R1903` is a jumper today), plus test
+  points either side so a tripped fuse is diagnosable.
+
+## How To Check A New Revision For The Fix
+
+**One command.** Flash `mouse-joystick-firm` `examples/TMC5130Communication` and
+send **`l`**:
+
+- `[FAIL] this board still needs the workaround` → `LATCH` is still strapped.
+  Nothing to do; `PowerSequence::powerUp()` uses the firmware staircase
+  automatically.
+- `[PASS] LATCH fix is present` → a plain `HV_EN` assertion works. Then build
+  with `-DMJ_HAS_LATCH_GPIO=1 -DMJ_LATCH_GPIO=<n>`, reading `<n>` off that
+  revision's netlist — **do not guess it**, `src/BoardPins.hpp` has an `#error`
+  that enforces this — and `powerUp()` switches to the direct path and arms
+  latch-off after the ramp.
+- `[!!] NO 36 V INPUT` → the rail never moved *and* the switch never reported.
+  Below `V_S,UVLOR` (5.0-5.75 V) the part does not operate, so this is an absent
+  supply, not a tripped switch. Check `J201` is seated and the supply is on;
+  `J201` pin 1 is `GND`, pin 2 is positive, and reversed leads are blocked by
+  `D201` and look identical to this.
+
+`s` then runs the whole stage 2 sequence and prints which power-up method it
+used, so a bring-up log records the mechanism rather than leaving it to be
+re-derived.
+
 ## Current Goal
 
 **Rev 0, rescoped 2026-08-13: get the interfaces on a board and send it to

@@ -1,0 +1,12 @@
+Measuring 36 V input current: 2048 samples at each point.
+  Zero is taken with HV_EN low, moments before raising it,
+  so it cancels ADC offset and leakage rather than assuming
+  a floor. HV_DIAG_EN is high for both reads.
+
+  zero (HV_EN low):  19.63 counts
+  live (HV_EN high): 22.94 counts
+  delta:             3.31 counts
+  36 V input current: 8.6 mA   (KSNS 800 A/A, R207 249R, 2.6 mA per count)
+  rail: live
+  Rail left live -- send 'b' to close the bus, 'x' to stop.
+
