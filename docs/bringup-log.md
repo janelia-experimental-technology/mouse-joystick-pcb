@@ -361,30 +361,494 @@ The final `status` froze mid-return-move at `angle=-0.816;xactual=-0.211`; a
 generator, captured because the fault stopped the cache updating, and not a
 datum error -- at rest the two agree to under one encoder count.
 
-Still not shown on hardware: `freewheel` while armedStill not shown on hardware: `freewheel` while armed, `armpull`, and the
-compliant-state resync. **The motor has been energised** — `hv on` brings up the
-rail and configures the driver but leaves `~{TMC_DRV_EN}` high; only `arm`
-enables it.
+### `freewheel` while armed, and both ways back out — 2026-09-03
+
+The compliant state, which is the part the actual trial depends on. Run inside a
+~35 ms ping loop so the host-loss watchdog stayed fed throughout.
+
+| Step | Reply |
+| --- | --- |
+| `arm` | `ack` |
+| `moveto -5.0` | `ack`, then `state=ARMED;angle=-5.041;xactual=-4.999` |
+| `freewheel` | `ack` |
+| `status` | `state=FREEWHEEL;angle=-4.866;xactual=-4.999` |
+| `moveto -3.0` | `ack`, then `state=ARMED;angle=-3.691;xactual=-2.995` |
+| `freewheel` | `ack` |
+| `stop` | `ack`, then `state=ARMED;angle=-3.783;xactual=-4.05` |
+| `disarm` | `ack`, then `state=HOMED;angle=-3.783;xactual=-3.783` |
+
+- **The compliant state works and the divergence is real.** In FREEWHEEL the
+  encoder moved 0.133 deg and the ramp generator did not -- the joystick settled
+  when the driver was released. That is the effect that makes `angle` and
+  `xactual` two quantities rather than one, observed without anyone touching the
+  mechanism.
+- **Both exits work**: `moveto` re-engages implicitly and moves, `stop` takes the
+  joystick back and holds it, `disarm` leaves it held in HOMED.
+- **The resync is exact when nothing follows it.** After `disarm` both frames
+  read -3.783. That isolates the resync from the discrepancies below.
+
+### Firmware bug: leaving FREEWHEEL never re-energised the driver
+
+`freewheel` releases the driver, and every path out of FREEWHEEL resynced and set
+`ARMED` **without re-enabling it** -- despite a comment in the code claiming the
+move "re-engages implicitly". The ramp generator advanced with no torque, the
+encoder did not follow, and the follow check faulted `not_following` (bit 2)
+after ~1.4 deg of commanded travel.
+
+Same class as the homing driver-enable deadlock, and **the third time the follow
+check has caught a state transition that forgot to energise what it was about to
+use.** All three exits were separate omissions; they now share one
+`leaveCompliance()` that resyncs and re-enables as one operation, because a host
+must not be able to be interrupted between the two.
+
+### OPEN: sub-degree discrepancies at the release/re-engage boundary
+
+Two numbers above do not close. They are small but not noise:
+
+- `freewheel` -> `moveto -3.0`: `xactual=-2.995` against `angle=-3.691`, a
+  0.70 deg gap. The resync had set both to -4.866 immediately before, so the
+  encoder moved 1.175 deg where the ramp generator commanded 1.866.
+- `freewheel` -> `stop`: `xactual=-4.05` against `angle=-3.783`, 0.27 deg, when
+  the resync should have left them equal and no motion was commanded.
+
+**Leading hypothesis: the rotor snapping when the driver re-energises.** A
+stepper's electrical angle repeats every four full steps, so re-energising pulls
+the rotor to the nearest matching position -- bounded at roughly +/-3.6 deg at
+this motor's shaft however far the joystick was moved while compliant. Both
+figures sit inside that.
+
+If so, the fix is an ordering change: **re-enable first, let the rotor settle,
+resync after** -- so the resync captures the post-snap truth rather than a
+position the snap then invalidates. Deliberately NOT done yet, because it has a
+plausible failure of its own: energising against a stale `XACTUAL` derives the
+driver's electrical angle from where the ramp generator *thought* the joystick
+was, so the snap would be toward that rather than away from it.
+
+Deciding it needs a measurement, not a preference: park, freewheel, move the
+joystick a known distance by hand, and read both frames before the re-engage,
+immediately after, and after the resync. Until then the effect is bounded,
+sub-degree, and the encoder stays the trustworthy frame -- which is what `STATUS`
+reports.
+
+### `armpull` argument handling verified; `PULL` implemented but NOT confirmed
+
+`armpull`'s validation is correct on hardware, tested from `HOMED` so no
+watchdog was involved:
+
+| Sent | Reply |
+| --- | --- |
+| `armpull;361;-5.0` | `ack;361` |
+| `armpull;362;-50.0` | `nak;362;outofrange` |
+| `armpull;363` (no argument) | `nak;363;badargs` |
+| `armpull;364;abc` | `nak;364;badargs` |
+| `armpull;365;0.0` | `ack` — inclusive upper bound |
+| `armpull;366;-10.125` | `ack` — inclusive lower bound |
+
+**It was a validated no-op.** Nothing checked the threshold, so `PULL` could
+never fire; the Python simulator only emitted it from a test-injection hook. Both
+ends now implement detection, and implementing it exposed that they had
+**different rules** -- the fork the shared corpus exists to prevent, and one the
+corpus could not catch because no corpus case can move an encoder.
+
+The rule is now a **crossing**, on both ends: `ARMPULL` records which side of the
+threshold the joystick is on, and `PULL` fires on crossing to the other side.
+The simulator previously compared magnitudes, `abs(angle) >= abs(threshold)`,
+which agreed with the firmware only because this board's travel happens to be
+one-signed -- on the simulator's own default travel of -20..20 a threshold of
+-5.0 also fired at +5.0, and a task that presented past the threshold got a pull
+for free. Recording the side invents no sign convention, which is what lets the
+mirrored left and right joysticks share one firmware.
+
+Gated to `FREEWHEEL` only: under commanded motion a crossing means the board did
+it, and reporting that as a pull would put a fabricated event into a behavioural
+dataset.
+
+**API consequence worth knowing:** re-arming while the joystick still sits past
+the threshold arms from the far side, so the next pull would have to be in the
+other direction. A task must present before re-arming -- which is the trial's
+natural order anyway.
+
+### OPEN: an anomalous frozen encoder reading during the pull window
+
+The hand-pull test did **not** confirm `PULL`, because the encoder reading was
+already wrong before the joystick was touched.
+
+Sequence: home to `angle=0.0`, `arm`, `moveto -5.0`, `armpull -8.0`,
+`freewheel`, then a 17 s window sampling `status` every ~0.6 s while Peter pulled
+the joystick. Every one of the twelve samples read **identically**:
+
+```
+state=FREEWHEEL;angle=-40.95;xactual=-4.999;homed=1;limit=0;faults=0;hv=1
+```
+
+What that rules out and what it leaves:
+
+- **-40.95 deg is impossible mechanically.** Travel is ~28 deg at the motor
+  shaft and the commanded position was -5.0.
+- **It was frozen across the whole window**, through a physical pull, so the
+  encoder was not tracking. `xactual` being frozen is expected in FREEWHEEL --
+  nothing turns the ramp generator -- but `angle` should have moved.
+- **It is not a scaling error.** Three commanded moves measured immediately
+  afterwards tracked at ratios 0.947, 1.127 and 0.871 -- scattered but around
+  1.0, nowhere near the 8.19x that -40.95 against -5.0 implies.
+- **It is not a dead encoder or a dead bus.** `hv on` re-zeroed both registers
+  and a subsequent `home` worked normally, reporting `angle=0.0`.
+- **No `PULL` fired, and that is consistent.** If the cache already read -40.95
+  when `armpull -8.0` ran, detection armed from BELOW the threshold, so it was
+  waiting for a crossing upward past -8.0 that never came. The rule behaved
+  correctly on bad input.
+
+So the fault is in how the encoder value got to -40.95 and stopped changing, and
+it happened once. Candidates not yet separated: spurious counts on `ENC_A`/`ENC_B`
+from motor commutation noise while the driver was energised; a `poll()` that
+stopped refreshing for a reason not yet identified; or a stuck read of `X_ENC`.
+
+**This is exactly the question the InstrumentPort's encoder taps exist for.**
+`docs/instrument-strategy.md`: "There is no PIO cross-check in any revision, so
+the TMC5130A's `X_ENC` register is the only count on the board and nothing in
+firmware can contradict it. Raw edges plus SPI reads of that register, in one
+capture, make the comparison by hand." `ENC_A`/`ENC_B` are LA5032 channels 0 and
+1, `FW_TRIG1` is channel 17, and the analyzer on this board is identified
+(`1-5.1.4`). Capture a freewheel pull and compare the raw quadrature against
+what `STATUS` reports -- that is the measurement, and it needs no new firmware.
+
+### Noted: the follow check is one-sided
+
+It fires when the encoder moves LESS than commanded (`|ratio| < 0.25`) and
+cannot fire when it moves more. An encoder over-reading by 8x sails through, as
+this run demonstrates. That is the right bias -- under-following is the case that
+means the mechanism is being pushed -- but it means over-counting has no
+detector at all, and the earlier ~1.2 deg and ~0.3 deg discrepancies were all
+found by reading numbers rather than by any check.
+
+### The encoder was RIGHT: -28.083 deg is the mechanical end of travel
+
+A second pull attempt, this time with the joystick pulled only after it went
+limp, produced the trace that reframes the earlier "anomalous" readings:
+
+| Sample | `angle` | `xactual` |
+| --- | --- | --- |
+| freewheel + 0.9 s | **-5.941** | -4.999 |
+| + 2.3 s | -5.941 | -4.999 |
+| + 3.7 s | **-6.033** | -4.999 |
+| + 5.1 s | **-28.083** | -4.999 |
+| + 6.5 s ... + 19 s (11 samples) | -28.083 | -4.999 |
+
+Read it as motion rather than as corruption and it is entirely coherent:
+
+1. **-5.0 -> -5.941 when the driver released.** The joystick settled 0.94 deg
+   under its own load the moment it went compliant. `xactual` stayed at -4.999
+   throughout, which is the whole point of reporting both.
+2. **-5.941 -> -6.033** is the pull starting.
+3. **-28.083 deg = 3994 microsteps**, which is `conversions::kMeasuredTravelMicrosteps`
+   (4000) to within 6 microsteps. **The joystick was pulled to its mechanical end
+   of travel.**
+4. **Frozen for the next 14 s because it was resting against the stop**, which is
+   the correct reading for a stationary joystick, not a stuck register.
+
+So the encoder tracked the pull faithfully from beginning to end. The earlier
+-40.95 and -48.5/-51.2 readings are best explained the same way -- real
+displacement, in runs where the datum was not what I assumed -- and Peter's own
+suspicion that he pulled at the wrong moment (while the driver was still
+holding) fits: forcing a held motor back-drives it, and the encoder on the
+motor's rear shaft reports that honestly.
+
+**Downgrade the "anomalous frozen encoder" item above from a suspected fault to
+a misreading of correct data.** What remains genuinely unexplained is nothing:
+there is no evidence of an encoder or reporting fault in any of it.
+
+### MEASURED: the travel limits are wrong by a factor of nearly three
+
+This is the actionable finding. `examples/PyControlLink` sets
+`travel_lo = -10.125` deg, derived at a desk from `kMeasuredTravelMicrosteps`
+less a clearance step at each end. **The left joystick reached -28.083 deg below
+the park under a hand pull**, so the mechanism has roughly 28 deg of usable
+travel below the park and the firmware permits 10.
+
+Consequences:
+
+- Two thirds of the mechanism's range is unreachable by `moveto`. Any trial that
+  wants to present the joystick further than 10 deg from the park cannot.
+- `kMeasuredTravelMicrosteps` = 4000 was measured on board 2, the RIGHT joystick,
+  from the switch. It does not describe this mechanism from the park, and the two
+  joysticks may simply differ. **Neither joystick's travel has been measured
+  through the protocol.**
+- The limits should come from a measurement on each joystick -- walk to each end
+  under a bounded jog, record where the follow check or the switch stops it --
+  not from a constant carried across from another unit.
+
+### Harness bug: the `PULL` event may have fired and been discarded
+
+`PULL` is **still unconfirmed either way**, and that is my test harness rather
+than the firmware. The pyboard loop filtered replies with
+`if r and b'ack;9\n' not in r`, which discards any read that contains a
+heartbeat ack -- and an asynchronous event arriving in the same read as a ping
+ack is exactly the common case. A crossing of the armed -8.0 threshold did occur
+(-6.033 to -28.083), so if detection worked the event was emitted and thrown
+away by the filter.
+
+Fix the filter to `b'ev;' in r or b'ack;9\n' not in r` and re-run. Nothing about
+the firmware is implicated.
+
+### Analyzer capture NOT obtained: both LA5032s stopped capturing
+
+The instrumented capture could not be taken. Both analyzers enumerate and answer
+`--scan` normally, reporting 34 channels, but **every capture hangs** -- including
+a 2000-sample single-channel request, and including command shapes that worked
+earlier in the same session for the identity beacon. `sigrok-cli` reports:
+
+```
+sr: kingst-la2016: Unexpected run state, want 0x85eX, got 0x0000.
+```
+
+`0x0000` is the FPGA not running. No stray `sigrok-cli` process is holding the
+devices. The likely cause is a capture killed mid-flight leaving the device
+wedged in a way that firmware re-upload on `--scan` does not clear.
+
+**Recovery needs a USB power cycle of the analyzers.** Worth adding to
+`instrument-control`'s notes: do not kill a Kingst capture with a signal; let it
+reach its sample count or trigger timeout.
+
+### CONFIRMED: `PULL` fires, and the raw encoder edges corroborate `X_ENC`
+
+Both remaining questions answered 2026-09-03, in one instrumented run.
+
+**`PULL` works.** Armed at -8.0 with the joystick presented at -5.0, then
+released and pulled by hand:
+
+```
+ev;PULL;131490670;angle=-8.016
+```
+
+It fired at **-8.016 against a threshold of -8.0** -- one encoder count past the
+crossing -- exactly once, and did not repeat as the joystick continued to
+-20.166 and rested there. Reproduced in two consecutive runs. That is the whole
+trial mechanism end to end: park, present, arm, go compliant, pull, detect.
+
+**And the encoder is independently confirmed.** LA5032 on the LEFT board
+(topology `1-5.2.1`, identified by beacon), capturing `ENC_A`/`ENC_B` at
+200 kSa/s, bounded by `FW_TRIG1` which this firmware now holds high for the whole
+compliant window:
+
+| Source | Displacement | In counts |
+| --- | --- | --- |
+| Raw quadrature edges | **14.490 deg** | **161** (163 transitions, **0 invalid**) |
+| `STATUS`, from -4.999 | 15.167 deg | 168.5 |
+| `STATUS`, from -5.941 (first post-release sample) | 14.225 deg | 158 |
+
+**Agreement is 3 to 8 counts on a ~15 deg pull, 2-5%.** Zero invalid transitions
+means the capture was not under-sampled, so 161 is a value and not a floor. The
+sign difference between the raw decode and `STATUS` is the decoder's arbitrary
+A/B convention against this harness's crossed channels and a positive
+`ENC_CONST` -- not a discrepancy.
+
+This is the measurement the InstrumentPort's encoder taps were put there for.
+`ENC_A`/`ENC_B` reach no RP2040 pin on any revision, so `X_ENC` is otherwise
+unfalsifiable; counting the raw edges is the only thing in the system that can
+contradict it, and it does not. **Every "anomalous" encoder reading earlier in
+this session was real motion**, and the register can be trusted.
+
+Practical note for future captures: `sigrok-cli`'s default capture ratio put
+roughly half the buffer BEFORE the trigger -- a 17.5 s capture yielded 8.8 s of
+pre-trigger data and 9.0 s inside the window. Helpful here, since it also caught
+the presenting moves, but size the post-trigger half deliberately rather than
+assuming the whole capture follows the trigger.
+
+### Travel survey, LEFT joystick — 44 deg and no stop found
+
+Method: temporarily widen `travel_lo` to -45 deg so `moveto` cannot be what ends
+the walk, then step out from the park in 2 deg increments and let the **encoder
+follow check** find the hard stop. That check is the only detector at that end --
+there is no switch there -- and it trips within about 1.4 deg of commanded travel
+that the encoder does not confirm.
+
+**It never tripped.** All 22 steps reached target, and the walk ended only when
+the survey limit itself refused the next one:
+
+| Commanded | `angle` | `xactual` |
+| --- | --- | --- |
+| -2.0 | -1.891 | -1.997 |
+| -10.0 | -10.083 | -9.998 |
+| -20.0 | -20.074 | -19.997 |
+| -28.0 | -28.083 | -27.998 |
+| -36.0 | -36.091 | -36.000 |
+| -44.0 | -44.100 | -43.995 |
+| -46.0 | `nak;743;outofrange` | — |
+
+The encoder tracked the ramp generator to within 0.15 deg at **every** step over
+44 deg. Afterwards the mechanism homed back to `0.0` normally, so the switch was
+found from -44 and the position was reachable in both directions.
+
+**So the firmware's limit of -10.125 deg was wrong by more than a factor of four,
+not three.** It was derived at a desk from `kMeasuredTravelMicrosteps` (4000 =
+28.1 deg), a constant measured on board 2 from the switch, which does not
+describe this mechanism from the park.
+
+### OPEN: 44 deg of WHAT? The encoder cannot answer this one
+
+The measurement above is 44 deg of **motor shaft** rotation. It is not
+necessarily 44 deg of joystick travel, and nothing electrical on this board can
+tell the difference:
+
+- The E4T sits on the motor's **rear shaft** while the gear train is driven from
+  the front ([`docs/harness-pinouts.md`](harness-pinouts.md)), so the encoder
+  measures the motor, not the mechanism.
+- The follow check compares `XACTUAL` against `X_ENC`, and **both are
+  motor-side**. A coupling that slipped downstream of the encoder would leave
+  them in perfect agreement -- which is exactly what was observed.
+- `.agents/AGENTS.md` lists "a slipping coupling" among the things the
+  `XACTUAL`/`X_ENC` divergence detects. On this geometry it does **not**: that
+  detector only sees faults between the ramp generator and the motor shaft.
+
+Evidence on both sides. **For it being real travel:** the mechanism homed
+successfully from -44, and homing requires the MECHANISM to move far enough to
+actuate the switch. **Against:** the recorded travel is 28 deg, an earlier hand
+pull stopped and sat at -28.083 for 14 s as though against a stop, and homing
+from a slipped position near the switch would also succeed quickly.
+
+The homing duration would separate them -- 44 deg at the 0.200 rev/s approach is
+~610 ms against ~100 ms from near the switch -- but the timing was not captured
+at the resolution needed.
+
+**This wants eyes on the mechanism, not another electrical measurement.** Does
+the joystick handle actually swing through the full 44 deg, and is there a hard
+stop at the negative end at all? Until that is answered the 44 deg figure should
+NOT be written into the travel limits: setting them from a slipping coupling
+would let a task command positions the joystick cannot reach.
+
+The shipped limit is left at the old conservative value. It is known wrong and
+known safe, which is the right way round while the question is open.
+
+### RESOLVED: 44 deg was real, the gearing is 1:1
+
+Peter: **the motor-to-joystick gear ratio is 1:1**, and the full swing may be as
+much as 60 deg. That settles the slipping-coupling question: motor shaft angle IS
+joystick angle, the encoder sits on the motor shaft, so a blocked mechanism stops
+the encoder while `XACTUAL` advances -- which is exactly what the follow check
+tests. The survey simply had not gone far enough.
+
+### The negative hard stop, ONE valid measurement
+
+Widening the survey limit to -75 deg and walking out in **2 deg** steps, the
+follow check tripped:
+
+```
+state=FAULTED;angle=-55.174;xactual=-57.403;faults=4   (not_following)
+```
+
+The encoder stopped at **-55.174 deg** -- the mechanism against its stop -- while
+the ramp generator pushed 2.229 deg further before the check evaluated.
+
+With the park sitting one 9.000 deg clearance step off the switch:
+
+| | deg | encoder counts | microsteps |
+| --- | --- | --- | --- |
+| 1 encoder count | 0.0900 | 1 | 12.8 |
+| switch -> park | 9.000 | 100 | 1280 |
+| park -> hard stop | 55.174 | 613 | 7847 |
+| **FULL SWING** | **64.174** | **713** | **9127** |
+
+64.2 deg is consistent with Peter's estimate of up to 60 deg.
+
+**This is ONE measurement, not a repeatable figure.** Two apparent repeats were
+retracted -- see below -- and later attempts gave inconsistent results. Treat
+64.2 deg as a single observation of the right order, not a calibration.
+
+### RETRACTED: the "three identical measurements" claim
+
+Three readings of `angle=-55.174` were reported as independent repeats. They were
+the **same reading three times**. `clrfault` was refusing with `latched`, so the
+subsequent `home`, `arm` and `moveto` all naked, and the loop broke on the first
+`status` still showing the stale fault. Byte-identical results across three runs
+should have been read as suspicious rather than as precision.
+
+### Firmware bug: a motion fault could not be cleared
+
+`clrfault` answered `nak;latched` forever after a `not_following` fault, because
+backend faults were raised with `cause_active = true`. **The remedy for being
+against a stop is to move, and motion is refused while faulted** -- so the only
+exit was a reset, and it silently invalidated the measurements above.
+
+Fixed: every fault this board raises is now clearable. The draft's "clears only
+faults whose cause has gone" is not implementable for causes the board cannot
+probe without retrying -- whether the mechanism is still stuck, whether the rail
+will come up, whether CHOPCONF reads back 1. The board clears and re-faults
+instead, which is recoverable and reports just as loudly. **Raise this against
+the draft's CLRFAULT wording.**
+
+### Firmware bug: small moves had NO stall detection at all
+
+The more serious one. `startMoveTo()` re-seeded the follow-check window on every
+move, and the window only evaluates once **200 microsteps (1.4 deg)** of
+commanded travel accumulate. So any move smaller than 1.4 deg reset the window
+before it could ever evaluate, and **was never follow-checked**.
+
+Observed directly: walking to the stop in 2 deg steps faulted correctly at
+-55.174, while the same walk in 0.25 deg steps ran to -58 and -60 deg with no
+fault at all, pushing the motor against the stop repeatedly with nothing
+noticing.
+
+**Small commanded moves are exactly what a trial does**, so this was a stall
+detector that switched itself off for the normal case. Fixed by letting the
+window persist across moves and re-seeding it only where `XACTUAL` is written out
+from under the check: the homing datum, the park datum, a compliance resync, and
+bus bring-up.
+
+### OPEN: the mechanism may have been left jammed
+
+After those unprotected walks, **homing now faults immediately**:
+
+```
+ack;582
+ev;FAULT;35158468;code=3;detail=mechanical_stop_first
+state=FAULTED;angle=0.267;xactual=1.413;homed=0;limit=0;faults=8;hv=0
+```
+
+The approach commanded 1.413 deg and the encoder returned 0.267 -- a ratio of
+0.19, below the 0.25 threshold -- with the limit switch NOT asserting. So the
+mechanism is not following at the POSITIVE end, and it is not the switch stopping
+it.
+
+Candidates, not separated: the mechanism is jammed against something after being
+driven into the negative stop without detection; the joystick is resting at a
+positive limit the switch does not cover; or the follow check is now tripping on
+acceleration lag at the 0.200 rev/s homing velocity, since the window is no
+longer re-seeded at the start of each move and evaluates at a different point in
+the ramp.
+
+**That last possibility is a real risk introduced by the fix and must be ruled
+out before trusting it.** The original blocking `moveTo()` re-seeds per move
+precisely so "acceleration from standstill and the encoder's 12.8 microstep
+quantum cannot trip it".
+
+**This wants eyes on the mechanism before any more motion.** Does the joystick
+move freely by hand through its full swing, or is it caught? The board is left
+safe: rail off, driver disabled.
+
+**RIGHT joystick: not surveyed**, and should not be until the left one is
+understood. It also needs `PyControlLink` flashed over the bench console.. **The motor has been
+energised** — note `hv on` brings up the rail and configures the driver but
+leaves `~{TMC_DRV_EN}` high; only `arm` and `home` enable it.
 
 
-### OPEN: the datum sits outside the permitted travel
+### ~~OPEN: the datum sits outside the permitted travel~~ — RESOLVED 2026-09-03
 
-`limits` reports `travel_lo=-19.125` and `travel_hi=-9.0`, derived in
-`examples/PyControlLink` from bench geometry: ~4000 microsteps (~28 deg) of
-travel, less a jog step of margin at each end. Two consequences that want a
-decision rather than discovery:
+The first travel limits were `travel_lo=-19.125`, `travel_hi=-9.0`, with zero at
+the switch edge. That made zero unreachable (driving into the switch is what the
+switch exists to prevent) and parked homing exactly on the inclusive boundary.
 
-- **Zero is not reachable.** The datum is the switch, and driving into the switch
-  is what the switch exists to prevent, so `moveto` to 0.0 answers
-  `outofrange`. Defensible, but it means the position the board calls zero is
-  not a position a host may command, which is at least surprising.
-- **Homing parks exactly on `travel_hi`.** The clearance move leaves the joystick
-  at -9.0, the inclusive boundary. It works, but there is no margin there at all,
-  and the usable range is only ~10 deg of the ~28 deg the mechanism has.
+**Both went away with the park datum.** Zero is now where homing leaves the
+joystick, so it is a commandable position, and travel is `-10.125 .. 0.0`,
+confirmed on hardware:
 
-Neither has been exercised. The supervised run should walk to both ends and
-confirm `moveto` refuses one step past each, and the margins should then be a
-recorded decision rather than a constant chosen at a desk.
+```
+ack;211;travel_lo=-10.125;travel_hi=0.0;v_max=36.0;a_max=3600.0;i_max=0.421
+```
+
+Still not exercised: **walking to each end and confirming `moveto` refuses one
+step past.** The limits remain constants derived from bench geometry rather than
+measured through the protocol, and the margin at the negative end -- a hard
+mechanical stop, which is not a sensor -- has never been approached deliberately.
 
 
 ### `STATUS` hung the core — firmware bug, fixed 2026-09-03
@@ -430,8 +894,25 @@ string that cannot be mistaken for a real id, so forgetting it fails loudly.
 
 | Analyzer, by USB topology | Board it is probing |
 | --- | --- |
-| `1-5.1.4` | `E4654C159F4D1334` (board 2) |
-| `1-5.2.1` | `E4654C159F591D34` (board 3) |
+| `1-5.1.4` | `E4654C159F4D1334` (board 2, RIGHT joystick) |
+| `1-5.2.1` | `E4654C159F591D34` (board 3, LEFT joystick) |
+
+**This table was WRONG for part of 2026-09-03 and the beacon is what caught it.**
+The two analyzers were unplugged and power-cycled to clear a wedged capture, and
+came back in the opposite USB ports -- so the topology-to-board mapping inverted
+while the probe cables stayed put. A capture was taken on the wrong instrument
+before Peter noticed the wrong analyzer was blinking.
+
+That is precisely the failure `usb_topology.py` warns about: the topology path
+identifies the PORT, not the instrument. **Re-run the identity beacon after any
+replug rather than trusting this table** -- it settled the question in one shot,
+decoding `E4654C159F4D1334` from `1-5.1.4`. The mapping above is the state after
+that re-identification.
+
+Incidental hint, not a substitute for the beacon: sysfs shows a product string of
+`Kingst Logic Analyzer` only on an analyzer that has had its firmware uploaded
+this session, and nothing on a freshly power-cycled one. Useful for spotting
+which one has been used, useless for identity.
 
 **Record the topology path, not the `conn=` spec.** An LA5032 reports no USB
 serial number at all, so libsigrok can only address it as
