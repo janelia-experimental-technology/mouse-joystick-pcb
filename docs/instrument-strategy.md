@@ -103,6 +103,45 @@ Options, in preference order:
    different adapter, and captures that are not comparable to the full overlay.
    Do not do this without a specific question it answers.
 
+**RESOLVED IN HARDWARE 2026-09-03: the rig now has two LA5032s, one per
+board.** Option 2 is the physical configuration, not a proposal. What that
+changes and what it does not:
+
+- Option 1's channel arithmetic no longer binds. Note it never bound as tightly
+  as written above for a *specific* question — the encoder/switch capture needs
+  five channels (`DIG0`, `DIG1`, `DIG11`, `TRIG0`, `TRIG1`), not eighteen, so
+  two boards' worth of that overlay would have fitted one 32-channel analyzer
+  all along. The 36-against-32 problem is real only for the full overlay.
+- **Cross-joystick timing is still blocked**, on exactly the condition option 2
+  names: the `RSYNC` fan-out question in `docs/pycontrol-port-pinout.md`. Two
+  captures cannot be aligned until one `RSYNC` output is known to be able to
+  drive both boards.
+- A new problem arrives with the second analyzer, and it is a bookkeeping one:
+  **an LA5032 reports no USB serial number**, so two of them are
+  indistinguishable in USB descriptor space. libsigrok can only address them as
+  `conn=<busnum>.<devnum>`, which changes when the firmware upload re-enumerates
+  the device — observed going 21,22 → 23,24 across a single `--scan` with no
+  cable touched, *with the relative order inverting*. A capture attributed to the
+  wrong joystick is worse than a missing one, and nothing in a `.sr` file would
+  reveal it later.
+
+  The fix is the **identity beacon**: each board clocks its own serial out of
+  `FW_TRIG0`/`FW_TRIG1` on command, so a capture identifies its own source.
+  It needs no 36 V, because `U1801` is on `+3.3V_MCU`. The current mapping and
+  the procedure are in [`docs/bringup-log.md`](bringup-log.md) under "Instruments
+  Attached To This Rig"; the frame contract is
+  `../board-interfaces/docs/instrument-port-identity-beacon.md`; the host tools
+  are in `../instrument-control`.
+
+  This also settles, in passing, the "agent-accessible observation" goal listed
+  above: an agent can now establish which instrument is on which board without
+  physical access to the rig.
+
+- The question the option list leaves open is unchanged and still wants
+  answering: **whether cross-joystick timing is a question the rig actually
+  needs.** Two analyzers being present is not the same as two analyzers being
+  needed during experiments.
+
 **Do not solve this by widening InstrumentPort-40 in this repository.** If the
 profile is genuinely too narrow, raise it in `board-interfaces`.
 

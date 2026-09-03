@@ -23,17 +23,76 @@ independently calibrated and independently suspect.
 
 ## Boards In This Rig
 
-Two units, both **rev 0**. `v0.1`→`v0.2` is layout-only — same schematic,
-byte-identical pad-to-net map — so measurements transfer between the tags but
-**not between the units**. Keep them apart; that is what the serials are for.
+**Three units are now known, not two.** `v0.1`→`v0.2` is layout-only — same
+schematic, byte-identical pad-to-net map — so measurements transfer between the
+tags but **not between the units**. Keep them apart; that is what the serials
+are for.
 
 | Unit | RP2040 flash unique ID | State |
 | --- | --- | --- |
-| **Board 1** | `E4654C159F2C2534` | Stage 1 + stage 2 passed. **`R203` DEPOPULATED 2026-09-02** — `LATCH` released, so a plain `HV_EN` assertion works on this unit and it no longer represents an as-built board |
+| **Board 1** | `E4654C159F2C2534` | Stage 1 + stage 2 passed. **`R203` DEPOPULATED 2026-09-02** — `LATCH` released, so a plain `HV_EN` assertion works on this unit and it no longer represents an as-built board. **Not attached to the bench on 2026-09-03** |
 | **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
+| **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. Observed on USB, running `examples/MotionAndHoming`, `+3.3V_SW` idle at 0.0161 V. **No stage measurements have been recorded for this unit** — treat every number in this file as belonging to another board until it is measured here |
+
+**On board 3.** It was found attached to the bench on 2026-09-03 and its serial
+appears nowhere in any repository before that date. It is not board 1 with a
+mis-transcribed id: board 1 has `R203` depopulated and board 3 has it intact,
+which is a physical difference rather than a bookkeeping one. Whether it is a
+newly built unit or one that predates this log is not recorded; what matters
+here is that **it carries no measurement history**, and that the two boards on
+the bench as of 2026-09-03 are boards 2 and 3.
+
+A consequence worth stating because it has already caused confusion: the console
+harness examples in this file and in `../mouse-joystick-firm/docs/` that name
+`/dev/ttyACM0` were written when that was board 2. With boards 2 and 3 attached,
+`/dev/ttyACM0` is board 3. **Address boards by `/dev/serial/by-id/`**, which
+carries the serial, and never by `ttyACM` number.
 
 Everything from here to [Board 2](#board-2--e4654c159f4d1334) is **board 1**
 unless a line says otherwise.
+
+## Instruments Attached To This Rig
+
+**Two LA5032s, one per board, established by identity beacon 2026-09-03.**
+
+| Analyzer, by USB topology | Board it is probing |
+| --- | --- |
+| `1-5.1.4` | `E4654C159F4D1334` (board 2) |
+| `1-5.2.1` | `E4654C159F591D34` (board 3) |
+
+**Record the topology path, not the `conn=` spec.** An LA5032 reports no USB
+serial number at all, so libsigrok can only address it as
+`conn=<busnum>.<devnum>` — and that changes when the firmware upload
+re-enumerates the device. Two analyzers were seen moving from addresses 21,22 to
+23,24 across one `sigrok-cli --scan` with nothing touched, *and their relative
+order inverted*. The sysfs topology path is the hub port and is stable until a
+cable moves.
+
+How the mapping was established, and how to redo it after any recabling: each
+board clocks its own flash unique id out of `FW_TRIG0`/`FW_TRIG1` on command
+(the `I` command, `SelfTest::emitIdentityBeacon()`), so each analyzer identifies
+itself by what it recorded rather than by elimination. Both analyzers decoded
+the serial of the board they were wired to in a single pass. Run
+`tools/identify_boards.py` in `../instrument-control`.
+
+**This needs no 36 V and no motion**, which is the property that makes it usable
+before anything is energised: `U1801` runs from `+3.3V_MCU` and reaches `J1501`
+through 33 Ω series resistors. Verified pad-to-net at tag `v0.2` — `U501`
+pad 37 (`GP25`) → `FW_TRIG0` → `U1801` pad 5 → pad 6 → `R1803` → `J1501`
+pin 26, and `U501` pad 32 (`GP21`) → `FW_TRIG1` → `U1801` pad 9 → pad 8 →
+`R1804` → `J1501` pin 28. Both boards' rails read off throughout: 0.0161 V and
+0.0355 V.
+
+Measured incidentally, and worth having: the beacon's frame-start pulse captured
+at **50.0 ms (5005 samples at 100 kSa/s)** against a firmware-specified 50 ms.
+That is a check on the RP2040 timebase and on the whole buffer chain, taken
+without energising anything. The frame contract is
+`../board-interfaces/docs/instrument-port-identity-beacon.md`.
+
+**Two analyzers means this rig is now in option 2 of
+[`docs/instrument-strategy.md`](instrument-strategy.md)**, not option 1. Nothing
+cross-joystick is possible yet — that still needs the `RSYNC` fan-out question
+answered.
 
 ## Board 1 — `E4654C159F2C2534`
 
