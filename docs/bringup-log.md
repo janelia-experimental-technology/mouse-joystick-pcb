@@ -32,7 +32,21 @@ are for.
 | --- | --- | --- |
 | **Board 1** | `E4654C159F2C2534` | Stage 1 + stage 2 passed. **`R203` DEPOPULATED 2026-09-02** — `LATCH` released, so a plain `HV_EN` assertion works on this unit and it no longer represents an as-built board. **Not attached to the bench on 2026-09-03** |
 | **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
-| **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. Observed on USB, running `examples/MotionAndHoming`, `+3.3V_SW` idle at 0.0161 V. **No stage measurements have been recorded for this unit** — treat every number in this file as belonging to another board until it is measured here |
+| **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. **Drives the LEFT joystick** (Breakout 1.2 port 1). First stage-4 result recorded 2026-09-03 — see [Board 3, stage 4](#board-3--e4654c159f591d34--stage-4-protocol). No stage 1, 2 or 3 measurements exist for this unit; treat every motion number in this file as belonging to another board until it is measured here |
+
+**Which board drives which joystick — established 2026-09-03.**
+
+| Joystick | Breakout 1.2 port | Board serial |
+| --- | --- | --- |
+| **Left** | 1 (`UART4`) | `E4654C159F591D34` |
+| **Right** | 4 (`USART3`) | `E4654C159F4D1334` |
+
+This had been a standing gap: the mirrored harnesses make the boards
+interchangeable, so nothing in the mechanism records which one is where, and a
+per-board calibration is meaningless without it. It was closed by the protocol
+`ID` reply — the board announced its own serial on the port it was wired to,
+which is exactly what `ID` carries a serial for. Re-establish it the same way
+after any recabling rather than trusting this table.
 
 **On board 3.** It was found attached to the bench on 2026-09-03 and its serial
 appears nowhere in any repository before that date. It is not board 1 with a
@@ -50,6 +64,365 @@ carries the serial, and never by `ttyACM` number.
 
 Everything from here to [Board 2](#board-2--e4654c159f4d1334) is **board 1**
 unless a line says otherwise.
+
+## Board 3 — `E4654C159F591D34` — Stage 4, Protocol
+
+**First protocol contact over the RJ-45, 2026-09-03. Passed, with the 36 V
+supply off.** Firmware `examples/PyControlLink`. Peer was a pyControl Breakout
+1.2 on port 1, driven from the pyboard's REPL with `machine.UART(4)` directly --
+no pyControl framework, no hardware definition, no device class. Deliberately:
+first contact should not have the framework as a second unknown, which is the
+same reason stage 2 proved the SPI bus with raw datagrams before using TMC51X0.
+
+Sent `id;11`, received:
+
+```
+ack;11;hw=rev0;serial=E4654C159F591D34;fw=0.0.0;proto=1;axes=1;caps=motion+home+freewheel+instr+hv;rxbuf=120
+```
+
+What that one line establishes, none of which had been shown on hardware before:
+
+- **The UART wiring and polarity.** Controller `DIO-A` (pin 1) reaches this
+  board's `UART0 RX`, and this board's TX reaches `DIO-B` (pin 4). A crossed
+  cable would have produced silence.
+- **The baud rate.** 115200 requested, `UART4` achieving 115384 (+0.16%). A
+  complete 108-character reply with no framing errors.
+- **The framing codec on real hardware**, byte-identical in shape to the corpus
+  case `id-reports-version-serial-and-axis-count`.
+- **`ID` answers before ARM and with the motor rail off**, which the protocol
+  requires and which is what makes it safe to use for discovery.
+- **Port 1 = `UART4`** on the deployed breakout, as `devices/breakout_1_2.py`
+  says.
+
+### The read-only surface, verified after the `STATUS` fix
+
+Same board and port, 2026-09-03, still with the 36 V supply off. Ten commands,
+deliberately with the USB mirror **not** being drained, so the mirror's
+non-blocking guard was exercised at the same time.
+
+| Sent | Received |
+| --- | --- |
+| `id;40` | `ack;40;hw=rev0;serial=E4654C159F591D34;fw=0.0.0;proto=1;axes=1;caps=motion+home+freewheel+instr+hv;rxbuf=120` |
+| `status;41` | `ack;41;state=IDLE;angle=0.0;xactual=0.0;homed=0;limit=0;faults=0;hv=0` |
+| `limits;42` | `ack;42;travel_lo=-19.125;travel_hi=-9.0;v_max=36.0;a_max=3600.0;i_max=0.421` |
+| `ping;43` | `ack;43` |
+| `hv;44;state` | `ack;44;hv=0` |
+| `ping` (no seq) | `nak;?;badframe` |
+| `wibble;45` | `nak;45;badverb` |
+| `moveto;46;-12.0` | `nak;46;notarmed` |
+| `freewheel;47` | `nak;47;notarmed` |
+| `status;48` | `ack;48;state=IDLE;angle=0.0;xactual=0.0;homed=0;limit=0;faults=0;hv=0` |
+
+Two of those carry more than they look like:
+
+- **`moveto;46;-12.0` proves an ordering, not just a refusal.** -12.0 is *inside*
+  the travel this board just reported, so `notarmed` rather than `outofrange`
+  shows ARMED is checked before the range check on real hardware. That is the
+  safety-relevant ordering the shared corpus did not pin until mutation testing
+  forced a case for it.
+- **`status;48` answering at all** is the fix for the hang above, confirmed after
+  nine prior commands and all the mirror traffic they generated.
+
+### `hv on` passed, 2026-09-03 — and it is board 3's first power-chain result
+
+36 V on `J201`, supply on. `hv;51;on` answered **`ack;51`**, and `hv;52;state`
+then reported `hv=1`.
+
+That single ack covers a lot of code that had never executed, and it is more than
+a protocol result: **this is the first time the 36 V chain, the GPIO isolation
+bus switch and TMC5130A communications have been exercised on board
+`E4654C159F591D34` at all.** The board previously had no stage 1, 2 or 3 numbers.
+An `ack` is only returned if every one of these succeeded:
+
+- `PowerSequence::powerUp()` brought `+3.3V_SW` up and the RP2040's own ADC
+  **measured** it crossing threshold. So `R203` is fitted on this unit as
+  expected and the firmware staircase works here, exactly as it does on board 2.
+- `connectBus()` closed the isolation bus switch.
+- `beginSpi()` started SPI0 and `IOIN.VERSION` read back **0x11**, the TMC5130A
+  signature.
+- `communicating()` true, and `stepAndDirectionMode()` false — SD_MODE is tied
+  to GND as designed, so SPI motion commands will actually do something.
+- `MotionSetup::configure()` ran, which zeroes `XACTUAL`, the target and `X_ENC`.
+
+**Stability:** `status` at t+0, t+3 s and t+10 s all read
+`state=IDLE;angle=0.0;xactual=0.0;homed=0;limit=0;faults=0;hv=1`, and `faults`
+reported `mask=0`. No spurious fault with the rail live and the bus closed.
+
+The zeros are expected rather than suspicious — `configure()` zeroes all three
+registers — but note they do **not** prove the position cache is live, because a
+broken cache would also read zero. That is the next thing to check, and it can be
+checked with the driver still disabled by moving the joystick by hand.
+
+### The encoder cache is live, and `angle`/`xactual` genuinely diverge
+
+With the rail up and the driver still **disabled**, the joystick was moved by
+hand and `status` read twice:
+
+```
+ack;80;state=IDLE;angle=-22.866;xactual=0.0;homed=0;limit=0;faults=0;hv=1
+ack;81;state=IDLE;angle=-22.866;xactual=0.0;homed=0;limit=0;faults=0;hv=1
+```
+
+Four things at once, none previously shown on hardware:
+
+- **The position cache is live.** It went from 0.0 to -22.866 with no commanded
+  motion, so `poll()` really is refreshing it from the encoder every pass. The
+  fix for the `STATUS` hang is correct, not merely safe -- a broken cache would
+  have kept reading zero and looked identical to a working one at rest.
+- **The encoder counts**, and 22.866 deg = 3252 microsteps is a plausible
+  fraction of the ~4000 microsteps of measured travel.
+- **`angle` and `xactual` genuinely diverge.** The encoder moved and the ramp
+  generator did not. This is the concrete case behind open question 5 in
+  `uart-protocol.md` -- with a compliant state, "position" is two quantities --
+  demonstrated on hardware rather than argued.
+- **No fault was raised**, which is correct: divergence in a non-driving state is
+  the joystick being moved, not a stall. That distinction is the rule the
+  protocol layer must preserve.
+
+**Do not read -22.866 as an absolute position.** The board was unhomed, so zero
+was wherever `configure()` last zeroed the registers, not the switch. The value
+is meaningful as a *change* and says nothing about the travel limits.
+
+### Two more firmware bugs of the same class, found and fixed 2026-09-03
+
+Both were fields that could not fail loudly, which is why they needed hardware
+to find.
+
+- **`status`'s `limit` was a hardcoded 0.** `limit_asserted_` was a member that
+  nothing ever assigned. A host could have used it to decide homing was safe to
+  start -- and it was about to be used that way during this very bring-up. It now
+  comes from `RAMP_STAT.status_stop_r/l`, chosen by which end the switch is on,
+  taken from the snapshot already read rather than a second register access.
+  Those bits are plain status, not read-and-clear, and reflect the pin whether or
+  not the hardware stop is armed, which is what makes them usable for reporting.
+- **The homing approach had no encoder follow check.** The validated
+  `homeToSwitch()` runs its approach through `moveTo()`, which has one:
+  `kNotFollowing` maps to `HomeOutcome::kMechanicalStopFirst`. The non-blocking
+  version commanded the target directly with no such check, making it strictly
+  weaker than the implementation stage 3 proved -- and weaker exactly where it
+  matters, since the approach commands 102400 microsteps (720 deg at the motor
+  shaft) against a mechanism with 28 deg of travel, relying entirely on the
+  chip's switch stop to end it. If the switch never asserts, nothing noticed the
+  mechanism had stopped and the motor pushed against it until the 8 s timeout.
+  The check is now in all four motion phases, with thresholds taken from
+  `Conversions.hpp` so it and `moveTo()` cannot drift apart.
+
+`hv on` was repeated after these fixes and answered `ack` again, with
+`limit=0` now a real reading.
+
+### The full motion path, under protocol control — 2026-09-03
+
+`hv on` -> `home` -> `arm` -> `moveto` -> `disarm`, all over the RJ-45 from the
+pyboard, with the motor moving. Representative sequence:
+
+```
+ack;190                                          hv on
+ack;191   ev;HOMED;66447906;angle=-7.741          home
+ack;200                                          arm
+ack;201   ev;TARGET;94551056;angle=-14.766        moveto -16.0, ~100 ms later
+ack;202;state=ARMED;angle=-14.766;xactual=-15.996;homed=1;limit=0;faults=0;hv=1
+ack;203                                          disarm
+```
+
+Established:
+
+- **Homing repeats.** `angle` at the parked position over four homes:
+  -7.741, -7.741, -7.65, -7.741. A 0.09 deg spread is about one encoder count,
+  consistent with the 2-5 counts measured on board 2 in stage 3.
+- **Commanded moves track.** Between the two `status` reads above, XACTUAL moved
+  -6.996 deg and the encoder -6.933 deg: a **follow ratio of 0.991**. The motor
+  goes where it is told.
+- **The heartbeat works, including the resolved retransmission rule.** About 150
+  consecutive `ping;9` -- the *same* sequence number every time, byte-identical
+  -- were each answered and each refreshed the watchdog. Under the draft's
+  original rule those would have been served from cache and the safety timeout
+  would have expired while the host was receiving acks. This is open question 1
+  demonstrated on hardware.
+- **`disarm` stands the watchdog down cleanly**, so a session can end without
+  provoking a fault.
+- **Fault recovery works.** `clrfault` after a `host_timeout` returned `ack`,
+  state went to `IDLE` with `homed=0`, and a fresh `hv on` + `home` succeeded.
+  `hv on` being needed again confirms the fault really did drop the rail.
+
+### Measured: the host must poll faster than the draft implies
+
+At **40 ms** pings against the 100 ms timeout, the board faulted `host_timeout`
+21 ms after a move completed. At **20 ms** pings the identical sequence ran
+clean, 140 iterations, no fault.
+
+The cause was an ordering defect, now fixed: the watchdog was evaluated before
+the link was read, so a heartbeat that had already ARRIVED but was not yet parsed
+did not count -- the board could fault on a ping sitting in the UART's receive
+buffer. Reading first closes it.
+
+Worth keeping even so: 40 ms was chosen as "comfortably inside 100 ms" and it was
+not. `tasks/mouse_joystick_check.py` pings at 40 ms. **Re-measure the margin
+after the fix rather than assuming it is now fine.**
+
+### CORRECTION to existing firmware: `ENC_LATCH` is always 0 on rev 0
+
+Found while trying to fix the datum offset below, and it applies to the
+**validated** stage 3 code, not just the new protocol firmware.
+
+`MotionSetup::moveTo()` fills `report.latch_encoder` from `ENC_LATCH`, and
+`homeToSwitch()` fills `report.coarse_encoder` and `report.fine_encoder` from it.
+**`ENC_LATCH` latches `X_ENC` on the encoder's N (index) event, not on the
+reference-switch event that fills `XLATCH`.** Rev 0 leaves the encoder index
+no-connect with `ENCN` terminated by `R1201` 10 kOhm
+([`docs/interface-map.md`](interface-map.md)), so there is never an N event and
+the register is permanently 0.
+
+Every encoder-latch number those reports carry is therefore structurally zero, on
+this revision, by construction. Any stage 3 report that shows one should be read
+as "no data", not as a measurement. Same class as the `limit` field above: a
+reported number that cannot carry information.
+
+### RESOLVED: the position-frame offset, by zeroing both frames at the park
+
+`STATUS` reports `angle` (encoder) and `xactual` (ramp generator). After homing
+they differed by a constant ~1.2 deg / 166 microsteps, so a host commanding
+-16.0 read back -14.766 on a ~10 deg usable range.
+
+**Peter's fix: zero BOTH frames after the clearance move, not at the switch
+edge.** Two earlier attempts failed -- one because `ENC_LATCH` is permanently 0
+on rev 0 (below), one whose arithmetic never closed -- and this is better than
+either, because it fixes more than the offset:
+
+| | Before | After |
+| --- | --- | --- |
+| `moveto -8.0` reads back | -6.8 (offset ~1.2) | **-8.016** |
+| `ev;HOMED` reports | `angle=-7.741` | **`angle=0.0`** |
+| Is zero commandable? | no, outside travel | **yes, it is the park** |
+| Travel limits | -19.125 .. -9.0 | **-10.125 .. 0.0** |
+
+Measured after the change: `moveto -8.0` -> `angle=-8.016`, `xactual=-7.995`;
+the two frames agree to 10 microsteps, under one encoder count. A `moveto 0.0`
+round trip returned without fault.
+
+Why this is the better datum, beyond removing the offset:
+
+- **Zero means something.** It is where homing leaves the joystick, so it is a
+  position a host can command rather than one the travel limits exclude, and the
+  "homing parks exactly on `travel_hi`" edge noted earlier is gone.
+- **The firmware and the shared corpus stop disagreeing.** The corpus expects
+  `ev;HOMED;...;angle=0.0` and the hardware now reports exactly that. The
+  previous datum made the two implementations differ on a corpus-pinned value.
+- What is kept from the old scheme: `XACTUAL` is still re-based to `XLATCH`
+  first, so the clearance move is measured from the switch EDGE rather than from
+  wherever the chip stopped. The stop position varies with approach velocity (89
+  microsteps at 0.200 rev/s against 4.5 at the creep); the latch does not.
+
+### Two further firmware bugs found by the same runs
+
+**The homing approach keyed off the wrong flag.** An approach that started ~25
+deg from the switch reached it -- `status` showed `limit=1` -- and then sat until
+the 8 s timeout, faulting `home_timeout` with the joystick resting on the switch.
+Four earlier homes, all starting near the switch, had succeeded.
+
+`status_latch_*` are READ-AND-CLEAR, so whether a poll catches them depends on
+its timing against the edge; `status_stop_*` are plain status bits that survive
+polling. The validated `homeToSwitch()` already knows this -- it keys off
+`kSwitchStopped` and treats the latch as a preference, with an explicit fallback
+to reading `XLATCH` later. The non-blocking version had no fallback, so a missed
+flag was a hang. Now keyed off the stop bit, with `XLATCH` read afterwards, which
+is safe because the chip writes it at the edge and reading does not clear it.
+
+**`ev;HOMED` reported a stale angle.** The event carried the cached position from
+*before* the datum writes -- observed as `ev;HOMED;...;angle=8.459` immediately
+followed by a `status` reading `angle=0.0`. The event is the thing a host
+timestamps and records, so it is the one that must not be stale. The cache is now
+refreshed as part of applying the datum.
+
+### CORRECTION: the `host_timeout` faults were the test harness, not the firmware
+
+Earlier in this session two `host_timeout` faults were attributed to firmware --
+a real ordering defect was found and fixed (the watchdog was evaluated before the
+link was read, so a heartbeat already in the UART buffer did not count, and
+reading first closes that race). **But the faults that were actually observed
+were caused by the test harness.**
+
+Instrumenting the loop period showed it running at **72 ms per iteration, not the
+20 ms intended**: MicroPython's `UART.read()` blocks for the configured `timeout`
+when the buffer is empty, so a `timeout=50` added 50 ms to every pass. The
+"20 ms pings" were 72 ms and the "40 ms pings" were ~90 ms, both against a 100 ms
+watchdog. With `timeout=20` the same sequence runs clean.
+
+So the recorded claim that the host must poll faster than the draft implies is
+**withdrawn as a measurement.** The ordering fix stands on its own merits, and
+the real margin is unmeasured. Set the UART read timeout deliberately before
+timing anything on this link -- and note `tasks/mouse_joystick_check.py` pings at
+40 ms, which is fine at a 100 ms timeout if the poller is actually prompt.
+
+### End state
+
+`disarm`, then `hv;off` -> `ack`. Rail down, driver disabled, board left safe.
+The final `status` froze mid-return-move at `angle=-0.816;xactual=-0.211`; a
+0.6 deg gap there is ordinary dynamic lag of the encoder behind the ramp
+generator, captured because the fault stopped the cache updating, and not a
+datum error -- at rest the two agree to under one encoder count.
+
+Still not shown on hardware: `freewheel` while armedStill not shown on hardware: `freewheel` while armed, `armpull`, and the
+compliant-state resync. **The motor has been energised** — `hv on` brings up the
+rail and configures the driver but leaves `~{TMC_DRV_EN}` high; only `arm`
+enables it.
+
+
+### OPEN: the datum sits outside the permitted travel
+
+`limits` reports `travel_lo=-19.125` and `travel_hi=-9.0`, derived in
+`examples/PyControlLink` from bench geometry: ~4000 microsteps (~28 deg) of
+travel, less a jog step of margin at each end. Two consequences that want a
+decision rather than discovery:
+
+- **Zero is not reachable.** The datum is the switch, and driving into the switch
+  is what the switch exists to prevent, so `moveto` to 0.0 answers
+  `outofrange`. Defensible, but it means the position the board calls zero is
+  not a position a host may command, which is at least surprising.
+- **Homing parks exactly on `travel_hi`.** The clearance move leaves the joystick
+  at -9.0, the inclusive boundary. It works, but there is no margin there at all,
+  and the usable range is only ~10 deg of the ~28 deg the mechanism has.
+
+Neither has been exercised. The supervised run should walk to both ends and
+confirm `moveto` refuses one step past each, and the margins should then be a
+recorded decision rather than a constant chosen at a desk.
+
+
+### `STATUS` hung the core — firmware bug, fixed 2026-09-03
+
+The first `status` sent after `id` produced no reply, and the board then stopped
+answering the link **and** stopped honouring the 1200 baud reset touch, so it
+could not be reflashed. Recovery needed `SW501` held through a power cycle with
+**both USB and the RJ-45 unplugged** — the ORing diodes mean pulling USB alone
+leaves the board alive on pyControl's 5 V, exactly as
+[`docs/interface-map.md`](interface-map.md) warned.
+
+Cause: `TmcMotion::angleDeg()` and `xactualDeg()` read position over SPI, and
+`STATUS` calls both. `STATUS` is specified "safe at any time", so a `status`
+before `hv on` reached for SPI0 before `beginSpi()` had ever run, with the GPIO
+isolation bus switch still open.
+
+**The shared corpus could not have caught this, and that is the lesson worth
+keeping.** The corpus case `status-is-safe-before-anything-is-configured` passes
+on the host because the host's motion backend just returns a number. A corpus
+held by two implementations pins protocol **behaviour**; it says nothing about
+**hardware preconditions**, because one of the two implementations has no
+hardware. Do not read a green corpus as "the firmware is right", only as "the
+two ends agree about the wire".
+
+Fixed by making position a cache refreshed once per poll and forbidding any SPI
+access unless the bus is up. Two side benefits: several bus transactions per
+reply removed, and a pull in `FREEWHEEL` is now visible at all -- the encoder
+moves there with no commanded motion, so a cache refreshed only during a move
+would have reported a stale angle for the whole pull.
+
+### Also fixed: `ID` reported a placeholder serial
+
+The first `READY` this firmware emitted carried
+`serial=0000000000000000` -- the corpus's placeholder, because the firmware never
+set it from the flash unique id. Both boards would have reported the same value,
+so a host confirming "am I talking to the board whose calibration matches this
+joystick" would have **passed against the wrong board**. The default is now a
+string that cannot be mistaken for a real id, so forgetting it fails loudly.
 
 ## Instruments Attached To This Rig
 

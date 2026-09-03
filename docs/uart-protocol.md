@@ -389,16 +389,37 @@ command set.
   held to does not move, and this decision was made before that half was
   written rather than after.
 
-## 2. The host timeout is shorter than a long move
+## 2. The host timeout is shorter than a long move — QUANTIFIED 2026-09-03
 
-The cited host timeout is 100 ms (`docs/pycontrol-port-pinout.md`). At a plausible
-180 deg/s an 18 degree move consumes all of it, and the travel range is wider than
-that. A task that issues a long move and waits for `TARGET` is faulted for
-heartbeat loss every time.
+The cited host timeout is 100 ms (`docs/pycontrol-port-pinout.md`). The draft
+asked for the real velocity and the real timeout to be confirmed *together*
+rather than separately. With the firmware protocol layer now wired to real
+motion, here are both:
 
-This may be correct — the host simply must ping during motion — but it should be
-stated rather than discovered. **Confirm the real velocity and the real timeout
-together, not separately.**
+| Quantity | Value | Source |
+| --- | --- | --- |
+| Host timeout | 100 ms | `docs/pycontrol-port-pinout.md` |
+| Commanded velocity | 0.100 rev/s = **36 deg/s** | bench jog velocity, board `E4654C159F4D1334`, 2026-09-02 |
+| Usable travel after homing | ~10 deg | ~28 deg measured, less a jog step of margin at each end |
+| Full-travel move | **~280 ms** | 10 deg at 36 deg/s |
+| Measured homing | **~2530 ms** | 5 of 5 runs, 2026-09-02 |
+
+So a full-travel move spans **about three host timeouts**, and a home spans
+**about twenty-five**. The host must send something during motion; this is not a
+corner case, it is every move and every home.
+
+**It is no longer a design contradiction, because of the resolution to open
+question 1.** The watchdog is reset by the arrival of any well-formed command,
+so a task polling `STATUS` during a move keeps the link alive and gets useful
+data for doing so. Under the original draft only `PING` counted, which made a
+long move a guaranteed spurious fault.
+
+**What is still a decision, not a measurement:** 36 deg/s is the *bring-up jog*
+velocity, chosen to be slow enough to watch. Presenting the joystick to an
+animal may want to be faster, and a faster profile shortens every number above.
+That belongs with the researcher's answer about whether move speed should be
+adjustable — see the profile question in the command table — and not with this
+finding.
 
 ## 3. The command set does not match the trial
 

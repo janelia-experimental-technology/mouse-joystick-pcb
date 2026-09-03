@@ -630,8 +630,33 @@ Still **not** covered, and none of it is a corpus problem:
   have yet.
 - **Two device-class instances not colliding on event names.** Host-side only,
   covered by the Python device-class tests, not by the corpus.
-- Anything on real hardware. This whole gate is still host-side: the firmware
-  protocol layer is not wired to a UART or to real motion.
+**What the corpus does NOT tell you, learned the hard way 2026-09-03.** A corpus
+held by two independent implementations pins protocol **behaviour**. It says
+nothing about **hardware preconditions**, because one of the two implementations
+has no hardware. `status-is-safe-before-anything-is-configured` passed on the
+host and hung the core on the board, because the firmware's `STATUS` reached for
+SPI before the bus existed. Read a green corpus as "the two ends agree about the
+wire", not as "the firmware is right". Full account in
+[`docs/bringup-log.md`](bringup-log.md) under board 3, stage 4.
+
+**First protocol contact on hardware passed 2026-09-03**: `id` over the RJ-45
+with the 36 V supply off, on board `E4654C159F591D34` through Breakout 1.2 port
+1. That covers the "agree on framing and versions" bullet on real hardware for
+one command. Everything past `id` is still unexercised.
+
+- Anything on real hardware. **The firmware protocol layer is now wired** --
+  `examples/PyControlLink` drives UART0 on the RJ-45 and the real TMC5130A
+  through `src/TmcMotion.hpp` -- but it has never been executed. Stage 3
+  validated the *blocking* motion in `MotionSetup`; `TmcMotion` is a faithful
+  non-blocking rearrangement of the same primitives, and faithful is an
+  argument rather than a measurement. Specifically unproven: the non-blocking
+  homing state machine, the travel limits derived from bench geometry, and every
+  timing above. First run belongs on the bench, supervised.
+- Two-stage homing over the protocol. `TmcMotion` homes in a single stage,
+  deliberately: two-stage and single-stage repeatability measured the same (2-5
+  encoder counts) and the slow creep buys datum accuracy, not precision. The
+  cost is a datum that moves with approach velocity — 89 microsteps of offset at
+  0.200 rev/s against 4.5 at the creep.
 
 ## Gate D: Bench Operation
 
