@@ -293,6 +293,194 @@ availability is not an argument against the two-board form factor. Total I/O
 across the whole rig still is — see
 `docs/relationship-to-twin-axis-board.md`.
 
+**Correction, 2026-09-03: on the deployed rig there is no room to spare.** The
+paragraph above counts ports in the abstract. Counted against what Rig 1
+actually uses, the 1.2's three UART ports are **exactly** enough for two boards
+and nothing else, and taking them collides with a reservation. See below.
+
+## Port Assignment On Rig 1 — Assigned 2026-09-03
+
+**Ports 1 (`UART4`) and 4 (`USART3`)** for the two boards, with the reward
+solenoid on port 5 and `LaserLickPort` keeping port 3. Port capability was
+verified against the live controller rather than inferred; the allocation itself
+rests on one change that is requested but not yet confirmed.
+
+**Status of each part of this, stated separately because they are not equally
+solid:**
+
+| Claim | Status |
+| --- | --- |
+| Ports 1, 3, 4 have UARTs; 2, 5, 6 do not | **verified on the controller** 2026-09-03 |
+| `UART4`/`USART3`/`USART1` construct at 115200 and take an `IRQ_RXIDLE` handler | **verified on the controller** |
+| `LaserLickPort` needs port 3 (I2C + free `DIO_C`) | **cited** — `LaserLickPort/feature-reports/`, 2026-07-15 |
+| Reward solenoid moved from `port_4.POW_A` to `port_5.POW_A` | **requested of the researcher 2026-09-03, NOT confirmed** |
+| Both links working on ports 1 and 4 | **not attempted** — no board-side protocol firmware exists yet |
+
+**Until the solenoid move is confirmed, port 4 is contested.** A solenoid cable
+still in port 4 means the second board's connector is occupied. The symptom
+would be a link that never answers, not an error — so check the cable and
+`joystick-rig`'s `hardware_definition_joystick.py` before suspecting the
+protocol.
+
+`mouse-joystick-firm/pycontrol/hardware_definitions/mouse_joystick_bringup.py`
+assigns ports 1 and 4 as of 2026-09-03. Ports 1 and 3 also work electrically and
+were the earlier plan; they were given up because port 3 is the one port
+`LaserLickPort` cannot do without, and because 1 + 3 exercises `USART1` rather
+than the `USART3` that will ship. See [the reallocation](#the-collision-and-the-fix)
+below.
+
+### What the controller reports
+
+Read from the connected pyboard itself, not from source:
+
+```
+b = Breakout_1_2()
+b.port_1.UART = 4     b.port_2.UART = None    b.port_3.UART = 1
+b.port_4.UART = 3     b.port_5.UART = None    b.port_6.UART = None
+```
+
+Both candidate UARTs were then constructed at 115200 8N1 and accepted an
+`IRQ_RXIDLE` handler — the exact sequence `MouseJoystick.__init__` performs:
+
+| Port | Peripheral | Bus | Requested | **Achieved baud** | Error |
+| --- | --- | --- | --- | --- | --- |
+| 1 | `UART4` | APB1 | 115200 | **115384** | +0.16% |
+| 3 | `USART1` | APB2 | 115200 | **115226** | +0.02% |
+| 4 | `USART3` | APB1 | 115200 | **115384** | +0.16% |
+
+All three are far inside a UART's tolerance, so **the baud rate is not a
+candidate explanation for any framing problem** found later. Recorded because it
+is cheap now and unavailable once something is failing.
+
+Note the pattern: `UART4` and `USART3` land on the same divisor because both sit
+on APB1, while `USART1` is on APB2 at twice the clock and resolves finer. So the
+**ports 1 + 4 pair gives both boards an identical achieved baud**, and ports
+1 + 3 does not. The difference is electrically irrelevant, but this project's
+premise is that the two stations are interchangeable, and a symmetric pair costs
+nothing.
+
+### Why port 4 looks unavailable, and is not
+
+Port 4 has a UART (`USART3`) and is occupied today for a reason that is physical
+rather than electrical: **the rig's reward solenoid is driven from
+`port_4.POW_A`**, and `POW_A` is pin 3 of the *same eight-pin RJ-45* as
+`DIO-A`/`DIO-B`. One port, one connector, one cable. Source:
+`joystick-rig/pycontrol/hardware_definitions/hardware_definition_joystick.py`
+on branch `source/main`.
+
+That is a cable, not a constraint. The solenoid needs **only a driver line**,
+and all six ports have `POW_A` — so it is the one device in the set that can go
+anywhere, and it is currently sitting on one of only three UARTs.
+
+**`port_4.DIO_C` is a real constraint, and it is permanent.** That pin is `X6`,
+which is `DAC_2` — the live rsync output driving both cameras' Line 3 and OneBox
+IO0. Two consequences:
+
+- Rev 0 leaves RJ-45 pin 5 unconnected, which is correct. **A later revision, or
+  a bench jig, must never drive or pull pin 5 on port 4**: it would fight the
+  rsync DAC and corrupt the alignment fingerprint the whole recording pipeline
+  depends on.
+- A standard 8-conductor patch cable leaves that conductor as an unterminated
+  stub on the rsync net, floating at the board end. Against 25 ms pulses and a
+  2.6 V camera input threshold this is negligible; if a run wants to be
+  perfectly clean, omit pin 5 in the cable.
+
+### The full allocation this was derived from
+
+`joystick-rig` `source/main`, which the local `main` was 37 lines behind:
+
+| Resource | pyboard pin | Use | Status |
+| --- | --- | --- | --- |
+| `BNC_1` | `X12` | camera frame trigger, 150 Hz | in use |
+| `BNC_2` | `X11` | opto TTL gate → Plexon LD-1 → PlexBright | in use, wired 2026-08-27 |
+| `DAC_2` | `X6` | rsync — also `port_4.DIO_C` | in use |
+| `port_4.POW_A` | `X8` | reward solenoid | in use |
+| `DAC_1` | `X5` | free — also `port_3.DIO_C` | reserved for a port 3 lick sensor |
+| `port_3` `DIO_A`/`DIO_B` | `X9`/`X10` | LaserLickPort — **not wired, driver absent** | reserved |
+| `port_1` | `X1`/`X2` | nothing | free |
+
+### The collision, and the fix
+
+**Corrected 2026-09-03.** An earlier version of this section reasoned from
+`DAC_1` alone and suggested "port 2 or 5" for the solenoid. The real constraint
+on the LaserLickPort is stronger, and it names the ports exactly.
+
+**The LaserLickPort needs I2C, not a UART.** It was deliberately converted off
+UART — from `LaserLickPort/feature-reports/`, 2026-07-15:
+
+> "Converted the controlled pyControl optical firmware and Python device layer
+> **from UART to I2C**. The ATtiny optical package at 0x15 and MPR121 at 0x5A now
+> share **port 3 I2C bus 1**, while ATtiny PB1 drives **port 3 `DIO_C`/`X5`** as
+> an active-low optical lick event."
+
+So it does not compete with the joysticks for a UART at all. What it needs is a
+port with **I2C on `DIO_A`/`DIO_B`** *and* **a free `DIO_C`**. On Breakout 1.2:
+
+- I2C exists only on ports **3** (`I2C1`) and **4** (`I2C2`)
+- `DIO_C` exists only on ports **3** (`X5`) and **4** (`X6`)
+- **port 4's `DIO_C` is `X6` = `DAC_2` = the live rsync**
+
+**Port 3 is therefore the only port that satisfies both, and the LaserLickPort
+cannot move.** Note also that I2C and UART both consume `DIO_A`/`DIO_B`, so a
+port serves one or the other, never both — port 3 cannot host a lick port and a
+joystick together.
+
+That fixes the whole allocation, because the solenoid is the only device with no
+special requirement:
+
+| Port | Device | Uses | Why it must be there |
+| --- | --- | --- | --- |
+| **1** | joystick board | `UART4` on `DIO_A`/`DIO_B` | one of only three UARTs |
+| **2** | — | | spare (keeps its `POW_C`) |
+| **3** | LaserLickPort | `I2C1` + `DIO_C` (`X5`) | **only port with I2C and a free `DIO_C`** |
+| **4** | joystick board | `USART3` on `DIO_A`/`DIO_B` | the remaining UART |
+| **5** | reward solenoid | `POW_A` (`X21`) | needs only a driver line — **move requested 2026-09-03, unconfirmed** |
+| **6** | — | | spare, but `DIO_B` is `X11` = `BNC_2` |
+
+**Port 5 specifically**, not 2 or 6: all four of port 5's lines (`Y5`, `Y6`,
+`X21`, `X22`) are untouched by anything else in the rig, whereas port 2 has a
+third driver line worth preserving and port 6's `DIO_B` is electrically the same
+pin as `BNC_2`, the opto TTL gate.
+
+The firmware cost is one line in the rig's hardware definition:
+
+```python
+solenoid = Digital_output(pin=board.port_5.POW_A)   # was port_4.POW_A
+```
+
+plus moving one cable. Record the port 4 pin 5 rule next to it, so nobody later
+adds a `DIO_C` device to that port.
+
+**Requested 2026-09-03; not yet confirmed done.** This edits `joystick-rig`'s
+canonical hardware definition, which this repository does not own — so the
+change belongs to whoever runs the rig, and this document assumes it rather than
+asserting it. Two things to check when it is reported complete:
+
+- `hardware_definition_joystick.py` on `source/main` reads
+  `board.port_5.POW_A`, and the rig's pyboard has had that definition
+  **re-loaded** — editing the file on disk does not change the board.
+- The solenoid still fires. Port 5's `POW_A` is `X21`, a different pyboard pin
+  from port 4's `X8`, so this is a real functional change and not a relabelling.
+
+For bench work nothing occupies any port on the bench controller, so ports 1 and
+4 can be used immediately — which is the argument for using them from the start
+rather than testing on 1 + 3 and migrating later.
+
+**Alternatives checked and rejected.** The pyControl **Port Expander** runs eight
+behaviour ports from one, but over I2C — so it competes for exactly the scarce
+resource and does not help. The **Port Adapter** is a screw-terminal breakout,
+useful for wiring the solenoid to port 5 tidily and irrelevant to the
+allocation. Sharing port 3's I2C bus with a further device is electrically
+possible (0x15 and 0x5A leave room) but needs a physical bus splitter that
+pyControl's one-device-per-RJ-45 model does not provide.
+
+### Also settled: BNC count
+
+The rev-1 requirement is **six** BNC lines (`PULL_EVENT`, `FAULT`, `RSYNC` × two
+boards). Breakout 1.2 has **two** BNCs and both are now in use. That is not a
+shortfall to discover during integration — see
+[Gate A](pycontrol-interface.md#gate-a-verification-checklist).
+
 Confirm which breakout the lab deploys and which ports are assigned, and record
 it. The device class asserts on this:
 

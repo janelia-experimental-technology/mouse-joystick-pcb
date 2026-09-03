@@ -102,12 +102,19 @@ is exactly what the template does:
 ```python
 left  = MouseJoystick(port=board.port_1, event_name="joystick_L",
                       pull_pin=board.BNC_1, fault_pin=board.BNC_2)
-right = MouseJoystick(port=board.port_3, event_name="joystick_R",
+right = MouseJoystick(port=board.port_4, event_name="joystick_R",
                       pull_pin=board.BNC_3, fault_pin=board.BNC_4)
 
 hw.left.home()
 hw.right.move_to(-10.0)
 ```
+
+**The `BNC_*` arguments above are illustrative and do not exist.** Breakout 1.2
+has exactly two BNCs, `BNC_1` and `BNC_2`, and both are already in use — camera
+frame trigger and opto TTL gate. There is no `BNC_3` or `BNC_4`. The rev-1 event
+path needs six such lines and this controller has none free; see the Gate A row
+on BNC count. The ports are real: 1 and 4, per
+`docs/pycontrol-port-pinout.md`.
 
 **This is the one place the two-board form factor is simpler in software.** The
 twin board has to answer whether one pyControl device class can present two axes
@@ -134,13 +141,13 @@ Every row needs a status of `verified`, `cited`, or `unknown`, plus the source.
 | RJ-45 pin assignment | **cited** | `syringe-pump/ecad/module_pycontrol.kicad_sch` |
 | Which pins carry the UART (1 = pyControl TX, 4 = pyControl RX) | **cited** | same schematic, net trace |
 | UART parameters (115200 8N1, newline, `;`-delimited) | **cited** | `pump_controller.py`, `basic-firmware/code.py` |
-| Which ports expose a UART | **cited** | `syringe-pump/mkdocs/src/software.md` |
+| Which ports expose a UART | **verified** | Queried on the live controller 2026-09-03: ports 1/3/4 report `UART` = 4/1/3, ports 2/5/6 report `None` |
 | Number of DIO lines per behavior port (two) | **cited** | port pin assignment |
 | Native custom-device mechanism | **cited** | `pump_controller.py` uses `devices/` + `UART_handler` + `UART.IRQ_RXIDLE` |
-| Exact pyControl controller model and hardware revision | unknown | |
-| Which breakout the lab actually deploys | unknown | |
-| Port designations assigned to the two boards | unknown | |
-| BNC count and direction configurability — **six lines needed** | unknown | |
+| Exact pyControl controller model and hardware revision | **verified** | `PYBv1.1 with STM32F405RG`, read from the board 2026-09-03; pyControl framework `2.1.1` |
+| Which breakout the lab actually deploys | **cited** | Breakout 1.2 — `joystick-rig` `hardware_definition_joystick.py` instantiates `Breakout_1_2()`, and it imports on the connected board. Silkscreen revision not read by hand |
+| Port designations assigned to the two boards | **assigned; one dependency unconfirmed** | **Ports 1 (`UART4`) and 4 (`USART3`)**, 2026-09-03, and set in `mouse_joystick_bringup.py`. Port 3 belongs to `LaserLickPort` — the only port with I2C *and* a free `DIO_C`. Port 4 depends on the reward solenoid moving to `port_5.POW_A`, **requested of the researcher 2026-09-03 and not yet confirmed**; until then port 4 is contested. Full reasoning: `docs/pycontrol-port-pinout.md` |
+| BNC count and direction configurability — **six lines needed** | **verified, and short** | Breakout 1.2 has **two** BNCs; `BNC_1` is the camera frame trigger and `BNC_2` the opto TTL gate as of `joystick-rig` `source/main`. Six lines do not fit — this needs a plan before rev 1 |
 | Whether one `RSYNC` output can drive two boards | unknown | |
 | Connector gender and orientation on both ends | unknown | |
 | Cable wiring: straight-through or crossover | unknown | |
@@ -154,6 +161,7 @@ Every row needs a status of `verified`, `cited`, or `unknown`, plus the source.
 | Digital-input debounce behavior and how to disable it | unknown | |
 | `RSYNC` output electrical characteristics and pulse timing | unknown | |
 | Two device-class instances coexist without event-name collision | unknown | |
+| **Controller MicroPython version >= 1.26** | **verified** | `UART_handler` asserts on it. Board was on 1.22.2; upgraded to **1.26.1** 2026-09-03. See below |
 
 Everything marked **cited** comes from a shipping pyControl-compatible design,
 which is strong evidence but not a bench measurement. Confirm continuity, levels,
@@ -161,6 +169,45 @@ and startup state on real hardware at Gate B.
 
 Design for 3.3 V signaling unless level shifting or isolation is deliberately
 added.
+
+### Controller Prerequisite: MicroPython >= 1.26
+
+**Found 2026-09-03 and previously recorded nowhere.** This is a hard gate on the
+host half, independent of anything on this board.
+
+`pycontrol/code` `devices/uart_handler.py` opens with:
+
+```python
+assert (major > 1) or (major == 1 and minor >= 26), "UART_handler requires MicroPython version >= 1.26"
+```
+
+introduced in pyControl **2.1.1** — its release notes say *"Simplified
+UART_handler device; now requires MicroPython >= 1.26"* — and stated in the
+pyControl hardware docs as *"The `UART_handler` device requires MicroPython
+version 1.26 or newer."*
+
+`MouseJoystick.__init__` constructs `UART_handler(event_name)` and then calls
+`uart.irq(trigger=UART.IRQ_RXIDLE, ...)`, so **on an older controller the device
+class cannot be instantiated at all** — it asserts before any wiring, baud rate
+or protocol question can be reached. The pyControl *framework* version on the
+board is no guide here: the board carried framework 2.1.1 on MicroPython 1.22.2,
+a combination in which `UART_handler` cannot run.
+
+**Resolved on the bench controller 2026-09-03:** MicroPython `1.22.2`
+(2024-02-22) → **`1.26.1`** (2025-09-11), standard `PYBV11` build. The pyboard's
+internal filesystem occupies flash sectors 1-4 and the firmware image writes only
+sector 0 and sectors 5+, so the framework, `devices/` and the hardware
+definition all survived the flash — verified afterwards, not assumed.
+`UART.IRQ_RXIDLE` reads `0x10`, matching the value the host test stubs assume.
+
+Two consequences worth carrying forward:
+
+- **The rig's own controller has not been checked.** The board upgraded here is a
+  bench pyboard carrying a rotary-encoder test task, not
+  `hardware_definition_joystick.py`. Check the rig controller's version before
+  integration, and expect to upgrade it too.
+- Take the **standard** `PYBV11` build, not `THREAD` or double-FP; the pyControl
+  troubleshooting guide says so and the framework uses no `_thread`.
 
 ## Heartbeat And Safe State
 

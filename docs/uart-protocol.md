@@ -79,8 +79,14 @@ ev;FAULT;18599112;code=2;detail=over_travel
 ```
 
 - `seq` — decimal, wraps at 65535. The board echoes it. A repeated `seq` with
-  identical content is treated as a retransmission and re-acknowledged without
-  re-executing.
+  identical content **and a state-changing verb** is treated as a retransmission
+  and re-acknowledged without re-executing. Reads and heartbeats are always
+  re-executed. **Resolved 2026-09-03** — see
+  [1. The retransmission rule and the heartbeat](#1-the-retransmission-rule-and-the-heartbeat-resolved-2026-09-03).
+- **The retransmission cache holds the last 2 commands**, not an unbounded
+  `seq`-keyed history. The case it exists for is "the host retried immediately
+  because a reply was lost"; a deep window buys nothing and is the only thing
+  that makes `seq` reuse across a wrap reachable.
 - Fields are `;`-separated. No embedded `;` or newline in values.
 - Malformed or over-length lines produce `nak;<seq or ?>;badframe` and are
   otherwise discarded.
@@ -106,6 +112,13 @@ the real cable rather than by assumption.
 - Events are asynchronous and carry a local timestamp.
 - Latency-critical events also assert a TTL line. The UART message is the
   description; the line is the timestamp.
+- **The host-loss watchdog is reset by the arrival of any well-formed command,
+  not by executing one.** Liveness is a property of the link, so it is decided
+  where the frame is received, before dispatch and regardless of whether a
+  retransmission cache serves the reply. A frame that fails to parse
+  (`badframe`) does **not** reset it: a host with a wedged serial driver
+  emitting garbage is not usefully alive and must not hold the safety timeout
+  open.
 - The board never requires a message in order to become safe.
 
 ## Message Rate
@@ -128,7 +141,7 @@ Still:
 | Verb | Args | Reply | Notes |
 | --- | --- | --- | --- |
 | `ID` | — | hw rev, **board serial**, fw version, protocol version, axis count, capabilities, buffer state | Must work before `ARM` and must never fail |
-| `PING` | — | `ack` | Heartbeat; resets the host-loss watchdog |
+| `PING` | — | `ack` | Heartbeat. Carries no data and has no side effect of its own — **any** well-formed command resets the host-loss watchdog, so this is simply the command to send when there is nothing else to say |
 | `STATUS` | — | state, angle, position, homed flag, limit state, fault mask | Safe at any time |
 | `LIMITS` | — | configured travel, velocity, acceleration, current bounds | Reports what the board will enforce |
 | `HOME` | `[timeout_ms]` | `ack` then `!HOMED` | Bounded travel and timeout, enforced locally |
@@ -279,24 +292,102 @@ implements it next.
 Full detail, and the eleven smaller gaps that were filled to make the thing run,
 in `../mouse-joystick-firm/pycontrol/README.md`.
 
-## 1. The retransmission rule breaks the heartbeat
+## 1. The retransmission rule and the heartbeat — RESOLVED 2026-09-03
+
+### The problem
 
 "A repeated `seq` with identical content is treated as a retransmission and
 re-acknowledged without re-executing" assumes re-execution is the harm. That is
-true of `MOVETO`, which would move the joystick twice. It is false of `PING`,
-whose side effect **is** the command — it has no result other than resetting the
-host-loss watchdog. Served purely from cache, the safety timeout expires while
-the host believes it is being answered, and the board faults mid-experiment for
-no reason the host can see.
+true of `MOVE`, which would move the joystick twice. It was false of `PING`,
+whose side effect **was** the command — under the original draft it had no result
+other than resetting the host-loss watchdog, so serving it from cache let the
+safety timeout expire while the host believed it was being answered.
 
-A host that increments `seq` monotonically never hits this, which is precisely
-why it would survive review and then fire after a 65536 wrap.
+**The failure was likelier than the draft argued.** The draft reached for a
+65536 `seq` wrap, which a bounded cache makes unreachable. The ordinary case is
+worse: the host sends `PING`, the board executes and resets, the *reply* is
+lost, the host retries, and the retry is served from cache without resetting.
+Repeat — which is exactly what a degraded link produces — and no retry in the
+burst resets the watchdog. The watchdog then stops measuring host liveness and
+starts measuring "did the first ping of a retry burst get through", diverging
+most when the link is worst. The board faults while the host is receiving acks
+and believes all is well, and it presents as a hardware fault.
 
-**Proposed:** restrict the cache to state-changing verbs. `ID`, `PING`, `STATUS`,
-`LIMITS`, `FAULTS` and `CAL get` are reads or heartbeats; re-executing them is
-free, and a retried `STATUS` returning fresh state is more useful to a host than
-a replayed stale one. This is a smaller rule than a `PING` exemption, and it does
-not invite a table of exceptions.
+### The decision
+
+**This was a layering error, not a caching policy problem.** The watchdog
+measures host liveness, and liveness is proven by a frame *arriving*, not by a
+frame executing. Putting the reset inside `PING`'s handler placed a link-layer
+fact behind an application-layer decision, after which any rule about whether
+handlers run became a safety rule by accident.
+
+Two changes, in order of importance:
+
+1. **The watchdog is reset on receipt of any well-formed command**, before
+   dispatch, cache hit or miss. Recorded as a design rule above. `PING` is no
+   longer special, and the retransmission rule needs no exceptions. A `STATUS`
+   poll now proves liveness, which it did not before. `badframe` does not reset
+   it.
+
+2. **The cache is restricted to state-changing commands.** Not because `PING`
+   forced it, but because re-execution of a read is better than replay of one: a
+   retried `STATUS` returning fresh state beats a stale one; a retried
+   `CLRFAULT` re-evaluates whether the cause has gone, where a cached "cleared"
+   could mask a fault latched since; a retried `STOP` is safer executed than
+   acknowledged.
+
+Deliberately *not* chosen: exempting `PING` by name. It leaves the category
+error in place and invites a table of exceptions, one per verb, each of which is
+a safety decision in disguise.
+
+### Classifying a command
+
+**Classify the parsed command, not the verb name.** Three verbs are dual-mode
+and a verb-name table gets all three wrong:
+
+| Read — re-executed, never cached | State-changing — cached |
+| --- | --- |
+| `ID`, `PING`, `STATUS`, `LIMITS`, `FAULTS` | `HOME`, `ARM`, `DISARM`, `MOVETO`, `MOVE`, `STOP`, `ARMPULL`, `ANGOUT`, `ANGSCALE`, `CLRFAULT` |
+| `CAL get` | `CAL set k v` |
+| `INSTR STATE` | `INSTR ON` / `INSTR OFF` |
+| `HV STATE` | `HV ON` / `HV OFF` |
+
+**An unrecognised or unclassified command must default to cached.**
+Over-caching costs a stale ack. Under-caching moves the joystick twice. A verb
+added carelessly should be merely suboptimal, not dangerous.
+
+### What the cache is actually for
+
+**`MOVE` is the only non-idempotent command in the set.** Everything else names
+a destination or a target state, so re-executing it is harmless:
+
+| Command | Re-executed |
+| --- | --- |
+| `MOVETO deg` | absolute — lands in the same place |
+| `HOME` | re-parks; costs a homing cycle, no hazard |
+| `ARM` / `DISARM` / `STOP` / `CLRFAULT` | naturally idempotent |
+| `ARMPULL thr`, `ANGSCALE lo hi`, `CAL set k v`, `ANGOUT`/`INSTR`/`HV` `ON`/`OFF` | set a value, not a delta |
+| **`MOVE deg`** | **relative — doubles the movement** |
+
+So the cache protects exactly one verb. This is written down rather than left
+implicit for two reasons: an implementer should know the mechanism guards a
+specific hazard rather than being general correctness machinery, and **if the
+trial only ever uses absolute positioning — park, present, release, pull,
+present, which is the shape described in
+[`docs/pycontrol-interface.md`](pycontrol-interface.md) — then `MOVE` and the
+cache can both be deleted.** Revisit this when the researcher settles the
+command set.
+
+### Consequences elsewhere
+
+- Open question 2 below is partly defused. With the reset on any frame, a host
+  polling `STATUS` during a long move keeps the link alive, so a 100 ms timeout
+  shorter than a move is no longer a guaranteed spurious fault. The real
+  velocity and the real timeout still need measuring together.
+- The 22-case conformance corpus is **unaffected**: it pins `PING` framing, not
+  retransmission or watchdog timing. So the contract the RP2040 half will be
+  held to does not move, and this decision was made before that half was
+  written rather than after.
 
 ## 2. The host timeout is shorter than a long move
 

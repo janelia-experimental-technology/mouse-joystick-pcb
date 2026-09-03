@@ -605,6 +605,34 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   path in bit 7.
 - Two device-class instances on two ports do not collide on event names.
 
+**Status 2026-09-03.** The corpus requirement is met: two independent
+implementations are held to
+`mouse-joystick-firm/pycontrol/tests/fixtures/protocol_cases.txt` — the Python
+simulator via `pycontrol/tests/test_fixture_corpus.py` and the firmware via
+`test/native/test_protocol/test_protocol.cpp`. Covered by that corpus and its
+companion unit tests:
+
+| Bullet | Covered |
+| --- | --- |
+| Simulator/fixture and firmware agree on framing and versions | **yes**, both halves reproduce the corpus byte for byte |
+| Malformed and duplicated input handled | **yes** — bad frames, missing and unreadable `seq`, empty verb, over-length lines, CRLF, partial lines |
+| Repeated `seq` re-acknowledged without re-execution | **yes**, and restricted to state-changing commands per open question 1 |
+| Unrecognized verb rejected, never partially executed | **yes** |
+| Motion verbs refused outside `ARMED` | **yes**, including the ordering — ARMED is checked *before* the range check |
+| Capability discovery reports axis count and board serial | **yes** |
+
+Still **not** covered, and none of it is a corpus problem:
+
+- **Delayed and out-of-order input.** No corpus case reorders or delays a frame.
+- **Every fault code provoked**, including the `vsense` path in bit 7. Three of
+  the nine are reachable from the corpus (`host_timeout`, `home_timeout`,
+  `internal`/vsense); the rest need injection hooks the firmware half does not
+  have yet.
+- **Two device-class instances not colliding on event names.** Host-side only,
+  covered by the Python device-class tests, not by the corpus.
+- Anything on real hardware. This whole gate is still host-side: the firmware
+  protocol layer is not wired to a UART or to real motion.
+
 ## Gate D: Bench Operation
 
 - Homing is deterministic and bounded, verified over repeated runs.
