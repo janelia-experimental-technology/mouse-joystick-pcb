@@ -264,3 +264,138 @@ paths. Add:
 - a repeated `seq` with identical content is re-acknowledged without re-executing;
 - two simulator instances on two links do not interfere, which is the two-board
   case.
+
+---
+
+# Open Questions From The First Implementation
+
+**Added 2026-09-02.** Raised by implementing both ends of this draft in
+`../mouse-joystick-firm/pycontrol/` — the codec, a host simulator, a pyControl
+device class and a 22-case conformance corpus, 128 host tests passing. Nothing
+above this line has been changed. This section records what the draft does not
+answer, so the command table can be revised deliberately rather than by whoever
+implements it next.
+
+Full detail, and the eleven smaller gaps that were filled to make the thing run,
+in `../mouse-joystick-firm/pycontrol/README.md`.
+
+## 1. The retransmission rule breaks the heartbeat
+
+"A repeated `seq` with identical content is treated as a retransmission and
+re-acknowledged without re-executing" assumes re-execution is the harm. That is
+true of `MOVETO`, which would move the joystick twice. It is false of `PING`,
+whose side effect **is** the command — it has no result other than resetting the
+host-loss watchdog. Served purely from cache, the safety timeout expires while
+the host believes it is being answered, and the board faults mid-experiment for
+no reason the host can see.
+
+A host that increments `seq` monotonically never hits this, which is precisely
+why it would survive review and then fire after a 65536 wrap.
+
+**Proposed:** restrict the cache to state-changing verbs. `ID`, `PING`, `STATUS`,
+`LIMITS`, `FAULTS` and `CAL get` are reads or heartbeats; re-executing them is
+free, and a retried `STATUS` returning fresh state is more useful to a host than
+a replayed stale one. This is a smaller rule than a `PING` exemption, and it does
+not invite a table of exceptions.
+
+## 2. The host timeout is shorter than a long move
+
+The cited host timeout is 100 ms (`docs/pycontrol-port-pinout.md`). At a plausible
+180 deg/s an 18 degree move consumes all of it, and the travel range is wider than
+that. A task that issues a long move and waits for `TARGET` is faulted for
+heartbeat loss every time.
+
+This may be correct — the host simply must ping during motion — but it should be
+stated rather than discovered. **Confirm the real velocity and the real timeout
+together, not separately.**
+
+## 3. The command set does not match the trial
+
+The draft models a pull as a *detection* problem: `ARMPULL threshold`, watch,
+report. The rig needs it as a *mechanical resistance* problem — the brake sets
+the force, the motor gets out of the way, the animal moves the joystick, and
+detection is just watching the encoder. `ARMPULL` survives as "tell me when the
+encoder passes X while compliant", but it stops being what defines a pull.
+
+The trial shape is: park (`HOME`) → present (`MOVETO`) → set brake and release
+drive → animal pulls → present again.
+
+### 3a. Brake-then-release cannot be two host commands
+
+The brake must engage **before** motor drive is released, or the joystick drops
+as it goes compliant; and drive must be restored before the brake releases, or
+the motor fights it. Split across two commands, the host can die between them, or
+the second can arrive late over a link whose entire premise is that it has
+latency.
+
+**Proposed:** one verb, `BRAKE <torque>`, with the ordering enforced in firmware
+where nothing can interrupt it. This follows the existing rule that the board
+never requires a message in order to become safe — and extends it: the board
+should not require two messages in order to become *correct*.
+
+`FREEWHEEL` exists in the rev-0 implementation only because there is no brake to
+attach it to. It is a bring-up primitive and should be **replaced** by `BRAKE`,
+not kept alongside it.
+
+### 3b. Leaving compliance should be implicit
+
+A `MOVETO`, `MOVE`, `HOME` or `STOP` arriving while compliant re-engages the
+driver as part of the same operation. An explicit "stop freewheeling" verb would
+make it two commands with a window in between, for no gain.
+
+## 4. `STATUS`'s "position" is now two quantities
+
+The draft lists "state, angle, position, homed flag, limit state, fault mask"
+without saying whether angle and position are one quantity in two units or two
+quantities. With a compliant state they are genuinely two — measured and
+commanded — and after a pull they disagree by the whole pull.
+
+**Proposed:** report both, named unambiguously. The implementation uses `angle`
+(encoder; the joystick's real position) and `xactual` (ramp generator).
+
+## 5. Resyncing position from the encoder deletes the stall detector
+
+The board's only detector for an end stop, a stall, a slipping coupling or a dead
+encoder is `XACTUAL` advancing while `X_ENC` does not. Reloading `XACTUAL` from
+the encoder after a pull destroys exactly that signal.
+
+The two cases are distinguishable by state, and by nothing else:
+
+| State | Divergence means | Response |
+| --- | --- | --- |
+| driving | something is broken | fault |
+| compliant | the animal pulled | resync, **on exit only** |
+
+**Proposed:** resync only on leaving a compliant state. Never during commanded
+motion, never on a timer.
+
+**And this needs a fault code the draft does not have.** Bit 4 is retired and
+permanently reserved, and it was a different comparison anyway — the driver's
+encoder against an RP2040 PIO count that never existed. This is `XACTUAL` against
+`X_ENC`, both inside the driver. Bits 9 onward are reserved in this document "if
+this design is ever extended with a brake and a torque sensor", so allocating one
+here is a decision for this document rather than for firmware. Stall detection is
+**not implemented** pending it.
+
+## 6. Which parameters should the host be able to set
+
+Open, pending what the researcher needs. The draft already answers it in
+principle and that answer looks right: `MOVETO deg [profile]` takes a **named
+profile**, and raw driver current, raw PWM, step counts and unbounded velocity
+are on the "deliberately absent, and to stay absent" list. Named profiles let the
+answer change without a firmware change and without ever exposing raw motor
+power.
+
+## What Rev 0 Hardware Can Test
+
+The boards in hand have no electronic brake, no torque sensor and no populated
+analog outputs. Implemented and testable now:
+
+| Testable | Absent |
+| --- | --- |
+| `ID` `PING` `STATUS` `LIMITS` `FAULTS` `CLRFAULT` `HV` `INSTR` `CAL` | `BRAKE`, torque reporting |
+| `HOME` `ARM` `DISARM` `MOVETO` `MOVE` `STOP` | `ANGOUT` `ANGSCALE`, and the second analog channel for torque |
+| `FREEWHEEL`, `ARMPULL` by moving the joystick by hand | |
+
+Unimplemented verbs answer `badverb` rather than acking, so a host cannot believe
+the analog output is live and record a trace of nothing.
