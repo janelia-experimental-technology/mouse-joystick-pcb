@@ -10,6 +10,7 @@
   ((@ (guix profiles) packages->manifest)
    (list (@ (guix-agent-tools packages) guix-agent-tools)
          (@ (orb-weaver context packages) orb-weaver-context-kicad)
+         (@ (orb-weaver packages) mcp-server-kicad)
          (@ (orb-weaver packages) orb-weaver-kicad-libs)
          (@ (orb-weaver packages) orb-weaver-kicad-tools)
          (@ (orb-weaver packages) sqliteodbc)
