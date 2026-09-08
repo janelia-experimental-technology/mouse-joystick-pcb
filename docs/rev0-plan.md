@@ -238,7 +238,23 @@ One instance of `orb_weaver_private:tmc5130`, composed twice into
 
 Same motor, same answer as the twin-axis board. Do not re-derive it.
 
-Motor rating: **0.67 A per phase**, treated as the RMS target.
+> **Corrected 2026-09-08. The motor rating below was an assumption and it was
+> wrong.** The motor was identified on hardware 2026-09-02 as a Lin Engineering
+> **WO-208-13-01D** — NEMA 08, 1.8°/step, 4-lead bipolar, **0.6 A/phase**,
+> 6.5 Ω/phase, 3 oz-in — which is the very part *Open Decisions* item 1 below
+> explicitly ruled out. `R_SENSE` and `vsense` are unaffected and stay as
+> tabulated; **`IRUN` changes from 28 to 17**. `docs/bringup-log.md` owns the
+> finding. **Lin does not state whether 0.6 A is RMS or peak**, so two readings
+> exist and firmware enforces the conservative one:
+>
+> - **Peak-of-sine reading (conservative, in force): 0.424 A RMS target → `IRUN` 17.**
+> - Equal-heating reading: 0.600 A RMS target → `IRUN` 24-25.
+>
+> Settling it needs a coil-current measurement and a motor case temperature. That
+> can be taken on v0.2 hardware — the motor and driver path are unchanged.
+
+Motor rating: **0.6 A per phase** (`WO-208-13-01D`), RMS-or-peak unstated by the
+vendor; the conservative peak-of-sine reading gives a **0.424 A RMS** target.
 
 | Item | Value |
 | --- | --- |
@@ -246,10 +262,12 @@ Motor rating: **0.67 A per phase**, treated as the RMS target.
 | Part | `OW-PASS-RLH12FTCR150`, JLCPCB `C2683383` |
 | Package / rating | 1206, 1 W, ±1%, ±100 ppm/°C |
 | `vsense` (CHOPCONF bit 17) | **1** — high sensitivity, `V_FS` = 180 mV |
-| `IRUN` | **28** → 0.679 A RMS (+1.3% of target) |
-| Ceiling at CS 31 | 0.749 A |
-| Peak sense voltage at IRUN 28 | 163 mV |
-| Peak dissipation | 135 mW = 13% of 1 W |
+| `IRUN` | **17** → 0.421 A RMS (−0.7% of the 0.424 A conservative target) |
+| `IRUN`, equal-heating reading if the thermal measurement supports it | 24 → 0.585 A, or 25 → 0.608 A |
+| Ceiling at CS 31 | 0.749 A — **1.25× the 0.6 A rating**, and a hardware limit once `vsense` = 1 is latched |
+| Peak sense voltage at IRUN 17 | 101 mV across `R_SENSE` + 20 mΩ; 89 mV across the 0.15 Ω itself |
+| Peak dissipation at IRUN 17 | 53 mW = 5.3% of 1 W |
+| Peak dissipation at IRUN 25 | 111 mW = 11% of 1 W |
 
 Derived from TMC5130A rev 1.21 chapter 10:
 
@@ -261,25 +279,37 @@ I_RMS = (CS+1)/32 × V_FS/(R_SENSE + 20 mΩ) × 1/√2
 both positions to 0.15 Ω when the block is placed, and check the placed value
 before ERC rather than after fabrication.
 
-**Done — and it is now the one place where the board diverges from `kicad-libs`.**
-`R1203`/`R1204` are 0.15 Ω on this board; `kicad-libs` moved to 0.12 Ω in commit
-`a8dca31`. Thirteen of the fourteen placed block copies are byte-identical to
-their sources and this is the exception, with **the board being the correct one**.
-**Re-placing the `tmc5130` block silently reverts both resistors** and puts
-roughly 25% over the intended 0.679 A RMS. Either fix the library down to 0.15 Ω
-or never re-place that block. See `docs/design-block-map.md`.
+**Done — and it is now the one place where the board diverges from `kicad-libs`,
+deliberately.** `R1203`/`R1204` are 0.15 Ω on this board; `kicad-libs` ships
+0.12 Ω. Thirteen of the fourteen placed block copies are byte-identical to their
+sources and this is the exception, with **the board being the correct one**.
+
+> **Resolved 2026-09-08 — do not "fix the library down to 0.15 Ω".** That earlier
+> instruction is reversed. The library keeps **0.12 Ω as a deliberate
+> placeholder**, because the correct shunt is a property of the *motor* rather
+> than the driver, so each placing board sizes it. **The rule for this board is
+> simply: never re-place `tmc5130`**, which is also why v1.0 leaves that block
+> alone entirely. If it ever is re-placed, both resistors revert and — with
+> firmware writing `IRUN` 17 — the coils would see **0.511 A RMS, +21.4%** over
+> intent, silently: no ERC, no DRC, no fault bit. The old "roughly 25% over the
+> intended 0.679 A RMS" was wrong twice; 0.679 A was never the intent.
+
+See `docs/design-block-map.md`.
 
 ### `vsense = 1` Is A Firmware Dependency
 
 Unchanged, and Rev 0's reduced scope does not reduce this hazard at all.
 
-| `vsense` | Current at IRUN 28 | Ceiling at CS 31 |
+| `vsense` | Current at IRUN 17 | Ceiling at CS 31 |
 | --- | --- | --- |
-| **1 (required)** | 0.679 A | 0.749 A |
-| 0 (chip reset default) | **1.23 A** | **1.35 A** |
+| **1 (required)** | 0.421 A | 0.749 A |
+| 0 (chip reset default) | **0.760 A** | **1.35 A** |
 
-Leaving `vsense = 0` with 0.15 Ω installed drives roughly **1.8× the motor's
-rated current**. Requirements:
+Leaving `vsense = 0` with 0.15 Ω installed drives **1.80× the conservative target
+and 1.27× even the equal-heating reading** — and note 0.760 A exceeds the
+`vsense` = 1 ceiling of 0.749 A, so the wrong bit defeats the hardware limit
+outright. *(Updated 2026-09-08 for `IRUN` 17; at the old `IRUN` 28 these were
+1.23 A and roughly 1.8× a target that was itself wrong.)* Requirements:
 
 - Firmware sets `vsense = 1` before ever raising `DRV_ENN`.
 - Firmware reads CHOPCONF back and refuses to enable the driver unless
@@ -289,8 +319,9 @@ rated current**. Requirements:
 - Gate D measures actual coil current, not commanded `IRUN`.
 
 Once `vsense = 1` is set the configuration is self-limiting: the ceiling at
-CS 31 is 0.749 A, 12% above the motor rating. The hazard is confined to that one
-register bit.
+CS 31 is 0.749 A, **25% above the 0.6 A rating** (and 1.78× the conservative
+0.424 A target). The hazard is confined to that one register bit. *(Was "12%
+above" against the wrong 0.67 A figure; corrected 2026-09-08.)*
 
 ## Encoder
 
@@ -521,10 +552,14 @@ resistors, and nothing else.
 The rescope resolved or deferred five of the previous ten. What remains, ranked by
 what blocks the schedule:
 
-1. **The joystick motor part number.** The current sense is already decided
-   (0.15 Ω, `vsense = 1`, `IRUN = 28`). Still needed for the supply envelope, the
-   `ILIM` resistor, and to confirm whether 0.67 A is RMS or peak. It is **not**
-   the previous rig's Lin Engineering `WO-208-13-01D`, which is 0.6 A.
+1. ~~**The joystick motor part number.**~~ **Closed 2026-09-02, and this item had
+   it backwards.** The motor *is* the previous rig's Lin Engineering
+   **`WO-208-13-01D`**, 0.6 A/phase — the part this line explicitly ruled out.
+   That wrong exclusion is where the 0.67 A figure above came from. Current sense
+   stays 0.15 Ω with `vsense` = 1, but **`IRUN` is 17, not 28**. What remains open
+   is only whether 0.6 A is RMS or peak — the vendor does not say — which is the
+   `IRUN` 17 versus 24-25 choice and needs a coil current plus a case
+   temperature. See `docs/bringup-log.md`.
 2. **The encoder part**, which sets the encoder supply voltage, confirms that
    single-ended receive is correct, and now also validates the placed block's
    push-pull assumption, its 72 kHz filter corner, and `J1103`'s pin order. Rev 0
@@ -602,9 +637,11 @@ Once the parts above are settled, in this order:
    and one for `+5V_MCU` itself, which is downstream of both ORing diodes and so
    has no driver without it. **The two 5 V rails must not touch.**
 5. Insert `tmc5130`. Change both sense resistors from the block default 0.12 Ω to
-   **0.15 Ω** (`OW-PASS-RLH12FTCR150`). Record `vsense = 1` and `IRUN = 28`
-   alongside. Confirm `VCC` is fed from the external `+5V` rail. Land the motor
-   coils on `OW-CONN-1844236`.
+   **0.15 Ω** (`OW-PASS-RLH12FTCR150`) — the block default is a deliberate
+   per-motor placeholder, so this step is required, not a workaround. Record
+   `vsense = 1` and **`IRUN = 17`** alongside *(was 28; corrected 2026-09-08)*.
+   Confirm `VCC` is fed from the external `+5V` rail. Land the motor coils on
+   `OW-CONN-1844236`.
 6. Insert `usb2`. It now carries `USBLC6-2P6` ESD protection and a shell-to-GND
    tie; confirm both are present in the placed copy.
 7. Draw the encoder input: `OW-CONN-1844249` → filtering and ESD → TMC5130A

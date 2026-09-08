@@ -88,10 +88,28 @@ This is the headline reason v0.3 was ordered.
       USB and pyControl unplugged. The `SN74LVC125A` has no `Ioff` and TI does not
       specify its leakage at `VCC` = 0, so this is unspecified rather than
       guaranteed.
-- [ ] **Encoder filter value.** Scope `ENC_A_FILT` during the fastest
-      *motor-commanded* move — homing or recentering, not a mouse pull. `C802`
-      and `C803` are fitted at 470 pF, good to a 44.9 kHz channel frequency.
-      Needs the encoder's CPR and maximum shaft RPM, still open.
+- [x] **Encoder filter value — closed on paper 2026-09-08, no scope needed.**
+      The fitted part is an **E4T-1000**: 1000 CPR, so `f_ch = 1000 × RPM/60`, and
+      the 470 pF `C802`/`C803` corner of 44.9 kHz is reached only at **2694 RPM at
+      the motor shaft**. Bring-up ran `VMAX` = 0.100 rev/s = **6 RPM** (100 Hz),
+      so the margin is ~450× and even a ten-fold faster axis stays clear. The
+      encoder's own ceiling binds first anyway — max A/B frequency **100 kHz**,
+      and module max RPM = 6×10⁶/CPR = **6000 RPM** at 1000 CPR. **470 pF is
+      correct; do not re-derive.** Scoping `ENC_A_FILT` is now optional
+      confirmation, not a gate.
+- [ ] **Coil current and motor case temperature — settles IRUN 17 versus 24-25,
+      and does NOT need v0.3.** The motor and driver path are unchanged from v0.2
+      and two v0.2 boards are in hand, so this can be taken today. Measure coil
+      current at IRUN 17 and read case temperature after a representative duty
+      cycle. Copper loss is **2.31 W** at 0.421 A and **4.68 W** at 0.600 A (both
+      phases, 6.5 Ω/phase) in an **82 g** NEMA 8 whose datasheet case maximum is
+      **60 °C (140 °F)** against a 50 °C ambient maximum — so this is a real
+      constraint, not a formality. **That 60 °C figure is inconsistent with the
+      Class B (130 °C) winding insulation quoted on the same datasheet page**;
+      worth a question to Lin Engineering as well as a thermocouple. This
+      measurement is also what decides whether the shunt can move to
+      a larger shunt at a later revision — see the *Required* item for which one,
+      and note it is **not** the 0.33 Ω an earlier draft named.
 - [ ] **LATCH baseline.** Flash `examples/TMC5130Communication` and send `l`.
       Expect `[FAIL] this board still needs the workaround`. Confirming that is
       what makes the v1.0 fix verifiable later.
@@ -117,12 +135,129 @@ This is the headline reason v0.3 was ordered.
 ## v1.0 Board Changes (opened 2026-09-08, supersedes the v0.4 list below)
 
 Blocks must be fixed in `../kicad-libs` **before** any of this — see that repo's
-`.agents/PLANS.md` → **2026-09-08 Design Block Changes**, especially the three
-regression traps. Re-placing `tmc5130` or `rp2040_gpio_isolation_sn74cb3q3245`
-before they are fixed damages a board that is currently clean.
+`.agents/PLANS.md` → **2026-09-08 Design Block Changes**. Re-placing
+`rp2040_gpio_isolation_sn74cb3q3245` or `torque_bridge_0_3v3_ina821` before they
+are fixed damages a board that is currently clean.
+
+## SCOPE NARROWED 2026-09-08 — v1.0 only, no nice-to-haves
+
+**Decided by the user: only changes that directly affect v1.0. Everything else
+waits until v1.0 has been tested.** The goal is to order v1.0 as soon as v0.3
+testing allows. The lists below are kept for their reasoning; **treat anything
+not named here as deferred.**
+
+**Zero regression traps remain on this board.** By not re-placing `tmc5130` and
+not re-placing `rp2040_gpio_isolation_sn74cb3q3245`, two of the three evaporate
+without any work — the shunt can never revert, and the isolation block's 6
+unconnected-copper errors never reach the board. The third (the torque block's
+missing `.kicad_pcb`) is library work, listed in `../kicad-libs`'s plan.
+
+**Blocks to re-place:** `hv_input_36V_terminal_2pos_5p08_protected_vertical`
+(this *is* the `LATCH` fix — the block already exposes the port, no edit),
+`analog_output_0_3v3_dac80501` (DAC to 3.3 V), and that is all.
+**Blocks to place new:** `torque_bridge_0_3v3_ina821`,
+`brake_current_sink_0_49ma_dac80501`, `hv_to_12v_tpsm365r6`.
+**Blocks to leave alone entirely:** `tmc5130`, `rp2040`,
+`rp2040_gpio_isolation_sn74cb3q3245`, `usb2`, both `5v_to_3v3_tps73733`,
+`hv_to_5v_tpsm365r6`, `limit_switch_debounced_input`,
+`pycontrol_behavior_port_rj45_boundary`,
+`quadrature_encoder_input_5v_sn74lvc2g17`,
+`instrumentation_signal_buffer_sn74lvc125a`, the InstrumentPort boundary.
+
+**Verified 2026-09-08 and it removes a dependency:** the isolation block already
+exposes **all 30 channels** as `GPIO0`-`GPIO29` / `ISO0`-`ISO29` port pairs, so
+`~{BRAKE_FAULT}` routes through a spare channel with **board-level wiring only** —
+no block edit, no re-place.
+
+### Cut from v1.0 — revisit after v1.0 is tested
+
+- **The debug connector and SWD pads.** No probe on hand; buys nothing today.
+- **Dropping `U603`/`U604`** — area/cost optimisation, not a defect.
+- **The 1206 PPTC for `R303`** — the fitted jumper works; sizing unresolved.
+- **`PYC_FAULT` / `EXT_FAULT_IN` / `~{RIG_FAULT}`** — already deferred below.
+
+### Kept despite the narrowing, and why
+
+- **Test points.** They are **pads: no BOM lines, no parts, no cost**, and they
+  are what makes v1.0 testable — the whole point of ordering it. v0.2's 36 V
+  diagnosis had to be done by energy accounting because reading `+36V_SW` means
+  clipping onto `C1213`'s can pads. Decide schematic-symbol versus layout-only
+  before layout, as below.
+- **`~{BRAKE_FAULT}`** — the one genuine judgement call, ~2 parts
+  (`SN74LVC2G17`, 990 in stock, plus a 100 nF). **It is not a feature for the
+  experiment, it is instrumentation for the v1.0 test:** without it a brake
+  current-ceiling event is completely invisible to both the MCU and the capture,
+  so if the limiter fires during v1.0 bring-up you would never know. Cutting it
+  is defensible; cutting it means accepting that blind spot on first hardware.
+
+**Two regression traps, not three — updated 2026-09-08.** The `tmc5130` shunt is
+no longer a library fix: the block now ships **0.12 Ω deliberately, as a
+placeholder**, and **sizing `R4003`/`R4004` is this board's responsibility after
+placement**. See *Required* below. Also verified that day: v1.0 needs **no new
+design blocks** — all 36 exist, including `hv_to_12v_tpsm365r6`.
 
 ### Required
 
+- [ ] **Size `R1203`/`R1204` after placing `tmc5130` — the block default is
+      wrong on purpose.** (They are `R4003`/`R4004` inside the library block.) Decided 2026-09-08. The library ships **0.12 Ω**
+      (`OW-PASS-KRL1632E-M-R120-F-T5`) as a placeholder because the correct value
+      is a property of the motor. **This board fits 0.15 Ω
+      (`OW-PASS-RLH12FTCR150`) with `vsense` = 1**, which is what both v0.2 units
+      already carry and read back. Forgetting the swap is silent — no ERC, no DRC,
+      no fault bit — and with firmware writing IRUN 17 a 0.12 Ω fit puts
+      **0.511 A RMS, +21.4%** into the coils. Record the shunt value, the
+      `vsense` bit and `IRUN` **in one place**; they are one decision.
+      Why 0.15 Ω, against the whole stocked field (derivation in the `kicad-libs`
+      plan → **`tmc5130` shunt policy**): it is the only value/`vsense` pair that
+      keeps *both* candidate operating points inside the CS range — **0.421 A on
+      CS 17** and **0.600 A on CS 24**, step 23.4 mA — and the choice between
+      those two is still open. 0.22 Ω/`vsense` = 1 cannot reach 0.600 A at all;
+      0.33 Ω/`vsense` = 1 cannot reach either. It is also Trinamic's own worked
+      example for the low-current branch ("0R15: 1.1 A peak").
+      **If you ever move off 0.15 Ω, the destination is 0.22 Ω 2512
+      (`JER2512F3R220`, 500 in stock, 3 W, ±50 ppm) with `vsense` = 0** — and it
+      is a mixed trade, not an upgrade. Gains: 131 mV of sense signal against
+      89 mV (+47%), tempco ±50 ppm/°C against the 0.15 Ω's ±100 ppm, and 1.60×
+      headroom, the most of any stocked option. Costs: step coarsens 23.4 →
+      29.9 mA, the operating point drops from CS 17 to CS 13, and it is a **2512
+      land change** in both the block and this board, where `BRA`/`BRB` are routed
+      tight per the TMC pin table. Take it only if the thermal result settles
+      IRUN at 17 **and** the gear count comes back above ~1.7:1 so the
+      calibration sweep needs no motor overcurrent.
+      **Corrected 2026-09-08: an earlier draft named 0.33 Ω here. It is at zero
+      stock** (`OW-PASS-73WL4R330F`, `C2121350` — catalogued and orderable,
+      `stock_total = 0`) and on re-derivation it is worse than the 0.22 Ω anyway
+      on tempco (±200 ppm), power rating (750 mW) and headroom (1.09×). Do not
+      queue it as a purchase. `0.36 Ω` 1206 is stocked but is a ±600 ppm/°C
+      250 mW thick-film chip resistor whose rating is exceeded at full scale —
+      it is the polyfuse-position part, not a shunt. Note `V_SRTL`/`V_SRTH` are **typ-only in rev 1.21**,
+      so absolute current accuracy is unspecified whatever is fitted; this is a
+      resolution-and-ceiling choice, not an accuracy one.
+- [x] **Corrected 2026-09-08 — `docs/rev0-plan.md` is now clean.** Seven edits,
+      more than the five `IRUN` sites, because the root cause was upstream of
+      them: **the doc's stated "0.67 A per phase" motor rating was an assumption,
+      and *Open Decisions* item 1 explicitly ruled out the `WO-208-13-01D` that
+      turned out to be fitted.** Every derived figure was re-computed rather than
+      rescaled — `IRUN` 28 → 17, peak sense voltage 163 → 101 mV (89 mV across the
+      0.15 Ω itself), peak dissipation 135 → 53 mW, the `vsense` = 0 hazard
+      1.23 A → 0.760 A, and the self-limiting claim "12% above the motor rating" →
+      **25%**. Two findings recorded while fixing it: **0.760 A exceeds the
+      `vsense` = 1 ceiling of 0.749 A**, so the wrong bit defeats the hardware
+      limit outright; and the old "fix the library down to 0.15 Ω" instruction was
+      reversed in place to "never re-place `tmc5130`". Original text below kept for
+      the record.
+      ~~**Correct the stale `IRUN = 28` — this is the more dangerous half of the
+      shunt problem, and it is in the docs, not the hardware.**~~
+      **Scope corrected 2026-09-08: only this repo's `docs/rev0-plan.md` is
+      stale.** `../mouse-joystick-firm`'s AGENTS.md was already fixed on
+      2026-09-02 — it now reads "`IRUN <= 17` (0.421 A RMS) until someone measures
+      a coil current", names the WO-208-13-01D, and records that bring-up runs at
+      `IRUN = 8`. Firmware is correct and already enforces the conservative
+      reading. `docs/rev0-plan.md` still carries `IRUN = 28` in five places
+      (lines ~249, 251, 276, 525, 605), which on 0.15 Ω is **0.679 A RMS —
+      1.61× the conservative reading of the motor's 0.6 A/phase and 1.13× even
+      the equal-heating reading**. Fix those five, noting 24-25 as the
+      alternative pending the thermal measurement.
 - [ ] **`LATCH` to a GPIO — the blocking defect.** `R1903` 1 kΩ still straps the
       `TPS1HTC100-Q1`'s `LATCH` to `+3.3V_MCU`, selecting latch-off, which
       prevents the 36 V rail from ever coming up. **The library block already
@@ -181,8 +316,58 @@ before they are fixed damages a board that is currently clean.
 - [ ] **Do not add board-level pull-downs on `SCK` or `SDI`.** Both DAC blocks
       already own one each, so a board carrying both already has 5 kΩ rather than
       the 10 kΩ either block's description claims.
-- [ ] **Add the `RUN` reset switch and a debug header** — lands via the `rp2040`
-      block change. This is the revision that was told to revisit it.
+- [ ] **Add the `RUN` reset switch — restored to Required 2026-09-08, with
+      evidence.** Lands via the `rp2040` block change. **Do it independently of
+      the debug connector**, which stays cut.
+      **The failure it fixes has already happened once**, 2026-09-03:
+      `docs/bringup-log.md` → "`STATUS` hung the core". The board stopped
+      answering the link **and** stopped honouring the 1200 baud reset touch, so
+      it could not be reflashed. Recovery needed `SW501` held through a power
+      cycle with **both USB and the RJ-45 unplugged** — pulling USB alone leaves
+      the board alive on pyControl's 5 V through the ORing diodes. With a `RUN`
+      switch that becomes: hold BOOTSEL, tap `RUN`, reflash. No cables touched,
+      and no disturbing a rig where two interchangeable boards sit on ports 1
+      and 4 and calibration belongs to a board serial.
+      **Why once is enough to justify it:** the recovery cost is structural, not
+      a bug — it follows from the ORing diodes and the deliberately unswitchable
+      MCU domain, so every future hang costs the same four steps. v1.0 also
+      roughly doubles the surface for that exact bug class: the `STATUS` hang was
+      *reaching for SPI before the bus was up*, and v1.0 adds the `ADS8689` to
+      shared `SPI1` with an ordering constraint (first write after power-up must
+      use `SPI-00-S`) and a mode that must match the `DAC80501`'s falling-edge
+      capture. And the log's own lesson is that this class is **untestable in the
+      shared corpus by construction**, so it will always be found on hardware.
+      **Cost is lower than "one part":** `SW501` is already `C7185056` as a
+      single-designator BOM line, so a second instance **increments that line's
+      quantity rather than adding a BOM line** — nothing new for JLCPCB to
+      source or place, no new footprint (`orb_weaver_smd:SMT_1045822_WRE`), no new
+      symbol, 115 in stock. RP2040 `RUN` has an internal 50-80 kΩ pull-up so no
+      external pull-up is needed. **It is also the only cut item that cannot be
+      added later without a respin.**
+- [ ] **Firmware, paired with the above: enable the RP2040 hardware watchdog.**
+      Recorded in `../mouse-joystick-firm/.agents/PLANS.md`. It covers the
+      complementary case — a transient hang self-recovers unattended, in the rig,
+      with no button — and the `STATUS` hang would have auto-recovered.
+      **They are complementary, not substitutes, and this is the part to get
+      right: a watchdog reset does NOT enter BOOTSEL.** Flash something reliably
+      broken and the watchdog gives a reset loop that you still cannot reflash out
+      of, so it makes that case *harder* to escape. `RUN` + BOOTSEL is the escape
+      hatch for "I just flashed something broken"; the watchdog is for "it wedged
+      mid-session". Ship both.
+- [ ] **Debug connector: land the pads, and treat the probe as a separate
+      purchase.** Established 2026-09-08: **there is no SWD probe on hand for
+      either candidate footprint**, and no Tag-Connect or 1.27 mm 2×05
+      Cortex-Debug pattern exists in official `kicad-footprints` 10.0.6 or the
+      local libraries, so the footprint must be authored either way. The probe
+      is **not a board problem** — `debugprobe` firmware turns any spare RP2040
+      board into a CMSIS-DAP probe that OpenOCD and probe-rs speak, so SWD
+      capability is a ~$4 purchase, not a respin. **Land the pads regardless**;
+      they are close to free and they are the only route to a hard-fault
+      post-mortem. Prefer Tag-Connect TC2030-style (pads plus three NPTH, **zero
+      BOM lines**, so no per-board cost and nothing for JLCPCB to place) over the
+      SMD header, which is a new part *and* an order.
+- [x] **An on-board debug MCU is rejected — decided 2026-09-08.** Recorded so it
+      is not re-proposed. See **Why an on-board debug MCU was rejected** below.
 - [ ] **Test points.** Decide **before layout** whether they are schematic
       symbols (so the netlist carries them) or layout-only pads. The list:
       `+36V_SW`, `+5V_SW`, `+3.3V_SW`, `+3.3V_MCU`, `+5V_MCU`, both sides of
@@ -239,6 +424,48 @@ before they are fixed damages a board that is currently clean.
 - [x] **`~{BRAKE_FAULT}` — decided 2026-09-08: it goes to a GPIO in v1.0.**
       Moved up to *Required* below.
 
+### Why an on-board debug MCU was rejected
+
+Decided 2026-09-08. Two variants were considered — a second MCU on the board for
+programming and debug, and a second FFC port letting an external debug MCU reach
+the target — and both are rejected. The reasoning, so it is not re-litigated:
+
+- **The observe half already exists and is better than a debug MCU would be.**
+  Eleven live InstrumentPort Strands, an LA5032 with 32 channels, and
+  agent-drivable captures. The 2026-09-03 encoder confirmation — raw quadrature
+  against the driver's `X_ENC` to 3-8 counts — is exactly the class of question a
+  debug MCU would be bought for, and the port answered it.
+- **The domain-state half already exists too.** The UART protocol's `status`,
+  `limits` and `id` report the state that actually matters, *while the system
+  runs*. A halted core cannot tell you why a follow check tripped.
+- **Breakpoints are close to useless on this system.** Halting mid-move leaves
+  the motor energised at a commanded position, the brake in an arbitrary state
+  and 36 V up. Every firmware problem hit so far — stall detection, follow-check
+  sensitivity, the `mechanical_stop_first` homing fault, the `ENC_CONST` sign —
+  is *dynamic*, and none is visible at a halt.
+- **The register state that matters is not in the RP2040.** `GSTAT`,
+  `DRV_STATUS`, `IOIN` and `CHOPCONF` live in the TMC5130A and are read over SPI
+  regardless; `IHOLD_IRUN` is **write-only**, so no debugger can read it back.
+- **Reflashing is already solved.** The firmware self test has a `B` command that
+  reboots into BOOTSEL, so the usual headline benefit of SWD is largely already
+  covered; the `RUN` switch closes the hung-or-unprogrammed remainder.
+- **A stimulus path conflicts with a documented safety constraint.**
+  `docs/instrument-strategy.md` → *Safety With Animals Present* makes
+  observe-only a deliberate property: the buffers are unidirectional, `AOUT0`/
+  `AOUT1` are no-connect, and anything adding a drive path into the board "must be
+  treated as a bench-only configuration and must not be the normal experiment
+  arrangement". An on-board debug MCU is a permanently populated drive path, which
+  is the arrangement that rule forbids.
+- **What survives the rejection is worth keeping.** The one real capability gap is
+  **hardware-in-the-loop stimulus** — faking encoder quadrature, asserting the
+  limit switch, driving fault lines to test firmware response automatically. If
+  that is ever wanted, build it the way this project already builds instrument
+  interfaces: **a separate bench-only adapter board that plugs into an FFC port**,
+  a sibling of `m2k_instrument_port_adapter` and `la5032_instrument_port_adapter`,
+  physically absent during animal work. Not an on-board part. **Do not design it
+  now** — the InstrumentPort's capture side has not yet failed to answer a
+  question.
+
 ### Deferred to a later revision — do not design now
 
 - [ ] **`PYC_FAULT` / `EXT_FAULT_IN` / any hard-wired fault signal.** Decided
@@ -274,18 +501,64 @@ before they are fixed damages a board that is currently clean.
 
 ### Purchases before layout, not after
 
-- [ ] `DAC80501ZDGSR` — 50 in stock, **2 per board** now (angle + brake), so
-      stock covers exactly 25 boards with no rework margin.
-- [ ] `OPA197IDBVR` — about **6-7 per board**: 3 brake, 1 angle, ~2 torque.
-- [ ] `RT0402BRD073K2L` 3.2 kΩ 0.1% / 25 ppm — 2000 in stock, **+2 per divided
-      analog output** (three outputs).
-- [ ] A 1206 PPTC for `R303` — **not in the parts DB**, so a new internal part
-      plus a vendor mapping.
-- [ ] A 3.3 V precision RRIO op amp — **only if v0.3 measurement 1 or the
-      researcher's answer says the span matters.** Nothing stocked qualifies.
-- [ ] Still open and still blocking the current-sense and bulk questions: **the
-      joystick motor part number**, and the **encoder's CPR and maximum shaft
-      RPM**.
+**Modelled 2026-09-08 against the whole v1.0 BOM, not part by part. Nothing is
+short: buy nothing for a 5-board build.** Method — v0.3's fab BOM (173
+placements) plus `torque_bridge_0_3v3_ina821` (57), plus
+`brake_current_sink_0_49ma_dac80501` (47), plus `hv_to_12v_tpsm365r6` (12), plus
+the planned block deltas, plus the board-level `TQ_AOUT` BNC = **302 placements
+over 81 BOM lines**. Every line mapped to a JLCPCB offer; none at zero stock.
+Tightest coverage in the entire board:
+
+| part | /board | stock | boards |
+| --- | --- | --- | --- |
+| `OPA197IDBVR` `C221351` | 7 | 298 | **42** |
+| 2.2 µF `GRM21BD72A225KE01L` `C2981733` | 2 | 90 | 45 |
+| `DAC80501ZDGSR` `C1852033` | 2 | 98 | 49 |
+| `HL-BNC-KHDA` `C19712152` | 2 | 98 | 49 |
+| `ADS8689IPWR` / `INA821IDR` / `REF5010AIDR` | 1 ea | 50 ea | 50 |
+
+Everything else clears 60 boards. Re-run the model rather than re-deriving it:
+the script pattern is one join of `db/source/vendor_map_jlcpcb.csv` and
+`db/source/parts.csv` against this repo's `fab/*/jlcpcb-bom.csv` plus the block
+component lists.
+
+- [x] **`DAC80501ZDGSR` — closed, the concern was stale.** This bullet said "50 in
+      stock… covers exactly 25 boards with no rework margin". **Stock is 98**, so
+      it is 49 boards at 2 per board.
+- [x] **`OPA197IDBVR` — closed, no purchase needed.** 7 per board confirmed by
+      count (3 brake, 3 torque, 1 angle — the old "~2 torque" was low), against
+      **298** in stock = 42 boards. The queued "100-150" is unnecessary.
+- [x] **`RT0402BRD073K2L` 3.2 kΩ 0.1% / 25 ppm — closed.** 1980 in stock against
+      6 per board for the three ÷2 dividers.
+- [x] **`USBLC6-2P6` — closed.** The 2026-08-14 handoff warned "stock is 20…
+      two per board caps the build at ten boards". **Stock is now 1002.**
+- [ ] **A 1206 PPTC for `R303`/`R1903` — the only genuinely pending purchase, and
+      it is blocked on a spec rather than on money.** Confirmed 2026-09-08: there
+      is **no fuse, polyfuse or PPTC anywhere in the catalog** — zero hits on all
+      three terms. Size the hold current against v1.0's load, **not** rev 0's
+      ~100 mA, *then* create the internal part, vendor mapping, symbol and
+      footprint. Buying before sizing is how the wrong hold current gets ordered.
+- [ ] **Do not buy the TVS yet.** `SMBJ40A` is **not in the catalog**; the stocked
+      `SMF48A` (120) covers first boards. The populate decision comes from **v0.3
+      measurement 2**, so ordering now is buying ahead of the data that decides
+      whether it is needed.
+- [ ] **Do not buy the 3.3 V RRIO op amp yet** — gated on v0.3 measurement 1 plus
+      the researcher's answer. Nothing stocked qualifies.
+- [ ] **If the build is 25 boards rather than 5, top up four parts first.**
+      `ADS8689IPWR` ($4.19), `INA821IDR` ($2.49) and `REF5010AIDR` ($1.21) all sit
+      at exactly **50**, and `DAC80501ZDGSR` ($5.02) at 98 — a 25-board run
+      consumes half of each with no rework margin, and these are the lines with
+      real lead-time exposure. At 5 boards, order nothing.
+- [x] **Both parts are identified — closed 2026-09-08, resolved 2026-09-02.**
+      This bullet was stale. `docs/bringup-log.md` identifies the motor as a Lin
+      Engineering **WO-208-13-01D** (NEMA 08, 1.8°/step, 4-lead bipolar,
+      0.6 A/phase, 6.5 Ω/phase, 3 oz-in, no gearbox, rear shaft) and the encoder
+      as a US Digital **E4T-1000** single-ended (1000 CPR, 4000 quadrature
+      counts/rev, 5 V push-pull), CPR bench-confirmed against 51200 usteps/rev.
+      Datasheets in `docs/datasheets/` and `../kicad-libs/tmp/`. What the motor
+      number did **not** settle is whether 0.6 A is RMS or peak — Lin does not
+      say — so that sub-question survives as the IRUN 17 versus 24-25 choice, and
+      only a thermal measurement closes it.
 
 ## Next Revision — v0.4 Required Changes (opened 2026-09-02)
 
@@ -508,7 +781,10 @@ Source-of-truth sibling repositories:
   - `docs/interface-map.md`, `docs/instrument-strategy.md`.
 - **Event-line routing.** Three lines on BNC, two dual jacks plus one. Rev 1.
 - **The pyControl port pinout**, from the syringe pump. Cited, not bench-verified.
-- **Current sense**, inherited: 0.15 Ω, `vsense = 1`, `IRUN = 28`.
+- **Current sense**, inherited: 0.15 Ω, `vsense = 1`, ~~`IRUN = 28`~~ **`IRUN = 17`
+  (0.421 A RMS), corrected 2026-09-08.** 28 predates the motor being identified
+  and is above its rating on either reading of 0.6 A/phase; 24-25 is the
+  alternative if the thermal measurement supports the equal-heating reading.
 - **Supply voltage:** 36 V, using the existing
   `hv_input_36V_terminal_2pos_5p08_protected` block.
 - **TVS on `HV_IN`, for the switch and the buck — not for the driver.** A standard
@@ -541,7 +817,14 @@ Source-of-truth sibling repositories:
 
 **Two remain, and only the second can actually invalidate the board.** Ranked.
 
-1. **Joystick motor part number.** Sets the motor connector, supply envelope,
+1. **Joystick motor part number.** **Identified 2026-09-02: Lin Engineering
+   WO-208-13-01D** — NEMA 08, 1.8°/step, 4-lead bipolar, 0.6 A/phase,
+   6.5 Ω/phase, 3 oz-in, no gearbox, rear shaft. See `docs/bringup-log.md`. The
+   "0.67 A" in the sentence below was an assumption and is superseded; **Lin does
+   not state whether 0.6 A is RMS or peak**, which is exactly the open IRUN 17
+   (0.421 A) versus 24-25 (0.600 A) choice, and only the thermal measurement
+   closes it. **The bulk-capacitance question below can now be decided.**
+   Sets the motor connector, supply envelope,
    `ILIM`, and confirms whether 0.67 A is RMS or peak. Owner: Peter. Also settles
    the `tmc5130` block's bulk-capacitance question, restated here so it survives a
    clone: the block ships **200 µF on `VM`** (`C1213`+`C1214`, 2× 100 µF 50 V,
@@ -565,7 +848,17 @@ Source-of-truth sibling repositories:
    `VOL` ≤ 0.4 V, tr 100 ns / tf 50 ns), which closes against the SN74LVC2G17's
    `VT+` ≤ 2.0 V and `VT−` ≥ 0.8 V with 400 mV of margin on both rails.
 
-   What still needs the part number, and **only** this: **CPR and maximum shaft
+   **Closed 2026-09-08.** The part is a US Digital **E4T-1000**, 1000 CPR
+   bench-confirmed against 51200 usteps/rev, so the `C802`/`C803` filter value is
+   confirmed correct with ~450× margin — see the closed item in the v0.3 section
+   above, and do not re-derive it. **One consequence to propagate:** the E4T's
+   `CPR > 500` branch draws **34 mA typ / 42 mA max** (against 25/30 for
+   CPR ≤ 500) and drops output drive to `IOL`/`IOH` = 5 mA, so
+   `docs/power.md`'s 5 V-budget row still reading *"Unknown — the encoder part is
+   not identified"* is stale and should be filled in with 42 mA worst case.
+
+   Superseded text, kept for the derivation: what still needs the part number,
+   and **only** this: **CPR and maximum shaft
    RPM**, to confirm the `C802`/`C803` filter value. They are fitted at 470 pF,
    which covers a channel frequency up to 44.9 kHz — `f_ch = CPR × RPM / 60`.
    Note the number to size against is the fastest **motor-commanded** move
@@ -844,10 +1137,16 @@ passing ERC before and after the fix. Re-check by netlist, not by ERC.
   one of `U601`'s two free channels. Note the counter-argument no longer holds: the
   unused channels have their **MCU-side pins tied to GND**, so the reserved rev-1
   DAC channels are not pre-wired and rev 1 must edit the block regardless.
-- [ ] **Do not re-place the `tmc5130` block.** The board has `R1203`/`R1204` =
-  0.15 Ω; `kicad-libs` moved to 0.12 Ω in commit `a8dca31`. A re-place silently
-  reverts them and puts roughly 25% over the intended 0.679 A RMS. Fix the library
-  down to 0.15 Ω, or never re-place that block.
+- [ ] **Re-placing `tmc5130` reverts the shunt — reset them by hand afterwards.**
+  **Rewritten 2026-09-08; the previous instruction ("fix the library down to
+  0.15 Ω") is reversed and must not be reinstated.** The board has
+  `R1203`/`R1204` = **0.15 Ω** and `kicad-libs` now ships **0.12 Ω deliberately,
+  as a per-motor placeholder** — see that repo's plan → **`tmc5130` shunt
+  policy**. So a re-place *will* silently revert them, and the fix is on this
+  side: set them back to 0.15 Ω (`OW-PASS-RLH12FTCR150`) and confirm `vsense` = 1.
+  The old "25% over the intended 0.679 A RMS" figure is wrong twice over: the
+  overshoot is **+21.4%** and 0.679 A is a superseded driver setting, not the
+  motor's rating. Correct reference point is **0.421 A RMS at IRUN 17**.
 - [ ] **Placement intent lives in the library blocks' `.kicad_pcb`, not in ours.**
   `C1201` is `X1201`'s bypass (1.64 mm pad-to-pad) and `C1204` is the TMC's
   `VCC_IO` bypass (3.04 mm). "Update PCB from Schematic" will not bring that across.
@@ -926,7 +1225,107 @@ Ready for active PCB work when:
 
 ## Progress Log
 
-- 2026-09-08 (latest): **v0.3 test plan and v1.0 change list opened** (the two
+- 2026-09-08, final: **scope narrowed to v1.0-only, then the `RUN` switch put
+  back on evidence.**
+  - **Narrowing removed both remaining regression traps for free.** Not
+    re-placing `tmc5130` means the shunt can never revert; not re-placing
+    `rp2040_gpio_isolation_sn74cb3q3245` means its 6 unconnected-copper errors
+    never reach the board. Verified the isolation block already exposes **all 30
+    channels** as `GPIO0`-`GPIO29` / `ISO0`-`ISO29` port pairs, so
+    `~{BRAKE_FAULT}` needs board wiring only — no block edit, no re-place. **Zero
+    traps left on this board.**
+  - **`~{BRAKE_FAULT}` kept** (user agreed): ~2 parts, and without it a brake
+    current-ceiling event is invisible to both the MCU and the capture on first
+    hardware.
+  - **`RUN` switch restored to Required**, and the deciding fact was already in
+    this repo: the `STATUS` hang of 2026-09-03 left the board unable to honour
+    the 1200 baud reset touch, so recovery took BOOTSEL held through a power cycle
+    with **both** cables out. It costs no new BOM line (`SW501`'s `C7185056` line
+    just goes to quantity 2), no new footprint, no new symbol — and it is the only
+    cut item that cannot be added later without a respin. The debug connector and
+    SWD pads stay cut.
+  - **Paired firmware task opened** in `../mouse-joystick-firm/.agents/PLANS.md`:
+    enable the RP2040 hardware watchdog. **They are not substitutes** — a watchdog
+    reset does not enter BOOTSEL, so it makes the just-flashed-something-broken
+    case harder to escape, which is exactly the case `RUN` + BOOTSEL covers.
+  - **Correction to an earlier item this session:** the claim that
+    `../mouse-joystick-firm`'s AGENTS.md still carries `IRUN = 28` was wrong. It
+    was fixed 2026-09-02 and already reads `IRUN <= 17`. **Only this repo's
+    `docs/rev0-plan.md` is stale**, in five places.
+
+- 2026-09-08, latest: **v1.0 costed against stock — buy nothing — and the
+  on-board debug MCU rejected.**
+  - **Nothing is short.** Whole-BOM model, not part by part: **302 placements over
+    81 lines**, every line mapped, none at zero stock, tightest coverage **42
+    boards**. Table and method in *Purchases before layout, not after*, which was
+    rewritten; **four of its entries were stale in the safe direction**, including
+    `DAC80501ZDGSR` at 98 in stock rather than 50 and `USBLC6-2P6` at 1002 against
+    an August warning that it capped the build at ten boards.
+  - **One real purchase remains — the 1206 PPTC — and it is blocked on sizing, not
+    on money.** No fuse, polyfuse or PPTC exists in the catalog at all. Size the
+    hold current against v1.0's load first. `SMBJ40A` and the 3.3 V RRIO op amp are
+    both gated on v0.3 measurements; ordering either now is buying ahead of the
+    data.
+  - **If the build becomes 25 boards rather than 5**, top up `ADS8689IPWR`,
+    `INA821IDR`, `REF5010AIDR` (all at exactly 50) and `DAC80501ZDGSR` (98) before
+    layout — half-consumed with no rework margin, and the expensive lines.
+  - **No SWD probe on hand for either candidate footprint.** Land the pads anyway
+    (Tag-Connect TC2030-style, zero BOM lines) and buy a probe separately — any
+    spare RP2040 running `debugprobe` is a CMSIS-DAP probe, so this is ~$4 rather
+    than a board decision. The `RUN` switch is now split from the connector so it
+    is not held up.
+  - **An on-board debug MCU, and a debug FFC port, are both rejected** — new
+    section *Why an on-board debug MCU was rejected*. Decisive point beyond the
+    duplication with the InstrumentPort: `docs/instrument-strategy.md` makes
+    observe-only a deliberate safety property, and a permanently populated debug
+    MCU is exactly the drive path that section forbids as a normal experiment
+    arrangement. The surviving gap is **HIL stimulus**, which belongs in a separate
+    bench-only FFC adapter board if it is ever wanted.
+
+- 2026-09-08, later: **the `tmc5130` shunt moved from a library fix to a
+  board responsibility, and four stale items closed against measurements this
+  repo already had.** Plans only; no KiCad files and no docs touched. The
+  companion entry in `../kicad-libs/.agents/PLANS.md` carries the shunt
+  derivation.
+  - **`R1203`/`R1204` stay 0.15 Ω with `vsense` = 1, and that is now this repo's
+    job.** `kicad-libs` keeps 0.12 Ω as a deliberate per-motor placeholder. Two
+    places in this file said "fix the library down to 0.15 Ω"; both are rewritten,
+    and the instruction is reversed rather than softened.
+  - **The old "25% over the intended 0.679 A RMS" was wrong twice.** The overshoot
+    is **+21.4%**, and 0.679 A is a superseded driver setting rather than a motor
+    rating. The correct reference is **0.421 A RMS at IRUN 17**.
+  - **The dangerous stale number is in the docs, not the hardware.** `IRUN = 28`
+    still sits in `docs/rev0-plan.md` (the firmware's AGENTS.md was already
+    corrected 2026-09-02) —
+    0.679 A RMS on the fitted 0.15 Ω, which is 1.61× the conservative reading of
+    the motor's 0.6 A/phase and 1.13× even the equal-heating reading.
+    `docs/bringup-log.md` flagged it on 2026-09-02 and the two docs were never
+    updated. Now a Required task.
+  - **Both Blocking Items are answerable and were left open by bookkeeping.** The
+    motor has been identified since 2026-09-02 (Lin Engineering
+    **WO-208-13-01D**) and the encoder is an **E4T-1000** with 1000 CPR
+    bench-confirmed. The purchase list still called both "still open and still
+    blocking"; the milestone list still gated on them. What the motor number did
+    *not* settle is whether 0.6 A is RMS or peak — Lin does not say — so that
+    survives as the IRUN 17 versus 24-25 choice.
+  - **The `C802`/`C803` encoder filter is closed on paper, no scope needed.** At
+    1000 CPR the 470 pF corner of 44.9 kHz is reached only at **2694 RPM** at the
+    motor shaft; bring-up ran at **6 RPM**. The encoder's own 100 kHz / 6000 RPM
+    ceiling binds first. 470 pF is correct.
+  - **`docs/power.md`'s 5 V budget still reads "Unknown — the encoder part is not
+    identified".** Fill in **42 mA worst case** (the E4T's `CPR > 500` branch:
+    34 mA typ / 42 mA max, output drive down to 5 mA).
+  - **A measurement was sitting behind the wrong gate.** The coil-current and
+    case-temperature reading that settles IRUN needs **v0.2**, not v0.3 — the
+    motor and driver path are unchanged and two boards are in hand. Added to the
+    bring-up list with the numbers that make it matter: 2.31 W of copper loss at
+    0.421 A, 4.68 W at 0.600 A, in an 82 g NEMA 8 with a **60 °C datasheet case
+    maximum** against a 50 °C ambient maximum. That 60 °C figure contradicts the
+    Class B (130 °C) winding insulation on the same page.
+  - **v1.0 needs no new design blocks.** All 36 exist, `hv_to_12v_tpsm365r6`
+    included. Two regression traps remain, not three.
+
+- 2026-09-08: **v0.3 test plan and v1.0 change list opened** (the two
   sections at the top). No KiCad files touched. Four `../kicad-libs` design docs
   were updated; that repo's `.agents/PLANS.md` has the matching block-work list.
   What changed in the picture:
