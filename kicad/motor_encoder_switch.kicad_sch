@@ -4951,11 +4951,6 @@
 		(lib_id "orb_weaver_private:analog_output_0_3v3_dac80501")
 		(members "ef025d11-02ce-40d7-ba7a-7a87f3faf27f")
 	)
-	(group "quadrature_encoder_input_5v_sn74lvc2g17"
-		(uuid "834683ca-df57-4f65-a058-b53596a4edb1")
-		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
-		(members "f0355ad2-ee9d-4879-aa58-32744cd5e9dc")
-	)
 	(group "tmc5130"
 		(uuid "e1dbb2ab-2fac-4374-a8f6-ddb1ebf9e8cc")
 		(lib_id "orb_weaver_private:tmc5130")
@@ -5415,122 +5410,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "20")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 185.42 127)
-		(size 25.4 17.78)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "f0355ad2-ee9d-4879-aa58-32744cd5e9dc")
-		(property "Sheetname" "quadrature_encoder_input_5v_sn74lvc2g17"
-			(at 185.42 126.2884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch"
-			(at 185.42 145.3646 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V" passive
-			(at 185.42 132.08 180)
-			(uuid "6a692d11-160a-46a6-8e1f-ef5aba563724")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "EA" input
-			(at 185.42 139.7 180)
-			(uuid "2972796f-886b-4dc5-805e-0dfc7a61160a")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "EB" input
-			(at 185.42 142.24 180)
-			(uuid "05554057-0956-4404-988c-83bff2192ca2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "ENCA" output
-			(at 210.82 129.54 0)
-			(uuid "65c31cb1-7539-4cfe-91ca-18df0c69d4f4")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "ENCB" output
-			(at 210.82 132.08 0)
-			(uuid "9b00ff3a-fbd1-4ef8-bedd-f2fb6fab57cc")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "GND" passive
-			(at 185.42 134.62 180)
-			(uuid "765a5c50-b6ef-4ccb-b822-a8ee15225cad")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "VENC" passive
-			(at 185.42 129.54 180)
-			(uuid "bdb3ad02-5f42-4584-8eac-f48df7105bad")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "8")
 				)
 			)
 		)
