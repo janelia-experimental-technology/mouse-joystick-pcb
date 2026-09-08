@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Orb Weaver Design Block Mining")
-		(date "2026-08-28")
-		(rev "0.3")
+		(date "2026-09-08")
+		(rev "1.0")
 		(company "Janelia Research Campus")
 	)
 	(lib_symbols
