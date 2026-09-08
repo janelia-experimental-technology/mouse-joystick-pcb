@@ -12,7 +12,288 @@ sessions.
 - [x] Verify the four copper layers, drill outputs, BOM/placement coverage, and
   Gerber-only upload archive.
 
+## v0.3 Bring-Up — What To Test When The Boards Arrive (opened 2026-09-08)
+
+**v0.3 boards are inbound. The repo is already at `(rev "1.0")` as of `2de2847`,
+so v0.3 is a measurement vehicle, not a shipping revision.** Everything below is
+either a v1.0 decision that hardware can settle, or a measurement that has been
+owed since August.
+
+**v0.3 is electrically identical to v0.2 on the 36 V path** — verified by diffing
+`kicad/` at `v0.2` against `cab25b3`. Every 36 V problem from v0.2 will
+reproduce, and the firmware staircase in `PowerSequence` is still required.
+
+### The two measurements that gate v1.0 design decisions
+
+- [ ] **1. Does the analog output span matter? — decides an op-amp purchase.**
+      v1.0 halves every board-exiting analog output with a ÷2 divider so nothing
+      can exceed 3.3 V on a pyControl pin
+      (`../kicad-libs/docs/onebox-analog-interface.md`). That costs exactly one
+      bit. **The criterion is whether the recorded trace is already
+      OneBox-quantization-limited with margin to spare.** Record a static,
+      homed, motor-idle angle trace at full span and look at the width of the
+      value histogram. Predicted from the documented figures: board noise 19 µV
+      RMS against the `AD7616-P`'s ~44 µV RMS quantization, so the converter
+      should dominate by about 2.3×. If it does, halving the span is undetectable
+      and the divider wins. If the trace is much wider than a couple of codes,
+      span is precious and a 3.3 V RRIO op amp is worth buying.
+      - Angle is expected to be **encoder**-limited by a wide margin regardless:
+        713 counts over the 64.174° swing is 2.3 mV per count on a 1.650 V span
+        against a 152.6 µV OneBox step, so the OneBox already resolves 15× finer
+        than the encoder can distinguish.
+- [ ] **1b. Validate the divider's source impedance without touching the board.**
+      Put 1.8 kΩ in series in the BNC cable and confirm the DC reading moves only
+      by the predicted **−0.19%** and the noise does not change. That is the only
+      thing about the final ÷2 topology (1.85 kΩ source versus today's 249 Ω) the
+      OneBox can tell apart.
+- [ ] **1c. Check nothing else dominates first.** Sweep the motor chopper
+      frequency while recording the angle channel. The `AD7616-P`'s antialias
+      filter is first-order at ~39 kHz against fixed 30.3 kHz sampling, so
+      out-of-band content folds in nearly unattenuated. **A chopper-correlated
+      artifact would be far larger than one bit and makes the span question
+      academic until fixed.**
+- [ ] **2. `+36V_SW` maximum and ringing at the future brake-stage location,
+      with the TMC5130A driving — decides the TVS populate question.** Owed since
+      August and never taken. The binding limit is the **TMC5130A's 49 V
+      inductive-load absolute maximum**, not the brake FET's 60 V. This one
+      measurement now protects the driver *and* the brake pass device together.
+      `SMBJ40A` is the part to order; the stocked `SMF48A` works for first boards.
+
+### The rest of the angle-output characterisation
+
+This is the headline reason v0.3 was ordered.
+
+- [ ] Verify `VREFIO` measures **2.500 V** and `GAIN` reads `0x0101` before the
+      first data write. On v0.3 this is still a **safety** check — the DAC is on
+      5 V, so a missed write means a full-scale code presents ~4.85 V. From v1.0
+      the DAC moves to 3.3 V and the reference alarm makes it a span check.
+- [ ] Fit gain and offset per board serial at **0 V / 1.65 V / 3.3 V** — v0.3
+      still has the full span. Note that every one of these endpoints **halves**
+      at v1.0 and the fit must be redone rather than rescaled.
+- [ ] Confirm the **~25 mV output floor** and that true 0 V is reserved as the
+      out-of-band unhomed/faulted/unpowered level.
+- [ ] Verify the **266 µs filter group delay** of the 2-pole 987 Hz Sallen-Key.
+      Any latency measured through `AIN0` includes it and it is not firmware
+      latency.
+- [ ] Confirm `ANGLE_OUT_MON` on `J1501` pin 32 tracks `ANGLE_OUT`. At v1.0 the
+      monitor tap moves to the divider midpoint and the two read the *same*
+      voltage, which removes a scale factor from the capture.
+
+### Carried-forward measurements this board can finally take
+
+- [ ] **`~{HV_FAULT}` and `HV_SNS` need `GP14` raised first.** Firmware must
+      assert `HV_DIAG_EN` before either reads anything at all. Without it
+      neither works, and that has bitten before.
+- [ ] **`+3.3V_MCU` back-power check.** Measure it with 36 V applied and **both**
+      USB and pyControl unplugged. The `SN74LVC125A` has no `Ioff` and TI does not
+      specify its leakage at `VCC` = 0, so this is unspecified rather than
+      guaranteed.
+- [ ] **Encoder filter value.** Scope `ENC_A_FILT` during the fastest
+      *motor-commanded* move — homing or recentering, not a mouse pull. `C802`
+      and `C803` are fitted at 470 pF, good to a 44.9 kHz channel frequency.
+      Needs the encoder's CPR and maximum shaft RPM, still open.
+- [ ] **LATCH baseline.** Flash `examples/TMC5130Communication` and send `l`.
+      Expect `[FAIL] this board still needs the workaround`. Confirming that is
+      what makes the v1.0 fix verifiable later.
+- [ ] **Travel on the right joystick** is still unmeasured. The left measured
+      55.174° below park, 64.174° full swing, 713 counts, 1:1 gearing.
+- [ ] **Hand-check the left mechanism's swing before commanding any motion** —
+      it may have been left jammed on 2026-09-03. See `docs/bringup-log.md`,
+      "OPEN: the mechanism may have been left jammed".
+- [ ] **Record which measurements were impractical for lack of a test point.**
+      There are none anywhere on the board, and the 36 V diagnosis had to be done
+      by energy accounting because reading `+36V_SW` means clipping onto
+      `C1213`'s can pads. **That list is the v1.0 test-point requirement.**
+
+### The question hardware cannot answer
+
+- [ ] **Ask the researcher which box is the primary analog record.** The OneBox is
+      16-bit over ±5 V, 152.6 µV per code, so a 1.650 V span is 13.4 bits and the
+      ÷2 divider is free. pyControl's own ADC is 12-bit on a 3.3 V reference,
+      806 µV per code, so the same span is **11 bits** and the divider hurts. This
+      is the single input that decides whether to buy a 3.3 V RRIO op amp, and no
+      measurement on v0.3 substitutes for it.
+
+## v1.0 Board Changes (opened 2026-09-08, supersedes the v0.4 list below)
+
+Blocks must be fixed in `../kicad-libs` **before** any of this — see that repo's
+`.agents/PLANS.md` → **2026-09-08 Design Block Changes**, especially the three
+regression traps. Re-placing `tmc5130` or `rp2040_gpio_isolation_sn74cb3q3245`
+before they are fixed damages a board that is currently clean.
+
+### Required
+
+- [ ] **`LATCH` to a GPIO — the blocking defect.** `R1903` 1 kΩ still straps the
+      `TPS1HTC100-Q1`'s `LATCH` to `+3.3V_MCU`, selecting latch-off, which
+      prevents the 36 V rail from ever coming up. **The library block already
+      exposes `LATCH` as a port**, so this is a re-place plus one wire to a spare
+      GPIO. Full reasoning and the rejected alternatives are in the v0.4 section
+      below, which stays for that reasoning.
+- [ ] Re-placing that block also brings three fixes worth knowing about: `SNS`
+      gains a 1 kΩ + 10 nF filter behind the 249 Ω `R_SNS` (**today the raw
+      node goes straight into `GP28` unfiltered**), `~{FAULT}` gains a 10 kΩ
+      RPROT, and the `DIAG_EN` RPROT goes 1 kΩ → 10 kΩ.
+- [ ] **Move `~{HV_FAULT}` off `GP29`.** It is an open-drain *digital* input
+      sitting on **ADC3**, and ADC pins are the board's scarce resource: `GP26` is
+      rail sense, `GP28` is `HV_SNS`, and `GP27`/ADC1 is the only free one.
+      Moving `~{HV_FAULT}` to a spare digital pin frees ADC3 for `BRAKE_ISENSE`
+      and leaves `GP27` available. Costs nothing.
+- [ ] **Add `hv_to_12v_tpsm365r6` on the switched domain.** Needed by the torque
+      block, and now also by the brake's loop amplifier. Place its switching loop
+      **physically remote from the torque bridge front end** — it exists to feed
+      that block, which makes adjacency tempting.
+- [ ] **Place `torque_bridge_0_3v3_ina821`.** Board-side obligations: the sensor
+      BNC and the `TQ_AOUT` BNC are **not** in the block, and **the ESD clamp's
+      ground via must land on the BNC's ground pin** or its clamping is dominated
+      by connection inductance. Three GPIOs: `GP12` (`SPI1 RX`) for `SDO`, one for
+      `TQ_CONVST_CS`, one for `TQ_CAL_EN` — the last is not optional in the sense
+      that matters, since the in-block pull-down makes an unconnected port safe
+      but leaves the shunt-cal circuit inert.
+- [ ] **Place `brake_current_sink_0_49ma_dac80501`.** The coil terminal is
+      in-block. `BRAKE_ISENSE` goes to the freed ADC and to `AIN1_P`. Give the
+      pass device as close to **6 cm²** of drain copper as the zone allows, on
+      the side **away** from the torque zone.
+- [ ] **Wire `~{BRAKE_FAULT}` back to the RP2040.** Decided 2026-09-08, and the
+      point is to **buy information**: monitor the brake's current-ceiling output
+      on real hardware and let that decide whether the deferred inter-board
+      `~{RIG_FAULT}` line is worth building. Without it there is no evidence
+      either way. The brake block gains the `SN74LVC2G17` buffer and the port
+      (see the `kicad-libs` plan); the board owes three things:
+      - **One GPIO**, routed **through the isolation bus switch** (`sw`), because
+        the far end is powered from the switched domain — that is the rule, not a
+        convenience. It arrives already at 3.3 V logic, so it needs a route but
+        **not** an `SN74LVC125A` channel.
+      - **An MCU-side termination.** The buffer has `Ioff`, so with `+3.3V_FILT`
+        down its output is high-Z and the isolated MCU-side pin floats. A **10 kΩ
+        pull-down to GND** is the right choice: per the domain rule, a pull that
+        may read LOW goes straight to GND rather than to `+3.3V_SW`. The
+        consequence is that the line reads **asserted whenever the switched rail
+        is off**, which is the fail-safe direction — but firmware must therefore
+        only interpret it while `SW_RAIL_SENSE` says the rail is up. Record it
+        with the other nine board-level terminations.
+      - **`DIG12` on the InstrumentPort**, already allocated to `~{BRAKE_FAULT}`
+        in `docs/interface-map.md`, so the capture sees the same edge the MCU
+        does.
+      Record the GPIO in `docs/interface-map.md`. **Budget still fits:** eight
+      digital spares after `GP12` goes to the torque `SDO`, against six consumers
+      — `HV_LATCH`, `TQ_CONVST_CS`, `TQ_CAL_EN`, `BRAKE_CS`, the relocated
+      `~{HV_FAULT}`, and `~{BRAKE_FAULT}` — leaving two spares plus `GP27`/ADC1.
+- [ ] **Do not add board-level pull-downs on `SCK` or `SDI`.** Both DAC blocks
+      already own one each, so a board carrying both already has 5 kΩ rather than
+      the 10 kΩ either block's description claims.
+- [ ] **Add the `RUN` reset switch and a debug header** — lands via the `rp2040`
+      block change. This is the revision that was told to revisit it.
+- [ ] **Test points.** Decide **before layout** whether they are schematic
+      symbols (so the netlist carries them) or layout-only pads. The list:
+      `+36V_SW`, `+5V_SW`, `+3.3V_SW`, `+3.3V_MCU`, `+5V_MCU`, both sides of
+      `R303`, `TMC_DIAG0`, `TMC_DIAG1`, `~{TMC_DRV_EN}`, `HV_EN`, `HV_SNS`,
+      `REFL`, `~{INSTR_BUF_OE}`, `ENC_A`, `ENC_B`, `LIMIT_SW`, plus in-block
+      `VREFIO`, `AMP_VOUT` and `AOUT`, and `TQ_DRDY` once torque is in.
+- [ ] **Netclasses for the new analog nets.** Torque: `SIG_P`, `SIG_N`, `IN_P`,
+      `IN_N`, `VEXC`, `VMID`, `INA_OUT`, `ATT_TAP`, `FILT_IN`, `AMP_VOUT`,
+      `TQ_AOUT`. Brake: `V_SET`, `V_SENSE`, `V_LIMIT`, `BRAKE_ISENSE`, the gate
+      node and the coil nets. None of them may fall through to `Default`, and
+      re-check that no net matches more than one pattern.
+- [ ] **Fix the title block.** Every sheet still reads "Orb Weaver Design Block
+      Mining" and carries the mining project's `comment 1`. `rev` is already
+      `1.0`. This is the fabrication drawing.
+- [ ] **Board outline.** 100 × 80 mm with 177 footprints today. The brake zone
+      (36 passives, three SOT-23-5, a VSSOP-10, a DFN2020, two SOD-123FL, an
+      X1SON, two ferrites, a 2-position vertical terminal, no electrolytic), the
+      torque zone (57 parts) and the 12 V module are a large increase. Leave pads
+      for an RC snubber from the brake pass-device drain to GND.
+
+### Decide, then do
+
+- [ ] **The pyControl event lines `GP20`/`GP22`/`GP23`.** The researcher will
+      likely derive pull events from the analog or UART record instead, in which
+      case all three come out along with the `J8`/`J9` BNCs planned for them —
+      real board area next to the new zones. **Not forced by the pin budget:**
+      moving `~{HV_FAULT}` off ADC3 already resolves the squeeze. Confirm with
+      the researcher, then remove them for the right reason.
+- [ ] **`U603` and `U604` are entirely unused and `U602` uses 1 of 8 channels.**
+      Three QFN-20s and three bypass caps for seven signals. The cheapest moment
+      to drop two of them is before placement, by moving `TMC_DIAG1` to one of
+      `U601`'s free channels. Note the old counter-argument is dead: the unused
+      channels have their MCU-side pins tied to GND, so nothing is pre-wired.
+- [ ] **`R303` is a 0.36 Ω jumper in a 1206 polyfuse position** on the pyControl
+      5 V branch. No PPTC exists in the parts DB. Size against v1.0's load, not
+      rev 0's ~100 mA. Port 5 V is a shared 1.0 A that also feeds the controller's
+      own logic regulator with no per-port fuse, so a fault here can reset the
+      experiment controller. Add test points either side or a tripped fuse cannot
+      be diagnosed in circuit.
+- [ ] **TVS at the 36 V entry** — populate decision, from v0.3 measurement 2.
+- [ ] **Encoder chain has no ESD device**, contrary to `docs/design-block-map.md`.
+      The 4.7 kΩ series and 470 pF give some protection and the `SN74LVC2G17` has
+      internal clamps. Decide and record.
+- [ ] **Locking motor connector.** Screw terminals on a rig that gets handled;
+      deferred once already. Decide before the harness is rebuilt, not after.
+- [ ] **Silkscreen a unit identifier.** Two interchangeable boards in one rig is a
+      failure mode, and calibration belongs to a board serial rather than a
+      joystick position.
+- [ ] **The bus switches run from `+3.3V_MCU`**, whereas the `SN74CB3Q3245` part
+      note says to power them from the switched rail so `Ioff` provides isolation
+      at `VCC` = 0. As built, isolation depends on the MCU holding
+      `~{BUS_SW_EN}` high, which `R601` makes the reset default. Reconcile the
+      note or the rail.
+- [x] **`~{BRAKE_FAULT}` — decided 2026-09-08: it goes to a GPIO in v1.0.**
+      Moved up to *Required* below.
+
+### Deferred to a later revision — do not design now
+
+- [ ] **`PYC_FAULT` / `EXT_FAULT_IN` / any hard-wired fault signal.** Decided
+      2026-09-08: **test v1.0 and the new blocks first**, and add this only if
+      the rig shows it is needed. **`~{BRAKE_FAULT}` on a GPIO is the experiment
+      that informs this** — if a monitored ceiling event turns out to be frequent
+      or consequential, that is the evidence for building a rig-level line; if it
+      never fires in normal use, the deferral becomes permanent. What was established while looking, so it does
+      not have to be re-derived:
+      - **No free RJ-45 pin can carry it on this breakout and these ports.** Rig 1
+        is a **Breakout 1.2** (`b = Breakout_1_2()`), boards on **ports 1 and 4**.
+        Read off `../kicad-libs/tmp/pyControl_breakout_1_2r1_schematic.pdf`: pins
+        3 and 7 are `POW-xA`/`POW-xB`, `TBD62083APG` sink-driver **outputs** on
+        every port; pin 5 is **`POW-1C`** on port 1 (another driver output) and
+        **`DAC-2`** on port 4 (pyboard `X6`/`PA5`, an analog DAC output); pin 8 is
+        **unconnected** on 1.2. Pins 1 and 4 are the UART, 2 is ground, 6 is 5 V.
+        **The pin-5 table in `docs/pycontrol-port-pinout.md` is the H7 breakout's
+        and does not apply to this rig.**
+      - Breakout 1.2 has only **two** BNCs, and **`BNC-2` is the same net as port
+        6's `DIO-6B`**, so using it forecloses port 6.
+      - **The controller is not who needs the wire.** The safety rule wants one
+        board's fault to stop the other, which is a board-to-board link: a single
+        shared active-low open-drain `~{RIG_FAULT}` on a 2-position 3.5 mm
+        terminal, pulled up to **`+3.3V_MCU`** (not `+3.3V_SW`), costs **one
+        GPIO** because the same pin reads the wired-OR while high-Z, and replaces
+        both `PYC_FAULT` and `EXT_FAULT_IN`. A wired-OR cannot detect a *dead*
+        board, so hardware would handle fault propagation and the UART heartbeat
+        liveness.
+      - If the controller must see it instead, **port 2** is the least-bad donor:
+        no UART, nothing assigned, and `DIO-2A`/`DIO-2B` are two independent MCU
+        GPIOs, so one spare port can carry both boards' fault lines via a
+        Y-harness.
+
+### Purchases before layout, not after
+
+- [ ] `DAC80501ZDGSR` — 50 in stock, **2 per board** now (angle + brake), so
+      stock covers exactly 25 boards with no rework margin.
+- [ ] `OPA197IDBVR` — about **6-7 per board**: 3 brake, 1 angle, ~2 torque.
+- [ ] `RT0402BRD073K2L` 3.2 kΩ 0.1% / 25 ppm — 2000 in stock, **+2 per divided
+      analog output** (three outputs).
+- [ ] A 1206 PPTC for `R303` — **not in the parts DB**, so a new internal part
+      plus a vendor mapping.
+- [ ] A 3.3 V precision RRIO op amp — **only if v0.3 measurement 1 or the
+      researcher's answer says the span matters.** Nothing stocked qualifies.
+- [ ] Still open and still blocking the current-sense and bulk questions: **the
+      joystick motor part number**, and the **encoder's CPR and maximum shaft
+      RPM**.
+
 ## Next Revision — v0.4 Required Changes (opened 2026-09-02)
+
+> **Superseded 2026-09-08 by the two sections above.** The repo is at
+> `(rev "1.0")` and there is no v0.4. **This section is kept for its reasoning,
+> not its task list** — the rejected alternatives for the `LATCH` fix, the energy
+> accounting behind the 108 µF ceiling, and the `swap_lr` and harness notes are
+> all still correct and should not be re-derived. Work the v1.0 list.
 
 **Carry these forward. v0.2 and v0.3 are electrically identical on the 36 V
 path, so v0.3 boards will reproduce every problem below.** Verified by diffing
@@ -644,6 +925,39 @@ Ready for active PCB work when:
 - Gate A items in `docs/validation-plan.md` have explicit status.
 
 ## Progress Log
+
+- 2026-09-08 (latest): **v0.3 test plan and v1.0 change list opened** (the two
+  sections at the top). No KiCad files touched. Four `../kicad-libs` design docs
+  were updated; that repo's `.agents/PLANS.md` has the matching block-work list.
+  What changed in the picture:
+  - **The brake's pass device is a 3 V-class part.** `V_GS(th)` = 2.4 / 3 / 4.0 V
+    from `../kicad-libs/tmp/BUK7D36-60E.pdf`, so worst-corner gate margin on a
+    5 V rail was 90 mV with a −7.5 mV/°C tempco. **Resolved by moving the brake's
+    loop amplifier to 12 V**, which the board is already adding a
+    `hv_to_12v_tpsm365r6` for. The part stays; the margin did not.
+  - **Decided: no board-exiting analog signal may exceed 3.3 V**, so a pyControl
+    MCU pin cannot be damaged by a direct connection. Implemented as a ÷2 divider
+    per output, in-block. **The torque channel was believed exempt and is not** —
+    verified from the block netlists, its ceiling is set by `U37005`'s 5 V rail,
+    not by the ÷3 attenuator, so a buffer fault puts ~4.95 V on the BNC. Same for
+    the angle buffer, `BRAKE_ISENSE`, and both monitor taps. The `TPD1E05U06` on
+    each output is a 5.5 V-working ESD part and does not bound a DC fault.
+  - **The pin budget is not the constraint it looked like.** Nine GPIOs are free;
+    v1.0 needs six. The real squeeze was the ADC, and `~{HV_FAULT}` is a digital
+    input sitting on `GP29`/ADC3 — moving it frees an ADC for `BRAKE_ISENSE` at
+    no cost. So the pyControl event lines can be dropped because the researcher
+    does not want them, not under pin pressure.
+  - **A `RUN` reset switch is in for v1.0**, in the `rp2040` block along with
+    exposing `SWCLK`/`SWD`. Verified from the netlist that a warm reset is safe:
+    `HV_EN` releases into `R1904`'s 10 kΩ pull-down so `+36V_SW` drops, and
+    `~{TMC_DRV_EN}` pulls up to `+3.3V_SW` through `R1103` so the driver disables.
+  - **Hard-wired fault signalling is deferred**, at Peter's call — test v1.0 and
+    the new blocks first. The RJ-45 investigation that closed the "can it go on a
+    spare pin" question is written up in the v1.0 section's *Deferred* subsection
+    so it does not have to be repeated.
+  - **`torque_bridge_0_3v3_ina821` is not as finished as it looked**: the block
+    has no `.kicad_pcb` and 114 unscrubbed vendor fields. Placing it today would
+    bring the netlist and none of the layout.
 
 - 2026-08-31 (latest): **Rev-2 brake block schematic drawn and netlist-verified in
   `kicad-libs`** — 47 parts, 26 named nets, no floating pins. Not laid out, not
