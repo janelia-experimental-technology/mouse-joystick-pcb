@@ -485,6 +485,12 @@ What that rules out and what it leaves:
 
 - **-40.95 deg is impossible mechanically.** Travel is ~28 deg at the motor
   shaft and the commanded position was -5.0.
+  **Corrected 2026-09-09: the premise is wrong.** The hard stops are movable and
+  both mechanisms have ~60 deg of range, so -40.95 deg is not out of reach. The
+  rest of the case against this reading — frozen across the whole window, through
+  a physical pull — is unaffected and still stands on its own. See
+  [The 28 deg travel figure is a hard-stop setting, not a mechanism
+  property](#the-28-deg-travel-figure-is-a-hard-stop-setting-not-a-mechanism-property).
 - **It was frozen across the whole window**, through a physical pull, so the
   encoder was not tracking. `xactual` being frozen is expected in FREEWHEEL --
   nothing turns the ramp generator -- but `angle` should have moved.
@@ -1159,10 +1165,12 @@ the margin to 50 V as well — this capture is the only evidence for either.
 
 ### Thermal
 
-- TMC5130A case temperature, 30 min idle:
-- TMC5130A case temperature, 30 min continuous motion:
+Case temperatures — TMC5130A idle and under motion, the 3.3 V LDO, the sense
+resistors and the motor — are recorded in [Thermal Survey](#thermal-survey--procedure-and-results-opened-2026-09-09),
+so there is one place to look and one place to fill. The rows below are the
+non-thermal-camera half and stay here.
+
 - Confirmed `VCC` fed externally, internal regulator offloaded:
-- 3.3 V LDO temperature:
 - Sequencing at power-up:
 - Behavior at power-down:
 
@@ -1435,8 +1443,15 @@ encoder and limit switch. The pyControl link beyond `GP1`'s idle level.
 
 ## Motor And Driver
 
-Expected configuration: `R1203`/`R1204` 0.15 Ω, `vsense = 1`, `IRUN = 28`, target
-0.679 A RMS. A measured current near 1.23 A means `vsense` is 0 — stop.
+Expected configuration: `R1203`/`R1204` 0.15 Ω, `vsense = 1`, `IRUN` ≤ **17**
+(0.421 A RMS), with `IRUN` 24-25 (0.600 A) the open alternative. A measured
+current near **0.760 A** means `vsense` is 0 — stop.
+
+**Corrected 2026-09-09.** This paragraph read "`IRUN = 28`, target 0.679 A RMS…
+near 1.23 A means `vsense` is 0", all of which predates the motor being
+identified as a WO-208-13-01D. See [`IRUN` = 28 predates the motor and is above
+its rating](#irun--28-predates-the-motor-and-is-above-its-rating), and settle the
+number with [Thermal Survey](#thermal-survey--procedure-and-results-opened-2026-09-09).
 
 **Stage 2 passed 2026-09-02, 5 of 6 register checks.** Rail brought up with the
 firmware staircase (`c`), bus closed with `b`, `~{TMC_DRV_EN}` high throughout,
@@ -1492,14 +1507,18 @@ switch still isolated:
 - Motor rated current per phase, and whether RMS or peak:
 - Sense resistor populated, measured on the physical board:
 - `vsense` read back from CHOPCONF (expect 1):
-- `IRUN` read back (expect 28):
-- **Coil current measured, RMS** (expect 0.679 A):
+- `IRUN` read back (expect **17** unless a thermal run has moved it; the bench
+  console's `n` refuses anything above 17):
+- **Coil current measured, RMS** (expect **0.421 A** at `IRUN` 17, 0.600 A at 24):
 - Driver config read back over SPI:
 - `DIAG0` behavior (`R1101` 10 kΩ pull-up to `+3.3V_SW`; open-drain, idles high):
 - `DIAG1` behavior (`R1102` 10 kΩ pull-up to `+3.3V_SW`):
-- Sense resistor temperature, standstill hold at current:
+- Sense resistor temperature, standstill hold at current — record it in
+  [Thermal Survey](#thermal-survey--procedure-and-results-opened-2026-09-09)
+  with the `IRUN`, `vsense` and shunt value it was taken at:
 - Motion smoothness / audible behavior:
-- Microstep smoothness at 163 mV sense signal:
+- Microstep smoothness at the **101 mV** peak sense signal (89 mV across the
+  0.15 Ω itself; the old 163 mV figure came from `IRUN` 28):
 - Step-rate ceiling achieved at 36 V, versus the same motor at 24 V if available:
 
 ## Encoder
@@ -1809,6 +1828,12 @@ it needs a coil-current measurement and a case temperature to settle.** The
 carry predates the motor being identified: it is 0.679 A RMS, above the rating
 on either reading, and should be revised.
 
+**Update 2026-09-09:** both have been. `docs/rev0-plan.md` was swept on
+2026-09-08 and the firmware's AGENTS.md on 2026-09-02; each now carries `IRUN`
+≤ 17 plus a note about what it used to say. The measurement that settles 17
+versus 24-25 is still owed — see
+[Thermal Survey](#thermal-survey--procedure-and-results-opened-2026-09-09).
+
 **Motion.** One jog step = 1280 usteps = 9.00 deg at the motor shaft.
 
 - `VMAX` 5368 = 5119 usteps/s = 0.100 rev/s, `AMAX` = `DMAX` = `D1` = 219 = 0.5 rev/s^2.
@@ -1906,6 +1931,12 @@ on either reading, and should be revised.
   joystick through the gear pair. Every bring-up distance has to fit inside
   this; the first encoder round trip was written at 5120 usteps and ran straight
   off the end of the mechanism.
+  **Corrected 2026-09-09, twice over.** The hard stops are movable, so 28 deg is
+  where they sat that day and not the mechanism's range, which is ~60 deg on both
+  joysticks; and the gearing is **1:1**, so joystick degrees equal motor degrees
+  rather than being "less". See [The 28 deg travel figure is a hard-stop setting,
+  not a mechanism
+  property](#the-28-deg-travel-figure-is-a-hard-stop-setting-not-a-mechanism-property).
 - Nothing was strained finding it. At `IRUN` 8 the motor simply stalls, and the
   follow check ends the move within one 200-ustep window.
 
@@ -1913,7 +1944,247 @@ on either reading, and should be revised.
 temperature, `DIAG0`/`DIAG1` behaviour, microstep smoothness, step-rate ceiling,
 encoder supply current, and any of it at a current above `IRUN` 8.
 
+## Thermal Survey — Procedure And Results (opened 2026-09-09)
+
+Taken with a thermal imaging camera on **v0.2 hardware**, deliberately, rather
+than waiting for v0.3. The motor, driver, shunts and 36 V path are identical on
+the two revisions — verified by diffing `kicad/` at `v0.2` against `cab25b3` — so
+waiting buys nothing on any row below.
+
+**What it settles.** `IRUN` 17 (0.421 A RMS) versus 24-25 (0.600 A), the last
+open question about the fitted motor and the one input the shunt decision needs.
+That decision is a **v1.0 layout** matter: staying at 0.15 Ω keeps the present
+land, and moving to 0.22 Ω 2512 changes it in both the library block and this
+board, where `BRA`/`BRB` are routed tight. Take it before v1.0 placement, not
+after.
+
+It also fills four slots owed since before v0.2 shipped: TMC5130A case
+temperature idle and under motion, the 3.3 V LDO, and sense-resistor temperature
+under load.
+
+### Before anything is energised
+
+- **Hand-check the left joystick's swing.** It may have been left jammed on
+  2026-09-03 and that is still open — see [OPEN: the mechanism may have been left
+  jammed](#open-the-mechanism-may-have-been-left-jammed). If there is any doubt,
+  take the motion runs on the **RIGHT** joystick, board `E4654C159F4D1334`, whose
+  usable travel is measured at ≈4000 usteps ≈ 28 deg at the motor shaft.
+- **Re-establish which board is on which port** with the `ID` reply or the
+  InstrumentPort beacon. The harnesses are mirrored, and the table at the top of
+  this file is only as good as the last recabling.
+- **Record the board serial on every reading.** Two interchangeable boards in one
+  rig is the failure mode this log exists to prevent.
+- **Record ambient in the same frame as every part.** The quantity that transfers
+  is rise above ambient, not absolute case temperature.
+
+### Camera setup — this is what decides whether the numbers mean anything
+
+- **Emissivity dominates the error.** Black plastic IC packages read acceptably
+  at ~0.95. The motor's plated can, the shunts' metal element and bare copper
+  read **far too low** at that setting. Put a matte black target — electrical
+  tape or paint — on the motor can and beside the shunts, and read the target
+  rather than the metal. Record the emissivity you set.
+- **Shiny surfaces reflect you and the room.** If a hotspot moves when you move,
+  it is a reflection, not a part.
+- **Spot size versus distance.** A 1206 shunt is smaller than the detector spot
+  at a typical working distance, so a reading there is an average of its
+  neighbourhood. Get close, and mark which readings are spot averages.
+- **Let it settle.** An 82 g NEMA 08 has a thermal time constant in the
+  many-minutes range, so the 30-minute soaks below are not padding. A reading
+  taken a minute in tells you nothing.
+- Record camera model, emissivity, working distance, whether a target dot was
+  used, and ambient — once per run.
+
+### The two runs, and one firmware constraint to know first
+
+The bench console's `n` command **refuses any run current above `IRUN` 17**:
+`conv::kCurrentScaleCeiling` is derived from the conservative 0.421 A reading, so
+**`IRUN` 24 needs a rebuild**, not a keystroke. `IHOLD` is likewise fixed at
+`conv::kCurrentScaleHold` = 2 (0.070 A RMS), so a standstill soak *at run
+current* — the true worst case for the coils, and one that needs no motion at all
+— also needs a firmware change. Record which firmware and which path each run
+used.
+
+- **Run A — energised, standstill, 30 min.** Baseline. Note whether the coils sat
+  at `IRUN` or dropped to `IHOLD`; at `IHOLD` = 2 this is a near-idle number and
+  must be labelled as one.
+- **Run B — representative continuous motion, 30 min.** Back and forth, well
+  inside the measured travel. This is the number the duty-cycle question wants.
+
+Repeat both at each `IRUN` under test. Predicted copper loss, both phases at
+6.5 Ω/phase: **2.31 W at 0.421 A** (`IRUN` 17), **4.68 W at 0.600 A** (`IRUN` 24),
+and **7.29 W at 0.749 A**, the `vsense` = 1 hardware ceiling.
+
+### Results
+
+Copy this block once per (board, run, `IRUN`). Numbers with units, not pass/fail.
+
+- Board serial / run (A or B) / `IRUN` / `vsense` / shunt value:
+- Firmware and path used (bench console or protocol):
+- Ambient, emissivity, camera and working distance:
+
+| Part | Designator | Case temp | Rise above ambient | Notes |
+| --- | --- | --- | --- | --- |
+| TMC5130A | `U1201` | | | |
+| Sense resistor A | `R1203` | | | |
+| Sense resistor B | `R1204` | | | |
+| 3.3 V LDO | `U1001` | | | |
+| 5 V buck | `U901` | | | |
+| High-side switch | `U201` | | | |
+| 36 V bulk | `C1213`/`C1214` | | | |
+| Motor can | — | | | |
+| Gear pair / mechanism | — | | | |
+| Hottest thing in frame, whatever it turns out to be | | | | |
+
+- `DRV_STATUS` `otpw` / `ot` at the end of the run (free over SPI, and it is the
+  chip's own thermal opinion):
+- Coil current measured, RMS, at this `IRUN`:
+- Anything unexpected in the field of view:
+
+#### Run B — board `E4654C159F4D1334` (RIGHT), 2026-09-09
+
+- **Conditions:** `IRUN` 17 = 0.421 A RMS, `vsense` = 1 read back, `R1203`/`R1204`
+  0.15 Ω, `IHOLD` 2. Rail up via the firmware staircase, 133 ms, peak 3.317 V.
+- **Firmware and path:** `MotionAndHoming` over the USB console, repeated `g`
+  (jog one step away from the switch and back, ±9 deg at the motor shaft) every
+  1.2 s.
+- **Duration:** 10:44 to 11:50, ~66 min, with a 50 s break at 11:14. About 1300
+  cycles, 2600 legs at 459 ms each.
+- **Duty:** motion occupied **72%** of wall time, but `DRV_STATUS` polled
+  `cs_actual` = **15 with `stst` = 1** throughout, so the coils sat at
+  essentially run current between cycles as well as during them. The firmware
+  never writes `TPOWERDOWN`, so it holds the chip default (~164 ms) and the
+  standstill gaps here are shorter than power-down plus ramp. **Electrical duty
+  is therefore near 100%: this is the continuous case, not a duty-cycled one.**
+- **Camera:** emissivity 0.95. The "ambient" column below is the **minimum pixel
+  in frame**, not room air — see the caveats. Room was about 25 °C.
+
+| Clock | t | "Ambient" | TMC5130A `U1201` | Motor can |
+| --- | --- | --- | --- | --- |
+| 10:47 | 3 min | 24.5 °C | 44.5 °C | 34.5 °C |
+| 10:54 | 10 min | 24.3 °C | 45.3 °C | 38.7 °C |
+| 11:04 | 20 min | 25.1 °C | 45.3 °C | 40.6 °C |
+| 11:14 | 30 min | 23.3 °C | 46.9 °C | 42.6 °C |
+| 11:27 | 43 min | 25.3 °C | 45.6 °C | 42.3 °C |
+| 11:50 | 66 min | 25.2 °C | 45.5 °C | 43.3 °C |
+
+**Plateau: TMC5130A ≈ 45.5 °C, motor can ≈ 43.3 °C**, against a room of ~25 °C,
+so roughly **+20 °C and +18 °C** of rise. The motor was still creeping ~1 °C per
+20 min at the end; the TMC was flat from ten minutes on.
+
+- `DRV_STATUS`: **`ot` = 0 and `otpw` = 0 on every poll** across both runs.
+  `cs_actual` = 15, `sg_result` 70-78, `stst` = 1 between cycles.
+- **No follow failures in ~1300 cycles**, so the mechanism ran free throughout.
+- Coil current, RMS: **not measured** — no clamp on the bench this session. The
+  case temperature is the half that was taken.
+- `R1203`/`R1204`, `U1001`, `U901`, `U201` and a wide board frame: **not
+  measured.** Worth one shot next time the rig is warm; the shunts' ±100 ppm/°C
+  tempco is a current-accuracy term, so their temperature bounds it.
+
+**What it settles.**
+
+- **`IRUN` stays 17.** 43.3 °C continuous leaves 16.7 °C to the motor's 60 °C
+  case maximum in this room, and real use is far below continuous.
+- **`IRUN` 24 is rejected without testing it.** Rise scales as
+  (0.600/0.421)² = 2.03, giving ~+37 °C, i.e. **~62 °C in this room** — over the
+  case maximum before any allowance for a warm day. That scaling is robust to the
+  duty uncertainty, because whatever fraction of time the coils spend at run
+  current applies equally to both currents and cancels.
+- **`R1203`/`R1204` stay 0.15 Ω with `vsense` = 1.** Moving to 0.22 Ω 2512 needed
+  `IRUN` settled at 17 **and** a reduction above ~1.7:1. The gearing is 1:1 on
+  both joysticks, so the second condition fails and the 2512 land change is off
+  the table in both the library block and this board.
+
+**Three caveats that belong with the numbers.**
+
+1. **The motor can was read at ε = 0.95.** If that frame was bare plated metal
+   rather than a matte target, every motor figure here is a **floor**, and the
+   `IRUN` 24 projection gets worse rather than better.
+2. **The "ambient" column is the coldest pixel in frame, not room air.** It
+   wandered 23.3-25.3 °C non-monotonically, and at 11:27 it moved *up* 2.0 °C
+   while both parts moved *down* — it tracks framing, not the room. Rises here
+   are computed against ~25 °C rather than that column. Next run: read one fixed
+   matte reference away from the rig, every frame.
+3. **A plateau was called at 20 min and was wrong.** A single-exponential fit to
+   the first three points gave τ ≈ 3 min and +15.3 °C; the real curve has a
+   second, slower constant — the joystick assembly and board copper soaking — and
+   the motor gained another ~3 °C after that "plateau". Do not call steady state
+   on a small-package fit when the part is bolted to something large.
+
+### Reading the result
+
+- **Run B bounds the design; it does not represent the experiment.** Established
+  2026-09-09: real use is **low duty** — the researcher commands a motion, the
+  motor depowers and waits, and there may be a rehome and another move, with
+  cooling periods between. A back-to-back motion soak is therefore a worst case,
+  which is the more useful thing to measure, but the margin it reports is not the
+  margin a trial sees. **The one thing that would make it representative is a
+  hold-against-force mode**, which is still open with the researcher — a
+  sustained hold energises the coils continuously and puts the motor back on
+  this curve.
+- **The motor is the binding part.** Its datasheet gives a **60 °C case maximum**
+  against a **50 °C ambient maximum** — a 10 °C rise budget at worst-case ambient
+  — so compare rise, not absolute. That 60 °C figure is **inconsistent with the
+  Class B (130 °C) winding insulation quoted on the same datasheet page**, and the
+  inconsistency is worth a question to Lin Engineering whichever way the numbers
+  land.
+- **Record the shunt value, the `vsense` bit and `IRUN` in one place.** They are
+  one decision, and a temperature without all three is uninterpretable later.
+- If `IRUN` 17 sits comfortably inside the rise budget and 24 does not, 17 wins
+  and the shunt stays 0.15 Ω. If 17 is already at the thermal limit, the
+  motor-against-brake sweep has no overcurrent headroom to buy, which is the case
+  where keeping the 23.4 mA step matters more than the 0.22 Ω 2512's extra sense
+  signal.
+- **The gear-teeth count is the other half of that decision and needs no power at
+  all.** Count both assemblies while the rig is open: above roughly 1.7:1 the
+  motor at rated current reaches the brake's full 3.5 N·cm and the sweep needs no
+  headroom either way.
+
+### What this survey cannot settle
+
+The brake pass device. The `BUK7D36-60EX` has **no linear-mode SOA derating
+curve** in its datasheet, which is precisely why its case temperature is not
+optional — but that circuit does not exist until v1.0, and the 6 cm² of drain
+copper it is conditioned on is a v1.0 layout obligation. Take it during v1.0
+bring-up, with this camera and this procedure.
+
 ## Open Issues Found During Bring-Up
+
+### The 28 deg travel figure is a hard-stop setting, not a mechanism property
+
+**Established 2026-09-09, from Peter: the hard stops on both joysticks are
+movable, and both mechanisms have roughly 60 deg of range.** At 1:1 gearing that
+is 60 deg at the motor shaft too. **28 deg is not the travel of either
+joystick** — it is where the stops happened to sit, or how far a hand pull got,
+on the day it was measured.
+
+That number is load-bearing in at least five places in this file, and in
+firmware:
+
+- `kMeasuredTravelMicrosteps` = 4000 (≈28 deg), measured on board 2 (RIGHT) and
+  used since as if it described the mechanism.
+- "Usable travel ≈ 4000 usteps ≈ 28 deg at the motor shaft" in board 2's stage 3
+  entry. The same sentence adds "less at the joystick through the gear pair",
+  which is **also wrong**: the ratio is 1:1, so joystick degrees and motor
+  degrees are the same number.
+- "Travel is ~28 deg at the motor shaft" in the FREEWHEEL analysis, where it is
+  the premise for calling **-40.95 deg impossible mechanically**. With ~60 deg of
+  range that premise no longer holds. The reading may still be an artefact — it
+  was frozen across the whole window, which is independent evidence — but
+  "impossible" is not the reason. **This file has already recorded one encoder
+  reading dismissed as impossible that turned out to be real** (see "The encoder
+  was RIGHT: -28.083 deg is the mechanical end of travel"), so the same mistake
+  has now been made twice from the same bad figure.
+- The travel-limit finding and the limit-switch-end argument both quote it.
+
+What follows: **usable travel is a rig configuration to be set and recorded, not
+a constant to inherit from a measurement.** Set both mechanisms' stops to the
+same range deliberately, record it per joystick with the date, and derive the
+firmware limit from that rather than from `kMeasuredTravelMicrosteps`. The
+earlier left/right disagreement (64.174 deg full swing on the left against 28 deg
+on the right) is explained by movable stops rather than by the two assemblies
+differing, which also retires the "different small-gear geometry is a scientific
+confound" worry — the gearing is 1:1 on both.
 
 ### `docs/power.md` is stale about `HV_SNS` and `~{HV_FAULT}`
 
@@ -2100,6 +2371,16 @@ Firmware currently enforces `IRUN` <= 17 (0.421 A RMS, the peak-of-sine
 reading) and runs bring-up at `IRUN` = 8 (0.211 A RMS). **Settle it with a coil
 current measurement and a case temperature**, then change the number in one
 place and record which reading won.
+
+**SETTLED 2026-09-09 by case temperature: `IRUN` 17 wins, and the peak-of-sine
+reading is the one to keep.** 66 minutes of continuous energisation at `IRUN` 17
+plateaus the motor can at **43.3 °C** in a ~25 °C room, 16.7 °C below its 60 °C
+case maximum, with `ot`/`otpw` clear throughout. `IRUN` 24 scales the rise by
+(0.600/0.421)² = 2.03 to about **62 °C in the same room**, over the maximum
+before any allowance for a warm day. Coil current was **not** measured — no clamp
+on the bench — but the thermal half is decisive on its own, and the scaling is
+insensitive to the duty question. Full data, method and caveats in
+[Thermal Survey](#thermal-survey--procedure-and-results-opened-2026-09-09).
 
 ### No test points remains the binding constraint
 

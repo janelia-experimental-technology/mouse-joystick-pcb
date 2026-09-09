@@ -97,8 +97,22 @@ This is the headline reason v0.3 was ordered.
       and module max RPM = 6×10⁶/CPR = **6000 RPM** at 1000 CPR. **470 pF is
       correct; do not re-derive.** Scoping `ENC_A_FILT` is now optional
       confirmation, not a gate.
-- [ ] **Coil current and motor case temperature — settles IRUN 17 versus 24-25,
-      and does NOT need v0.3.** The motor and driver path are unchanged from v0.2
+- [x] **DONE 2026-09-09 — `IRUN` 17 wins, on case temperature alone.** Taken on
+      board `E4654C159F4D1334` with a thermal camera, 66 min of continuous
+      energisation at `IRUN` 17 driven by repeated `g` cycles: motor can plateaus
+      at **43.3 °C** in a ~25 °C room (+18 °C rise), TMC5130A at **45.5 °C**,
+      `ot`/`otpw` clear on every poll, no follow failures in ~1300 cycles.
+      `IRUN` 24 scales the rise by (0.600/0.421)² = 2.03 to **~62 °C in the same
+      room**, over the 60 °C case maximum, so it is rejected without a rebuild.
+      Electrical duty was ~100%, not the 72% of motion time: `cs_actual` polled 15
+      with `stst` = 1, because firmware never writes `TPOWERDOWN`. Real use is
+      **low duty** (command, depower, wait, rehome), so this bounds rather than
+      represents — the exception being a hold-against-force mode, still open with
+      the researcher. **Coil current was not measured** (no clamp on the bench);
+      the thermal half is decisive on its own. Data, method and three caveats in
+      `docs/bringup-log.md` → *Thermal Survey*. Original text below.
+      ~~**Coil current and motor case temperature — settles IRUN 17 versus 24-25,
+      and does NOT need v0.3.**~~ The motor and driver path are unchanged from v0.2
       and two v0.2 boards are in hand, so this can be taken today. Measure coil
       current at IRUN 17 and read case temperature after a representative duty
       cycle. Copper loss is **2.31 W** at 0.421 A and **4.68 W** at 0.600 A (both
@@ -113,8 +127,18 @@ This is the headline reason v0.3 was ordered.
 - [ ] **LATCH baseline.** Flash `examples/TMC5130Communication` and send `l`.
       Expect `[FAIL] this board still needs the workaround`. Confirming that is
       what makes the v1.0 fix verifiable later.
-- [ ] **Travel on the right joystick** is still unmeasured. The left measured
-      55.174° below park, 64.174° full swing, 713 counts, 1:1 gearing.
+- [ ] **Travel: set both hard stops deliberately and record them, rather than
+      measuring whichever position they were left in.** Reframed 2026-09-09: the
+      stops on both joysticks are **movable**, both mechanisms have roughly
+      **60°** of range, and the gearing is **1:1 on both**, so joystick degrees
+      and motor degrees are the same number. The 28° figure carried through this
+      repo and through firmware's `kMeasuredTravelMicrosteps` = 4000 is a stop
+      setting, not a mechanism property — see `docs/bringup-log.md` → *The 28 deg
+      travel figure is a hard-stop setting, not a mechanism property*. The left's
+      64.174° full swing is consistent with ~60°.
+- [x] **Hand-check both mechanisms — done 2026-09-09, neither is jammed.** Both
+      joysticks were reconnected and sit mid-travel; ~1300 motion cycles ran on
+      the right with no follow failures.
 - [ ] **Hand-check the left mechanism's swing before commanding any motion** —
       it may have been left jammed on 2026-09-03. See `docs/bringup-log.md`,
       "OPEN: the mechanism may have been left jammed".
@@ -199,7 +223,16 @@ design blocks** — all 36 exist, including `hv_to_12v_tpsm365r6`.
 ### Required
 
 - [ ] **Size `R1203`/`R1204` after placing `tmc5130` — the block default is
-      wrong on purpose.** (They are `R4003`/`R4004` inside the library block.) Decided 2026-09-08. The library ships **0.12 Ω**
+      wrong on purpose.** (They are `R4003`/`R4004` inside the library block.)
+      **VALUE CLOSED 2026-09-09: 0.15 Ω with `vsense` = 1, and the 0.22 Ω 2512
+      branch below is dead.** Taking 0.22 Ω needed `IRUN` settled at 17 **and** a
+      reduction above ~1.7:1. `IRUN` 17 is settled (see the thermal result in the
+      v0.3 section above), but **the gearing is 1:1 on both joysticks**, so the
+      sweep would need motor overcurrent the thermal result rules out. No 2512
+      land change in the block or this board. The action that remains is only the
+      swap from the block's 0.12 Ω placeholder at placement time — which is
+      exactly the silent failure this item exists to prevent.
+      Decided 2026-09-08. The library ships **0.12 Ω**
       (`OW-PASS-KRL1632E-M-R120-F-T5`) as a placeholder because the correct value
       is a property of the motor. **This board fits 0.15 Ω
       (`OW-PASS-RLH12FTCR150`) with `vsense` = 1**, which is what both v0.2 units
