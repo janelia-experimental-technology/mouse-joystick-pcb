@@ -23,6 +23,48 @@ owed since August.
 `kicad/` at `v0.2` against `cab25b3`. Every 36 V problem from v0.2 will
 reproduce, and the firmware staircase in `PowerSequence` is still required.
 
+### Stages 1-3 passed on the first v0.3 unit, 2026-09-09 — board 4, `E4654C159F171E34`
+
+Stage 1 on USB alone (24 checks, 0 failed), then stages 2 and 3 with the motor,
+encoder, limit switch, 36 V, pyControl RJ-45, LA5032 and the angle BNC all
+connected. Rail up in 132 ms, TMC5130A `VERSION` = 0x11, `vsense` reads back 1,
+encoder follow ratio **1.0000**, switch witnessed (engages 28.8°, 1.8° throw,
+active high), **homing repeatable to 2.0 encoder counts** at 0.200 rev/s
+approach / 0.010 rev/s creep. Full results in `docs/bringup-log.md` → *Board 4*.
+
+**Resolved on the way: the `IOIN` disagreement between boards.** Five of those
+bits depend on what is plugged in, so the firmware's fixed expected value is
+wrong by construction. Empty limit-switch connector reads `REFL_STEP` = 1
+(the MAX6816 drives its own pull-up high and v0.3 has no `LIMIT_SW` pull-down);
+fitted and at rest it reads 0, because the switch is normally closed. No
+assembly defect on any board. Fail-safe in the right direction: a broken switch
+cable reads as a permanent limit.
+
+**Still untested, and it is the headline item:** the angle output. There is no
+`DAC80501` driver in the firmware at all, so the BNC only shows the DAC's reset
+state. Nothing about the analog characterisation below can start until that
+driver exists.
+
+Three things from stage 1 that change how the rest of this list is run:
+
+- **Build `env:mouse_joystick_rev1` for a v0.3 board, not `env:mouse_joystick`.**
+  v0.3's `U501` pads 13/14/16 route `GP10`/`GP11`/`GP13` to the angle-output DAC,
+  so v0.3 *is* `MJ_BOARD_REV=1`. `platformio.ini` calls that env "the rev 1 board
+  (pcb HEAD)", which reads as if no fabricated board matches it. **Both
+  `platformio.ini` and `src/BoardPins.hpp` in `../mouse-joystick-firm` still say
+  rev 0 covers "v0.1 and v0.2" and rev 1 is "HEAD"; neither mentions v0.3.**
+  Worth one comment edit before someone flashes the wrong env at a live SPI bus.
+- **Designators rotated again, and the self test prints v0.1 names.** The mapping
+  for every part stage 1 touches is tabulated in the bring-up log. The one that
+  matters most: **the `LATCH` strap is `R1903` on v0.3**, not `R203`.
+- **Nothing in the angle-output list below is reachable on USB alone.** The
+  `DAC80501` and `OPA197` sit on `+5V_SW`, so the whole headline characterisation
+  needs 36 V connected. Stage 1 is the entire USB-only surface.
+
+Still owed on this unit and cheap: a cold power-on reset reason (needs a replug,
+so it reads `power-on` rather than `software`), and boot latency, which needs the
+LA5032 on `FW_TRIG0`/`FW_TRIG1`.
+
 ### The two measurements that gate v1.0 design decisions
 
 - [ ] **1. Does the analog output span matter? — decides an op-amp purchase.**
@@ -63,10 +105,44 @@ reproduce, and the firmware staircase in `PowerSequence` is still required.
 
 This is the headline reason v0.3 was ordered.
 
-- [ ] Verify `VREFIO` measures **2.500 V** and `GAIN` reads `0x0101` before the
-      first data write. On v0.3 this is still a **safety** check — the DAC is on
-      5 V, so a missed write means a full-scale code presents ~4.85 V. From v1.0
-      the DAC moves to 3.3 V and the reference alarm makes it a span check.
+- [ ] **`GAIN` CANNOT BE READ BACK. Rewritten 2026-09-09 — the original text
+      asked for something the hardware cannot do.** The `DAC80501` has **no SDO
+      pin**: the VSSOP-10 pinout is VDD, VOUT, NC, AGND, SPI2C, SCLK, SYNC,
+      SDIN, NC, VREFIO, `SDIN` is typed *Input* in SPI mode, and "SDO" appears
+      nowhere in the datasheet. Over SPI the part is strictly **write-only**.
+      (The `GP12`/`SDO` note further down this file is the torque bridge's ADC,
+      a different chip.) So:
+      - `VREFIO` = **2.500 V** is a **DMM measurement at the pin**, not a
+        firmware check. Still worth taking.
+      - `GAIN` = `0x0101` can only be verified **by measuring the output**:
+        write a known code, measure the BNC, compare against the expected full
+        scale. That is a DMM task at bring-up, not a register read.
+      - The safety point stands and gets sharper. `GAIN` **resets to `0x0001`**
+        — REF-DIV 0, BUFF-GAIN 1, which is a **5.0 V full scale** on a 5 V VDD.
+        The board needs 2.5 V full scale (×1.32 → 3.3 V at the BNC). Since the
+        `Z` variant resets the DAC register to zero scale, the output is safe
+        until data is written — so **writing `GAIN` before any DAC data is
+        mandatory, and the driver must enforce that ordering itself** rather
+        than trust the caller. Note `0x0000` (REF-DIV 0, BUFF-GAIN 0) also gives
+        2.5 V full scale with less gain-up noise; `0x0101` is what this plan
+        specified and there may be a v1.0 3.3 V headroom reason for it.
+- [ ] **DECIDE BEFORE ORDERING v1.0: strap the DAC to I2C instead of SPI?**
+      This is new, it is a hardware change, and it is small. `docs/encoder-analog-output.md`
+      states that **"`STATUS` must report the output as invalid"** when the
+      output is 0 V for either of two reasons — an unpowered output section, or
+      a **reference alarm** from a misconfigured `REF-DIV`. Both look exactly
+      like a legitimate end of travel in a researcher's recorded dataset.
+      **Over SPI, firmware cannot detect the reference alarm at all**, so that
+      stated requirement is unimplementable as built. The unpowered case is
+      inferable from `SW_RAIL_SENSE_DIV_2`; the alarm is not.
+      The `DACx0501` **does** support register readback — including `DEVID`,
+      `GAIN` and `STATUS.REF-ALARM` — but **only in I2C mode**, selected by the
+      `SPI2C` strap pin at power-up. The cost is bandwidth, and it does not
+      bind: this design's update rate is already capped near **1 kHz** by the
+      987 Hz filter's 266 µs group delay and the encoder-read loop, while I2C
+      fast mode puts a 24-bit frame at roughly 30 µs. So I2C buys the alarm
+      visibility the design doc asks for and costs nothing that matters.
+      Change is a strap plus two pull-ups plus a different peripheral.
 - [ ] Fit gain and offset per board serial at **0 V / 1.65 V / 3.3 V** — v0.3
       still has the full span. Note that every one of these endpoints **halves**
       at v1.0 and the fit must be redone rather than rescaled.
@@ -124,9 +200,15 @@ This is the headline reason v0.3 was ordered.
       measurement is also what decides whether the shunt can move to
       a larger shunt at a later revision — see the *Required* item for which one,
       and note it is **not** the 0.33 Ω an earlier draft named.
-- [ ] **LATCH baseline.** Flash `examples/TMC5130Communication` and send `l`.
-      Expect `[FAIL] this board still needs the workaround`. Confirming that is
-      what makes the v1.0 fix verifiable later.
+- [x] **LATCH baseline — DONE 2026-09-09 on board 4, FAIL as expected.** Cold,
+      the rail holds only 52-73 ms of 250 ms and `~{HV_FAULT}` latches low.
+      `R1903` is fitted, so v0.3 behaves exactly like v0.2 and **the firmware
+      staircase stays required**. Stage 2 also passed in full on that board the
+      same day: rail up in 132 ms, bus closed, TMC5130A `VERSION` = 0x11.
+      **Caution — the probe could report a false PASS**, and did once: run while
+      `+36V_SW`'s 208 µF was still charged it presents the switch with no inrush.
+      `+36V_SW` needs **691 ms** to bleed. Fixed in firmware; details in
+      `docs/bringup-log.md` → *LATCH baseline*.
 - [ ] **Travel: set both hard stops deliberately and record them, rather than
       measuring whichever position they were left in.** Reframed 2026-09-09: the
       stops on both joysticks are **movable**, both mechanisms have roughly
