@@ -45,6 +45,19 @@ about, and `docs/rev0-plan.md` lists it first for that reason.
 all stocked. **Eight boundary ports**: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`,
 `~{CS}`, `AOUT`, and `AOUT_MON`.
 
+> **STALE FOR v1.0, AND DELIBERATELY NOT YET REWRITTEN — 2026-09-10.** This whole
+> section still describes the block as built for v0.3. Three changes are specified
+> and not yet made: the DAC's `VDD` moves from `+5V_FILT` to a ferrite-filtered
+> **3.3 V**, the transport becomes **I2C** (`SPI2C` and `A0` strapped to
+> `+3.3V_FILT`, `A0` → AGND for **0x48**, `SCK`/`SDI`/`~{CS}` → `SCL`/`SDA` with
+> the `~{CS}` port deleted and the three 10 kΩ SPI-idle resistors **deleted**),
+> and a **÷2 divider** lands between `AMP_VOUT` and the 249 Ω with the
+> `AOUT_MON` tap moving to its midpoint — halving full scale to **1.650 V**.
+> `brake_current_sink_0_49ma_dac80501` has already had the equivalent I2C and
+> divider work done; use it as the worked example. Specs in
+> `../kicad-libs/.agents/PLANS.md` item 5 and `.agents/handoff.local.md` there.
+> **Rewrite this section when the block is re-placed, not before.**
+
 ```text
 +5V_SW ─FB─┬─ DAC80501ZDGSR ──> 2-pole 987 Hz ──> OPA197 ─┬─ 249R ─┬─> AOUT ──> BNC
            │  internal 2.5 V ref   Sallen-Key    (gain     │        └─ ESD
@@ -408,6 +421,47 @@ level in analysis: an unpowered output section, held at 0 V by the 100 kohm
 output pull-down (`R2005`), and a
 reference alarm from a misconfigured `REF-DIV`. Both read as a legitimate end of
 travel. `STATUS` must report the output as invalid in either case.
+
+## The Angle Mapping Is Still Open, And Now It Has Numbers (2026-09-10)
+
+The bullet above asks for "the angle range mapped to 0.05-3.300 V" to be
+documented. **It has never actually been decided**, and the researcher's
+2026-09-10 reply is the input that makes the choice tractable.
+
+Geometry, from the rig rather than from assumption: gearing is **1:1** with the
+encoder on the motor shaft, so 1 encoder count = **0.0900°**
+(`docs/bringup-log.md`), and the lever arm at the mouse's grip is **75-76 mm**
+(rig-measured 2026-09-10; the old rig's CAD gives 72-73 mm). The task's reward
+threshold is a **5 mm** pull. Therefore:
+
+| Quantity | Value |
+| --- | ---: |
+| 5 mm of pull | **3.77°-3.82°** |
+| ↳ in encoder counts | **41.9-42.4** (≈42) |
+| ↳ as a fraction of the 64.174° swing | **5.9%-6.0%** |
+| 1 encoder count, in pull distance | **0.118-0.119 mm** |
+| Full mechanical travel at the grip | **84-85 mm** |
+
+**So with the full swing mapped to 0.050-3.300 V, the scientifically interesting
+part of every trial lives in the bottom ~6% of the trace** — 191-193 mV
+pre-divider, 96-97 mV after v1.0's ÷2. That is a mapping problem, not a divider
+problem: the ÷2 costs 1 bit, the mapping costs about 3.
+
+Narrowing it is **firmware-only and free**. Mapping 0-20 mm of pull (4× the
+threshold, 25% of mechanical travel) recovers **2.0 bits** and puts the threshold
+at a quarter span; 0-10 mm recovers 3.0 bits and centres the threshold but clips
+at 12% of travel.
+
+**Keep the full-swing mapping as the shipped default until the peak-pull
+distribution arrives.** It is the only mapping that cannot clip a pull, and
+clipping a pull peak is unrecoverable in analysis while clipping the robotic
+retraction is harmless. Trial structure comes from the digital lines, not from
+the analog trace, so a narrower window costs no trial boundaries. **The number
+owed is the distribution of peak pull distance per trial**, which the researcher
+already has in the DeepLabCut joystick trajectories.
+
+Whichever mapping ships, record it per session and per board serial with the
+other calibration constants.
 
 ## Open Decisions
 

@@ -67,8 +67,30 @@ LA5032 on `FW_TRIG0`/`FW_TRIG1`.
 
 ### The two measurements that gate v1.0 design decisions
 
-- [~] **1. HALF-SETTLED 2026-09-10. The span half is closed; the noise half
-      needs the OneBox.** The gain/offset fit came out **unity to within 0.03%**,
+- [x] **1. CLOSED 2026-09-10 WITHOUT THE OneBox RECORDING — the ÷2 dividers are
+      GO on all three blocks.** The user cannot take an OneBox recording now, so
+      the decision was made on data in hand: both channels are limited by
+      something other than the converter, and both arguments are
+      **radius-independent**. **Angle is encoder-limited by 14.9×** — one
+      encoder count (0.0900°) is 2.279 mV post-divider, ≈15 OneBox codes.
+      **Torque is sensor-limited by 1.63×** — the RTS-5's 0.05%
+      nonrepeatability is 3.3 codes pre-divider and still 1.63 post. So no
+      recording can change the answer, and the alternative (a 3.3 V precision
+      RRIO buffer) is a new part plus vendor mapping plus lead time against a
+      v1.0 the whole scope narrowing exists to get ordered. **The ÷1 fallback
+      needs no extra land:** both divider positions are populated 3.2 kΩ, so
+      reverting after rig testing is 0 Ω on top and omit the bottom — a BOM value
+      change, not a respin, at the cost of the 3.3 V single-fault bound.
+      **Researcher input the same day, which confirmed rather than changed it:**
+      peak pull force **~20 mN to ~140 mN**, reward threshold a **5 mm** pull,
+      lever arm **75-76 mm** rig-measured (old-rig CAD says 72-73 mm). So 5 mm is
+      **3.77°-3.82° ≈ 42 encoder counts, 5.9%-6.0% of the 64.174° swing**, and
+      the mouse's whole force range sits at **4.3%-30%** of the torque span.
+      The one thing still owed is the **distribution of peak pull distance per
+      trial** — it decides the angle mapping, not the divider. Original status
+      follows.
+      ~~HALF-SETTLED 2026-09-10. The span half is closed; the noise half
+      needs the OneBox.~~ The gain/offset fit came out **unity to within 0.03%**,
       so **there is no span error to preserve** and the ÷2 divider costs exactly
       the predicted one bit and nothing more. What remains is strictly: is the
       recorded trace already OneBox-quantisation-limited with margin? That is a
@@ -187,7 +209,18 @@ This is the headline reason v0.3 was ordered.
       SCLK + SDIN + *two* separate chip selects — which matters on a revision
       also adding the torque bridge's `SDO`, `TQ_CONVST_CS`, `TQ_CAL_EN` and
       `~{BRAKE_FAULT}`.
-- [ ] **DESIGN BLOCK SPEC for the I2C strap — `kicad-libs` work, not done here.**
+- [~] **DESIGN BLOCK SPEC for the I2C strap — BRAKE BLOCK DONE 2026-09-10,
+      analog block still owed.** `brake_current_sink_0_49ma_dac80501`'s schematic
+      is complete and netlist-verified: `SPI2C` and `A0` each strapped with a
+      1 kΩ to `+3.3V_FILT` (I2C mode, **address 0x49**), the `~{CS}` port
+      deleted, `SCL`/`SDA` exposed with **no termination**, and `SDA`'s port
+      shape changed to `bidirectional`. **The three 10 kΩ SPI-idle resistors were
+      deleted** — that was missing from the original spec and is the part that
+      would have broken the bus. **No DNP parts**, by the user's preference.
+      Full as-built detail in `../kicad-libs/docs/brake-current-sink-design.md`
+      → *Strapped To I2C*. `analog_output_0_3v3_dac80501` is unchanged so far and
+      takes **0x48**, matching the firmware's existing
+      `kI2cAddrA0Agnd` selection. Original spec follows.
       Both `analog_output_0_3v3_dac80501` and
       `brake_current_sink_0_49ma_dac80501` need it, and those two are the
       complete set — no other block contains a DAC80501.
@@ -399,16 +432,27 @@ without any work — the shunt can never revert, and the isolation block's 6
 unconnected-copper errors never reach the board. The third (the torque block's
 missing `.kicad_pcb`) is library work, listed in `../kicad-libs`'s plan.
 
+**CORRECTED 2026-09-10 — the list below was wrong about two blocks.** Commit
+`aa68b17` ("Remove some design blocks for modifications", 2026-09-08) removed
+**three** sheets from this board, not one: the 36 V input block, **`rp2040`**,
+and **`quadrature_encoder_input_5v_sn74lvc2g17`**. So `rp2040` is *not* "leave
+alone entirely" — it is out of the schematic and must be re-placed, and it has
+since been edited in `../kicad-libs` (the `RUN` switch, done and clean). Same for
+the encoder block, which needs no design change but does need re-placing after
+the library scrub. **The board schematic on disk therefore has no MCU and 126
+components; that is deliberate teardown, not damage.**
+
 **Blocks to re-place:** `hv_input_36V_terminal_2pos_5p08_protected_vertical`
 (this *is* the `LATCH` fix — the block already exposes the port, no edit),
-`analog_output_0_3v3_dac80501` (DAC to 3.3 V), and that is all.
+`analog_output_0_3v3_dac80501` (DAC to 3.3 V **+ I2C strap + ÷2 divider**),
+**`rp2040`** (`RUN` switch), and **`quadrature_encoder_input_5v_sn74lvc2g17`**
+(no design change; re-place after the library scrub).
 **Blocks to place new:** `torque_bridge_0_3v3_ina821`,
 `brake_current_sink_0_49ma_dac80501`, `hv_to_12v_tpsm365r6`.
-**Blocks to leave alone entirely:** `tmc5130`, `rp2040`,
+**Blocks to leave alone entirely:** `tmc5130`,
 `rp2040_gpio_isolation_sn74cb3q3245`, `usb2`, both `5v_to_3v3_tps73733`,
 `hv_to_5v_tpsm365r6`, `limit_switch_debounced_input`,
 `pycontrol_behavior_port_rj45_boundary`,
-`quadrature_encoder_input_5v_sn74lvc2g17`,
 `instrumentation_signal_buffer_sn74lvc125a`, the InstrumentPort boundary.
 
 **Verified 2026-09-08 and it removes a dependency:** the isolation block already
@@ -569,9 +613,31 @@ design blocks** — all 36 exist, including `hv_to_12v_tpsm365r6`.
       digital spares after `GP12` goes to the torque `SDO`, against six consumers
       — `HV_LATCH`, `TQ_CONVST_CS`, `TQ_CAL_EN`, `BRAKE_CS`, the relocated
       `~{HV_FAULT}`, and `~{BRAKE_FAULT}` — leaving two spares plus `GP27`/ADC1.
-- [ ] **Do not add board-level pull-downs on `SCK` or `SDI`.** Both DAC blocks
-      already own one each, so a board carrying both already has 5 kΩ rather than
-      the 10 kΩ either block's description claims.
+- [ ] **INVERTED 2026-09-10 by the I2C change — this now says the opposite.**
+      The DAC blocks' three 10 kΩ SPI-idle resistors are **deleted**, so the
+      board owns every bus termination. **Fit two 2.2 kΩ pull-up pairs, one per
+      bus segment:** the DAC-side pair referenced to the **switched** 3.3 V rail,
+      the MCU-side pair to **`+3.3V_MCU`**. Not one always-on pair — an
+      always-on pull-up reaching a DAC whose `VDD` is at 0 V exceeds the
+      `DAC80501`'s `VDD + 0.3 V` digital-input absolute maximum and back-feeds
+      the block's `+3.3V_FILT` through the internal clamps. And the switch is
+      **open by default** (`~{BUS_SW_EN}` = `GP9`, held isolated by `R601`
+      7.87 kΩ), so a single MCU-side pair would leave the peripheral segment
+      floating into two live DACs and three powered `SN74LVC125A` monitor
+      inputs. Closed bus is then 1.1 kΩ, right for the 1 MHz FM+ the loop budget
+      assumes; the DAC sinks 3 mA in FM+ so 1.5 mA/line is fine.
+      ~~Do not add board-level pull-downs on `SCK` or `SDI`. Both DAC blocks
+      already own one each, so a board carrying both already has 5 kΩ.~~
+- [ ] **Move the InstrumentPort DAC-bus monitor taps to the B (MCU) side of
+      `U602`.** Today `U2101`'s three `SN74LVC125A` monitor inputs sit on the
+      A (peripheral) side — `U2101.2` on `~{DAC_CS}`, `.5` on `DAC_SPI_SCK`,
+      `.9` on `DAC_SPI_COPI` — where the blocks' own 10 kΩ pulls used to hold
+      them defined. With those gone and the bus switch open by default, powered
+      LVC125 inputs would float. The B side is held by the always-on pull-up
+      pair, and it is the waveform you actually want to decode.
+- [ ] **Going to I2C frees one `U2101` channel** (3 of 4 used → 2 of 4) and two
+      GPIOs. Record the two I2C pins and the freed channel in
+      `docs/interface-map.md`, and drop the `~{DAC_CS_BUF}` row.
 - [ ] **Add the `RUN` reset switch — restored to Required 2026-09-08, with
       evidence.** Lands via the `rp2040` block change. **Do it independently of
       the debug connector**, which stays cut.
