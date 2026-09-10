@@ -280,10 +280,46 @@ encoder ──> TMC5130A X_ENC counter ──> RP2040 reads over SPI0
   -0.025%, or -0.82 mV at full scale, which per-board calibration absorbs. No
   bench measurement is needed — see
   `../kicad-libs/docs/onebox-analog-interface.md`.
-- **The output cannot reach a true 0 V.** The `OPA197`'s output stage sits about
-  25 mV off the negative rail at light load. Map the valid angle range to start
-  at 50 mV or above.
-- Update rate is an open decision, but **the filter is now the limit, not the
+- **The output cannot reach a true 0 V, and the floor is 4.5 mV — not 25 mV.**
+  **MEASURED 2026-09-10** on board `E4654C159F171E34`, Fluke 87 on DC volts at
+  the BNC. The estimate below was wrong by 5.6x.
+  ~~The `OPA197`'s output stage sits about 25 mV off the negative rail at light
+  load.~~ It sits **4.5 mV** off, into a high-impedance load. Mapping the valid
+  angle range to start at **50 mV or above** still holds and now has more margin
+  than intended.
+  **But the three-level out-of-band scheme breaks.** See "The fault behavior
+  needs an explicit decision" below: the floor was doing the work of separating
+  a firmware-signalled fault from a dead output section, and a 4.5 mV gap does
+  not do that. v1.0's ÷2 divider halves it again to 2.25 mV.
+- **Update rate: 1 kHz, MEASURED 2026-09-10, and it is no longer an open
+  decision.** 835 000 updates over 14 minutes on board `E4654C159F171E34` at
+  **exactly 1000.0 Hz** with zero budget overruns, worst iteration **527 µs** of
+  the 1000 µs budget. `examples/MotionAndHoming` command `L` reports the achieved
+  rate, which is what this bullet asked for.
+  **2 kHz is not available** — a 527 µs worst case is most of a 500 µs budget —
+  and 4 kHz is out of reach. The estimate below turned out to be right, and a
+  bus-arithmetic estimate of 77 kHz made in the same session was wrong by 36x,
+  because raw transfer time ignores the TMC51X0 library, SPI transaction setup
+  and USB servicing. **Do not quote bus arithmetic as a loop rate.**
+  **The staircase is visible under fast motion.** At a 5.01 rev/s flick
+  (20 042 counts/s) each update steps **74 mV = 22.8 encoder counts = 485 OneBox
+  codes**, against 3.25 mV for one encoder count — so at speed the update rate
+  quantises 23x coarser than the encoder. The filter smooths but does not
+  suppress it: settling takes ~2 ms and updates arrive every 1 ms, so each step
+  is half-settled when the next lands. **Nothing aliases** — a 33 ms swing is
+  roughly a 15 Hz half-cycle against a 500 Hz Nyquist — so this is visible
+  quantisation, not lost information. What it does bound is **timing precision
+  on the recorded trace: 1 ms.** The `PULL` event is unaffected; firmware detects
+  it from the encoder and it never crosses the analog path.
+- **The encoder-to-DAC loop is itself a sampling operation, and the filter is
+  downstream of it.** Added 2026-09-10. The 987 Hz Sallen-Key smooths the DAC's
+  output steps but cannot undo aliasing introduced by sampling the angle at
+  1 kHz. Mechanical content above ~500 Hz folds into the record and nothing
+  downstream removes it. Mouse limb motion should be far below that — the fastest
+  hand flick measured was ~15 Hz — but this is a **distinct** issue from the
+  OneBox aliasing covered elsewhere in this document, and it had not been
+  written down.
+- Historically, on the DAC versus the filter: **the filter is the limit, not the
   DAC**. **Corrected 2026-08-27**: this bullet used to say that the DAC's 5 us
   settling and 24 us frame meant the DAC was not the limit. The 987 Hz filter
   contributes 266 us of group delay and about 2 ms to settle a full-scale step to
@@ -340,8 +376,30 @@ remaining drift is negligible against the encoder.
 
 The fault behavior needs an explicit decision. A faulted board that keeps
 outputting its last angle looks identical on a scope to a working board holding
-still. **Recommendation:** drive 0 V on fault, which the ~25 mV floor makes a
-naturally out-of-band level once the valid range starts at 50 mV. Do not leave it
+still.
+
+**REVISED 2026-09-10, because the floor was measured at 4.5 mV and the original
+recommendation depended on it being ~25 mV.**
+
+~~**Recommendation:** drive 0 V on fault, which the ~25 mV floor makes a
+naturally out-of-band level once the valid range starts at 50 mV.~~ Driving code
+0 puts the output at the floor, and a **4.5 mV** floor is not meaningfully
+distinguishable from the true 0 V that a dead output section produces — 4.5 mV,
+halving to 2.25 mV at v1.0, against recording-chain offset and thermal drift.
+
+**Revised recommendation: choose the fault level rather than inheriting it from
+the op amp's swing limit. Drive code 497 = 25 mV.**
+
+| Level | Volts at the BNC | Code | From true 0 V |
+| --- | --- | --- | --- |
+| hardware dead, or a reference alarm | 0 V | — | — |
+| firmware-signalled fault | **25 mV** | **497** | 164 OneBox codes |
+| lowest valid angle | 50 mV | 993 | 328 OneBox codes |
+
+That restores the 25 mV separations this scheme was designed around,
+deliberately rather than as a side effect, and survives the v1.0 halving at
+12.5 mV — still 82 OneBox codes. It costs one constant. **Not yet applied: it
+changes what recorded data means.** Do not leave it
 ambiguous, because this signal ends up in a researcher's recorded dataset with no
 other indication of board state.
 

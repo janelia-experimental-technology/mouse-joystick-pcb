@@ -67,7 +67,16 @@ LA5032 on `FW_TRIG0`/`FW_TRIG1`.
 
 ### The two measurements that gate v1.0 design decisions
 
-- [ ] **1. Does the analog output span matter? — decides an op-amp purchase.**
+- [~] **1. HALF-SETTLED 2026-09-10. The span half is closed; the noise half
+      needs the OneBox.** The gain/offset fit came out **unity to within 0.03%**,
+      so **there is no span error to preserve** and the ÷2 divider costs exactly
+      the predicted one bit and nothing more. What remains is strictly: is the
+      recorded trace already OneBox-quantisation-limited with margin? That is a
+      noise measurement at the **19 µV RMS** level, which no scope on this bench
+      can see — it needs the OneBox itself or another 16-bit capture. **The op-amp
+      purchase decision is still open, and still gated on the researcher question
+      below rather than on anything measurable here.** Original text:
+      ~~Does the analog output span matter? — decides an op-amp purchase.~~
       v1.0 halves every board-exiting analog output with a ÷2 divider so nothing
       can exceed 3.3 V on a pyControl pin
       (`../kicad-libs/docs/onebox-analog-interface.md`). That costs exactly one
@@ -83,23 +92,50 @@ LA5032 on `FW_TRIG0`/`FW_TRIG1`.
         713 counts over the 64.174° swing is 2.3 mV per count on a 1.650 V span
         against a 152.6 µV OneBox step, so the OneBox already resolves 15× finer
         than the encoder can distinguish.
-- [ ] **1b. Validate the divider's source impedance without touching the board.**
+- [~] **1b — the -0.19% figure is LOAD-DEPENDENT, noted 2026-09-10.** That
+      number assumes a **1 MΩ** load, which the OneBox has. A 10 MΩ meter sees
+      only **-0.02%**, about 0.34 mV on 1.650 V, which is at the Fluke's
+      resolution and lost in drift — so measuring it with a meter alone tests
+      the wrong thing. Either load the BNC with 1 MΩ to emulate the OneBox and
+      then insert the 1.8 kΩ, or accept it as arithmetic: a -0.2% fixed gain
+      error is fully absorbed by per-board calibration, and the Johnson noise of
+      1.85 kΩ is ~5.5 nV/√Hz. **Leaning toward the arithmetic.** Original text:
+      ~~Validate the divider's source impedance without touching the board.~~
       Put 1.8 kΩ in series in the BNC cable and confirm the DC reading moves only
       by the predicted **−0.19%** and the noise does not change. That is the only
       thing about the final ÷2 topology (1.85 kΩ source versus today's 249 Ω) the
       OneBox can tell apart.
-- [ ] **1c. Check nothing else dominates first.** Sweep the motor chopper
+- [~] **1c — NO gross motor coupling, measured 2026-09-10.** Static setpoint at
+      1.650 V, scope AC-coupled at 10 mV/div on the BNC: **3.54 mV pk-pk with the
+      driver off, 3.55 mV with the chopper running, no increase under jogs or
+      under 6 fast approaches, and the same value with the BNC disconnected** —
+      so that 3.5 mV is the scope's own floor. Bounds board noise plus coupling
+      at roughly **< 200 µV RMS**, about 4x the `AD7616-P`'s quantisation.
+      **A scope cannot reach the 19 µV prediction** — its LSB is 312 µV at
+      10 mV/div and 31 µV even at 1 mV/div — so measurement 1's noise half needs
+      the OneBox and nothing else will do.
+      **The chopper frequency was NOT swept**; this is the default operating
+      point only. Original text:
+      ~~Check nothing else dominates first. Sweep the motor chopper~~
       frequency while recording the angle channel. The `AD7616-P`'s antialias
       filter is first-order at ~39 kHz against fixed 30.3 kHz sampling, so
       out-of-band content folds in nearly unattenuated. **A chopper-correlated
       artifact would be far larger than one bit and makes the span question
       academic until fixed.**
-- [ ] **2. `+36V_SW` maximum and ringing at the future brake-stage location,
-      with the TMC5130A driving — decides the TVS populate question.** Owed since
-      August and never taken. The binding limit is the **TMC5130A's 49 V
-      inductive-load absolute maximum**, not the brake FET's 60 V. This one
-      measurement now protects the driver *and* the brake pass device together.
-      `SMBJ40A` is the part to order; the stocked `SMF48A` works for first boards.
+- [x] **2. DONE 2026-09-10 — `+36V_SW` never exceeded 37 V, so NO TVS is needed
+      for the motor-driven case.** Single-shot armed at 37 V, 1 V above nominal,
+      through 7 hard-stop decelerations at 0.200 rev/s plus 6 reversals at
+      `IRUN` 17 = 0.421 A RMS, and two staircase turn-ons. Never triggered. That
+      is **12 V of margin** to the TMC5130A's 49 V inductive-load maximum, and
+      it also bounds `+36V_SW` ripple under 1 V. Matches the energy prediction
+      (200 µF holds 130 mJ against ~2.2 mJ of coil energy, so ~0.4 V worst case).
+      Data in `docs/bringup-log.md` -> *MEASUREMENT 2 CLOSED*.
+      **Does not cover supply-side events** — the probe was downstream of the
+      high-side switch, and hot-plug plus cable-inductance ringing at the input
+      is what the TMC5130A datasheet's ringing warning is actually about. The
+      entry TVS position and the driver's RC snubber footprint both exist, so
+      that remains a populate decision. `SMBJ40A` if ever wanted; stocked
+      `SMF48A` covers first boards.
 
 ### The rest of the angle-output characterisation
 
@@ -143,15 +179,51 @@ This is the headline reason v0.3 was ordered.
       fast mode puts a 24-bit frame at roughly 30 µs. So I2C buys the alarm
       visibility the design doc asks for and costs nothing that matters.
       Change is a strap plus two pull-ups plus a different peripheral.
-- [ ] Fit gain and offset per board serial at **0 V / 1.65 V / 3.3 V** — v0.3
-      still has the full span. Note that every one of these endpoints **halves**
-      at v1.0 and the fit must be redone rather than rescaled.
-- [ ] Confirm the **~25 mV output floor** and that true 0 V is reserved as the
-      out-of-band unhomed/faulted/unpowered level.
-- [ ] Verify the **266 µs filter group delay** of the 2-pole 987 Hz Sallen-Key.
+- [x] **DONE 2026-09-10 on board 4, and the fit is essentially unity.** Fluke 87
+      on DC volts at the BNC, four codes: 0 -> **4.5 mV**, 993 -> **50.2 mV**,
+      32768 -> **1.650 V**, 65535 -> **3.300 V**. One model fits all four —
+      **unity gain to within 0.03%, +0.2 mV offset, hard clamp at 4.5 mV** — and
+      every residual is inside the meter's resolution. Span is 1.650 V against
+      1.650 expected, so **there is no per-board gain to calibrate out**. The
+      warning that the fit "must be redone rather than rescaled" at v1.0 still
+      holds but costs almost nothing, because the only per-board number is the
+      clamp. Data in `docs/bringup-log.md` -> *ANGLE OUTPUT CHARACTERISED*.
+      **This also half-settles measurement 1 below:** there is no span error to
+      preserve, so the ÷2 divider costs exactly the predicted one bit and
+      nothing more. The remaining half is a noise question and needs a
+      recording, not a meter.
+- [x] **The output floor is 4.5 mV, NOT ~25 mV — and that breaks the
+      three-level out-of-band scheme.** Measured 2026-09-10. The valid-range gap
+      improves (45.5 mV instead of 25), but the gap between a **firmware fault**
+      and a **dead output section** collapses from 25 mV to **4.5 mV**, halving
+      again to 2.25 mV at v1.0. Both hardware failures read as a legitimate end
+      of travel, and the doc's mitigation is `STATUS` reporting the output
+      invalid — which over SPI cannot see a reference alarm. **So this
+      strengthens the I2C strap case below.**
+      - [ ] **Decide: drive code 497 = 25 mV as the fault level instead of code
+            0.** Firmware-only, free, restores the 25 mV separations
+            deliberately, and survives the v1.0 halving at 12.5 mV (82 OneBox
+            codes). Not applied — it changes what recorded data means.
+      - [ ] **Correct `docs/encoder-analog-output.md`**, which asserts a ~25 mV
+            floor and builds the out-of-band scheme on it. The 25 mV figure is
+            measured wrong by 5.6x.
+- [~] **Partly answered 2026-09-10 without a dedicated capture.** The live
+      1 kHz loop showed the filter needs **~2 ms to settle a step** while
+      updates arrive every 1 ms, which is why the staircase is visible at all —
+      so the settling figure is corroborated even though the 266 µs group delay
+      itself was not timed against a trigger reference. A proper measurement
+      still wants `FW_TRIG1` on a second scope channel, and the InstrumentPort
+      FFC is occupied by the LA5032. Original text:
+      ~~Verify the **266 µs filter group delay** of the 2-pole 987 Hz Sallen-Key.
       Any latency measured through `AIN0` includes it and it is not firmware
       latency.
-- [ ] Confirm `ANGLE_OUT_MON` on `J1501` pin 32 tracks `ANGLE_OUT`. At v1.0 the
+- [x] **DONE 2026-09-10 — `ANGLE_OUT_MON` reads 1.650 V, the same as the BNC.**
+      Fluke 87 on `J1501` pin 32 against pin 31/33 GND, with the output parked at
+      midscale. Topology traced in copper too: `R2008` 1 kΩ taps `AMP_VOUT`, the
+      **op-amp side** of the 249 Ω `R2007`, so the monitor reads the true output
+      regardless of what loads the BNC — which would have caught the 50 Ω
+      termination error immediately. Original text:
+      ~~Confirm `ANGLE_OUT_MON` on `J1501` pin 32 tracks `ANGLE_OUT`. At v1.0 the
       monitor tap moves to the divider midpoint and the two read the *same*
       voltage, which removes a scale factor from the capture.
 

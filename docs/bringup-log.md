@@ -38,7 +38,7 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 1** | `E4654C159F2C2534` | Stage 1 + stage 2 passed. **`R203` DEPOPULATED 2026-09-02** — `LATCH` released, so a plain `HV_EN` assertion works on this unit and it no longer represents an as-built board. **Not attached to the bench on 2026-09-03** |
 | **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
 | **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. **Drives the LEFT joystick** (Breakout 1.2 port 1). First stage-4 result recorded 2026-09-03 — see [Board 3, stage 4](#board-3--e4654c159f591d34--stage-4-protocol). No stage 1, 2 or 3 measurements exist for this unit; treat every motion number in this file as belonging to another board until it is measured here |
-| **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added to this log 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). **The angle output is still untested — there is no DAC driver in firmware.** Stage 4 not run |
+| **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Drives the RIGHT joystick.** **The angle output is characterised as of 2026-09-10** — unity gain to 0.03%, 4.5 mV floor, `VREFIO` 2.500 V, no motor coupling, and a live 1 kHz encoder-to-analog loop measured at exactly 1000.0 Hz over 835 000 updates. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). Stage 4 not run on this unit |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -817,6 +817,400 @@ trusted on no evidence.
   built.
 - The board was left **powered down** — DAC at zero scale, bus open, `HV_EN`
   low — rather than energised unattended overnight. `b` brings it all back.
+
+### ANGLE OUTPUT CHARACTERISED — 2026-09-10, board 4. The fit is essentially unity.
+
+**Fluke 87 True RMS on DC volts, at the BNC, centre to shell.** This is the
+measurement v0.3 was ordered for. `examples/AngleOutput` over SPI1, `GAIN`
+`0x0101`, 2.5 V DAC full scale into the `OPA197`'s 1.32 gain.
+
+| Code | Ideal at the BNC | **Measured** | Residual vs the model |
+| --- | --- | --- | --- |
+| 0 | 0.000 mV | **4.5 mV** | clamped, see below |
+| 993 | 50.002 mV | **50.2 mV** | −0.00 mV |
+| 32768 | 1650.000 mV | **1.650 V** | −0.20 mV |
+| 65535 | 3299.950 mV | **3.300 V** | −0.15 mV |
+
+**One model fits all four points: unity gain, a +0.2 mV offset, and a hard clamp
+at 4.5 mV.** Every residual is inside the meter's own resolution at that range.
+
+- **Gain error is under 0.03%**, which is the display resolution rather than a
+  measured error. Span, full minus midscale, is **1.650 V against 1.650
+  expected**. There is no meaningful per-board gain to calibrate out.
+- **Offset is +0.2 mV.** Visible only at code 993; at midscale and full scale it
+  is below the fourth digit.
+- **The 4.5 mV floor is a CLAMP, not an offset.** If it were additive, midscale
+  would read 1.6545 V. It reads 1.650. So the `OPA197` simply cannot swing below
+  4.5 mV, and the transfer function is linear above that.
+- **Linearity holds at the design's valid-range boundary.** Code 993 is the
+  50 mV valid-range start, and it reads 0.4% high — the clamp's influence has
+  decayed from 4.5 mV at code 0 to 0.2 mV by 50 mV. So starting the valid range
+  at 50 mV is sound.
+
+#### What this does to the plan
+
+**The `Fit gain and offset per board serial` item is answered, and it turned out
+to be nearly a no-op.** The plan warned that "every one of these endpoints halves
+at v1.0 and the fit must be redone rather than rescaled" — true, but if the fit
+is unity to the meter's resolution there is very little to redo. The only
+per-board number worth carrying is the clamp.
+
+**It also sharpens measurement 1, the ÷2 divider decision.** That question was
+whether halving the span costs anything beyond the predicted one bit. Half of it
+is now settled: **there is no span error to preserve**, so the divider costs
+exactly one bit and nothing more. The other half — whether the recorded trace is
+already OneBox-quantisation-limited — is a *noise* question and needs a
+recording, not a meter. The Fluke cannot answer it.
+
+#### The floor is 5.6x smaller than designed, and it breaks the three-level scheme
+
+`docs/encoder-analog-output.md` assumes "the `OPA197`'s output stage sits about
+25 mV off the negative rail at light load" and builds an out-of-band scheme on
+it. **Measured: 4.5 mV.** The three levels the design wants:
+
+| Level | Means | Intended | Actual |
+| --- | --- | --- | --- |
+| true 0 V | output section unpowered, or a reference alarm | 0 V | 0 V |
+| the floor at code 0 | firmware-signalled fault | ~25 mV | **4.5 mV** |
+| >= 50 mV | valid angle | 50 mV | 50 mV |
+
+The valid-range gap is fine — better than designed, 45.5 mV instead of 25. **The
+gap that broke is the other one: a firmware fault and a dead output section are
+now 4.5 mV apart instead of 25 mV**, and v1.0's ÷2 divider halves that to
+**2.25 mV**. Both hardware failures read as a legitimate end of travel in a
+researcher's dataset, and the doc's stated mitigation is that `STATUS` reports
+the output invalid — which, over SPI, it cannot do for a reference alarm. The
+analog level was the backup and it just got 5.6x weaker.
+
+**Recommended fix, firmware-only and free: stop inheriting the fault level from
+the op amp's swing limit and choose it.** Drive **code 497 = 25 mV** as the
+fault level instead of code 0:
+
+| Level | Volts | Code | Distance from 0 V |
+| --- | --- | --- | --- |
+| hardware dead | 0 V | — | — |
+| firmware fault | 25 mV | 497 | 164 OneBox codes |
+| lowest valid angle | 50 mV | 993 | 328 OneBox codes |
+
+That restores the 25 mV separations deliberately rather than by luck, and
+survives the v1.0 halving at 12.5 mV, still 82 OneBox codes. **Not applied — it
+changes what recorded data means, so it is Peter's call.** The reasoning in
+`encoder-analog-output.md` about the "~25 mV floor" needs correcting either way.
+
+### Earlier the same day, before the meter: what the scope could and could not do
+
+First real measurements of `ANGLE_OUT`, board 4, `examples/AngleOutput` over
+SPI1. Scope on the BNC directly, no probe.
+
+| Code | DAC commanded | BNC expected | **BNC measured** |
+| --- | --- | --- | --- |
+| `0x0000` | 0.000000 V | the output floor | **at 0 V to the display's resolution** |
+| `0x8000` | 1.250000 V | 1.650000 V | **1.66 V** |
+| `0xFFFF` | 2.499962 V | 3.299950 V | **3.29 V** |
+
+**The signal chain is proven.** The `DAC80501`, the 2-pole filter, the `OPA197`
+and the 249 Ω output resistor all work, `GAIN` `0x0101` really is producing a
+2.5 V DAC full scale, and there is no gross error — no wrong gain field, no
+missing stage, no factor of two. That was the safety question and it is answered.
+
+#### It is NOT the gain and offset fit, and the scope cannot make it one
+
+Midscale came in **+10 mV** and full scale **−10 mV** — opposite directions, so
+neither a fixed offset nor a clean gain error. The span, full minus midscale,
+reads **1.63 V against 1.650 expected**, about 1.2% low.
+
+That is inside the instrument. A DSO's vertical accuracy is typically ±1.5-3% of
+full scale, so ±66 mV at a setting spanning 3.3 V, and the readings are quoted
+to three digits which is ±5 mV each and ±10 mV on the difference. The board's
+own span tolerance is the same order: the gain-setting resistors are 1% parts and
+the DAC has its own reference and gain error, so a genuine ~1% span error is
+expected and is exactly what per-board calibration absorbs.
+
+**So the scope confirmed the span to about 1% and could not do better.** A
+gain/offset fit for a 16-bit converter needs 0.01-0.1%. **Superseded the same
+day by the Fluke 87 readings above**, which put the true values at 1.650 and
+3.300 — so the scope was off by +10 mV and -10 mV respectively, its own vertical
+accuracy, and the board was right both times. Do not read the scope table as a
+calibration; the Fluke table is the calibration.
+
+#### The output floor: small, and that is the right direction
+
+At code 0 the scope showed no difference between the BNC connected and
+disconnected, both sitting at 0 V to the display's resolution. **The vertical
+setting was 500 mV/div**, so a 25 mV floor is one twentieth of a division and a
+50 mV floor is a tenth — neither is reliably visible. **This bounds the floor
+below roughly 100 mV and no better.**
+
+That is enough to kill the 150 mV, and not enough to establish the criterion
+that matters. The floor *is* the out-of-band fault level, and the valid angle
+range is mapped to start at 50 mV above it, so what has to be shown is
+`floor < 50 mV` with margin — and a 500 mV/div reading cannot show it. **The
+design's ~25 mV estimate is neither confirmed nor contradicted.** Corrected
+2026-09-10: an earlier version of this entry claimed a 50 mV bound, which the
+vertical setting does not support.
+
+**Worth carrying into v1.0:** the ÷2 divider halves the floor along with the
+span, so whatever the floor turns out to be, v1.0 sees half of it and the
+out-of-band margin halves with it.
+
+#### RESOLVED: yesterday's 150 mV was the instrument, twice over
+
+The 150 mV "output floor" recorded on 2026-09-09 does not reproduce on a
+correctly configured channel. Two separate instrument errors were in play, and
+both are worth recognising by their signature:
+
+1. **The channel's own baseline.** It read 150 mV with the BNC cable
+   *unplugged*, which is what finally condemned it.
+2. **A 50 Ω input termination.** With the channel on 50 Ω, midscale read
+   **270 mV** where 1.650 V was expected. That is not a mystery — the 249 Ω
+   series output resistor (`R2007`) forms a divider with the termination:
+   `1.650 × 50/(249+50) = 0.276 V`, against 270 mV measured, agreeing to 2%.
+   Switching to 1 MΩ moved it straight to 1.66 V.
+
+The second one is the more useful lesson: **a reading that is low by almost
+exactly 5.98× on this output is a 50 Ω termination, not a board fault.** The
+agreement to 2% also independently confirmed that `R2007` is fitted and close to
+value.
+
+#### The monitor tap, traced in copper
+
+`ANGLE_OUT_MON` on `J1501` **pad 32 is wired on v0.3** — confirmed against the
+`v0.3` `.kicad_pcb`, not the docs. The topology around the op-amp output node:
+
+| Part | From | To |
+| --- | --- | --- |
+| `R2007` 249 Ω | `AMP_VOUT` | `ANGLE_OUT` — the BNC |
+| `R2008` 1 kΩ | `AMP_VOUT` | `ANGLE_OUT_MON` — `J1501` pad 32 |
+| `R2005` 100 kΩ | `AMP_VOUT` | `GND` — the output pull-down |
+
+So the monitor taps the **op-amp side** of the series resistor, through 1 kΩ.
+Into a high-impedance instrument that is a 0.1% divider, negligible. This closes
+the topology half of the *Confirm `ANGLE_OUT_MON` tracks `ANGLE_OUT`* plan item;
+the "tracks" half still wants a simultaneous measurement.
+
+**A consequence with practical value:** the monitor reads the true op-amp output
+regardless of what loads the BNC. An instrument on pad 32 during the 50 Ω
+episode would have read 1.65 V while the BNC read 0.27 V, and the disagreement
+would have named the loading error immediately instead of it taking a
+calculation to spot.
+
+### MEASUREMENT 2 CLOSED — `+36V_SW` peak stayed below 37 V, 2026-09-10
+
+**Owed since August, and this is the bound rather than an impression.** Scope on
+`+36V_SW`, **single-shot trigger armed at 37 V rising** — only 1 V above the
+nominal rail — through a full transient burst at **`IRUN` 17 = 0.421 A RMS**:
+
+- 7 approaches at 0.200 rev/s, each ending in a **hard stop at the limit
+  switch** — the fastest decelerations this rig can produce
+- 6 direction reversals plus a `g` round trip at jog velocity
+- the `HV_EN` staircase turn-on, twice
+
+**The scope never triggered.** So the peak stayed under 37 V for the whole armed
+window.
+
+| Limit | Value | Margin from 37 V |
+| --- | --- | --- |
+| TMC5130A absolute max, inductive load | **49 V** | **12 V** |
+| TMC5130A operating max | 46 V | 9 V |
+| Brake pass device (future) | 60 V | 23 V |
+
+**The TVS is not needed for the motor-driven case.** That was the populate
+question, and it is answered with evidence.
+
+A bonus from the trigger sitting only 1 V above nominal: **switching ripple on
+`+36V_SW` is under 1 V**, which is the 200 µF of `C1213`/`C1214` doing its job.
+
+This matches the energy argument recorded on 2026-09-09 rather than merely being
+consistent with it: 200 µF at 36 V holds 130 mJ against roughly 2.2 mJ in both
+motor phases, so even dumping every joule of coil energy into the bulk with no
+loss predicts a ~0.4 V rise. Prediction and measurement agree.
+
+#### Two things this does NOT cover
+
+- **Supply-side events.** The probe was on `+36V_SW`, downstream of the
+  high-side switch. Hot-plugging the 36 V supply and cable-inductance ringing on
+  insertion are a different energy source, and the TMC5130A datasheet's own
+  warning is about supply ringing from stray inductance — an input-side
+  phenomenon. **The entry TVS position covers that case and this test says
+  nothing about it.** Both the entry TVS and the driver's `VS`/`GND` RC snubber
+  footprints exist, so either stays a populate decision rather than a respin.
+- **Single-shot captures the FIRST excursion and stops.** Nothing fired, so
+  there was no first excursion and the bound holds — but had it triggered, the
+  captured event would not necessarily have been the worst one.
+
+### `VREFIO` = 2.500 V, measured 2026-09-10
+
+Fluke 87 at the DAC's VSSOP-10 pin 10. Exactly nominal, so the internal
+reference is good and `REF-DIV` is not misconfigured. Over SPI this is the only
+check on the reference that exists — `STATUS.REF-ALARM` is unreadable — which is
+why it is worth taking with a meter rather than inferring.
+
+### Motor coupling into the angle channel: none detectable, 2026-09-10
+
+Plan item 1c's real question — does motor switching get into the analog output —
+tested with a **static setpoint**, which is the sensitive way to do it: the angle
+output was parked at a fixed **1.650 V** (code 0x8000) so the intended signal is
+pure DC and anything AC is coupling. `IRUN` 17 = 0.421 A RMS throughout.
+
+Scope on the BNC, **AC coupled, 1 MΩ, 10 mV/div, 1 ms/div**, peak-to-peak
+measurement.
+
+| Condition | pk-pk |
+| --- | --- |
+| driver **off**, chopper stopped | **3.54 mV** |
+| driver **on**, motor stationary (chopper running, `cs_actual` 2, `stst` 1) | **3.55 mV** |
+| 8 alternating jogs at jog velocity | **no increase observed** |
+| 6 fast approaches at 0.200 rev/s, each into a hard stop | **no increase observed** |
+| **BNC cable disconnected** | **same value** |
+
+**The 3.5 mV is the scope's own noise floor, not the board.** Confirmed two
+ways: it is identical with the chopper running and stopped (a 10 µV difference,
+which is a thirtieth of one scope LSB), and identical with the cable
+disconnected. Recorded explicitly because the same trap produced a phantom
+150 mV "output floor" the day before — a number that turned out to belong to the
+instrument.
+
+**No gross motor coupling exists.** That is what 1c was for: the plan's own words
+are that a chopper-correlated artefact "would be far larger than one bit and
+makes the span question academic until fixed." Nothing of that size is present,
+at standstill or under the fastest motion this rig produces.
+
+#### What is bounded, and what is not
+
+A scope cannot see the noise this design actually cares about:
+
+| | |
+| --- | --- |
+| predicted board noise | **19 µV RMS** |
+| `AD7616-P` quantisation | 44 µV RMS |
+| scope LSB at 10 mV/div | **312 µV** |
+| scope LSB at 1 mV/div | 31 µV |
+
+**Even at 1 mV/div the scope's quantisation alone exceeds the predicted board
+noise**, so no scope result can confirm the 19 µV figure. Taking the observed
+floor as ~590 µV RMS and assuming a detectable change of a few percent, this
+bounds board noise plus coupling at roughly **< 200 µV RMS** — about 4x the
+`AD7616-P`'s own quantisation. Useful, and not the same as the prediction.
+
+**So measurement 1's noise half remains open and needs the OneBox itself**, or
+another 16-bit capture. The span half is settled (see the unity-gain fit), so
+what is left is specifically: is the recorded trace quantisation-limited with
+margin to spare? Only the recording instrument can answer that.
+
+#### Chopper frequency was not swept
+
+Plan item 1c also asks to "sweep the motor chopper frequency while recording the
+angle channel". **Not done** — this was at the driver's default chopper
+configuration only. The null result above therefore covers the operating point,
+not the whole sweep. Worth revisiting only if a chopper artefact ever appears.
+
+#### Firmware change this needed
+
+Neither example could run this test: `examples/AngleOutput` has the DAC and no
+motion, `examples/MotionAndHoming` had the motion and no DAC. The DAC is now in
+`MotionAndHoming` behind `#if MJ_BOARD_REV != 0`, on SPI1 with GP12 as the
+unused RX, configured in the `b` gate **after** the rail and bus so the chip
+select is never driven into an unpowered part. New commands `A`/`Z`/`F` park the
+output at midscale, zero and full scale. `x` calls `dac.invalidate()`, because
+cycling the rail resets `GAIN` to its 5.0 V full scale.
+
+### LIVE ANGLE OUTPUT WORKING — 1 kHz measured, 2026-09-10, board 4
+
+The encoder now drives the analog output continuously. `examples/MotionAndHoming`
+command `L`, DAC on SPI1, homed against the switch first so the angle has a
+datum. Driver **disabled** so the motor freewheels and the joystick moves by
+hand; `X_ENC` still counts because the TMC5130A reads the encoder independently
+of its output stage.
+
+Mapping: **0 to 90° of excursion onto 0.050 to 3.300 V**, so one encoder count
+(0.09°) is **3.25 mV** at the BNC. The 90° span is deliberately wider than the
+~60° mechanism — the hard stops are movable and the travel is not settled, so a
+span fitted to one measured swing would silently misreport a re-adjusted stop.
+
+#### The rate is measured, not assumed
+
+`docs/encoder-analog-output.md` asked for the achieved rate as "a **measured**
+claim, not a target". Two runs:
+
+| Run | Updates | Elapsed | Achieved | Worst loop |
+| --- | --- | --- | --- | --- |
+| 1 | 202 496 | 202.5 s | **1000.0 Hz** | 473 µs |
+| 2 | 632 485 | 632.5 s | **1000.0 Hz** | 527 µs |
+
+**835 000 updates over 14 minutes with zero budget overruns.** Worst iteration
+527 µs against the 1000 µs budget, so 47% headroom on the worst case.
+
+**1 kHz is the right rate and 2 kHz is not available.** A 527 µs worst case is
+already most of a 500 µs budget, and 4 kHz is out of reach. That vindicates the
+design doc's original "roughly 1 kHz of real angle bandwidth is what the loop can
+sustain alongside motor control" — and it **corrects an estimate made earlier the
+same day** in this session, which computed a 77 kHz ceiling from 10 µs of encoder
+read plus 3 µs of DAC write. **Measured worst case is 36x that**: raw bus time
+ignores the TMC51X0 library's overhead, SPI transaction setup, and USB servicing.
+Do not quote bus arithmetic as a loop rate.
+
+**A useful consequence for the SPI-vs-I2C decision:** the loop is dominated by
+things that are not the DAC write, so I2C at 1 MHz would add ~33 µs to a 527 µs
+worst case — about 6%. **The bandwidth objection to the I2C strap is now measured
+to be negligible**, not merely argued away.
+
+#### The fast-flick capture, and the staircase is real
+
+At hand speed the output looks smooth. Under a deliberate fast flick, captured
+DC-coupled at 10 ms/div:
+
+```
+rise      2.130 V over 32.7 ms  ->  59.0 deg at 1804 deg/s = 5.01 rev/s
+                                ->  20 042 counts/s, one count every 50 us
+staircase 74 mV per step, 1.07 ms apart
+```
+
+Three cross-checks, all independent:
+
+- **The 1.07 ms step interval is the 1 kHz update measured from the analog
+  output itself**, not from firmware reporting its own rate.
+- **74 mV per step is 22.8 encoder counts**, and the velocity independently
+  predicts 20.0 counts per update — agreement to 14%, measured mid-flick where
+  velocity peaks, so slightly steeper than the mean is correct.
+- **Local slope 69.2 V/s against a 65.1 V/s mean** says the same thing.
+
+**A prediction made in this session was wrong and is corrected here.** It was
+predicted that the 987 Hz filter would smooth consecutive updates into each
+other and leave no visible staircase. It does not: the filter needs **~2 ms to
+settle a step** while updates arrive every **1 ms**, so each step is roughly
+half-settled when the next arrives. Partial smoothing, not suppression. The
+staircase is visible, faintly, and that is the correct expectation.
+
+#### What the staircase costs, and why it is cosmetic
+
+| | mV at the BNC | OneBox codes |
+| --- | --- | --- |
+| one encoder count | 3.25 | 21 |
+| one update at 5 rev/s | **74** | **485** |
+
+**During fast motion the update rate is the dominant quantiser, 23x coarser than
+the encoder.** At rest and at hand speed the encoder dominates; at 5 rev/s the
+1 kHz sampling does.
+
+**Nothing is aliasing, though.** A 32.7 ms half-swing is roughly a half-cycle of
+a **15 Hz** component, so the motion's real bandwidth is tens of Hz against the
+500 Hz Nyquist of a 1 kHz sampler. The information is present and the steps are
+visible quantisation of a signal that is itself smooth and slow.
+
+Where it does bite is **timing precision on a fast trajectory: the recorded
+analog trace resolves a pull to 1 ms.** Note this does **not** affect the `PULL`
+event, which firmware detects from the encoder directly and which never goes
+through the analog path. If finer rendering of fast pulls turns out to matter,
+the options are a faster encoder read path or accepting 1 ms — **not** turning up
+a constant, because 2 kHz does not fit in the measured loop budget.
+
+#### Travel, as a by-product
+
+The code range across both runs topped out at **2.1496 V**, which is **58.1° of
+excursion** from the switch release edge on the RIGHT joystick. Consistent with
+the ~60° estimate and with the left joystick's 64.174° full swing. **This is not
+the deliberate hard-stop survey** that plan item still wants — it is a
+measurement of where the right joystick's stop happens to sit today.
 
 ## Board 3 — `E4654C159F591D34` — Stage 4, Protocol
 
