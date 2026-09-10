@@ -162,7 +162,76 @@ This is the headline reason v0.3 was ordered.
         than trust the caller. Note `0x0000` (REF-DIV 0, BUFF-GAIN 0) also gives
         2.5 V full scale with less gain-up noise; `0x0101` is what this plan
         specified and there may be a v1.0 3.3 V headroom reason for it.
-- [ ] **DECIDE BEFORE ORDERING v1.0: strap the DAC to I2C instead of SPI?**
+- [x] **DECIDED 2026-09-10: v1.0 straps the DAC to I2C.** Firmware is ready —
+      `env:mouse_joystick_rev1_i2c` in `../mouse-joystick-firm` builds the I2C
+      path today, and both examples select the transport with `-DMJ_DAC_I2C=1`.
+      **It cannot be tested on any board that exists**: on v0.3 `SPI2C` (`U2001`
+      pad 5) is tied **directly to GND in copper**, no strap resistor, so v0.3 is
+      SPI-only without cutting a trace.
+      Three reasons, and the bandwidth objection is now measured away:
+      - **`STATUS.REF-ALARM` is unreadable over SPI.** A reference alarm drives
+        the output to 0 V while leaving the DAC codes intact, so it is
+        indistinguishable from a legitimate zero. `docs/encoder-analog-output.md`
+        requires `STATUS` to report the output invalid in that case, and SPI
+        cannot.
+      - **The 4.5 mV floor measured 2026-09-10 makes the analog level a weak
+        backup.** It was supposed to be ~25 mV. The gap between a firmware fault
+        and a dead output section is now 4.5 mV, halving to 2.25 mV at v1.0.
+      - **Bandwidth does not bind.** I2C at 1 MHz adds ~33 µs to a **measured**
+        527 µs worst-case angle loop — about 6%. See the 1 kHz loop result in
+        `docs/bringup-log.md`.
+      **Two DACs, ONE bus, no second peripheral needed.** `A0` selects four
+      addresses by what it is tied to: **AGND 0x48, VDD 0x49, SDA 0x4A,
+      SCL 0x4B**. The angle output takes 0x48 and the brake takes 0x49, leaving
+      two spare. It also saves **2 GPIOs** — I2C needs SDA + SCL where SPI needs
+      SCLK + SDIN + *two* separate chip selects — which matters on a revision
+      also adding the torque bridge's `SDO`, `TQ_CONVST_CS`, `TQ_CAL_EN` and
+      `~{BRAKE_FAULT}`.
+- [ ] **DESIGN BLOCK SPEC for the I2C strap — `kicad-libs` work, not done here.**
+      Both `analog_output_0_3v3_dac80501` and
+      `brake_current_sink_0_49ma_dac80501` need it, and those two are the
+      complete set — no other block contains a DAC80501.
+      **MODIFY IN PLACE. Do not fork SPI and I2C variants.** Decided 2026-09-10.
+      Neither block has an installed base to protect: the analog one is already
+      on the re-place list above for the DAC-to-3.3 V change, and the brake one
+      has never been placed. v0.3's SPI configuration is preserved in git at the
+      `v0.3` tag and in the fabricated boards, so a live SPI block is not needed
+      to reproduce it. Forking would double maintenance across ~57 and ~24
+      components over a four-pin difference, name the blocks on the wrong axis
+      (this repo names by function + range + part, not interface), and invite
+      placing the wrong variant. A dual-mode block was considered and rejected:
+      pin 7's net changes from a hierarchical port to a static tie, which cannot
+      cleanly be a populate option, and keeping the port either way makes the
+      block ambiguous about what it is.
+      **BUNDLE the I2C change with the already-planned DAC-to-3.3 V change on
+      the analog block, so it is re-placed ONCE.** Two re-placements means two
+      rounds of designator churn and two LCSC/Vendor-SKU scrubs — `rp2040` took
+      50 field issues from a two-part change.
+      **The brake block's DAC is already on `+3.3V_FILT`** (checked at `U36001`
+      pad 1), so it needs only the transport change, no rail move, and its bus
+      is level-compatible with the RP2040 immediately.
+      Five changes, both blocks:
+      1. **`SPI2C` (pin 5): GND -> the local VDD rail.** Currently a hard copper
+         tie to GND.
+      2. **`SYNC/A0` (pin 7) stops being a chip select and becomes a static
+         address strap.** Drop the `~{DAC_CS}` hierarchical port. **Expose the
+         address as a selectable strap inside the block** — two 0402 positions,
+         `A0`->AGND and `A0`->VDD, populate exactly one — so the same block can
+         be placed twice at different addresses. Do NOT hard-wire one address.
+      3. **`SCLK`/`SDIN` (pins 6, 8) become `SCL`/`SDA`**; rename the block's
+         hierarchical ports to match.
+      4. **PULL-UPS MUST BE BOARD-LEVEL, NOT IN THE BLOCK.** Two instances each
+         carrying pull-ups would put them in parallel and halve the resistance.
+         Same class of trap as two `PWR_FLAG`s on one net. The block exposes
+         `SCL`/`SDA` with no pull-ups; the board fits one pair.
+      5. **Pull-ups reference the ALWAYS-ON 3.3 V rail, on the MCU side of the
+         bus switch** — not the switched side, or they are dead whenever the
+         rail is off. Convenient that v1.0 already moves the DAC to 3.3 V, which
+         makes the bus level-compatible with the RP2040 with no translation.
+      **Open question worth thinking about:** open-drain I2C through the
+      `SN74CB3Q3245` bus switch. The CB3Q is a bidirectional FET switch and
+      passes I2C fine, but the pull-up placement above is what makes the
+      switch-open state sane. Verify on v1.0 hardware rather than assuming.
       This is new, it is a hardware change, and it is small. `docs/encoder-analog-output.md`
       states that **"`STATUS` must report the output as invalid"** when the
       output is 0 V for either of two reasons — an unpowered output section, or
