@@ -738,6 +738,86 @@ TMC5130A datasheet's own warning is about supply ringing from stray inductance,
 which is an input-side phenomenon. The motor-driven case looks clear; the
 supply-side case has not been tested.
 
+### DAC80501 driver written and exercised on hardware, 2026-09-09 evening
+
+`../mouse-joystick-firm/src/DAC80501.hpp` + `src/DAC80501Registers.hpp` +
+`src/DAC80501/`, with `examples/AngleOutput` as its bring-up console. Every
+register address, reset value, field position and I2C address came out of TI
+SBAS794E rather than from memory; a local copy is at
+`../kicad-libs/tmp/dac60501.pdf`, which despite the filename is the family
+datasheet and covers the 80501 throughout.
+
+**Supports both transports**, decided later by the `SPI2C` strap: `SpiTransport`
+and `I2cTransport` behind one `Transport` interface, injected into the device
+class so the second DAC80501 instance at v1.0 (the brake current setpoint) can
+share a bus on its own chip select.
+
+#### Verified on board 4 over SPI1, rail up, bus closed
+
+```
+[1] rail        +3.3V_SW up in 132 ms
+[2] bus switch  closed, GP10/GP11/GP13 now reach the DAC
+[3] SPI1        SCK GP10, TX GP11, SYNC GP13
+[4] DAC         GAIN 0x101, full scale 2.5000 V at the DAC, 3.3000 V at the BNC
+```
+
+| Commanded | DAC | BNC expected |
+| --- | --- | --- |
+| code 0 | 0.000000 V | 0.000000 V |
+| code 0x8000 | 1.250000 V | 1.650000 V |
+| code 0xFFFF | **2.499962 V** | **3.299950 V** |
+
+Full-scale code lands one LSB short of full scale, as it must — the denominator
+is 65536, not 65535. **One LSB is 38.15 µV at the DAC and 50.35 µV at the BNC**,
+against the `AD7616-P`'s 152.6 µV OneBox step, so the DAC resolves about 3×
+finer than the OneBox can record. That is the number the span argument turns on.
+
+**Nothing here is a measured output voltage.** `ANGLE_OUT` reaches no RP2040 ADC
+on v0.3 — the three ADC pins are the rail sense, `HV_SNS` and a spare — and over
+SPI the DAC cannot be read back either. So the whole column above is what the
+board was *asked* for. **The gain and offset fit still needs a DMM on the BNC**,
+and `examples/AngleOutput` has an `s` command that parks at 0, midscale and full
+scale for 15 s each to make that a one-command job.
+
+#### The ordering interlock, and it was checked rather than assumed
+
+`GAIN` resets to `0x0001` — a **5.0 V** full scale from the 2.5 V internal
+reference — while this board wants 2.5 V. A board that writes DAC data before
+writing `GAIN` therefore asks for double. `Dac80501::begin()` writes `CONFIG`,
+then `GAIN`, then `SYNC`, and `setCode()`/`setVolts()` refuse until it has
+succeeded, so the mistake is unrepresentable rather than merely documented.
+
+Exercised on hardware: after `r` (soft reset) the driver reports
+`configured: no` and a full-scale write comes back `Run 'b' first.` The `Z`
+orderable saves this from being a live hazard at power-up — it resets the data
+register to zero scale — but an `M` part would sit at midscale of a possibly
+wrong span, so the interlock does not lean on that.
+
+#### `verifyConfiguration()` reports honestly, which is the point
+
+On this board it returns **`kNotSupported`** and says so in as many words:
+there is no SDO pin, nothing was checked, and the only real check on `GAIN` is
+measuring the output. The result is a four-way enum — verified / mismatch /
+read-failed / not-supported — rather than a bool, because "could not check" and
+"checked and correct" collapsing into one `false`/`true` is how a board ends up
+trusted on no evidence.
+
+#### Left for the morning
+
+- **A DMM on the BNC.** Three-point fit, and the output floor. Expected floor is
+  ~25 mV; the 150 mV scope reading earlier the same day was the instrument's own
+  baseline and is void.
+- **`VREFIO` = 2.500 V** at the pin, also a DMM job.
+- **`GAIN` `0x0101` against `0x0000`.** Both give a 2.5 V full scale by
+  different routes and the host tests pin that they are equal in span. `0x0101`
+  runs the output buffer at a gain of two, doubling that stage's offset and
+  noise; `0x0000` keeps the DAC core at the full 2.5 V reference. With a meter on
+  the output the quieter one is measurable, and it is a one-constant change in
+  `examples/AngleOutput`. The pcb plan specifies `0x0101`, so that is what is
+  built.
+- The board was left **powered down** — DAC at zero scale, bus open, `HV_EN`
+  low — rather than energised unattended overnight. `b` brings it all back.
+
 ## Board 3 — `E4654C159F591D34` — Stage 4, Protocol
 
 **First protocol contact over the RJ-45, 2026-09-03. Passed, with the 36 V
