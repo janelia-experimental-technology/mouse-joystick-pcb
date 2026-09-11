@@ -442,23 +442,66 @@ threshold is a **5 mm** pull. Therefore:
 | 1 encoder count, in pull distance | **0.118-0.119 mm** |
 | Full mechanical travel at the grip | **84-85 mm** |
 
-**So with the full swing mapped to 0.050-3.300 V, the scientifically interesting
-part of every trial lives in the bottom ~6% of the trace** — 191-193 mV
-pre-divider, 96-97 mV after v1.0's ÷2. That is a mapping problem, not a divider
-problem: the ÷2 costs 1 bit, the mapping costs about 3.
+**So with the full swing mapped to 0.050-3.300 V, the reward threshold sits in
+the bottom ~6% of the trace** — 191-193 mV pre-divider, 96-97 mV after v1.0's
+÷2. An earlier version of this section called that a mapping problem costing
+"about 3 bits" and recommended narrowing once the peak-pull distribution arrived.
+**The distribution arrived on 2026-09-11 and settles it the other way. Keep the
+full-swing mapping. This decision is closed.**
 
-Narrowing it is **firmware-only and free**. Mapping 0-20 mm of pull (4× the
-threshold, 25% of mechanical travel) recovers **2.0 bits** and puts the threshold
-at a quarter span; 0-10 mm recovers 3.0 bits and centres the threshold but clips
-at 12% of travel.
+### CLOSED 2026-09-11: the mapping stays full-swing
 
-**Keep the full-swing mapping as the shipped default until the peak-pull
-distribution arrives.** It is the only mapping that cannot clip a pull, and
-clipping a pull peak is unrecoverable in analysis while clipping the robotic
-retraction is harmless. Trial structure comes from the digital lines, not from
-the analog trace, so a narrower window costs no trial boundaries. **The number
-owed is the distribution of peak pull distance per trial**, which the researcher
-already has in the DeepLabCut joystick trajectories.
+**The data.** From the researcher, over **1,319 successful trials** of Junchol's
+DeepLabCut joystick trajectories. Their native unit is motor steps at
+0.1414 mm/step; angles below are converted at the rig-measured 75-76 mm arm using
+the same arc convention as the table above.
+
+| | Pull | Angle | Fraction of the 64.174° swing |
+| --- | ---: | ---: | ---: |
+| min | 6.23 mm (44 steps) | 4.73° | 7.4% |
+| median | 12.15 mm (86 steps) | 9.22° | 14.4% |
+| p95 | 14.41 mm | 10.93° | 17.0% |
+| p99 | 16.12 mm | 12.23° | 19.1% |
+| **max** | **21.21 mm (150 steps)** | **16.10°** | **25.1%** |
+| SD | 1.50 mm (CV 12%) | 1.14° | — |
+
+**Why narrowing buys nothing: the encoder is the quantizer, not the OneBox.** One
+encoder count is 0.0900°, which at this arm is **0.1186 mm of pull**. The analog
+output is therefore a staircase with 0.1186 mm treads, and at the full-swing
+mapping the OneBox already resolves each tread with **14.7 codes** — 2.244 mV per
+count against a 152.6 µV step. Narrowing to a 20 mm span would give 80.0 mV/mm
+and **62 codes per tread**, which is 2.08 bits of additional *voltage*
+resolution with nothing between treads for it to resolve. **The bits are real and
+they sit below the encoder's floor, so they cannot become position resolution.**
+That is the error in the "about 3 bits" line above: it counted voltage resolution
+the encoder-limited argument had already foreclosed.
+
+**The biological signal is over twelve quantization steps wide.** The
+trial-to-trial SD is 1.50 mm = **12.6 encoder counts**, and the whole
+distribution spans 6.23-21.21 mm = **126 counts**. The variability being
+measured is nowhere near the resolution floor at either mapping.
+
+**And narrowing would clip real trials.** The researcher suggested ~20 mm as
+"more than enough", but their own maximum is **21.21 mm** — above it. Pull peaks
+are the interesting part of a trial and clipping one is unrecoverable in
+analysis. The full-swing mapping remains the only one that cannot clip.
+
+**Two further reasons it is the right default for a distributed board.** The
+mechanical swing is a bench measurement — drive to the stops and read `X_ENC` —
+whereas a task-range mapping is a behavioural calibration derived from a dataset
+that may not describe another rig's mice. And the stops are movable: the
+bring-up log has 64.174° on one joystick against ~28° on the other, so even the
+mechanical mapping is per-rig, but at least it is *measurable* per rig.
+
+**The one argument for narrowing that is not about resolution** is that the
+behavioural range occupies only 25% of the OneBox's span. That would matter if
+anything downstream were noisy; OneBox quantization is 44 µV RMS against
+2.244 mV per encoder count, i.e. **2% of one count**, so it does not.
+
+**Revisit only if the encoder gets finer.** The mapping is firmware-only, so
+nothing is foreclosed. Nothing further is owed from the researcher on this: pull
+*velocity* cannot bind either, since even a 20 mm pull completed in 20 ms is
+about 50 Hz of signal bandwidth against a 987 Hz reconstruction filter.
 
 Whichever mapping ships, record it per session and per board serial with the
 other calibration constants.

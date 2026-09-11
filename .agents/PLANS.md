@@ -86,9 +86,18 @@ LA5032 on `FW_TRIG0`/`FW_TRIG1`.
       lever arm **75-76 mm** rig-measured (old-rig CAD says 72-73 mm). So 5 mm is
       **3.77°-3.82° ≈ 42 encoder counts, 5.9%-6.0% of the 64.174° swing**, and
       the mouse's whole force range sits at **4.3%-30%** of the torque span.
-      The one thing still owed is the **distribution of peak pull distance per
-      trial** — it decides the angle mapping, not the divider. Original status
-      follows.
+      **CLOSED 2026-09-11 — the peak-pull distribution arrived and the angle
+      mapping stays full-swing.** 1,319 successful trials: min 6.23 mm, median
+      12.15 mm, p95 14.41, p99 16.12, **max 21.21 mm**, SD 1.50 mm (CV 12%), i.e.
+      4.73°-16.10° or **7.4%-25.1% of the 64.174° swing**. Narrowing buys nothing
+      because **the encoder is the quantizer, not the OneBox**: one count is
+      0.1186 mm of pull and the full-swing mapping already gives the OneBox 14.7
+      codes per count, so a 20 mm map's 2.08 extra bits sit below the encoder
+      floor. The trial-to-trial SD is **12.6 encoder counts** wide. And the
+      researcher's own max (21.21 mm) exceeds the 20 mm they proposed, so a
+      narrowed map clips real pull peaks. Full derivation and the arithmetic:
+      `docs/encoder-analog-output.md` → *CLOSED 2026-09-11*. **Nothing further is
+      owed from outside on this board.** Original status follows.
       ~~HALF-SETTLED 2026-09-10. The span half is closed; the noise half
       needs the OneBox.~~ The gain/offset fit came out **unity to within 0.03%**,
       so **there is no span error to preserve** and the ÷2 divider costs exactly
@@ -1066,6 +1075,30 @@ Source-of-truth sibling repositories:
   follows the profile's own Preferred Digital Overlays table: TMC bus on the SPI
   slots, pyControl serial on the first UART pair, brake PWM and fault on the
   PWM/fault slots, torque front end on the I2C slots.
+  - **REVISED 2026-09-11 — the eviction is now a choice, not a forced move, and
+    the strand budget needs settling before v1.0 layout.** The I2C transport
+    change cut both ways: it freed `DIG6` (`~DAC_CS`) and dissolved `DIG11`'s
+    `BRAKE_CS` allocation, since I2C has no chip selects — **but it also took the
+    torque ADC's `SCK`/`SDI` off strands they used to share with the DAC bus**,
+    because `SPI1` now serves the `ADS8689` alone. v1.0 tallies to **17 or 19 of
+    18 strands** depending on whether those two get port visibility. Decide it
+    explicitly here rather than discovering it at routing.
+    **User's decision, 2026-09-11: the TMC5130 has proven itself on encoder
+    handling, so `ENC_A`/`ENC_B` are reconfirming a verified circuit and the
+    strands are better spent verifying new ones.** Recommended split: **keep
+    `LIMIT_SW`** — homing is the field failure mode and the switch is a wearing
+    mechanical part whose failure the driver's own registers cannot contradict —
+    and give `ENC_A`/`ENC_B` test pads instead of strands. If more are needed,
+    `TQ_CAL_EN` is a static enable rather than an edge worth a channel, and the
+    ADC's `SDI` carries only bring-up configuration writes.
+    **The InstrumentPort-40 pinout itself stays v0.3 for v1.0** — the digital-only
+    rework (30 signal / 10 return, analog deferred until an instrument exists)
+    is a `board-interfaces` proposal for the next board, not a v1.0 change.
+    Insurance instead: **populate the identity beacon and add a profile-version
+    field to its payload.** Firmware-only — `FW_TRIG0` = `GP25`, `FW_TRIG1` =
+    `GP21` are already outputs, already reach `TRIG0`/`TRIG1` through `U1801`,
+    and already bypass the bus switch. Add the two missing `FW_TRIG` test pads
+    while the board is open. Original text follows.
   - **`DIG0`, `DIG1`, and `DIG11` are swap slots.** `ENC_A`, `ENC_B`, and
     `LIMIT_SW` hold three of the rev 2 brake/torque slots through Rev 0 and rev 1
     and hand them over at rev 2. They earn the space because none of those signals
