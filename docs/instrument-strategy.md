@@ -1,5 +1,11 @@
 # Instrument Strategy
 
+**New direction, 2026-09-12:** See the
+[Digital InstrumentPort migration plan](digital-instrument-port-migration.md)
+for 50-pin / 32-channel observation, integrated buffers enabled by hardware
+default, and the v1.0 release gate. The Rev 0 allocations and analog-tail
+descriptions below are legacy hardware/planning context, not the new pinout.
+
 **Rev 0 scope: the port is in Rev 0.** Decided 2026-08-16, reversing the
 2026-08-12 deferral. The reason is firmware development rather than experiments:
 being able to see the pyControl serial link at the cable and the TMC5130A SPI bus
@@ -154,16 +160,24 @@ second analyzer.
 
 ### Buffer Enable Default
 
-The `instrumentation_signal_buffer_sn74lvc125a` block pulls `~OE` up, so buffers
-are high-Z until firmware drives `~{INSTR_BUF_OE}` low. That is correct for a
-bench board and wrong for a rig: a session should not silently produce no data
-because nobody enabled observation.
+**Legacy hardware:** `instrumentation_signal_buffer_sn74lvc125a` pulls `~OE`
+up, so its outputs are high-Z until firmware drives `~{INSTR_BUF_OE}` low.
+That remains an accurate description of existing boards, not the recommendation
+for the new read-only port.
 
-**Recommendation:** keep the hardware pull-up — a safe default at power-on is
-worth more than convenience — and have firmware enable the buffers as part of
-normal startup, then report buffer state in the `ID` and `STATUS` replies so the
-host can tell whether observation is live. Do not change the pull-up to a
-pull-down; that would make the power-on state depend on nothing.
+**New direction, 2026-09-12:** enable the digital port by hardware default on
+valid `+3.3V_MCU`, with independent manual disable and optional disconnectable
+firmware disable. A defined pull-down is a hardware default, not an undefined
+power-on state. Capture must not require successful MCU boot or new firmware.
+The two OE inputs on SN74LV541ARKSR provide separate manual/software controls;
+see the [migration plan](digital-instrument-port-migration.md).
+
+Disable can reduce output switching or help maintenance/fault isolation; it
+does not remove input loading or disconnect ground. Default-off would not
+protect cable insertion after firmware enables the port. Use target-power-off
+cable handling unless the actual assembly is qualified for hot plugging.
+If firmware reports buffer state, distinguish its requested state from actual
+output availability when a manual disable is not sensed.
 
 ### Physical Path
 
@@ -186,9 +200,10 @@ easier.
 
 ### Safety With Animals Present
 
-An instrument attached during animal work must not be able to affect the rig.
-The current design satisfies this, and the reasons should be preserved
-deliberately:
+An instrument attached during animal work must have no stimulus authority into
+the rig. The following legacy design choices remove intended drive paths, but
+they do not prove immunity to cable faults, shared-ground disturbances, or
+buffer-supply noise. Validate those effects for the actual rig:
 
 - The buffers are unidirectional, board-side to instrument-side only.
 - The LA5032 has only digital-observation channels; it provides no stimulus into
@@ -262,6 +277,11 @@ board exists tends to encode whatever was convenient rather than what a session
 needs.
 
 ## Overlay
+
+The allocation in this section is the legacy 40-pin overlay. For digital-50,
+create a new explicit board map as described in the
+[migration plan](digital-instrument-port-migration.md); do not apply the old
+slot-eviction or analog-tail rules to the new connector.
 
 All 18 digital slots are allocated — **11 live in Rev 0**, 6 more at rev 1, and 4
 reserved for the rev 2 brake and torque sensor, **three** of which the encoder and

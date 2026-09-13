@@ -1,5 +1,11 @@
 # Interface Map
 
+**InstrumentPort planning update, 2026-09-12:** This document retains the legacy
+40-pin/GPIO allocation. The
+[digital-port migration plan](digital-instrument-port-migration.md) governs the
+proposed 50-pin overlay and default-enabled buffers. New channel allocation and
+v1.0 release adoption are pending; no old pin number is silently reassigned here.
+
 **Status:** Rev 0 allocation frozen; schematic drawn and reviewed 2026-08-17,
 with open findings in `.agents/handoff.local.md`. **Rev 1 allocation revised
 2026-08-26** when the analog output block was built — `GP12` and `GP17` returned

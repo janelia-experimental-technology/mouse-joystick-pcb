@@ -1,5 +1,11 @@
 # Design Block Map
 
+**InstrumentPort planning update, 2026-09-12:** The
+[migration plan](digital-instrument-port-migration.md) proposes replacing the
+separate legacy FFC/buffer instances with one new laid-out 50-pin read-only
+block. It is not implemented. Keep the inventory below as legacy context and
+preserve board-specific terminations when a migration is performed.
+
 **Status:** Rev 0 rescoped 2026-08-13, InstrumentPort added back 2026-08-16;
 **schematic complete, reviewed, and ERC-clean 2026-08-17** — 0 violations at
 every severity, 142 components, every part footprinted. The blockers raised by

@@ -1,5 +1,12 @@
 # Validation Plan
 
+**Digital-port update, 2026-09-12:** Apply the
+[migration acceptance checklist](digital-instrument-port-migration.md#migration-and-acceptance-checklist)
+if the new 50-pin port is adopted. It requires observation before firmware with
+a valid buffer supply, plus independent manual disable. The 40-pin mappings,
+component references, analog-tail checks, and high-Z startup tests below remain
+legacy-board checks; no new hardware has passed them by this documentation edit.
+
 **Rev 0 scope:** gates that exercise the analog angle output, the pyControl TTL
 event lines, or an independent encoder cross-check do not apply. The cross-check
 is not deferred — it was deleted on 2026-08-16 and those gates should be struck,
@@ -722,6 +729,10 @@ one command. Everything past `id` is still unexercised.
   personal knowledge.
 
 ## Instrument-Specific Validation
+
+This list is for legacy InstrumentPort-40 hardware. New digital-port acceptance
+uses the [migration checklist](digital-instrument-port-migration.md#migration-and-acceptance-checklist),
+including the opposite hardware-enable default.
 
 - Buffers default to high-Z at power-on, before firmware runs. All three packages
   share `~{INSTR_BUF_OE}` on `GP24`, each with its own 10 kΩ pull-up

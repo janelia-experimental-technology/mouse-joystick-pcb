@@ -12,6 +12,12 @@ axis.
 
 ## Board Contents
 
+**InstrumentPort planning update, 2026-09-12:** The new direction is a 50-pin,
+32-channel read-only digital port with integrated, hardware-default-enabled
+buffers. See the [migration plan](docs/digital-instrument-port-migration.md)
+for the v1.0 adoption/fallback gate. This is not yet implemented; the Rev 0
+hardware and GPIO descriptions below retain their legacy meaning.
+
 **Rev 0 was rescoped on 2026-08-13** to shorten the path to testable hardware. It
 carries the interfaces and nothing else; see [Rev 0 Plan](docs/rev0-plan.md).
 

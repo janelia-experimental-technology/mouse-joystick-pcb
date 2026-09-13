@@ -3,6 +3,36 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Completed Task — Digital InstrumentPort documentation (2026-09-12)
+
+**Session continuation, 2026-09-13:** Start from the
+[InstrumentPort handoff](../../kicad-libs/docs/instrument-port-session-handoff.md).
+The subdivision observations are now saved in the canonical draft. DIG0/1 is
+the latest beacon-placement recommendation, not a decision; DIG14/15 was the
+earlier unfrozen proposal. The v1.0 adoption/fallback gate remains open.
+
+The new design direction is a 50-pin, 32-channel read-only digital port with
+integrated SN74LV541ARKSR buffers, enabled by hardware default on
+`+3.3V_MCU`. See `docs/digital-instrument-port-migration.md` and the canonical
+`board-interfaces/docs/instrument-port-digital.md` draft.
+
+- [x] Document the migration and the v1.0 adoption/fallback release gate.
+- [x] Replace the default-disabled recommendation for the new port, retaining
+      the old pull-up/OE description as legacy hardware evidence.
+- [x] Cross-link the old allocation and validation docs and check consistency.
+
+Verification: `make test` documentation/scaffold checks and `git diff --check`
+pass; new local links/anchors resolve. Only Markdown files changed. Board
+migration, new overlay allocation, and qualification remain pending.
+
+This reopens the 2026-09-11 decision to keep 40 pins for v1.0; it does not claim
+the board is migrated or authorize an indefinite release delay. Prefer the new
+port if the reviewed block, adapter design, and board checks fit the order
+schedule; otherwise explicitly record a legacy-40 release fallback. Debug,
+analog, vertical FFC, and 25-pin implementations do not gate v1.0.
+Earlier "leave the InstrumentPort blocks alone" / "no new blocks" scope notes
+apply to the legacy fallback, not to an adopted 50-pin migration.
+
 ## Active Task — v0.2 JLCPCB Fabrication Release (2026-08-21)
 
 - [x] Confirm the schematic, PCB title block, and front silkscreen identify v0.2.
@@ -1091,14 +1121,19 @@ Source-of-truth sibling repositories:
     and give `ENC_A`/`ENC_B` test pads instead of strands. If more are needed,
     `TQ_CAL_EN` is a static enable rather than an edge worth a channel, and the
     ADC's `SDI` carries only bring-up configuration writes.
-    **The InstrumentPort-40 pinout itself stays v0.3 for v1.0** — the digital-only
-    rework (30 signal / 10 return, analog deferred until an instrument exists)
-    is a `board-interfaces` proposal for the next board, not a v1.0 change.
-    Insurance instead: **populate the identity beacon and add a profile-version
-    field to its payload.** Firmware-only — `FW_TRIG0` = `GP25`, `FW_TRIG1` =
-    `GP21` are already outputs, already reach `TRIG0`/`TRIG1` through `U1801`,
-    and already bypass the bus switch. Add the two missing `FW_TRIG` test pads
-    while the board is open. Original text follows.
+    **Reopened 2026-09-12:** retaining InstrumentPort-40 v0.3 for v1.0 is now
+    the explicit schedule fallback, not the only planned outcome. The new
+    direction is 50 pins / 32 digital channels / 18 grounds with integrated,
+    hardware-default-enabled buffers; it supersedes the earlier 30-signal /
+    10-return digital-40 proposal. See `docs/digital-instrument-port-migration.md`
+    for the adoption gate. Neither the new board overlay nor hardware is done.
+    **Beacon correction:** retain the current 64-bit serial payload; adding a
+    profile-version field is not firmware-only compatibility. Record the profile
+    with captures until a separately versioned frame/decoder extension exists.
+    Legacy `FW_TRIG0` = `GP25`, `FW_TRIG1` = `GP21` reach `TRIG0`/`TRIG1`
+    through `U1801` and bypass the bus switch. Keep both marker channels in
+    the new first 16-channel bank and retain the planned `FW_TRIG` test pads.
+    Original legacy allocation rationale follows.
   - **`DIG0`, `DIG1`, and `DIG11` are swap slots.** `ENC_A`, `ENC_B`, and
     `LIMIT_SW` hold three of the rev 2 brake/torque slots through Rev 0 and rev 1
     and hand them over at rev 2. They earn the space because none of those signals
