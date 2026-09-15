@@ -3,7 +3,10 @@
 **Digital-port update, 2026-09-12:** Apply the
 [migration acceptance checklist](digital-instrument-port-migration.md#migration-and-acceptance-checklist)
 if the new 50-pin port is adopted. It requires observation before firmware with
-a valid buffer supply, plus independent manual disable. The 40-pin mappings,
+a valid buffer supply. **Updated 2026-09-15: there is no manual disable to
+test** — the buffers are permanently enabled, so check instead that the OE
+pull-downs hold both inputs low across the rail's rise and fall. The 40-pin
+mappings,
 component references, analog-tail checks, and high-Z startup tests below remain
 legacy-board checks; no new hardware has passed them by this documentation edit.
 

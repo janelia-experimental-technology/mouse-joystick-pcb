@@ -165,19 +165,25 @@ up, so its outputs are high-Z until firmware drives `~{INSTR_BUF_OE}` low.
 That remains an accurate description of existing boards, not the recommendation
 for the new read-only port.
 
-**New direction, 2026-09-12:** enable the digital port by hardware default on
-valid `+3.3V_MCU`, with independent manual disable and optional disconnectable
-firmware disable. A defined pull-down is a hardware default, not an undefined
-power-on state. Capture must not require successful MCU boot or new firmware.
-The two OE inputs on SN74LV541ARKSR provide separate manual/software controls;
-see the [migration plan](digital-instrument-port-migration.md).
+**New direction, 2026-09-12, settled 2026-09-15:** enable the digital port by
+hardware default on valid `+3.3V_MCU`, and provide **no disable at all**. Both
+active-low OE inputs on all four SN74LV541ARKSR packages are held low by
+pull-down; there is no manual jumper, no firmware link and no GPIO. A defined
+pull-down is a hardware default, not an undefined power-on state. Capture must
+not require successful MCU boot or new firmware. See the
+[migration plan](digital-instrument-port-migration.md) and the
+[rationale](../../kicad-libs/docs/digital-instrument-port-design-blocks.md#no-disable-control-and-why).
 
-Disable can reduce output switching or help maintenance/fault isolation; it
-does not remove input loading or disconnect ground. Default-off would not
-protect cable insertion after firmware enables the port. Use target-power-off
-cable handling unless the actual assembly is qualified for hot plugging.
-If firmware reports buffer state, distinguish its requested state from actual
-output availability when a manual disable is not sensed.
+This retires `~{INSTR_BUF_OE}` and returns `GP24` to the spare pool: it existed
+only because the legacy LVC125A port was default-off and needed firmware to
+switch it on. Firmware has no buffer state to report, so the old requirement to
+distinguish requested state from actual output availability no longer applies.
+
+The trade accepted is that output switching cannot be muted for a noise
+investigation. Detaching the cable is the substitute, and it bounds the cable's
+contribution rather than the buffers' — they keep switching into their
+board-side traces and 100 ohm damping resistors. Use target-power-off cable
+handling unless the actual assembly is qualified for hot plugging.
 
 ### Physical Path
 
