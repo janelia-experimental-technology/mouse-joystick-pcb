@@ -1576,6 +1576,16 @@ block itself once this board proves it.
 > because that is exactly when the rail has to be able to charge. Until then
 > firmware emulates the retry: `PowerSequence::staircaseStart()`.
 >
+> **Allocated 2026-09-16: `HV_LATCH` on `GP24`**, in the bypass group with the
+> rest of the switch's signals, taking the pin that `~{INSTR_BUF_OE}` freed. The
+> 1 kΩ `RPROT` is **`R503` inside the vertical HV input block**, whose port is
+> plain `LATCH`, so the board owes only the wiring — a sheet pin on `mcu` and
+> the root-level net. It was the last spare but one; see
+> `docs/interface-map.md`. **The pin had been owed since 2026-09-02 and no
+> allocation existed** — this document recorded the fix while the interface map
+> still showed `LATCH` strapped, which is how it stayed unallocated for two
+> weeks.
+>
 > Do **not** simply tie `LATCH` low. Read the paragraph below about a joystick
 > twitching in an animal's paw — that hazard is real and a permanent tie
 > reintroduces it.

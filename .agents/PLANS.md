@@ -453,10 +453,28 @@ This is the headline reason v0.3 was ordered.
 
 ## v1.0 Board Changes (opened 2026-09-08, supersedes the v0.4 list below)
 
-Blocks must be fixed in `../kicad-libs` **before** any of this — see that repo's
-`.agents/PLANS.md` → **2026-09-08 Design Block Changes**. Re-placing
-`rp2040_gpio_isolation_sn74cb3q3245` or `torque_bridge_0_3v3_ina821` before they
-are fixed damages a board that is currently clean.
+**Status 2026-09-16: under way. The ordered task list is now
+`.agents/handoff.local.md` → *Finish the schematic* and *Still to place*, which
+is current; this section is the scope definition behind it.** Blocks are no
+longer a prerequisite — all of them pass in `../kicad-libs` and two are placed.
+What changed since this section was written:
+
+- `rp2040` + `rp2040_gpio_isolation_sn74cb3q3245` are replaced by the single
+  `rp2040_with_gpio_isolation_sn74cb3q3245`, built 2026-09-16, **placed**.
+- The 40-pin DUT boundary and all four `SN74LVC125A` buffers are replaced by
+  `instrument_port_digital_50_dut_ffc_boundary_vertical` — **32 channels**, not
+  18, allocated in `docs/interface-map.md`. `GP24` was freed and immediately
+  re-spent on `HV_LATCH`, which the bench had owed a pin since 2026-09-02.
+- Both DAC blocks are **I2C** (0x48 analog, 0x49 brake), not SPI, which freed
+  `GP13` and moved the torque ADC onto `SPI1`.
+- `hv_to_12v_tpsm365r6` joins the placement list — new to this board, and both
+  the brake and torque blocks need `+12V`.
+- The PPTC is chosen: `1206L035/16YR`, LCSC `C126817`, **to be purchased**.
+- Nine new board-level biases are owed, listed in `docs/interface-map.md` →
+  *Board-Level Input Biases*. The I2C pull-ups are **4.7 kΩ**, not 2.2 kΩ.
+
+Re-placing `tmc5130` still damages a clean board: `../kicad-libs` is 0.12 Ω
+against this board's 0.15 Ω, re-verified 2026-09-16.
 
 ## SCOPE NARROWED 2026-09-08 — v1.0 only, no nice-to-haves
 

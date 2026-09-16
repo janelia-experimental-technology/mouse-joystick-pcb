@@ -83,15 +83,15 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP1`  | `PYC_UART_RX`         | UART RX from pyControl (`UART0 RX`)                      | **yes**  | `byp` | `in`   |
 | `GP2`  | `~{TMC_CS}`           | Driver chip select                                       | **yes**  | `sw`  | `out`  |
 | `GP3`  | `~{TMC_DRV_EN}`       | Driver enable, active low                                | **yes**  | `sw`  | `out`  |
-| `GP4`  | `TMC_SPI_CIPO`        | Driver SPI MISO (`SPI0 RX`)                              | **yes**  | `sw`  | `in`   |
+| `GP4`  | `TMC_SPI_CIPO`        | Driver SPI CIPO (`SPI0 RX`)                              | **yes**  | `sw`  | `in`   |
 | `GP5`  | `TMC_DIAG0`           | Driver diagnostic 0                                      | **yes**  | `sw`  | `in`   |
 | `GP6`  | `TMC_SPI_SCK`         | Driver SPI clock (`SPI0 SCK`)                            | **yes**  | `sw`  | `out`  |
-| `GP7`  | `TMC_SPI_COPI`        | Driver SPI MOSI (`SPI0 TX`)                              | **yes**  | `sw`  | `out`  |
+| `GP7`  | `TMC_SPI_COPI`        | Driver SPI COPI (`SPI0 TX`)                              | **yes**  | `sw`  | `out`  |
 | `GP8`  | `TMC_DIAG1`           | Driver diagnostic 1                                      | **yes**  | `sw`  | `in`   |
 | `GP9`  | `~{BUS_SW_EN}`        | GPIO isolation enable, active low                        | **yes**  | `byp` | `out`² |
 | `GP10` | `TQ_SPI_SCK`          | Torque ADC SPI clock (`SPI1 SCK`)⁷                       | **yes**  | `sw`  | `out`  |
-| `GP11` | `TQ_SPI_SDI`          | Torque ADC SPI MOSI (`SPI1 TX`)⁷                         | **yes**  | `sw`  | `out`  |
-| `GP12` | `TQ_SPI_SDO`          | Torque ADC SPI MISO (`SPI1 RX`)⁷                         | **yes**  | `sw`  | `in`   |
+| `GP11` | `TQ_SPI_COPI`         | Torque ADC SPI COPI (`SPI1 TX`)⁷                         | **yes**  | `sw`  | `out`  |
+| `GP12` | `TQ_SPI_CIPO`         | Torque ADC SPI CIPO (`SPI1 RX`)⁷                         | **yes**  | `sw`  | `in`   |
 | `GP13` | `~{BRAKE_FAULT}`      | Brake block fault, active low⁷                           | **yes**  | `sw`  | `in`   |
 | `GP14` | `HV_DIAG_EN`          | 36 V switch diagnostics enable⁵                          | **yes**  | `byp` | `out`  |
 | `GP15` | `TQ_CONVST_CS`        | ADS8689 convert-start / frame, plain GPIO⁷               | **yes**  | `sw`  | `out`  |
@@ -103,7 +103,7 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP21` | `FW_TRIG1`            | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
 | `GP22` | `PYC_FAULT`           | Latched fault out — **no connector on this board**⁸       | reserved | `byp` | `out`  |
 | `GP23` | `PYC_RSYNC_IN`        | Rsync edges in — **no source on this board**⁸             | reserved | `byp` | `in`   |
-| `GP24` | spare                 | **Freed 2026-09-16** — digital-50 has no `OE`⁹            | spare    | —     | —      |
+| `GP24` | `HV_LATCH`            | 36 V switch latch-off select¹⁰                            | **yes**  | `byp` | `out`  |
 | `GP25` | `FW_TRIG0`            | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
 | `GP26` | `SW_RAIL_SENSE_DIV_2` | `+3.3V_SW` presence and level, ÷2 divider⁴               | **yes**  | `byp` | `in`   |
 | `GP27` | spare                 | Reserved — `EXT_FAULT_IN` candidate, see below           | spare    | —     | —      |
@@ -135,12 +135,13 @@ Is Actually For](#what-the-rail-sense-is-actually-for). The `mcu` sheet pin name
 (1 kΩ/1 kΩ) divide it inside `mcu`, and the divided node on `GP26` is
 `SW_RAIL_SENSE_DIV_2`.
 
-⁵ **Added 2026-08-17.** `GP14` drives the `TPS1HTC100-Q1`'s `DIAG_EN` through a
-1 kΩ series resistor inside the HV input block. **The designator is no longer
-`R202`** — that number was reused for a USB-C `CC` pull-down when the HV block
-was removed on 2026-09-16, so the series resistor gets whatever the re-placed
-vertical block and re-annotation assign. Re-record it after placement rather
-than trusting any earlier designator. See the note on `DIAG_EN` below.
+⁵ **Added 2026-08-17; designator settled 2026-09-16.** `GP14` drives the
+`TPS1HTC100-Q1`'s `DIAG_EN` through a 1 kΩ series `RPROT` that lives **inside**
+the vertical HV input block as **`R502`**, so the board owes only the wiring.
+Earlier text called it `R202`; that number now belongs to a USB-C `CC`
+pull-down. The block's port is named `DIAG_ENABLE`, not `HV_DIAG_EN` — the
+`HV_` prefix is the board's, applied at the root. See the note on `DIAG_EN`
+below.
 
 ⁶ **Freed 2026-08-26** when the rev 1 analog output block was built. The
 `DAC80501` has no hardware `LDAC` and no hardware `CLR` pin at all — synchronous
@@ -167,18 +168,47 @@ They stay allocated so no pin moves, and the two outputs are still worth
 observing on the InstrumentPort, but `PYC_RSYNC_IN` has no source and gets no
 channel. Either add connectors in a later revision or retire the three.
 
-⁹ **Freed 2026-09-16.** The digital-50 DUT block is default-enabled with both
-`~OE` inputs held low and no port, so `~{INSTR_BUF_OE}` no longer exists. Its
-pull-up circuit and firmware init are deleted rather than ported. See
+⁹ **Freed 2026-09-16**, and immediately re-spent on `HV_LATCH`. The digital-50
+DUT block is default-enabled with both `~OE` inputs held low and no port, so
+`~{INSTR_BUF_OE}` no longer exists. Its pull-up circuit and firmware init are
+deleted rather than ported. See
 [the migration plan](digital-instrument-port-migration.md).
 
-**v1.0: 27 connected (24 with a destination, 3 reserved per footnote 8), 2 spare
-(`GP24`, `GP27`), 1 internal (`GP9`).** `GP27` is ADC-capable and is the reserve
-for a future analog monitor; hold it.
+¹⁰ **Added 2026-09-16, and this pin was owed since 2026-09-02.** The
+`TPS1HTC100-Q1`'s `LATCH` was strapped high through a 1 kΩ `RPROT` until the
+bench showed that latch-off and power-up are in direct conflict on this board:
+the switch trips relative thermal shutdown 1-2 ms into charging `+36V_SW`'s
+208 µF, so **auto-retry is the only mechanism that can bring the rail up at
+all**. `docs/power.md` → [`LATCH` — Tie It High For
+Latch-Off](power.md#latch--tie-it-high-for-latch-off) recorded the fix as
+"`LATCH` on a spare GPIO" but no pin was ever allocated here; this is that
+allocation. **Drive it low for the power-up ramp and high once the rail is
+established** — that buys retry-based soft-start *and* latch-off, and the
+device's internal 0.7-1.3 MΩ pull-down makes auto-retry the default whenever the
+MCU is unpowered or in reset, which is exactly when the rail has to be able to
+charge. Do not strap it either way. The 1 kΩ `RPROT` is `R503` **inside** the HV
+input block, so the board owes only the wiring.
+
+**v1.0: 28 connected (25 with a destination, 3 reserved per footnote 8), 1 spare
+(`GP27`), 1 internal (`GP9`).** `GP27` is ADC-capable and is the reserve for a
+future analog monitor; hold it. **If more pins are ever needed, retiring the
+three footnote-8 signals is the cheapest reclaim available** — they have no
+connector, so nothing on the board changes.
 
 **Switched: 15 channels** — `ISO2`-`ISO8`, `ISO10`-`ISO13`, `ISO15`-`ISO18`.
-**Bypass: 12** — `GPIO0`, `GPIO1`, `GPIO14`, `GPIO19`-`GPIO23`, `GPIO25`,
-`GPIO26`, `GPIO28`, `GPIO29`. The remaining 31 block pins get no-connect flags.
+**Bypass: 13** — `GPIO0`, `GPIO1`, `GPIO14`, `GPIO19`-`GPIO26`, `GPIO28`,
+`GPIO29`. The remaining 30 block pins get no-connect flags: the 15 raw pins
+whose index is switched, `GPIO27`, and the 14 unused `ISO` pins (`ISO0`, `ISO1`,
+`ISO14`, `ISO19`-`ISO29`).
+
+**Verified against the schematic 2026-09-16.** Every switched signal sits on its
+index-matched `ISO` pin and every bypass signal on the matching raw `GPIO` pin,
+checked at pad level through the netlist — `~{TMC_CS}` on `ISO2` through
+`TQ_CAL_EN` on `ISO18`, and `GPIO0`/`GPIO1`/`GPIO14`/`GPIO19`/`GPIO21`/`GPIO25`/
+`GPIO26`/`GPIO28`/`GPIO29` on the raw side. Note that a raw `GPIOn` net always
+shows **two** nodes at the RP2040 end — the MCU pad and the switch's `B` pin —
+because the block wires all 29 channels 1:1 internally. That is the block
+working as designed, not a stray connection.
 
 **Four pins were freed on 2026-08-16** and the allocation went from comfortable to
 roomy. That matters for more than tidiness — see the note on rev 2 below. One of
@@ -217,14 +247,29 @@ working unchanged.
 | --- | --- | --- | --- |
 | `GP9`  | `~{BUS_SW_EN}`, board-wired | same signal, **internal to the block** | the combined MCU block owns the enable and its pull-up |
 | `GP10` | `DAC_SPI_SCK`   | `TQ_SPI_SCK`    | DACs went I2C; `SPI1 SCK` exists nowhere else |
-| `GP11` | `DAC_SPI_COPI`  | `TQ_SPI_SDI`    | same |
-| `GP12` | spare           | `TQ_SPI_SDO`    | `SPI1 RX` |
+| `GP11` | `DAC_SPI_COPI`  | `TQ_SPI_COPI`   | same |
+| `GP12` | spare           | `TQ_SPI_CIPO`   | `SPI1 RX` |
 | `GP13` | `~{DAC_CS}`     | `~{BRAKE_FAULT}`| I2C needs no chip select |
 | `GP15` | spare           | `TQ_CONVST_CS`  | plain GPIO, timing-critical |
 | `GP16` | spare           | `DAC_SDA`       | `I2C0` adjacent pair |
 | `GP17` | spare           | `DAC_SCL`       | same |
 | `GP18` | spare           | `TQ_CAL_EN`     | plain GPIO |
-| `GP24` | `~{INSTR_BUF_OE}` | **spare**     | digital-50 has no enable |
+| `GP24` | `~{INSTR_BUF_OE}` | `HV_LATCH`    | digital-50 has no enable; the bench-proven latch pin took the slot |
+
+**Net naming: COPI/CIPO, never MOSI/MISO or SDI/SDO.** Board net names and the
+comments describing them use `COPI`/`CIPO` throughout. `SDI`/`SDO`/`SDIN` appear
+in this document **only** where a device's own pin is meant — the TMC5130A's
+`SDI`/`SDO` pins, the DAC80501's `SDIN`, the block ports of
+`torque_bridge_0_3v3_ina821` — and those are quoted as-is because renaming a
+datasheet pin would be worse than the inconsistency.
+
+**That makes one mapping worth stating explicitly, because crossing it is
+invisible to ERC and DRC:** at the parent sheet, board net `TQ_SPI_COPI` wires
+to the torque block's **`SDI`** port and `TQ_SPI_CIPO` wires to its **`SDO`**
+port. Both nets stay driven and terminated either way round, exactly like the
+`AOUT`/`AOUT_MON` crossing that block family already warns about — verify it on
+the netlist, not by eye. The same holds at the TMC: `TMC_SPI_COPI` → `SDI`,
+`TMC_SPI_CIPO` → `SDO`, which the direction table further down already records.
 
 **The three analog monitors deliberately do not reach the MCU.** `AOUT_MON`,
 `TQ_AOUT_MON` and `BRAKE_ISENSE` are instrument taps: the digital-50 connector
@@ -245,8 +290,8 @@ a decode. The block's banks are `DIG0`-`DIG7` / `DIG8`-`DIG15` /
 | Ch | Signal | Tap | Ch | Signal | Tap |
 | --- | --- | --- | --- | --- | --- |
 | `DIG0`  | `FW_TRIG0`      | MCU | `DIG16` | `TQ_SPI_SCK`     | ISO |
-| `DIG1`  | `FW_TRIG1`      | MCU | `DIG17` | `TQ_SPI_SDI`     | ISO |
-| `DIG2`  | `PYC_UART_TX`   | MCU | `DIG18` | `TQ_SPI_SDO`     | ISO |
+| `DIG1`  | `FW_TRIG1`      | MCU | `DIG17` | `TQ_SPI_COPI`    | ISO |
+| `DIG2`  | `PYC_UART_TX`   | MCU | `DIG18` | `TQ_SPI_CIPO`    | ISO |
 | `DIG3`  | `PYC_UART_RX`   | MCU | `DIG19` | `TQ_CONVST_CS`   | ISO |
 | `DIG4`  | `PYC_PULL_EVENT`| MCU | `DIG20` | `TQ_CAL_EN`      | ISO |
 | `DIG5`  | `PYC_FAULT`     | MCU | `DIG21` | `DAC_SDA`        | ISO |
@@ -303,14 +348,47 @@ the same argument that keeps `SCL`/`SDA` termination out of the DAC blocks.
 | --- | --- | --- |
 | `DAC_SDA`, `DAC_SCL` (MCU side) | 4.7 kΩ up to `+3.3V_MCU` | the bus switch is open by default, so the MCU side floats otherwise |
 | `DAC_SDA`, `DAC_SCL` (ISO side) | 4.7 kΩ up to `+3.3V_SW` | a switched-domain pull never references the always-on rail |
-| `TQ_SPI_SCK`, `TQ_SPI_SDI`, `TQ_SPI_SDO` | 10 kΩ down | the block refuses to terminate; also defines the tap when the ADC is dark |
+| `TQ_SPI_SCK`, `TQ_SPI_COPI`, `TQ_SPI_CIPO` | 10 kΩ down | the block refuses to terminate; also defines the tap when the ADC is dark |
 | `TQ_CONVST_CS` | 10 kΩ up to `+3.3V_SW` | must idle high — load-bearing, same as `~{DAC_CS}` was |
 | `TQ_CAL_EN` | 10 kΩ down | calibration must be *off*, not floating |
 
-**4.7 kΩ, not the 2.2 kΩ the analog block's note suggests.** Both I2C pairs sit
-in parallel the moment the bus switch closes, and 2.2 kΩ ∥ 2.2 kΩ = 1.1 kΩ asks
-for 3 mA of sink, right at the standard-mode minimum. 4.7 kΩ pairs give 2.35 kΩ
-effective and ~200 ns rise at 100 pF, inside fast-mode's 300 ns.
+**4.7 kΩ, not the 2.2 kΩ the analog block's note suggests** — that note is right
+for *one* segment and this board has two in parallel the moment the bus switch
+closes. Use `OW-RES-4K7-0402`, four of them; the catalog entry is already
+annotated for exactly this.
+
+The arithmetic, with measured part capacitances rather than a guess. Switched
+segment: two `DAC80501` at **10 pF max per pin** (DACx0501 datasheet), the
+`SN74LV541A` tap at 2 pF, the `SN74CB3Q3245` channel at **11 pF max** `Cio(ON)`,
+plus ~12 pF of trace — about **45 pF**. MCU segment: an RP2040 pad and a short
+run, about **15 pF**. Connected, call it **70 pF** with margin.
+
+| Pull-ups per side | Effective when connected | t_r = 0.8473·R·C at 70 pF | Sink to hold 0.4 V |
+| --- | --- | --- | --- |
+| 2.2 kΩ | 1.1 kΩ | 65 ns | **2.64 mA — 88% of the 3 mA floor** |
+| **4.7 kΩ** | **2.35 kΩ** | **139 ns** | **1.23 mA** |
+| 10 kΩ | 5.0 kΩ | 297 ns — at the limit | 0.58 mA |
+
+Fast mode allows 300 ns of rise and the I²C-bus specification requires a device
+to sink 3 mA at `V_OL` ≤ 0.4 V; the DACx0501 datasheet specifies no `V_OL` at
+all, it only requires an external pull-up, so that 3 mA is the floor. 4.7 kΩ
+clears both with room at 400 kHz, which is the design target — the analog
+block's 987 Hz reconstruction filter caps the useful update rate near 2 kHz, so
+fast-mode-plus buys nothing here. If it were ever wanted, 3.3 kΩ per side gives
+98 ns and 1.76 mA, at the cost of a new internal part.
+
+**A third reason to stay at 4.7 kΩ rather than going lower:** if firmware ever
+closes the bus switch with `+3.3V_SW` down, the MCU-side pull-ups feed the dead
+DACs' input clamps. 4.7 kΩ bounds that to ~0.6 mA per line instead of handing it
+an unlimited source. It does not make the sequencing error safe — it makes it
+survivable.
+
+**Neither pair is optional.** The MCU-side pair is what defines `GPIO16`/`GPIO17`
+while the bus is open; the RP2040's internal 50-80 kΩ pull-ups are a
+firmware-dependent second layer, not a substitute. The switched-side pair must
+reference `+3.3V_SW` so both lines sit at a true 0 V when that rail is down —
+which is simultaneously what gives the always-on `DIG21`/`DIG22` taps a defined
+low, and why those two channels need no pull-downs of their own.
 
 **Before adding a `~{BRAKE_FAULT}` pull-up, check the brake block's netlist** —
 `R36001` or `R36017` may already be it, and a second one in parallel halves it.
@@ -352,6 +430,16 @@ This frees `GP14`, `GP15`, `GP16`, and `GP18`. `GP14` was spent again on
 `LIMIT_SW` are all on it in Rev 0, which is now the *only* way to see those
 signals independently of the driver's own report. That is a stronger reason for
 them to be on the port than existed when the MCU also had copies.
+
+> **Settled 2026-09-16 and it no longer "fits with room".** What was rev-2
+> planning is now the v1.0 allocation above: brake and torque cost **eight** pins
+> between them, not six — `SDA`, `SCL`, `~{BRAKE_FAULT}`, three for `SPI1`,
+> `TQ_CONVST_CS` and `TQ_CAL_EN` — and `HV_LATCH` took the last spare after
+> that. One pin is left, `GP27`, and it is ADC-capable. **The paragraphs below
+> are the arithmetic that got us here and every one of their premises has since
+> changed**: the brake is I2C with no chip select, so `~{BRAKE_CS}` does not
+> exist; `~{BRAKE_FAULT}` is not optional; the current monitor stays off the MCU
+> entirely; and the torque bus needs five pins, not two. Read them as history.
 
 **Rev 2 fits on RP2040 with room, as of 2026-08-26.** Full scope is 24 of 30
 with six spares, and the brake plus torque front end for a single axis needs
