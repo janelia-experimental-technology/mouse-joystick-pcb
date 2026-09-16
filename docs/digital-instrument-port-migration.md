@@ -3,10 +3,16 @@
 **Status:** New direction documented 2026-09-12. Updated 2026-09-15: **both
 KiCad blocks are built** in `../kicad-libs` — DUT and adapter, vertical FH12,
 schematic and layout, passing `check` and `validate` — and the buffers carry no
-disable control. **No board change yet, and no cable purchased**, so the
-end-to-end permutation is still assumed rather than measured. The v1.0
-adopt/fallback decision below is therefore now a scheduling call, not a
-blocked-on-implementation one.
+disable control.
+
+**Updated 2026-09-16: adopted for v1.0, and the board allocation is done.** The
+legacy 40-pin DUT boundary and all four `SN74LVC125A` buffer instances were
+removed from the board, and the 32-channel map is allocated in
+[`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-channel-map)
+— 28 assigned, 4 spare, grouped so each protocol sits inside one octal buffer.
+`GP24` is reclaimed. **No cable has been purchased**, so the end-to-end
+permutation is still assumed rather than measured, and that is now the largest
+single unknown in front of the v1.0 order.
 **Contract:** [Digital InstrumentPort draft](../../board-interfaces/docs/instrument-port-digital.md).
 
 ## Direction and v1.0 release decision
@@ -103,8 +109,27 @@ on the digital connector, and the new connector has no `AIN*`/`AOUT*` tail.
 - [ ] Record the v1.0 adoption/fallback decision before fabrication release.
 - [ ] Review/freeze the shared draft and marker indices; finish the horizontal
       buffer/connector block and a compatible new LA5032 adapter design.
-- [ ] Allocate channels, identify exact tap nodes, review input logic levels,
-      transitions, terminations, and switched/unpowered states.
+- [x] **Allocate channels** — done 2026-09-16 in
+      [`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-channel-map),
+      including the tap side for every channel: switched signals are tapped on
+      the `ISO`/A side so a capture shows what the peripheral receives, and the
+      board-level biases define the level while the bus is open. Nine new bias
+      resistors are owed by the I2C and torque buses; they are listed with the
+      existing eight in
+      [Board-Level Input Biases](interface-map.md#board-level-input-biases).
+- [ ] Review input logic levels, transitions, and switched/unpowered states
+      against `SN74LV541A` thresholds — still owed, and a clean legacy
+      `LVC125A` capture does not establish it.
+- [ ] **Freeze the marker indices upstream.** `DIG0`/`DIG1` is the board's
+      allocation and the only upstream dependency in the channel map; wiring
+      `FW_TRIG0`/`FW_TRIG1` before the `board-interfaces` decision lands risks a
+      re-pin.
+- [ ] **Add a read-only `~{BUS_SW_EN}` sheet pin to
+      `rp2040_with_gpio_isolation_sn74cb3q3245`** if `DIG27` is to carry the
+      isolation state. The signal is internal to that block, so without the pin
+      no capture can witness whether a session ran isolated — which is the one
+      state the firmware contract says must never be mistakable for a working
+      one. One pin, no electrical change, and it has to happen before placement.
 - [ ] Place/route the integrated block; preserve unrelated board corrections.
       Re-export the netlist and verify every channel and OE connection.
 - [ ] Review 50-pin placement, cable bend/latch access, pin-1 markings,

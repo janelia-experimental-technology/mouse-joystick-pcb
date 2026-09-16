@@ -1,18 +1,23 @@
 # Interface Map
 
-**InstrumentPort planning update, 2026-09-12:** This document retains the legacy
-40-pin/GPIO allocation. The
-[digital-port migration plan](digital-instrument-port-migration.md) governs the
-proposed 50-pin overlay and default-enabled buffers. New channel allocation and
-v1.0 release adoption are pending; no old pin number is silently reassigned here.
+**v1.0 allocation adopted 2026-09-16.** The table below is now the **v1.0**
+allocation, not the legacy 40-pin one. Eight pins changed function and one left
+the sheet entirely; every change is listed in [The v1.0 GPIO
+Changes](#the-v10-gpio-changes) and marked in the table. The digital-50 channel
+map is in [InstrumentPort-Digital-50 Channel
+Map](#instrumentport-digital-50-channel-map) and supersedes the 40-pin overlay
+section further down, which is retained as legacy context for boards already
+built.
 
-**Status:** Rev 0 allocation frozen; schematic drawn and reviewed 2026-08-17,
-with open findings in `.agents/handoff.local.md`. **Rev 1 allocation revised
-2026-08-26** when the analog output block was built — `GP12` and `GP17` returned
-to the spare pool and no Rev 0 pin moved.
-**Date:** 2026-08-26
+**Status:** v1.0 allocation adopted; schematic mid-rebuild. Blocks were removed
+from the board on 2026-09-16 to be replaced with updated versions, all traces
+and vias deleted, and the board-level TMC input biases moved into
+`motor_encoder_switch` and renumbered `R1104`-`R1108`. Rev 0's reviewed,
+ERC-clean state is the 2026-08-17 snapshot in git, not the working tree.
+**Date:** 2026-09-16
 **Board:** single-axis, RP2040, one TMC5130A
-**Source profile:** `board-interfaces/docs/instrument-port-40.md`
+**Source profiles:** `board-interfaces/docs/instrument-port-digital.md` (v1.0),
+`board-interfaces/docs/instrument-port-40.md` (legacy)
 
 This document records this board's RP2040 GPIO allocation. It covers **two
 scopes at once**: what Rev 0 populates, and the full scope that later revisions
@@ -44,25 +49,35 @@ That property is not free, and it cost exactly one trade — see
 ## RP2040 GPIO Allocation
 
 Checked against RP2040 peripheral pin muxing. `UART0` is the pyControl link,
-`SPI0` serves the TMC5130A, `SPI1` is reserved for the rev 1 DAC and needs only
-three of its pins — `SCK`, `TX`, and a GPIO chip select. Chip selects
-are plain GPIO, not hardware `CSn` — RP2040's PL022 hardware chip select does not
-hold `CS` low across the TMC5130A's 40-bit multi-byte datagrams.
+`SPI0` serves the TMC5130A, `SPI1` serves the **torque ADC**, and `I2C0` serves
+the **two DAC blocks** at 0x48 and 0x49. Chip selects are plain GPIO, not
+hardware `CSn` — RP2040's PL022 hardware chip select does not hold `CS` low
+across the TMC5130A's 40-bit multi-byte datagrams, and the ADS8689's
+`CONVST/CS` both starts the conversion and frames the read, so firmware needs
+direct control of its timing.
 
-The `rp2040` design block exposes these as labels `GPIO0` … `GPIO25` and
-`GPIO26_ADC0` … `GPIO29_ADC3`.
+**`SPI1 SCK` exists only on `GP10`, `GP14` and `GP26`**, and 14 and 26 are
+spent. That single constraint is why the freed DAC-SPI pins became the torque
+bus and the I2C pair moved to `GP16`/`GP17` rather than the other way round.
 
-**Iso** column: `sw` = routed through the `rp2040_gpio_isolation_sn74cb3q3245`
-bus switch; `byp` = bypasses it and connects to the MCU directly. **The rule is
-the powered domain of the far end**, not convenience — see
-[GPIO Isolation](#gpio-isolation).
+The `rp2040_with_gpio_isolation_sn74cb3q3245` block exposes these as **two**
+label banks: raw `GPIO0`-`GPIO8` and `GPIO10`-`GPIO29`, and switched `ISO0`-`ISO8`
+and `ISO10`-`ISO29`. There is no `GPIO9`, no `ISO9` and no `~{OE}` port — `GP9`
+is consumed inside the block. The ADC pins are plain `GPIO26`-`GPIO29`, not the
+old `GPIO26_ADC0` names.
+
+**Iso** column: `sw` = wire the board net to the block's `ISOn` pin, so the
+signal crosses the bus switch; `byp` = wire it to the raw `GPIOn` pin. **Per
+index they are the same node whenever the bus is enabled — use one or the
+other, never both.** The rule is the powered domain of the far end, not
+convenience — see [GPIO Isolation](#gpio-isolation).
 
 **Dir** column: direction **as seen by the RP2040**. `out` = the MCU drives it,
 `in` = the MCU reads it. This is also the KiCad shape to give the matching
 hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 [Signal Direction And Sheet Pin Types](#signal-direction-and-sheet-pin-types).
 
-| GPIO   | Net                   | Function                                                 | Rev 0    | Iso   | Dir    |
+| GPIO   | Net                   | Function                                                 | v1.0     | Iso   | Dir    |
 |--------|-----------------------|----------------------------------------------------------|----------|-------|--------|
 | `GP0`  | `PYC_UART_TX`         | UART TX to pyControl (`UART0 TX`)                        | **yes**  | `byp` | `out`  |
 | `GP1`  | `PYC_UART_RX`         | UART RX from pyControl (`UART0 RX`)                      | **yes**  | `byp` | `in`   |
@@ -74,21 +89,21 @@ hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 | `GP7`  | `TMC_SPI_COPI`        | Driver SPI MOSI (`SPI0 TX`)                              | **yes**  | `sw`  | `out`  |
 | `GP8`  | `TMC_DIAG1`           | Driver diagnostic 1                                      | **yes**  | `sw`  | `in`   |
 | `GP9`  | `~{BUS_SW_EN}`        | GPIO isolation enable, active low                        | **yes**  | `byp` | `out`² |
-| `GP10` | `DAC_SPI_SCK`         | DAC SPI clock (`SPI1 SCK`)                               | reserved | `sw`  | `out`  |
-| `GP11` | `DAC_SPI_COPI`        | DAC SPI MOSI (`SPI1 TX`)                                 | reserved | `sw`  | `out`  |
-| `GP12` | spare                 | **Freed 2026-08-26** — the rev 1 DAC has no `LDAC` pin⁶  | spare    | —     | —      |
-| `GP13` | `~{DAC_CS}`           | DAC chip select (`~SYNC`)                                | reserved | `sw`  | `out`  |
+| `GP10` | `TQ_SPI_SCK`          | Torque ADC SPI clock (`SPI1 SCK`)⁷                       | **yes**  | `sw`  | `out`  |
+| `GP11` | `TQ_SPI_SDI`          | Torque ADC SPI MOSI (`SPI1 TX`)⁷                         | **yes**  | `sw`  | `out`  |
+| `GP12` | `TQ_SPI_SDO`          | Torque ADC SPI MISO (`SPI1 RX`)⁷                         | **yes**  | `sw`  | `in`   |
+| `GP13` | `~{BRAKE_FAULT}`      | Brake block fault, active low⁷                           | **yes**  | `sw`  | `in`   |
 | `GP14` | `HV_DIAG_EN`          | 36 V switch diagnostics enable⁵                          | **yes**  | `byp` | `out`  |
-| `GP15` | spare                 | **Freed 2026-08-16**                                     | spare    | —     | —      |
-| `GP16` | spare                 | **Freed 2026-08-16**                                     | spare    | —     | —      |
-| `GP17` | spare                 | **Freed 2026-08-26** — the rev 1 DAC has no `CLR` pin⁶   | spare    | —     | —      |
-| `GP18` | spare                 | **Freed 2026-08-16** — limit switch reaches `REFL` only³ | spare    | —     | —      |
+| `GP15` | `TQ_CONVST_CS`        | ADS8689 convert-start / frame, plain GPIO⁷               | **yes**  | `sw`  | `out`  |
+| `GP16` | `DAC_SDA`             | I2C0 SDA — analog 0x48, brake 0x49⁷                      | **yes**  | `sw`  | `bidi` |
+| `GP17` | `DAC_SCL`             | I2C0 SCL — same bus⁷                                     | **yes**  | `sw`  | `out`  |
+| `GP18` | `TQ_CAL_EN`           | Torque calibration enable⁷                               | **yes**  | `sw`  | `out`  |
 | `GP19` | `HV_EN`               | 36 V input switch enable                                 | **yes**  | `byp` | `out`  |
-| `GP20` | `PYC_PULL_EVENT`      | Pull event out                                           | reserved | `byp` | `out`  |
+| `GP20` | `PYC_PULL_EVENT`      | Pull event out — **no connector on this board**⁸          | reserved | `byp` | `out`  |
 | `GP21` | `FW_TRIG1`            | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
-| `GP22` | `PYC_FAULT`           | Latched fault out                                        | reserved | `byp` | `out`  |
-| `GP23` | `PYC_RSYNC_IN`        | Rsync edges in                                           | reserved | `byp` | `in`   |
-| `GP24` | `~{INSTR_BUF_OE}`     | Instrumentation buffer enable                            | **yes**  | `byp` | `out`  |
+| `GP22` | `PYC_FAULT`           | Latched fault out — **no connector on this board**⁸       | reserved | `byp` | `out`  |
+| `GP23` | `PYC_RSYNC_IN`        | Rsync edges in — **no source on this board**⁸             | reserved | `byp` | `in`   |
+| `GP24` | spare                 | **Freed 2026-09-16** — digital-50 has no `OE`⁹            | spare    | —     | —      |
 | `GP25` | `FW_TRIG0`            | Firmware timing marker                                   | **yes**¹ | `byp` | `out`  |
 | `GP26` | `SW_RAIL_SENSE_DIV_2` | `+3.3V_SW` presence and level, ÷2 divider⁴               | **yes**  | `byp` | `in`   |
 | `GP27` | spare                 | Reserved — `EXT_FAULT_IN` candidate, see below           | spare    | —     | —      |
@@ -101,9 +116,15 @@ trigger source for a long capture. They were also to get labelled test points;
 **as of 2026-08-17 no test points exist on the board** — see [Test Points —
 Outstanding](#test-points--outstanding).
 
-² `~{BUS_SW_EN}` **needs no hierarchical pin.** The bus switch lives inside the
-`mcu` sheet, so `GP9` reaches its `~{OE}` without crossing the sheet boundary. It
-is the only Rev 0 connected GPIO with no pin on the `mcu` sheet.
+² `~{BUS_SW_EN}` **is now internal to the MCU block and has no port at all.**
+`GP9` drives all four `~OE` inputs plus the 7.87 kΩ pull-up inside
+`rp2040_with_gpio_isolation_sn74cb3q3245`, so the board neither wires it nor can
+observe it. Two consequences: **never drive it from the board** — the pull-up is
+the only thing defining the reset state, and a second driver fights the MCU —
+and a capture cannot witness the isolation state unless the block gains a
+read-only sheet pin on that net. Adding one (shape `output`) is a one-pin block
+edit and is the prerequisite for `DIG27`; see [InstrumentPort-Digital-50 Channel
+Map](#instrumentport-digital-50-channel-map).
 
 ³ See [The Encoder And Limit Switch Do Not Reach The
 MCU](#the-encoder-and-limit-switch-do-not-reach-the-mcu).
@@ -114,18 +135,50 @@ Is Actually For](#what-the-rail-sense-is-actually-for). The `mcu` sheet pin name
 (1 kΩ/1 kΩ) divide it inside `mcu`, and the divided node on `GP26` is
 `SW_RAIL_SENSE_DIV_2`.
 
-⁵ **Added 2026-08-17.** `GP14` drives the `TPS1HTC100-Q1`'s `DIAG_EN` through
-`R202` 1 kΩ. See the note on `DIAG_EN` below.
+⁵ **Added 2026-08-17.** `GP14` drives the `TPS1HTC100-Q1`'s `DIAG_EN` through a
+1 kΩ series resistor inside the HV input block. **The designator is no longer
+`R202`** — that number was reused for a USB-C `CC` pull-down when the HV block
+was removed on 2026-09-16, so the series resistor gets whatever the re-placed
+vertical block and re-annotation assign. Re-record it after placement rather
+than trusting any earlier designator. See the note on `DIAG_EN` below.
 
 ⁶ **Freed 2026-08-26** when the rev 1 analog output block was built. The
 `DAC80501` has no hardware `LDAC` and no hardware `CLR` pin at all — synchronous
 update is the `DAC_SYNC_EN` bit plus the `TRIGGER` register's `LDAC` bit, and a
 soft reset writes `0x1010` to `TRIGGER`. Both functions survive; they cost zero
-pins instead of two. See `docs/encoder-analog-output.md`.
+pins instead of two. See `docs/encoder-analog-output.md`. **No table row cites
+this footnote any more** — `GP12` and `GP17` were re-spent in v1.0 — but the
+reasoning is why they were available.
 
-**Rev 0: 18 connected, 6 reserved, 6 spare.**
-**Full scope: 24 connected, 6 spare (`GP12`, `GP15`, `GP16`, `GP17`, `GP18`,
-`GP27`).**
+⁷ **New in v1.0, 2026-09-16.** The analog output and brake blocks are both
+**I2C** now, not SPI, and they share one bus: two pins instead of the three the
+SPI DAC needed, and the brake block arrives for the cost of one fault input.
+The freed `GP10`/`GP11` plus `GP12` became the torque ADC's `SPI1`, and
+`GP15`/`GP18` became its convert-start and calibration-enable. Do not carry the
+old `DAC_SPI_*` / `~{DAC_CS}` names forward anywhere.
+
+⁸ **Recorded 2026-09-16, and this is a real gap, not a note.** The
+`pycontrol_behavior_port_rj45_boundary_vertical` block exposes exactly **two**
+signal pins — `PYC_DIO_A_HOSTTX_SCL_MOSI` and `PYC_DIO_B_HOSTRX_SDA_MISO` — and
+both are spent on the UART through `R301`/`R302`. There is no third or fourth
+line, and the board's only BNC is `J1101` (`ANGLE_OUT`), so `PYC_PULL_EVENT`,
+`PYC_FAULT` and `PYC_RSYNC_IN` **have no physical destination on this board**.
+They stay allocated so no pin moves, and the two outputs are still worth
+observing on the InstrumentPort, but `PYC_RSYNC_IN` has no source and gets no
+channel. Either add connectors in a later revision or retire the three.
+
+⁹ **Freed 2026-09-16.** The digital-50 DUT block is default-enabled with both
+`~OE` inputs held low and no port, so `~{INSTR_BUF_OE}` no longer exists. Its
+pull-up circuit and firmware init are deleted rather than ported. See
+[the migration plan](digital-instrument-port-migration.md).
+
+**v1.0: 27 connected (24 with a destination, 3 reserved per footnote 8), 2 spare
+(`GP24`, `GP27`), 1 internal (`GP9`).** `GP27` is ADC-capable and is the reserve
+for a future analog monitor; hold it.
+
+**Switched: 15 channels** — `ISO2`-`ISO8`, `ISO10`-`ISO13`, `ISO15`-`ISO18`.
+**Bypass: 12** — `GPIO0`, `GPIO1`, `GPIO14`, `GPIO19`-`GPIO23`, `GPIO25`,
+`GPIO26`, `GPIO28`, `GPIO29`. The remaining 31 block pins get no-connect flags.
 
 **Four pins were freed on 2026-08-16** and the allocation went from comfortable to
 roomy. That matters for more than tidiness — see the note on rev 2 below. One of
@@ -153,6 +206,114 @@ device's Table 7-1 the current limit and thermal shutdown are unaffected by
 `DIAG_EN` — only reporting is gated — so **firmware must raise `GP14` before
 reading `HV_SNS` or `~{HV_FAULT}`**. Without it neither works at all; see
 `docs/power.md`.
+
+### The v1.0 GPIO Changes
+
+Eight pins changed and one left the sheet. Nothing else moved, so firmware
+written against Rev 0's bypass group, TMC bus and power-monitoring group keeps
+working unchanged.
+
+| Pin | Rev 0 / rev 1 | v1.0 | Why |
+| --- | --- | --- | --- |
+| `GP9`  | `~{BUS_SW_EN}`, board-wired | same signal, **internal to the block** | the combined MCU block owns the enable and its pull-up |
+| `GP10` | `DAC_SPI_SCK`   | `TQ_SPI_SCK`    | DACs went I2C; `SPI1 SCK` exists nowhere else |
+| `GP11` | `DAC_SPI_COPI`  | `TQ_SPI_SDI`    | same |
+| `GP12` | spare           | `TQ_SPI_SDO`    | `SPI1 RX` |
+| `GP13` | `~{DAC_CS}`     | `~{BRAKE_FAULT}`| I2C needs no chip select |
+| `GP15` | spare           | `TQ_CONVST_CS`  | plain GPIO, timing-critical |
+| `GP16` | spare           | `DAC_SDA`       | `I2C0` adjacent pair |
+| `GP17` | spare           | `DAC_SCL`       | same |
+| `GP18` | spare           | `TQ_CAL_EN`     | plain GPIO |
+| `GP24` | `~{INSTR_BUF_OE}` | **spare**     | digital-50 has no enable |
+
+**The three analog monitors deliberately do not reach the MCU.** `AOUT_MON`,
+`TQ_AOUT_MON` and `BRAKE_ISENSE` are instrument taps: the digital-50 connector
+has no `AIN` tail and the migration plan forbids putting slow analog into a CMOS
+port buffer, so they get test points instead. Nothing is lost — torque arrives
+digitally over `SPI1` and DAC health arrives over I2C `STATUS`, which was
+already the primary discriminator for a commanded zero against a dead channel.
+`GP27` stays free in case one of them ever needs digitising.
+
+### InstrumentPort-Digital-50 Channel Map
+
+Thirty-two read-only channels, DUT to instrument only. **Grouped so each
+protocol sits inside one octal buffer** — within-bus skew is what matters when
+the analyzer decodes SPI or I2C, and cross-package variation then cannot affect
+a decode. The block's banks are `DIG0`-`DIG7` / `DIG8`-`DIG15` /
+`DIG16`-`DIG23` / `DIG24`-`DIG31`, one `SN74LV541ARKSR` each.
+
+| Ch | Signal | Tap | Ch | Signal | Tap |
+| --- | --- | --- | --- | --- | --- |
+| `DIG0`  | `FW_TRIG0`      | MCU | `DIG16` | `TQ_SPI_SCK`     | ISO |
+| `DIG1`  | `FW_TRIG1`      | MCU | `DIG17` | `TQ_SPI_SDI`     | ISO |
+| `DIG2`  | `PYC_UART_TX`   | MCU | `DIG18` | `TQ_SPI_SDO`     | ISO |
+| `DIG3`  | `PYC_UART_RX`   | MCU | `DIG19` | `TQ_CONVST_CS`   | ISO |
+| `DIG4`  | `PYC_PULL_EVENT`| MCU | `DIG20` | `TQ_CAL_EN`      | ISO |
+| `DIG5`  | `PYC_FAULT`     | MCU | `DIG21` | `DAC_SDA`        | ISO |
+| `DIG6`  | spare           | —   | `DIG22` | `DAC_SCL`        | ISO |
+| `DIG7`  | spare           | —   | `DIG23` | `~{BRAKE_FAULT}` | ISO |
+| `DIG8`  | `TMC_SPI_SCK`   | ISO | `DIG24` | `HV_EN`          | MCU |
+| `DIG9`  | `TMC_SPI_COPI`  | ISO | `DIG25` | `HV_DIAG_EN`     | MCU |
+| `DIG10` | `TMC_SPI_CIPO`  | ISO | `DIG26` | `~{HV_FAULT}`    | MCU |
+| `DIG11` | `~{TMC_CS}`     | ISO | `DIG27` | `~{BUS_SW_EN}`   | block pin needed² |
+| `DIG12` | `TMC_DIAG0`     | ISO | `DIG28` | `ENC_A`          | conditioned |
+| `DIG13` | `TMC_DIAG1`     | ISO | `DIG29` | `ENC_B`          | conditioned |
+| `DIG14` | `~{TMC_DRV_EN}` | ISO | `DIG30` | spare            | — |
+| `DIG15` | `LIMIT_SW`       | ISO | `DIG31` | spare            | — |
+
+**Twenty-eight assigned, four spare.** `FW_TRIG0`/`FW_TRIG1` on `DIG0`/`DIG1`
+follows the 2026-09-13 recommendation; the
+[canonical marker decision](../../board-interfaces/docs/instrument-port-digital.md)
+in `board-interfaces` must be frozen before wiring them, and it is the only
+upstream dependency in this table.
+
+**Tap side is not a detail.** Everything switched is tapped on the **`ISO` / A
+side**, so a capture shows what the peripheral actually receives and the
+board-level bias resistors define the level while the bus is open. Always-on
+signals tap the MCU net directly. `ENC_A`/`ENC_B` come from the conditioned
+3.3 V output of the encoder block, never the raw connector pins.
+
+### Board-Level Input Biases
+
+**Renumbered and rehomed 2026-09-16.** All eight TMC input biases now live in
+`motor_encoder_switch`, next to each other, because what they actually do is
+keep the TMC5130A's inputs defined while the bus switch is open — the instrument
+taps were always a secondary beneficiary. They were `R1401`-`R1405` in
+`instrument_port`; **that sheet now holds none of them.** Note that `R1104` is a
+*reused* designator: it previously named the `REFR_DIR` pull-down that was
+deleted in favour of a hard GND tie, so older text describing `R1104` is about a
+different part.
+
+| Designator | Net | Termination |
+| --- | --- | --- |
+| `R1101` | `TMC_DIAG0`      | 10 kΩ up to `+3.3V_SW` |
+| `R1102` | `TMC_DIAG1`      | 10 kΩ up to `+3.3V_SW` |
+| `R1103` | `~{TMC_DRV_EN}`  | 10 kΩ up to `+3.3V_SW` |
+| `R1104` | `TMC_SPI_SCK`    | 10 kΩ down |
+| `R1105` | `TMC_SPI_COPI`   | 10 kΩ down |
+| `R1106` | `TMC_SPI_CIPO`   | 10 kΩ down |
+| `R1107` | `~{TMC_CS}`      | 10 kΩ up to `+3.3V_SW` — **load-bearing** |
+| `R1108` | `LIMIT_SW`       | 10 kΩ down |
+
+Nine more are owed by the new blocks, and none of them may live inside a block:
+a twin-axis board placing the same block twice would halve every pull, which is
+the same argument that keeps `SCL`/`SDA` termination out of the DAC blocks.
+
+| Net | Termination | Why |
+| --- | --- | --- |
+| `DAC_SDA`, `DAC_SCL` (MCU side) | 4.7 kΩ up to `+3.3V_MCU` | the bus switch is open by default, so the MCU side floats otherwise |
+| `DAC_SDA`, `DAC_SCL` (ISO side) | 4.7 kΩ up to `+3.3V_SW` | a switched-domain pull never references the always-on rail |
+| `TQ_SPI_SCK`, `TQ_SPI_SDI`, `TQ_SPI_SDO` | 10 kΩ down | the block refuses to terminate; also defines the tap when the ADC is dark |
+| `TQ_CONVST_CS` | 10 kΩ up to `+3.3V_SW` | must idle high — load-bearing, same as `~{DAC_CS}` was |
+| `TQ_CAL_EN` | 10 kΩ down | calibration must be *off*, not floating |
+
+**4.7 kΩ, not the 2.2 kΩ the analog block's note suggests.** Both I2C pairs sit
+in parallel the moment the bus switch closes, and 2.2 kΩ ∥ 2.2 kΩ = 1.1 kΩ asks
+for 3 mA of sink, right at the standard-mode minimum. 4.7 kΩ pairs give 2.35 kΩ
+effective and ~200 ns rise at 100 pF, inside fast-mode's 300 ns.
+
+**Before adding a `~{BRAKE_FAULT}` pull-up, check the brake block's netlist** —
+`R36001` or `R36017` may already be it, and a second one in parallel halves it.
 
 ### The Encoder And Limit Switch Do Not Reach The MCU
 
@@ -581,11 +742,14 @@ event BNCs are still rev 1.
 
 ## GPIO Isolation
 
-Rev 0 places `orb_weaver_private:rp2040_gpio_isolation_sn74cb3q3245` between the
-RP2040 and the switched half of the board. It is four `SN74CB3Q3245` 8-channel
-bidirectional FET bus switches — 32 channels, one shared active-low `~OE`, pulled
-up by `R601` 7.87 kΩ to `+3.3V_MCU` so the bus is **isolated at power-on until
-firmware enables it**.
+**v1.0 places `orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245`**, which
+contains the RP2040 core *and* the four `SN74CB3Q3245` 8-channel bidirectional
+FET bus switches with all 29 MCU-to-switch routes pre-made — 32 channels, 29
+wired 1:1 by index, one shared active-low `~OE` pulled up by 7.87 kΩ to the
+always-on `+3.3V` so the bus is **isolated at power-on until firmware enables
+it**. Rev 0's separate `rp2040` + `rp2040_gpio_isolation_sn74cb3q3245` pair is
+superseded; the standalone companion is expected to be retired from `kicad-libs`
+once this board is verified.
 
 **Corrected 2026-08-17: there is no `Ioff` second line of defence.** All four
 `VCC` pins are on `+3.3V_MCU`, the always-on rail, so the packages are never
@@ -619,10 +783,17 @@ rule:
 
 | Iso   | Applies to                                                                                                                                                               | Because                                                  |
 |-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
-| `sw`  | TMC5130A SPI, enable, and diagnostics; the 3-wire DAC bus in rev 1                                                                                                       | All of them are parts that lose power when `HV_EN` drops |
-| `byp` | pyControl UART; the pyControl TTL event lines; `HV_EN`, `HV_DIAG_EN`, `HV_SNS`, `~{HV_FAULT}`; `SW_RAIL_SENSE`; `FW_TRIG0`/`FW_TRIG1`; `~{BUS_SW_EN}`; `~{INSTR_BUF_OE}` | Nothing at the far end is ever unpowered by `HV_EN`      |
+| `sw`  | TMC5130A SPI, enable and diagnostics; the **I2C** DAC bus; `~{BRAKE_FAULT}`; the torque ADC's `SPI1`, `TQ_CONVST_CS` and `TQ_CAL_EN`                                     | All of them are parts that lose power when `HV_EN` drops |
+| `byp` | pyControl UART; the reserved pyControl event lines; `HV_EN`, `HV_DIAG_EN`, `HV_SNS`, `~{HV_FAULT}`; `SW_RAIL_SENSE`; `FW_TRIG0`/`FW_TRIG1`                               | Nothing at the far end is ever unpowered by `HV_EN`      |
 
-**Rev 0 isolates 7 channels; full scope isolates 10.** Both dropped by four on
+**v1.0 isolates 15 of the 29 available channels**, up from 7 in Rev 0: seven TMC,
+two I2C, one brake fault, five torque. `~{BUS_SW_EN}` left the `byp` row because
+it is internal to the block now, and `~{INSTR_BUF_OE}` left it because the
+signal no longer exists. **The arithmetic in the rest of this section is Rev 0
+history**, superseded by that sentence and by [The v1.0 GPIO
+Changes](#the-v10-gpio-changes).
+
+**Rev 0 isolated 7 channels; full scope isolated 10.** Both dropped by four on
 2026-08-16, when the encoder and limit switch stopped reaching the MCU — those
 were `sw` entries, which is why the `sw` row above no longer names the debouncer
 copy or the encoder PIO tap. Full scope dropped by two more on **2026-08-26**,
@@ -653,7 +824,19 @@ power tree and that board does not. Do not "align" the two.
 `GP19` because it has no 36 V enable there; here `GP19` is `HV_EN` and is already
 wired into `mcu.kicad_sch`. Deliberate divergence, noted so nobody "fixes" it.
 
-### The Block Is Oversized For This Board — Accepted
+### The Block Is Oversized For This Board — Closed 2026-09-16
+
+**This whole question is closed and the section below is history.** The combined
+`rp2040_with_gpio_isolation_sn74cb3q3245` block wires all 29 usable GPIOs to a
+channel 1:1, so there are no un-wired channels left to argue about and no block
+edit is owed at any future revision — which was the one cost that killed option
+A and then option B in turn. The four packages stay, and the price is now stated
+honestly as current rather than as wasted area: **I_CC is 1 mA typ / 2 mA max
+per package with the switch on *or* off**, because the charge pump runs
+regardless, so the four draw ~4 mA typ and ~8 mA max continuously from the
+always-on rail even with every channel isolated. Accepted.
+
+#### Rev 0 History — Option A Versus Option B
 
 The block is four packages because it is built to isolate all 30 GPIOs. Under the
 rule above this board isolates **7 in Rev 0 and 10 at full scope**, so two of
@@ -706,7 +889,19 @@ channels against thirty-two placed, the schedule argument that carried option A
 has expired. Do the swap when rev 1 opens the block, not before — Rev 0 is
 already ERC-clean with option A placed.
 
-#### The DAC Bus Terminations — All Three Are In The Block
+#### The DAC Bus Terminations — Superseded 2026-09-16
+
+**The SPI DAC bus does not exist any more.** Both DAC blocks are I2C at 0x48 and
+0x49, so `~{DAC_CS}`, `DAC_SPI_SCK` and `DAC_SPI_COPI` are gone along with the
+three in-block terminations described below, and the analog block's own note that
+it owns no bus terminations now applies to `SDA`/`SCL` as well. What replaces
+them is **two** board-level pull-up pairs — one per bus segment, MCU side on the
+always-on rail and DAC side on `+3.3V_SW` — listed in [Board-Level Input
+Biases](#board-level-input-biases). The reasoning below is retained because the
+*rule* it establishes is unchanged: a switched-domain pull must never reference
+`+3.3V_MCU`, and nothing may be pulled to 5 V through a symmetric FET pass gate.
+
+#### Rev 1 History — The Three SPI DAC Terminations
 
 **Corrected 2026-08-27.** This section previously said one was in the block and
 two were board-level. All three now live in the block, and the board owns none of

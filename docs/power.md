@@ -734,10 +734,35 @@ Against this board's ~100 mA MCU domain:
 That third row is the new finding. The board's supply and the experiment
 controller's own logic supply are the same 1 A rail, with nothing in between.
 
-**Requirement: a resettable polyfuse on the pin 6 branch, holding roughly
-250-500 mA, upstream of `D1901`.** It confines a fault on this board to this
-board. **As built the position is `R1903` and it is fitted with a jumper — no
-PPTC is populated**, so this requirement is stated but not yet met.
+**Requirement: a resettable polyfuse on the pin 6 branch, upstream of the ORing
+diode.** It confines a fault on this board to this board. **The position is
+`R303` and it is fitted with a jumper — no PPTC is populated**, so this
+requirement is stated but not yet met.
+
+**Part selected 2026-09-16: Littelfuse `1206L035/16YR`, LCSC `C126817`.** 0.35 A
+hold, 0.75 A trip at 20 °C, 16 Vdc, 100 A I_max, R_min 0.300 Ω / R_1max 1.20 Ω,
+0.10 s maximum time to trip at 8 A. Hold derates to 0.30 A at 40 °C and 0.24 A
+at 60 °C. **It is not in stock — this is an order**, re-verified against
+`kicad-libs/db/source/jlc_inventory_export.csv` and the JLCPCB inventory export
+on 2026-09-16: still zero fuses, polyfuses or PPTCs of any kind.
+
+**Why 0.35 A and not the 0.5 A this document used to lean toward.** The trip
+current is what has to fit inside the *source's* headroom, not the hold current.
+Port 5 V is a 1.0 A module that also feeds the controller's own AMS1117 at
+200-400 mA, leaving 600-800 mA. A `1206L050/15` trips at 1.00 A — at or above the
+module's entire rating, so the module sags and resets the pyControl controller
+*before* the fuse ever opens, which is precisely the failure this part exists to
+prevent. 0.75 A sits inside the headroom, and 0.30 A of hold at 40 °C is still
+about twice the board's worst-case always-on draw. The 1.20 Ω worst-case
+resistance costs 240 mV at 200 mA, leaving ~4.36 V into the 3.3 V LDO after the
+ORing diode — ample. If the bigger part is wanted anyway it is
+`1206L050/15YR-A`, LCSC `C315893` (0.50 A hold, 1.00 A trip, 15 V, R_1max
+0.75 Ω), with that caveat understood.
+
+It still needs an internal part, a vendor mapping and a symbol in `kicad-libs`;
+the 1206 land already exists because `R303` occupies it. **Add the two test
+points across it in the same revision** — see the note below on why a tripped
+PPTC is otherwise undiagnosable.
 
 It fails in the right direction, which is why it is cheap insurance rather than a
 new failure mode: if the polyfuse trips, `D1901` simply stops conducting and the
@@ -771,10 +796,11 @@ package. Until a PPTC is fitted, the hazard above stands, and Gate B's
 "pyControl-only, USB absent" test should be run with the controller's 5 V rail on
 a scope.
 
-**Verified as-built 2026-08-17, and it is worth being blunt about it.** The
-position is `R1903`, between `PYC_CONN_5V` and `PYC_5V_FUSED`. **Nothing is
-fitted yet** — the jumper is what is on the board. The block's own on-sheet note
-says the same thing in stronger terms:
+**Verified as-built 2026-08-17; designator corrected 2026-09-16.** The position
+is **`R303`**, between `PYC_CONN_5V` and `PYC_5V_FUSED` — re-annotation moved it
+out of the 19xx band, so every earlier reference to `R1903` in this document
+means `R303`. **Nothing is fitted yet** — the jumper is what is on the board. The
+block's own on-sheet note says the same thing in stronger terms:
 
 > `R29003` IS A POLYFUSE POSITION, NOT PROTECTION. The 0.36R part is a jumper.
 > Port 5 V is a shared 1.0 A that also feeds the pyControl controller's own logic
@@ -880,12 +906,14 @@ Notes:
   pyControl with USB unplugged and the 36 V rail off is an explicitly wanted
   operating mode. What remains conditional is whether the port can actually
   supply the current — measure it.
-- **Polyfuse on the pyControl branch, ~250-500 mA hold, upstream of `D1901`.**
-  Not on the USB branch — a USB host already current-limits and will simply drop
-  the port. pyControl does not: its 5 V has no per-port protection and shares a
-  regulator with the controller's own logic. See
+- **Polyfuse on the pyControl branch: `1206L035/16YR`, 0.35 A hold / 0.75 A trip,
+  LCSC `C126817`, upstream of the ORing diode.** Not on the USB branch — a USB
+  host already current-limits and will simply drop the port. pyControl does not:
+  its 5 V has no per-port protection and shares a regulator with the
+  controller's own logic. See
   [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). **As built
-  the position is `R1903` and it is jumpered, not fused.**
+  the position is `R303` and it is jumpered, not fused — the part is on order,
+  not in stock.**
 - Each ORed source is a power-input net and needs exactly one `PWR_FLAG`. The
   `usb2` block already carries one (`#FLG011001`) on `VBUS`, pre-diode; the 36 V
   block carries one. Add one for the RJ-45 5 V branch.
@@ -936,17 +964,20 @@ Three supporting measures, and use all of them:
    `R204` 10 kΩ to ground at `U201`), and `SW_RAIL_SENSE` through the
    `R401`/`R402` 1 kΩ/1 kΩ divider. Every *other* cross-domain net is terminated
    instead, by one of nine board-level pull resistors added on 2026-08-17. They
-   live in the board-authored `mcu`, `motor_encoder_limit` and `instrument_port`
-   sheets, **not** inside a design block, so re-placing a block cannot lose them:
+   live in the board-authored `mcu` and `motor_encoder_switch` sheets, **not**
+   inside a design block, so re-placing a block cannot lose them. **Rehomed and
+   renumbered 2026-09-16** — the five that were `R1401`-`R1405` in
+   `instrument_port` are now `R1104`-`R1108`, and nine more are owed by the v1.0
+   I2C and torque buses (see `docs/interface-map.md`):
 
    | Ref | Value | Net | To | Sheet | Why |
    |---|---|---|---|---|---|
    | `R403` | 10 kΩ | `PYC_UART_RX` | `+3.3V_MCU` | `mcu` | UART RX must idle **high**; the RP2040's default pull-down would look like a permanent break |
-   | `R1401` | 10 kΩ | `TMC_SPI_SCK` | GND | `instrument_port` | define the `U1701` buffer input when the switched domain is off |
-   | `R1402` | 10 kΩ | `TMC_SPI_COPI` | GND | `instrument_port` | as above |
-   | `R1403` | 10 kΩ | `TMC_SPI_CIPO` | GND | `instrument_port` | as above; also gives the instrument tap a clean idle-low |
-   | `R1404` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `instrument_port` | CSN must idle **deasserted** — a pull-down would assert chip select |
-   | `R1405` | 10 kΩ | `LIMIT_SW` | GND | `instrument_port` | define the `U1801` buffer input |
+   | `R1104` | 10 kΩ | `TMC_SPI_SCK` | GND | `motor_encoder_switch` | define the TMC input, and the tap, when the switched domain is off |
+   | `R1105` | 10 kΩ | `TMC_SPI_COPI` | GND | `motor_encoder_switch` | as above |
+   | `R1106` | 10 kΩ | `TMC_SPI_CIPO` | GND | `motor_encoder_switch` | as above; also gives the instrument tap a clean idle-low |
+   | `R1107` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `motor_encoder_switch` | CSN must idle **deasserted** — a pull-down would assert chip select |
+   | `R1108` | 10 kΩ | `LIMIT_SW` | GND | `motor_encoder_switch` | define the debounced limit input |
    | `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_limit` | DIAG is open-drain at reset; the datasheet requires ≤47 kΩ |
    | `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_limit` | as above |
    | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_limit` | guarantees the power stage is **disabled** in hardware |
@@ -1094,10 +1125,17 @@ keeps the number small enough to be plausible on a shared port supply in the
 first place.
 
 **Size the MCU domain against the polyfuse hold current, not against 1.0 A.**
-At ~100 mA typical in Rev 0 and ~250 mA with the three buffers switching, a
-500 mA hold leaves room for both; a 250 mA hold does not leave much for rev 1.
-Pick the value with rev 1 in mind, since changing it later is a rework on an
-assembled board.
+
+**Resolved 2026-09-16 with `1206L035/16YR`, 0.35 A hold / 0.75 A trip.** The
+earlier reasoning here preferred 500 mA for rev-1 headroom; the v1.0 circuit
+shows that headroom was never needed and the trip current is the binding
+constraint instead. The always-on domain did not grow: the three
+`SN74LVC125A` buffers became four `SN74LV541A` in the digital-50 block, which is
+roughly a wash, and the only real correction is upward by a few milliamps for
+the bus switches. Reckon **~60-70 mA typical and 150-200 mA with the port
+switching hard**, against 0.30 A of hold at 40 °C. See
+[What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply) for why 0.75 A
+of trip beats 1.00 A here.
 
 ## Load Budget
 
@@ -1121,10 +1159,30 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+3.3V_SW` | **`R1404`/`R1101`/`R1102`/`R1103` pull-ups, 4 × 10 kΩ** | **~0.33 mA typical** — a 10 kΩ pull-up only conducts while its net is held low, and normally at most one is |
 | switched | `+3.3V_SW` | Differential encoder receiver, if fitted | ~10 mA |
 | always-on | `+3.3V_MCU` | RP2040 | ~50 mA |
-| always-on | `+3.3V_MCU` | 4× `SN74CB3Q3245` | µA static; charge transfer only when switching |
+| always-on | `+3.3V_MCU` | 4× `SN74CB3Q3245` | **~4 mA typ, 8 mA max, continuous** — corrected 2026-09-16 |
 | always-on | `+3.3V_MCU` | Input block `LATCH`/`~FAULT` pull-ups (`DIAG_EN` is now a GPIO) | < 1 mA |
-| always-on | `+3.3V_MCU` | **3× `SN74LVC125A` (`U1601`/`U1701`/`U1801`), Rev 0** | few mA static, more when switching |
+| always-on | `+3.3V_MCU` | **4× `SN74LV541A` in the digital-50 DUT block, v1.0** | µA static; 32 × 50 pF × 3.3 V × f when switching |
+| switched | `+12V` | **Torque block, v1.0** | INA821 and its front end, few mA |
+| switched | `+12V` | **Brake block gate drive, v1.0** | few mA |
+| switched | `+3.3V_SW` | **Two I2C pull-up pairs, 4 × 4.7 kΩ, v1.0** | ~0.7 mA per line held low |
 | always-on | `+3.3V_MCU` | **`R403` 10 kΩ, `R601` 7.87 kΩ, `R1601`/`R1701`/`R1801` 10 kΩ pull-ups** | same ~0.33 mA-per-conducting-resistor arithmetic; sub-mA in every normal state |
+
+**v1.0 adds a rail this document does not otherwise describe: `+12V`, switched.**
+Both `brake_current_sink_0_49ma_dac80501` and `torque_bridge_0_3v3_ina821` take
+`+12V` as an input port, and this board has never had it, so
+`hv_to_12v_tpsm365r6` has to be placed alongside the existing
+`hv_to_5v_tpsm365r6`. It belongs post-switch like every other derived rail, for
+the ordering reason in [Turn-On Ordering Comes Free If The Buck Is Fed
+Post-Switch](#turn-on-ordering-comes-free-if-the-buck-is-fed-post-switch).
+
+**The `SN74CB3Q3245` line was wrong and the correction matters for the
+polyfuse.** The datasheet (SCDS124, rev C) gives I_CC as 1 mA typ and 2 mA max
+per package **with the switch ON or OFF**, because the charge pump runs
+regardless of `~OE`. Four packages therefore draw ~4 mA typ and ~8 mA max from
+the always-on rail continuously, even with every channel isolated — not the
+"µA static" this table claimed. It is small, but it is the floor of the
+always-on domain rather than a switching-dependent term, and it is the one line
+that does not go away when the board is idle.
 
 The 5 V rail's 600 mA is comfortable unless the encoder is unusually hungry.
 

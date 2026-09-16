@@ -1,17 +1,16 @@
 # Design Block Map
 
-**InstrumentPort planning update, 2026-09-12:** The
-[migration plan](digital-instrument-port-migration.md) proposes replacing the
-separate legacy FFC/buffer instances with one new laid-out 50-pin read-only
-block. It is not implemented. Keep the inventory below as legacy context and
-preserve board-specific terminations when a migration is performed.
-
-**Status:** Rev 0 rescoped 2026-08-13, InstrumentPort added back 2026-08-16;
-**schematic complete, reviewed, and ERC-clean 2026-08-17** — 0 violations at
-every severity, 142 components, every part footprinted. The blockers raised by
-the 2026-08-17 review are closed; see `.agents/handoff.local.md`. Layout not
-started.
-**Date:** 2026-08-17
+**Status: v1.0 rebuild in progress, 2026-09-16.** Seven block sheets were
+deleted from the board so they can be replaced with updated library versions,
+the quadrature encoder's orphaned footprints were cleared, **all traces and vias
+were deleted**, and the eight board-level TMC input biases were moved into
+`motor_encoder_switch` as `R1104`-`R1108` alongside `R1101`-`R1103`. The board
+currently holds 65 symbols and 69 footprints (65 + four mounting holes), 0
+traces, 0 vias, 4 zones. Rev 0's reviewed, ERC-clean 142-component state is the
+2026-08-17 snapshot in git, not the working tree. The v1.0 GPIO and
+InstrumentPort channel maps are in
+[`docs/interface-map.md`](interface-map.md).
+**Date:** 2026-09-16
 
 This board is assembled from `kicad-libs` design blocks wherever practical.
 Board-specific work should mostly be block composition, connector placement,
@@ -29,12 +28,29 @@ Update Symbols/Footprints from Library; topology changes need a re-place.
 > intended 0.679 A RMS** through the motor. Nothing catches it — the schematic
 > still looks right, ERC and DRC both pass, and the first symptom is a hot motor.
 > **Either fix the library down to 0.15 Ω, or never re-place that block.**
+>
+> **Re-checked 2026-09-16: the library is still 0.12 Ω and the decision is still
+> unmade.** The `tmc5130` sheet was deliberately left in place during the v1.0
+> block removal for exactly this reason. If you want that block re-placeable in
+> this pass — and you will, the next time its layout or fields change — fix the
+> library value first and re-save; otherwise this warning has to survive every
+> future rebuild.
 
-**`motor_encoder_limit`, `mcu`, and `instrument_port` are board-authored wrapper
+**`motor_encoder_switch`, `mcu`, and `instrument_port` are board-authored wrapper
 sheets, not design blocks.** Nothing re-places them, so edits made there cannot
-be lost the way a block edit can. That is why the **nine** board-level termination
-resistors (`R403`, `R1101`-`R1103`, `R1401`-`R1405`) live in them rather than
-inside the blocks whose pins they terminate.
+be lost the way a block edit can. That is why the board-level termination
+resistors live in them rather than inside the blocks whose pins they terminate.
+
+**Rehomed 2026-09-16.** They are now **`R403` in `mcu`** and **`R1101`-`R1108` in
+`motor_encoder_switch`**; `instrument_port` holds none. The five that moved were
+`R1401`-`R1405` and they were renumbered, so **`R1104` is a reused designator** —
+it previously named the `REFR_DIR` pull-down described below, which no longer
+exists. The move was made because what those eight resistors actually do is keep
+the TMC5130A's own inputs defined while the bus switch is open; the instrument
+taps were always a secondary beneficiary, and leaving them in a sheet named for
+the port invited someone to clear out that sheet during the 50-pin migration and
+silently delete five required biases. Nine more are owed by the new blocks — see
+[Board-Level Input Biases](interface-map.md#board-level-input-biases).
 
 **TMC5130A `REFR_DIR` (pin 9) is tied directly to GND** as of 2026-08-27. It is a
 plain `DI` with no internal pull, unlike `SD_MODE`/`SPI_MODE` (`pu`) and `SWSEL`
@@ -52,7 +68,38 @@ not arrive through "Update PCB from Schematic".** Two that matter on this board:
 TMC5130A's `VCC_IO` bypass at 3.04 mm. Open the source block's PCB and copy the
 placement by hand, or the layout silently loses it.
 
-## Blocks To Place In Rev 0
+## Blocks For v1.0
+
+Fourteen instances across fourteen distinct blocks. **Eight are to place or
+re-place; six stay as they are.** The Rev 0 table further down is retained as
+history — its instance counts and statuses are not current.
+
+| Board function | Design block | v1.0 status |
+| --- | --- | --- |
+| Controller core **and** GPIO isolation | `rp2040_with_gpio_isolation_sn74cb3q3245` | **new, to place.** Built and verified 2026-09-16; replaces the `rp2040` + `rp2040_gpio_isolation_sn74cb3q3245` pair, which were never both placed here |
+| Motor supply input, protected and switched | `hv_input_36V_terminal_2pos_5p08_protected_vertical` | **to place.** Removed 2026-09-16; take the *vertical* variant to match the other connectors. `+36V_SW` has no source and the whole `HV_EN`/`HV_SNS`/`~{HV_FAULT}`/`HV_DIAG_EN` group is absent until it lands |
+| **12 V rail, switched domain** | `hv_to_12v_tpsm365r6` | **not on the board and required.** Both the brake and torque blocks take `+12V` as an input port and this board has never had that rail |
+| 5 V rail, switched domain | `hv_to_5v_tpsm365r6` | placed, unchanged |
+| 3.3 V rails, one per domain | `5v_to_3v3_tps73733` ×2 | placed, unchanged |
+| Stepper driver section | `tmc5130` | placed — **do not re-place**, see the warning above |
+| USB device connection | `usb2_vertical` | placed, unchanged |
+| Encoder input conditioning | `quadrature_encoder_input_5v_sn74lvc2g17` | **to re-place.** Symbols removed 2026-09-16 and the twelve orphaned footprints cleared; `ENC_A`/`ENC_B` and `ENC_A_RAW`/`ENC_B_RAW` dangle until it lands |
+| Limit switch input conditioning | `limit_switch_debounced_input_vertical` | placed, unchanged |
+| pyControl behavior-port boundary | `pycontrol_behavior_port_rj45_boundary_vertical` | placed. Carries the PPTC position — see `docs/power.md`. **Exposes only two signal pins**, both spent on the UART |
+| InstrumentPort boundary and buffering | `instrument_port_digital_50_dut_ffc_boundary_vertical` | **new, to place.** Replaces the 40-pin DUT boundary *and* all four `instrumentation_signal_buffer_sn74lvc125a` instances |
+| Analog angle output | `analog_output_0_3v3_dac80501` | **to re-place.** Rebuilt in `kicad-libs`: I2C at 0x48, ÷2 output divider, 3.3 V rail |
+| Brake current sink | `brake_current_sink_0_49ma_dac80501` | **new, to place.** I2C at 0x49, needs `+12V` and `+36V_SW` |
+| Torque bridge | `torque_bridge_0_3v3_ina821` | **new, to place.** `SPI1` plus `TQ_CONVST_CS`/`TQ_CAL_EN`, needs `+12V` |
+
+Two things to expect during placement. **Library blocks use 5-digit designator
+bands** (`rp2040_with_gpio_isolation` is 40xxx, analog 35xxx, brake 36xxx, torque
+37xxx, digital-50 39xxx) while this board is 4-digit, so every placement gets
+re-annotated — plan the bands, and never tick "Re-link footprints to schematic
+symbols based on their reference designators." And **`~{BUS_SW_EN}` needs a
+read-only sheet pin added to the MCU block** before placement if you want the
+InstrumentPort to witness the isolation state; see `docs/interface-map.md`.
+
+## Blocks To Place In Rev 0 — History
 
 | Board function | Design block | Instances | Status |
 | --- | --- | --- | --- |
@@ -442,14 +489,20 @@ end of this section:
 | Ref | Value | Net | To | Sheet | Why |
 | --- | --- | --- | --- | --- | --- |
 | `R403` | 10 kΩ | `PYC_UART_RX` | `+3.3V_MCU` | `mcu` | UART RX must idle **high**; the RP2040's default pull-down would look like a permanent break |
-| `R1401` | 10 kΩ | `TMC_SPI_SCK` | GND | `instrument_port` | define the `U1701` buffer input when the switched domain is off |
-| `R1402` | 10 kΩ | `TMC_SPI_COPI` | GND | `instrument_port` | as above |
-| `R1403` | 10 kΩ | `TMC_SPI_CIPO` | GND | `instrument_port` | as above; also gives the instrument tap a clean idle-low |
-| `R1404` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `instrument_port` | CSN must idle **deasserted** — a pull-down would assert chip select |
-| `R1405` | 10 kΩ | `LIMIT_SW` | GND | `instrument_port` | define the `U1801` buffer input |
-| `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_limit` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ |
-| `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_limit` | as above |
-| `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_limit` | guarantees the power stage is **disabled** in hardware |
+| `R1104` | 10 kΩ | `TMC_SPI_SCK` | GND | `motor_encoder_switch` | define the TMC input, and the instrument tap, when the switched domain is off |
+| `R1105` | 10 kΩ | `TMC_SPI_COPI` | GND | `motor_encoder_switch` | as above |
+| `R1106` | 10 kΩ | `TMC_SPI_CIPO` | GND | `motor_encoder_switch` | as above; also gives the instrument tap a clean idle-low |
+| `R1107` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `motor_encoder_switch` | CSN must idle **deasserted** — a pull-down would assert chip select |
+| `R1108` | 10 kΩ | `LIMIT_SW` | GND | `motor_encoder_switch` | define the debounced limit input |
+| `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_switch` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ |
+| `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_switch` | as above |
+| `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_switch` | guarantees the power stage is **disabled** in hardware |
+
+**Designators and sheet updated 2026-09-16.** The first five were `R1401`-`R1405`
+in `instrument_port`; the sheet name for the other three was written as
+`motor_encoder_limit`, which has never been the file name. Nine more are owed by
+the v1.0 I2C and torque buses — see
+[Board-Level Input Biases](interface-map.md#board-level-input-biases).
 
 **Two more arrive with rev 1**, taking the count from nine to **eleven** — not
 three and twelve, because **the required one lives inside the block**. Same
