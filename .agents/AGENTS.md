@@ -227,10 +227,25 @@ Re-check by netlist export, not by ERC. See **Open Schematic Findings** in
 still open. (`.agents/handoff.local.md` is gitignored and absent on a fresh clone;
 treat `.agents/PLANS.md` as the tracked record.)
 
-The project carries 21 netclasses, **124** netclass patterns, the 4-layer stackup,
+The project carries 21 netclasses, **130** netclass patterns, the 4-layer stackup,
 plot/fabrication setup, and the JLCPCB design rules, inherited from
 `tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb` and extended for this
-board on 2026-08-17.
+board on 2026-08-17 and 2026-09-17.
+
+**The netclasses were doing nothing until 2026-09-17.** The `.kicad_dru` carried
+an unconditional `(constraint clearance (min 0.10mm))` rule, and **an
+unconditional custom clearance constraint replaces the netclass value rather
+than flooring it** — so the effective clearance was 0.10 mm board-wide and all 21
+classes' 0.15–0.5 mm settings were dead letters. Fixed in `ff081ff`: the fab
+floors moved to Board Setup → Constraints (`min_clearance` and `min_track_width`,
+0.0 → 0.1 mm) and both unconditional rules were deleted. **Never re-add a fab
+floor as an unconditional rule** — the file carries a comment saying so. All
+conditional rules were kept.
+
+`rule_severities.clearance` is `error` here and must stay that way. The
+advisory-warning treatment applies only to `../kicad-libs`'s authoring project,
+where the whole block library still has to be brought up to its netclass
+clearances.
 
 `kicad/mouse-joystick-pcb.kicad_pcb` is still empty, so DRC reports exactly one
 violation, `invalid_outline` — no edges on `Edge.Cuts`. Expected until an outline

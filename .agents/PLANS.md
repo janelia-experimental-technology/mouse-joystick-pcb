@@ -1633,6 +1633,64 @@ Ready for active PCB work when:
 
 ## Progress Log
 
+- 2026-09-17 (latest): **schematic complete and ERC-clean; all fourteen v1.0
+  design blocks error-free; layout still not started.**
+  - **7 root sheets, 241 nets, ERC zero errors.** PCB at 57 footprints, 0 traces,
+    0 vias, 4 zones — Update PCB From Schematic has not been run since any of this
+    landed. Run ERC from `make kicad-edits`: through the MCP server it reports
+    ~240 violations that are all `lib_symbol_issues`/`footprint_link_issues`
+    because `ORB_WEAVER_KICAD_LIBS` does not resolve in that process.
+  - **The four schematic defects from 2026-09-16 are all closed.** The rails now
+    cross the `mcu` boundary (`+3.3V_MCU` one net of 44 nodes where it was 34
+    trapped plus a 1-node orphan; `+3.3V_SW` one net of 18) and the stale
+    `SW_RAIL_SENSE` pin is gone; `R1107`'s pull-up is connected so `~{TMC_CS}` has
+    its termination; `HV_LATCH` is wired `GP24` to the HV block's `LATCH`; and 31
+    no-connect flags cover the unused `ISO` and raw `GPIO` pins, with ERC
+    severities untouched.
+  - **The digital-50 DUT block is placed** — `J1301` plus `U1301`-`U1304`. All 26
+    assigned channels verified at pad level by cross-referencing the block's
+    internal `DIGn`→buffer-pin map against the board netlist. **Note that
+    `get_sheet_info` reports `component_count: 0` for `instrument_port`** because
+    the block is a sub-sheet; that reads like "not placed" and is not.
+  - **The three phantom pyControl signals are retired**, taking footnote 8's
+    offered choice: `DIG4` and `DIG5` join the four spares as explicit ground
+    ties, so six of 32 strands are tied and no `LV541A` input floats.
+  - **`~{BUS_SW_EN}` has a read-only monitor port** on the combined MCU block and
+    reaches `DIG27`. The net still has exactly its six nodes, so the port is a
+    declaration not a second driver, and because it is `output` on both sides of
+    the sheet boundary ERC catches any board that tries to drive it.
+  - **`docs/interface-map.md` instrument-port section rewritten to one table.**
+    The 40-pin overlay and its dependent subsections are deleted rather than kept
+    alongside the new map; the remaining pinout is 32 `DIGn` rows with no ground
+    rows, columns `Strand | Pin | Bank | Board net | Tap | State`, one row per
+    sheet pin. `J1501` is now the Hirose `FH12-50S-0.5SVA(54)`. Net effect 140
+    insertions, 480 deletions. **The `#### mcu Sheet Pins` table is still stale**
+    and should be regenerated from the schematic.
+  - **Design rules fixed here too, committed as `ff081ff`.** Same root cause as
+    `../kicad-libs`: an unconditional `(constraint clearance (min 0.10mm))` DRU
+    rule was replacing every netclass clearance, so the effective value was
+    0.10 mm project-wide. Fab floors moved to Board Setup (`min_clearance` and
+    `min_track_width` 0.0 → 0.1 mm), both unconditional rules deleted, and
+    netclass patterns 124 → 130 to cover `*/+36V`, `*/+12V_FILT` and the
+    `*/BMA1`-style bridge names. **`rule_severities.clearance` stays `error`
+    here** — the advisory treatment applies only to the authoring project. Since
+    the PCB has no traces, none of this has been exercised on this board yet.
+  - **Landmine: `../kicad-libs`'s `tmc5130` still carries 0.12 Ω shunts** against
+    this board's 0.15 Ω with `vsense = 1`. That block now passes its own checks,
+    which gives no protection — the shunt is a value, not a rule. Fix upstream
+    before placing, and then the "never re-place `tmc5130`" rule can be retired.
+  - **Two improvements proposed and not applied**, both cheapest before layout:
+    regrouping four instrument-port pairs so no SPI clock sits beside its own data
+    and I2C is not split across a ground (hygiene, not a fix for an observed
+    problem — coupled amplitude is tens of millivolts); and landing `PG_5V` and
+    `PG_12V` on two of the six ground-tied strands now that all four `hv_to_*`
+    blocks expose `PGOOD`. The bank assignment is already correct and should not
+    change.
+  - **Smaller items found and left open:** `instrument_port` names two sheet pins
+    `DAQ_SCL`/`DAQ_SDA` where the nets are `DAC_*`; `ANGLE_OUT_MON` is a one-node
+    net with no destination; `/motor_encoder_switch/tmc5130/SWSEL` is a one-node
+    net where the docs claim a hard GND tie.
+
 - 2026-09-08, final: **scope narrowed to v1.0-only, then the `RUN` switch put
   back on evidence.**
   - **Narrowing removed both remaining regression traps for free.** Not
