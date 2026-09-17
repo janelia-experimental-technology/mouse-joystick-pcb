@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-09-16")
+		(date "2026-09-17")
 		(rev "1.0")
 		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
@@ -125,7 +125,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10000"
+			(property "JLC Qty" "9976"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -497,7 +497,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "320"
+			(property "JLC Qty" "316"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1349,7 +1349,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "320"
+		(property "JLC Qty" "316"
 			(at 119.38 81.28 0)
 			(hide yes)
 			(show_name yes)
@@ -1635,7 +1635,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10000"
+		(property "JLC Qty" "9976"
 			(at 144.78 81.28 0)
 			(hide yes)
 			(show_name yes)
@@ -1944,7 +1944,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10000"
+		(property "JLC Qty" "9976"
 			(at 83.82 81.28 0)
 			(hide yes)
 			(show_name yes)

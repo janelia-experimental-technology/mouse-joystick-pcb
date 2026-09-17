@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-09-16")
+		(date "2026-09-17")
 		(rev "1.0")
 		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
@@ -123,7 +123,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10054"
+			(property "JLC Qty" "9978"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -495,7 +495,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "112"
+			(property "JLC Qty" "110"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1096,7 +1096,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "525"
+			(property "JLC Qty" "520"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1510,7 +1510,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1008"
+			(property "JLC Qty" "1002"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2194,7 +2194,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "9615"
+			(property "JLC Qty" "9611"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2557,7 +2557,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1965"
+			(property "JLC Qty" "1950"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3659,7 +3659,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10054"
+		(property "JLC Qty" "9978"
 			(at 119.38 62.23 0)
 			(hide yes)
 			(show_name yes)
@@ -3838,7 +3838,7 @@
 		(property "LCSC" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3849,7 +3849,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 119.38 62.23 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3966,7 +3966,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9615"
+		(property "JLC Qty" "9611"
 			(at 138.43 99.06 0)
 			(hide yes)
 			(show_name yes)
@@ -4145,7 +4145,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4156,7 +4156,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 99.06 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4274,7 +4274,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "525"
+		(property "JLC Qty" "520"
 			(at 193.04 121.92 0)
 			(hide yes)
 			(show_name yes)
@@ -4453,7 +4453,7 @@
 		(property "LCSC" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4464,7 +4464,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 193.04 121.92 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4581,7 +4581,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1965"
+		(property "JLC Qty" "1950"
 			(at 189.23 109.22 0)
 			(hide yes)
 			(show_name yes)
@@ -4760,7 +4760,7 @@
 		(property "LCSC" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4771,7 +4771,7 @@
 		(property "Vendor SKU" "C327079"
 			(at 189.23 109.22 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4887,7 +4887,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "112"
+		(property "JLC Qty" "110"
 			(at 83.82 88.9 0)
 			(hide yes)
 			(show_name yes)
@@ -5066,7 +5066,7 @@
 		(property "LCSC" "C588558"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5077,7 +5077,7 @@
 		(property "Vendor SKU" "C588558"
 			(at 83.82 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5215,7 +5215,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9615"
+		(property "JLC Qty" "9611"
 			(at 138.43 88.9 0)
 			(hide yes)
 			(show_name yes)
@@ -5394,7 +5394,7 @@
 		(property "LCSC" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5405,7 +5405,7 @@
 		(property "Vendor SKU" "C25076"
 			(at 138.43 88.9 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5537,7 +5537,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1008"
+		(property "JLC Qty" "1002"
 			(at 109.22 127 0)
 			(hide yes)
 			(show_name yes)
@@ -5716,7 +5716,7 @@
 		(property "LCSC" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5727,7 +5727,7 @@
 		(property "Vendor SKU" "C2827693"
 			(at 109.22 127 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font

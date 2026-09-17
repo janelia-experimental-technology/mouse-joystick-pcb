@@ -8,7 +8,7 @@ disable control.
 **Updated 2026-09-16: adopted for v1.0, and the board allocation is done.** The
 legacy 40-pin DUT boundary and all four `SN74LVC125A` buffer instances were
 removed from the board, and the 32-channel map is allocated in
-[`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-channel-map)
+[`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-pinout)
 — 28 assigned, 4 spare, grouped so each protocol sits inside one octal buffer.
 `GP24` is reclaimed. **No cable has been purchased**, so the end-to-end
 permutation is still assumed rather than measured, and that is now the largest
@@ -110,7 +110,7 @@ on the digital connector, and the new connector has no `AIN*`/`AOUT*` tail.
 - [ ] Review/freeze the shared draft and marker indices; finish the horizontal
       buffer/connector block and a compatible new LA5032 adapter design.
 - [x] **Allocate channels** — done 2026-09-16 in
-      [`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-channel-map),
+      [`docs/interface-map.md`](interface-map.md#instrumentport-digital-50-pinout),
       including the tap side for every channel: switched signals are tapped on
       the `ISO`/A side so a capture shows what the peripheral receives, and the
       board-level biases define the level while the bus is open. Nine new bias

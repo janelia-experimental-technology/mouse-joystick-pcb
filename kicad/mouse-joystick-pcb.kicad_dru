@@ -1,10 +1,12 @@
 (version 1)
 
-(rule "JLCPCB rigid FR4 1oz routine track width"
-	(constraint track_width (min 0.10mm)))
-
-(rule "JLCPCB rigid FR4 1oz routine copper clearance"
-	(constraint clearance (min 0.10mm)))
+# The routine 0.10 mm copper-clearance and track-width floors are deliberately
+# NOT rules here. They live in Board Setup > Constraints > "Minimum clearance"
+# and "Minimum track width", because an unconditional custom clearance rule
+# REPLACES the netclass clearance instead of flooring it. While the old rule
+# was present every netclass from 0.15 mm to 0.5 mm resolved to 0.10 mm and no
+# clearance violation could be reported at all. Do not re-add them as rules.
+# Removed 2026-09-17.
 
 (rule "JLCPCB rigid FR4 SMD pad-to-pad clearance"
 	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.Pad_Type == 'SMD' && B.Pad_Type == 'SMD'")

@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-09-16")
+		(date "2026-09-17")
 		(rev "1.0")
 		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
@@ -123,7 +123,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "10054"
+			(property "JLC Qty" "9978"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -496,7 +496,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "200"
+			(property "JLC Qty" "198"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1479,7 +1479,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "525"
+			(property "JLC Qty" "520"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1893,7 +1893,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "1008"
+			(property "JLC Qty" "1002"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -2577,7 +2577,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "4321"
+			(property "JLC Qty" "4301"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3708,7 +3708,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "200"
+		(property "JLC Qty" "198"
 			(at 111.76 93.98 0)
 			(hide yes)
 			(show_name yes)
@@ -3887,7 +3887,7 @@
 		(property "LCSC" "C5815189"
 			(at 111.76 93.98 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3898,7 +3898,7 @@
 		(property "Vendor SKU" "C5815189"
 			(at 111.76 93.98 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4153,7 +4153,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10054"
+		(property "JLC Qty" "9978"
 			(at 152.4 64.77 0)
 			(hide yes)
 			(show_name yes)
@@ -4332,7 +4332,7 @@
 		(property "LCSC" "C162178"
 			(at 152.4 64.77 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4343,7 +4343,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 152.4 64.77 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4461,7 +4461,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "525"
+		(property "JLC Qty" "520"
 			(at 182.88 63.5 0)
 			(hide yes)
 			(show_name yes)
@@ -4640,7 +4640,7 @@
 		(property "LCSC" "C223608"
 			(at 182.88 63.5 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4651,7 +4651,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 182.88 63.5 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4783,7 +4783,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "1008"
+		(property "JLC Qty" "1002"
 			(at 144.78 93.98 0)
 			(hide yes)
 			(show_name yes)
@@ -4962,7 +4962,7 @@
 		(property "LCSC" "C2827693"
 			(at 144.78 93.98 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4973,7 +4973,7 @@
 		(property "Vendor SKU" "C2827693"
 			(at 144.78 93.98 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5170,7 +5170,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "4321"
+		(property "JLC Qty" "4301"
 			(at 200.66 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -5283,7 +5283,7 @@
 		(property "LCSC" "C413002"
 			(at 200.66 95.25 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5294,7 +5294,7 @@
 		(property "Vendor SKU" "C413002"
 			(at 200.66 95.25 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5479,7 +5479,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "4321"
+		(property "JLC Qty" "4301"
 			(at 215.9 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -5592,7 +5592,7 @@
 		(property "LCSC" "C413002"
 			(at 215.9 95.25 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5603,7 +5603,7 @@
 		(property "Vendor SKU" "C413002"
 			(at 215.9 95.25 0)
 			(hide yes)
-			(show_name no)
+			(show_name yes)
 			(do_not_autoplace no)
 			(effects
 				(font

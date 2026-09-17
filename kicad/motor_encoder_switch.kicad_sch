@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "mouse-joystick-pcb")
-		(date "2026-09-16")
+		(date "2026-09-17")
 		(rev "1.0")
 		(company "Janelia Research Campus")
 	)
@@ -122,7 +122,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "100"
+			(property "JLC Qty" "98"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -515,7 +515,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "9610"
+			(property "JLC Qty" "9560"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -877,7 +877,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "250"
+			(property "JLC Qty" "248"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1343,7 +1343,7 @@
 					)
 				)
 			)
-			(property "JLC Qty" "200"
+			(property "JLC Qty" "198"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1854,7 +1854,7 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 132.08) (xy 111.76 132.08)
+			(xy 109.22 132.08) (xy 132.08 132.08)
 		)
 		(stroke
 			(width 0)
@@ -2164,16 +2164,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 53.34) (xy 177.8 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "901d3a95-b0f8-434a-b64d-96c87dc8ed94")
-	)
-	(wire
-		(pts
 			(xy 50.8 30.48) (xy 53.34 30.48)
 		)
 		(stroke
@@ -2374,16 +2364,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 40.64) (xy 177.8 43.18)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdf906da-6104-493d-bb64-b2a37133d177")
-	)
-	(wire
-		(pts
 			(xy 50.8 91.44) (xy 50.8 88.9)
 		)
 		(stroke
@@ -2391,16 +2371,6 @@
 			(type default)
 		)
 		(uuid "d215fcf7-ef82-44c9-b0d9-403f5781c5e4")
-	)
-	(wire
-		(pts
-			(xy 81.28 144.78) (xy 83.82 144.78)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d6c61695-6c88-488b-b4c1-634ba8a1de5a")
 	)
 	(wire
 		(pts
@@ -2522,7 +2492,7 @@
 		)
 		(uuid "fce38e57-f972-4d16-8aed-5ea7f56aff43")
 	)
-	(label "ENC_A"
+	(label "ENCA"
 		(at 111.76 99.06 0)
 		(effects
 			(font
@@ -2582,7 +2552,7 @@
 		)
 		(uuid "10888c5d-ab50-4dcd-bdde-77a4c68339a3")
 	)
-	(label "ENC_B"
+	(label "ENCB"
 		(at 111.76 101.6 0)
 		(effects
 			(font
@@ -2662,7 +2632,7 @@
 		)
 		(uuid "2431da71-4ed7-4cd9-8e0f-3d2e559754eb")
 	)
-	(label "+3.3V_SW"
+	(label "+3.3V"
 		(at 165.1 40.64 90)
 		(effects
 			(font
@@ -2752,16 +2722,6 @@
 		)
 		(uuid "3d0e2b20-1a1c-46b0-9736-e56f0a6e1165")
 	)
-	(label "LIMIT_SW"
-		(at 177.8 40.64 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3ef0f646-3898-4e32-bc7c-d85a7732281d")
-	)
 	(label "~{TMC_CS}"
 		(at 53.34 58.42 0)
 		(effects
@@ -2782,7 +2742,7 @@
 		)
 		(uuid "42bfe0d8-394a-40c1-84e5-228c38d4f453")
 	)
-	(label "ENC_A"
+	(label "ENCA"
 		(at 53.34 35.56 0)
 		(effects
 			(font
@@ -2833,7 +2793,7 @@
 		(uuid "550a4f6d-9c6a-47ae-a356-eb0b3a54cb7e")
 	)
 	(label "ANGLE_OUT"
-		(at 111.76 132.08 0)
+		(at 132.08 132.08 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2952,7 +2912,7 @@
 		)
 		(uuid "7b69fc0c-8794-460e-85d8-e344e022faa9")
 	)
-	(label "ENC_B"
+	(label "ENCB"
 		(at 213.36 132.08 0)
 		(effects
 			(font
@@ -2962,7 +2922,7 @@
 		)
 		(uuid "7feaeae2-3026-432d-bae4-ed2c6ab03e7c")
 	)
-	(label "ENC_A_RAW"
+	(label "ENCA_5V"
 		(at 251.46 132.08 180)
 		(effects
 			(font
@@ -3012,7 +2972,7 @@
 		)
 		(uuid "94947111-c69d-41bf-9ba7-bbdb5f4263c4")
 	)
-	(label "ENC_B"
+	(label "ENCB"
 		(at 53.34 38.1 0)
 		(effects
 			(font
@@ -3032,7 +2992,7 @@
 		)
 		(uuid "a255ae6c-738f-42e8-b8e1-b1837f1b0864")
 	)
-	(label "ENC_B_RAW"
+	(label "ENCB_5V"
 		(at 251.46 127 180)
 		(effects
 			(font
@@ -3041,16 +3001,6 @@
 			(justify right bottom)
 		)
 		(uuid "a4325ec3-7f3c-4346-ac3a-b72926e5625c")
-	)
-	(label "GND"
-		(at 177.8 53.34 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "aca56e82-a618-4663-bdbb-42ec7cb17e10")
 	)
 	(label "GND"
 		(at 127 53.34 270)
@@ -3062,7 +3012,7 @@
 		)
 		(uuid "ae9f619a-b6a4-4867-836b-da6c3917ffeb")
 	)
-	(label "ENC_A"
+	(label "ENCA"
 		(at 213.36 129.54 0)
 		(effects
 			(font
@@ -3152,7 +3102,7 @@
 		)
 		(uuid "d10d9a4a-8f64-4ab7-ab65-994bc367e247")
 	)
-	(label "ENC_B_RAW"
+	(label "ENCB_5V"
 		(at 182.88 142.24 180)
 		(effects
 			(font
@@ -3202,7 +3152,7 @@
 		)
 		(uuid "f56b3f61-842f-4b06-a3e2-c8300a67cfff")
 	)
-	(label "ENC_A_RAW"
+	(label "ENCA_5V"
 		(at 182.88 139.7 180)
 		(effects
 			(font
@@ -3252,7 +3202,7 @@
 		)
 		(uuid "ff46c464-fa96-4582-aa88-c6283d9f65e9")
 	)
-	(hierarchical_label "DAC_SPI_SCK"
+	(hierarchical_label "DAC_SCL"
 		(shape input)
 		(at 81.28 139.7 180)
 		(effects
@@ -3274,8 +3224,8 @@
 		)
 		(uuid "3403afe0-6782-4e6e-a2c8-afcc766404f4")
 	)
-	(hierarchical_label "DAC_SPI_COPI"
-		(shape input)
+	(hierarchical_label "DAC_SDA"
+		(shape bidirectional)
 		(at 81.28 142.24 180)
 		(effects
 			(font
@@ -3307,7 +3257,7 @@
 		)
 		(uuid "4ae31404-eac6-4652-9200-6424ddbe05d0")
 	)
-	(hierarchical_label "ENC_B"
+	(hierarchical_label "ENCB"
 		(shape output)
 		(at 50.8 38.1 180)
 		(effects
@@ -3339,17 +3289,6 @@
 			(justify right)
 		)
 		(uuid "72f27b24-5acd-49d0-934d-9fc9a5e8fb87")
-	)
-	(hierarchical_label "~{DAC_CS}"
-		(shape input)
-		(at 81.28 144.78 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "815ff344-6f8f-4684-a022-997671200550")
 	)
 	(hierarchical_label "+3.3V"
 		(shape passive)
@@ -3439,7 +3378,7 @@
 		)
 		(uuid "f045a72c-c916-443d-afff-d134787173f3")
 	)
-	(hierarchical_label "ENC_A"
+	(hierarchical_label "ENCA"
 		(shape output)
 		(at 50.8 35.56 180)
 		(effects
@@ -3561,7 +3500,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 127 46.99 0)
 			(hide yes)
 			(show_name yes)
@@ -3863,7 +3802,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 25.4 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -4056,308 +3995,6 @@
 	)
 	(symbol
 		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
-		(at 177.8 46.99 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3803fb8b-4ae2-4a19-ad02-89a3d4df18d7")
-		(property "Reference" "R1108"
-			(at 180.34 45.7199 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10k"
-			(at 180.34 48.2599 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 176.022 46.99 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic 10k 0402 resistor"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-RES-10K-0402"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_10_0k_0402"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C278577"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C278577"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "9610"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "10k 0402 resistor"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "10k"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" "62.5mW"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" "<=5%"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" "pullup-pulldown"
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 177.8 46.99 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "ff1798b9-5abe-4ca9-91c8-48ca462455f0")
-		)
-		(pin "1"
-			(uuid "ded82712-7a52-4bac-b2b4-8000a26d4a79")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(reference "R1108")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-RES-10K-0402")
 		(at 38.1 95.25 0)
 		(unit 1)
 		(body_style 1)
@@ -4467,7 +4104,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 38.1 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -4769,7 +4406,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 152.4 46.99 0)
 			(hide yes)
 			(show_name yes)
@@ -5071,7 +4708,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 165.1 46.99 0)
 			(hide yes)
 			(show_name yes)
@@ -5373,7 +5010,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 50.8 95.25 0)
 			(hide yes)
 			(show_name yes)
@@ -5677,7 +5314,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "200"
+		(property "JLC Qty" "198"
 			(at 259.08 132.08 0)
 			(hide yes)
 			(show_name yes)
@@ -5979,7 +5616,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "100"
+		(property "JLC Qty" "98"
 			(at 137.16 137.16 0)
 			(hide yes)
 			(show_name yes)
@@ -6283,7 +5920,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "250"
+		(property "JLC Qty" "248"
 			(at 182.88 81.28 0)
 			(hide yes)
 			(show_name yes)
@@ -6580,7 +6217,7 @@
 				)
 			)
 		)
-		(property "JLC Qty" "9610"
+		(property "JLC Qty" "9560"
 			(at 139.7 46.99 0)
 			(hide yes)
 			(show_name yes)
@@ -6772,9 +6409,19 @@
 		)
 	)
 	(group "limit_switch_debounced_input_vertical"
-		(uuid "5a3570dd-a0b5-402b-acfc-71fa1539381e")
+		(uuid "0bf2c7d9-aabb-40c9-a552-fe72cb454400")
 		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
-		(members "11ccfdba-bbcc-447f-9dc4-a218a8f48f58")
+		(members "cf7dec04-8ddd-45e1-b03a-16bc08db1077")
+	)
+	(group "quadrature_encoder_input_5v_sn74lvc2g17"
+		(uuid "9037b3b7-7021-4a2f-882f-f12c1b9dbb9d")
+		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
+		(members "f990eb77-a959-4425-bd68-8a1848546fc2")
+	)
+	(group "analog_output_0_3v3_dac80501"
+		(uuid "c5172dee-9364-4b59-b7c8-693743c5dabf")
+		(lib_id "orb_weaver_private:analog_output_0_3v3_dac80501")
+		(members "15a4ee3c-28a0-46d2-a931-7de6a133f334")
 	)
 	(group "tmc5130"
 		(uuid "e1dbb2ab-2fac-4374-a8f6-ddb1ebf9e8cc")
@@ -6782,8 +6429,8 @@
 		(members "8a48c44b-14a3-493a-ae50-8a9a036fc774")
 	)
 	(sheet
-		(at 177.8 99.06)
-		(size 25.4 7.62)
+		(at 83.82 127)
+		(size 25.4 20.32)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -6796,9 +6443,9 @@
 		(fill
 			(color 0 0 0 0)
 		)
-		(uuid "11ccfdba-bbcc-447f-9dc4-a218a8f48f58")
-		(property "Sheetname" "limit_switch_debounced_input_vertical"
-			(at 177.8 98.3484 0)
+		(uuid "15a4ee3c-28a0-46d2-a931-7de6a133f334")
+		(property "Sheetname" "analog_output_0_3v3_dac80501"
+			(at 83.82 126.2884 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6808,8 +6455,8 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "limit_switch_debounced_input_vertical.kicad_sch"
-			(at 177.8 107.2646 0)
+		(property "Sheetfile" "analog_output_0_3v3_dac80501.kicad_sch"
+			(at 83.82 147.9046 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6819,9 +6466,9 @@
 				(justify left top)
 			)
 		)
-		(pin "+3.3V_SW" passive
-			(at 177.8 101.6 180)
-			(uuid "6c55dd0d-db9b-475a-a83d-cf053731f209")
+		(pin "+3.3V" passive
+			(at 83.82 132.08 180)
+			(uuid "3db8906b-ca1a-4265-969d-f10780a096b5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6829,9 +6476,9 @@
 				(justify left)
 			)
 		)
-		(pin "GND" passive
-			(at 177.8 104.14 180)
-			(uuid "7fe96e7c-3fa1-441d-9c45-42330c44ab58")
+		(pin "+5V" passive
+			(at 83.82 129.54 180)
+			(uuid "3e172254-ba2c-4095-b969-d2fa444279b8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6839,9 +6486,9 @@
 				(justify left)
 			)
 		)
-		(pin "LIMIT_SW" output
-			(at 203.2 101.6 0)
-			(uuid "bffe7809-c5c5-47b0-9715-c92cf2327db5")
+		(pin "AOUT" output
+			(at 109.22 132.08 0)
+			(uuid "8f00e108-6e4d-41b5-8613-1328b3590498")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6849,10 +6496,50 @@
 				(justify right)
 			)
 		)
+		(pin "AOUT_MON" output
+			(at 109.22 129.54 0)
+			(uuid "84135618-773e-45ee-bbe4-bf10f583f9dc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 83.82 134.62 180)
+			(uuid "69a0787b-37d7-4359-a38c-85f97662d175")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCL" input
+			(at 83.82 139.7 180)
+			(uuid "7d35340a-40b6-49a8-9d60-905787d19026")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SDA" bidirectional
+			(at 83.82 142.24 180)
+			(uuid "8564ef2d-35e4-4305-8141-6be432e3feda")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
 		(instances
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "13")
+					(page "8")
 				)
 			)
 		)
@@ -7109,6 +6796,198 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "12")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 177.8 99.06)
+		(size 25.4 7.62)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "cf7dec04-8ddd-45e1-b03a-16bc08db1077")
+		(property "Sheetname" "limit_switch_debounced_input_vertical"
+			(at 177.8 98.3484 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "limit_switch_debounced_input_vertical.kicad_sch"
+			(at 177.8 107.2646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V_SW" passive
+			(at 177.8 101.6 180)
+			(uuid "69587a07-fa63-4181-bf68-d68748d29a74")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" passive
+			(at 177.8 104.14 180)
+			(uuid "aacdba67-8a0a-42db-a4e4-14bd35e4def3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "LIMIT_SW" output
+			(at 203.2 101.6 0)
+			(uuid "b13b22e8-e2ad-4ff0-8c14-d2360c596194")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "16")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 185.42 127)
+		(size 25.4 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "f990eb77-a959-4425-bd68-8a1848546fc2")
+		(property "Sheetname" "quadrature_encoder_input_5v_sn74lvc2g17"
+			(at 185.42 126.2884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch"
+			(at 185.42 145.3646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 185.42 132.08 180)
+			(uuid "4973730c-d6b4-4b46-9fe3-9ce8c11b8016")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "EA" input
+			(at 185.42 139.7 180)
+			(uuid "75f6c202-0119-4799-8216-606fb308b7bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "EB" input
+			(at 185.42 142.24 180)
+			(uuid "9e882018-6ead-44d5-b296-c131ab8bc9e5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ENCA" output
+			(at 210.82 129.54 0)
+			(uuid "4b36533f-bf62-4af6-9f8d-06e8c38536bb")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCB" output
+			(at 210.82 132.08 0)
+			(uuid "3afe7e57-84b2-4dd8-9b4c-fec2910247b3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 185.42 134.62 180)
+			(uuid "07cbb3f6-7b20-45ee-81d5-051c14484738")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VENC" passive
+			(at 185.42 129.54 180)
+			(uuid "42e3b522-4c21-42c1-a9d4-3c944fb33094")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "15")
 				)
 			)
 		)
