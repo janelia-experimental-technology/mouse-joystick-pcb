@@ -45,7 +45,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: export-dsn export-dsn-local freeroute freeroute-local clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -56,6 +56,9 @@ help:
 	  'make kicad-version     Print the managed KiCad version' \
 	  'make kicad-version-local Print the KiCad version from the local overlay manifest' \
 	  'make kicad-edits       Open PROJECT in KiCad using the configured library path' \
+	  'make export-dsn        Export the PCB to Specctra DSN for Freerouting' \
+	  'make freeroute         Export the DSN and open it in the Freerouting GUI' \
+	  'make freeroute-local   Same, but take Guix packages from the local kicad-libs checkout' \
 	  'make clearance-check   Re-enable clearance DRC on a copy and diff against the baseline' \
 	  'make clearance-baseline Record the current clearance state as the baseline' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
@@ -103,6 +106,35 @@ test:
 	test -f docs/encoder-analog-output.md
 	test -f docs/relationship-to-twin-axis-board.md
 	test -f docs/validation-plan.md
+
+# kicad-cli has no Specctra subcommand, so the DSN comes from KiCad's pcbnew
+# Python bindings. DSN carries netclasses and existing wiring but not the
+# .kicad_dru custom rules -- run `make clearance-check` after routing.
+DSN ?= fab/autoroute/$(basename $(notdir $(PROJECT))).dsn
+
+export-dsn:
+	$(MAKE) prepare-kicad-config
+	$(KICAD_MANAGED_SHELL) python3 scripts/export_dsn.py --output "$(DSN)"
+
+# Opens the Freerouting GUI with the design already loaded. -di points the
+# open/save dialogs at the same directory so the .ses lands beside the .dsn.
+# Import the result back with Pcbnew: File > Import > Specctra Session.
+freeroute: export-dsn
+	$(KICAD_MANAGED_SHELL) freerouting -de "$(DSN)" -di "$(dir $(DSN))"
+
+# The channel pin in .guix/channels.scm decides which Freerouting version the
+# targets above get. These -local variants read (orb-weaver packages) straight
+# from the sibling kicad-libs working tree instead, so a package bump is usable
+# before it is pushed and the pin updated. Same idea as kicad-edits-local.
+LIBS_GUIX_MODULES = $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)/.guix/modules,)
+
+export-dsn-local:
+	@if [ -z "$(LIBS_GUIX_MODULES)" ]; then echo "no kicad-libs checkout found; set ORB_WEAVER_KICAD_LIBS_CHECKOUT"; exit 1; fi
+	$(MAKE) export-dsn GUIX_SHELL_EXTRA_OPTIONS="-L $(LIBS_GUIX_MODULES)"
+
+freeroute-local:
+	@if [ -z "$(LIBS_GUIX_MODULES)" ]; then echo "no kicad-libs checkout found; set ORB_WEAVER_KICAD_LIBS_CHECKOUT"; exit 1; fi
+	$(MAKE) freeroute GUIX_SHELL_EXTRA_OPTIONS="-L $(LIBS_GUIX_MODULES)"
 
 # This project sets rule_severities.clearance = ignore so that ~500 advisories
 # inherited from the design blocks do not bury every other DRC finding. These
