@@ -12,6 +12,32 @@
 	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.Pad_Type == 'SMD' && B.Pad_Type == 'SMD'")
 	(constraint clearance (min 0.15mm)))
 
+# Clearance is IGNORED project-wide (Board Setup > Violation Severities) because
+# the design blocks this board is composed from were authored to the old broken
+# 0.10 mm floor, and reworking their internals is not a v1.0 task. Boards built
+# from these blocks have been manufactured and work. ~519 low-voltage advisories
+# would bury every other DRC finding, so they are off rather than demoted to
+# warnings. Fixes happen upstream in kicad-libs, which is deliberately the
+# stricter project: clearance = warning there, and the goal is error.
+#
+# DO NOT add a custom rule here trying to keep voltage-bearing clearance alive.
+# It does not work, and this was measured, not assumed. With the clearance
+# violation TYPE set to ignore, KiCad skips the clearance test altogether and a
+# rule-level (severity error) cannot raise it back. Verified 2026-09-18 against
+# tmc5160_power_stage_buk7d36_60ex, which reports 131 clearance errors under the
+# kicad-libs mining project: checked against this project with such a rule in
+# place it reported ZERO clearance findings of any severity. Rule severity can
+# only lower the type severity, never raise it -- which is also why the
+# RDN0011A exemption below still works.
+#
+# So there is NO automatic 36 V spacing check on this board while clearance is
+# ignored. Before fabricating, flip "clearance" back to error in
+# mouse-joystick-pcb.kicad_pro for one DRC pass and read only the findings on
+# PWR_HV_ENTRY / PWR_HV_BUS / PWR_HV_RETURN / PWR_HV_LOCAL / MOTOR_2A /
+# BRIDGE_MID / BOOTSTRAP / GATE_DRIVE / PWR_12V / PWR_12V_LOCAL, then set it back.
+# That matters most for the inter-block copper, which is hand-routed and which
+# this board has not routed yet.
+
 # TPSM365R6 module (TI RDN0011A, QFN-FCMOD 3.5x4.5, 0.5mm pitch). The land
 # pattern's own pad gaps are 0.125-0.150mm, below the JLCPCB SMD pad-to-pad
 # minimum above. Package-defined geometry, not routed copper, so ignore it.
