@@ -45,7 +45,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -56,6 +56,8 @@ help:
 	  'make kicad-version     Print the managed KiCad version' \
 	  'make kicad-version-local Print the KiCad version from the local overlay manifest' \
 	  'make kicad-edits       Open PROJECT in KiCad using the configured library path' \
+	  'make clearance-check   Re-enable clearance DRC on a copy and diff against the baseline' \
+	  'make clearance-baseline Record the current clearance state as the baseline' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make fab-local         Generate fabrication files with the local KiCad overlay' \
@@ -101,6 +103,17 @@ test:
 	test -f docs/encoder-analog-output.md
 	test -f docs/relationship-to-twin-axis-board.md
 	test -f docs/validation-plan.md
+
+# This project sets rule_severities.clearance = ignore so that ~500 advisories
+# inherited from the design blocks do not bury every other DRC finding. These
+# targets restore the check on a throwaway copy -- the real .kicad_pro is never
+# touched -- and diff it against a recorded baseline. Run clearance-baseline
+# before routing, clearance-check after.
+clearance-baseline:
+	$(KICAD_MANAGED_SHELL) python3 scripts/clearance_check.py --save-baseline
+
+clearance-check:
+	$(KICAD_MANAGED_SHELL) python3 scripts/clearance_check.py
 
 check-kicad-libs:
 	@orb_libs="$(ORB_WEAVER_KICAD_LIBS)"; \

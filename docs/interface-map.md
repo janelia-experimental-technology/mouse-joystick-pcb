@@ -586,6 +586,32 @@ block's output; `R1301`-`R1304` on the buffer `~OE` pins, `R2011` on the ADC's
 `~{RST}` and `R606` on `~{BUS_SW_EN}` are internal nodes — `R606` included,
 because the RP2040 that drives it lives in that same block.
 
+#### Checking clearance while it is ignored
+
+`rule_severities.clearance` is `ignore` on this project, so DRC cannot report a
+clearance violation. **`make clearance-check` restores it on a throwaway copy**
+and diffs the result against `kicad/clearance-baseline.json`; the real
+`.kicad_pro` is never modified. `make clearance-baseline` re-records the
+baseline. Run the baseline before routing and the check after — it exists
+because Freerouting's characteristic failure is exactly the class of violation
+this board is blind to.
+
+Baseline recorded 2026-09-18, pre-autoroute: **499 clearance findings, 156
+unconnected items**, of which **10 net pairs are voltage-bearing** — including
+`GND` ↔ `HV_IN` at 0.2331 mm against 0.5 mm required, and `+36V_SW` ↔ `PG_5V` at
+0.2919 mm against 0.4 mm. Those are placement, not routing, and an autorouter
+will not fix them.
+
+**The check gates only on what is reproducible, and that was measured rather
+than assumed.** Three consecutive runs on identical copper gave 499 findings
+every time but attributed them across 149, 151 and 148 net pairs, with 10 of
+~270 positions moving: KiCad's DRC picks a different counterpart item where nets
+crowd. Stable across runs, and therefore what fails the check: the total count,
+the voltage-bearing subset, the unconnected count, and the non-clearance
+violation tallies. The per-pair breakdown is printed for orientation only.
+`--all-track-errors` is passed for the same reason — without it KiCad reports
+one error per track and the choice varies.
+
 **Corrected 2026-09-18:** `TQ_CAL_EN` and `TQ_CONVST_CS` were pulled from inside
 the torque block, which was wrong — both are MCU-driven inputs. They are now
 `R905` and `R904` on `/brake_torque_sensor/`. Removing them cascade-renumbered
