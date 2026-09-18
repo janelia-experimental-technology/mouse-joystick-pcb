@@ -4,7 +4,7 @@
 deleted from the board so they can be replaced with updated library versions,
 the quadrature encoder's orphaned footprints were cleared, **all traces and vias
 were deleted**, and the eight board-level TMC input biases were moved into
-`motor_encoder_switch` as `R1104`-`R1108` alongside `R1101`-`R1103`. The board
+`motor_encoder_switch` as `R1104`-`R1601` alongside `R1101`-`R1103`. The board
 currently holds 65 symbols and 69 footprints (65 + four mounting holes), 0
 traces, 0 vias, 4 zones. Rev 0's reviewed, ERC-clean 142-component state is the
 2026-08-17 snapshot in git, not the working tree. The v1.0 GPIO and
@@ -41,9 +41,9 @@ sheets, not design blocks.** Nothing re-places them, so edits made there cannot
 be lost the way a block edit can. That is why the board-level termination
 resistors live in them rather than inside the blocks whose pins they terminate.
 
-**Rehomed 2026-09-16.** They are now **`R403` in `mcu`** and **`R1101`-`R1108` in
+**Rehomed 2026-09-16.** They are now **`R403` in `mcu`** and **`R1101`-`R1601` in
 `motor_encoder_switch`**; `instrument_port` holds none. The five that moved were
-`R1401`-`R1405` and they were renumbered, so **`R1104` is a reused designator** —
+`R1104`-`R1601` and they were renumbered, so **`R1104` is a reused designator** —
 it previously named the `REFR_DIR` pull-down described below, which no longer
 exists. The move was made because what those eight resistors actually do is keep
 the TMC5130A's own inputs defined while the bus switch is open; the instrument
@@ -262,7 +262,7 @@ What it contains, from its metadata and schematic:
 | Connector | Phoenix `1757242`, 2-pos 5.08 mm right-angle pluggable, `OW-CONN-1757242` |
 | Reverse polarity | `SBRT15U50SP5` super-barrier series diode, `D201`: `HV_RAW` anode → `HV_IN` cathode, orientation verified |
 | Switch and protection | `TPS1HTC100-Q1` smart high-side switch, `U201` |
-| Support, as built | `R206` (`ILIM`) **40 kΩ**, `R207` (`SNS`) **249 Ω**, `R205` (`~FAULT`) 10 kΩ to `+3.3V_MCU`, `R201` (`EN`) 1 kΩ with `R204` 10 kΩ pull-down, `R203` (`LATCH`) 1 kΩ to `+3.3V_MCU`, `R202` (`DIAG_EN`) 1 kΩ to `GP14`; 220 nF and 22 nF capacitors |
+| Support, as built | `R508` (`ILIM`) **40 kΩ**, `R509` (`SNS`) **249 Ω**, `R507` (`~FAULT`) 10 kΩ to `+3.3V_MCU`, `R501` (`EN`) 1 kΩ with `R506` 10 kΩ pull-down, `R503` (`LATCH`) 1 kΩ to `+3.3V_MCU`, `R502` (`DIAG_EN`) 1 kΩ to `GP14`; 220 nF and 22 nF capacitors |
 | Power flag | One `PWR_FLAG` (`#FLG027001`) |
 
 **Corrected 2026-08-17**; the support row previously read "10 k and 1 k
@@ -468,7 +468,7 @@ TMC5130A's `REFL` pin, so if the debouncer stayed powered while the driver did
 not it would back-power the driver through that pin — the exact failure the bus
 switch exists to prevent, arriving by a route the bus switch cannot cover. Since
 2026-08-16 there is no `GP18` copy to worry about; the only always-on thing on
-that net is the instrumentation buffer input, which is terminated by `R1405`
+that net is the instrumentation buffer input, which is terminated by `R1601`
 **10 kΩ** to GND in `instrument_port`. **Corrected 2026-08-17**; this said
 100 kΩ, and 100 kΩ is the wrong value here — see the termination table below.
 
@@ -493,12 +493,12 @@ end of this section:
 | `R1105` | 10 kΩ | `TMC_SPI_COPI` | GND | `motor_encoder_switch` | as above |
 | `R1106` | 10 kΩ | `TMC_SPI_CIPO` | GND | `motor_encoder_switch` | as above; also gives the instrument tap a clean idle-low |
 | `R1107` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `motor_encoder_switch` | CSN must idle **deasserted** — a pull-down would assert chip select |
-| `R1108` | 10 kΩ | `LIMIT_SW` | GND | `motor_encoder_switch` | define the debounced limit input |
+| `R1601` | 100 kΩ | `LIMIT_SW` | GND | limit-switch **block** | define the debounced limit input — inside the block, correctly: it is that block's own output |
 | `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_switch` | `DIAG` is open-drain at reset; the datasheet requires ≤47 kΩ |
 | `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_switch` | as above |
 | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_switch` | guarantees the power stage is **disabled** in hardware |
 
-**Designators and sheet updated 2026-09-16.** The first five were `R1401`-`R1405`
+**Designators and sheet updated 2026-09-16.** The first five were `R1104`-`R1601`
 in `instrument_port`; the sheet name for the other three was written as
 `motor_encoder_limit`, which has never been the file name. Nine more are owed by
 the v1.0 I2C and torque buses — see
@@ -522,7 +522,7 @@ then lose them. The board's nine 10 kΩ terminations stay nine.
 
 **When the `DIG9`/`DIG10`/`DIG6` instrument taps go in, add nothing.** Those taps
 sit on the same switched-side nets and need defined levels for the reason
-`R1401`-`R1404` exist on the TMC taps, but these three resistors already supply
+`R1104`-`R1107` exist on the TMC taps, but these three resistors already supply
 them. A board-level second set in parallel would halve them.
 
 **The block's `+3.3V` port must bind to `+3.3V_SW`, not `+3.3V_MCU`.** On the
@@ -558,7 +558,7 @@ protection diodes, defeating the `HV_EN` power-cycle and corrupting
 `SW_RAIL_SENSE`. **`+3.3V_SW` is held at 0 V when off by `R401`/`R402`** (2 kΩ to
 GND, the `SW_RAIL_SENSE` divider) — that is what makes a pull-up to that rail a
 valid LOW in the off state. **If that divider is ever removed,
-`R1404`/`R1101`/`R1102`/`R1103` stop defining their nets.**
+`R1107`/`R1101`/`R1102`/`R1103` stop defining their nets.**
 
 Resulting levels, verified against both datasheets (TMC5130A `V_INLO` ≤ 0.99 V,
 `V_INHI` ≥ 2.31 V; `SN74LVC125A` `VIL` = 0.8 V, `VIH` = 2.0 V):

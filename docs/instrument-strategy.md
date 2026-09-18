@@ -20,7 +20,8 @@ not `J4`. There are **three** `SN74LVC125A` packages on the board, not five:
 `TMC_SPI_COPI`, `TMC_SPI_CIPO`, `~TMC_CS`) and `U1801` (`LIMIT_SW`, `FW_TRIG0`,
 `FW_TRIG1`, and one spare). `U_C` and `U_D` were never drawn and `U_E` does not
 exist as a designator. All three run from `+3.3V_MCU`, all three take `~OE` from
-`~{INSTR_BUF_OE}` with their own 10 kΩ pull-up (`R1601`/`R1701`/`R1801`), and every
+`~{INSTR_BUF_OE}` with their own 10 kΩ pull-up (`R1601`/`R1701`/`R1801` **as those
+designators stood in that retired design — all three now name unrelated parts**), and every
 output carries a 33 Ω series resistor. **The grouping mixes domains**, so the rev-2
 swap of `DIG0`/`DIG1`/`DIG11` touches two packages rather than one — the
 "deferred group in a whole package" property described further down was not
@@ -358,7 +359,7 @@ every tapped TMC signal goes to 0 V with the switched domain, not to whatever th
 MCU is driving.
 
 Five inputs need defined levels rather than ties, and **as built they are 10 kΩ,
-not 100 kΩ** (`R1401`-`R1405`, in the board-authored `instrument_port` sheet so a
+not 100 kΩ** (`R1104`-`R1601`, in the board-authored `instrument_port` sheet so a
 design-block re-place cannot lose them):
 
 - `TMC_SPI_SCK`, `TMC_SPI_COPI`, `TMC_SPI_CIPO` — 10 kΩ to GND. `TMC_SPI_CIPO`

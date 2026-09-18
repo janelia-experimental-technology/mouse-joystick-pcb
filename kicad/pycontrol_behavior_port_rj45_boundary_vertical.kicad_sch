@@ -3510,13 +3510,14 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 83.82 43.18 0)
+			(at 86.36 46.9899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""

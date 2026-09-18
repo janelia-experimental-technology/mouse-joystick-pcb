@@ -10699,13 +10699,14 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 198.12 22.86 0)
+			(at 200.66 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -11713,13 +11714,14 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 180.34 22.86 0)
+			(at 182.88 26.6699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""

@@ -80,12 +80,12 @@ The block has never been placed. **Corrected 2026-08-17: the block is placed** a
 follows each one. Every item is a resistor value or a single wire; see the audit in
 `docs/power.md`.
 
-- `R27001` — as built **`R201`** — changed from 10 k to **1 kΩ**, so `EN` sees
-  3.0 V rather than 1.65 V against a 1.5 V `VIH`. Done, with `R204` 10 kΩ pulling
+- `R27001` — as built **`R501`** — changed from 10 k to **1 kΩ**, so `EN` sees
+  3.0 V rather than 1.65 V against a 1.5 V `VIH`. Done, with `R506` 10 kΩ pulling
   `EN` down.
 - `DIAG_EN` tied to `+3.3V`. **Without this the `SNS` output is dead** and
   `HV_SNS` reads nothing. **Reversed 2026-08-17: `DIAG_EN` is driven from `GP14`
-  (`HV_DIAG_EN`) through `R202` 1 kΩ, not tied high.** Tying it high keeps the
+  (`HV_DIAG_EN`) through `R502` **10 kΩ**, not tied high.** Tying it high keeps the
   TPS1HTC100's OFF-state open-load detection permanently enabled, which puts an
   internal 150 kΩ pull-up from `VS` to `VOUT` across the switch and creeps
   `+36V_SW` upward while the rail is supposed to be off — see the Gate B check
@@ -95,16 +95,18 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   mean nothing until firmware raises `GP14`.** Per the datasheet's Table 7-1,
   current limit and thermal shutdown are unaffected by `DIAG_EN` — only reporting
   is gated.
-- `~FAULT` routed to `GP29` with a pull-up to `+3.3V_MCU`.
-- `LATCH` tied to `+3.3V_MCU` through a 1 kΩ `RPROT` (`R203`) for **latch-off**. Left floating
+- `~FAULT` routed to **`GP23`** with a pull-up to `+3.3V_MCU`. **Moved off `GP29`
+  on 2026-09-18** so that ADC3 is free for `ANGLE_OUT_MON`; see
+  `docs/interface-map.md` footnote 11.
+- `LATCH` tied to `+3.3V_MCU` through a 1 kΩ `RPROT` (`R503`) for **latch-off**. Left floating
   the device auto-retries every 2 ms, which cycles the motor rail at ~500 Hz into a
   persistent fault. Clearing is by toggling `EN`, which firmware owns on `GP19`.
-- `R27003` (`ILIM`) — as built **`R206`** — changed from 10 kΩ to **40 kΩ** (`OW-PASS-SCR0603F40K`,
+- `R27003` (`ILIM`) — as built **`R508`** — changed from 10 kΩ to **40 kΩ** (`OW-PASS-SCR0603F40K`,
   stocked), so the limit is ~1.2 A rather than the present **5.3 A typ (4-6.3 A)**.
   Confirmed against the identified motor, and able to pass the `+36V` inrush. Must
   never float — floating is a fault state. If more headroom is needed, 2 × 49.9 kΩ
   in parallel gives the tabulated 25 kΩ / 1.96 A row.
-- `R27004` (`R_SNS`) — as built **`R207`** — changed from 1 kΩ to **249 Ω**
+- `R27004` (`R_SNS`) — as built **`R509`** — changed from 1 kΩ to **249 Ω**
   (`OW-PASS-CRCW0402249RFKED`, stocked), so the fault indication lands at
   1.29-1.59 V instead of 3.3-4.4 V, well under the RP2040 ADC's `VDD + 0.3 V`
   limit. No divider required. Confirmed 2026-08-17 against the datasheet:
@@ -113,8 +115,8 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   distinct from the ≤0.37 V maximum normal-current reading. The safe upper bound is
   about 594 Ω; ~470 Ω would use more ADC range if resolution ever matters.
 - `DIAG_EN` and `LATCH` each driven through a 1 kΩ `RPROT` series resistor
-  (`R202`, `R203`), per the datasheet's Table 4-2.
-- **`R27005` — as built `R205` — pulls `~FAULT` UP to `+3.3V_MCU`, not down to `GND`.** As originally
+  (`R502`, `R503`), per the datasheet's Table 4-2.
+- **`R27005` — as built `R507` — pulls `~FAULT` UP to `+3.3V_MCU`, not down to `GND`.** As originally
   wired it was a pulldown on an open-drain output, which idles low and reads as a
   permanent fault.
 - **`HV_IN` and `SNS` are hierarchical labels**, not local ones. Without `HV_IN`
@@ -169,7 +171,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   inside the `mcu` sheet; the sheet pin named `SW_RAIL_SENSE` carries the **raw**
   `+3.3V_SW` rail in, and the divided node on `GP26` is **`SW_RAIL_SENSE_DIV_2`**.
   That same 2 kΩ to GND is what holds `+3.3V_SW` at 0 V when the domain is off, so
-  it is load-bearing twice over: **if the divider is ever removed, `R1404`,
+  it is load-bearing twice over: **if the divider is ever removed, `R1107`,
   `R1101`, `R1102` and `R1103` stop defining their nets.**
 - Series resistors are present on every 3.3 V line driving a 5 V-domain input,
   as a hardware backstop independent of firmware.
@@ -201,7 +203,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   and the A-side pins are open, so the rev-1 DAC channels are *not* pre-wired.
 - **`+3.3V_MCU` is never switched.** The MCU runs on it and drives `ENABLE`;
   switching it off cannot be undone by firmware.
-- `R4002` — as built **`R1202`** — in the `tmc5130` block, between `VCC` and
+- `R1202` — as built **`R1202`** — in the `tmc5130` block, between `VCC` and
   `5VOUT`, is 10 Ω where the datasheet recommends 2.2 or 3.3 Ω. Confirm or change.
   **Signed off 2026-08-17 as benign:** as built the 10 Ω sits between `+5V_SW` and
   `5VOUT`, and because `VCC` is supplied externally the internal regulator idles, so
@@ -226,7 +228,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - Debug console is USB CDC. `UART0` is committed to pyControl.
 - The allocation in `docs/interface-map.md` matches the final schematic.
   **Corrected 2026-08-17:** `GP14` is no longer spare — it drives `HV_DIAG_EN`
-  through `R202`. The remaining spares are **`GP15`, `GP16`, `GP18`, `GP27`** —
+  through `R502`. The remaining spares are **`GP15`, `GP16`, `GP18`, `GP27`** —
   four, not five. `GP9` is `~{BUS_SW_EN}` with `R601` 7.87 kΩ pulling it up to
   `+3.3V_MCU`, so the bus switch is isolated at reset.
 - **`RUN` and `SWCLK`/`SWDIO` are unconnected and NC-flagged, by decision.** There
@@ -268,7 +270,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - **The TMC's `DIAG0`/`DIAG1` pull-ups are `R1101`/`R1102`, 10 kΩ to `+3.3V_SW`.**
   Both pins are open-drain at reset and the datasheet requires ≤47 kΩ.
 - **The TMC SPI and `LIMIT_SW` taps into the instrumentation buffers are terminated
-  at 10 kΩ, not 100 kΩ** (`R1401`-`R1405`). 100 kΩ against the TMC's `(tpu)` inputs
+  at 10 kΩ, not 100 kΩ** (`R1104`-`R1601`). 100 kΩ against the TMC's `(tpu)` inputs
   — `RPU` = 132/166/200 kΩ on `CSN`/`SCK`/`SDI`/`SDO` — parks the node at ~1.9 V,
   straddling the `SN74LVC125A`'s 2.0 V `VIH`. Do not "improve" these to 100 kΩ.
 
@@ -313,7 +315,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   no-connect today, so adopting an index channel is a schematic change.
 - The limit switch is identified and the debounce path is reviewed. As built the
   path is `J1301` → `U1301` MAX6816 → `LIMIT_SW` → TMC `REFL` (pin 8), with
-  `R1405` 10 kΩ to GND defining the `U1801` buffer input.
+  `R1601` 10 kΩ to GND defining the `U1801` buffer input.
 - ~~A test point exists on the `REFL` net, and `GP9` drives it through a series
   resistor weak enough that the real switch always wins.~~ **Struck 2026-08-17** —
   `GP9` is `~{BUS_SW_EN}`, the stimulus net was deleted on 2026-08-13, and the board
@@ -393,7 +395,8 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   The profile requires this of every board that uses it, and it is an open
   decision in the profile itself.
 - The **eleven live** `DIG*`/`TRIG*` signals are buffered; `~OE` defaults to high-Z
-  in hardware — `R1601`/`R1701`/`R1801`, 10 kΩ each to `+3.3V_MCU` — and firmware
+  in hardware — `R1601`/`R1701`/`R1801`, 10 kΩ each to `+3.3V_MCU` (**retired design;
+  those designators now name unrelated parts**) — and firmware
   enables it at startup. The remaining seven Strands are no-connect at `J1501` and
   have no buffer channel behind them.
 - **The pyControl serial Strands are tapped at the board-side nets `PYC_UART_RX` /
@@ -402,9 +405,9 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   cable. The block is unmodified at five boundary pins.
 - **No `SN74LVC125A` input floats.** **Corrected 2026-08-17: there are three
   packages, `U1601`/`U1701`/`U1801`, and no `U_C`/`U_D`/`U_E`.** The termination as
-  built is: `R1401`/`R1402`/`R1403` 10 kΩ to GND on `TMC_SPI_SCK`/`COPI`/`CIPO`;
-  `R1404` 10 kΩ to **`+3.3V_SW`** on `~{TMC_CS}`, because a pull-down there would
-  assert chip select; `R1405` 10 kΩ to GND on `LIMIT_SW`; `R805`/`R806` 100 kΩ to
+  built is: `R1104`/`R1105`/`R1106` 10 kΩ to GND on `TMC_SPI_SCK`/`COPI`/`CIPO`;
+  `R1107` 10 kΩ to **`+3.3V_SW`** on `~{TMC_CS}`, because a pull-down there would
+  assert chip select; `R1601` **100 kΩ** to GND on `LIMIT_SW`, inside the limit-switch block; `R805`/`R806` 100 kΩ to
   GND inside the encoder block on `ENC_A`/`ENC_B`; and `U1801`'s fourth, spare
   channel with its input tied straight to GND. Note that `~OE` does **not** gate the
   input stage — `ΔICC` is 500 µA typ / 5000 µA max per partially biased input
@@ -504,7 +507,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 - **`~{TMC_CS}` idles high and the other three SPI taps idle low.** With the
   switched domain on and the bus isolated: `~{TMC_CS}` ≈ **3.4 V** (deasserted), and
   `TMC_SPI_SCK`, `TMC_SPI_COPI`, `TMC_SPI_CIPO` ≈ **0.28 V**. With the domain off,
-  **all five nets at 0 V**. This confirms `R1401`-`R1405`. A reading near 1.9 V on
+  **all five nets at 0 V**. This confirms `R1104`-`R1601`. A reading near 1.9 V on
   the SCK/COPI/CIPO group means 100 kΩ was fitted instead of 10 kΩ and the taps
   straddle the `SN74LVC125A`'s 2.0 V `VIH`.
 - **Back-power check.** With 36 V applied and **both USB and pyControl unplugged**,
@@ -525,7 +528,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   unmeasured today.
 - With the switched domain down, confirm no current flows into `+5V_SW` or
   `+3.3V_SW` through any device's input clamps, and that `SW_RAIL_SENSE` reads
-  zero. Note that the pulls to `+3.3V_SW` (`R1101`, `R1102`, `R1103`, `R1404`) are
+  zero. Note that the pulls to `+3.3V_SW` (`R1101`, `R1102`, `R1103`, `R1107`) are
   deliberately on the switched rail so they collapse with it; a pull to `+3.3V_MCU`
   in any of those positions would back-power `+3.3V_SW` to roughly 1.3 V through the
   TMC's protection diodes, defeat the `HV_EN` power-cycle and corrupt
@@ -568,7 +571,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   the ADC pin when a fault is provoked. **Raise `GP14` (`HV_DIAG_EN`) first** —
   `HV_SNS` and `~{HV_FAULT}` report nothing until `DIAG_EN` is high, so a "dead
   sense" reading with `GP14` low is the expected behavior, not a defect. Expect
-  1.3-1.6 V at `GP28` on a fault (`ISNSFLT` 5.2-6.4 mA into `R207` 249 Ω) against
+  1.3-1.6 V at `GP28` on a fault (`ISNSFLT` 5.2-6.4 mA into `R509` 249 Ω) against
   ≤0.37 V for the maximum normal-current reading.
 - `~{HV_FAULT}` asserts on a deliberate overload and the board reports
   `SUPPLY_OUT_OF_RANGE`.

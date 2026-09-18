@@ -23,8 +23,8 @@ document changed:
   one, and the reason is a leakage path this document's own analysis missed. See
   [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up).
 - **Reference designators were renumbered on placement.** `U27001`→`U201`,
-  `J27001`→`J201`, `D27001`→`D201`, `R27001`–`R27007`→`R201`–`R207`,
-  `U4001`→`U1201`, `R4002`→`R1202`, `D11001`→`D301`, `D29001`→`D1901`,
+  `J27001`→`J201`, `D27001`→`D201`, `R27001`–`R27007`→`R501`–`R509`,
+  `U4001`→`U1201`, `R1202`→`R1202`, `D11001`→`D301`, `D29001`→`D1901`,
   `R29001`/`R29002`→`R1901`/`R1902`, `R29003`→`R1903`. The two ORing diodes this
   document calls `D1` and `D2` are `D301` (USB) and `D1901` (pyControl).
 - **The rails are spelled `+3.3V_MCU` and `+3.3V_SW`**, not `+3V3_*`, and `VAA`
@@ -52,19 +52,19 @@ enables the bus. See `docs/interface-map.md`.
 Reviewed against the block's netlist and `tps1htc100-q1.pdf` on 2026-08-12, after
 the first round of edits. Reference designators were renumbered during those
 edits, and renumbered again when the block was placed on this board; the list
-below uses the **board's** designators — `U201`, `J201`, `D201`, `R201`–`R207`.
+below uses the **board's** designators — `U201`, `J201`, `D201`, `R501`–`R509`.
 Re-verified against the flattened as-built netlist on 2026-08-17.
 
 **Done and verified correct:**
 
 | Element | Value / connection | Check |
 | --- | --- | --- |
-| `R201` + `R204` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH`. **Done, verified 2026-08-17** |
-| `R202` | 1 kΩ, **`GP14`** (`HV_DIAG_EN`) → `DIAG_EN` | `RPROT` per Table 4-2, but the far end is a GPIO, not the rail. **Reversed 2026-08-17** — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
-| `R203` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry. Verified 2026-08-17 — and **shown to be the wrong choice on the bench 2026-09-02.** It prevents the switch from ever charging this board's 208 µF. See [`LATCH` — Tie It High For Latch-Off](#latch--tie-it-high-for-latch-off) |
-| `R205` | 10 kΩ, `+3.3V_MCU` → `~FAULT` | Open-drain pull-up at the MCU supply level. **Done, verified 2026-08-17** |
-| `R206` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label. **Done, verified 2026-08-17** |
-| `R207` | 249 Ω on `SNS` | Fault level 1.3-1.6 V, well under the RP2040's `VPIN` absolute maximum. **Done, verified 2026-08-17**; arithmetic in [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one) |
+| `R501` + `R506` | 1 kΩ series + 10 kΩ pulldown on `EN` | `EN` = 3.0 V from 3.3 V logic, well over the 1.5 V `VIH`. **Done, verified 2026-08-17** |
+| `R502` | **10 kΩ**, **`GP14`** (`HV_DIAG_EN`) → `DIAG_EN` | `RPROT` per Table 4-2, but the far end is a GPIO, not the rail. **Reversed 2026-08-17** — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
+| `R503` | 1 kΩ, `+3.3V_MCU` → `LATCH` | Latch-off rather than 2 ms auto-retry. Verified 2026-08-17 — and **shown to be the wrong choice on the bench 2026-09-02.** It prevents the switch from ever charging this board's 208 µF. See [`LATCH` — Tie It High For Latch-Off](#latch--tie-it-high-for-latch-off) |
+| `R507` | 10 kΩ, `+3.3V_MCU` → `~FAULT` | Open-drain pull-up at the MCU supply level. **Done, verified 2026-08-17** |
+| `R508` | 40 kΩ on `ILIM` | `I_CL` ≈ 1.2 A; correctly left as a local label. **Done, verified 2026-08-17** |
+| `R509` | 249 Ω on `SNS` | Fault level 1.3-1.6 V, well under the RP2040's `VPIN` absolute maximum. **Done, verified 2026-08-17**; arithmetic in [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one) |
 | `C201` | 220 nF **100 V** on `HV_IN` | `VS` bypass, correctly placed and correctly derated |
 | `C202` | 22 nF on `+36V` | `VOUT` bypass, correctly placed — but see the rating issue below |
 | `D201` | Anode to `HV_RAW`, cathode to `HV_IN` | Correct series blocking direction. Re-verified 2026-08-17 |
@@ -78,7 +78,7 @@ block; the board's copy has been checked against them on 2026-08-17:
 
 | # | Defect | Fix |
 | --- | --- | --- |
-| 1 | **`R205` pulled `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idled low, so it read as a permanent fault and never presented a valid high. | Move `R205`'s ground end to **`+3.3V_MCU`**, matching `R202`/`R203`. 10 kΩ is the right value. **Done, verified 2026-08-17:** `R205` = 10 kΩ to `+3.3V_MCU`. |
+| 1 | **`R507` pulled `~FAULT` to `GND`.** `~FAULT` is open-drain; the datasheet requires a pull-**up** "to match the microcontroller supply level". As wired the net idled low, so it read as a permanent fault and never presented a valid high. | Move `R507`'s ground end to **`+3.3V_MCU`**, matching `R502`/`R503`. 10 kΩ is the right value. **Done, verified 2026-08-17:** `R507` = 10 kΩ to `+3.3V_MCU`. |
 | 2 | **`HV_IN` is a plain local label**, so the board cannot reach it. This board needs it to place the TVS at the entry point. (It no longer needs a second tap there: `+3.3V_MCU` comes from USB/pyControl, not from `HV_IN`.) | Promote `HV_IN` to a **hierarchical label**. Schematic-only — the net name does not change, so there is no PCB impact. **Still open, but no longer urgent:** no TVS is populated as built, so nothing on the board needs to reach `HV_IN` yet. The `PWR_HV_ENTRY` netclass reaches it by pattern (`*/HV_RAW`, `*/HV_IN`) either way. |
 | 3 | **`SNS` is a plain local label**, so the board cannot read the current sense at all. | Promote `SNS` to a **hierarchical label**. Leave `ILIM` local — that one is correct. Schematic-only, no PCB impact. **Done, verified 2026-08-17:** `U201` `SNS` reaches `GP28` as `HV_SNS`. |
 
@@ -162,7 +162,7 @@ at every severity (2026-08-17).**
   hand.
 - `C201` sits right at the `VS` pins 12/13/14; `C202` right at `VOUT`
   8/9/10.
-- `R206` (`ILIM`) and `R207` (`SNS`) are small-signal. Keep them off the
+- `R508` (`ILIM`) and `R509` (`SNS`) are small-signal. Keep them off the
   power path and reference them to quiet ground — `SNS` feeds an ADC.
 - **Silkscreen the terminal block polarity: `J201` pin 1 = `GND`, pin 2 =
   positive input.** This is the one that bites people.
@@ -739,6 +739,17 @@ diode.** It confines a fault on this board to this board. **The position is
 `R303` and it is fitted with a jumper — no PPTC is populated**, so this
 requirement is stated but not yet met.
 
+**Decided for v1.0, 2026-09-18: ship the jumper. The PPTC is deferred to a later
+revision.** This is a deliberate, recorded choice rather than an oversight, taken
+with the schematic otherwise complete and going to layout. What it means in
+practice: **the pyControl pin 6 branch has no overcurrent protection on v1.0** —
+`R303` is a 0.36 Ω resistor, so a fault on this board is a fault on the pyControl
+module's 1.0 A supply, which also powers that controller's own logic regulator.
+Nothing about layout changes, because `1206L035/16YR` drops into the same 1206
+land; fitting it later is a parts swap, not a respin. The two test points this
+section asks for further down are worth adding **now** for exactly that reason —
+without them a fitted-versus-jumpered PPTC is undiagnosable.
+
 **Part selected 2026-09-16: Littelfuse `1206L035/16YR`, LCSC `C126817`.** 0.35 A
 hold, 0.75 A trip at 20 °C, 16 Vdc, 100 A I_max, R_min 0.300 Ω / R_1max 1.20 Ω,
 0.10 s maximum time to trip at 8 A. Hold derates to 0.30 A at 40 °C and 0.24 A
@@ -960,14 +971,14 @@ Three supporting measures, and use all of them:
    wrong, or where the bus switch itself fails. They cost nothing; fit them.
 
    **How this is actually satisfied, verified 2026-08-17.** Only two cross-domain
-   nets carry a literal series resistor — `HV_EN` through `R201` 1 kΩ (with
-   `R204` 10 kΩ to ground at `U201`), and `SW_RAIL_SENSE` through the
+   nets carry a literal series resistor — `HV_EN` through `R501` 1 kΩ (with
+   `R506` 10 kΩ to ground at `U201`), and `SW_RAIL_SENSE` through the
    `R401`/`R402` 1 kΩ/1 kΩ divider. Every *other* cross-domain net is terminated
    instead, by one of nine board-level pull resistors added on 2026-08-17. They
    live in the board-authored `mcu` and `motor_encoder_switch` sheets, **not**
    inside a design block, so re-placing a block cannot lose them. **Rehomed and
-   renumbered 2026-09-16** — the five that were `R1401`-`R1405` in
-   `instrument_port` are now `R1104`-`R1108`, and nine more are owed by the v1.0
+   renumbered 2026-09-16** — the five that were `R1104`-`R1601` in
+   `instrument_port` are now `R1104`-`R1601`, and nine more are owed by the v1.0
    I2C and torque buses (see `docs/interface-map.md`):
 
    | Ref | Value | Net | To | Sheet | Why |
@@ -977,7 +988,7 @@ Three supporting measures, and use all of them:
    | `R1105` | 10 kΩ | `TMC_SPI_COPI` | GND | `motor_encoder_switch` | as above |
    | `R1106` | 10 kΩ | `TMC_SPI_CIPO` | GND | `motor_encoder_switch` | as above; also gives the instrument tap a clean idle-low |
    | `R1107` | 10 kΩ | `~{TMC_CS}` | `+3.3V_SW` | `motor_encoder_switch` | CSN must idle **deasserted** — a pull-down would assert chip select |
-   | `R1108` | 10 kΩ | `LIMIT_SW` | GND | `motor_encoder_switch` | define the debounced limit input |
+   | `R1601` | 100 kΩ | `LIMIT_SW` | GND | limit-switch **block** | define the debounced limit input |
    | `R1101` | 10 kΩ | `TMC_DIAG0` | `+3.3V_SW` | `motor_encoder_limit` | DIAG is open-drain at reset; the datasheet requires ≤47 kΩ |
    | `R1102` | 10 kΩ | `TMC_DIAG1` | `+3.3V_SW` | `motor_encoder_limit` | as above |
    | `R1103` | 10 kΩ | `~{TMC_DRV_EN}` | `+3.3V_SW` | `motor_encoder_limit` | guarantees the power stage is **disabled** in hardware |
@@ -993,7 +1004,7 @@ Three supporting measures, and use all of them:
    Note the dependency this creates: **`+3.3V_SW` is held at 0 V when off by
    `R401`/`R402`, 2 kΩ to ground** — the rail-sense divider of measure 3. That is
    what makes a pull-up to `+3.3V_SW` a valid LOW in the off state. Remove the
-   divider and `R1404`/`R1101`/`R1102`/`R1103` stop defining their nets.
+   divider and `R1107`/`R1101`/`R1102`/`R1103` stop defining their nets.
 3. **A `+3.3V_SW` presence sense on `GP26` (`ADC0`)** through a ÷2 divider, so
    firmware can confirm the switched domain is actually up before enabling the
    bus, refuse `ARM` with a meaningful reason when it is not, and report it.
@@ -1156,7 +1167,7 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+3.3V_SW` | **`U801` SN74LVC2G17 encoder Schmitt** | µA static; charge transfer when switching |
 | switched | `+3.3V_SW` | **`X1201` 16 MHz oscillator, ECS-2520S33** | **~7 mA** |
 | switched | `+3.3V_SW` | **`SW_RAIL_SENSE` divider `R401`/`R402`, 2 kΩ to GND** | **1.65 mA continuous whenever the rail is up** |
-| switched | `+3.3V_SW` | **`R1404`/`R1101`/`R1102`/`R1103` pull-ups, 4 × 10 kΩ** | **~0.33 mA typical** — a 10 kΩ pull-up only conducts while its net is held low, and normally at most one is |
+| switched | `+3.3V_SW` | **`R1107`/`R1101`/`R1102`/`R1103` pull-ups, 4 × 10 kΩ** | **~0.33 mA typical** — a 10 kΩ pull-up only conducts while its net is held low, and normally at most one is |
 | switched | `+3.3V_SW` | Differential encoder receiver, if fitted | ~10 mA |
 | always-on | `+3.3V_MCU` | RP2040 | ~50 mA |
 | always-on | `+3.3V_MCU` | 4× `SN74CB3Q3245` | **~4 mA typ, 8 mA max, continuous** — corrected 2026-09-16 |
@@ -1165,7 +1176,7 @@ Fill in measured values at Gate B. Estimates for sizing only.
 | switched | `+12V` | **Torque block, v1.0** | INA821 and its front end, few mA |
 | switched | `+12V` | **Brake block gate drive, v1.0** | few mA |
 | switched | `+3.3V_SW` | **Two I2C pull-up pairs, 4 × 4.7 kΩ, v1.0** | ~0.7 mA per line held low |
-| always-on | `+3.3V_MCU` | **`R403` 10 kΩ, `R601` 7.87 kΩ, `R1601`/`R1701`/`R1801` 10 kΩ pull-ups** | same ~0.33 mA-per-conducting-resistor arithmetic; sub-mA in every normal state |
+| always-on | `+3.3V_MCU` | **`R401` 10 kΩ and `R606` 7.87 kΩ** (the `R1601`/`R1701`/`R1801` trio belonged to the retired `~{INSTR_BUF_OE}`; those designators now name unrelated parts) | same ~0.33 mA-per-conducting-resistor arithmetic; sub-mA in every normal state |
 
 **v1.0 adds a rail this document does not otherwise describe: `+12V`, switched.**
 Both `brake_current_sink_0_49ma_dac80501` and `torque_bridge_0_3v3_ina821` take
@@ -1220,7 +1231,7 @@ otherwise.** Everything from here to
 describes the block *as the library shipped it*, which is what makes the
 arithmetic worth keeping. **The board's placed copy no longer looks like this** —
 it has all of the fixes, and its designators are `U201`, `J201`, `D201`,
-`R201`–`R207`. The as-built topology is immediately below; the pre-fix audit
+`R501`–`R509`. The as-built topology is immediately below; the pre-fix audit
 follows it; and the `DIAG_EN` and `SNS` subsections carry the 2026-08-17
 decisions.
 
@@ -1239,7 +1250,7 @@ U201 VOUT (8,9,10) ── +36V_SW ──┬── 22nF VOUT bypass ── GND
                                 └── TMC5130A VS, TPSM365R6 VIN, C1213/C1214 100uF
 
 HV_EN ─────R201  1k──┬── U201 EN (2)         DIAG_EN (3) ──R202 1k── HV_DIAG_EN (GP14)
-                     └──R204 10k── GND       ~FAULT  (4) ──R205 10k── +3.3V_MCU, and GP29
+                     └──R204 10k── GND       ~FAULT  (4) ──R205 10k── +3.3V_MCU, and GP23
                                              LATCH   (5) ──R203 1k── +3.3V_MCU
 U201 ILIM (7) ──R206 40k── GND               NC     (11)  no-connect
 U201 SNS  (6) ──R207 249R── GND, and GP28
@@ -1303,9 +1314,9 @@ start.
 | # | Issue | Fix |
 | --- | --- | --- |
 | 1 | **`R27001`/`R27002` form a ÷2 divider on `EN`.** Both are 10 k, so a 3.3 V GPIO presents **1.65 V** at `EN` against a `VIH` of **1.5 V max** — 150 mV of margin, less at low `VDD` and with resistor tolerance. | Change `R27001` to **1 kΩ**, keeping `R27002` at 10 k. `EN` becomes 3.0 V. Keeps the external pulldown, which is genuinely wanted because RP2040 GPIOs are inputs with pulls disabled at reset. **Done 2026-08-12.** |
-| 2 | **`DIAG_EN` is left no-connect with a 200-500 kΩ internal pulldown, so diagnostics are off.** Table 4-2: "With DIAG_EN unused, the analog sense, open-load, and short-to-battery diagnostics are not available." Every `ISNS` specification is conditioned on `VEN = VDIAG_EN = 5V`. **With the block as-is, the `SNS` output does nothing and `HV_SNS` on `GP28` reads zero.** | ~~Tie `DIAG_EN` to `+3.3V_MCU` through a 1 kΩ `RPROT`. Needs no GPIO.~~ **Reversed 2026-08-17.** `R202` 1 kΩ now goes to **`GP14`** (`HV_DIAG_EN`). Tying it high is wrong for a reason this table missed — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up). **Done, verified 2026-08-17.** Still safe with `VS` absent — see below. |
-| 3 | **`~FAULT` is left no-connect.** It is the open-drain global fault output for overload, short-circuit, and thermal shutdown — thrown away on a board that has spare pins. | Route to **`GP29`** with a pull-up to `+3.3V_MCU`. The datasheet notes an external pull-up is required to match the MCU supply. **Done, verified 2026-08-17:** `R205` = 10 kΩ to `+3.3V_MCU`, net `~{HV_FAULT}` on `GP29`. |
-| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V_MCU` through a 1 kΩ `RPROT` for latch-off. **Done, verified 2026-08-17:** `R203` = 1 kΩ to `+3.3V_MCU`. **Reversed on the bench 2026-09-02** — the block as originally placed was right and this "fix" broke power-up. `LATCH` belongs on a GPIO. See below. |
+| 2 | **`DIAG_EN` is left no-connect with a 200-500 kΩ internal pulldown, so diagnostics are off.** Table 4-2: "With DIAG_EN unused, the analog sense, open-load, and short-to-battery diagnostics are not available." Every `ISNS` specification is conditioned on `VEN = VDIAG_EN = 5V`. **With the block as-is, the `SNS` output does nothing and `HV_SNS` on `GP28` reads zero.** | ~~Tie `DIAG_EN` to `+3.3V_MCU` through a 1 kΩ `RPROT`. Needs no GPIO.~~ **Reversed 2026-08-17.** `R502` 1 kΩ now goes to **`GP14`** (`HV_DIAG_EN`). Tying it high is wrong for a reason this table missed — see [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up). **Done, verified 2026-08-17.** Still safe with `VS` absent — see below. |
+| 3 | **`~FAULT` is left no-connect.** It is the open-drain global fault output for overload, short-circuit, and thermal shutdown — thrown away on a board that has spare pins. | Route to **`GP23`** with a pull-up to `+3.3V_MCU` — **`GP29` until 2026-09-18**, when it moved to free ADC3. The datasheet notes an external pull-up is required to match the MCU supply. **Done, verified 2026-08-17:** `R507` = 10 kΩ to `+3.3V_MCU`, net `~{HV_FAULT}` on `GP29`. |
+| 4 | **`LATCH` is left no-connect**, so the device **auto-retries every 2 ms** after a fault. | Tie to `+3.3V_MCU` through a 1 kΩ `RPROT` for latch-off. **Done, verified 2026-08-17:** `R503` = 1 kΩ to `+3.3V_MCU`. **Reversed on the bench 2026-09-02** — the block as originally placed was right and this "fix" broke power-up. `LATCH` belongs on a GPIO. See below. |
 
 Items 2 and 3 were the ones that mattered most: as the block shipped, it gave no
 load current reading and no fault signal, which is most of what the smart switch
@@ -1316,7 +1327,7 @@ a GPIO rather than on the rail.
 
 **Reversed 2026-08-17**; earlier guidance in this document said to tie `DIAG_EN`
 to `+3.3V_MCU` through a 1 kΩ `RPROT` and that it "needs no GPIO". As built,
-`R202` 1 kΩ runs from `DIAG_EN` to **`GP14`**, net `HV_DIAG_EN`. `GP14` was a
+`R502` **10 kΩ** runs from `DIAG_EN` to **`GP14`**, net `HV_DIAG_EN`. `GP14` was a
 spare; it is not any more, and the spares are now `GP15`, `GP16`, `GP18`, `GP27`
 — four, not five.
 
@@ -1410,7 +1421,7 @@ different job. The datasheet is explicit that "ILIM pin must be connected with
 device GND", and Table 4-2 warns that **leaving it floating selects the internal
 default and "is considered a fault state for the device."**
 
-The block shipped with 10 kΩ here. **On this board it is `R206` = 40 kΩ, done and
+The block shipped with 10 kΩ here. **On this board it is `R508` = 40 kΩ, done and
 verified 2026-08-17.** The datasheet tabulates the resulting limit directly:
 
 | `R_ILIM` | `I_CL` min | typ | max |
@@ -1457,7 +1468,7 @@ Finalise the value once the motor is identified.
 ### `SNS` — Also One Resistor, And A Different One
 
 `SNS` also takes a single resistor to ground. The block shipped with 1 kΩ; **on
-this board it is `R207` = 249 Ω, done and verified 2026-08-17** —
+this board it is `R509` = 249 Ω, done and verified 2026-08-17** —
 `OW-PASS-CRCW0402249RFKED`, 0402, 1%, stocked. This supersedes both the 2:1
 divider suggested earlier and the "change `R27004` from 1 kΩ to 249 Ω" framing
 that appeared elsewhere in this document: there is nothing left to change.
@@ -1470,7 +1481,7 @@ writing the arithmetic down, so here it is:
 | Quantity | Value | Where it comes from |
 | --- | --- | --- |
 | `ISNSFLT` | **5.2-6.4 mA**, a *current source* | `tps1htc100-q1.pdf` |
-| Fault reading across `R207` | 5.2-6.4 mA × 249 Ω = **1.3-1.6 V** | arithmetic |
+| Fault reading across `R509` | 5.2-6.4 mA × 249 Ω = **1.3-1.6 V** | arithmetic |
 | RP2040 `VPIN` absolute maximum | `IOVDD` + 0.5 = **3.8 V** | RP2040 datasheet |
 | Maximum normal-current reading, `KSNS` = 800 A/A, `I_CL` ≈ 1.2 A | **≤0.37 V** | arithmetic |
 | `VSNSFH` at `VDIAG_EN` = 3.3 V | **3.3 / 3.95 / 4.4 V** min/typ/max | `tps1htc100-q1.pdf` |
@@ -1490,7 +1501,7 @@ trades that for margin, which is the right trade for a coarse supply monitor.
 
 **No series resistor is needed between `SNS` and `GP28`.** `SNS` is a current
 source, not a voltage driver — it cannot force a node harder than
-`ISNSFLT × R207` once `R207` sets the impedance to ground, so there is nothing
+`ISNSFLT × R207` once `R509` sets the impedance to ground, so there is nothing
 for a series resistor to limit. Adding one would only add ADC source impedance.
 
 The problem being solved: the `SNS` pin reports faults by driving to a defined
@@ -1502,14 +1513,14 @@ node settles at whichever is lower, `I_SNSFLT × R_SNS` or the clamp `V_SNSFH`:
 | --- | --- | --- | --- |
 | 1 kΩ (as the block shipped) | 1.25 V/A, full scale at 2.6 A | 5.2-6.4 V, clamped to `V_SNSFH` = 3.3 / 3.95 / 4.4 V | **No** — typical and maximum both exceed 3.8 V |
 | 604 Ω (stocked) | 0.76 V/A | 3.14-3.87 V | **Marginal** — top of range just exceeds 3.8 V |
-| **249 Ω (fitted as `R207`)** | **0.311 V/A**, full scale at 10.6 A | **1.3-1.6 V** | **Yes, with wide margin** |
+| **249 Ω (fitted as `R509`)** | **0.311 V/A**, full scale at 10.6 A | **1.3-1.6 V** | **Yes, with wide margin** |
 
 At 249 Ω the pin never reaches its clamp, so the fault level is set by
 `I_SNSFLT × R_SNS` and is bounded by design rather than by tolerance.
 
 Ambiguity is not a concern: with `I_CL` at about 1.2 A the largest legitimate
 reading is around 0.37 V, against a fault level of at least 1.29 V — a 3.5×
-separation. `~{HV_FAULT}` on `GP29` reports the same condition independently
+separation. `~{HV_FAULT}` on `GP23` reports the same condition independently
 anyway.
 
 Cost of the change: about a quarter of the signal, using ~11% of the ADC range in
@@ -1561,10 +1572,10 @@ block itself once this board proves it.
 > latch-off and **power-up** are in direct conflict on this board: the switch
 > trips its relative thermal shutdown 1-2 ms into charging `+36V_SW`'s 208 µF,
 > at only ~10-12 V, so **auto-retry is the only mechanism that can bring the
-> rail up at all**. With `R203` fitted the rail comes up on stored charge and
+> rail up at all**. With `R503` fitted the rail comes up on stored charge and
 > collapses 17-68 ms later, every time, on both rig boards.
 >
-> Depopulating `R203` on board `E4654C159F2C2534` fixed it outright: a plain
+> Depopulating `R503` on board `E4654C159F2C2534` fixed it outright: a plain
 > `HV_EN` assertion then works, with a 10-12 ms retry window. Full evidence in
 > `docs/bringup-log.md` →
 > [The Rail Comes Up And Then Collapses — RESOLVED](bringup-log.md#the-rail-comes-up-and-then-collapses--resolved-2026-09-02).
@@ -1600,7 +1611,7 @@ browns out and recovers, and a joystick held by an animal twitches while it does
 Nothing upstream stops it. (It is the *right* behaviour during power-up, which is
 the conflict this section originally missed.)
 
-**Tie `LATCH` to `+3.3V_MCU` through a 1 kΩ `RPROT`.** Done as `R203`, verified
+**Tie `LATCH` to `+3.3V_MCU` through a 1 kΩ `RPROT`.** Done as `R503`, verified
 2026-08-17, **and superseded 2026-09-02 — see the box above.** That selects
 latch-off, and the
 clearing mechanism fits the board's existing design: "the device does not enable
@@ -1608,7 +1619,7 @@ the channel until either the LATCH pin OR the EN pin is toggled." Firmware alrea
 owns `EN` on `GP19`, so the sequence is:
 
 1. Fault occurs; the switch latches off and the motor rail drops.
-2. `~{HV_FAULT}` asserts on `GP29`; firmware latches `SUPPLY_OUT_OF_RANGE`, stops
+2. `~{HV_FAULT}` asserts on `GP23`; firmware latches `SUPPLY_OUT_OF_RANGE`, stops
    motion, and reports it over UART.
 3. Recovery requires an explicit `CLRFAULT` followed by toggling `HV_EN`.
 
@@ -1643,7 +1654,7 @@ that much below the supply, which is irrelevant at 36 V.
 
 A useful side effect: because `VIL`/`VIH` on `EN` and `DIAG_EN` are specified "No
 GND Network", the logic thresholds above apply directly and 3.3 V drive is in
-spec once the `EN` divider is fixed — which it is, `R201` 1 kΩ with `R204` 10 kΩ
+spec once the `EN` divider is fixed — which it is, `R501` 1 kΩ with `R506` 10 kΩ
 to ground.
 
 ## Enable, Current Limit, And Sense
@@ -1654,10 +1665,10 @@ board-level signals — three plus `DIAG_EN`, which was added on 2026-08-17:
 
 | Block label | Board connection | Note |
 | --- | --- | --- |
-| `ENABLE` | `HV_EN`, RP2040 `GP19`, through `R201` 1 kΩ | Pulled low in the block by `R204` 10 kΩ — **the rail is off until firmware drives it** |
-| `DIAG_EN` | `HV_DIAG_EN`, RP2040 **`GP14`**, through `R202` 1 kΩ | **New 2026-08-17.** Internal pull-down, so diagnostics are off at reset and `+36V_SW` sits at true zero. Firmware raises it to read `HV_SNS` or `~{HV_FAULT}`. See [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
-| `ILIM` | `R206` 40 kΩ to ground, local to the block | Sets the adjustable current limit, `I_CL` ≈ 1.2 A. Finalise from the motor's stall and inrush behavior |
-| `SNS` | `HV_SNS`, RP2040 `GP28` (`ADC2`), `R207` 249 Ω to ground | Analog load-current sense, 0.311 V/A, fault at 1.3-1.6 V. The block **does** populate the sense resistor and the scaling is settled |
+| `ENABLE` | `HV_EN`, RP2040 `GP19`, through `R501` 1 kΩ | Pulled low in the block by `R506` 10 kΩ — **the rail is off until firmware drives it** |
+| `DIAG_EN` | `HV_DIAG_EN`, RP2040 **`GP14`**, through `R502` 10 kΩ | **New 2026-08-17.** Internal pull-down, so diagnostics are off at reset and `+36V_SW` sits at true zero. Firmware raises it to read `HV_SNS` or `~{HV_FAULT}`. See [`DIAG_EN` Must Be A GPIO](#diag_en-must-be-a-gpio-not-a-fixed-pull-up) |
+| `ILIM` | `R508` 40 kΩ to ground, local to the block | Sets the adjustable current limit, `I_CL` ≈ 1.2 A. Finalise from the motor's stall and inrush behavior |
+| `SNS` | `HV_SNS`, RP2040 `GP28` (`ADC2`), `R509` 249 Ω to ground | Analog load-current sense, 0.311 V/A, fault at 1.3-1.6 V. The block **does** populate the sense resistor and the scaling is settled |
 
 Consequences worth stating plainly:
 
@@ -1713,7 +1724,7 @@ Consequences worth stating plainly:
    ~250 mA rather than Rev 0's ~100 mA. **Note the position `R1903` is fitted with
    a jumper as built; no PPTC exists in the parts database yet.**
 4. ~~`SNS` scaling and whether the block already populates the sense resistor.~~
-   **Closed 2026-08-17.** It populates it: `R207` = 249 Ω, 0.311 V/A, fault at
+   **Closed 2026-08-17.** It populates it: `R509` = 249 Ω, 0.311 V/A, fault at
    1.3-1.6 V. Arithmetic in
    [`SNS` — Also One Resistor](#sns--also-one-resistor-and-a-different-one).
 5. ~~Whether the DAC gets a dual-supply level translator (rev 1).~~ **Closed

@@ -58,7 +58,7 @@ switch closed when the driver says it did. All three sit in the rev 2 package's
 slots, so they survive rev 1 and are evicted as late as possible. Full allocation and reasoning in `docs/interface-map.md`.
 
 **This costs schedule.** It adds a 40-pin FFC, **three** buffer packages, five
-board-level termination resistors (`R1401`-`R1405`), and eighteen more routed
+board-level termination resistors (`R1104`-`R1601`), and eighteen more routed
 nets to a board whose layout was already the long pole — see
 `.agents/handoff.local.md`. It is the researcher's call whether that is worth a
 slip; the design record's job is to say plainly that it is a slip.
@@ -390,7 +390,7 @@ independent of the encoder harness:
   test point exists anywhere on the board yet.
 - **No synthetic stimulus.** `TMC_REF_STIM` is gone. Bring `REFL` to a labelled
   test pad so a jumper can still force a closure during bring-up. Still owed.
-- The always-on instrumentation buffer input on this net is defined by `R1405`
+- The always-on instrumentation buffer input on this net is defined by `R1601`
   10 kΩ to GND in `instrument_port`, so it does not float when the switched
   domain is off.
 - Homing must be deterministic and bounded: travel limit and timeout, both
@@ -498,9 +498,9 @@ logic, and `DIAG_EN` left unconnected disables the `SNS` current sense entirely.
 Full audit in `docs/power.md`.
 
 **All six are made in the placed copy**, with two revisions to the audit itself.
-`ILIM` (`R206`) is 40 kΩ and `SNS` (`R207`) is **249 Ω**, not the 1 kΩ an earlier
+`ILIM` (`R508`) is 40 kΩ and `SNS` (`R509`) is **249 Ω**, not the 1 kΩ an earlier
 note suggested — 1 kΩ would have driven `GP28` past its absolute maximum on a
-fault. And `DIAG_EN` (`R202`) goes to **`GP14`**, not to a fixed pull-up:
+fault. And `DIAG_EN` (`R502`) goes to **`GP14`**, not to a fixed pull-up:
 **Reversed 2026-08-17**; earlier guidance said tie it high. Held high, the
 switch's OFF-state open-load detection keeps an internal 150 kΩ pull-up from `VS`
 to `VOUT` enabled, trickling ~240 µA into the ~208 µF of `+36V_SW` so the rail
@@ -658,7 +658,7 @@ Once the parts above are settled, in this order:
     largest single gap between the plan and the schematic, and it is a layout
     item rather than a schematic one only if the pads are added as footprints.
 11. Add the board-level terminations: `R403` on `PYC_UART_RX`, `R1101`-`R1103` in
-    `motor_encoder_limit`, `R1401`-`R1405` in `instrument_port`. **Not in the
+    `motor_encoder_limit`, `R1104`-`R1601` in `instrument_port`. **Not in the
     original plan**; added 2026-08-17 when it became clear that leaving the
     always-on buffer inputs and the switched-domain control lines undefined was
     not survivable. All nine sit in board-authored wrapper sheets so a block
@@ -679,7 +679,7 @@ already allocated and left unconnected:
 | Addition | Pins | Blocks | InstrumentPort Strands |
 | --- | --- | --- | --- |
 | DAC80501 analog angle output + BNC | `GP10`, `GP11`, `GP13` | `analog_output_0_3v3_dac80501`, **built 2026-08-26** | `DIG6`, `DIG9`, `DIG10`, `AIN0`; a **fourth** buffer package |
-| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, `GP23` | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; a **fifth** buffer package |
+| pyControl TTL event lines + two dual BNCs | `GP20`, `GP22`, ~~`GP23`~~ — **`GP23` was spent on `~{HV_FAULT}` 2026-09-18**, so this needs a third pin from elsewhere or drops to two lines | `pycontrol_event_bnc_group`, new | `DIG13`-`DIG15`; a **fifth** buffer package |
 | Brake driver + torque front end (rev 2) | ~4 more — **revised 2026-08-31**, was ~6 | `brake_current_sink_0_49ma_dac80501` (specified, not drawn), `torque_bridge_frontend`, both new | `DIG11` (`BRAKE_CS`, **not** `BRAKE_DIM`), `DIG12`, `AIN1` (`BRAKE_ISENSE`, resolved); **takes `DIG0`/`DIG1` back from the encoder**; re-inputs `U1601` and `U1801` |
 
 Nothing in that table requires moving a Rev 0 pin, changing a Rev 0 connector, or

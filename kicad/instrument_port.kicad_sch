@@ -33,7 +33,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 139.7) (xy 129.54 139.7)
+			(xy 101.6 139.7) (xy 99.06 139.7)
 		)
 		(stroke
 			(width 0)
@@ -133,7 +133,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 137.16) (xy 129.54 137.16)
+			(xy 99.06 137.16) (xy 101.6 137.16)
 		)
 		(stroke
 			(width 0)
@@ -382,16 +382,6 @@
 		(uuid "36462f6a-7a6b-4c3d-8e28-22972c703fee")
 	)
 	(label "GND"
-		(at 129.54 139.7 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5437d19c-477a-4268-b5f6-222d23cfb07c")
-	)
-	(label "GND"
 		(at 129.54 78.74 0)
 		(effects
 			(font
@@ -422,16 +412,6 @@
 		(uuid "a464e9d7-adf3-4abb-9fd5-d2a5e3ea9b4c")
 	)
 	(label "GND"
-		(at 129.54 137.16 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b4fb034b-b069-416e-9248-19db6cfbb6b4")
-	)
-	(label "GND"
 		(at 129.54 76.2 0)
 		(effects
 			(font
@@ -440,6 +420,17 @@
 			(justify left bottom)
 		)
 		(uuid "fde5f7d8-46f4-4d4c-a678-2017093f56e5")
+	)
+	(hierarchical_label "PG_12V"
+		(shape input)
+		(at 99.06 139.7 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "02696921-719b-4430-a31e-4e4265492f9a")
 	)
 	(hierarchical_label "TMC_SPI_SCK"
 		(shape input)
@@ -496,7 +487,7 @@
 		)
 		(uuid "2983fd41-54ce-48d7-be73-db0efe793b49")
 	)
-	(hierarchical_label "DAQ_SDA"
+	(hierarchical_label "~{BRAKE_FAULT}"
 		(shape input)
 		(at 99.06 114.3 180)
 		(effects
@@ -518,7 +509,7 @@
 		)
 		(uuid "34c4a0b7-09d2-42bf-8097-6b668c0d3f8e")
 	)
-	(hierarchical_label "TQ_SPI_COPI"
+	(hierarchical_label "TQ_CONVST_CS"
 		(shape input)
 		(at 99.06 104.14 180)
 		(effects
@@ -529,7 +520,7 @@
 		)
 		(uuid "488edde0-964e-4402-8b7e-62335a7c4b93")
 	)
-	(hierarchical_label "+3.3V_MCU"
+	(hierarchical_label "+3.3V"
 		(shape passive)
 		(at 99.06 53.34 180)
 		(effects
@@ -584,7 +575,7 @@
 		)
 		(uuid "6b4b6c91-50c7-4cc8-9680-98e809f5cd82")
 	)
-	(hierarchical_label "~{TMC_CS}"
+	(hierarchical_label "TMC_SPI_CIPO"
 		(shape input)
 		(at 99.06 88.9 180)
 		(effects
@@ -617,7 +608,7 @@
 		)
 		(uuid "76a26b32-47ee-4bb0-83c2-70ae521e5a29")
 	)
-	(hierarchical_label "TMC_SPI_COPI"
+	(hierarchical_label "~{TMC_CS}"
 		(shape input)
 		(at 99.06 83.82 180)
 		(effects
@@ -628,7 +619,7 @@
 		)
 		(uuid "7f4cff78-eb8f-4bef-b93b-5f2f99381b00")
 	)
-	(hierarchical_label "TMC_SPI_CIPO"
+	(hierarchical_label "TMC_SPI_COPI"
 		(shape input)
 		(at 99.06 86.36 180)
 		(effects
@@ -661,7 +652,7 @@
 		)
 		(uuid "9c5b989e-04f9-4114-838d-49d3c514e9db")
 	)
-	(hierarchical_label "TQ_CONVST_CS"
+	(hierarchical_label "TQ_SPI_CIPO"
 		(shape input)
 		(at 99.06 109.22 180)
 		(effects
@@ -683,7 +674,18 @@
 		)
 		(uuid "afddaa27-8b06-42a7-bb71-d504d65660ff")
 	)
-	(hierarchical_label "~{BRAKE_FAULT}"
+	(hierarchical_label "PG_5V"
+		(shape input)
+		(at 99.06 137.16 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b7e9d793-8b29-496a-8c6f-3d2cdd79cc93")
+	)
+	(hierarchical_label "DAQ_SCL"
 		(shape input)
 		(at 99.06 119.38 180)
 		(effects
@@ -716,7 +718,7 @@
 		)
 		(uuid "eaa46109-f6de-498a-9ce5-a1733748359b")
 	)
-	(hierarchical_label "DAQ_SCL"
+	(hierarchical_label "DAQ_SDA"
 		(shape input)
 		(at 99.06 116.84 180)
 		(effects
@@ -738,7 +740,7 @@
 		)
 		(uuid "f22a67fb-6a72-4703-b125-8f344053ce11")
 	)
-	(hierarchical_label "TQ_SPI_CIPO"
+	(hierarchical_label "TQ_SPI_COPI"
 		(shape input)
 		(at 99.06 106.68 180)
 		(effects
@@ -1103,23 +1105,23 @@
 			)
 		)
 		(pin "DIG30" input
-			(at 127 137.16 0)
+			(at 101.6 137.16 180)
 			(uuid "9fd4fcdb-f306-46c2-8bd9-8dc1d1ad1bfd")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(pin "DIG31" input
-			(at 127 139.7 0)
+			(at 101.6 139.7 180)
 			(uuid "16aac478-6fc4-407d-96ab-39fd39f25f49")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(pin "GND" passive
