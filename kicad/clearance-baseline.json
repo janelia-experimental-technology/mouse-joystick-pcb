@@ -24,42 +24,6 @@
       "min_actual": 0.353,
       "required": 0.4,
       "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad20)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad22)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad41)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U501-NC-Pad11)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "GND <-> HV_IN": {
-      "count": 1,
-      "min_actual": 0.2331,
-      "required": 0.5,
-      "voltage_bearing": true
-    },
-    "HV_IN <-> unconnected-(U501-NC-Pad11)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.5,
-      "voltage_bearing": true
     }
   },
   "ignored_checks": [
@@ -70,9 +34,8 @@
     "tuning_profile_track_geometries"
   ],
   "other_violations": {
-    "warning holes_co_located": 1,
     "warning lib_footprint_issues": 199,
-    "warning via_dangling": 42
+    "warning via_dangling": 41
   },
   "pairs": {
     "+1.1V <-> D-": {
@@ -111,12 +74,6 @@
       "required": 0.2,
       "voltage_bearing": false
     },
-    "+3.3V_MCU <-> GND": {
-      "count": 3,
-      "min_actual": 0.1,
-      "required": 0.2,
-      "voltage_bearing": false
-    },
     "+3.3V_MCU <-> GPIO11": {
       "count": 1,
       "min_actual": 0.1,
@@ -124,7 +81,7 @@
       "voltage_bearing": false
     },
     "+3.3V_MCU <-> GPIO18": {
-      "count": 1,
+      "count": 2,
       "min_actual": 0.1,
       "required": 0.2,
       "voltage_bearing": false
@@ -168,30 +125,6 @@
     "+36V_SW <-> VCP": {
       "count": 2,
       "min_actual": 0.353,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad20)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad22)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U1201-DNC-Pad41)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.4,
-      "voltage_bearing": true
-    },
-    "+36V_SW <-> unconnected-(U501-NC-Pad11)": {
-      "count": 1,
-      "min_actual": 0.25,
       "required": 0.4,
       "voltage_bearing": true
     },
@@ -250,7 +183,7 @@
       "voltage_bearing": false
     },
     "DAC_SCL_BYP <-> DAC_SDA_BYP": {
-      "count": 2,
+      "count": 6,
       "min_actual": 0.1,
       "required": 0.2,
       "voltage_bearing": false
@@ -699,11 +632,11 @@
       "required": 0.2,
       "voltage_bearing": false
     },
-    "GND <-> HV_IN": {
+    "GND <-> GPIO18": {
       "count": 1,
-      "min_actual": 0.2331,
-      "required": 0.5,
-      "voltage_bearing": true
+      "min_actual": 0.1,
+      "required": 0.2,
+      "voltage_bearing": false
     },
     "GND <-> ISENSE_DIV": {
       "count": 1,
@@ -732,12 +665,6 @@
     "GND <-> QSPI_SS": {
       "count": 1,
       "min_actual": 0.19,
-      "required": 0.2,
-      "voltage_bearing": false
-    },
-    "GND <-> RUN": {
-      "count": 1,
-      "min_actual": 0.159,
       "required": 0.2,
       "voltage_bearing": false
     },
@@ -790,7 +717,7 @@
       "voltage_bearing": false
     },
     "GPIO10 <-> ~{BUS_SW_EN}": {
-      "count": 14,
+      "count": 16,
       "min_actual": 0.1,
       "required": 0.2,
       "voltage_bearing": false
@@ -856,16 +783,10 @@
       "voltage_bearing": false
     },
     "GPIO8 <-> ~{BUS_SW_EN}": {
-      "count": 12,
+      "count": 14,
       "min_actual": 0.1,
       "required": 0.2,
       "voltage_bearing": false
-    },
-    "HV_IN <-> unconnected-(U501-NC-Pad11)": {
-      "count": 1,
-      "min_actual": 0.25,
-      "required": 0.5,
-      "voltage_bearing": true
     },
     "INA_OUT <-> VEXC": {
       "count": 2,
@@ -976,5 +897,5 @@
       "voltage_bearing": false
     }
   },
-  "unconnected": 156
+  "unconnected": 149
 }

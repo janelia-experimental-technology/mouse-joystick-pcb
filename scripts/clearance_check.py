@@ -34,7 +34,14 @@ What is stable, verified over three runs:
 * the **voltage-bearing** subset -- every pair, count and tightest gap identical,
 * the unconnected count and the non-clearance violation tallies.
 
-So those are what gate the check. The full per-pair breakdown is printed for
+So those are what gate the check. **Caveat on the total, measured 2026-09-18:**
+it is reproducible run-to-run but it is a coarse signal. Adding a DRU rule that
+demonstrably suppressed five findings left the total at 499, because jitter
+surfaced five elsewhere in the same run. Treat a rise as real; do not read a
+flat total as proof that nothing moved. The voltage-bearing subset is the gate
+that actually responded correctly to that change (12 findings -> 6). There is no
+violation cap -- suppressing all clearance rules yields 0, so the engine is
+reporting everything it finds. The full per-pair breakdown is printed for
 orientation but never fails the build, because its jitter is an artefact of the
 tool rather than a change in the board.
 """

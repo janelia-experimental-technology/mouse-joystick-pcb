@@ -49,6 +49,35 @@
 	(constraint clearance)
 	(severity ignore))
 
+# Creepage pads on the two high-voltage parts are deliberately floating copper,
+# and clearance to them is not a voltage-stress question. Without these rules
+# they produce five findings against `+36V_SW` and `HV_IN` at 0.25 mm, which is
+# backwards: the pads exist precisely to create spacing.
+#
+# TMC5130A datasheet rev 1.21, pin list: "DNC. Do not connect these pins.
+# Provided to increase creeping [distance]." Nine such pads on the TQFP-48.
+# TPS1HTC100-Q1 datasheet, pin 11: "No internal connection."
+#
+# Scoped by footprint rather than reference so the exemption survives
+# re-annotation, and by pad number so only the designated pins are covered --
+# every other pad on both parts is still checked normally. Both footprints are
+# unique to these two parts on this board; if either package is ever reused for
+# a different part, tighten the scope. Verified 2026-09-18: these remove exactly
+# the five NC/DNC findings and nothing else.
+#
+# Must stay after the netclass rules and the SMD pad-to-pad rule: later matching
+# rules win.
+
+(rule "TPS1HTC100-Q1 no-connect pad is not a clearance target"
+	(condition "A.memberOfFootprint('orb_weaver_smd:Texas_HTSSOP-14-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask3.155x3.255mm_ThermalVias_JLCPCB') && A.Pad_Number == '11'")
+	(constraint clearance)
+	(severity ignore))
+
+(rule "TMC5130A DNC creepage pads are not a clearance target"
+	(condition "A.memberOfFootprint('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB') && (A.Pad_Number == '14' || A.Pad_Number == '16' || A.Pad_Number == '18' || A.Pad_Number == '20' || A.Pad_Number == '22' || A.Pad_Number == '41' || A.Pad_Number == '43' || A.Pad_Number == '45' || A.Pad_Number == '47')")
+	(constraint clearance)
+	(severity ignore))
+
 (rule "JLCPCB rigid FR4 routine via diameter"
 	(condition "A.Type == 'Via'")
 	(constraint via_diameter (min 0.45mm)))

@@ -3,6 +3,48 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Active Task — v1.0 Layout And Routing (opened 2026-09-18)
+
+**The schematic is done and ERC-clean; the board is placed with 2200 tracks in
+and 149 connections left.** State, numbers and reasoning are in
+`.agents/handoff.local.md`. This is the checklist.
+
+Blocking, in order:
+
+- [ ] **Pour GND.** There are no copper zones at all. 40 of the 149 unrouted
+      connections are `GND`; 71 of 149 are power/ground distribution. Decide at
+      the same time whether an inner layer becomes a power plane.
+- [ ] **Re-run `make clearance-baseline` after pouring.** The current baseline
+      was taken with zero zones, so a post-route diff against it would be
+      meaningless.
+- [ ] **Fix four voltage-bearing clearances** — `+36V_SW`↔`+5V_SW` 0.25 mm,
+      `+36V_SW`↔`PG_5V` 0.2919 mm ×2, `+36V_SW`↔`PG_12V` 0.35 mm, and
+      `+36V_SW`↔`VCP` 0.353 mm ×2 (that last is ~10 V real differential, low
+      priority). All routed copper, all movable.
+- [ ] **Delete the duplicate via** — `holes_co_located`, two `+36V_SW` vias at
+      the same point.
+- [ ] **Hand-route HV entry, motor phases, bootstrap/`VCP`, USB** before the
+      autorouter. Freerouting sees netclasses but none of the `.kicad_dru`
+      rules.
+- [ ] **Autoroute the rest** with `make freeroute`, threads at 1, then
+      `make clearance-check` and read the diff.
+
+Not blocking, but cheapest now:
+
+- [ ] Add the two PPTC test points at `R303` — a fitted-versus-jumpered polyfuse
+      is otherwise undiagnosable, and pads are free before routing.
+- [ ] Decide `J1103` pin 2 / encoder index: `ENCN` stays inside the `tmc5130`
+      block and that pin is unconnected.
+- [ ] Regenerate `docs/interface-map.md` → `#### mcu Sheet Pins` from the
+      schematic instead of maintaining it by hand.
+
+Upstream dependency, unchanged: the `DIG0`/`DIG1` marker pair is still not
+frozen in `../board-interfaces`, so hold `FW_TRIG0`/`FW_TRIG1`.
+
+Library dependency: **`../kicad-libs`'s `tmc5130` still ships 0.12 Ω shunts**
+against this board's 0.15 Ω. Do not re-place that block until it is fixed
+upstream.
+
 ## Completed Task — Digital InstrumentPort documentation (2026-09-12)
 
 **Session continuation, 2026-09-13:** Start from the
