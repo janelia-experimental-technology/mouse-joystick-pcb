@@ -505,6 +505,13 @@ the switched-side I2C pull-ups must reference `+3.3V_SW`; and `LIMIT_SW`,
 
 ### Board-Level Input Biases
 
+> **Read with [`docs/instrument-port-tap-resistors.md`](instrument-port-tap-resistors.md)
+> from 2026-09-19.** Every bias below stays exactly where it is, on the
+> **functional** side of the new tap resistors. Each tap then inherits its
+> functional net's defined level through the resistor, so no `_INST` net needs a
+> pull of its own — but the "every net reaching an `SN74LV541A` input has a
+> DC-defining resistor" sweep has to be re-run across the split nets.
+
 **Renumbered and rehomed 2026-09-16.** All eight TMC input biases now live in
 `motor_encoder_switch`, next to each other, because what they actually do is
 keep the TMC5130A's inputs defined while the bus switch is open — the instrument
@@ -1751,6 +1758,12 @@ that used to threaten them is gone — but none of them reaches the MCU, so a pa
 is the only access that does not depend on the port being cabled.
 
 ### Where Each Signal Is Tapped
+
+> **Superseded in part, 2026-09-19.** Every tap listed here is being split off
+> its functional net by a series resistor. *Which node* is tapped does not
+> change — the reasoning below still governs that — but the branch becomes its
+> own net. Values, owning blocks and naming are in
+> [`docs/instrument-port-tap-resistors.md`](instrument-port-tap-resistors.md).
 
 Two tap points are decisions, not details, and getting either wrong makes the
 capture answer a different question than the one being asked.

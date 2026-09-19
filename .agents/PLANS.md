@@ -3,7 +3,53 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Active Task — InstrumentPort Tap Resistors (opened 2026-09-19)
+
+**Blocks the routing task below.** Split every InstrumentPort observation branch
+off its functional net with a series resistor, so the long runs to `J1501`
+become separate, deprioritisable, separately-classed nets. Twenty-four taps
+across seven design blocks and the `/mcu/` sheet.
+
+**The full specification — values, nets, owning blocks, as-built source pin
+names, part numbers, naming rules and traps — is
+[`docs/instrument-port-tap-resistors.md`](../docs/instrument-port-tap-resistors.md).**
+That document is written to be executed from a fresh session; this is the
+checklist.
+
+Headline decisions, so they are not re-litigated:
+
+- **100 Ω (`OW-PASS-0402WGF1000TCE`) on the fourteen clocked taps, 1 kΩ
+  (`OW-PASS-RC0402FR-071KL`) on the ten slow control and status taps.** Never mix
+  values inside one bus — a chip select takes its clock's value.
+- **The resistors go inside the owning design block**, not on a wrapper sheet.
+  The pull-resistor doubling rule does not apply to series elements. The one
+  exception is `DAC_SDA`/`DAC_SCL`, shared by two DAC blocks, which go on
+  `/mcu/`.
+- **Board nets take `_INST`; block pins take `_TAP`.** Active-low names close the
+  overbar first — `~{TMC_CS}_INST`, never `~{TMC_CS_INST}`, or the netclass
+  pattern misses five nets. `_MON` and `_ISO` are both already taken.
+- **Four nets get nothing** — `FW_TRIG0`, `FW_TRIG1`, `PG_5V`, `PG_12V` have the
+  port as their only consumer.
+
+- [ ] Fix `../kicad-libs`'s `tmc5130` shunts to **0.15 Ω** first. The re-place
+      this task requires will otherwise revert `R1203`/`R1204` to 0.12 Ω and run
+      the motor ~25% over rating, silently.
+- [ ] Add the tap resistors and `_TAP` pins to the seven blocks in
+      `../kicad-libs`; add the two I2C taps on `/mcu/`.
+- [ ] Re-place the seven blocks here by hand; re-check `R1203`/`R1204`.
+- [ ] Wire the 24 `_INST` nets to the port block's `DIGn` pins.
+- [ ] Add the `INSTRUMENT` netclass on `/*_INST` — 0.15 mm track and clearance,
+      **`Default`'s via geometry unchanged** (see the `import_ses.py` drill
+      defect).
+- [ ] Verify by netlist export, not ERC; re-run the `SN74LV541A`
+      DC-defining-resistor sweep; re-check designator citations across the docs.
+
 ## Active Task — v1.0 Layout And Routing (opened 2026-09-18)
+
+**Gated on the tap-resistor task above as of 2026-09-19.** Splitting 24 nets
+changes the ratsnest and orphans copper already routed to the port, so finishing
+the route first would be work done twice. Pouring GND and fixing the four
+voltage-bearing clearances are independent and can proceed either way.
 
 **The schematic is done and ERC-clean; the board is placed with 2200 tracks in
 and 149 connections left.** State, numbers and reasoning are in

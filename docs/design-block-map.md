@@ -70,6 +70,11 @@ placement by hand, or the layout silently loses it.
 
 ## Blocks For v1.0
 
+> **Seven of these blocks gain InstrumentPort tap resistors and `_TAP` pins,
+> specified 2026-09-19.** The build order, including which block owns which tap
+> and why the pull-resistor doubling rule does not forbid putting them inside,
+> is [`docs/instrument-port-tap-resistors.md`](instrument-port-tap-resistors.md).
+
 Fourteen instances across fourteen distinct blocks. **Eight are to place or
 re-place; six stay as they are.** The Rev 0 table further down is retained as
 history — its instance counts and statuses are not current.

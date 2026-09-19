@@ -365,6 +365,7 @@ overlay: `make kicad-edits-local`, `kicad-shell-local`, `kicad-version-local`,
 
 - [Rev 0 Plan](docs/rev0-plan.md)
 - [Interface Map](docs/interface-map.md) — RP2040 and InstrumentPort-40 pinouts
+- [InstrumentPort Tap Resistors](docs/instrument-port-tap-resistors.md) — the 24 series taps
 - [Power](docs/power.md) — the 36 V chain
 - [Relationship To The Twin-Axis Board](docs/relationship-to-twin-axis-board.md)
 - [Design Block Map](docs/design-block-map.md)
