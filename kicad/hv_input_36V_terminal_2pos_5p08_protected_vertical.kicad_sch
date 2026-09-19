@@ -99,6 +99,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C115056"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C115056"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "4000"
 				(at 0 0 0)
 				(show_name yes)
@@ -442,6 +464,28 @@
 				)
 			)
 			(property "PartID" "mpn_cc0805kkx7r0bb224_0805"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C513710"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C513710"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -798,6 +842,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_misc_d_50v_15a"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C211388"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C211388"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1174,6 +1240,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C482112"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C482112"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "350"
 				(at 0 0 0)
 				(show_name yes)
@@ -1506,6 +1594,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_passives_c_22nf_100v_0603"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C161234"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C161234"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -1870,6 +1980,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C106235"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C106235"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "10129"
 				(at 0 0 0)
 				(show_name yes)
@@ -2212,6 +2344,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C3016445"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C3016445"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "4860"
 				(at 0 0 0)
 				(show_name yes)
@@ -2541,6 +2695,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_power_tps1htc100qpwprq1"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C41558366"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C41558366"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -3128,6 +3304,28 @@
 					)
 				)
 			)
+			(property "LCSC" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C278577"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
 			(property "JLC Qty" "9560"
 				(at 0 0 0)
 				(show_name yes)
@@ -3458,6 +3656,28 @@
 				)
 			)
 			(property "PartID" "sym_orb_weaver_connectors_terminalblock_phoenix_1755736_1x02_p5_08mm_vertical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C480503"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C480503"
 				(at 0 0 0)
 				(show_name yes)
 				(do_not_autoplace no)
@@ -5258,6 +5478,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C278577"
+			(at 77.47 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 77.47 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "23aee167-a298-4d94-9126-fed50887f970")
 		)
@@ -5537,6 +5779,28 @@
 			(at 66.04 179.07 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C115056"
+			(at 66.04 179.07 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C115056"
+			(at 66.04 179.07 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5830,6 +6094,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C278577"
+			(at 109.22 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 109.22 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "0b6baba6-925a-4b3b-b75c-d1b72adcdaf8")
 		)
@@ -6116,6 +6402,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C278577"
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 109.22 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "cdee13c5-ffe2-4a91-a170-c908affd234b")
 		)
@@ -6393,6 +6701,28 @@
 			(at 77.47 157.48 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 77.47 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 77.47 157.48 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6688,6 +7018,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C161234"
+			(at 203.2 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C161234"
+			(at 203.2 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "91c61003-55a3-4818-a270-402eb017554e")
 		)
@@ -6974,6 +7326,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C211388"
+			(at 140.97 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C211388"
+			(at 140.97 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "60774f7c-457a-4e6f-abba-2d13a49029fd")
 		)
@@ -7251,6 +7625,28 @@
 			(at 77.47 132.08 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C278577"
+			(at 77.47 132.08 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C278577"
+			(at 77.47 132.08 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7544,6 +7940,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C513710"
+			(at 121.92 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C513710"
+			(at 121.92 46.99 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "ce52de72-2842-49d4-a0fe-200fac205d8b")
 		)
@@ -7829,6 +8247,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C106235"
+			(at 242.57 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 242.57 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "12a6d9b9-ed85-486c-8bd1-83b47b36d539")
 		)
@@ -8107,6 +8547,28 @@
 			(at 242.57 101.6 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C106235"
+			(at 242.57 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 242.57 101.6 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -8487,6 +8949,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C3016445"
+			(at 172.72 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C3016445"
+			(at 172.72 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "681dc72d-c02d-451d-9338-96b411385bd3")
 		)
@@ -8765,6 +9249,28 @@
 			(at 242.57 111.76 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C106235"
+			(at 242.57 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 242.57 111.76 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -9057,6 +9563,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C106235"
+			(at 77.47 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 77.47 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "9c393cff-64e8-44c8-aa7d-8a35c7eb5025")
 		)
@@ -9325,6 +9853,28 @@
 			(at 101.6 80.01 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C480503"
+			(at 101.6 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C480503"
+			(at 101.6 80.01 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -9619,6 +10169,28 @@
 				)
 			)
 		)
+		(property "LCSC" "C482112"
+			(at 185.42 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C482112"
+			(at 185.42 123.19 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "f10f007b-5716-470e-bfc2-7faf7b2bf967")
 		)
@@ -9900,6 +10472,28 @@
 			(at 144.78 121.92 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C41558366"
+			(at 144.78 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C41558366"
+			(at 144.78 121.92 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -10224,6 +10818,28 @@
 			(at 77.47 170.18 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C106235"
+			(at 77.47 170.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 77.47 170.18 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font

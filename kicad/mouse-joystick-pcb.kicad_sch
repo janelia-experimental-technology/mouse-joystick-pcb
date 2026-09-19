@@ -257,6 +257,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 35.56) (xy 86.36 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ed179bf-16c4-4dae-9a2e-cb2d91582176")
+	)
+	(wire
+		(pts
 			(xy 127 129.54) (xy 124.46 129.54)
 		)
 		(stroke
@@ -564,6 +574,16 @@
 			(type default)
 		)
 		(uuid "4f1e6f0e-7f3c-430a-94bc-f2a95fcfc0d7")
+	)
+	(wire
+		(pts
+			(xy 83.82 38.1) (xy 86.36 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f28f881-aa58-4416-a4b8-51176da680be")
 	)
 	(wire
 		(pts
@@ -914,6 +934,16 @@
 			(type default)
 		)
 		(uuid "9cb3f684-6067-490f-b5f3-28322e380427")
+	)
+	(wire
+		(pts
+			(xy 83.82 40.64) (xy 86.36 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d1d8194-a400-409a-8871-d8f2f81e1e7f")
 	)
 	(wire
 		(pts
@@ -1765,7 +1795,7 @@
 		)
 		(uuid "48036117-9841-4bcd-8cfd-cb90971f4416")
 	)
-	(label "~{HV_FAULT}"
+	(label "~{HV_FAULT}_INST"
 		(at 251.46 129.54 180)
 		(effects
 			(font
@@ -1814,6 +1844,16 @@
 			(justify left bottom)
 		)
 		(uuid "54ec9536-0060-400f-b24c-a7064ffa0f98")
+	)
+	(label "~{HV_FAULT}_INST"
+		(at 86.36 40.64 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "56e7d7d8-3660-42d0-8c56-4ab00b030327")
 	)
 	(label "HV_DIAG_EN_INST"
 		(at 86.36 38.1 0)
