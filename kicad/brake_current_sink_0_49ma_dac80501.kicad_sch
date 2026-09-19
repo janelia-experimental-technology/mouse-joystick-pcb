@@ -5,8 +5,10 @@
 	(uuid "844baf87-f8c5-492e-88a2-0e7c61260784")
 	(paper "A4")
 	(title_block
-		(title "Orb Weaver Design Block Mining")
-		(date "2026-09-11")
+		(title "mouse-joystick-pcb")
+		(date "2026-09-19")
+		(rev "1.0")
+		(company "Janelia Research Campus")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
