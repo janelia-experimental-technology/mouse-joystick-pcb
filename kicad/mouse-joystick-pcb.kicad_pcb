@@ -8697,422 +8697,6 @@
 			)
 		)
 	)
-	(footprint "Capacitor_SMD:C_0402_1005Metric"
-		(layer "F.Cu")
-		(uuid "119491ba-b3c0-436d-a279-420ec428610b")
-		(at 106.925 87 180)
-		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
-		(tags "capacitor")
-		(property "Reference" "C301"
-			(at -2 0.25 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "a0e2cc95-7fed-45a2-a089-99ef4362f96f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100nF"
-			(at -8 0.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "b08f7520-3814-4ec7-b630-7cde325bde88")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e5773d3e-ac4c-4901-9944-dd25bb343c19")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fdb01dcc-08ad-4c3b-b242-15b21c70aac2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-CAP-100N-0402-X5R-16V"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3c8fa948-eb82-4640-bc1c-8f28fc53de1d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_c_0_1uf_100v_0402"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8c02ea1e-7cec-4ff3-bc20-6fdce276b59e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "9978"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e00a55e2-97ab-4eb1-b920-db7502b2dce7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "100nF 0402 decoupling capacitor"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ae1f8b0f-7b7d-47c8-b747-73a9368837c1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "02be7958-b137-4550-8065-5d901b9308f7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "capacitor"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "582797ba-f89b-4de6-b1d7-cc762880466a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "100nF"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "df8888b5-cf1e-4f18-b1b3-63b25e1fba83")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6c4c5679-6b8e-43f0-a4ff-49ff0abc025d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2d7f9344-53d1-4bff-b392-1d606f07e455")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" "16V"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "71b51997-76a8-416c-8fb4-1fc2061ff1ac")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a0f13ec9-4eba-4386-9ac5-979fa324a985")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0d424000-bdd2-4d7a-a367-afa9c728dc3e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" "<=20%"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fcc1e770-28df-474a-b040-c915a809bcdb")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" "X5R"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8118deba-1de2-48d8-8320-e1049bf97bf2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ed31230e-fe00-40d6-b36f-f10aef960a16")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" "mcu-decoupling"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b74e3e8d-ca72-4894-8650-01c73a7d1dab")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7144415d-772e-4528-828f-32fad1672187")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" "X7R or C0G is also acceptable when available"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cb3fc5d8-af46-4197-9d63-23aa6ad1c7d3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C162178"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4b8d6745-36e3-466f-bd2f-a449a5bdc87b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C162178"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a19df448-9482-4937-8d75-efb74eefac01")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/3a18ddf5-1a49-4a68-9246-f01a86a3a8ad")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -0.107836 0.36)
-			(end 0.107836 0.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "adf3d780-063e-4cbe-81e2-1f61f1b5264b")
-		)
-		(fp_line
-			(start -0.107836 -0.36)
-			(end 0.107836 -0.36)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "864e3056-1a6b-4856-b755-7b5f09f08615")
-		)
-		(fp_rect
-			(start -0.91 -0.46)
-			(end 0.91 0.46)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "769dd1f5-5e4c-429b-a0d0-94456b893406")
-		)
-		(fp_rect
-			(start -0.5 -0.25)
-			(end 0.5 0.25)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "c23a3be7-0098-444a-b5a9-3f3b296bad50")
-		)
-		(fp_text user "${REFERENCE}"
-			(at -2 0.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "50470cfb-ec2d-4f56-9181-5fb26dcb2171")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -0.48 0 180)
-			(size 0.56 0.62)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
-			(pintype "passive")
-			(uuid "9737fa44-aa5f-45a9-9241-39049ebae98c")
-		)
-		(pad "2" smd roundrect
-			(at 0.48 0 180)
-			(size 0.56 0.62)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/GND")
-			(pintype "passive")
-			(uuid "fbada585-11a2-4b93-805d-17e78b0417ff")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0402_1005Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(footprint "Capacitor_SMD:C_1206_3216Metric"
 		(layer "F.Cu")
 		(uuid "12bfb2a0-a999-4f86-8e87-1ca0c9874d43")
@@ -21508,6 +21092,175 @@
 	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
+		(uuid "23b763a3-bfb3-4920-8797-71af035bfd10")
+		(at 106.925 87 180)
+		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "capacitor")
+		(property "Reference" "C301"
+			(at -2 0.25 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "03f15d5b-585b-4750-813e-3fe5a149efa2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at -8 0.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "ee8ac30c-5248-47a7-9b09-01da8d070fd4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f788a14c-3782-4fee-b58e-1894a0611ce0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "050d1db0-4711-46b1-9817-dc06e04e4ee2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 180)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f2cc22a6-e55e-4d4c-a4f6-4a8a98ae791f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/3a18ddf5-1a49-4a68-9246-f01a86a3a8ad")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.107836 0.36)
+			(end 0.107836 0.36)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "814e612c-b34e-4d53-9308-ce3feb5813ea")
+		)
+		(fp_line
+			(start -0.107836 -0.36)
+			(end 0.107836 -0.36)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "e1927c25-45f7-4587-9c1a-458f3a67d498")
+		)
+		(fp_rect
+			(start -0.91 -0.46)
+			(end 0.91 0.46)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "41adf436-a51f-43ac-990c-d17792387c9e")
+		)
+		(fp_rect
+			(start -0.5 -0.25)
+			(end 0.5 0.25)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "106f4430-3073-49a3-8cc7-5f49ad3559a3")
+		)
+		(fp_text user "${REFERENCE}"
+			(at -2 0.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "d3514a58-f6e7-4d0c-a1e5-662e9a9794bc")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.48 0 180)
+			(size 0.56 0.62)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+			(pintype "passive")
+			(uuid "52039779-1225-44c3-9238-836b4c2622c1")
+		)
+		(pad "2" smd roundrect
+			(at 0.48 0 180)
+			(size 0.56 0.62)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/GND")
+			(pintype "passive")
+			(uuid "6fe649ab-03f4-43c1-b8f9-aed4464a216b")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Capacitor_SMD:C_0402_1005Metric"
+		(layer "F.Cu")
 		(uuid "248050ee-0870-483f-8076-2865dedd2e07")
 		(at 122.425 99.25)
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
@@ -26777,422 +26530,6 @@
 		)
 		(embedded_fonts no)
 		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0402_1005Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
-	(footprint "Resistor_SMD:R_1206_3216Metric"
-		(layer "F.Cu")
-		(uuid "2bdb8632-0bd9-4ca3-9d59-3adf4747f2ae")
-		(at 107.175 90.5 -90)
-		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
-		(tags "resistor")
-		(property "Reference" "R303"
-			(at 3.75 1.25 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "55b1e86e-0402-41d3-8afd-1ad650a78c75")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.36"
-			(at 3.75 -4.75 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "760784e0-1675-4b36-982d-cff0313617c1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d82e95db-dca6-4fb4-b3e0-94abeff1afc0")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "250mW 360mΩ Thick Film Resistor ±1% ±600ppm/℃ 1206 Chip Resistor - Surface Mount ROHS"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "edce3d03-db85-4db8-9614-3fd0614cd684")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-RL1206FR-070R36L"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d7aaaf7a-02a0-4556-858d-bd87a17d30cf")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_0_36_250mw_1206_cs"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "94302197-ac05-4fbb-8636-c0b004e2dfe8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "1950"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dac432ca-6823-4d68-8f62-aba2cfb26f1d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "0.36 250mW 1206 CS resistor"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6861afed-9b58-489d-85f0-451f1838ed8d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2e870e8b-9ff0-4125-83fb-cb035f877e59")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "df28dfc6-7ee7-4d28-8874-94d0c56df84f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "0.36"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d3f9ba75-ed87-4ee8-a058-244d39f5b55e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_1206_3216Metric"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1497a05b-85a8-4509-a114-5dfb43bae279")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "1206"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c8914a51-117f-46d0-9af3-6f6005f1dc1f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ec127ba3-2af0-4bb8-b956-63877214e7ff")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bf856900-7ea2-4eb1-a75b-17b8de059656")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "020e4dad-6a44-4302-b94a-40b826699ea5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "01d44b59-7f3c-4eb4-b73c-014adc076a07")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8f0e91da-c2fd-486c-bebc-1dd8bf4f7b83")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3dd98daa-53c5-49c3-b650-1722e5d09985")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3fb3227d-f6a6-40e1-a4ee-ed64d324f198")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8a5c05ab-96b4-4f62-be48-4016641df097")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dc85e1a0-e4a2-4bc2-a5db-483993729285")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C327079"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2e03fa2a-f8fd-4e88-aa6d-62edf121084c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C327079"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "125725f0-a4cf-48a2-b137-256ba839743d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/aaadbed3-b7b1-4b40-896d-f506d8dbaf59")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -0.727064 0.91)
-			(end 0.727064 0.91)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5f31ba69-b505-4d25-8571-34b58e567bfc")
-		)
-		(fp_line
-			(start -0.727064 -0.91)
-			(end 0.727064 -0.91)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "164ec3a3-2dbc-45e3-982f-a7c436dc53d5")
-		)
-		(fp_rect
-			(start -2.28 -1.13)
-			(end 2.28 1.13)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "4c83bc79-f00a-4166-80b3-8d57086f06f5")
-		)
-		(fp_rect
-			(start -1.6 -0.8)
-			(end 1.6 0.8)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "d59466dd-5bb5-46c7-9dad-e8b68bbda752")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 3.75 1.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "bfc98a41-b382-49b4-b52c-afce82a91f62")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -1.4625 0 270)
-			(size 1.125 1.75)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.222222)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
-			(pintype "passive")
-			(uuid "7a418d94-8d34-4f86-83da-5fe5f0380274")
-		)
-		(pad "2" smd roundrect
-			(at 1.4625 0 270)
-			(size 1.125 1.75)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.222222)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
-			(pintype "passive")
-			(uuid "207fc87c-be14-4e1f-afa3-c57886840859")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_1206_3216Metric.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -40639,422 +39976,6 @@
 			)
 		)
 	)
-	(footprint "Resistor_SMD:R_0402_1005Metric"
-		(layer "F.Cu")
-		(uuid "3d5867ed-0d30-41ea-b403-bfe89f0584ce")
-		(at 106.925 85.75)
-		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
-		(tags "resistor")
-		(property "Reference" "R302"
-			(at 2 -0.5 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "2dc49537-2cf1-4b20-9191-4d45efd8f0cc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100"
-			(at 8 -0.5 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "a95a34e3-68cc-4820-904c-e9c81df116b8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d14ad924-e9bd-4717-915a-c4b2edd03fa7")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "94d1e661-36ae-4468-8192-b4c7a46bd232")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eadbf301-98dd-46e2-b9ef-c8adc7daf2af")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_100_0402"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8eaf3ded-30a9-4a68-83cf-89a9b87c37ff")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "db6dde0c-5efb-42ba-b866-661994722305")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "620827cd-25dc-4244-8a39-c125dd8d22f4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1426f71b-8f02-400c-82ac-19dc7a782a52")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-0402WGF1000TCE"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d74ab936-b4d4-45b9-b317-9b61709552a8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "100 0402 resistor"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "401df003-ace7-4580-aaa6-76f09163a287")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "100"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c9aea412-7b7e-4119-a52c-7a8f4ede9fa0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "9611"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e836db40-de30-46d5-9ece-5e52e0b3952a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "567c389a-c392-457a-aa63-17c13dd0093f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "586c75c7-4947-4fd0-962e-695ce5955303")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "076e206a-6e3e-493f-887d-b7916ee09be9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dcfa3c35-7426-461b-9b7c-e6fcfc1c0838")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0e0357c0-4bd9-4efa-bdd5-2945c97ca8ce")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dcab446d-660d-49d8-adf4-d31bb9b2e03a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c0bacdef-dabf-4609-916c-be6384e61e32")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2442a03e-b1b3-4805-a641-1ba47e9ad971")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8408b6f1-9d22-474e-bf5a-0c6f5df2a566")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C25076"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c649c942-8886-4a9d-a84b-cdec97dae0b0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C25076"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cb6b5ba3-e9c7-4b7d-a17c-8d8ca17c5242")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/47e56d03-98c6-43ee-9728-332e5044ac5c")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -0.153641 -0.38)
-			(end 0.153641 -0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "38279a79-c277-4873-b9bb-7745acb61bdc")
-		)
-		(fp_line
-			(start -0.153641 0.38)
-			(end 0.153641 0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e5cb33e0-122d-4bc4-bdf3-1f4b47adfe07")
-		)
-		(fp_rect
-			(start -0.93 -0.47)
-			(end 0.93 0.47)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "775058bc-d16f-4afb-a929-a82eebc2eaea")
-		)
-		(fp_rect
-			(start -0.525 -0.27)
-			(end 0.525 0.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "ec3d626a-e23a-4df3-9ba1-ee445b80d7a0")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 2 -0.5 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "41efdf46-fffb-4443-beef-3692076ddde6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -0.51 0)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
-			(pintype "passive")
-			(uuid "0f09ff34-1333-4718-a4d7-a3b07c457b1c")
-		)
-		(pad "2" smd roundrect
-			(at 0.51 0)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/PYC_UART_TX")
-			(pintype "passive")
-			(uuid "aafb3f93-7b3c-4e89-ae99-70d04c454fe3")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
 	(footprint "orb_weaver_tht:PhoenixContact_MSTBVA_2,5_2-G-5,08_1x02_P5.08mm_Vertical"
 		(layer "F.Cu")
 		(uuid "3dc70164-8368-4771-9296-1cf043e29cab")
@@ -44210,6 +43131,166 @@
 	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
+		(uuid "40c3f805-4953-43f7-b2cd-b3a5112278f4")
+		(at 109.425 82.25)
+		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R304"
+			(at 0 -1.17 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "cc8a0183-0b53-4f4d-83ef-6dcec71ffaee")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 0 1.17 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f1e7c45c-f905-45fc-8dcd-25e1db230083")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "2fcc6964-f0c4-40ac-a2f9-d7c8ff25fab7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "af1f034f-3507-4382-ad7e-f519a22e3b76")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f9448ebf-ed1d-468e-8985-20119f7c97b4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/e899fcb6-9ded-4f69-8a04-6d774dee2032")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "43d01ee1-416c-4342-bedc-aa6fabdc23f1")
+		)
+		(fp_line
+			(start -0.153641 0.38)
+			(end 0.153641 0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "885eea15-59e8-440f-a77e-06d4a6861467")
+		)
+		(fp_rect
+			(start -0.93 -0.47)
+			(end 0.93 0.47)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "80e757b3-4a38-4017-a02d-fe09098d3a00")
+		)
+		(fp_rect
+			(start -0.525 -0.27)
+			(end 0.525 0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "ece063b0-47ea-4729-9bfc-650d86c104cf")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "61808299-ac57-4c12-84e1-2c2fb3627542")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_RX")
+			(pintype "passive")
+			(uuid "e27e2bd4-2ce5-4f56-9fb3-685758fce51c")
+		)
+		(pad "2" smd roundrect
+			(at 0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_RX_INST")
+			(pintype "passive")
+			(uuid "d9dc71bb-6348-48b2-9aa1-be41be7bc531")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Resistor_SMD:R_0402_1005Metric"
+		(layer "F.Cu")
 		(uuid "41af8471-8f8d-451f-bd93-b4b0bda6ea71")
 		(at 113.675 100.75 -90)
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
@@ -46847,7 +45928,7 @@
 			(size 0.6 0.24)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
-			(net "/PYC_UART_RX")
+			(net "/PYC_UART_RX_INST")
 			(pinfunction "A5_6")
 			(pintype "input")
 			(uuid "de4095ab-d05f-445b-91ee-ef30491a7f31")
@@ -46857,7 +45938,7 @@
 			(size 0.6 0.24)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
-			(net "/PYC_UART_TX")
+			(net "/PYC_UART_TX_INST")
 			(pinfunction "A6_7")
 			(pintype "input")
 			(uuid "02380f7f-6b52-4bed-846c-b0633e4d38d8")
@@ -51129,6 +50210,211 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "orb_weaver_smd:SOD-123FL"
+		(layer "F.Cu")
+		(uuid "5456a286-2886-4b3f-a365-da3c30cbd538")
+		(at 109.675 90.5 -90)
+		(property "Reference" "D301"
+			(at 0 -2 90)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ae6a4690-edde-43a7-bcdd-4e93dcb02eba")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+			)
+		)
+		(property "Value" "D_SCHOTTKY_20V_1A"
+			(at 0 -2.75 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "c4a54713-b87a-489d-a83a-b302fad8f821")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.125)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "736e8e3c-34c9-4609-b2cc-be5f7a98d762")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "14e2a4bd-c8a6-43f8-b975-17b79415d306")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property ki_fp_filters "orb_weaver_smd:SOD-123FL")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/68d4fb06-543a-4879-ba8d-7f948c719952")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.41 0.825)
+			(end 0.41 0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "dd2d8241-e845-486d-8962-2fcd9029719c")
+		)
+		(fp_line
+			(start -0.41 -0.825)
+			(end 0.41 -0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "b6ad9d52-7e46-4b91-85c3-5c420d9394e1")
+		)
+		(fp_circle
+			(center -2.75 0)
+			(end -2.5 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill yes)
+			(layer "F.SilkS")
+			(uuid "dde4eb55-2fb8-4c18-8cb5-908c5d3a961e")
+		)
+		(fp_rect
+			(start -2.5 -1)
+			(end 2.5 1)
+			(stroke
+				(width 0.05)
+				(type default)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "b2d1854e-b966-43da-9d23-ae88a94d674b")
+		)
+		(fp_line
+			(start -1.35 0.825)
+			(end 1.35 0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "336a4aea-2398-45eb-ae03-b4a02579457c")
+		)
+		(fp_line
+			(start -1.35 -0.825)
+			(end -1.35 0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "689401f1-6e9d-4395-aacc-f886ae5ce5b1")
+		)
+		(fp_line
+			(start -1.35 -0.825)
+			(end 1.35 -0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "4339a0a5-76a4-4e9d-8488-236de4f75e4e")
+		)
+		(fp_line
+			(start 1.35 -0.825)
+			(end 1.35 0.825)
+			(stroke
+				(width 0.127)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "a4109b72-6edb-4142-80a9-399832f85af4")
+		)
+		(fp_circle
+			(center -2.75 0)
+			(end -2.5 0)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill yes)
+			(layer "F.Fab")
+			(uuid "259aad6b-348d-485c-b765-0f0fafb6368c")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 -2 90)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "96477a09-1238-4419-a044-029117dab270")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+			)
+		)
+		(pad "1" smd rect
+			(at -1.6 0 270)
+			(size 1.2 1.2)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "/+5V_MCU")
+			(pinfunction "K_1")
+			(pintype "passive")
+			(solder_mask_margin 0.05)
+			(uuid "d0651509-c21c-48b2-a19b-fdc6ae3fe9fd")
+		)
+		(pad "2" smd rect
+			(at 1.6 0 270)
+			(size 1.2 1.2)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
+			(pinfunction "A_2")
+			(pintype "passive")
+			(solder_mask_margin 0.05)
+			(uuid "6c66bd7b-89e0-4f8f-bd8f-4124713fce6a")
+		)
+		(embedded_fonts no)
+		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/MBR120VLSFT1G.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 0)
 			)
 		)
 	)
@@ -58475,6 +57761,166 @@
 	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
+		(uuid "64aab301-28a1-4647-9265-b3730eeed705")
+		(at 109.425 85.75)
+		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R305"
+			(at 0 -1.17 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ea5de069-352b-4268-acde-2a4f8ecc1526")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 0 1.17 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "cc644a57-c597-48ea-9cb8-a106687d6a22")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "0be17369-6430-4d59-9410-e98e14036eea")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3d2ef19a-c73b-496f-8cfd-3b292360a030")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "57d7e49d-fbae-4281-ac82-1b9970b495bd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/354ce1ed-5d8e-453c-a90d-2659c77a0fab")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "c60ac734-1cd3-4614-a2e4-e2364af77896")
+		)
+		(fp_line
+			(start -0.153641 0.38)
+			(end 0.153641 0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "67117469-77a3-465a-8f42-87b97c38f444")
+		)
+		(fp_rect
+			(start -0.93 -0.47)
+			(end 0.93 0.47)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "e8baadb2-5683-49e4-bfe3-7ed994867777")
+		)
+		(fp_rect
+			(start -0.525 -0.27)
+			(end 0.525 0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "0a3a93d7-261e-4711-b9d3-413948cef2b0")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 0 0 0)
+			(layer "F.Fab")
+			(uuid "8d72e3be-373c-4bc4-b9fa-c8623436faf9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+				)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_TX")
+			(pintype "passive")
+			(uuid "068b2d3f-bccf-4152-ba29-c0bc4b9d25a7")
+		)
+		(pad "2" smd roundrect
+			(at 0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_TX_INST")
+			(pintype "passive")
+			(uuid "52babab4-898c-4c28-b708-feefef5600ef")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Resistor_SMD:R_0402_1005Metric"
+		(layer "F.Cu")
 		(uuid "64c06ef0-6e37-47d4-a4b6-7060fa9d9849")
 		(at 180.425 104.5)
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
@@ -59882,574 +59328,6 @@
 			)
 			(rotate
 				(xyz 90 -0 -0)
-			)
-		)
-	)
-	(footprint "orb_weaver_smd:USBLC6-2P6_SOT-666"
-		(layer "F.Cu")
-		(uuid "6b8c87a4-c437-4519-b23d-6d610d2d2abe")
-		(at 107.425 84)
-		(descr "SOT666 for USBLC6-2P6. Local copy of Package_TO_SOT_SMD:SOT-666 (KiCad 10.0.0 official) that adds jumper_pad_groups for the part's internally bonded I/O pads: 1+6 are I/O1 and 3+4 are I/O2. Without the groups, DRC reports the unrouted pad of each pair as an unconnected item even though the copper is correct. The groups are a property of the USBLC6 die, not of the SOT-666 package, so they must not be added to the generic package footprint - use this part-specific copy instead. Geometry is byte-faithful to upstream, including one duplicated coincident F.Fab line - do not tidy it, or every placed instance reports drc lib_footprint_mismatch until it is updated from the library again.")
-		(tags "SOT-666 USBLC6 USBLC6-2P6 ESD jumper_pad_groups")
-		(property "Reference" "U301"
-			(at 1.5 -0.25 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "903d52f3-799b-4da2-a74c-e62499b0c916")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "USBLC6-2P6"
-			(at 7.5 -0.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "bc5bb53b-446b-4fb8-9591-0b3290778dcc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.125)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "12f436d0-bd2d-464b-b6b0-210b51e36428")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description" "2-line plus VBUS ESD protection array for USB 2.0 up to 480 Mb/s; IEC 61000-4-2 level 4 (15kV air / 8kV contact); 3.5pF max I/O-to-GND; 1.2pF typ I/O-to-I/O; 150nA max leakage at 5.25V; 6V min VBUS breakdown; -40℃~+150℃ junction; SOT-666-6 ESD and Surge Protection (TVS/ESD) ROHS"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8b2383df-221c-44a4-a335-331353a1b36c")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ow_note" "Forked from KiCad Power_Protection:USBLC6-2P6 to declare jumper_pin_groups 1/6 and 3/4, which are internally connected in the die. Pair it only with orb_weaver_smd:USBLC6-2P6_SOT-666, which carries the matching jumper_pad_groups. The two halves must stay together: with the generic Package_TO_SOT_SMD:SOT-666, DRC reports the unrouted pad of each pair as an unconnected item even when the copper is correct."
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "84271eed-3322-43ef-8721-92036fddf607")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-USBLC6-2P6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9133f2d9-d448-46da-93b3-47c8010f0c15")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "mpn_usblc6_2p6_sot_666_6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "51654edf-a6fb-4d2e-a7d5-ab53fbd269bd")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "1002"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4a445f6a-c532-464e-a222-f9358d541005")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "USBLC6-2P6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "361d5461-be8d-45e7-8f2c-835dc2edeb98")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "593a0c0b-b090-4552-8644-456191a7becb")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "circuit-protection"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "389631df-e7e9-4017-a46d-dfcca69b3d26")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "USBLC6-2P6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "752108a0-b866-4f59-91ab-b93e5e0eb962")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:USBLC6-2P6_SOT-666"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8dcc047b-0eff-4c52-8b25-b904582ef000")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "SOT-666-6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bedf14bd-12c8-4f1f-8697-ac3828a43af7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5e02c9d1-faf5-4971-9f44-5ec7248f66bf")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "52529fd0-0e41-4a4b-9513-986512434de3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9385b758-a770-4d35-850a-1e3a88bce3a6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e7f2f4c7-99a1-47f2-8e19-61056ad47bbd")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aeabc450-fa99-4ee0-9164-86f4b9f1a7a2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dbc2eefd-13cd-4e1b-a843-7bcb4cee2f2a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "61e32643-78ec-42d4-9277-57f76918f270")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqExactMPN" "USBLC6-2P6"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "db5c6e2c-209b-44c3-b78e-dd780e217047")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9fa074cd-40e6-4949-b4d0-954a5ff25695")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C2827693"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1c09f6fc-8812-4dc5-9482-af4ae95e3004")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C2827693"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5ac03616-77d4-4329-8fbf-bcec106273bc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "orb_weaver_smd:USBLC6-2P6_SOT-666")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/f93728e2-2141-439d-b216-bcf1db600f7d")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "3" "5" "2" "6" "4")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(jumper_pad_groups
-			("1" "6")
-			("3" "4")
-		)
-		(fp_line
-			(start 0.65 -0.99)
-			(end -0.4 -0.99)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "09bed6e2-ff11-4418-bd72-53d7e8c4baea")
-		)
-		(fp_line
-			(start 0.65 0.99)
-			(end -0.65 0.99)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "32adef6b-545a-4ef5-8c1e-2a4efb55e3aa")
-		)
-		(fp_poly
-			(pts
-				(xy -0.77 -0.99) (xy -1.05 -0.99) (xy -0.77 -1.27) (xy -0.77 -0.99)
-			)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(fill yes)
-			(layer "F.SilkS")
-			(uuid "8bbf8eed-27bf-4aff-a82b-8f8c204fb43b")
-		)
-		(fp_line
-			(start -1.5 -1.1)
-			(end -1.5 1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "6cb5daf1-4a5e-4c3c-8ec3-a671c3e716bd")
-		)
-		(fp_line
-			(start -1.5 -1.1)
-			(end 1.5 -1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "22b4a3ee-3f1b-41ac-a9d3-2548beae272b")
-		)
-		(fp_line
-			(start -1.5 1.1)
-			(end 1.5 1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "fa59fc72-ce31-4447-aff1-fff350ae312e")
-		)
-		(fp_line
-			(start 1.5 1.1)
-			(end 1.5 -1.1)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(layer "F.CrtYd")
-			(uuid "82bf6194-3d8b-4edd-8f0d-a17c023458a2")
-		)
-		(fp_line
-			(start -0.65 -0.53)
-			(end -0.65 0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "b9e2e273-07ff-4328-a5b9-6d8604bfef07")
-		)
-		(fp_line
-			(start -0.65 -0.53)
-			(end -0.33 -0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "a8a101d0-7c88-4e52-aded-72ff40e6da63")
-		)
-		(fp_line
-			(start 0.65 -0.85)
-			(end -0.33 -0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "61aaa997-8b76-478c-8e0f-cfebcf98c331")
-		)
-		(fp_line
-			(start 0.65 -0.85)
-			(end -0.33 -0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "8c28567f-8411-4b72-84d3-c05bfb5d1963")
-		)
-		(fp_line
-			(start 0.65 -0.85)
-			(end 0.65 0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "00db686e-dfbe-4c4d-9dee-7b6bc43be6bb")
-		)
-		(fp_line
-			(start 0.65 0.85)
-			(end -0.65 0.85)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "f3ffbee2-6c95-4912-b8fa-dcbbbc556e9e")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 1.5 -0.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "1086a1e9-a014-45bb-9e3d-b49cb671cf6f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -0.85 -0.5375)
-			(size 0.5 0.375)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
-			(pinfunction "I/O1_1")
-			(pintype "passive")
-			(uuid "513d11c8-e2b0-4399-8769-1524d583df3d")
-		)
-		(pad "2" smd roundrect
-			(at -0.925 0)
-			(size 0.65 0.3)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/GND")
-			(pinfunction "GND_2")
-			(pintype "passive")
-			(uuid "31244f77-38fc-438c-a028-5e563d8e62f0")
-		)
-		(pad "3" smd roundrect
-			(at -0.85 0.5375)
-			(size 0.5 0.375)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
-			(pinfunction "I/O2_3")
-			(pintype "passive")
-			(uuid "4d4813cc-b0c5-4ecc-9dba-a97396161d05")
-		)
-		(pad "4" smd roundrect
-			(at 0.85 0.5375)
-			(size 0.5 0.375)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
-			(pinfunction "I/O2_4")
-			(pintype "passive")
-			(uuid "ebe2fca5-ea01-4c22-912b-7a97575fc16d")
-		)
-		(pad "5" smd roundrect
-			(at 0.925 0)
-			(size 0.65 0.3)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
-			(pinfunction "VBUS_5")
-			(pintype "passive")
-			(uuid "a820889f-e952-4d76-ad98-e79c026590d5")
-		)
-		(pad "6" smd roundrect
-			(at 0.85 -0.5375)
-			(size 0.5 0.375)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
-			(pinfunction "I/O1_6")
-			(pintype "passive")
-			(uuid "7e6e6a78-230e-4689-8214-8b646a30488b")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-666.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
 			)
 		)
 	)
@@ -82799,471 +81677,6 @@
 			)
 		)
 	)
-	(footprint "orb_weaver_smd:SOD-123FL"
-		(layer "F.Cu")
-		(uuid "93a09e75-78a7-465e-a083-b230564bbf18")
-		(at 109.675 90.5 -90)
-		(property "Reference" "D301"
-			(at 0 -2 90)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "4781560e-4cae-4f8a-acf2-212a23fe0e70")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-			)
-		)
-		(property "Value" "D_SCHOTTKY_20V_1A"
-			(at 0 -2.75 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "4267c5e2-7334-45c7-873d-1a4e52aae8f6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.125)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "403935cc-e33d-45a9-a583-b0a8b5296f33")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-65℃~+125℃ 1 Independent 1A 20V 300mV@1A 45A 600uA@20V SOD-123FL Schottky Diodes ROHS"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0b4523a9-f1d4-48c4-9672-00e52199f5aa")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-MBR120VLSFT1G"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f03bcfab-4844-46dd-b197-e76e42a609a9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_misc_d_schottky_20v_1a"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ebfb2351-0c2b-4b94-a732-11086665e559")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "520"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "47e7191b-4e67-4d71-adfa-00b2698a05b4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "D SCHOTTKY 20V 1A"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6c6af98d-12bf-46ae-9bdd-118487523562")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d384a908-0ce3-4861-80be-d5bfcdef183f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "diode"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e87bb6b2-2908-46b3-8e77-11f7e6387bca")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "D_SCHOTTKY_20V_1A"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b929493a-5219-43ea-8dc7-664a29ccb75d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:SOD-123FL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "82127778-8907-4d0f-b69a-c9a113389314")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "SOD-123FL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2fe1dd38-4741-4619-a34c-7c7af392b805")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4280d09f-ec43-4ed3-91ff-f79ca890d3bd")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3fb21513-6b7a-4931-a767-019a5e4e032e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d805159a-d5e3-4f13-8560-40173d101af0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ea85c27e-9a23-4aa9-9538-785daf459148")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6a765066-d46f-4cd5-85d2-787dc782ddab")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7ce1b46f-3e7b-4482-874b-ca23fbdfb859")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8bd07e73-0a6b-417e-8518-ca9cb3ee33be")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqExactMPN" "MBR120VLSFT1G"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a5d8beff-d1da-4e21-adb9-466ce56ecda0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e93d8cd2-3c70-49e9-afcd-0b68dd8f5a61")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C223608"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "390bdfdb-696c-4602-abba-75e4046b99fa")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C223608"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4c22a56f-3f17-43db-b6c9-1aa498c0340f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "orb_weaver_smd:SOD-123FL")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/68d4fb06-543a-4879-ba8d-7f948c719952")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -0.41 0.825)
-			(end 0.41 0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "03d58fd2-fa75-461a-9da5-632ee611f618")
-		)
-		(fp_line
-			(start -0.41 -0.825)
-			(end 0.41 -0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "5ff68702-9201-45ba-82c8-0d256e3a9d0b")
-		)
-		(fp_circle
-			(center -2.75 0)
-			(end -2.5 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill yes)
-			(layer "F.SilkS")
-			(uuid "5362637e-038b-49e6-bd64-212310cca00b")
-		)
-		(fp_rect
-			(start -2.5 -1)
-			(end 2.5 1)
-			(stroke
-				(width 0.05)
-				(type default)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "db751312-5e12-44f7-9626-fbd0c0446719")
-		)
-		(fp_line
-			(start -1.35 0.825)
-			(end 1.35 0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "60c69a76-41a0-44ae-9249-08504d9c8fac")
-		)
-		(fp_line
-			(start -1.35 -0.825)
-			(end -1.35 0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "c2951e68-b4ce-43e6-bfdb-8b1aefd364f5")
-		)
-		(fp_line
-			(start -1.35 -0.825)
-			(end 1.35 -0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "e66f77a3-44ec-4410-8427-78a8c263b594")
-		)
-		(fp_line
-			(start 1.35 -0.825)
-			(end 1.35 0.825)
-			(stroke
-				(width 0.127)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "c6e04466-a4f6-40ce-8d70-036330784e86")
-		)
-		(fp_circle
-			(center -2.75 0)
-			(end -2.5 0)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill yes)
-			(layer "F.Fab")
-			(uuid "f3129db9-8c67-4924-8a63-596f7316c63a")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 0 -2 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "c44a51ef-0e4d-42fd-9d1d-b1eeb41d4d0f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-			)
-		)
-		(pad "1" smd rect
-			(at -1.6 0 270)
-			(size 1.2 1.2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "/+5V_MCU")
-			(pinfunction "K_1")
-			(pintype "passive")
-			(solder_mask_margin 0.05)
-			(uuid "d1335237-1ca4-4d3c-a6cb-dce11a6bf89b")
-		)
-		(pad "2" smd rect
-			(at 1.6 0 270)
-			(size 1.2 1.2)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
-			(pinfunction "A_2")
-			(pintype "passive")
-			(solder_mask_margin 0.05)
-			(uuid "cccd9a99-5321-4df3-a453-baf2bdb42aab")
-		)
-		(embedded_fonts no)
-		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/MBR120VLSFT1G.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz -90 0 0)
-			)
-		)
-	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "93e2de8d-2376-4b9f-af70-59e5d58d77a2")
@@ -97550,506 +95963,6 @@
 			)
 		)
 	)
-	(footprint "orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT"
-		(layer "F.Cu")
-		(uuid "abe730d1-d0b1-4758-acf4-041396142992")
-		(at 96.425 87 -90)
-		(descr "8P8C / RJ45 modular jack, Cat5e, vertical top entry, through-hole, shielded with PCB retention and locators, Molex 855085001 (series 85508). Geometry taken from the supplied 855085001_MOL vendor footprint; signal drills 0.89 mm on the Molex recommended layout, shell-leg drills 1.6 mm, and two 3.25 mm non-plated locator holes. Jack height 16.5 mm, 1.5 A per contact, 125 V DC. Both shell legs are pad SH so the shield is a schematic net; they are joined by the metal shell, hence duplicate_pad_numbers_are_jumpers. (https://www.molex.com/en-us/products/part-detail-pdf/855085001?display=pdf)")
-		(tags "RJ45 8P8C modular jack vertical top-entry through-hole THT shielded Cat5e Molex 85508 855085001")
-		(property "Reference" "J301"
-			(at -6.25 -9.25 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "f07d15ef-bc4f-4b1a-b33c-3753662174a6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "RJ45-8P8C"
-			(at 0 -0.95 90)
-			(layer "F.Fab")
-			(uuid "7391a4fb-639b-4896-9a43-8c40d1a4d463")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.125)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a9056528-bd86-4afc-91f3-f437006f6dfb")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "8P8C modular jack, Cat5e, vertical top-entry, through-hole termination, shielded shell with PCB retention and locators"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7b1c9e6a-286b-4328-87ab-968070a211f7")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-CONN-RJ45-8P8C-THT-VERT"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e2f32068-d15a-4f4f-9ed1-ed106f1142aa")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_connector_8p8c_shielded"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "669e8f72-1b0a-4f39-be68-f842cc093bea")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "110"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c00944af-aa75-4fd5-bd01-b84ef0c55e7d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "RJ45 8P8C modular jack, vertical through-hole shielded"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3b9f0914-4f56-4064-a790-e3dc9a7b42eb")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "connectors"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ac39f3ef-1486-44b5-b5fb-5ab9309971b6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "connector"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "831eedf3-4612-4efe-a6ab-e20bd4aeeef9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "RJ45-8P8C"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3407e880-ae17-4c90-b862-d3894fcbd712")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "21df707b-500b-42db-9c59-8b1af5b8b50e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "Through Hole"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fa4b66bc-a58e-4acc-b68f-f649a9353bc0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c36752de-3d4d-45cf-a4df-5e86a2a76121")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d33ab0ca-3049-4d97-a1ab-55637e859392")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "742e4c17-5aa5-4465-9c01-5a055d5a7c2e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3da69881-e11a-4942-b984-d4aceb005dee")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a44c19d6-852f-475e-ad27-fce31825dd8c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cae82f39-cd43-402d-88fc-d34c549768de")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" "modular-jack"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "84afec13-dc26-4dc7-8414-206f72f0f961")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0a84126a-6630-4303-9553-451963961ea4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" "Shielded jack: both shell legs are pad SH in the footprint and must be tied to GND or a shield net, and the shell joins them internally. Requires two 3.25 mm non-plated locator holes. NOT land-pattern compatible with OW-CONN-438600001 or OW-CONN-RJ45-8P8C-SMD-VERT. Set ReqMinVoltage/ReqMinCurrent per design if the port carries power."
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "db1247a1-d252-4db3-b56a-191ed65e2243")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C588558"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eee3d015-15d5-4c8f-a09b-52af4ff9ac7c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C588558"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "76c43e7c-3137-423c-ac4c-11eca2fe22fe")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/dcabc325-b008-4566-9bd8-5d9f33a3ddd9")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "SH" "8" "7" "6" "5" "4" "3" "2" "1")
-			)
-		)
-		(attr through_hole)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_rect
-			(start -8.35 -8.9)
-			(end 8.25 8.4)
-			(stroke
-				(width 0.25)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.SilkS")
-			(uuid "cd0865de-3898-449a-befc-02be24013e16")
-		)
-		(fp_rect
-			(start -8.5 -9)
-			(end 8.5 9)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "97ed62c6-2dce-46ab-8950-88ad87d05319")
-		)
-		(fp_rect
-			(start -8.3 -8.9)
-			(end 8.3 8.4)
-			(stroke
-				(width 0.25)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "ebd160ad-89b0-414f-97a4-042347db0f23")
-		)
-		(fp_text user "${REFERENCE}"
-			(at -6.25 -9.25 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "05df873b-207f-463b-9d8f-77dc3a5b0bf9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "" np_thru_hole circle
-			(at -5.715 1.9 270)
-			(size 3.25 3.25)
-			(drill 3.25)
-			(layers "*.Cu" "*.Mask")
-			(uuid "413a2b66-a8ad-4174-9e17-391ae6a594c4")
-		)
-		(pad "" np_thru_hole circle
-			(at 5.715 1.9 270)
-			(size 3.25 3.25)
-			(drill 3.25)
-			(layers "*.Cu" "*.Mask")
-			(uuid "3ecf0706-7641-4126-8f18-d4f53a64b0c2")
-		)
-		(pad "1" thru_hole rect
-			(at -4.445 -4.45 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
-			(pintype "passive")
-			(uuid "c85bc321-9cab-47e2-b825-0190b775e94e")
-		)
-		(pad "2" thru_hole circle
-			(at -3.175 -6.99 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/GND")
-			(pintype "passive")
-			(uuid "b6b09741-2d2a-4bc3-9c04-2e4c32701556")
-		)
-		(pad "3" thru_hole circle
-			(at -1.905 -4.45 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "unconnected-(J301-Pad3)")
-			(pintype "passive+no_connect")
-			(uuid "d75b47a8-65ff-42a1-9379-4feec7a7ae0c")
-		)
-		(pad "4" thru_hole circle
-			(at -0.635 -6.99 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
-			(pintype "passive")
-			(uuid "af6785c4-b3df-40ad-8800-8b5aa7c8c950")
-		)
-		(pad "5" thru_hole circle
-			(at 0.635 -4.45 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "unconnected-(J301-Pad5)")
-			(pintype "passive+no_connect")
-			(uuid "ea5652d7-621b-4fab-820f-bc4a306adb3b")
-		)
-		(pad "6" thru_hole circle
-			(at 1.905 -6.99 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
-			(pintype "passive")
-			(uuid "d8888fdd-f6ba-4841-b267-60b128ce15db")
-		)
-		(pad "7" thru_hole circle
-			(at 3.175 -4.45 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "unconnected-(J301-Pad7)")
-			(pintype "passive+no_connect")
-			(uuid "8f2490c7-6a30-4afb-bae0-19aced1806c6")
-		)
-		(pad "8" thru_hole circle
-			(at 4.445 -6.99 270)
-			(size 1.6 1.6)
-			(drill 0.9)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "unconnected-(J301-Pad8)")
-			(pintype "passive+no_connect")
-			(uuid "e5a45a71-3239-4e0e-a4de-78a92072ccb2")
-		)
-		(pad "SH" thru_hole circle
-			(at -7.8 4.95 270)
-			(size 2.6 2.6)
-			(drill 1.6)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/GND")
-			(pintype "passive")
-			(uuid "260e6c60-742c-4eef-9822-c1f9ca67477e")
-		)
-		(pad "SH" thru_hole circle
-			(at 7.8 4.95 270)
-			(size 2.6 2.6)
-			(drill 1.6)
-			(layers "*.Cu" "*.Mask")
-			(remove_unused_layers no)
-			(net "/GND")
-			(pintype "passive")
-			(uuid "bae81df3-536c-4d3d-bdab-6be98d668f86")
-		)
-		(embedded_fonts no)
-		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/855085001.step"
-			(offset
-				(xyz 0 -1.9 8.25)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz -90 -0 -0)
-			)
-		)
-	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "ac4618ef-a87c-41d9-acac-c182b389b294")
@@ -100340,7 +98253,7 @@
 			)
 		)
 		(property ki_fp_filters "orb_weaver_smd:DRY6")
-		(path "/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2/caac78f2-c5c6-44d6-927b-e05140bdc724")
+		(path "/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2/ea4048cb-a43f-4e55-92ab-652dfcc2b6ea")
 		(sheetname "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501/")
 		(sheetfile "brake_current_sink_0_49ma_dac80501.kicad_sch")
 		(units
@@ -105059,6 +102972,301 @@
 			)
 		)
 	)
+	(footprint "orb_weaver_smd:USBLC6-2P6_SOT-666"
+		(layer "F.Cu")
+		(uuid "b5660082-1afb-456e-b727-8165011ad873")
+		(at 107.425 84)
+		(descr "SOT666 for USBLC6-2P6. Local copy of Package_TO_SOT_SMD:SOT-666 (KiCad 10.0.0 official) that adds jumper_pad_groups for the part's internally bonded I/O pads: 1+6 are I/O1 and 3+4 are I/O2. Without the groups, DRC reports the unrouted pad of each pair as an unconnected item even though the copper is correct. The groups are a property of the USBLC6 die, not of the SOT-666 package, so they must not be added to the generic package footprint - use this part-specific copy instead. Geometry is byte-faithful to upstream, including one duplicated coincident F.Fab line - do not tidy it, or every placed instance reports drc lib_footprint_mismatch until it is updated from the library again.")
+		(tags "SOT-666 USBLC6 USBLC6-2P6 ESD jumper_pad_groups")
+		(property "Reference" "U301"
+			(at 1.5 -0.25 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0065da44-d4bf-4ac9-8430-f62930af0204")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "USBLC6-2P6"
+			(at 7.5 -0.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "ec192927-fd0b-49d2-8e93-67d44c312472")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.125)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3724fc6f-579e-4049-80e4-8cefdc6c5c2e")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "1b287949-5a3e-4036-aa66-ad1bc39d8b00")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "orb_weaver_smd:USBLC6-2P6_SOT-666")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/f93728e2-2141-439d-b216-bcf1db600f7d")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "3" "5" "2" "6" "4")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(jumper_pad_groups
+			("1" "6")
+			("3" "4")
+		)
+		(fp_line
+			(start 0.65 -0.99)
+			(end -0.4 -0.99)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "2354d3c8-64ca-43b1-9128-56d13c7bda25")
+		)
+		(fp_line
+			(start 0.65 0.99)
+			(end -0.65 0.99)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "a5fd6d1b-f750-4b7f-be0f-6bfcedd3272d")
+		)
+		(fp_poly
+			(pts
+				(xy -0.77 -0.99) (xy -1.05 -0.99) (xy -0.77 -1.27) (xy -0.77 -0.99)
+			)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(fill yes)
+			(layer "F.SilkS")
+			(uuid "51cfe7fc-dac7-4bae-ae10-75b04b03024a")
+		)
+		(fp_line
+			(start -1.5 -1.1)
+			(end -1.5 1.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "2ba4342b-f6c8-4b8f-acc0-c193ff9840d5")
+		)
+		(fp_line
+			(start -1.5 -1.1)
+			(end 1.5 -1.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "d49460de-7d52-4d55-8c14-2a4b13693bc4")
+		)
+		(fp_line
+			(start -1.5 1.1)
+			(end 1.5 1.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "cb0c324f-ac28-4c78-b432-ef61967b0f69")
+		)
+		(fp_line
+			(start 1.5 1.1)
+			(end 1.5 -1.1)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(layer "F.CrtYd")
+			(uuid "29003338-4bbc-43b4-9cd4-fd121cde8bfa")
+		)
+		(fp_line
+			(start -0.65 -0.53)
+			(end -0.65 0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "88cec200-0e94-4976-8940-a9dc7476adc0")
+		)
+		(fp_line
+			(start -0.65 -0.53)
+			(end -0.33 -0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "05475f81-56fe-4732-a469-92ea2a0921b1")
+		)
+		(fp_line
+			(start 0.65 -0.85)
+			(end -0.33 -0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "c25bb795-6eb8-4c4d-a830-f2b7cc7c9e59")
+		)
+		(fp_line
+			(start 0.65 -0.85)
+			(end -0.33 -0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "ff320878-3ea4-4110-b2b3-a57b8ea58a2a")
+		)
+		(fp_line
+			(start 0.65 -0.85)
+			(end 0.65 0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "21f7500e-9ffe-4477-8354-4db149f4e803")
+		)
+		(fp_line
+			(start 0.65 0.85)
+			(end -0.65 0.85)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "0e90f5d4-fd78-403d-8c6b-31f62e6be854")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 1.5 -0.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "3f90840a-6ac0-4da4-abb6-42b47c07f69f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.85 -0.5375)
+			(size 0.5 0.375)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+			(pinfunction "I/O1_1")
+			(pintype "passive")
+			(uuid "da66acf0-fc3f-4a27-b911-e6df0060f62f")
+		)
+		(pad "2" smd roundrect
+			(at -0.925 0)
+			(size 0.65 0.3)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/GND")
+			(pinfunction "GND_2")
+			(pintype "passive")
+			(uuid "df6c1b1a-08c9-448e-ac6c-a208096e6a95")
+		)
+		(pad "3" smd roundrect
+			(at -0.85 0.5375)
+			(size 0.5 0.375)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+			(pinfunction "I/O2_3")
+			(pintype "passive")
+			(uuid "0cafb83c-94f6-4427-a4c2-09c3844642af")
+		)
+		(pad "4" smd roundrect
+			(at 0.85 0.5375)
+			(size 0.5 0.375)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+			(pinfunction "I/O2_4")
+			(pintype "passive")
+			(uuid "c4c46d27-b5ba-432f-b0d2-bb65b31cd544")
+		)
+		(pad "5" smd roundrect
+			(at 0.925 0)
+			(size 0.65 0.3)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+			(pinfunction "VBUS_5")
+			(pintype "passive")
+			(uuid "be1b5247-853a-4c11-8972-edcd22d9979e")
+		)
+		(pad "6" smd roundrect
+			(at 0.85 -0.5375)
+			(size 0.5 0.375)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+			(pinfunction "I/O1_6")
+			(pintype "passive")
+			(uuid "c9e32cf7-af9e-4754-b99b-1bf82876b22a")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Package_TO_SOT_SMD.3dshapes/SOT-666.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "b5a2b986-9ece-4ff2-923e-8f0f57797436")
@@ -109326,6 +107534,246 @@
 			)
 		)
 	)
+	(footprint "orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT"
+		(layer "F.Cu")
+		(uuid "bb54a4df-751b-45e0-a1aa-a5182d1a070f")
+		(at 96.425 87 -90)
+		(descr "8P8C / RJ45 modular jack, Cat5e, vertical top entry, through-hole, shielded with PCB retention and locators, Molex 855085001 (series 85508). Geometry taken from the supplied 855085001_MOL vendor footprint; signal drills 0.89 mm on the Molex recommended layout, shell-leg drills 1.6 mm, and two 3.25 mm non-plated locator holes. Jack height 16.5 mm, 1.5 A per contact, 125 V DC. Both shell legs are pad SH so the shield is a schematic net; they are joined by the metal shell, hence duplicate_pad_numbers_are_jumpers. (https://www.molex.com/en-us/products/part-detail-pdf/855085001?display=pdf)")
+		(tags "RJ45 8P8C modular jack vertical top-entry through-hole THT shielded Cat5e Molex 85508 855085001")
+		(property "Reference" "J301"
+			(at -6.25 -9.25 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fba206c2-818e-40c7-ac27-0be3367e61d4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "RJ45-8P8C"
+			(at 0 -0.95 90)
+			(layer "F.Fab")
+			(uuid "88712a4e-952d-4658-ad79-b93f4ecf0c81")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.125)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "36126f93-a691-412b-b67e-bf2bcb88c498")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "57a820ea-cc2b-449a-94f5-4f047fc664c3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property ki_fp_filters "orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/dcabc325-b008-4566-9bd8-5d9f33a3ddd9")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "SH" "8" "7" "6" "5" "4" "3" "2" "1")
+			)
+		)
+		(attr through_hole)
+		(duplicate_pad_numbers_are_jumpers yes)
+		(fp_rect
+			(start -8.35 -8.9)
+			(end 8.25 8.4)
+			(stroke
+				(width 0.25)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.SilkS")
+			(uuid "72ac25de-6bb0-4751-90a3-62767610dd75")
+		)
+		(fp_rect
+			(start -8.5 -9)
+			(end 8.5 9)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "1ed12167-2948-4a6f-b079-94e49f0b3e55")
+		)
+		(fp_rect
+			(start -8.3 -8.9)
+			(end 8.3 8.4)
+			(stroke
+				(width 0.25)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "94a814f1-90a9-4e15-b6e4-f3d973f12a43")
+		)
+		(fp_text user "${REFERENCE}"
+			(at -6.25 -9.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "3e87af3e-7d09-4397-a97e-0c8bfcd1bca8")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "" np_thru_hole circle
+			(at -5.715 1.9 270)
+			(size 3.25 3.25)
+			(drill 3.25)
+			(layers "*.Cu" "*.Mask")
+			(uuid "f5db50bc-0265-4f96-bea8-5a4813198be3")
+		)
+		(pad "" np_thru_hole circle
+			(at 5.715 1.9 270)
+			(size 3.25 3.25)
+			(drill 3.25)
+			(layers "*.Cu" "*.Mask")
+			(uuid "31361a67-7889-45bb-bac2-a28daec5b049")
+		)
+		(pad "1" thru_hole rect
+			(at -4.445 -4.45 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+			(pintype "passive")
+			(uuid "cf283c21-1452-41e5-90ff-24ea190fa8c6")
+		)
+		(pad "2" thru_hole circle
+			(at -3.175 -6.99 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/GND")
+			(pintype "passive")
+			(uuid "3de518c9-0da8-465b-8d82-f9e0deeb6b05")
+		)
+		(pad "3" thru_hole circle
+			(at -1.905 -4.45 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "unconnected-(J301-Pad3)")
+			(pintype "passive+no_connect")
+			(uuid "53a61f2f-2c17-4237-a78b-68710db32b7b")
+		)
+		(pad "4" thru_hole circle
+			(at -0.635 -6.99 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+			(pintype "passive")
+			(uuid "370b1afe-4651-453f-93b9-e78b9d1f19e3")
+		)
+		(pad "5" thru_hole circle
+			(at 0.635 -4.45 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "unconnected-(J301-Pad5)")
+			(pintype "passive+no_connect")
+			(uuid "89f5027c-ed8e-4e7d-87cd-9bf445cf6625")
+		)
+		(pad "6" thru_hole circle
+			(at 1.905 -6.99 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+			(pintype "passive")
+			(uuid "d545c55a-ca8b-4ee6-8933-f65e3c8bae73")
+		)
+		(pad "7" thru_hole circle
+			(at 3.175 -4.45 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "unconnected-(J301-Pad7)")
+			(pintype "passive+no_connect")
+			(uuid "71cbb6df-0322-4630-920f-a6b6c94dc01f")
+		)
+		(pad "8" thru_hole circle
+			(at 4.445 -6.99 270)
+			(size 1.6 1.6)
+			(drill 0.9)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "unconnected-(J301-Pad8)")
+			(pintype "passive+no_connect")
+			(uuid "9e2b6cfe-6a26-4b13-8f3b-6b31ec119ea6")
+		)
+		(pad "SH" thru_hole circle
+			(at -7.8 4.95 270)
+			(size 2.6 2.6)
+			(drill 1.6)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/GND")
+			(pintype "passive")
+			(uuid "70bdc239-1e9a-4c88-8deb-ba11eea7d2fb")
+		)
+		(pad "SH" thru_hole circle
+			(at 7.8 4.95 270)
+			(size 2.6 2.6)
+			(drill 1.6)
+			(layers "*.Cu" "*.Mask")
+			(remove_unused_layers no)
+			(net "/GND")
+			(pintype "passive")
+			(uuid "67b498da-8eed-4646-ba81-492b2114cf12")
+		)
+		(embedded_fonts no)
+		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/855085001.step"
+			(offset
+				(xyz 0 -1.9 8.25)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
+			)
+		)
+	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "bbc6645c-bb01-4c9c-a0ca-2449167d2dfb")
@@ -111777,6 +110225,175 @@
 		)
 		(embedded_fonts no)
 		(model "${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Resistor_SMD:R_1206_3216Metric"
+		(layer "F.Cu")
+		(uuid "bf2dcab5-38a9-4f0f-aa6d-d380c6be0548")
+		(at 107.175 90.5 -90)
+		(descr "Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R303"
+			(at 3.75 1.25 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bf32261a-2cc9-4f16-9e6b-7fb6b51e6e4e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.36"
+			(at 3.75 -4.75 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "0807a01d-4096-47f4-8dce-eba227d00ce9")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6eb72f2d-d8f3-44f3-ac5c-6e198867e6c5")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 90)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "429ab9e0-b0de-479e-80c1-2db176318601")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 270)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "b6bcc3ab-1766-407c-bad0-d80168ab6f76")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/aaadbed3-b7b1-4b40-896d-f506d8dbaf59")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.727064 0.91)
+			(end 0.727064 0.91)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "2c334024-b038-4755-8210-03753d316e08")
+		)
+		(fp_line
+			(start -0.727064 -0.91)
+			(end 0.727064 -0.91)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "51a5774b-67ad-4894-ac0a-5f71d4e587f9")
+		)
+		(fp_rect
+			(start -2.28 -1.13)
+			(end 2.28 1.13)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "6bce3827-6623-4557-a057-c28c7be4749f")
+		)
+		(fp_rect
+			(start -1.6 -0.8)
+			(end 1.6 0.8)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "3ada8ae5-2018-4a3e-8ae3-bf62f1b68b2f")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 3.75 1.25 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "e2615a66-5452-43f3-8dab-201bcf98ee27")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -1.4625 0 270)
+			(size 1.125 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.222222)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+			(pintype "passive")
+			(uuid "fc007811-c263-40fd-97eb-481247b36e37")
+		)
+		(pad "2" smd roundrect
+			(at 1.4625 0 270)
+			(size 1.125 1.75)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.222222)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
+			(pintype "passive")
+			(uuid "9bc5a3dc-b9b5-4743-947e-8af542e76a3c")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_1206_3216Metric.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -125756,6 +124373,175 @@
 			)
 		)
 	)
+	(footprint "Resistor_SMD:R_0402_1005Metric"
+		(layer "F.Cu")
+		(uuid "da6dda60-bb87-4a07-9e21-df37b8574266")
+		(at 106.925 85.75)
+		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R302"
+			(at 2 -0.5 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "143cb78b-15ea-4ee4-9e65-aeccb3cc9eae")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 8 -0.5 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "b879adde-c30f-45f5-8feb-43281dfbda91")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f8aedd54-8d33-43bf-ac2f-f9cd7709a320")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "355cf008-0ff3-416a-82fd-8e7a8678c387")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7bec0b96-b48b-4782-be2b-e15fbccf3345")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/47e56d03-98c6-43ee-9728-332e5044ac5c")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "39ce1a25-fb52-405b-bc49-bd510788412c")
+		)
+		(fp_line
+			(start -0.153641 0.38)
+			(end 0.153641 0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "cc412122-ab00-4cf8-9e8f-0dd802131194")
+		)
+		(fp_rect
+			(start -0.93 -0.47)
+			(end 0.93 0.47)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "b5e155df-a20e-4c54-9e3e-7f358a1dcebd")
+		)
+		(fp_rect
+			(start -0.525 -0.27)
+			(end 0.525 0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "f4a830c9-e566-4633-9350-57b5fbf2f4e6")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 2 -0.5 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "1e490cbb-eed8-46fd-a901-dac92205628f")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+			(pintype "passive")
+			(uuid "c37e3046-b17d-4657-86f1-6921d0e8a655")
+		)
+		(pad "2" smd roundrect
+			(at 0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_TX")
+			(pintype "passive")
+			(uuid "e8e78829-bcd1-4f7c-a49f-2354d4380c6e")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
 	(footprint "Capacitor_SMD:C_0402_1005Metric"
 		(layer "F.Cu")
 		(uuid "dab61209-e3b9-49d0-a2af-5fdc490dcf66")
@@ -131054,422 +129840,6 @@
 		)
 		(embedded_fonts no)
 		(model "${KICAD10_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_0603_1608Metric.step"
-			(offset
-				(xyz 0 0 0)
-			)
-			(scale
-				(xyz 1 1 1)
-			)
-			(rotate
-				(xyz 0 0 0)
-			)
-		)
-	)
-	(footprint "Resistor_SMD:R_0402_1005Metric"
-		(layer "F.Cu")
-		(uuid "e0d1c4c0-4f37-40f2-8694-fd16f64939d0")
-		(at 106.925 82.25)
-		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
-		(tags "resistor")
-		(property "Reference" "R301"
-			(at 2 0 0)
-			(unlocked yes)
-			(layer "F.SilkS")
-			(hide yes)
-			(uuid "d421496a-a2b0-4b60-af3a-01c2344980e3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100"
-			(at 8 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "792a3818-db51-4946-aaaa-7d12c8e8671d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3dcb15d8-3586-435a-b382-aebb93d60105")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6a29ca29-819a-4151-bd1f-1b5024e22d5f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7ce2f163-05b2-4067-8dee-cba62a57097f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_passives_r_100_0402"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ee32e116-1bc6-49bc-8b4d-2b06bed491ec")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqType" "resistor"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "58fa56a3-2d34-463c-9d03-d0e2d1a996a3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Group" "passives"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1d752568-5bfe-4350-a83d-1f4b989c93c7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "92d0c006-644c-43fe-b0fd-bf2863db4c74")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-0402WGF1000TCE"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "96f306c2-c375-4265-b4a2-b95ffa4e5a6f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Name" "100 0402 resistor"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "62c16488-1678-42a2-93ce-febe7eb02bfc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqValue" "100"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6faa2256-ef02-4913-8820-174dbbf076fb")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "JLC Qty" "9611"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0a8aafe5-1894-42b2-ba84-24a0d97198e5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPackage" "0402"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5b059c1e-2fe8-4216-b590-d7e876375336")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8dd6a45c-f83a-4ccf-bc9e-2763f777a7e5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f162add9-778a-4a52-a83c-45677facda4d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4f603ac8-70d4-4f5f-a881-0d18efcc0bd1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "167bada6-471b-40fb-b74f-69807ff61bac")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "77e51b53-9e90-4a70-8f97-a3b6ca5cf805")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7d5e6901-8e33-484d-95ca-fda04f960094")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e8364b1d-d14f-4223-8149-78afbb1c3d32")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ef963d2c-9e85-49df-8b95-3d24bdb31f69")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "LCSC" "C25076"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9da7c396-3b18-4f9b-bc31-1c23a8df0d2c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Vendor SKU" "C25076"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d13f34d2-d75f-4496-8748-48ea5b54e989")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
-		(path "/cbd92ac5-c563-4176-af81-b008c5188178/e48050c4-7c3e-4feb-a8bf-c915c166209c")
-		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
-		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
-		(units
-			(unit
-				(name "A")
-				(pins "1" "2")
-			)
-		)
-		(attr smd)
-		(duplicate_pad_numbers_are_jumpers no)
-		(fp_line
-			(start -0.153641 -0.38)
-			(end 0.153641 -0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "0a3f3ea7-335f-45b7-9d30-da5b05bbd8d6")
-		)
-		(fp_line
-			(start -0.153641 0.38)
-			(end 0.153641 0.38)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "ace86f38-86ad-48e4-858d-24229fe1ca7c")
-		)
-		(fp_rect
-			(start -0.93 -0.47)
-			(end 0.93 0.47)
-			(stroke
-				(width 0.05)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.CrtYd")
-			(uuid "cc89f62b-c048-47cc-be5b-37b030ab145c")
-		)
-		(fp_rect
-			(start -0.525 -0.27)
-			(end 0.525 0.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(fill no)
-			(layer "F.Fab")
-			(uuid "55a7c3ba-87c9-485c-af8e-ff30c3a4ea2d")
-		)
-		(fp_text user "${REFERENCE}"
-			(at 2 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(uuid "b0281a61-9f7b-45dc-9197-2272e4acd215")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.25)
-					(bold yes)
-				)
-				(justify left)
-			)
-		)
-		(pad "1" smd roundrect
-			(at -0.51 0)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
-			(pintype "passive")
-			(uuid "a1b167a1-fa3d-4bb2-bcb1-1474fc5e06c0")
-		)
-		(pad "2" smd roundrect
-			(at 0.51 0)
-			(size 0.54 0.64)
-			(layers "F.Cu" "F.Mask" "F.Paste")
-			(roundrect_rratio 0.25)
-			(net "/PYC_UART_RX")
-			(pintype "passive")
-			(uuid "d721c212-e9cc-4220-af43-bfd8a05bcfbc")
-		)
-		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -150472,6 +148842,175 @@
 	)
 	(footprint "Resistor_SMD:R_0402_1005Metric"
 		(layer "F.Cu")
+		(uuid "fe14c487-f578-459d-92c7-bd255a2b7cd8")
+		(at 106.925 82.25)
+		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
+		(tags "resistor")
+		(property "Reference" "R301"
+			(at 2 0 0)
+			(unlocked yes)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "effeffdf-10f9-4753-8a7a-356ea0982753")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100"
+			(at 8 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "b7478afc-8dbf-4826-bd09-19a1c1ce1f99")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "85b56e36-7dbf-43fa-9deb-cffef3c6d336")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "510bbd11-324e-46a8-9c63-1b3b03ff26a6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f5d7a153-c5a7-4ae2-9eb0-bab209bc7729")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property ki_fp_filters "Resistor_SMD:R_0402_1005Metric")
+		(path "/19106400-5f2d-48f6-ac1b-aae2c7d177b9/e48050c4-7c3e-4feb-a8bf-c915c166209c")
+		(sheetname "/pycontrol_behavior_port_rj45_boundary_vertical/")
+		(sheetfile "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins "1" "2")
+			)
+		)
+		(attr smd)
+		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -0.153641 -0.38)
+			(end 0.153641 -0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "98a4f105-d5c2-4015-a4ca-d1ed93eb6d69")
+		)
+		(fp_line
+			(start -0.153641 0.38)
+			(end 0.153641 0.38)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "95e3f733-5e1a-4b61-8818-55bb5f53c16e")
+		)
+		(fp_rect
+			(start -0.93 -0.47)
+			(end 0.93 0.47)
+			(stroke
+				(width 0.05)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.CrtYd")
+			(uuid "fca582a7-3e12-45b0-8f40-c69c0f8471ef")
+		)
+		(fp_rect
+			(start -0.525 -0.27)
+			(end 0.525 0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(fill no)
+			(layer "F.Fab")
+			(uuid "5b756e60-c1a0-431d-b766-26f193655c33")
+		)
+		(fp_text user "${REFERENCE}"
+			(at 2 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(uuid "6365ac43-e82c-4f7d-b1cd-80f76996e036")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.25)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(pad "1" smd roundrect
+			(at -0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+			(pintype "passive")
+			(uuid "50ace3e3-913e-453c-87ef-9b638881c9bf")
+		)
+		(pad "2" smd roundrect
+			(at 0.51 0)
+			(size 0.54 0.64)
+			(layers "F.Cu" "F.Mask" "F.Paste")
+			(roundrect_rratio 0.25)
+			(net "/PYC_UART_RX")
+			(pintype "passive")
+			(uuid "64fe579f-f406-4d7d-a48e-a0d419a2a4af")
+		)
+		(embedded_fonts no)
+		(model "${KICAD10_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0402_1005Metric.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz 0 0 0)
+			)
+		)
+	)
+	(footprint "Resistor_SMD:R_0402_1005Metric"
+		(layer "F.Cu")
 		(uuid "fe217a36-a00f-487a-9af2-17362c5a5ded")
 		(at 172.925 93 -90)
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
@@ -152689,6 +151228,46 @@
 		)
 	)
 	(segment
+		(start 113.415 74)
+		(end 111.175 74)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
+		(uuid "2ddfe795-0db2-4a4b-939d-fd8c13002184")
+	)
+	(segment
+		(start 110.975 73.8)
+		(end 110.975 72.8625)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
+		(uuid "49ff0872-5242-4ef3-baf5-ca2aba22fa88")
+	)
+	(segment
+		(start 111.175 74)
+		(end 110.975 73.8)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
+		(uuid "73940e29-d2aa-4faa-aa91-530c17800578")
+	)
+	(segment
+		(start 113.415 73.5)
+		(end 113.415 74)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
+		(uuid "aedbad4d-bb80-4591-ac12-cc363f29a8f5")
+	)
+	(segment
+		(start 113.415 74)
+		(end 113.415 74.5)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
+		(uuid "d3c361b9-8066-4f31-b660-a0c483344e41")
+	)
+	(segment
 		(start 152.425 75.45)
 		(end 152.425 79)
 		(width 0.6)
@@ -152817,6 +151396,14 @@
 		(uuid "2d1814c1-7642-4da1-8807-8d3a234e2ad1")
 	)
 	(segment
+		(start 105.88 87.565)
+		(end 102.74 87.565)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "2f5cc40c-5ab0-44ba-9a22-3cb0bcfba9e4")
+	)
+	(segment
 		(start 134.905 72)
 		(end 135.655 72.75)
 		(width 0.2)
@@ -152857,6 +151444,14 @@
 		(uuid "3e9fce7d-71ca-4644-9dc4-7e15456cf4f6")
 	)
 	(segment
+		(start 102.13 86.295)
+		(end 91.52 86.295)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "4146dd3d-634c-4f6a-8c5e-a11365e63e5a")
+	)
+	(segment
 		(start 131.425 76.75)
 		(end 132.175 76)
 		(width 0.2)
@@ -152887,6 +151482,14 @@
 		(layer "F.Cu")
 		(net "/GND")
 		(uuid "42ce28f0-9125-4343-8f48-875a7eb881ad")
+	)
+	(segment
+		(start 102.74 87.565)
+		(end 102.175 87)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "4944b1bb-6acb-429c-84ec-eefbefc48f4e")
 	)
 	(segment
 		(start 135.0125 76.8375)
@@ -153065,6 +151668,22 @@
 		(uuid "8015d6c0-4116-4359-a448-9e94ae725877")
 	)
 	(segment
+		(start 106.445 87)
+		(end 105.88 87.565)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "86e22487-2fb6-4c83-8d9f-03f46c42f8e7")
+	)
+	(segment
+		(start 106.5 84)
+		(end 103.59 84)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "87eccfb4-3b60-463f-b8df-5f397d4be712")
+	)
+	(segment
 		(start 132.175 76)
 		(end 134.175 76)
 		(width 0.2)
@@ -153105,6 +151724,14 @@
 		(uuid "8f84adef-6523-4415-b370-97322f2e5273")
 	)
 	(segment
+		(start 102.175 86.25)
+		(end 102.175 85.065)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "8f886db9-3d96-42b8-942b-93379c8affcc")
+	)
+	(segment
 		(start 134.425 88.25)
 		(end 135.15 88.975)
 		(width 0.2)
@@ -153119,6 +151746,30 @@
 		(layer "F.Cu")
 		(net "/GND")
 		(uuid "91c262bf-3f4c-4bac-a4c7-f87926a30b43")
+	)
+	(segment
+		(start 102.175 87)
+		(end 102.175 86.25)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "9228506d-7e7f-4254-89f1-7043a017dd29")
+	)
+	(segment
+		(start 102.175 86.25)
+		(end 102.13 86.295)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "92295012-9dff-42db-a88a-5fff0441055b")
+	)
+	(segment
+		(start 103.59 84)
+		(end 103.415 83.825)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "9250525a-d78c-4de0-8fb9-57aaba2aa5b1")
 	)
 	(segment
 		(start 147.675 83.48)
@@ -153185,6 +151836,14 @@
 		(uuid "b1b3cd89-98d5-4010-bc46-8f3a28232b9e")
 	)
 	(segment
+		(start 91.475 79.2)
+		(end 91.475 86.25)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "b3d152c7-8fed-42cc-b086-3166a59aede4")
+	)
+	(segment
 		(start 113.175 70.675)
 		(end 114.625 70.675)
 		(width 0.4)
@@ -153225,6 +151884,14 @@
 		(uuid "cb51e804-ad1b-4049-9d11-3d4de397bbd2")
 	)
 	(segment
+		(start 102.175 85.065)
+		(end 103.415 83.825)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "cbb6c489-d11a-48e3-9fba-67bb2c561ec2")
+	)
+	(segment
 		(start 140.675 85.1625)
 		(end 140.675 83.25)
 		(width 0.2)
@@ -153263,6 +151930,22 @@
 		(layer "F.Cu")
 		(net "/GND")
 		(uuid "e2c00802-a164-4c52-9b35-58e54ead00d1")
+	)
+	(segment
+		(start 91.475 86.25)
+		(end 91.475 94.8)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "e4028914-2341-4b14-a156-b7de4a4d32ba")
+	)
+	(segment
+		(start 91.52 86.295)
+		(end 91.475 86.25)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/GND")
+		(uuid "e41b29cb-c243-4a21-9bd7-1424afc4ff5e")
 	)
 	(segment
 		(start 93.425 67.46)
@@ -153961,6 +152644,182 @@
 		(uuid "e36551a5-0210-4bd9-8d1e-88f126914c39")
 	)
 	(segment
+		(start 108.045 74.671076)
+		(end 108.045 75.39)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "1dcc1288-d2e7-404f-84cf-06a866bd895a")
+	)
+	(segment
+		(start 108.375 72.8625)
+		(end 108.375 74.341076)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "66373ac5-1643-4afe-a422-807820621daf")
+	)
+	(segment
+		(start 108.375 74.341076)
+		(end 108.045 74.671076)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "a341163d-0662-4621-80ac-59ce662b437f")
+	)
+	(segment
+		(start 108.045 75.39)
+		(end 107.425 76.01)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "a56a47ce-901c-482a-bf65-8b4b89b8fc00")
+	)
+	(segment
+		(start 106.425 74.99)
+		(end 106.425 75.01)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "cd7bdef7-d2e6-46d8-896d-784c9e62ff03")
+	)
+	(segment
+		(start 106.425 75.01)
+		(end 107.425 76.01)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
+		(uuid "dad28c6d-be21-417f-bfb8-41e1385033d2")
+	)
+	(segment
+		(start 107.175 89.0375)
+		(end 103.5475 89.0375)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "09d7ef9c-70f4-4b62-b4a8-e4d5468cc169")
+	)
+	(segment
+		(start 108.35 84)
+		(end 109.425 84)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "346d639e-3bbc-4202-ba7d-848e45624cd1")
+	)
+	(segment
+		(start 103.5475 89.0375)
+		(end 103.415 88.905)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "5e203d23-c1b5-4268-8bfd-34663877133f")
+	)
+	(segment
+		(start 107.405 88.8075)
+		(end 107.175 89.0375)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "76396ccd-ef89-4578-96bd-a9a76e7e75f8")
+	)
+	(segment
+		(start 107.405 87)
+		(end 107.405 88.8075)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "9ebb2621-d8a8-47c3-a54a-7e0fca6c933d")
+	)
+	(segment
+		(start 107.405 87)
+		(end 108.175 87)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "dce394d8-26ac-43a4-897c-525069f06dac")
+	)
+	(via
+		(at 109.425 84)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "0dc76140-0b23-42e0-8ba1-5c104c6205ba")
+	)
+	(via
+		(at 108.175 87)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "d587cff0-b371-413a-9647-e393245294b3")
+	)
+	(segment
+		(start 109.425 85.75)
+		(end 108.175 87)
+		(width 0.2)
+		(layer "B.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "bfbf6d70-d1cf-412d-8ba9-f39d602bd3d6")
+	)
+	(segment
+		(start 109.425 84)
+		(end 109.425 85.75)
+		(width 0.2)
+		(layer "B.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_CONN_5V")
+		(uuid "dc45b58d-f45f-4147-a9d7-5ff5c1ea3431")
+	)
+	(segment
+		(start 107.435 85.75)
+		(end 108.175 85.75)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/PYC_UART_TX")
+		(uuid "08f5c169-2598-4f4b-9bd6-79258675ac86")
+	)
+	(segment
+		(start 108.915 85.75)
+		(end 108.175 85.75)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/PYC_UART_TX")
+		(uuid "ee71feb2-5696-457d-8ce2-07871b58a627")
+	)
+	(via
+		(at 108.175 85.75)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/PYC_UART_TX")
+		(uuid "6b52a61f-fba1-48c4-a682-83d8ee4938e7")
+	)
+	(segment
+		(start 108.915 82.25)
+		(end 108.175 82.25)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/PYC_UART_RX")
+		(uuid "8bfa85a4-dd1e-42da-b3fb-d70039020fd0")
+	)
+	(segment
+		(start 107.435 82.25)
+		(end 108.175 82.25)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/PYC_UART_RX")
+		(uuid "e4664747-5b36-4715-b822-35d2e38d3693")
+	)
+	(via
+		(at 108.175 82.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/PYC_UART_RX")
+		(uuid "b9a8bf0d-600b-4bf2-b937-a318310db0c5")
+	)
+	(segment
 		(start 108.675 76.01)
 		(end 108.675 76.75)
 		(width 0.2)
@@ -154127,6 +152986,22 @@
 		(layers "F.Cu" "B.Cu")
 		(net "/TMC_SPI_CIPO")
 		(uuid "cc9426d4-c751-40f9-acf7-9198373c1036")
+	)
+	(segment
+		(start 109.5375 91.9625)
+		(end 109.675 92.1)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
+		(uuid "a9dd641c-67d1-4fc2-98e5-5bfe5046a120")
+	)
+	(segment
+		(start 107.175 91.9625)
+		(end 109.5375 91.9625)
+		(width 0.4)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/PYC_5V_FUSED")
+		(uuid "baadf2e9-5302-4210-94ad-08e482150ffc")
 	)
 	(segment
 		(start 138.675 88.99)
@@ -154553,6 +153428,22 @@
 		(uuid "6d23b863-8671-43f3-a19a-7d27836c8ab0")
 	)
 	(segment
+		(start 108.675 78.51)
+		(end 108.675 79.25)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/HV_DIAG_EN_INST")
+		(uuid "84ae33a1-5dcb-4827-aa65-bdafb45af654")
+	)
+	(via
+		(at 108.675 79.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/HV_DIAG_EN_INST")
+		(uuid "82d10f8a-bd28-47ad-b052-fbdee5b84a47")
+	)
+	(segment
 		(start 140.675 71.99)
 		(end 140.675 71.25)
 		(width 0.2)
@@ -154567,6 +153458,62 @@
 		(layers "F.Cu" "B.Cu")
 		(net "/TMC_DIAG1_INST")
 		(uuid "2a16c72b-1333-4b16-85d3-06058be8aa0b")
+	)
+	(segment
+		(start 106.575 84.5375)
+		(end 106.575 85.59)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+		(uuid "082c8002-7001-4748-8995-f6f417995027")
+	)
+	(segment
+		(start 104.03 85.75)
+		(end 103.415 86.365)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+		(uuid "1127d93a-dc5f-4a19-8131-bea72a9f8baa")
+	)
+	(segment
+		(start 106.575 85.59)
+		(end 106.415 85.75)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+		(uuid "4a36d328-e8a6-427f-b46d-eef978b29bb4")
+	)
+	(segment
+		(start 106.415 85.75)
+		(end 104.03 85.75)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_B")
+		(uuid "6f5648c3-4a30-4644-bff6-8a0301b4f2b3")
+	)
+	(segment
+		(start 93.8187 72.9337)
+		(end 93.425 72.54)
+		(width 0.8)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
+		(uuid "43427f91-e44a-4aba-8072-908fe9deeea2")
+	)
+	(segment
+		(start 101.004999 72.9337)
+		(end 102.845001 72.9337)
+		(width 0.8)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
+		(uuid "868e9714-2820-4028-b30e-a752478a7eb3")
+	)
+	(segment
+		(start 101.004999 72.9337)
+		(end 93.8187 72.9337)
+		(width 0.8)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
+		(uuid "c66c1c7a-fac0-4ce7-bdd5-eb84d8dbd5f3")
 	)
 	(segment
 		(start 138.675 71.99)
@@ -154633,6 +153580,54 @@
 		(uuid "22f6fa7f-0d18-4eba-8ec3-29215b464979")
 	)
 	(segment
+		(start 109.675 72.8625)
+		(end 109.675 74.99)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/~{FAULT_PROT}")
+		(uuid "2128c596-32f9-42e7-a333-6f3b5cac4ac1")
+	)
+	(segment
+		(start 109.675 74.99)
+		(end 110.675 74.99)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/~{FAULT_PROT}")
+		(uuid "a32d6336-84c6-4548-9ecc-d30c896ab6aa")
+	)
+	(segment
+		(start 106.575 82.41)
+		(end 106.415 82.25)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+		(uuid "0ad1cf0a-e746-4b3b-9d98-b367c99cfec5")
+	)
+	(segment
+		(start 106.575 83.4625)
+		(end 106.575 82.41)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+		(uuid "6b497bcc-558a-4ce2-b9b5-ce2cb6cdea35")
+	)
+	(segment
+		(start 101.18 82.25)
+		(end 100.875 82.555)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+		(uuid "8135a02a-6cc7-47ad-a8c2-81759dcc3895")
+	)
+	(segment
+		(start 106.415 82.25)
+		(end 101.18 82.25)
+		(width 0.2)
+		(layer "F.Cu")
+		(net "/pycontrol_behavior_port_rj45_boundary_vertical/DIO_A")
+		(uuid "ebee1087-1069-4aaf-bdba-22158920bfca")
+	)
+	(segment
 		(start 107.725 67.1375)
 		(end 105.8125 69.05)
 		(width 0.4)
@@ -154681,76 +153676,36 @@
 		(uuid "cf0d0cf5-bf62-40ae-bf61-2e1fd720ebfe")
 	)
 	(segment
-		(start 93.8187 72.9337)
-		(end 93.425 72.54)
-		(width 0.8)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
-		(uuid "43427f91-e44a-4aba-8072-908fe9deeea2")
-	)
-	(segment
-		(start 101.004999 72.9337)
-		(end 102.845001 72.9337)
-		(width 0.8)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
-		(uuid "868e9714-2820-4028-b30e-a752478a7eb3")
-	)
-	(segment
-		(start 101.004999 72.9337)
-		(end 93.8187 72.9337)
-		(width 0.8)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/HV_RAW")
-		(uuid "c66c1c7a-fac0-4ce7-bdd5-eb84d8dbd5f3")
-	)
-	(segment
-		(start 108.045 74.671076)
-		(end 108.045 75.39)
+		(start 109.675 78.51)
+		(end 109.675 79.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "1dcc1288-d2e7-404f-84cf-06a866bd895a")
+		(net "/~{HV_FAULT}_INST")
+		(uuid "d2a213c1-b5f7-4aa1-bce5-aa90c83d5c00")
+	)
+	(via
+		(at 109.675 79.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/~{HV_FAULT}_INST")
+		(uuid "dae62a95-4255-4f3e-a019-5dc0e49f7d9b")
 	)
 	(segment
-		(start 108.375 72.8625)
-		(end 108.375 74.341076)
+		(start 106.425 78.51)
+		(end 106.425 79.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "66373ac5-1643-4afe-a422-807820621daf")
+		(net "/HV_EN_INST")
+		(uuid "1990904d-a853-4fa5-8df8-fbfad144092d")
 	)
-	(segment
-		(start 108.375 74.341076)
-		(end 108.045 74.671076)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "a341163d-0662-4621-80ac-59ce662b437f")
-	)
-	(segment
-		(start 108.045 75.39)
-		(end 107.425 76.01)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "a56a47ce-901c-482a-bf65-8b4b89b8fc00")
-	)
-	(segment
-		(start 106.425 74.99)
-		(end 106.425 75.01)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "cd7bdef7-d2e6-46d8-896d-784c9e62ff03")
-	)
-	(segment
-		(start 106.425 75.01)
-		(end 107.425 76.01)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/ENABLE_PROT")
-		(uuid "dad28c6d-be21-417f-bfb8-41e1385033d2")
+	(via
+		(at 106.425 79.25)
+		(size 0.6)
+		(drill 0.3)
+		(layers "F.Cu" "B.Cu")
+		(net "/HV_EN_INST")
+		(uuid "56624289-a32b-4c52-8354-13c2ddc07440")
 	)
 	(segment
 		(start 109.025 74.64)
@@ -154801,62 +153756,6 @@
 		(uuid "7e9daf91-02b2-4fed-86fa-aea66a8037fb")
 	)
 	(segment
-		(start 109.675 72.8625)
-		(end 109.675 74.99)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/~{FAULT_PROT}")
-		(uuid "2128c596-32f9-42e7-a333-6f3b5cac4ac1")
-	)
-	(segment
-		(start 109.675 74.99)
-		(end 110.675 74.99)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/~{FAULT_PROT}")
-		(uuid "a32d6336-84c6-4548-9ecc-d30c896ab6aa")
-	)
-	(segment
-		(start 113.415 74)
-		(end 111.175 74)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
-		(uuid "2ddfe795-0db2-4a4b-939d-fd8c13002184")
-	)
-	(segment
-		(start 110.975 73.8)
-		(end 110.975 72.8625)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
-		(uuid "49ff0872-5242-4ef3-baf5-ca2aba22fa88")
-	)
-	(segment
-		(start 111.175 74)
-		(end 110.975 73.8)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
-		(uuid "73940e29-d2aa-4faa-aa91-530c17800578")
-	)
-	(segment
-		(start 113.415 73.5)
-		(end 113.415 74)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
-		(uuid "aedbad4d-bb80-4591-ac12-cc363f29a8f5")
-	)
-	(segment
-		(start 113.415 74)
-		(end 113.415 74.5)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/hv_input_36V_terminal_2pos_5p08_protected_vertical/SNS_PROT")
-		(uuid "d3c361b9-8066-4f31-b660-a0c483344e41")
-	)
-	(segment
 		(start 113.175 72.325)
 		(end 112.1625 72.325)
 		(width 0.4)
@@ -154873,52 +153772,36 @@
 		(uuid "efab0dc3-154f-46db-9ec9-fdd474b91753")
 	)
 	(segment
-		(start 106.425 78.51)
-		(end 106.425 79.25)
+		(start 109.935 82.25)
+		(end 110.675 82.25)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/HV_EN_INST")
-		(uuid "1990904d-a853-4fa5-8df8-fbfad144092d")
+		(net "/PYC_UART_RX_INST")
+		(uuid "e557b17a-e015-4493-9d30-86a0870b09b9")
 	)
 	(via
-		(at 106.425 79.25)
+		(at 110.675 82.25)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net "/HV_EN_INST")
-		(uuid "56624289-a32b-4c52-8354-13c2ddc07440")
+		(net "/PYC_UART_RX_INST")
+		(uuid "8db8cff3-6fe9-4a4e-af20-6d2c394be637")
 	)
 	(segment
-		(start 108.675 78.51)
-		(end 108.675 79.25)
+		(start 109.935 85.75)
+		(end 110.675 85.75)
 		(width 0.2)
 		(layer "F.Cu")
-		(net "/HV_DIAG_EN_INST")
-		(uuid "84ae33a1-5dcb-4827-aa65-bdafb45af654")
+		(net "/PYC_UART_TX_INST")
+		(uuid "ed4825dd-b30c-4a77-a3a7-0353b0948f61")
 	)
 	(via
-		(at 108.675 79.25)
+		(at 110.675 85.75)
 		(size 0.6)
 		(drill 0.3)
 		(layers "F.Cu" "B.Cu")
-		(net "/HV_DIAG_EN_INST")
-		(uuid "82d10f8a-bd28-47ad-b052-fbdee5b84a47")
-	)
-	(segment
-		(start 109.675 78.51)
-		(end 109.675 79.25)
-		(width 0.2)
-		(layer "F.Cu")
-		(net "/~{HV_FAULT}_INST")
-		(uuid "d2a213c1-b5f7-4aa1-bce5-aa90c83d5c00")
-	)
-	(via
-		(at 109.675 79.25)
-		(size 0.6)
-		(drill 0.3)
-		(layers "F.Cu" "B.Cu")
-		(net "/~{HV_FAULT}_INST")
-		(uuid "dae62a95-4255-4f3e-a019-5dc0e49f7d9b")
+		(net "/PYC_UART_TX_INST")
+		(uuid "acd54c53-480c-4ee3-8298-179b885827e9")
 	)
 	(group "usb2_vertical"
 		(uuid "733984e5-3fd7-52d8-bec4-bbc41754d5d3")
@@ -154937,15 +153820,6 @@
 			"619aa5d8-5797-427b-9019-500b0eececb3" "7b696f33-9401-4c5b-8654-4c22a837e00e"
 			"de813138-e2e0-4a3b-b69e-481b5c6b11ee" "e53e988d-5ccf-4f96-ba3b-69d4717519aa"
 			"f3530357-8ed4-47c7-a5ed-2dd992b45f78" "f65560ff-3488-452f-ba78-9e1571023c76"
-		)
-	)
-	(group "pycontrol_behavior_port_rj45_boundary_vertical"
-		(uuid "d6f8e2c2-d695-5847-8cbb-4ce74f863fb9")
-		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical")
-		(members "119491ba-b3c0-436d-a279-420ec428610b" "2bdb8632-0bd9-4ca3-9d59-3adf4747f2ae"
-			"3d5867ed-0d30-41ea-b403-bfe89f0584ce" "6b8c87a4-c437-4519-b23d-6d610d2d2abe"
-			"93a09e75-78a7-465e-a083-b230564bbf18" "abe730d1-d0b1-4758-acf4-041396142992"
-			"e0d1c4c0-4f37-40f2-8694-fd16f64939d0"
 		)
 	)
 	(group "limit_switch_debounced_input_vertical"
@@ -155126,6 +154000,37 @@
 			"f97a08fc-b06d-49a0-900b-5715960b9ceb" "fa89fef7-a8fb-43e1-966a-10cb3a694bb7"
 			"fcb48f46-5f82-41f5-b8dd-4cbefb2cbe57" "fdecb176-153f-47af-b497-473d8dbd17bb"
 			"fe3b6177-1402-4c71-a33b-82c8783e782f" "ff98fa7e-33df-4503-9d3f-05f7ef7a6c5c"
+		)
+	)
+	(group "pycontrol_behavior_port_rj45_boundary_vertical"
+		(uuid "7c03feb0-bb77-5514-a74d-f82f20bbf7b4")
+		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical")
+		(members "082c8002-7001-4748-8995-f6f417995027" "08f5c169-2598-4f4b-9bd6-79258675ac86"
+			"09d7ef9c-70f4-4b62-b4a8-e4d5468cc169" "0ad1cf0a-e746-4b3b-9d98-b367c99cfec5"
+			"0dc76140-0b23-42e0-8ba1-5c104c6205ba" "1127d93a-dc5f-4a19-8131-bea72a9f8baa"
+			"23b763a3-bfb3-4920-8797-71af035bfd10" "2f5cc40c-5ab0-44ba-9a22-3cb0bcfba9e4"
+			"346d639e-3bbc-4202-ba7d-848e45624cd1" "40c3f805-4953-43f7-b2cd-b3a5112278f4"
+			"4146dd3d-634c-4f6a-8c5e-a11365e63e5a" "4944b1bb-6acb-429c-84ec-eefbefc48f4e"
+			"4a36d328-e8a6-427f-b46d-eef978b29bb4" "5456a286-2886-4b3f-a365-da3c30cbd538"
+			"5e203d23-c1b5-4268-8bfd-34663877133f" "64aab301-28a1-4647-9265-b3730eeed705"
+			"6b497bcc-558a-4ce2-b9b5-ce2cb6cdea35" "6b52a61f-fba1-48c4-a682-83d8ee4938e7"
+			"6f5648c3-4a30-4644-bff6-8a0301b4f2b3" "76396ccd-ef89-4578-96bd-a9a76e7e75f8"
+			"8135a02a-6cc7-47ad-a8c2-81759dcc3895" "86e22487-2fb6-4c83-8d9f-03f46c42f8e7"
+			"87eccfb4-3b60-463f-b8df-5f397d4be712" "8bfa85a4-dd1e-42da-b3fb-d70039020fd0"
+			"8db8cff3-6fe9-4a4e-af20-6d2c394be637" "8f886db9-3d96-42b8-942b-93379c8affcc"
+			"9228506d-7e7f-4254-89f1-7043a017dd29" "92295012-9dff-42db-a88a-5fff0441055b"
+			"9250525a-d78c-4de0-8fb9-57aaba2aa5b1" "9ebb2621-d8a8-47c3-a54a-7e0fca6c933d"
+			"a9dd641c-67d1-4fc2-98e5-5bfe5046a120" "acd54c53-480c-4ee3-8298-179b885827e9"
+			"b3d152c7-8fed-42cc-b086-3166a59aede4" "b5660082-1afb-456e-b727-8165011ad873"
+			"b9a8bf0d-600b-4bf2-b937-a318310db0c5" "baadf2e9-5302-4210-94ad-08e482150ffc"
+			"bb54a4df-751b-45e0-a1aa-a5182d1a070f" "bf2dcab5-38a9-4f0f-aa6d-d380c6be0548"
+			"bfbf6d70-d1cf-412d-8ba9-f39d602bd3d6" "cbb6c489-d11a-48e3-9fba-67bb2c561ec2"
+			"d587cff0-b371-413a-9647-e393245294b3" "da6dda60-bb87-4a07-9e21-df37b8574266"
+			"dc45b58d-f45f-4147-a9d7-5ff5c1ea3431" "dce394d8-26ac-43a4-897c-525069f06dac"
+			"e4028914-2341-4b14-a156-b7de4a4d32ba" "e41b29cb-c243-4a21-9bd7-1424afc4ff5e"
+			"e4664747-5b36-4715-b822-35d2e38d3693" "e557b17a-e015-4493-9d30-86a0870b09b9"
+			"ebee1087-1069-4aaf-bdba-22158920bfca" "ed4825dd-b30c-4a77-a3a7-0353b0948f61"
+			"ee71feb2-5696-457d-8ce2-07871b58a627" "fe14c487-f578-459d-92c7-bd255a2b7cd8"
 		)
 	)
 	(group "analog_output_0_3v3_dac80501"

@@ -128,16 +128,16 @@
 		)
 	)
 	(no_connect
-		(at 127 53.34)
-		(uuid "030c9d9f-3bae-42e8-b33a-4870989656e4")
-	)
-	(no_connect
 		(at 203.2 53.34)
 		(uuid "09828123-b6da-473c-a539-3617335151e3")
 	)
 	(no_connect
 		(at 83.82 27.94)
 		(uuid "230a8e9a-5b09-49eb-824b-d25cdfdc3acb")
+	)
+	(no_connect
+		(at 127 53.34)
+		(uuid "490ddae7-14a1-4126-9ba6-71d20950434a")
 	)
 	(no_connect
 		(at 152.4 116.84)
@@ -367,6 +367,16 @@
 	)
 	(wire
 		(pts
+			(xy 127 71.12) (xy 129.54 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2aea7c1a-13b7-470e-9031-00caa7a6548e")
+	)
+	(wire
+		(pts
 			(xy 86.36 101.6) (xy 88.9 101.6)
 		)
 		(stroke
@@ -444,6 +454,16 @@
 			(type default)
 		)
 		(uuid "42356ab8-cac1-4363-9fa8-f84034fd6eaa")
+	)
+	(wire
+		(pts
+			(xy 127 68.58) (xy 129.54 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42a20420-6354-4e9f-8f2b-fce95bb42218")
 	)
 	(wire
 		(pts
@@ -1645,7 +1665,7 @@
 		)
 		(uuid "34a9d760-11f2-4b6a-a21d-2eed0514e46f")
 	)
-	(label "PYC_UART_RX"
+	(label "PYC_UART_RX_INST"
 		(at 251.46 68.58 180)
 		(effects
 			(font
@@ -1725,6 +1745,16 @@
 		)
 		(uuid "3de24e16-3563-4ede-9498-f813bab155cf")
 	)
+	(label "PYC_UART_RX_INST"
+		(at 129.54 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3fd05e2f-e453-41e3-b649-ff8f57169f97")
+	)
 	(label "TQ_CAL_EN"
 		(at 88.9 139.7 0)
 		(effects
@@ -1744,6 +1774,16 @@
 			(justify left bottom)
 		)
 		(uuid "41f9a137-3467-4731-9966-ba5f202d2d4a")
+	)
+	(label "PYC_UART_TX_INST"
+		(at 129.54 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "434d93b6-35fb-423c-933a-4e08f0784e92")
 	)
 	(label "HV_EN"
 		(at 48.26 30.48 180)
@@ -2105,7 +2145,7 @@
 		)
 		(uuid "9768687c-9ca0-4161-a59a-5e84bd14b655")
 	)
-	(label "PYC_UART_TX"
+	(label "PYC_UART_TX_INST"
 		(at 251.46 66.04 180)
 		(effects
 			(font
@@ -2674,15 +2714,15 @@
 			)
 		)
 	)
+	(group "pycontrol_behavior_port_rj45_boundary_vertical"
+		(uuid "005b98b1-36b3-4e13-b808-f07fda8d5ca6")
+		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical")
+		(members "19106400-5f2d-48f6-ac1b-aae2c7d177b9")
+	)
 	(group "5v_to_3v3_tps73733_2"
 		(uuid "5c57b5d4-d1ab-47ee-aa2e-677d67fc6d60")
 		(lib_id "orb_weaver_private:5v_to_3v3_tps73733")
 		(members "72a6e0d8-0034-436c-8227-3a0b0df3a34e")
-	)
-	(group "pycontrol_behavior_port_rj45_boundary_vertical"
-		(uuid "b044ebd2-3031-449d-a785-81bb58a137d1")
-		(lib_id "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical")
-		(members "030c9d9f-3bae-42e8-b33a-4870989656e4" "cbd92ac5-c563-4176-af81-b008c5188178")
 	)
 	(group "hv_input_36V_terminal_2pos_5p08_protected_vertical"
 		(uuid "b71c624c-036e-4738-96bf-76eb742f28cd")
@@ -3392,6 +3432,122 @@
 		)
 	)
 	(sheet
+		(at 91.44 50.8)
+		(size 35.56 22.86)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "19106400-5f2d-48f6-ac1b-aae2c7d177b9")
+		(property "Sheetname" "pycontrol_behavior_port_rj45_boundary_vertical"
+			(at 91.44 50.0884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch"
+			(at 91.44 74.2446 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+5V_PYC" passive
+			(at 127 55.88 0)
+			(uuid "df05e743-4622-45de-a52f-107bce931aee")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 127 58.42 0)
+			(uuid "bdcc8696-9893-4eb2-b4a3-90a5008879a9")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_CONN_5V" passive
+			(at 127 53.34 0)
+			(uuid "2b32154a-b3c3-49e3-bb07-7aaf6de44de0")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_A_HOSTTX_SCL_MOSI" bidirectional
+			(at 127 63.5 0)
+			(uuid "b8475ce8-e268-49f6-8346-ab78970851b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_A_INST" output
+			(at 127 68.58 0)
+			(uuid "38ae35bd-ef5c-457c-bc0a-3c19eb37b74b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_B_HOSTRX_SDA_MISO" bidirectional
+			(at 127 66.04 0)
+			(uuid "81eb8427-2b2a-4011-a79f-074c53d1d204")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "PYC_DIO_B_INST" output
+			(at 127 71.12 0)
+			(uuid "b8569ef0-ed8b-44c7-95e5-f2a676ede245")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 203.2 25.4)
 		(size 25.4 7.62)
 		(exclude_from_sim no)
@@ -3845,102 +4001,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00"
 					(page "11")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 93.98 50.8)
-		(size 33.02 17.78)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "cbd92ac5-c563-4176-af81-b008c5188178")
-		(property "Sheetname" "pycontrol_behavior_port_rj45_boundary_vertical"
-			(at 93.98 50.0884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch"
-			(at 93.98 69.1646 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+5V_PYC" passive
-			(at 127 55.88 0)
-			(uuid "2b8c0d59-8f5c-4147-8697-a1fa336e78dd")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "GND" passive
-			(at 127 58.42 0)
-			(uuid "275e5d0d-de3f-4714-ba95-d430d3be0567")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "PYC_CONN_5V" passive
-			(at 127 53.34 0)
-			(uuid "8fde33f4-6020-4f74-9030-97f54bb6f408")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "PYC_DIO_A_HOSTTX_SCL_MOSI" bidirectional
-			(at 127 63.5 0)
-			(uuid "d79ccbf2-3e9f-4312-8e01-229d75d4702f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "PYC_DIO_B_HOSTRX_SDA_MISO" bidirectional
-			(at 127 66.04 0)
-			(uuid "81d567bc-0536-4fba-aede-54b5f5d0c5e2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00"
-					(page "3")
 				)
 			)
 		)
