@@ -123438,56 +123438,6 @@
 		(net "Net-(U1901-SW-Pad5)")
 		(uuid "2a6153b9-ec9c-4198-9b95-aecfa7cefbd1")
 	)
-	(zone
-		(layer "In1.Cu")
-		(uuid "7a2ce62a-c61b-4fcc-bcf6-2cd89f0928b8")
-		(hatch edge 0.5)
-		(connect_pads
-			(clearance 0)
-		)
-		(min_thickness 0.25)
-		(keepout
-			(tracks not_allowed)
-			(vias allowed)
-			(pads allowed)
-			(copperpour allowed)
-			(footprints allowed)
-		)
-		(placement
-			(enabled no)
-			(sheetname "/")
-		)
-		(fill
-			(thermal_gap 0.25)
-			(thermal_bridge_width 0.25)
-			(island_removal_mode 0)
-		)
-		(polygon
-			(pts
-				(xy 84.425 52) (xy 84.425 138) (xy 190.425 138) (xy 190.425 52)
-			)
-		)
-	)
-	(zone
-		(net "/GND")
-		(layer "In1.Cu")
-		(uuid "d402e409-ee1d-4d2e-9f61-82936c46f992")
-		(hatch edge 0.5)
-		(connect_pads
-			(clearance 0.25)
-		)
-		(min_thickness 0.25)
-		(fill
-			(thermal_gap 0.25)
-			(thermal_bridge_width 0.25)
-			(island_removal_mode 0)
-		)
-		(polygon
-			(pts
-				(xy 82.425 50) (xy 82.425 140) (xy 192.425 140) (xy 192.425 50)
-			)
-		)
-	)
 	(group "analog_output_0_3v3_dac80501"
 		(uuid "29c35aba-a324-59c4-b70c-250f65e260a7")
 		(lib_id "orb_weaver_private:analog_output_0_3v3_dac80501")
