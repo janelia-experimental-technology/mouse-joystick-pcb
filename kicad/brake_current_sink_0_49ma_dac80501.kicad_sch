@@ -5,10 +5,8 @@
 	(uuid "844baf87-f8c5-492e-88a2-0e7c61260784")
 	(paper "A4")
 	(title_block
-		(title "mouse-joystick-pcb")
-		(date "2026-09-19")
-		(rev "1.0")
-		(company "Janelia Research Campus")
+		(title "Orb Weaver Design Block Mining")
+		(date "2026-09-20")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -10232,6 +10230,16 @@
 	)
 	(wire
 		(pts
+			(xy 259.08 162.56) (xy 261.62 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ccb6ca5-4291-4aca-8c71-abf8bd3de04a")
+	)
+	(wire
+		(pts
 			(xy 261.62 139.7) (xy 261.62 137.16)
 		)
 		(stroke
@@ -10589,6 +10597,16 @@
 			(type default)
 		)
 		(uuid "9fd72055-646e-4f51-a396-b6ac05efc4c1")
+	)
+	(wire
+		(pts
+			(xy 246.38 162.56) (xy 243.84 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a06d822a-a71f-4943-9f2d-a71e57d36c26")
 	)
 	(wire
 		(pts
@@ -11650,6 +11668,16 @@
 		)
 		(uuid "5c29d369-7abe-42d6-9fa8-1ec0185125cf")
 	)
+	(label "~{BRAKE_FAULT}"
+		(at 243.84 162.56 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5d548de6-ddee-4940-af12-14897ef25b96")
+	)
 	(label "GND"
 		(at 116.84 71.12 270)
 		(effects
@@ -12502,6 +12530,17 @@
 		)
 		(uuid "2513a8b1-794c-4030-adbc-f707165437fc")
 	)
+	(hierarchical_label "~{BRAKE_FAULT}_INST"
+		(shape output)
+		(at 261.62 162.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "40282ebb-0b5b-4800-aa96-f46f24919659")
+	)
 	(hierarchical_label "+3.3V"
 		(shape passive)
 		(at 33.02 27.94 180)
@@ -12847,7 +12886,7 @@
 		(property "LCSC" "C705066"
 			(at 74.93 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -12858,7 +12897,7 @@
 		(property "Vendor SKU" "C705066"
 			(at 74.93 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -12874,7 +12913,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1803")
 					(unit 1)
 				)
@@ -13155,7 +13194,7 @@
 		(property "LCSC" "C221351"
 			(at 134.62 154.94 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13166,7 +13205,7 @@
 		(property "Vendor SKU" "C221351"
 			(at 134.62 154.94 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13191,7 +13230,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1802")
 					(unit 1)
 				)
@@ -13473,7 +13512,7 @@
 		(property "LCSC" "C2090788"
 			(at 218.44 151.13 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13484,7 +13523,7 @@
 		(property "Vendor SKU" "C2090788"
 			(at 218.44 151.13 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13500,7 +13539,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1816")
 					(unit 1)
 				)
@@ -13781,7 +13820,7 @@
 		(property "LCSC" "C162178"
 			(at 132.08 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13792,7 +13831,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 132.08 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13808,7 +13847,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1814")
 					(unit 1)
 				)
@@ -14089,7 +14128,7 @@
 		(property "LCSC" "C1852033"
 			(at 63.5 127 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14100,7 +14139,7 @@
 		(property "Vendor SKU" "C1852033"
 			(at 63.5 127 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14140,7 +14179,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1801")
 					(unit 1)
 				)
@@ -14421,7 +14460,7 @@
 		(property "LCSC" "C162178"
 			(at 101.6 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14432,7 +14471,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 101.6 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14448,7 +14487,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1806")
 					(unit 1)
 				)
@@ -14731,7 +14770,7 @@
 		(property "LCSC" "C705066"
 			(at 152.4 176.53 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14742,7 +14781,7 @@
 		(property "Vendor SKU" "C705066"
 			(at 152.4 176.53 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14758,7 +14797,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1810")
 					(unit 1)
 				)
@@ -15037,7 +15076,7 @@
 		(property "LCSC" "C141723"
 			(at 64.77 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15048,7 +15087,7 @@
 		(property "Vendor SKU" "C141723"
 			(at 64.77 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15064,7 +15103,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "FB1803")
 					(unit 1)
 				)
@@ -15345,7 +15384,7 @@
 		(property "LCSC" "C5362393"
 			(at 228.6 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15356,7 +15395,7 @@
 		(property "Vendor SKU" "C5362393"
 			(at 228.6 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15372,7 +15411,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "D1802")
 					(unit 1)
 				)
@@ -15653,7 +15692,7 @@
 		(property "LCSC" "C2909311"
 			(at 236.22 130.81 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15664,7 +15703,7 @@
 		(property "Vendor SKU" "C2909311"
 			(at 236.22 130.81 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15680,7 +15719,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1818")
 					(unit 1)
 				)
@@ -15961,7 +16000,7 @@
 		(property "LCSC" "C1713"
 			(at 86.36 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15972,7 +16011,7 @@
 		(property "Vendor SKU" "C1713"
 			(at 86.36 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15988,7 +16027,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1804")
 					(unit 1)
 				)
@@ -16267,7 +16306,7 @@
 		(property "LCSC" "C141723"
 			(at 64.77 30.48 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16278,7 +16317,7 @@
 		(property "Vendor SKU" "C141723"
 			(at 64.77 30.48 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16294,7 +16333,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "FB1801")
 					(unit 1)
 				)
@@ -16575,7 +16614,7 @@
 		(property "LCSC" "C97905"
 			(at 121.92 173.99 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16586,7 +16625,7 @@
 		(property "Vendor SKU" "C97905"
 			(at 121.92 173.99 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16602,7 +16641,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1812")
 					(unit 1)
 				)
@@ -16884,7 +16923,7 @@
 		(property "LCSC" "C482112"
 			(at 248.92 133.35 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16895,7 +16934,7 @@
 		(property "Vendor SKU" "C482112"
 			(at 248.92 133.35 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16911,7 +16950,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1819")
 					(unit 1)
 				)
@@ -17192,7 +17231,7 @@
 		(property "LCSC" "C6119998"
 			(at 198.12 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17203,7 +17242,7 @@
 		(property "Vendor SKU" "C6119998"
 			(at 198.12 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17219,7 +17258,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1817")
 					(unit 1)
 				)
@@ -17499,7 +17538,7 @@
 		(property "LCSC" "C137969"
 			(at 59.69 177.8 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17510,7 +17549,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 59.69 177.8 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17526,7 +17565,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1802")
 					(unit 1)
 				)
@@ -17809,7 +17848,7 @@
 		(property "LCSC" "C223608"
 			(at 198.12 149.86 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17820,7 +17859,7 @@
 		(property "Vendor SKU" "C223608"
 			(at 198.12 149.86 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -17836,7 +17875,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "D1801")
 					(unit 1)
 				)
@@ -18116,7 +18155,7 @@
 		(property "LCSC" "C106235"
 			(at 166.37 142.24 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18127,7 +18166,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 166.37 142.24 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18143,7 +18182,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1813")
 					(unit 1)
 				)
@@ -18425,7 +18464,7 @@
 		(property "LCSC" "C711580"
 			(at 119.38 124.46 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18436,7 +18475,7 @@
 		(property "Vendor SKU" "C711580"
 			(at 119.38 124.46 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18452,7 +18491,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1811")
 					(unit 1)
 				)
@@ -18733,7 +18772,7 @@
 		(property "LCSC" "C97905"
 			(at 68.58 184.15 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18744,7 +18783,7 @@
 		(property "Vendor SKU" "C97905"
 			(at 68.58 184.15 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -18760,7 +18799,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1801")
 					(unit 1)
 				)
@@ -18845,7 +18884,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "#FLG01802")
 					(unit 1)
 				)
@@ -19127,7 +19166,7 @@
 		(property "LCSC" "C106235"
 			(at 149.86 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19138,7 +19177,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 149.86 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19154,7 +19193,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1809")
 					(unit 1)
 				)
@@ -19435,7 +19474,7 @@
 		(property "LCSC" "C97905"
 			(at 256.54 69.85 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19446,7 +19485,7 @@
 		(property "Vendor SKU" "C97905"
 			(at 256.54 69.85 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19462,7 +19501,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1820")
 					(unit 1)
 				)
@@ -19743,7 +19782,7 @@
 		(property "LCSC" "C77058"
 			(at 213.36 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19754,7 +19793,7 @@
 		(property "Vendor SKU" "C77058"
 			(at 213.36 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -19770,7 +19809,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1818")
 					(unit 1)
 				)
@@ -20053,7 +20092,7 @@
 		(property "LCSC" "C705066"
 			(at 83.82 161.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20064,7 +20103,7 @@
 		(property "Vendor SKU" "C705066"
 			(at 83.82 161.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20080,7 +20119,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1804")
 					(unit 1)
 				)
@@ -20359,7 +20398,7 @@
 		(property "LCSC" "C141723"
 			(at 64.77 60.96 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20370,7 +20409,7 @@
 		(property "Vendor SKU" "C141723"
 			(at 64.77 60.96 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20386,7 +20425,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "FB1802")
 					(unit 1)
 				)
@@ -20671,7 +20710,7 @@
 		(property "LCSC" "C3288253"
 			(at 217.17 134.62 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20682,7 +20721,7 @@
 		(property "Vendor SKU" "C3288253"
 			(at 217.17 134.62 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -20716,7 +20755,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1805")
 					(unit 1)
 				)
@@ -20997,7 +21036,7 @@
 		(property "LCSC" "C161512"
 			(at 243.84 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21008,7 +21047,7 @@
 		(property "Vendor SKU" "C161512"
 			(at 243.84 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21024,7 +21063,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1819")
 					(unit 1)
 				)
@@ -21305,7 +21344,7 @@
 		(property "LCSC" "C191915"
 			(at 231.14 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21316,7 +21355,7 @@
 		(property "Vendor SKU" "C191915"
 			(at 231.14 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21332,7 +21371,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1817")
 					(unit 1)
 				)
@@ -21615,7 +21654,7 @@
 		(property "LCSC" "C436349"
 			(at 261.62 147.32 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21626,7 +21665,7 @@
 		(property "Vendor SKU" "C436349"
 			(at 261.62 147.32 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21642,7 +21681,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "D1803")
 					(unit 1)
 				)
@@ -21921,7 +21960,7 @@
 		(property "LCSC" "C2675856"
 			(at 149.86 40.64 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21932,7 +21971,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 149.86 40.64 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -21960,7 +21999,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1803")
 					(unit 2)
 				)
@@ -22241,7 +22280,7 @@
 		(property "LCSC" "C162178"
 			(at 172.72 87.63 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22252,7 +22291,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 172.72 87.63 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22268,7 +22307,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1816")
 					(unit 1)
 				)
@@ -22549,7 +22588,7 @@
 		(property "LCSC" "C97905"
 			(at 104.14 158.75 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22560,7 +22599,7 @@
 		(property "Vendor SKU" "C97905"
 			(at 104.14 158.75 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22576,7 +22615,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1808")
 					(unit 1)
 				)
@@ -22856,7 +22895,7 @@
 		(property "LCSC" "C137969"
 			(at 100.33 177.8 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22867,7 +22906,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 100.33 177.8 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -22883,7 +22922,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1806")
 					(unit 1)
 				)
@@ -23164,7 +23203,7 @@
 		(property "LCSC" "C162178"
 			(at 132.08 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23175,7 +23214,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 132.08 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23191,7 +23230,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1813")
 					(unit 1)
 				)
@@ -23472,7 +23511,7 @@
 		(property "LCSC" "C221351"
 			(at 203.2 101.6 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23483,7 +23522,7 @@
 		(property "Vendor SKU" "C221351"
 			(at 203.2 101.6 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23508,7 +23547,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1804")
 					(unit 1)
 				)
@@ -23789,7 +23828,7 @@
 		(property "LCSC" "C1713"
 			(at 86.36 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23800,7 +23839,7 @@
 		(property "Vendor SKU" "C1713"
 			(at 86.36 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23816,7 +23855,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1803")
 					(unit 1)
 				)
@@ -24097,7 +24136,7 @@
 		(property "LCSC" "C162178"
 			(at 101.6 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24108,7 +24147,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 101.6 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24124,7 +24163,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1807")
 					(unit 1)
 				)
@@ -24149,7 +24188,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ad109817-e7d9-4de7-b5a0-e5482cc9e70e")
-		(property "Reference" "R1820"
+		(property "Reference" "R1821"
 			(at 261.62 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24407,7 +24446,7 @@
 		(property "LCSC" "C705066"
 			(at 259.08 100.33 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24418,7 +24457,7 @@
 		(property "Vendor SKU" "C705066"
 			(at 259.08 100.33 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24434,14 +24473,14 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
-					(reference "R1820")
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
+					(reference "R1821")
 					(unit 1)
 				)
 			)
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/e60aca17-3af9-4ae9-8b9c-88a30da6aea7"
-					(reference "R36020")
+					(reference "R36021")
 					(unit 1)
 				)
 			)
@@ -24706,7 +24745,7 @@
 		(property "LCSC" "C3019639"
 			(at 259.08 27.94 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24717,7 +24756,7 @@
 		(property "Vendor SKU" "C3019639"
 			(at 259.08 27.94 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24733,7 +24772,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "J1801")
 					(unit 1)
 				)
@@ -25014,7 +25053,7 @@
 		(property "LCSC" "C162178"
 			(at 116.84 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25025,7 +25064,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 116.84 64.77 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25041,7 +25080,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1809")
 					(unit 1)
 				)
@@ -25322,7 +25361,7 @@
 		(property "LCSC" "C97905"
 			(at 162.56 179.07 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25333,7 +25372,7 @@
 		(property "Vendor SKU" "C97905"
 			(at 162.56 179.07 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25349,7 +25388,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1815")
 					(unit 1)
 				)
@@ -25630,7 +25669,7 @@
 		(property "LCSC" "C162178"
 			(at 101.6 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25641,7 +25680,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 101.6 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -25657,7 +25696,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1805")
 					(unit 1)
 				)
@@ -25742,7 +25781,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "#FLG01801")
 					(unit 1)
 				)
@@ -26022,7 +26061,7 @@
 		(property "LCSC" "C137969"
 			(at 204.47 71.12 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26033,7 +26072,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 204.47 71.12 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26049,7 +26088,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1815")
 					(unit 1)
 				)
@@ -26329,7 +26368,7 @@
 		(property "LCSC" "C137969"
 			(at 92.71 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26340,7 +26379,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 92.71 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26356,7 +26395,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1805")
 					(unit 1)
 				)
@@ -26635,7 +26674,7 @@
 		(property "LCSC" "C2675856"
 			(at 149.86 25.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26646,7 +26685,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 149.86 25.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26674,7 +26713,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1803")
 					(unit 1)
 				)
@@ -26700,7 +26739,7 @@
 		(fields_autoplaced yes)
 		(uuid "cbe09036-db1d-4597-8b87-4df9d8ec2813")
 		(property "Reference" "R1811"
-			(at 162.56 71.12 0)
+			(at 166.37 72.39 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26708,11 +26747,10 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "49.9k"
-			(at 162.56 73.66 0)
+			(at 163.83 72.39 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -26720,7 +26758,6 @@
 					(size 1.016 1.016)
 					(bold yes)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
@@ -26956,7 +26993,7 @@
 		(property "LCSC" "C137969"
 			(at 160.02 72.39 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26967,7 +27004,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 160.02 72.39 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -26983,7 +27020,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1811")
 					(unit 1)
 				)
@@ -27266,7 +27303,7 @@
 		(property "LCSC" "C705066"
 			(at 142.24 176.53 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27277,7 +27314,7 @@
 		(property "Vendor SKU" "C705066"
 			(at 142.24 176.53 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27293,7 +27330,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1808")
 					(unit 1)
 				)
@@ -27574,7 +27611,7 @@
 		(property "LCSC" "C100502"
 			(at 160.02 87.63 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27585,7 +27622,7 @@
 		(property "Vendor SKU" "C100502"
 			(at 160.02 87.63 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27601,7 +27638,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1812")
 					(unit 1)
 				)
@@ -27882,7 +27919,7 @@
 		(property "LCSC" "C162178"
 			(at 116.84 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27893,7 +27930,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 116.84 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -27909,7 +27946,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1810")
 					(unit 1)
 				)
@@ -28190,7 +28227,7 @@
 		(property "LCSC" "C1713"
 			(at 86.36 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28201,7 +28238,7 @@
 		(property "Vendor SKU" "C1713"
 			(at 86.36 34.29 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28217,7 +28254,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "C1802")
 					(unit 1)
 				)
@@ -28498,7 +28535,7 @@
 		(property "LCSC" "C2675856"
 			(at 177.8 33.02 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28509,7 +28546,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 177.8 33.02 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28537,7 +28574,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1803")
 					(unit 3)
 				)
@@ -28546,6 +28583,313 @@
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/e60aca17-3af9-4ae9-8b9c-88a30da6aea7"
 					(reference "U36003")
 					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-RC0402FR-071KL")
+		(at 252.73 162.56 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f17ae7e6-5975-4526-b61b-badc681cb1ee")
+		(property "Reference" "R1820"
+			(at 252.73 156.21 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 252.73 158.75 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 252.73 164.338 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 252.73 160.528 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-RC0402FR-071KL"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_1k_0402"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "10129"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "1k 0402 resistor"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "1k"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C106235"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C106235"
+			(at 252.73 162.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "39a369a0-b580-4b7a-b984-a0199a0350f6")
+		)
+		(pin "1"
+			(uuid "467eaaf1-f887-4193-9093-9b0464b18ed9")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
+					(reference "R1820")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/e60aca17-3af9-4ae9-8b9c-88a30da6aea7"
+					(reference "R36020")
+					(unit 1)
 				)
 			)
 		)
@@ -28818,7 +29162,7 @@
 		(property "LCSC" "C221351"
 			(at 228.6 68.58 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28829,7 +29173,7 @@
 		(property "Vendor SKU" "C221351"
 			(at 228.6 68.58 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -28854,7 +29198,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "U1806")
 					(unit 1)
 				)
@@ -29136,7 +29480,7 @@
 		(property "LCSC" "C137969"
 			(at 185.42 146.05 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29147,7 +29491,7 @@
 		(property "Vendor SKU" "C137969"
 			(at 185.42 146.05 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29163,7 +29507,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1814")
 					(unit 1)
 				)
@@ -29445,7 +29789,7 @@
 		(property "LCSC" "C106235"
 			(at 139.7 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29456,7 +29800,7 @@
 		(property "Vendor SKU" "C106235"
 			(at 139.7 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29472,7 +29816,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1807")
 					(unit 1)
 				)
@@ -29751,7 +30095,7 @@
 		(property "LCSC" "C191915"
 			(at 59.69 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29762,7 +30106,7 @@
 		(property "Vendor SKU" "C191915"
 			(at 59.69 152.4 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -29778,7 +30122,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "R1801")
 					(unit 1)
 				)
@@ -29863,7 +30207,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9/b54345b5-7b7e-4363-9fd3-934646b4d877"
 					(reference "#FLG01803")
 					(unit 1)
 				)

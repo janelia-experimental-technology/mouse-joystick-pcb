@@ -1217,6 +1217,16 @@
 		)
 		(uuid "fa2e47e0-3f55-41a0-8adf-12d56bd07ded")
 	)
+	(wire
+		(pts
+			(xy 106.68 96.52) (xy 109.22 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fbe65071-755a-4cfe-a086-519e501dd6c3")
+	)
 	(label "TQ_SPI_SCK"
 		(at 203.2 35.56 90)
 		(effects
@@ -1661,6 +1671,17 @@
 			(justify left)
 		)
 		(uuid "29c09eec-06f1-41c5-b43b-9ba44fc094be")
+	)
+	(hierarchical_label "~{BRAKE_FAULT}_INST"
+		(shape output)
+		(at 109.22 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "40d7308d-c379-4a0e-a3d2-398bbfb4f249")
 	)
 	(hierarchical_label "GND"
 		(shape passive)
@@ -3587,175 +3608,14 @@
 		)
 	)
 	(group "brake_current_sink_0_49ma_dac80501"
-		(uuid "8e903fa3-921d-4ba5-8ff3-f908c7f9ad7e")
+		(uuid "66caedb2-c790-4f33-811a-d8ac1db6c130")
 		(lib_id "orb_weaver_private:brake_current_sink_0_49ma_dac80501")
-		(members "6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2")
-	)
-	(group "torque_bridge_0_3v3_ina821"
-		(uuid "b117e4a1-2103-4ff3-b4c1-eded988c8e7a")
-		(lib_id "orb_weaver_private:torque_bridge_0_3v3_ina821")
-		(members "37b34092-76aa-4332-ba5e-f593ea9d6ee8")
+		(members "b54345b5-7b7e-4363-9fd3-934646b4d877")
 	)
 	(group "hv_to_12v_tpsm365r6"
 		(uuid "d6eb2d17-ceb8-4306-b05a-0c8e05900c73")
 		(lib_id "orb_weaver_private:hv_to_12v_tpsm365r6")
 		(members "670aba7c-5d0b-40f5-98be-71b6a2ad93fc")
-	)
-	(sheet
-		(at 177.8 76.2)
-		(size 25.4 33.02)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "37b34092-76aa-4332-ba5e-f593ea9d6ee8")
-		(property "Sheetname" "torque_bridge_0_3v3_ina821"
-			(at 177.8 75.4884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "torque_bridge_0_3v3_ina821.kicad_sch"
-			(at 177.8 109.8046 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V" passive
-			(at 177.8 83.82 180)
-			(uuid "1a36afa4-d4a1-431c-aaed-f589796ac53f")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "+5V" passive
-			(at 177.8 81.28 180)
-			(uuid "d3e2e7ff-812b-4dd0-9b4d-a376ae1a643c")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "+12V" passive
-			(at 177.8 78.74 180)
-			(uuid "b36c5e32-53ee-40ce-ab3b-a4a8497f6eca")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GND" passive
-			(at 177.8 86.36 180)
-			(uuid "1e36638f-bb5c-4e7d-bb04-49e7004baf71")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SCK" input
-			(at 177.8 93.98 180)
-			(uuid "16d2f24b-9bc1-41cd-8d0d-b3b64041c2b2")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDI" input
-			(at 177.8 96.52 180)
-			(uuid "15c19e76-8ca9-4aa1-9fa4-ecd8f384ddcc")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "SDO" output
-			(at 177.8 99.06 180)
-			(uuid "59a56bdc-2378-4fc0-bbe7-a553832c7f78")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "TQ_AOUT" output
-			(at 203.2 78.74 0)
-			(uuid "a638b08f-3a78-4d27-8f9e-1e7869bdf8bd")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "TQ_AOUT_MON" output
-			(at 203.2 81.28 0)
-			(uuid "659b5c07-a101-48ae-9af3-d35445079252")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "TQ_CAL_EN" input
-			(at 177.8 106.68 180)
-			(uuid "278eb8a9-b1e6-4781-8204-4e49f69cd335")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "TQ_CONVST_CS" input
-			(at 177.8 101.6 180)
-			(uuid "39af3002-b115-4e91-b184-be506665045b")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9"
-					(page "20")
-				)
-			)
-		)
 	)
 	(sheet
 		(at 127 25.4)
@@ -3845,7 +3705,7 @@
 	)
 	(sheet
 		(at 76.2 76.2)
-		(size 30.48 30.48)
+		(size 30.48 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -3858,7 +3718,7 @@
 		(fill
 			(color 0 0 0 0)
 		)
-		(uuid "6e3dbbf0-8149-4c85-8221-1ff1f94a4cf2")
+		(uuid "b54345b5-7b7e-4363-9fd3-934646b4d877")
 		(property "Sheetname" "brake_current_sink_0_49ma_dac80501"
 			(at 76.2 75.4884 0)
 			(show_name no)
@@ -3871,7 +3731,7 @@
 			)
 		)
 		(property "Sheetfile" "brake_current_sink_0_49ma_dac80501.kicad_sch"
-			(at 76.2 107.2646 0)
+			(at 76.2 99.6446 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3883,7 +3743,7 @@
 		)
 		(pin "+3.3V" passive
 			(at 76.2 86.36 180)
-			(uuid "8236a7bc-0027-413d-ad6c-f7ecd1f01aba")
+			(uuid "d5ca41fe-244d-4729-bf23-e0d41e17a1c0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3893,7 +3753,7 @@
 		)
 		(pin "+5V" passive
 			(at 76.2 83.82 180)
-			(uuid "1c458b47-8382-4216-9bf6-d91cb9a62946")
+			(uuid "fdae621d-7a7b-4cd7-b6d3-3a83bce49c93")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3903,7 +3763,7 @@
 		)
 		(pin "+12V" passive
 			(at 76.2 81.28 180)
-			(uuid "69e65f7d-a31c-4bf7-81ea-745c0e32293a")
+			(uuid "0e13b819-730c-443d-88e8-b41f3557d3f1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3913,7 +3773,7 @@
 		)
 		(pin "+36V" passive
 			(at 76.2 78.74 180)
-			(uuid "4ea47273-6261-42cd-a545-0e799ba76e6b")
+			(uuid "c432d7ba-3364-4be5-ac5e-5f9de1b6e51a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3923,7 +3783,7 @@
 		)
 		(pin "BRAKE_ISENSE" output
 			(at 106.68 78.74 0)
-			(uuid "a1f948ba-a6b9-45e3-bf95-831eb35db2a6")
+			(uuid "e74fc316-68d4-4c99-9760-63bf38b07c53")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3933,7 +3793,7 @@
 		)
 		(pin "GND" passive
 			(at 76.2 88.9 180)
-			(uuid "ba74b732-50c6-4c63-a13c-bc69370d00f6")
+			(uuid "3689009a-7b8b-42d3-99d8-938c676e5418")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3942,8 +3802,8 @@
 			)
 		)
 		(pin "SCL" input
-			(at 76.2 96.52 180)
-			(uuid "cd1b9d92-68f2-4ca3-8170-2ebd2df15eab")
+			(at 76.2 93.98 180)
+			(uuid "f4264fcc-8968-4d9a-a270-49e55b64a8c6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3952,8 +3812,8 @@
 			)
 		)
 		(pin "SDA" bidirectional
-			(at 76.2 93.98 180)
-			(uuid "c3bbcb7d-bbca-42a3-8599-68f8d98ce925")
+			(at 76.2 96.52 180)
+			(uuid "96be29cb-6ed2-4c74-99c4-ceb19fb5f1d1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3963,7 +3823,17 @@
 		)
 		(pin "~{BRAKE_FAULT}" output
 			(at 106.68 81.28 0)
-			(uuid "2db51a97-5524-49e9-a8f1-ad111ca957c9")
+			(uuid "7a5d3d4f-5249-4d83-9837-425cf9396572")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{BRAKE_FAULT}_INST" output
+			(at 106.68 96.52 0)
+			(uuid "e8492e6e-66a3-4bfe-9fed-a7d84144cc62")
 			(effects
 				(font
 					(size 1.27 1.27)

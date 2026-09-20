@@ -337,6 +337,16 @@
 	)
 	(wire
 		(pts
+			(xy 160.02 139.7) (xy 162.56 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "213607a2-5d3b-4ec7-a04e-3822447917db")
+	)
+	(wire
+		(pts
 			(xy 170.18 93.98) (xy 167.64 93.98)
 		)
 		(stroke
@@ -2375,6 +2385,16 @@
 		)
 		(uuid "bfb5049e-edce-4162-baa3-460777eee725")
 	)
+	(label "~{BRAKE_FAULT}_INST"
+		(at 162.56 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c3cedda2-f933-4eb4-ab1b-835c80cc9c3c")
+	)
 	(label "TMC_SPI_CIPO_INST"
 		(at 251.46 78.74 180)
 		(effects
@@ -2565,7 +2585,7 @@
 		)
 		(uuid "ef4f78fd-98b9-4c64-ae10-58f65645caec")
 	)
-	(label "~{BRAKE_FAULT}"
+	(label "~{BRAKE_FAULT}_INST"
 		(at 251.46 119.38 180)
 		(effects
 			(font
@@ -4332,6 +4352,16 @@
 		(pin "TQ_AOUT_MON" output
 			(at 160.02 116.84 0)
 			(uuid "f59a1cc8-309e-42ac-b729-0f3a213627d1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "~{BRAKE_FAULT}_INST" output
+			(at 160.02 139.7 0)
+			(uuid "7b4445ff-1690-4058-ba04-449eb83c8b4c")
 			(effects
 				(font
 					(size 1.27 1.27)
