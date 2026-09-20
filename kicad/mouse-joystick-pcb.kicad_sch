@@ -11,6 +11,325 @@
 		(company "Janelia Research Campus")
 	)
 	(lib_symbols
+		(symbol "orb_weaver_internal:All/OW-MECH-MH-3-2MM-M3"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Mounting Hole 3.2mm M3"
+				(at 0 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Official KiCad mounting-hole footprint MountingHole_3.2mm_M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "OW_PART" "OW-MECH-MH-3-2MM-M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PartID" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "0"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Name" "Mounting Hole 3.2mm M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Group" "mechanical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqType" "mounting-hole"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqValue" "Mounting Hole 3.2mm M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqFootprint" "MountingHole:MountingHole_3.2mm_M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPackage" "MountingHole_3.2mm_M3"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqRole" "mounting-hole"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "OW-MECH-MH-3-2MM-M3 Mounting Hole 3.2mm M3 mechanical Mounting Hole 3.2mm M3 Official KiCad mounting-hole footprint MountingHole_3.2mm_M3 Mechanical:MountingHole MountingHole:MountingHole_3.2mm_M3 mounting-hole Mounting Hole 3.2mm M3 MountingHole:Mounting"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole:MountingHole_3.2mm_M3"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "All/OW-MECH-MH-3-2MM-M3_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:PWR_FLAG"
 			(power global)
 			(pin_numbers
@@ -136,12 +455,22 @@
 		(uuid "490ddae7-14a1-4126-9ba6-71d20950434a")
 	)
 	(no_connect
-		(at 160.02 116.84)
+		(at 170.18 129.54)
 		(uuid "a0a021bb-31c6-4984-be59-2af4aa981dac")
 	)
 	(no_connect
 		(at 76.2 53.34)
 		(uuid "a57caf76-ae50-49a9-ae5d-709997122d3a")
+	)
+	(wire
+		(pts
+			(xy 170.18 144.78) (xy 172.72 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0049fdc9-1307-4da2-afc4-c2b7557303b5")
 	)
 	(wire
 		(pts
@@ -185,7 +514,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 106.68) (xy 124.46 106.68)
+			(xy 127 116.84) (xy 124.46 116.84)
 		)
 		(stroke
 			(width 0)
@@ -255,7 +584,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 129.54) (xy 124.46 129.54)
+			(xy 127 139.7) (xy 124.46 139.7)
 		)
 		(stroke
 			(width 0)
@@ -325,7 +654,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 139.7) (xy 162.56 139.7)
+			(xy 170.18 124.46) (xy 172.72 124.46)
 		)
 		(stroke
 			(width 0)
@@ -515,6 +844,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 139.7) (xy 172.72 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45201fdd-f925-4b7f-a789-53682f9a1af8")
+	)
+	(wire
+		(pts
 			(xy 86.36 154.94) (xy 88.9 154.94)
 		)
 		(stroke
@@ -575,7 +914,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 111.76) (xy 162.56 111.76)
+			(xy 170.18 121.92) (xy 172.72 121.92)
 		)
 		(stroke
 			(width 0)
@@ -665,7 +1004,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 116.84) (xy 124.46 116.84)
+			(xy 127 127) (xy 124.46 127)
 		)
 		(stroke
 			(width 0)
@@ -695,7 +1034,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 104.14) (xy 124.46 104.14)
+			(xy 127 114.3) (xy 124.46 114.3)
 		)
 		(stroke
 			(width 0)
@@ -885,7 +1224,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 109.22) (xy 124.46 109.22)
+			(xy 127 119.38) (xy 124.46 119.38)
 		)
 		(stroke
 			(width 0)
@@ -915,7 +1254,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 134.62) (xy 124.46 134.62)
+			(xy 127 144.78) (xy 124.46 144.78)
 		)
 		(stroke
 			(width 0)
@@ -955,7 +1294,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 132.08) (xy 124.46 132.08)
+			(xy 127 142.24) (xy 124.46 142.24)
 		)
 		(stroke
 			(width 0)
@@ -1015,7 +1354,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 104.14) (xy 160.02 104.14)
+			(xy 172.72 114.3) (xy 170.18 114.3)
 		)
 		(stroke
 			(width 0)
@@ -1125,7 +1464,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 127) (xy 124.46 127)
+			(xy 127 137.16) (xy 124.46 137.16)
 		)
 		(stroke
 			(width 0)
@@ -1165,7 +1504,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 119.38) (xy 124.46 119.38)
+			(xy 127 129.54) (xy 124.46 129.54)
 		)
 		(stroke
 			(width 0)
@@ -1175,7 +1514,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 109.22) (xy 162.56 109.22)
+			(xy 170.18 119.38) (xy 172.72 119.38)
 		)
 		(stroke
 			(width 0)
@@ -1255,6 +1594,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 142.24) (xy 172.72 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc177e1e-0663-478c-90f5-e689446aff76")
+	)
+	(wire
+		(pts
 			(xy 254 114.3) (xy 251.46 114.3)
 		)
 		(stroke
@@ -1292,6 +1641,16 @@
 			(type default)
 		)
 		(uuid "d0cda9d3-d6ee-4431-9f69-32d1f479488c")
+	)
+	(wire
+		(pts
+			(xy 170.18 137.16) (xy 172.72 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d209f38b-3672-4b81-9a5b-a7348d84287b")
 	)
 	(wire
 		(pts
@@ -1355,7 +1714,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 139.7) (xy 124.46 139.7)
+			(xy 127 149.86) (xy 124.46 149.86)
 		)
 		(stroke
 			(width 0)
@@ -1405,7 +1764,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 111.76) (xy 124.46 111.76)
+			(xy 127 121.92) (xy 124.46 121.92)
 		)
 		(stroke
 			(width 0)
@@ -1432,6 +1791,16 @@
 			(type default)
 		)
 		(uuid "f5378bf1-0082-44ba-a5a2-0967b6d89775")
+	)
+	(wire
+		(pts
+			(xy 170.18 149.86) (xy 172.72 149.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6423554-0442-4df2-b52f-aa9c4a987532")
 	)
 	(wire
 		(pts
@@ -1514,7 +1883,7 @@
 		(uuid "0726f6f9-8126-4c9e-a4a7-9066c6fc35ce")
 	)
 	(label "PG_12V"
-		(at 162.56 104.14 0)
+		(at 172.72 114.3 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1534,7 +1903,7 @@
 		(uuid "090e3ba5-697b-4307-8378-173a458bfedb")
 	)
 	(label "~{BRAKE_FAULT}"
-		(at 162.56 111.76 0)
+		(at 172.72 121.92 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1584,7 +1953,7 @@
 		(uuid "184698de-7e27-4505-abe0-8a28bbc60d2d")
 	)
 	(label "TQ_SPI_COPI"
-		(at 124.46 129.54 180)
+		(at 124.46 139.7 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1644,7 +2013,7 @@
 		(uuid "2188de62-e6fa-4f55-989f-306b3368008d")
 	)
 	(label "+3.3V_SW"
-		(at 124.46 109.22 180)
+		(at 124.46 119.38 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1653,7 +2022,7 @@
 		)
 		(uuid "22141aae-916c-4441-b07a-d8a75447972c")
 	)
-	(label "TQ_SPI_COPI"
+	(label "TQ_SPI_COPI_INST"
 		(at 251.46 99.06 180)
 		(effects
 			(font
@@ -1683,7 +2052,7 @@
 		)
 		(uuid "25b9cbc0-e30d-4be8-9dc5-86b85305478a")
 	)
-	(label "TQ_SPI_CIPO"
+	(label "TQ_SPI_CIPO_INST"
 		(at 251.46 101.6 180)
 		(effects
 			(font
@@ -1692,6 +2061,16 @@
 			(justify right bottom)
 		)
 		(uuid "275531f4-3beb-4ec5-ab3b-514522372a25")
+	)
+	(label "TQ_SPI_COPI_INST"
+		(at 172.72 139.7 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2a7bee6e-1886-465e-b634-b5b62065c5bd")
 	)
 	(label "~{TMC_CS}_INST"
 		(at 251.46 81.28 180)
@@ -1833,7 +2212,7 @@
 		)
 		(uuid "3d88a796-fa7e-472e-967e-8bbaca2761b6")
 	)
-	(label "TQ_CAL_EN"
+	(label "TQ_CAL_EN_INST"
 		(at 251.46 106.68 180)
 		(effects
 			(font
@@ -1924,7 +2303,7 @@
 		(uuid "46b81cc5-0887-4875-af23-b41e3edd1d89")
 	)
 	(label "TQ_SPI_SCK"
-		(at 124.46 127 180)
+		(at 124.46 137.16 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1932,6 +2311,16 @@
 			(justify right bottom)
 		)
 		(uuid "48036117-9841-4bcd-8cfd-cb90971f4416")
+	)
+	(label "TQ_SPI_CIPO_INST"
+		(at 172.72 142.24 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4b1dffeb-0801-41ce-a817-468299c64d33")
 	)
 	(label "~{HV_FAULT}_INST"
 		(at 251.46 129.54 180)
@@ -1974,7 +2363,7 @@
 		(uuid "51475187-a816-4d59-863c-8be9a95e58d4")
 	)
 	(label "BRAKE_ISENSE"
-		(at 162.56 109.22 0)
+		(at 172.72 119.38 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2053,6 +2442,16 @@
 		)
 		(uuid "6110f308-cb08-4824-b4aa-467b75510fc8")
 	)
+	(label "TQ_CAL_EN_INST"
+		(at 172.72 149.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "62d9febd-4906-46f0-9468-daa02315e5b1")
+	)
 	(label "GND"
 		(at 78.74 58.42 0)
 		(effects
@@ -2094,7 +2493,7 @@
 		(uuid "6687d27e-ef29-4b83-92a2-7afd075758a4")
 	)
 	(label "+36V_SW"
-		(at 124.46 104.14 180)
+		(at 124.46 114.3 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2104,7 +2503,7 @@
 		(uuid "68272157-4b2a-4f13-827c-ebda00279427")
 	)
 	(label "DAC_SCL"
-		(at 124.46 116.84 180)
+		(at 124.46 127 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2274,7 +2673,7 @@
 		(uuid "9304754e-bebe-4bc3-8e9b-a3e7d1ca10ba")
 	)
 	(label "GND"
-		(at 124.46 111.76 180)
+		(at 124.46 121.92 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2302,6 +2701,16 @@
 			(justify right bottom)
 		)
 		(uuid "9c150575-833e-408d-af32-0722c30a54a4")
+	)
+	(label "TQ_SPI_SCK_INST"
+		(at 172.72 137.16 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9fc001f7-d762-4f17-8aef-e11018d7b3aa")
 	)
 	(label "GND"
 		(at 180.34 30.48 0)
@@ -2344,7 +2753,7 @@
 		(uuid "a5dea44e-5842-48f1-b5c5-205625ced404")
 	)
 	(label "TQ_CONVST_CS"
-		(at 124.46 134.62 180)
+		(at 124.46 144.78 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2383,7 +2792,7 @@
 		)
 		(uuid "a8f5993b-01c0-4900-93c8-326191be38b3")
 	)
-	(label "TQ_SPI_SCK"
+	(label "TQ_SPI_SCK_INST"
 		(at 251.46 96.52 180)
 		(effects
 			(font
@@ -2464,7 +2873,7 @@
 		(uuid "bfb5049e-edce-4162-baa3-460777eee725")
 	)
 	(label "~{BRAKE_FAULT}_INST"
-		(at 162.56 139.7 0)
+		(at 172.72 124.46 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2524,7 +2933,7 @@
 		(uuid "ca1917dd-13c4-438c-81ec-5d14bd3d3300")
 	)
 	(label "TQ_SPI_CIPO"
-		(at 124.46 132.08 180)
+		(at 124.46 142.24 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2544,7 +2953,7 @@
 		(uuid "cbb9fd5e-eac7-4b51-adeb-730f046daadd")
 	)
 	(label "DAC_SDA"
-		(at 124.46 119.38 180)
+		(at 124.46 129.54 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2653,6 +3062,16 @@
 		)
 		(uuid "e935bbaa-e103-4c07-9fdf-32708a34cbf2")
 	)
+	(label "TQ_CONVST_CS_INST"
+		(at 172.72 144.78 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e95f7edf-ca3e-4b1e-a0bf-bb4d6181c57c")
+	)
 	(label "TMC_SPI_CIPO_INST"
 		(at 205.74 83.82 0)
 		(effects
@@ -2684,7 +3103,7 @@
 		(uuid "ef4a518d-c069-4851-9367-1a7ca7eb437d")
 	)
 	(label "+5V_SW"
-		(at 124.46 106.68 180)
+		(at 124.46 116.84 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2713,7 +3132,7 @@
 		)
 		(uuid "f5ee8c78-16cb-4fc1-84ff-996f05cba07a")
 	)
-	(label "TQ_CONVST_CS"
+	(label "TQ_CONVST_CS_INST"
 		(at 251.46 104.14 180)
 		(effects
 			(font
@@ -2724,7 +3143,7 @@
 		(uuid "f62559f7-69d8-44c2-ba40-03da29803965")
 	)
 	(label "TQ_CAL_EN"
-		(at 124.46 139.7 180)
+		(at 124.46 149.86 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2804,6 +3223,894 @@
 		(uuid "ff9f1176-6c87-4780-b7b1-e6aafdb7204a")
 	)
 	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MECH-MH-3-2MM-M3")
+		(at 246.38 16.51 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1288be33-6b79-4e11-b1fc-3bba15a5189e")
+		(property "Reference" "H101"
+			(at 248.92 15.2399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Mounting Hole 3.2mm M3"
+			(at 248.92 17.7799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Official KiCad mounting-hole footprint MountingHole_3.2mm_M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MECH-MH-3-2MM-M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "0"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Mounting Hole 3.2mm M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "mechanical"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "mounting-hole"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "Mounting Hole 3.2mm M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "MountingHole_3.2mm_M3"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "mounting-hole"
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 246.38 16.51 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(reference "H101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MECH-MH-3-2MM-M3")
+		(at 246.38 29.21 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "20017c4b-0988-410b-b101-9cb42fe5296b")
+		(property "Reference" "H103"
+			(at 248.92 27.9399 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Mounting Hole 3.2mm M3"
+			(at 248.92 30.4799 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Official KiCad mounting-hole footprint MountingHole_3.2mm_M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MECH-MH-3-2MM-M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "0"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Mounting Hole 3.2mm M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "mechanical"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "mounting-hole"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "Mounting Hole 3.2mm M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "MountingHole_3.2mm_M3"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "mounting-hole"
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 246.38 29.21 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(reference "H103")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MECH-MH-3-2MM-M3")
+		(at 246.38 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "393336dc-786e-47ee-9024-4787987ba441")
+		(property "Reference" "H104"
+			(at 248.92 34.2899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Mounting Hole 3.2mm M3"
+			(at 248.92 36.8299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Official KiCad mounting-hole footprint MountingHole_3.2mm_M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MECH-MH-3-2MM-M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "0"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Mounting Hole 3.2mm M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "mechanical"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "mounting-hole"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "Mounting Hole 3.2mm M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "MountingHole_3.2mm_M3"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "mounting-hole"
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 246.38 35.56 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(reference "H104")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 114.3 22.86 0)
 		(unit 1)
@@ -2877,6 +4184,302 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00"
 					(reference "#FLG0101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MECH-MH-3-2MM-M3")
+		(at 246.38 22.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ff9d61e6-6beb-48c0-999c-9ec3dc52731b")
+		(property "Reference" "H102"
+			(at 248.92 21.5899 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Mounting Hole 3.2mm M3"
+			(at 248.92 24.1299 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Official KiCad mounting-hole footprint MountingHole_3.2mm_M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MECH-MH-3-2MM-M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "0"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "Mounting Hole 3.2mm M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "mechanical"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "mounting-hole"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "Mounting Hole 3.2mm M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "MountingHole:MountingHole_3.2mm_M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "MountingHole_3.2mm_M3"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" "mounting-hole"
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 246.38 22.86 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00"
+					(reference "H102")
 					(unit 1)
 				)
 			)
@@ -4310,8 +5913,8 @@
 		)
 	)
 	(sheet
-		(at 127 101.6)
-		(size 33.02 40.64)
+		(at 127 111.76)
+		(size 43.18 40.64)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -4326,7 +5929,7 @@
 		)
 		(uuid "f229cd8b-936a-4ad1-8bff-4cac135737f9")
 		(property "Sheetname" "brake_torque_sensor"
-			(at 127 100.8884 0)
+			(at 127 111.0484 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4337,7 +5940,7 @@
 			)
 		)
 		(property "Sheetfile" "brake_torque_sensor.kicad_sch"
-			(at 127 142.8246 0)
+			(at 127 152.9846 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4348,7 +5951,7 @@
 			)
 		)
 		(pin "+3.3V" passive
-			(at 127 109.22 180)
+			(at 127 119.38 180)
 			(uuid "77edb07d-5197-47d5-be40-e87b688b6ee5")
 			(effects
 				(font
@@ -4358,7 +5961,7 @@
 			)
 		)
 		(pin "+5V" passive
-			(at 127 106.68 180)
+			(at 127 116.84 180)
 			(uuid "3dec2a2e-b527-4522-bb85-8930b17c106a")
 			(effects
 				(font
@@ -4368,7 +5971,7 @@
 			)
 		)
 		(pin "+36V" passive
-			(at 127 104.14 180)
+			(at 127 114.3 180)
 			(uuid "1b09e4a6-0e04-40b1-9395-fdc290d8eeab")
 			(effects
 				(font
@@ -4378,7 +5981,7 @@
 			)
 		)
 		(pin "GND" passive
-			(at 127 111.76 180)
+			(at 127 121.92 180)
 			(uuid "56af2edb-0518-403f-b379-ca82eeac06ef")
 			(effects
 				(font
@@ -4388,7 +5991,7 @@
 			)
 		)
 		(pin "DAC_SCL" input
-			(at 127 116.84 180)
+			(at 127 127 180)
 			(uuid "69e41086-d2ee-412a-9019-81da966843a3")
 			(effects
 				(font
@@ -4398,7 +6001,7 @@
 			)
 		)
 		(pin "DAC_SDA" bidirectional
-			(at 127 119.38 180)
+			(at 127 129.54 180)
 			(uuid "15f04aec-06bd-4101-8f6f-f1fe91794dce")
 			(effects
 				(font
@@ -4408,7 +6011,7 @@
 			)
 		)
 		(pin "BRAKE_ISENSE" output
-			(at 160.02 109.22 0)
+			(at 170.18 119.38 0)
 			(uuid "c689114c-1e25-46ef-9b85-470c8e72cedf")
 			(effects
 				(font
@@ -4418,7 +6021,7 @@
 			)
 		)
 		(pin "~{BRAKE_FAULT}" output
-			(at 160.02 111.76 0)
+			(at 170.18 121.92 0)
 			(uuid "94931ac7-6c9f-4eb2-9dff-25f3fb849d70")
 			(effects
 				(font
@@ -4428,7 +6031,7 @@
 			)
 		)
 		(pin "PG_12V" output
-			(at 160.02 104.14 0)
+			(at 170.18 114.3 0)
 			(uuid "f86b59b1-596b-44c4-8d75-296e04083da9")
 			(effects
 				(font
@@ -4438,7 +6041,7 @@
 			)
 		)
 		(pin "TQ_CAL_EN" input
-			(at 127 139.7 180)
+			(at 127 149.86 180)
 			(uuid "d3d779ab-3c89-4794-bb6f-e2223486fb54")
 			(effects
 				(font
@@ -4448,7 +6051,7 @@
 			)
 		)
 		(pin "TQ_CONVST_CS" input
-			(at 127 134.62 180)
+			(at 127 144.78 180)
 			(uuid "13f34353-980f-41c9-a481-1d3364a25632")
 			(effects
 				(font
@@ -4458,7 +6061,7 @@
 			)
 		)
 		(pin "TQ_SPI_CIPO" output
-			(at 127 132.08 180)
+			(at 127 142.24 180)
 			(uuid "6c24d1b0-5fde-4a10-9ade-d60400a7f6dd")
 			(effects
 				(font
@@ -4468,7 +6071,7 @@
 			)
 		)
 		(pin "TQ_SPI_COPI" input
-			(at 127 129.54 180)
+			(at 127 139.7 180)
 			(uuid "22634235-0561-43b1-8a1a-78cca956697c")
 			(effects
 				(font
@@ -4478,7 +6081,7 @@
 			)
 		)
 		(pin "TQ_SPI_SCK" input
-			(at 127 127 180)
+			(at 127 137.16 180)
 			(uuid "4affad8b-04c3-40f4-8878-14e88ad41193")
 			(effects
 				(font
@@ -4488,7 +6091,7 @@
 			)
 		)
 		(pin "TQ_AOUT_MON" output
-			(at 160.02 116.84 0)
+			(at 170.18 129.54 0)
 			(uuid "f59a1cc8-309e-42ac-b729-0f3a213627d1")
 			(effects
 				(font
@@ -4498,8 +6101,58 @@
 			)
 		)
 		(pin "~{BRAKE_FAULT}_INST" output
-			(at 160.02 139.7 0)
+			(at 170.18 124.46 0)
 			(uuid "7b4445ff-1690-4058-ba04-449eb83c8b4c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_CAL_EN_INST" input
+			(at 170.18 149.86 0)
+			(uuid "fba7d947-b48c-47cc-844a-075b4be8f92a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_CONVST_CS_INST" output
+			(at 170.18 144.78 0)
+			(uuid "2eafc033-afde-485e-bf7c-d7688a673885")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_SPI_CIPO_INST" output
+			(at 170.18 142.24 0)
+			(uuid "9cf4ad9f-b833-4a07-a8f5-525f5b263dd1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_SPI_COPI_INST" output
+			(at 170.18 139.7 0)
+			(uuid "8da965a3-bde8-4596-b517-1d3e0f7207a7")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_SPI_SCK_INST" output
+			(at 170.18 137.16 0)
+			(uuid "ecd98517-3624-4e4b-b637-999cf8230e2e")
 			(effects
 				(font
 					(size 1.27 1.27)

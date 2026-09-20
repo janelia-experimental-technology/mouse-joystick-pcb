@@ -799,7 +799,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 78.74) (xy 205.74 78.74)
+			(xy 218.44 78.74) (xy 220.98 78.74)
 		)
 		(stroke
 			(width 0)
@@ -839,7 +839,7 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 81.28) (xy 203.2 81.28)
+			(xy 220.98 81.28) (xy 218.44 81.28)
 		)
 		(stroke
 			(width 0)
@@ -926,6 +926,16 @@
 			(type default)
 		)
 		(uuid "3d5c18e7-0ef4-435b-b239-ad73df85d427")
+	)
+	(wire
+		(pts
+			(xy 218.44 106.68) (xy 220.98 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e3ca555-eb81-4c78-8e6e-d43b246703d3")
 	)
 	(wire
 		(pts
@@ -1059,6 +1069,36 @@
 	)
 	(wire
 		(pts
+			(xy 218.44 101.6) (xy 220.98 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92b5fd38-a2eb-43ad-b21d-ea06dbf4febf")
+	)
+	(wire
+		(pts
+			(xy 218.44 99.06) (xy 220.98 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa24d081-eb36-45aa-b376-3ebeabfc43a7")
+	)
+	(wire
+		(pts
+			(xy 218.44 96.52) (xy 220.98 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab4c61a6-eb20-4e09-8dc8-cf2b04b66d68")
+	)
+	(wire
+		(pts
 			(xy 160.02 101.6) (xy 177.8 101.6)
 		)
 		(stroke
@@ -1096,6 +1136,16 @@
 			(type default)
 		)
 		(uuid "c6966a4f-179a-4b6c-956f-130efe9f3aa5")
+	)
+	(wire
+		(pts
+			(xy 218.44 93.98) (xy 220.98 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c6f89a54-8939-426c-8ba2-50e9fd6f0b7a")
 	)
 	(wire
 		(pts
@@ -1408,7 +1458,7 @@
 		(uuid "7968ad88-0822-4450-89b1-22b8a645ff06")
 	)
 	(label "TQ_AOUT"
-		(at 205.74 78.74 0)
+		(at 220.98 78.74 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1663,7 +1713,7 @@
 	)
 	(hierarchical_label "TQ_AOUT_MON"
 		(shape output)
-		(at 205.74 81.28 0)
+		(at 220.98 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1671,6 +1721,17 @@
 			(justify left)
 		)
 		(uuid "29c09eec-06f1-41c5-b43b-9ba44fc094be")
+	)
+	(hierarchical_label "TQ_SPI_CIPO_INST"
+		(shape output)
+		(at 220.98 99.06 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "38cb0c46-29b2-4f84-a7d2-4fb9f4f4efb4")
 	)
 	(hierarchical_label "~{BRAKE_FAULT}_INST"
 		(shape output)
@@ -1682,6 +1743,17 @@
 			(justify left)
 		)
 		(uuid "40d7308d-c379-4a0e-a3d2-398bbfb4f249")
+	)
+	(hierarchical_label "TQ_CAL_EN_INST"
+		(shape input)
+		(at 220.98 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "40f2b596-838d-47a6-a84b-7c12367c56b2")
 	)
 	(hierarchical_label "GND"
 		(shape passive)
@@ -1738,6 +1810,28 @@
 		)
 		(uuid "9635ba58-3b6e-42d9-9956-2a98f4f98903")
 	)
+	(hierarchical_label "TQ_SPI_SCK_INST"
+		(shape output)
+		(at 220.98 93.98 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9e9158bd-1ff7-4c82-906e-f644b2d81701")
+	)
+	(hierarchical_label "TQ_CONVST_CS_INST"
+		(shape output)
+		(at 220.98 101.6 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a0e44b2b-bbde-4709-a723-c89f1ec7aff9")
+	)
 	(hierarchical_label "PG_12V"
 		(shape output)
 		(at 154.94 33.02 0)
@@ -1781,6 +1875,17 @@
 			(justify right)
 		)
 		(uuid "e0de961f-ea6d-4d32-9ab0-7610151bdf41")
+	)
+	(hierarchical_label "TQ_SPI_COPI_INST"
+		(shape output)
+		(at 220.98 96.52 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f730ef93-de2d-4124-9b17-8b6499e05ac3")
 	)
 	(hierarchical_label "DAC_SCL"
 		(shape input)
@@ -3612,10 +3717,221 @@
 		(lib_id "orb_weaver_private:brake_current_sink_0_49ma_dac80501")
 		(members "b54345b5-7b7e-4363-9fd3-934646b4d877")
 	)
+	(group "torque_bridge_0_3v3_ina821"
+		(uuid "7927902f-240d-45e7-ab36-3f8e4387d3a5")
+		(lib_id "orb_weaver_private:torque_bridge_0_3v3_ina821")
+		(members "37814a67-a7e9-431d-ba1c-ed3d7c78c89b")
+	)
 	(group "hv_to_12v_tpsm365r6"
 		(uuid "d6eb2d17-ceb8-4306-b05a-0c8e05900c73")
 		(lib_id "orb_weaver_private:hv_to_12v_tpsm365r6")
 		(members "670aba7c-5d0b-40f5-98be-71b6a2ad93fc")
+	)
+	(sheet
+		(at 177.8 76.2)
+		(size 40.64 33.02)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "37814a67-a7e9-431d-ba1c-ed3d7c78c89b")
+		(property "Sheetname" "torque_bridge_0_3v3_ina821"
+			(at 177.8 75.4884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "torque_bridge_0_3v3_ina821.kicad_sch"
+			(at 177.8 109.8046 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 177.8 83.82 180)
+			(uuid "c6e901fe-f5f7-491f-8a11-7a387251bf29")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" passive
+			(at 177.8 81.28 180)
+			(uuid "f0828d51-388e-43cf-8a3d-c076429b3ee3")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+12V" passive
+			(at 177.8 78.74 180)
+			(uuid "0b2b0def-941c-4fd1-ae6e-d178ae3377bc")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CIPO" output
+			(at 177.8 99.06 180)
+			(uuid "d2940075-ed1a-4078-9069-682da159140d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "CIPO_INST" output
+			(at 218.44 99.06 0)
+			(uuid "3f180a23-5cb7-4d0e-bd2a-ef6f0d89ddff")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "COPI" input
+			(at 177.8 96.52 180)
+			(uuid "b131d3a6-41b1-4be5-86f3-d54c489dffea")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "COPI_INST" output
+			(at 218.44 96.52 0)
+			(uuid "84db4b31-2a25-40a3-94df-01b4486b65e8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 177.8 86.36 180)
+			(uuid "ed8346e7-9f81-49a5-b15a-a39dc1c956f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK" input
+			(at 177.8 93.98 180)
+			(uuid "45446d25-02a9-4a4b-bcd9-f0d8d02a221c")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "SCK_INST" output
+			(at 218.44 93.98 0)
+			(uuid "f26de210-b286-4f98-afbe-15bf913e0293")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_AOUT" output
+			(at 218.44 78.74 0)
+			(uuid "a5716790-ad51-4e7a-97ad-2ad9f36a7b1e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_AOUT_MON" output
+			(at 218.44 81.28 0)
+			(uuid "3f555ed4-8a59-4ea9-98c5-59138e94d541")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_CAL_EN" input
+			(at 177.8 106.68 180)
+			(uuid "6dc3d02a-3ac4-4438-963b-777e6d2f6b55")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TQ_CAL_EN_INST" output
+			(at 218.44 106.68 0)
+			(uuid "9f47f376-f142-492e-bd69-6f447440cfca")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "TQ_CONVST_CS" input
+			(at 177.8 101.6 180)
+			(uuid "f95d2e54-a593-4177-9146-cfe726790cf6")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "TQ_CONVST_CS_INST" output
+			(at 218.44 101.6 0)
+			(uuid "4b1dad41-e790-4a20-bf6d-a8f0f87aeb1d")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/f229cd8b-936a-4ad1-8bff-4cac135737f9"
+					(page "20")
+				)
+			)
+		)
 	)
 	(sheet
 		(at 127 25.4)
