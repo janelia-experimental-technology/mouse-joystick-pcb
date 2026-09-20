@@ -21,8 +21,28 @@
 # has margin; this floors the check at what the package allows rather than
 # switching it off, so a real short or a sloppy escape is still caught.
 #
+# The condition has two halves, and the second was added 2026-09-20 after the
+# first proved insufficient:
+#
+#   memberOfFootprint(...)      catches a PAD of the package against nearby copper.
+#   both intersectsCourtyard(...) catches TWO TRACKS ESCAPING ADJACENT PINS, which
+#                               are not footprint members and so slipped through.
+#
+# That second case is the harder one and it is worth the arithmetic. Pads 39
+# (VCC, 5 V) and 40 (VS, 36 V) sit 0.500 mm centre to centre. Two 0.20 mm tracks
+# leaving on those centrelines are 0.5 - 0.2 = 0.300 mm apart, which is exactly
+# what DRC measured. Reaching PWR_HV_BUS's 0.400 mm would need 0.10 mm tracks --
+# the board's absolute min_track_width, on a 36 V rail. There is no layout that
+# satisfies it, so the rule has to, or DRC can never come back clean.
+#
+# `intersectsCourtyard` accepts the footprint identifier, not just a refdes --
+# verified 2026-09-20, the whole condition parses and the finding clears. Keep the
+# identifier form: refdes are reassigned every time a design block is re-placed,
+# which is exactly what the RDN0011A comment below warns about.
+#
 # This is a FLOOR, not an exemption -- deliberately unlike the RDN0011A and
-# DNC-pad rules below, which use (severity ignore).
+# DNC-pad rules below, which use (severity ignore). Inside the courtyard the
+# check survives at 0.20 mm, so a real short or a sub-pitch approach still errors.
 #
 # Must stay BEFORE the low-voltage demote rule: later matching rules win, so a
 # non-voltage-bearing pair inside this footprint still falls through to that
@@ -33,7 +53,7 @@
 # an exemption has to exist in the authoring project too.
 
 (rule "TMC5130A TQFP-48 pad field is pitch-limited"
-	(condition "A.memberOfFootprint('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB')")
+	(condition "A.memberOfFootprint('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB') || (A.intersectsCourtyard('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB') && B.intersectsCourtyard('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB'))")
 	(constraint clearance (min 0.2mm))
 	(severity error))
 
