@@ -5,10 +5,8 @@
 	(uuid "5b22083e-d2a5-43bb-beed-995a46f1e5d4")
 	(paper "A4")
 	(title_block
-		(title "mouse-joystick-pcb")
-		(date "2026-09-19")
-		(rev "1.0")
-		(company "Janelia Research Campus")
+		(title "Orb Weaver Design Block Mining")
+		(date "2026-09-20")
 		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
 	)
 	(lib_symbols
@@ -1639,6 +1637,369 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "orb_weaver_internal:All/OW-PASS-0402WGF1000TCE"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.286 1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100"
+				(at 2.286 -1.27 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.016 1.016)
+						(bold yes)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+				(at -1.778 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 0.762 0.762)
+					)
+				)
+			)
+			(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "OW_PART" "OW-PASS-0402WGF1000TCE"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "PartID" "sym_orb_weaver_passives_r_100_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "LCSC" "C25076"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Vendor SKU" "C25076"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "JLC Qty" "9611"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Name" "100 0402 resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Group" "passives"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqType" "resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqValue" "100"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPackage" "0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "OW-PASS-0402WGF1000TCE 100 0402 resistor passives 100 -55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS orb_weaver_passives:R_100_0402 Resistor_SMD:R_0402_1005Metric resistor 100 Resistor_SMD:R_0"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "All/OW-PASS-0402WGF1000TCE_0_1"
+				(rectangle
+					(start -1.016 3.81)
+					(end 1.016 -3.81)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "All/OW-PASS-0402WGF1000TCE_1_1"
+				(pin passive line
+					(at 0 6.35 270)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.524 1.524)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.524 1.524)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -6.35 90)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.524 1.524)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.524 1.524)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "orb_weaver_internal:All/OW-PASS-RC0402JR-07100KL"
 			(pin_numbers
 				(hide yes)
@@ -2442,6 +2803,16 @@
 	)
 	(wire
 		(pts
+			(xy 233.68 119.38) (xy 231.14 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15299a75-dbb3-4df6-beec-0b32827d2eef")
+	)
+	(wire
+		(pts
 			(xy 101.6 48.26) (xy 101.6 50.8)
 		)
 		(stroke
@@ -2522,6 +2893,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 63.5) (xy 53.34 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d1f7809-923b-41ec-a060-b95030ee49b2")
+	)
+	(wire
+		(pts
 			(xy 96.52 101.6) (xy 96.52 104.14)
 		)
 		(stroke
@@ -2572,6 +2953,16 @@
 	)
 	(wire
 		(pts
+			(xy 248.92 119.38) (xy 246.38 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ff9f9ee-a7cb-4919-a2a6-c7310014d697")
+	)
+	(wire
+		(pts
 			(xy 50.8 50.8) (xy 53.34 50.8)
 		)
 		(stroke
@@ -2579,6 +2970,16 @@
 			(type default)
 		)
 		(uuid "838a1d29-96d9-42b6-bd5b-7943434f7c73")
+	)
+	(wire
+		(pts
+			(xy 248.92 88.9) (xy 246.38 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "84b25b5c-5a70-4e2d-8c6f-f1a74c83705f")
 	)
 	(wire
 		(pts
@@ -2619,6 +3020,16 @@
 			(type default)
 		)
 		(uuid "9a7b71bf-3084-4175-9b02-6d0fc8f31a8f")
+	)
+	(wire
+		(pts
+			(xy 50.8 60.96) (xy 53.34 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9aa6df7c-025c-4fb5-8646-1d04b5f2aee6")
 	)
 	(wire
 		(pts
@@ -2750,6 +3161,16 @@
 		)
 		(uuid "e3f4382a-0cc6-4b83-9e20-7c7306068849")
 	)
+	(wire
+		(pts
+			(xy 233.68 88.9) (xy 231.14 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e51ead8f-55de-4589-ae94-9bf4790b16d0")
+	)
 	(label "GND"
 		(at 53.34 53.34 0)
 		(effects
@@ -2759,6 +3180,16 @@
 			(justify left bottom)
 		)
 		(uuid "061b9271-a1f5-45cf-80cf-0fed73148385")
+	)
+	(label "ENCB"
+		(at 187.96 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0a3ba2ed-1c61-4107-b26f-d28b1f0494b6")
 	)
 	(label "+3.3V"
 		(at 195.58 48.26 90)
@@ -2780,6 +3211,16 @@
 		)
 		(uuid "24fe6225-af3f-4640-8384-2c58bca4d56b")
 	)
+	(label "ENCB"
+		(at 53.34 63.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "39350663-9961-4023-8b6c-d38f4dfa8ae8")
+	)
 	(label "GND"
 		(at 185.42 106.68 270)
 		(effects
@@ -2799,6 +3240,16 @@
 			(justify left bottom)
 		)
 		(uuid "41431f60-be90-4fb6-8baf-c8183ec388ac")
+	)
+	(label "ENCA"
+		(at 231.14 88.9 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "422ff7e3-b9a2-41bc-a820-93340b52262d")
 	)
 	(label "+3.3V"
 		(at 218.44 48.26 90)
@@ -2870,6 +3321,16 @@
 		)
 		(uuid "8d1f92bf-7858-4ad2-ba45-0818933b8f3d")
 	)
+	(label "ENCB"
+		(at 231.14 119.38 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "903e059a-32a1-4efc-9aa8-80e0cf98cf44")
+	)
 	(label "EB_FILT"
 		(at 116.84 119.38 0)
 		(effects
@@ -2930,6 +3391,16 @@
 		)
 		(uuid "c526b256-0e75-4d9b-bce0-d51a56d7711b")
 	)
+	(label "ENCA"
+		(at 187.96 88.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c70c101c-1308-4d63-a984-5f03acf2a049")
+	)
 	(label "GND"
 		(at 195.58 60.96 270)
 		(effects
@@ -2949,6 +3420,16 @@
 			(justify left bottom)
 		)
 		(uuid "d29cdd42-f2b1-433e-8af8-5e07e5832329")
+	)
+	(label "ENCA"
+		(at 53.34 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "daa28754-5f16-4dce-b738-9cac0513ca6c")
 	)
 	(label "GND"
 		(at 114.3 129.54 270)
@@ -3000,6 +3481,17 @@
 		)
 		(uuid "fa9f0aa8-be2e-4871-acf7-9e4e4c3c6d17")
 	)
+	(hierarchical_label "ENCB_INST"
+		(shape output)
+		(at 248.92 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "05313689-6934-496d-824b-c6d66fc57e5e")
+	)
 	(hierarchical_label "+3.3V"
 		(shape passive)
 		(at 50.8 50.8 180)
@@ -3044,25 +3536,36 @@
 		)
 		(uuid "5b59721f-9205-4baf-a720-145ea97c651f")
 	)
-	(hierarchical_label "ENCA"
+	(hierarchical_label "ENCA_INST"
 		(shape output)
-		(at 187.96 88.9 0)
+		(at 248.92 88.9 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "9a42da22-195a-4a37-a6e2-07f8d6ba25d3")
+		(uuid "85c96800-f32f-49e7-a825-1343d7b6ea17")
 	)
-	(hierarchical_label "ENCB"
+	(hierarchical_label "ENCA"
 		(shape output)
-		(at 187.96 119.38 0)
+		(at 50.8 60.96 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
+		)
+		(uuid "9a42da22-195a-4a37-a6e2-07f8d6ba25d3")
+	)
+	(hierarchical_label "ENCB"
+		(shape output)
+		(at 50.8 63.5 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
 		)
 		(uuid "e8ac8084-e973-49ed-98d5-d62ba39b6b2c")
 	)
@@ -3345,7 +3848,7 @@
 		(property "LCSC" "C2858031"
 			(at 101.6 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3356,7 +3859,7 @@
 		(property "Vendor SKU" "C2858031"
 			(at 101.6 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3372,7 +3875,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "C1501")
 					(unit 1)
 				)
@@ -3653,7 +4156,7 @@
 		(property "LCSC" "C162178"
 			(at 195.58 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3664,7 +4167,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 195.58 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3680,7 +4183,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "C1505")
 					(unit 1)
 				)
@@ -3963,7 +4466,7 @@
 		(property "LCSC" "C106234"
 			(at 185.42 128.27 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3974,7 +4477,7 @@
 		(property "Vendor SKU" "C106234"
 			(at 185.42 128.27 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -3990,7 +4493,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1506")
 					(unit 1)
 				)
@@ -4016,7 +4519,7 @@
 		(fields_autoplaced yes)
 		(uuid "3cd18d35-a0ef-48cc-906f-924c83604d16")
 		(property "Reference" "U1501"
-			(at 172.72 109.22 0)
+			(at 171.45 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4026,7 +4529,7 @@
 			)
 		)
 		(property "Value" "SN74LVC2G17DRYR"
-			(at 172.72 111.76 0)
+			(at 171.45 110.49 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4269,7 +4772,7 @@
 		(property "LCSC" "C2675856"
 			(at 172.72 119.38 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4280,7 +4783,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 172.72 119.38 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4308,7 +4811,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "U1501")
 					(unit 2)
 				)
@@ -4587,7 +5090,7 @@
 		(property "LCSC" "C25900"
 			(at 105.41 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4598,7 +5101,7 @@
 		(property "Vendor SKU" "C25900"
 			(at 105.41 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4614,7 +5117,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1503")
 					(unit 1)
 				)
@@ -4622,6 +5125,313 @@
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/83c732b1-6aa1-4429-89f4-a4799893887f"
 					(reference "R30003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-0402WGF1000TCE")
+		(at 240.03 88.9 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "67e9b657-6e21-4eed-a291-0f4764823597")
+		(property "Reference" "R1507"
+			(at 240.03 82.55 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 240.03 85.09 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 240.03 90.678 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 240.03 86.868 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-0402WGF1000TCE"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_100_0402"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "9611"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "100 0402 resistor"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "100"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25076"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C25076"
+			(at 240.03 88.9 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "5253dc5f-c687-4776-9237-e3394e962683")
+		)
+		(pin "1"
+			(uuid "da165743-64a7-4fc9-9f61-3e745d67636f")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
+					(reference "R1507")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/83c732b1-6aa1-4429-89f4-a4799893887f"
+					(reference "R30007")
 					(unit 1)
 				)
 			)
@@ -4895,7 +5705,7 @@
 		(property "LCSC" "C1518202"
 			(at 114.3 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4906,7 +5716,7 @@
 		(property "Vendor SKU" "C1518202"
 			(at 114.3 92.71 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -4922,7 +5732,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "C1502")
 					(unit 1)
 				)
@@ -5205,7 +6015,7 @@
 		(property "LCSC" "C106234"
 			(at 96.52 95.25 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5216,7 +6026,7 @@
 		(property "Vendor SKU" "C106234"
 			(at 96.52 95.25 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5232,7 +6042,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1501")
 					(unit 1)
 				)
@@ -5240,6 +6050,313 @@
 			(project "design_block_mining_project"
 				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/83c732b1-6aa1-4429-89f4-a4799893887f"
 					(reference "R30001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-0402WGF1000TCE")
+		(at 240.03 119.38 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "94d002ab-253a-4bf8-a1f5-06c9a55848cc")
+		(property "Reference" "R1508"
+			(at 240.03 113.03 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Value" "100"
+			(at 240.03 115.57 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 240.03 121.158 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 240.03 117.348 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-0402WGF1000TCE"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_100_0402"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC Qty" "9611"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "100 0402 resistor"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "100"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25076"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Vendor SKU" "C25076"
+			(at 240.03 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "59dd0c24-c928-45ef-97cb-1dc6cc63bb89")
+		)
+		(pin "1"
+			(uuid "42bab0c2-2662-445c-b611-7a32f0b6e3b3")
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
+					(reference "R1508")
+					(unit 1)
+				)
+			)
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/83c732b1-6aa1-4429-89f4-a4799893887f"
+					(reference "R30008")
 					(unit 1)
 				)
 			)
@@ -5511,7 +6628,7 @@
 		(property "LCSC" "C25900"
 			(at 105.41 119.38 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5522,7 +6639,7 @@
 		(property "Vendor SKU" "C25900"
 			(at 105.41 119.38 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5538,7 +6655,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1504")
 					(unit 1)
 				)
@@ -5819,7 +6936,7 @@
 		(property "LCSC" "C1518202"
 			(at 114.3 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5830,7 +6947,7 @@
 		(property "Vendor SKU" "C1518202"
 			(at 114.3 123.19 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -5846,7 +6963,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "C1503")
 					(unit 1)
 				)
@@ -5872,7 +6989,7 @@
 		(fields_autoplaced yes)
 		(uuid "cf752abf-0e0c-412d-a73f-c1eaff636f88")
 		(property "Reference" "U1501"
-			(at 172.72 78.74 0)
+			(at 171.45 77.47 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5882,7 +6999,7 @@
 			)
 		)
 		(property "Value" "SN74LVC2G17DRYR"
-			(at 172.72 81.28 0)
+			(at 171.45 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -6125,7 +7242,7 @@
 		(property "LCSC" "C2675856"
 			(at 172.72 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6136,7 +7253,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 172.72 88.9 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6164,7 +7281,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "U1501")
 					(unit 1)
 				)
@@ -6445,7 +7562,7 @@
 		(property "LCSC" "C162178"
 			(at 116.84 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6456,7 +7573,7 @@
 		(property "Vendor SKU" "C162178"
 			(at 116.84 54.61 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6472,7 +7589,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "C1504")
 					(unit 1)
 				)
@@ -6755,7 +7872,7 @@
 		(property "LCSC" "C106234"
 			(at 185.42 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6766,7 +7883,7 @@
 		(property "Vendor SKU" "C106234"
 			(at 185.42 97.79 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -6782,7 +7899,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1505")
 					(unit 1)
 				)
@@ -7065,7 +8182,7 @@
 		(property "LCSC" "C106234"
 			(at 96.52 125.73 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7076,7 +8193,7 @@
 		(property "Vendor SKU" "C106234"
 			(at 96.52 125.73 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7092,7 +8209,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "R1502")
 					(unit 1)
 				)
@@ -7118,7 +8235,7 @@
 		(fields_autoplaced yes)
 		(uuid "fdd2edbd-24fa-460f-8e8d-56e4d4752cb6")
 		(property "Reference" "U1501"
-			(at 222.25 54.6099 0)
+			(at 224.79 54.6099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7129,7 +8246,7 @@
 			)
 		)
 		(property "Value" "SN74LVC2G17DRYR"
-			(at 222.25 57.1499 0)
+			(at 224.79 57.1499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -7373,7 +8490,7 @@
 		(property "LCSC" "C2675856"
 			(at 218.44 55.88 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7384,7 +8501,7 @@
 		(property "Vendor SKU" "C2675856"
 			(at 218.44 55.88 0)
 			(hide yes)
-			(show_name yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -7412,7 +8529,7 @@
 		)
 		(instances
 			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/f990eb77-a959-4425-bd68-8a1848546fc2"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/61e15e7b-11a5-43f7-9483-52bbc891e893"
 					(reference "U1501")
 					(unit 3)
 				)

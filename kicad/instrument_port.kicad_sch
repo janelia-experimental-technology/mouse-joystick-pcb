@@ -93,13 +93,13 @@
 	)
 	(wire
 		(pts
-			(xy 127 132.08) (xy 129.54 132.08)
+			(xy 99.06 132.08) (xy 101.6 132.08)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3e18f748-0ed9-4882-94f5-2a80904739c6")
+		(uuid "44a67e0f-5ef4-4aa7-a587-bc123d610c67")
 	)
 	(wire
 		(pts
@@ -243,16 +243,6 @@
 	)
 	(wire
 		(pts
-			(xy 127 134.62) (xy 129.54 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8f774bc-6ed1-4b56-b2cb-f4d861619f4e")
-	)
-	(wire
-		(pts
 			(xy 99.06 60.96) (xy 101.6 60.96)
 		)
 		(stroke
@@ -290,6 +280,16 @@
 			(type default)
 		)
 		(uuid "da794940-3b06-4264-bda3-89f16e32396b")
+	)
+	(wire
+		(pts
+			(xy 99.06 134.62) (xy 101.6 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2f582f8-cd22-43ed-a764-a5a234a791dd")
 	)
 	(wire
 		(pts
@@ -370,26 +370,6 @@
 			(justify left bottom)
 		)
 		(uuid "02e23177-6408-4516-95aa-8639c3d6e087")
-	)
-	(label "GND"
-		(at 129.54 132.08 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1c4e405d-30e4-42f5-aac5-52ecf7d5997f")
-	)
-	(label "GND"
-		(at 129.54 134.62 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2a63e057-3ebf-4f80-8ef9-ab8c5d72e29b")
 	)
 	(label "GND"
 		(at 129.54 55.88 0)
@@ -473,6 +453,17 @@
 			(justify right)
 		)
 		(uuid "0b57a16a-ed5e-406a-b865-adf38871f5bb")
+	)
+	(hierarchical_label "ENCA"
+		(shape input)
+		(at 99.06 132.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0eff3801-0ea0-4383-88a4-e4107a4052ea")
 	)
 	(hierarchical_label "TMC_DIAG1"
 		(shape input)
@@ -715,6 +706,17 @@
 			(justify right)
 		)
 		(uuid "eaa46109-f6de-498a-9ce5-a1733748359b")
+	)
+	(hierarchical_label "ENCB"
+		(shape input)
+		(at 99.06 134.62 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "efce71de-11a6-4563-95d1-659c3c97dc55")
 	)
 	(hierarchical_label "DAQ_SDA"
 		(shape input)
@@ -1083,23 +1085,23 @@
 			)
 		)
 		(pin "DIG28" input
-			(at 127 132.08 0)
+			(at 101.6 132.08 180)
 			(uuid "ae084bd9-a60c-43e1-81ee-11a876df4625")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(pin "DIG29" input
-			(at 127 134.62 0)
+			(at 101.6 134.62 180)
 			(uuid "355453f6-f6af-42a9-b78c-201e3aa64e47")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(pin "DIG30" input

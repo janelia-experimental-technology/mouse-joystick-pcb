@@ -1844,16 +1844,6 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 40.64) (xy 53.34 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12b775c0-f9de-4a75-8ca5-314a28277141")
-	)
-	(wire
-		(pts
 			(xy 109.22 149.86) (xy 111.76 149.86)
 		)
 		(stroke
@@ -1861,6 +1851,16 @@
 			(type default)
 		)
 		(uuid "13180c4c-e698-4665-a91f-13d59dd07bfc")
+	)
+	(wire
+		(pts
+			(xy 210.82 139.7) (xy 213.36 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17152e99-dd72-46ab-b71e-69283384a05b")
 	)
 	(wire
 		(pts
@@ -2011,6 +2011,16 @@
 			(type default)
 		)
 		(uuid "3f8d24f2-b99c-4250-ae65-573a068d94bc")
+	)
+	(wire
+		(pts
+			(xy 210.82 142.24) (xy 213.36 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4481efe2-bf32-4189-9db7-936cf724a408")
 	)
 	(wire
 		(pts
@@ -2174,16 +2184,6 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 35.56) (xy 53.34 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "755083a6-4180-4939-a19c-cac97b420e56")
-	)
-	(wire
-		(pts
 			(xy 81.28 96.52) (xy 83.82 96.52)
 		)
 		(stroke
@@ -2311,16 +2311,6 @@
 			(type default)
 		)
 		(uuid "a7331b87-6daa-4b9c-b83f-6ed992d09dbd")
-	)
-	(wire
-		(pts
-			(xy 50.8 38.1) (xy 53.34 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aa70874e-b508-44ec-a038-e29547ef50fc")
 	)
 	(wire
 		(pts
@@ -2722,16 +2712,6 @@
 		)
 		(uuid "248694cc-5a2e-43e6-93f3-d1a30b669c9e")
 	)
-	(label "LIMIT_SW"
-		(at 53.34 40.64 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "261b4389-f91a-426e-b05a-89f292faabee")
-	)
 	(label "GND"
 		(at 182.88 134.62 180)
 		(effects
@@ -2821,16 +2801,6 @@
 			(justify right bottom)
 		)
 		(uuid "42bfe0d8-394a-40c1-84e5-228c38d4f453")
-	)
-	(label "ENCA"
-		(at 53.34 35.56 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4484b66c-0f57-46b3-9b8c-36e088bf9d9e")
 	)
 	(label "TMC_SPI_SCK"
 		(at 127 40.64 90)
@@ -3051,16 +3021,6 @@
 			(justify right bottom)
 		)
 		(uuid "94947111-c69d-41bf-9ba7-bbdb5f4263c4")
-	)
-	(label "ENCB"
-		(at 53.34 38.1 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "997e9c5d-bed9-4f54-ba9f-2e2c7735eab9")
 	)
 	(label "+3.3V"
 		(at 25.4 88.9 90)
@@ -3381,14 +3341,14 @@
 		)
 		(uuid "56f30d6e-8e60-4b56-aa37-652c2bc2307a")
 	)
-	(hierarchical_label "ENCB"
+	(hierarchical_label "ENCB_INST"
 		(shape output)
-		(at 50.8 38.1 180)
+		(at 213.36 142.24 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "66cd76ec-a117-47a9-ae85-cc1f2d5ac33e")
 	)
@@ -3491,17 +3451,6 @@
 		)
 		(uuid "c8320998-ad39-4d23-9b5b-95d4814bbd87")
 	)
-	(hierarchical_label "LIMIT_SW"
-		(shape output)
-		(at 50.8 40.64 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "ccc6b6e0-5b37-4389-bb59-8c33b8f42286")
-	)
 	(hierarchical_label "ANGLE_OUT_MON"
 		(shape output)
 		(at 111.76 149.86 0)
@@ -3546,14 +3495,14 @@
 		)
 		(uuid "f045a72c-c916-443d-afff-d134787173f3")
 	)
-	(hierarchical_label "ENCA"
+	(hierarchical_label "ENCA_INST"
 		(shape output)
-		(at 50.8 35.56 180)
+		(at 213.36 139.7 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "f0c17c19-7255-4e0e-a439-24ffbf253cc9")
 	)
@@ -6581,15 +6530,15 @@
 		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
 		(members "e0325974-8683-4600-ba1d-6577d3d476a7")
 	)
-	(group "quadrature_encoder_input_5v_sn74lvc2g17"
-		(uuid "9037b3b7-7021-4a2f-882f-f12c1b9dbb9d")
-		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
-		(members "f990eb77-a959-4425-bd68-8a1848546fc2")
-	)
 	(group "tmc5130"
 		(uuid "923ca7fc-e783-4036-bebd-3a4b01d078af")
 		(lib_id "orb_weaver_private:tmc5130")
 		(members "e42510bf-12f3-499e-99b2-0445c30415a0")
+	)
+	(group "quadrature_encoder_input_5v_sn74lvc2g17"
+		(uuid "b5972f62-e8ce-445b-a414-4338fde793a0")
+		(lib_id "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17")
+		(members "61e15e7b-11a5-43f7-9483-52bbc891e893")
 	)
 	(group "analog_output_0_3v3_dac80501"
 		(uuid "c5172dee-9364-4b59-b7c8-693743c5dabf")
@@ -6708,6 +6657,142 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 185.42 127)
+		(size 25.4 17.78)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0)
+		)
+		(uuid "61e15e7b-11a5-43f7-9483-52bbc891e893")
+		(property "Sheetname" "quadrature_encoder_input_5v_sn74lvc2g17"
+			(at 185.42 126.2884 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch"
+			(at 185.42 145.3646 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(pin "+3.3V" passive
+			(at 185.42 132.08 180)
+			(uuid "994c1b6f-6f63-4436-a3d5-73dcd785df5b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "EA" input
+			(at 185.42 139.7 180)
+			(uuid "ed262a11-c1ba-4d85-a819-0aa3981396b8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "EB" input
+			(at 185.42 142.24 180)
+			(uuid "f891adcb-3834-481a-9e3e-d07e7d0ef617")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "ENCA" output
+			(at 210.82 129.54 0)
+			(uuid "709d0e36-c909-4694-8bb1-6c6ad57615bf")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCA_INST" output
+			(at 210.82 139.7 0)
+			(uuid "6486ad1d-3a10-4ede-b6be-751bc427ab04")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCB" output
+			(at 210.82 132.08 0)
+			(uuid "e7eba6eb-454d-4631-b531-8554c8e058e4")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "ENCB_INST" output
+			(at 210.82 142.24 0)
+			(uuid "cd5100f8-5270-4655-bae3-43476b46bed1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "GND" passive
+			(at 185.42 134.62 180)
+			(uuid "117ebddc-a90d-41bb-a635-9dfee47e673a")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "VENC" passive
+			(at 185.42 129.54 180)
+			(uuid "db7c7917-fe03-4787-a0b0-2632562baed8")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(instances
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
+					(page "15")
 				)
 			)
 		)
@@ -7120,122 +7205,6 @@
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
 					(page "12")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 185.42 127)
-		(size 25.4 17.78)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.1524)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "f990eb77-a959-4425-bd68-8a1848546fc2")
-		(property "Sheetname" "quadrature_encoder_input_5v_sn74lvc2g17"
-			(at 185.42 126.2884 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch"
-			(at 185.42 145.3646 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+3.3V" passive
-			(at 185.42 132.08 180)
-			(uuid "4973730c-d6b4-4b46-9fe3-9ce8c11b8016")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "EA" input
-			(at 185.42 139.7 180)
-			(uuid "75f6c202-0119-4799-8216-606fb308b7bf")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "EB" input
-			(at 185.42 142.24 180)
-			(uuid "9e882018-6ead-44d5-b296-c131ab8bc9e5")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "ENCA" output
-			(at 210.82 129.54 0)
-			(uuid "4b36533f-bf62-4af6-9f8d-06e8c38536bb")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "ENCB" output
-			(at 210.82 132.08 0)
-			(uuid "3afe7e57-84b2-4dd8-9b4c-fec2910247b3")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(pin "GND" passive
-			(at 185.42 134.62 180)
-			(uuid "07cbb3f6-7b20-45ee-81d5-051c14484738")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "VENC" passive
-			(at 185.42 129.54 180)
-			(uuid "42e3b522-4c21-42c1-a9d4-3c944fb33094")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d"
-					(page "15")
 				)
 			)
 		)
