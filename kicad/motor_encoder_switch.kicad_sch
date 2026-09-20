@@ -2444,6 +2444,16 @@
 	)
 	(wire
 		(pts
+			(xy 203.2 104.14) (xy 205.74 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4801ac7-83f5-4087-b649-47082ae1e430")
+	)
+	(wire
+		(pts
 			(xy 50.8 25.4) (xy 53.34 25.4)
 		)
 		(stroke
@@ -3403,6 +3413,17 @@
 			(justify right)
 		)
 		(uuid "72f27b24-5acd-49d0-934d-9fc9a5e8fb87")
+	)
+	(hierarchical_label "LIMIT_SW_INST"
+		(shape output)
+		(at 205.74 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7a5b42f2-0f0b-426c-a7d5-faec5714c29e")
 	)
 	(hierarchical_label "+3.3V"
 		(shape passive)
@@ -6556,9 +6577,9 @@
 		)
 	)
 	(group "limit_switch_debounced_input_vertical"
-		(uuid "0bf2c7d9-aabb-40c9-a552-fe72cb454400")
+		(uuid "39b5dd54-70c1-47fb-a666-53cf40d573a6")
 		(lib_id "orb_weaver_private:limit_switch_debounced_input_vertical")
-		(members "cf7dec04-8ddd-45e1-b03a-16bc08db1077")
+		(members "e0325974-8683-4600-ba1d-6577d3d476a7")
 	)
 	(group "quadrature_encoder_input_5v_sn74lvc2g17"
 		(uuid "9037b3b7-7021-4a2f-882f-f12c1b9dbb9d")
@@ -6706,7 +6727,7 @@
 		(fill
 			(color 0 0 0 0)
 		)
-		(uuid "cf7dec04-8ddd-45e1-b03a-16bc08db1077")
+		(uuid "e0325974-8683-4600-ba1d-6577d3d476a7")
 		(property "Sheetname" "limit_switch_debounced_input_vertical"
 			(at 177.8 98.3484 0)
 			(show_name no)
@@ -6731,7 +6752,7 @@
 		)
 		(pin "+3.3V_SW" passive
 			(at 177.8 101.6 180)
-			(uuid "69587a07-fa63-4181-bf68-d68748d29a74")
+			(uuid "15e85939-c2c3-497a-a7d0-5fa6cd5a334b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6741,7 +6762,7 @@
 		)
 		(pin "GND" passive
 			(at 177.8 104.14 180)
-			(uuid "aacdba67-8a0a-42db-a4e4-14bd35e4def3")
+			(uuid "8b950b5e-25a6-453f-ac82-8c34ec019e68")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6751,7 +6772,17 @@
 		)
 		(pin "LIMIT_SW" output
 			(at 203.2 101.6 0)
-			(uuid "b13b22e8-e2ad-4ff0-8c14-d2360c596194")
+			(uuid "99db91af-94a1-4ede-b27b-6ca4a6bf5dff")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(pin "LIMIT_SW_INST" output
+			(at 203.2 104.14 0)
+			(uuid "9770eb0b-b5e1-4bf7-b5f2-828ffb52d6fb")
 			(effects
 				(font
 					(size 1.27 1.27)

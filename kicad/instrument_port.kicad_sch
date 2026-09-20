@@ -123,16 +123,6 @@
 	)
 	(wire
 		(pts
-			(xy 127 99.06) (xy 129.54 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4ff65654-c7db-439f-94aa-d38a7dc9a52e")
-	)
-	(wire
-		(pts
 			(xy 127 76.2) (xy 129.54 76.2)
 		)
 		(stroke
@@ -200,6 +190,16 @@
 			(type default)
 		)
 		(uuid "88e3ed16-7489-4171-83aa-2accfa41c53e")
+	)
+	(wire
+		(pts
+			(xy 99.06 99.06) (xy 101.6 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e9a2f7c-a3ff-4fd9-bb10-6391ca88f609")
 	)
 	(wire
 		(pts
@@ -420,16 +420,6 @@
 			(justify left bottom)
 		)
 		(uuid "882772f9-2379-4d3a-8241-ee9fb22a0856")
-	)
-	(label "GND"
-		(at 129.54 99.06 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8a2bbc2b-3722-4698-9746-e3cbf9cd36df")
 	)
 	(label "GND"
 		(at 129.54 73.66 0)
@@ -704,6 +694,17 @@
 		)
 		(uuid "c76d5b25-8335-4a01-b15c-240b881b8ed6")
 	)
+	(hierarchical_label "LIMIT_SW"
+		(shape input)
+		(at 99.06 99.06 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "cbe95d4a-7dd2-47c7-ab2d-31dfdaf5c410")
+	)
 	(hierarchical_label "TMC_DIAG0"
 		(shape input)
 		(at 99.06 91.44 180)
@@ -952,13 +953,13 @@
 			)
 		)
 		(pin "DIG15" input
-			(at 127 99.06 0)
+			(at 101.6 99.06 180)
 			(uuid "f834926f-3006-4106-95d5-1f4de573f13f")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 			)
 		)
 		(pin "DIG16" input
