@@ -12,31 +12,70 @@
 	(condition "A.Type == 'Pad' && B.Type == 'Pad' && A.Pad_Type == 'SMD' && B.Pad_Type == 'SMD'")
 	(constraint clearance (min 0.15mm)))
 
-# Clearance is IGNORED project-wide (Board Setup > Violation Severities) because
-# the design blocks this board is composed from were authored to the old broken
-# 0.10 mm floor, and reworking their internals is not a v1.0 task. Boards built
-# from these blocks have been manufactured and work. ~519 low-voltage advisories
-# would bury every other DRC finding, so they are off rather than demoted to
-# warnings. Fixes happen upstream in kicad-libs, which is deliberately the
-# stricter project: clearance = warning there, and the goal is error.
+# TMC5130A TQFP-48 pad field is pitch-limited, added 2026-09-20. The package is
+# 0.5 mm pitch with 0.3 mm pads, so ADJACENT PADS ARE 0.20 mm APART before any
+# track is drawn -- and the TMC5130A puts VS (36 V, pad 40) next to VCC (5 V,
+# pad 39), VCP (pad 38) next to VCC, and CPO (pad 35) next to VCC (pad 34).
+# PWR_HV_BUS asks 0.40 mm, which no routing inside the pad field can ever meet.
+# IPC-2221 B4 (external, uncoated) wants 0.13 mm at 31-50 V, so 0.20 mm still
+# has margin; this floors the check at what the package allows rather than
+# switching it off, so a real short or a sloppy escape is still caught.
 #
-# DO NOT add a custom rule here trying to keep voltage-bearing clearance alive.
-# It does not work, and this was measured, not assumed. With the clearance
-# violation TYPE set to ignore, KiCad skips the clearance test altogether and a
-# rule-level (severity error) cannot raise it back. Verified 2026-09-18 against
-# tmc5160_power_stage_buk7d36_60ex, which reports 131 clearance errors under the
-# kicad-libs mining project: checked against this project with such a rule in
-# place it reported ZERO clearance findings of any severity. Rule severity can
-# only lower the type severity, never raise it -- which is also why the
-# RDN0011A exemption below still works.
+# This is a FLOOR, not an exemption -- deliberately unlike the RDN0011A and
+# DNC-pad rules below, which use (severity ignore).
 #
-# So there is NO automatic 36 V spacing check on this board while clearance is
-# ignored. Before fabricating, flip "clearance" back to error in
-# mouse-joystick-pcb.kicad_pro for one DRC pass and read only the findings on
-# PWR_HV_ENTRY / PWR_HV_BUS / PWR_HV_RETURN / PWR_HV_LOCAL / MOTOR_2A /
-# BRIDGE_MID / BOOTSTRAP / GATE_DRIVE / PWR_12V / PWR_12V_LOCAL, then set it back.
-# That matters most for the inter-block copper, which is hand-routed and which
-# this board has not routed yet.
+# Must stay BEFORE the low-voltage demote rule: later matching rules win, so a
+# non-voltage-bearing pair inside this footprint still falls through to that
+# rule and stays a warning. Moving this after it would promote every
+# low-voltage advisory at U1201 to an error.
+#
+# Mirrored in ../kicad-libs -- the VCP/CPO copper is block-internal, so a fix or
+# an exemption has to exist in the authoring project too.
+
+(rule "TMC5130A TQFP-48 pad field is pitch-limited"
+	(condition "A.memberOfFootprint('orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB')")
+	(constraint clearance (min 0.2mm))
+	(severity error))
+
+# Clearance severity is split, changed 2026-09-20. The clearance violation TYPE
+# is "error" in Board Setup > Violation Severities, and the rule below demotes
+# every pair where NEITHER side is voltage-bearing back to "warning". The result
+# is that the ~474 legacy low-voltage advisories stay visible but unobtrusive,
+# while the handful of findings on 36 V / 12 V / motor / gate-drive copper are
+# real errors that fail a DRC pass.
+#
+# The advisories come from design blocks authored against the old broken 0.10 mm
+# floor; reworking their internals is not a v1.0 task, and boards built from
+# these blocks have been manufactured and work. Fixes happen upstream in
+# kicad-libs, which is deliberately the stricter project.
+#
+# WHY THIS ORDER. Two facts about KiCad severity, one of which was previously
+# recorded here too broadly and is corrected 2026-09-20:
+#
+#   1. TRUE: with the clearance TYPE set to "ignore", KiCad skips the clearance
+#      test altogether and no rule can bring it back. Verified 2026-09-18 against
+#      tmc5160_power_stage_buk7d36_60ex, which reported 131 clearance errors under
+#      the kicad-libs mining project and ZERO here with a (severity error) rule in
+#      place. **Never set the clearance type back to "ignore".**
+#   2. FALSE, and this file used to assert it: "rule severity can only LOWER the
+#      type severity, never raise it." A rule CAN raise. Measured 2026-09-20: the
+#      mining project runs clearance at type "warning" with a
+#      (severity error) rule on the voltage-bearing netclasses and reports 123
+#      clearance ERRORS. The 2026-09-18 observation was only ever about "ignore".
+#
+# So both arrangements work: type "warning" plus a raise rule (what kicad-libs
+# does), or type "error" plus this demote rule (what this board does). This board
+# uses the demote form deliberately -- if a rule ever stops matching, the finding
+# falls back to error and fails loud, rather than falling back to warning and
+# going quiet. Do not set the type back to "ignore".
+#
+# The three (severity ignore) exemptions below must stay AFTER this rule: later
+# matching rules win, so they still silence the package-geometry cases.
+
+(rule "Legacy low-voltage block clearance is advisory"
+	(condition "A.NetClass != 'PWR_HV_ENTRY' && A.NetClass != 'PWR_HV_BUS' && A.NetClass != 'PWR_HV_RETURN' && A.NetClass != 'PWR_HV_LOCAL' && A.NetClass != 'MOTOR_2A' && A.NetClass != 'BRIDGE_MID' && A.NetClass != 'BOOTSTRAP' && A.NetClass != 'GATE_DRIVE' && A.NetClass != 'PWR_12V' && A.NetClass != 'PWR_12V_LOCAL' && B.NetClass != 'PWR_HV_ENTRY' && B.NetClass != 'PWR_HV_BUS' && B.NetClass != 'PWR_HV_RETURN' && B.NetClass != 'PWR_HV_LOCAL' && B.NetClass != 'MOTOR_2A' && B.NetClass != 'BRIDGE_MID' && B.NetClass != 'BOOTSTRAP' && B.NetClass != 'GATE_DRIVE' && B.NetClass != 'PWR_12V' && B.NetClass != 'PWR_12V_LOCAL'")
+	(constraint clearance)
+	(severity warning))
 
 # TPSM365R6 module (TI RDN0011A, QFN-FCMOD 3.5x4.5, 0.5mm pitch). The land
 # pattern's own pad gaps are 0.125-0.150mm, below the JLCPCB SMD pad-to-pad

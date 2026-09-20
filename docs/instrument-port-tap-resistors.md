@@ -1,10 +1,12 @@
 # InstrumentPort Tap Resistors
 
-**Status: specified 2026-09-19, not yet implemented.** This document is the
-build order for splitting every InstrumentPort observation branch off its
-functional net with a series resistor. It is written to be executed in a fresh
-session: everything needed — values, nets, owning blocks, pin names, part
-numbers and the traps — is here.
+**Status: implemented 2026-09-20 and verified against the exported netlist.**
+This document is the build order for splitting every InstrumentPort observation
+branch off its functional net with a series resistor. It is written to be
+executed in a fresh session: everything needed — values, nets, owning blocks, pin
+names, part numbers and the traps — is here. See
+[As Built](#as-built-2026-09-20) for what actually landed and the two places the
+build deviated from this specification.
 
 **Read first:** [`docs/interface-map.md`](interface-map.md) →
 [InstrumentPort-Digital-50 Pinout](interface-map.md#instrumentport-digital-50-pinout),
@@ -267,6 +269,66 @@ it is a shunt, so the doubling rule does apply to it; and the original 2026-08-1
 decision put it in the board-authored `mcu` sheet specifically "so a design-block
 re-place cannot lose it" — which is the property being exercised here. See
 [`GP1` Gets A Hardware Pull-Up](interface-map.md#gp1-gets-a-hardware-pull-up).
+
+## As Built (2026-09-20)
+
+All twenty-four taps are placed and verified from the exported netlist: each
+`_INST` net carries exactly two nodes, each functional net kept its DC-defining
+bias and no longer reaches a buffer directly, and every tap lands on the channel
+this document assigns it. `R1203`/`R1204` still read 0.15 Ω after the `tmc5130`
+re-place.
+
+**Two deviations from the specification above, both deliberate — the text above
+is kept as written so the reasoning survives:**
+
+1. **Block pins are named `_INST`, not `_TAP`.** The rule in
+   [Naming](#naming) said board nets take `_INST` and block pins take `_TAP`.
+   Every block was built with `_INST` on both sides — `SCK_INST`, `ENABLE_INST`,
+   `PYC_DIO_A_INST` and so on. One suffix is easier to hold than two and the
+   overbar rule was followed correctly either way. **`_TAP` appears nowhere in
+   the library or on the board; do not reintroduce it.**
+2. **The `INSTRUMENT` netclass assigns all 24 nets explicitly** in
+   `netclass_assignments`, and *also* carries the specified `/*_INST` pattern.
+   The explicit assignments are what the five overbar names rely on; the pattern
+   is future-proofing for taps added later. Class is priority 20, track 0.15 mm,
+   clearance 0.15 mm, `Default`'s 0.6 / 0.3 via geometry unchanged, and it is
+   coloured `rgb(255, 167, 38)` so the taps are visible while routing.
+
+### As-built designators
+
+Board designators for the tap resistors, read from the netlist. The `R` bands
+shifted when the blocks were re-placed, so name these by net, not by number.
+
+| Board net | Tap resistor | Value | Buffer input |
+|---|---|---|---|
+| `TMC_SPI_SCK` | `R1206` | 100 Ω | `U1302` pin 9 |
+| `~{TMC_CS}` | `R1205` | 100 Ω | `U1302` pin 8 |
+| `TMC_SPI_COPI` | `R1207` | 100 Ω | `U1302` pin 7 |
+| `TMC_SPI_CIPO` | `R1208` | 100 Ω | `U1302` pin 6 |
+| `TMC_DIAG0` | `R1209` | 1 kΩ | `U1302` pin 5 |
+| `TMC_DIAG1` | `R1210` | 1 kΩ | `U1302` pin 4 |
+| `~{TMC_DRV_EN}` | `R1211` | 1 kΩ | `U1302` pin 3 |
+| `LIMIT_SW` | `R1602` | 1 kΩ | `U1302` pin 2 |
+| `TQ_SPI_SCK` | `R2024` | 100 Ω | `U1303` pin 9 |
+| `TQ_CONVST_CS` | `R2027` | 100 Ω | `U1303` pin 8 |
+| `TQ_SPI_COPI` | `R2026` | 100 Ω | `U1303` pin 7 |
+| `TQ_SPI_CIPO` | `R2025` | 100 Ω | `U1303` pin 6 |
+| `TQ_CAL_EN` | `R2028` | 1 kΩ | `U1303` pin 5 |
+| `~{BRAKE_FAULT}` | `R1820` | 1 kΩ | `U1303` pin 4 |
+| `DAC_SDA` | `R411` | 100 Ω | `U1303` pin 3 |
+| `DAC_SCL` | `R410` | 100 Ω | `U1303` pin 2 |
+| `HV_EN` | `R510` | 1 kΩ | `U1304` pin 9 |
+| `HV_DIAG_EN` | `R511` | 1 kΩ | `U1304` pin 8 |
+| `~{HV_FAULT}` | `R512` | 1 kΩ | `U1304` pin 7 |
+| `~{BUS_SW_EN}` | `R604` | 1 kΩ | `U1304` pin 6 |
+| `ENCA` | `R1507` | 100 Ω | `U1304` pin 5 |
+| `ENCB` | `R1508` | 100 Ω | `U1304` pin 4 |
+| `PYC_UART_TX` | `R305` | 100 Ω | `U1301` pin 7 |
+| `PYC_UART_RX` | `R304` | 100 Ω | `U1301` pin 6 |
+
+**The connector is `J1301`, not `J1501`.** The whole `J` band was reassigned in
+the same rebuild; see
+[`docs/interface-map.md`](interface-map.md) for the full as-built connector map.
 
 ## Verification
 

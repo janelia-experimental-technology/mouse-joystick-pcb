@@ -407,7 +407,7 @@ against pyControl v2.1.1. See `docs/pycontrol-port-pinout.md`.
 
 | RJ-45 pin | Signal | Rev 0 |
 | --- | --- | --- |
-| 1 | `DIO-A` | RP2040 `UART0 RX` (`GP1`), with `R403` 10 kΩ pull-up to `+3.3V_MCU` |
+| 1 | `DIO-A` | RP2040 `UART0 RX` (`GP1`), with `R401` 10 kΩ pull-up to `+3.3V_MCU` |
 | 2 | `GND` | Ground |
 | 4 | `DIO-B` | RP2040 `UART0 TX` (`GP0`) |
 | 6 | `5V` | **Populated**: `PYC_CONN_5V` → `R1903` → `PYC_5V_FUSED` → `D1901` → `+5V_MCU` |
@@ -420,7 +420,7 @@ dark whenever USB is unplugged. `R1903` is a **polyfuse position holding a 0.36 
 jumper**, not protection; see `docs/design-block-map.md`. The connector is
 `J1901`.
 
-`R403` exists because the RP2040 resets every GPIO with its internal pull-*down*
+`R401` exists because the RP2040 resets every GPIO with its internal pull-*down*
 enabled, and a UART RX line must idle **high** — without it the port looks like a
 permanent break.
 
@@ -657,7 +657,7 @@ Once the parts above are settled, in this order:
     **Not done. There are no test points anywhere on the board.** This is the
     largest single gap between the plan and the schematic, and it is a layout
     item rather than a schematic one only if the pads are added as footprints.
-11. Add the board-level terminations: `R403` on `PYC_UART_RX`, `R1101`-`R1103` in
+11. Add the board-level terminations: `R401` on `PYC_UART_RX`, `R1101`-`R1103` in
     `motor_encoder_limit`, `R1104`-`R1601` in `instrument_port`. **Not in the
     original plan**; added 2026-08-17 when it became clear that leaving the
     always-on buffer inputs and the switched-domain control lines undefined was

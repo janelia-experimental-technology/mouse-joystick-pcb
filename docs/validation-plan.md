@@ -370,8 +370,8 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   pin 1 `DIO-A` to
   `UART0 RX`, pin 4 `DIO-B` to `UART0 TX`, pin 2 `GND`. Pins 3, 5, 7 not
   connected. No Ethernet magnetics.
-- **`PYC_UART_RX` (`GP1`) has a 10 kΩ pull-up to `+3.3V_MCU` (`R403`).** All RP2040
-  GPIOs reset with the internal pull-**down** enabled, so without `R403` the idle
+- **`PYC_UART_RX` (`GP1`) has a 10 kΩ pull-up to `+3.3V_MCU` (`R401`).** All RP2040
+  GPIOs reset with the internal pull-**down** enabled, so without `R401` the idle
   UART line reads low and firmware sees a permanent break. Check the pull-up before
   blaming the cable at Gate B.
 - **`R1903` on the pyControl 5 V branch is a polyfuse position, not protection.**
@@ -582,8 +582,8 @@ follows each one. Every item is a resistor value or a single wire; see the audit
   pinout is cited from a schematic, not measured. This is the check that converts
   it to verified.
 - **UART idle level measured at the RP2040 pin, not only at the connector.**
-  `PYC_UART_RX` must idle **high** on `R403`'s 10 kΩ to `+3.3V_MCU` with the cable
-  unplugged. A low idle means `R403` is missing or on the wrong rail and every frame
+  `PYC_UART_RX` must idle **high** on `R401`'s 10 kΩ to `+3.3V_MCU` with the cable
+  unplugged. A low idle means `R401` is missing or on the wrong rail and every frame
   will look like a break.
 - Cable type confirmed (straight-through versus crossover) and the consequence of
   the wrong one is known.

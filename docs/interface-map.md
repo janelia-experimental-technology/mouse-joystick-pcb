@@ -316,13 +316,13 @@ DUT-side pin order covering every contact. The 40-pin overlay that used to
 follow was deleted on 2026-09-17; `board-interfaces/docs/instrument-port-40.md`
 and the git history hold it for boards already built.
 
-**Connector:** `J1501`, Hirose `FH12-50S-0.5SVA(54)`,
+**Connector:** `J1301`, Hirose `FH12-50S-0.5SVA(54)`,
 `OW-CONN-FH12-50S-0-5SVA-54` — 50 contacts, 0.5 mm pitch, vertical ZIF, 3.6 mm
 closed height, straight-ended 0.30 ±0.05 mm FFC. Footprint
 `orb_weaver_connectors:Hirose_FH12-50S-0.5SVA_1x50-4MP_P0.5mm_Vertical`.
 
 **The board never wires a connector pin.** The design block
-`instrument_port_digital_50_dut_ffc_boundary_vertical` owns `J1501`, the four
+`instrument_port_digital_50_dut_ffc_boundary_vertical` owns `J1301`, the four
 `SN74LV541A` buffers and their `~OE` pull-downs. What the board wires is the
 block's ports: **`DIG0`-`DIG31`, all thirty-two present and every one shape
 `input`**, plus `+3.3V` and `GND`. **Bind `+3.3V` to `+3.3V_MCU`**, the always-on
@@ -1572,26 +1572,36 @@ terminal", "the `~{DAC_CS}` pull-up" — and give the designator as a
 current-as-of-date convenience rather than as the identifier. Tables like the one
 below are the right place for designators; prose is not.
 
-| Ref     | Connector                                                               | Carries                                                 | Rev 0   |
-|---------|-------------------------------------------------------------------------|---------------------------------------------------------|---------|
-| `J201`  | 2-pos 5.08 mm pluggable terminal, Phoenix `1757242` (`OW-CONN-1757242`) | 36 V motor supply in                                    | **yes** |
-| `J301`  | USB-C receptacle (`usb2` block)                                         | Firmware load, USB CDC console, logic-rail power source | **yes** |
-| `J1901` | RJ-45, `OW-CONN-J1B1211CCD` or `OW-CONN-438600001`                      | pyControl port: UART + GND only in Rev 0                | **yes** |
-| `J1501` | 50-pin 0.5 mm FFC vertical ZIF, `OW-CONN-FH12-50S-0-5SVA-54`            | InstrumentPort-Digital-50                               | **yes** |
-| `J1101` | Single BNC, `OW-CONN-HL-BNC-KHDA` (vertical)                            | `ANGLE_OUT` — **rev 1, placed 2026-08-27**              | rev 1   |
-| `J1102` | 4-pos 3.5 mm terminal, `OW-CONN-TBH-1X04-3P5-VERT`                      | Stepper coils                                           | **yes** |
-| `J1103` | 5-pos 3.5 mm terminal, `OW-CONN-TBH-1X05-3P5-VERT`                      | Encoder: supply, return, `A`, `B`; pin 2 reserved       | **yes** |
-| `J8`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_PULL_EVENT`, `PYC_FAULT`                           | rev 1   |
-| `J9`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_RSYNC_IN`, spare                                   | rev 1   |
-| `J10`   | SWD header                                                              | Debug — **not implemented**, see below                  | no      |
-| `J1301` | 2-pos 3.5 mm terminal, `OW-CONN-TBH-1X02-3P5-VERT`                      | Limit switch, inside the debounced input block          | **yes** |
+**Designator warning, reconciled 2026-09-20.** The whole `J` band was reassigned
+when the v1.0 board was rebuilt from design blocks; the numbers below are read
+from the exported netlist and supersede every earlier `J` number in this file.
+The netlist is authoritative. Same caution as the `mcu` sheet band above.
 
-**Seven connectors in Rev 0, three deferred.** `J1501` moved into Rev 0 on
-2026-08-16 with the InstrumentPort. **Corrected 2026-08-17**: the count used to
-say eight and three, which counted the SWD header as populated. **Updated
-2026-08-27**: the analog BNC is placed as `J1101`, so four deferred becomes three
-(`J8`, `J9`, `J10`). `J8` and `J9` keep placeholder numbers until their sheets
-exist — expect them to renumber when they do.
+| As built | Connector | Carries | Rev 0 | Docs used to call it |
+|---|---|---|---|---|
+| `J201`  | USB-C receptacle (`usb2_vertical` block)                                | Firmware load, USB CDC console, logic-rail power source | **yes** | `J301` |
+| `J301`  | RJ-45, `OW-CONN-J1B1211CCD` or `OW-CONN-438600001`                      | pyControl port: UART + GND only in Rev 0                | **yes** | `J1901` |
+| `J501`  | 2-pos 5.08 mm pluggable terminal, Phoenix `1757242` (`OW-CONN-1757242`) | 36 V motor supply in                                    | **yes** | `J201` |
+| `J901`  | Single BNC, `OW-CONN-HL-BNC-KHDA` (vertical)                            | `TQ_AOUT` — torque analog out                           | **yes** | new in v1.0 |
+| `J1101` | Single BNC, `OW-CONN-HL-BNC-KHDA` (vertical)                            | `ANGLE_OUT`                                             | rev 1   | unchanged |
+| `J1102` | 4-pos 3.5 mm terminal, `OW-CONN-TBH-1X04-3P5-VERT`                      | Stepper coils                                           | **yes** | unchanged |
+| `J1103` | 5-pos 3.5 mm terminal, `OW-CONN-TBH-1X05-3P5-VERT`                      | Encoder: supply, return, `A`, `B`; pin 2 reserved       | **yes** | unchanged |
+| `J1301` | 50-pin 0.5 mm FFC vertical ZIF, `OW-CONN-FH12-50S-0-5SVA-54`            | InstrumentPort-Digital-50                               | **yes** | `J1501` |
+| `J1601` | 2-pos 3.5 mm terminal, `OW-CONN-TBH-1X02-3P5-VERT`                      | Limit switch, inside the debounced input block          | **yes** | `J1301` |
+| `J1801` | 2-pos 3.5 mm terminal, `OW-CONN-TBH-1X02-3P5-VERT`                      | Brake coil: `COIL_LO` and `+36V_SW`                     | **yes** | new in v1.0 |
+| `J2001` | 5-pos 3.5 mm terminal, `OW-CONN-TBH-1X05-3P5-VERT`                      | Torque bridge: `SIG_N`, `SIG_P`, `VEXC`, GND, `TQ_SHLD` | **yes** | new in v1.0 |
+| `J8`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_PULL_EVENT`, `PYC_FAULT`                           | rev 1   | placeholder |
+| `J9`    | Dual BNC, `DOSIN-801-0095`                                              | `PYC_RSYNC_IN`, spare                                   | rev 1   | placeholder |
+| `J10`   | SWD header                                                              | Debug — **not implemented**, see below                  | no      | placeholder |
+
+**Eleven connectors populated in v1.0, three deferred** (`J8`, `J9`, `J10`).
+`J8` and `J9` keep placeholder numbers until their sheets exist — expect them to
+renumber when they do. The brake and torque terminals (`J1801`, `J2001`) and the
+torque BNC (`J901`) are new in v1.0 and have no Rev 0 equivalent.
+
+**Earlier counts in this file are historical.** "Seven connectors in Rev 0, three
+deferred" described the 2026-08-27 state, when the InstrumentPort FFC was `J1501`
+and the analog BNC had just been placed as `J1101`.
 
 The three terminals switched to the vertical `OW-CONN-TBH-*-VERT` family in the
 same pass that made the other connectors vertical; the horizontal Phoenix

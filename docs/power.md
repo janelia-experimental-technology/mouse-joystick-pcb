@@ -983,7 +983,7 @@ Three supporting measures, and use all of them:
 
    | Ref | Value | Net | To | Sheet | Why |
    |---|---|---|---|---|---|
-   | `R403` | 10 kΩ | `PYC_UART_RX` | `+3.3V_MCU` | `mcu` | UART RX must idle **high**; the RP2040's default pull-down would look like a permanent break |
+   | `R401` | 10 kΩ | `PYC_UART_RX` | `+3.3V_MCU` | `mcu` | UART RX must idle **high**; the RP2040's default pull-down would look like a permanent break |
    | `R1104` | 10 kΩ | `TMC_SPI_SCK` | GND | `motor_encoder_switch` | define the TMC input, and the tap, when the switched domain is off |
    | `R1105` | 10 kΩ | `TMC_SPI_COPI` | GND | `motor_encoder_switch` | as above |
    | `R1106` | 10 kΩ | `TMC_SPI_CIPO` | GND | `motor_encoder_switch` | as above; also gives the instrument tap a clean idle-low |

@@ -31,18 +31,40 @@ Headline decisions, so they are not re-litigated:
 - **Four nets get nothing** — `FW_TRIG0`, `FW_TRIG1`, `PG_5V`, `PG_12V` have the
   port as their only consumer.
 
-- [ ] Fix `../kicad-libs`'s `tmc5130` shunts to **0.15 Ω** first. The re-place
-      this task requires will otherwise revert `R1203`/`R1204` to 0.12 Ω and run
-      the motor ~25% over rating, silently.
-- [ ] Add the tap resistors and `_TAP` pins to the seven blocks in
-      `../kicad-libs`; add the two I2C taps on `/mcu/`.
-- [ ] Re-place the seven blocks here by hand; re-check `R1203`/`R1204`.
-- [ ] Wire the 24 `_INST` nets to the port block's `DIGn` pins.
-- [ ] Add the `INSTRUMENT` netclass on `/*_INST` — 0.15 mm track and clearance,
-      **`Default`'s via geometry unchanged** (see the `import_ses.py` drill
-      defect).
-- [ ] Verify by netlist export, not ERC; re-run the `SN74LV541A`
-      DC-defining-resistor sweep; re-check designator citations across the docs.
+**Done 2026-09-20.** All twenty-four taps are placed and netlist-verified; the
+`INSTRUMENT` netclass is in place. What remains is routing, tracked below.
+
+- [x] Fix `../kicad-libs`'s `tmc5130` shunts to **0.15 Ω** first. `R1203`/`R1204`
+      read 0.15 Ω on the board after the re-place — the trap did not bite.
+- [x] Add the tap resistors and tap pins to the **eight** blocks in
+      `../kicad-libs`; add the two I2C taps on `/mcu/`. Eight, not seven: the
+      spec's own table lists eight blocks plus the `/mcu/` sheet.
+      **Pins were named `_INST`, not `_TAP`** — see
+      [As Built](../docs/instrument-port-tap-resistors.md#as-built-2026-09-20).
+- [x] Re-place the blocks here by hand; re-check `R1203`/`R1204`.
+- [x] Wire the 24 `_INST` nets to the port block's `DIGn` pins. Every tap lands
+      on the channel the spec assigns it, verified input-pin to output-pin on all
+      four buffers.
+- [x] Add the `INSTRUMENT` netclass — 24 explicit assignments plus the `/*_INST`
+      pattern, 0.15 mm track and clearance, **`Default`'s via geometry
+      unchanged**. Proven live: three findings on `_INST` nets at 0.1978 mm
+      stopped being violations, including an overbar name.
+- [x] Verify by netlist export, not ERC. Each `_INST` net has exactly two nodes;
+      each functional net kept its bias and no longer reaches a buffer.
+- [x] Re-check designator citations across the docs. The `J` band was
+      reassigned — `interface-map.md`'s connector table is rewritten as built,
+      and the pyControl RX pull-up is `R401` in `validation-plan.md`,
+      `rev0-plan.md` and `power.md`. `bringup-log.md` is deliberately untouched.
+
+Left over, for the routing task below:
+
+- [ ] Two pairs of exactly stacked vias at (129.175, 84.5) on `GND` and
+      (127.425, 84.5) on `+36V_SW` — `holes_co_located`, delete one of each pair.
+- [ ] Fifteen one-layer vias inside `rp2040_with_gpio_isolation_sn74cb3q3245`
+      (`GPIO2`-`GPIO8`, `10`-`13`, `15`, `18`, `20`, `22`). Redundant stubs, not
+      breaks — those nets report no unconnected items.
+- [ ] Fifteen voltage-bearing clearance **errors**; see the severity split
+      recorded in `kicad/mouse-joystick-pcb.kicad_dru`.
 
 ## Active Task — v1.0 Layout And Routing (opened 2026-09-18)
 
