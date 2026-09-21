@@ -193,8 +193,18 @@ block-pin/board-net divergence in the `DIO_A` → `PYC_UART_RX` crossover.
 
 **Close the overbar before the suffix: `~{TMC_CS}_INST`, never
 `~{TMC_CS_INST}`.** KiCad stores the overbar markup literally in the net name, so
-the braced form is a string ending in `}` and a netclass pattern like `/*_INST`
-**will not match it**. Five taps are affected — `~{TMC_CS}`, `~{TMC_DRV_EN}`,
+the braced form is a string ending in `}`.
+
+**Corrected 2026-09-21: a `/*_INST` netclass pattern DOES match those names.**
+Verified by exporting the DSN and reading the resolved class membership — all
+24 nets land in `INSTRUMENT`, including all five overbar ones. The warning below
+that the pattern "will not match" was wrong. The naming rule still stands on its
+own merits: the bar belongs over the signal name and `_INST` is a topology tag.
+
+Related, and the reason this matters less than it looks: **KiCad nulls
+`netclass_assignments` on a pcbnew round-trip.** The 24 explicit assignments made
+on 2026-09-20 were gone by the next export, leaving only the pattern. Patterns
+are the durable mechanism here; explicit per-net assignment is not. Five taps are affected — `~{TMC_CS}`, `~{TMC_DRV_EN}`,
 `~{HV_FAULT}`, `~{BUS_SW_EN}`, `~{BRAKE_FAULT}` — and if the pattern misses them
 they fall silently to `Default`, which is the same failure that put 146 of 156
 nets on 0.2 mm before the 2026-08-17 netclass fix. It also reads correctly: the
