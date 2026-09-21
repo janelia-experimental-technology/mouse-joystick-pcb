@@ -36,6 +36,6 @@ read. Do not conclude the boards draw different current. Both are "well under
 Board 1 reads `0x11000011` (`REFL_STEP` high), board 2 reads `0x11000014`
 (`ENCB` high), both with every connector empty, board 2's stable across three
 consecutive reads. This is unresolved and it retracts a conclusion written
-earlier the same day — see `../../bringup-log.md` →
-[the retraction](../../bringup-log.md#the-two-rig-boards-disagree-on-refl_step-and-encb--retraction)
+earlier the same day — see `../../../bringup-log.md` →
+[the retraction](../../../bringup-log.md#the-two-rig-boards-disagree-on-refl_step-and-encb--retraction)
 for the two bench tests that would settle it.
