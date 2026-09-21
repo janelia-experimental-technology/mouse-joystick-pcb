@@ -213,7 +213,17 @@ Prefer Makefile targets:
 - `make kicad-shell` / `make kicad-edits`
 - `make validate-db` — Orb Weaver KiCad database library wiring
 - `make fab` — fabrication outputs
+- `make docs` — regenerate `docs/generated/` and the README's managed block
+- `make docs-check` — report whether that documentation is stale
 - `make check-kicad-libs`
+
+`docs/generated/` and the block between the
+`<!-- BEGIN/END GENERATED BOARD DOCUMENTATION -->` markers in `README.md` are
+written by `make docs`. Never hand-edit either. `make docs` is a no-op unless a
+`.kicad_sch`, `.kicad_pcb`, `.kicad_pro` or `.kicad_dru` hash changed, so run it
+freely; `make docs-check` is the pre-tag gate and names what moved. Mechanical
+coordinates there are centre-of-board origin, X right and Y up, which is not
+KiCad's frame — see `kicad-libs/docs/board-documentation.md`.
 
 ### Local KiCad Overlay
 
