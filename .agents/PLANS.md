@@ -68,6 +68,27 @@ Left over, for the routing task below:
 
 ## Active Task — v1.0 Layout And Routing (opened 2026-09-18)
 
+**Autorouting state, 2026-09-20: not routed. Best result 95 of 246 connections
+left unrouted, across five runs.** Before attempting another run, read
+[`docs/autoroute-log.md`](../docs/autoroute-log.md) — it records what each
+configuration produced so runs are not repeated — and the reusable reference
+[`../kicad-libs/docs/freerouting-autorouting.md`](../../kicad-libs/docs/freerouting-autorouting.md),
+which documents freerouting v2.4.1's settings surface, its verified defaults and
+the four that matter for design-block boards.
+
+Do not re-litigate these; all measured:
+
+- **Locking tracks is harmful.** `(type fix)` cost 157 already-connected pins.
+- **A track keepout over a GND plane kills fanout** — zero vias placed.
+- **Without a keepout the plane gets cut** — 48 non-GND segments on In1.Cu.
+- **Enlarging the board and moving blocks did not help** — same ~60% rate, more
+  work to do because inter-block copper was destroyed.
+- **The router used one layer out of four** (+415 segments on F.Cu, +7 on a
+  96%-empty B.Cu). Default via cost 50 against trace cost 1.0–1.8. **Tuning this
+  has not been tried and is the largest untried lever.**
+- **Never export with `zones=0`.** 51 of 323 GND terminals are exposed-pad
+  thermal-via duplicates that only a pour can tie together.
+
 **Gated on the tap-resistor task above as of 2026-09-19.** Splitting 24 nets
 changes the ratsnest and orphans copper already routed to the port, so finishing
 the route first would be work done twice. Pouring GND and fixing the four
