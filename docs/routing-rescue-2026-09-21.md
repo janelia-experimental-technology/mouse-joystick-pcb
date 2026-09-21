@@ -97,18 +97,18 @@ The released layout uses the existing run H plus the repairs above.
 
 Native reports, snapshots, and exact local repair operations are under
 `tmp/routing-rescue/`; final manufacturing outputs are under
-`fab/routing-rescue-4layer/`. The original six-layer PCB and project were
+`fab/mouse-joystick-pcb/`. The original six-layer PCB and project were
 preserved in `tmp/routing-rescue/baseline/` before updating `kicad/`.
 
 ## Order files
 
-- [Gerber/drill upload ZIP](../fab/routing-rescue-4layer/mouse-joystick-pcb-jlcpcb.zip)
-- [Assembly BOM](../fab/routing-rescue-4layer/jlcpcb-bom.csv): 81 groups, all
+- [Gerber/drill upload ZIP](../fab/mouse-joystick-pcb/mouse-joystick-pcb-jlcpcb.zip)
+- [Assembly BOM](../fab/mouse-joystick-pcb/jlcpcb-bom.csv): 81 groups, all
   resolved against the local JLCPCB catalog, covering 360 components.
-- [Assembly positions](../fab/routing-rescue-4layer/jlcpcb-mouse-joystick-pcb-all-pos.csv):
+- [Assembly positions](../fab/mouse-joystick-pcb/jlcpcb-mouse-joystick-pcb-all-pos.csv):
   360 rows, with BOM-to-position validation passed.
-- [Package notes](../fab/routing-rescue-4layer/README.md) and
-  [top copper/silkscreen preview](../fab/routing-rescue-4layer/reports/board-top.svg).
+- [Package notes](../fab/mouse-joystick-pcb/README.md) and
+  [top copper/silkscreen preview](../fab/mouse-joystick-pcb/reports/board-top.svg).
 
 The original ZIP's integrity and Gerber job file were checked: exactly four copper
 layers in F/In1/In2/B order, 1.6 mm board thickness, masks, silkscreens, paste,
@@ -122,7 +122,7 @@ Fabrication command used:
 ```sh
 make fab GUIX_MANIFEST_KICAD=.guix/manifest-kicad-local.scm \
   GUIX_SHELL_EXTRA_OPTIONS='-L .guix/local-modules' \
-  FAB_OUTPUT_DIR=fab/routing-rescue-4layer FAB_OPTIONS=--no-clean
+  FAB_OUTPUT_DIR=fab/mouse-joystick-pcb FAB_OPTIONS=--no-clean
 ```
 
 ## Future routing

@@ -2,7 +2,7 @@
 
 The BNC outputs now have **24 mm centre spacing**, and the board remains fully
 connected on four layers. The fabrication package under
-`fab/routing-rescue-4layer/` has been regenerated; it replaces the earlier
+`fab/mouse-joystick-pcb/` has been regenerated; it replaces the earlier
 package with 14 mm BNC spacing.
 
 ## Placement changes
@@ -88,7 +88,7 @@ Native repair operations and candidate validation are in `tmp/connector-access/`
 
 ## Current artifacts
 
-- [Fabrication ZIP](../fab/routing-rescue-4layer/mouse-joystick-pcb-jlcpcb.zip)
-- [Connector clearance drawing](../fab/routing-rescue-4layer/reports/connector-clearances.svg)
-- [Board-relative connector coordinates](../fab/routing-rescue-4layer/reports/connector-positions.csv)
-- [Package notes, assembly files and validation](../fab/routing-rescue-4layer/README.md)
+- [Fabrication ZIP](../fab/mouse-joystick-pcb/mouse-joystick-pcb-jlcpcb.zip)
+- [Connector clearance drawing](../fab/mouse-joystick-pcb/reports/connector-clearances.svg)
+- [Board-relative connector coordinates](../fab/mouse-joystick-pcb/reports/connector-positions.csv)
+- [Package notes, assembly files and validation](../fab/mouse-joystick-pcb/README.md)

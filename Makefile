@@ -34,6 +34,12 @@ PROJECT ?= $(firstword $(wildcard kicad/*.kicad_pro *.kicad_pro examples/*/*.kic
 FAB_TOOL ?= orb-weaver-kicad-fab
 FAB_OUTPUT_DIR ?= $(if $(PROJECT),fab/$(basename $(notdir $(PROJECT))),fab)
 FAB_OPTIONS ?=
+# Prefer an editable kicad-libs checkout, the way the library path already does.
+# The packaged command only appears once .guix/channels.scm is bumped to a
+# kicad-libs commit that carries it.
+DOCS_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs,orb-weaver-kicad-docs)
+DOCS_OUTPUT_DIR ?= docs/generated
+DOCS_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -45,7 +51,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: export-dsn export-dsn-local freeroute freeroute-local clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: docs docs-check export-dsn export-dsn-local freeroute freeroute-local clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -63,6 +69,8 @@ help:
 	  'make clearance-baseline Record the current clearance state as the baseline' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
+	  'make docs             Generate published board documentation for PROJECT' \
+	  'make docs-check       Report whether the generated documentation is stale' \
 	  'make fab-local         Generate fabrication files with the local KiCad overlay' \
 	  'make agent-reflection  Print Codex and Claude dry-run Reflection records' \
 	  'make codex             Start Codex with this board, libraries, interfaces, context, and memory' \
@@ -80,6 +88,8 @@ help:
 	  '  FAB_TOOL=orb-weaver-kicad-fab                              # fabrication helper command' \
 	  '  FAB_OUTPUT_DIR=fab/project-name                                # fabrication output directory' \
 	  '  FAB_OPTIONS="--skip-erc --skip-drc"                            # extra orb-weaver-kicad-fab options' \
+	  '  DOCS_OUTPUT_DIR=docs/generated                                 # board documentation output directory' \
+	  '  DOCS_OPTIONS="--skip-renders"                                  # extra orb-weaver-kicad-docs options' \
 	  '  ORB_WEAVER_KICAD_LIBS=/path/to/orb-weaver-kicad-libs-root     # explicit override' \
 	  '  ORB_WEAVER_KICAD_LIBS_CHECKOUT=/path/to/kicad-libs             # editable checkout, preferred when present' \
 	  '  ORB_WEAVER_KICAD_LIBS_AUTO_BUILD=1                            # resolve packaged libraries during prepare-kicad-config' \
@@ -230,6 +240,15 @@ fab:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
 	$(MAKE) prepare-kicad-config
 	$(KICAD_MANAGED_SHELL) "$(FAB_TOOL)" --project "$(PROJECT)" --output-dir "$(FAB_OUTPUT_DIR)" $(FAB_OPTIONS)
+
+docs:
+	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
+	$(MAKE) prepare-kicad-config
+	$(KICAD_MANAGED_SHELL) "$(DOCS_TOOL)" --project "$(PROJECT)" --output-dir "$(DOCS_OUTPUT_DIR)" $(DOCS_OPTIONS)
+
+docs-check:
+	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
+	$(KICAD_MANAGED_SHELL) "$(DOCS_TOOL)" --project "$(PROJECT)" --output-dir "$(DOCS_OUTPUT_DIR)" --check
 
 fab-local:
 	$(MAKE) fab GUIX_MANIFEST_KICAD=$(GUIX_MANIFEST_KICAD_LOCAL) GUIX_SHELL_EXTRA_OPTIONS="-L .guix/local-modules" PROJECT="$(PROJECT)" FAB_OUTPUT_DIR="$(FAB_OUTPUT_DIR)" FAB_OPTIONS="$(FAB_OPTIONS)"

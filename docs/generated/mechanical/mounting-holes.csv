@@ -1,0 +1,13 @@
+reference,x_mm,y_mm,drill_diameter_mm,plated,footprint
+H101,-45.0,35.0,3.2,False,MountingHole:MountingHole_3.2mm_M3
+H102,45.0,35.0,3.2,False,MountingHole:MountingHole_3.2mm_M3
+H103,45.0,-35.0,3.2,False,MountingHole:MountingHole_3.2mm_M3
+H104,-45.0,-35.0,3.2,False,MountingHole:MountingHole_3.2mm_M3
+J201,-45.0,-15.0,0.71,False,orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical
+J201,-45.0,-7.0,0.71,False,orb_weaver_connectors:USB_C_Receptacle_GCT_USB4145-03-0070-C_16P_Vertical
+J301,-42.9,13.715,3.25,False,orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT
+J301,-42.9,2.285,3.25,False,orb_weaver_connectors:RJ45_Molex_855085001_Vertical_THT
+SW601,-46.125,-27.5,0.75,False,orb_weaver_smd:SMT_1045822_WRE
+SW601,-48.875,-27.5,0.75,False,orb_weaver_smd:SMT_1045822_WRE
+SW602,-46.125,-20.5,0.75,False,orb_weaver_smd:SMT_1045822_WRE
+SW602,-48.875,-20.5,0.75,False,orb_weaver_smd:SMT_1045822_WRE

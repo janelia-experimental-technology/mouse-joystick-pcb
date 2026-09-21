@@ -16,7 +16,7 @@ The routing task is complete; no order has been placed by this session.
   warnings. Clearance regression passes with no voltage-bearing findings.
   Rules were not relaxed to obtain this result.
 - Use the regenerated
-  [fabrication package](../fab/routing-rescue-4layer/README.md), including its
+  [fabrication package](../fab/mouse-joystick-pcb/README.md), including its
   ZIP, 81-group assembly BOM, 360-row placement file and source hashes.
   It supersedes the earlier package with 14 mm BNC spacing.
 - The [mechanical report](connector-access-2026-09-21.md) records connector

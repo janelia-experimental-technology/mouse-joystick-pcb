@@ -3,15 +3,15 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "10.0.5"
+      "Version": "10.0.6"
     },
-    "CreationDate": "2026-08-28T15:16:15-04:00"
+    "CreationDate": "2026-09-21T03:58:05-04:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "mouse-joystick-pcb",
       "GUID": "6d6f7573-652d-46a6-9f79-737469636b2d",
-      "Revision": "0.3"
+      "Revision": "1.0"
     },
     "Size": {
       "X": 100.05,
@@ -24,21 +24,21 @@
   "DesignRules": [
     {
       "Layers": "Outer",
-      "PadToPad": 0.1,
-      "PadToTrack": 0.1,
+      "PadToPad": 0.15,
+      "PadToTrack": 0.15,
       "TrackToTrack": 0.15,
-      "MinLineWidth": 0.2,
-      "TrackToRegion": 0.1,
-      "RegionToRegion": 0.1
+      "MinLineWidth": 0.1,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
     },
     {
       "Layers": "Inner",
       "PadToPad": 0.0,
       "PadToTrack": 0.0,
       "TrackToTrack": 0.15,
-      "MinLineWidth": 0.2,
-      "TrackToRegion": 0.1,
-      "RegionToRegion": 0.1
+      "MinLineWidth": 0.15,
+      "TrackToRegion": 0.2,
+      "RegionToRegion": 0.2
     }
   ],
   "FilesAttributes": [
