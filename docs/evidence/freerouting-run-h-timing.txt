@@ -1,0 +1,19 @@
+Historical Freerouting run H: timing excerpt preserved 2026-09-21
+Source: runH.log from the earlier session scratchpad, input fab/autoroute/runH.dsn
+Source log SHA256: 97c7680c0d4deca58ed4f2cad523e8ebc573f79c1f9dae897dbb4c29c5a9a47a
+Lines below are copied verbatim from the source log. Log timezone is unspecified.
+Startup to final optimization message: 1303.702 s (21 min 43.702 s).
+The reported 1081.13 s routing interval includes fanout; do not add it twice.
+This run predates the corrected exporter, uses 31 configured threads, and
+does not include import/refill, local repairs or fabrication verification.
+
+2026-09-21 01:35:01.797 INFO   Freerouting v2.4.1 (build-date: 2026-09-03)
+2026-09-21 01:35:08.702 INFO   [6977CE\BB0BF8] Starting routing of 'runH' on 31 threads...
+2026-09-21 01:35:08.937 INFO   [6977CE\BB0BF8] Fanout stage started on board '009fbf3ce37fcde602d9b74c67517986' with 956 of 1174 SMD pins needing fanout (214 already connected, 4 netless).
+2026-09-21 01:36:32.029 INFO   [6977CE\BB0BF8] Fanout stage completed: started with 1170 total SMD pins, completed in 82.91 seconds, escaped pins: 909/1170 (77.7%), using 82.72 total CPU seconds, 878.80 GB total allocated, and 2003.8 MB peak heap usage.
+2026-09-21 01:36:32.085 INFO   [6977CE\BB0BF8] Auto-routing stage started on board 'c2fae1ff3602bfb41f51f698a500ac48' for 263 unrouted items.
+2026-09-21 01:53:09.829 INFO   [6977CE\BB0BF8] Auto-routing stage completed: started with 448 unrouted nets, completed in 1081.13 seconds, final score: 705.06 (100 unrouted and 870 violations), using 1074.15 total CPU seconds, 7806.45 GB total allocated, and 2160.9 MB peak heap usage.
+2026-09-21 01:53:09.940 INFO   [6977CE\BB0BF8] Starting optimization on 31 threads...
+2026-09-21 01:53:10.762 INFO   [6977CE\BB0BF8] Optimization stage started on board 'ed57d66ba2cd0ce6d0b848b7ac745217' with score 705.06 (100 unrouted and 870 violations).
+2026-09-21 01:56:44.869 INFO   [6977CE\BB0BF8] Optimization stage completed: started with score 705.06 (100 unrouted and 870 violations), completed in 213.49 seconds, final score: 705.06 (100 unrouted and 870 violations), using 212.69 total CPU seconds, 1113.13 GB total allocated, and 950.4 MB peak heap usage.
+2026-09-21 01:56:45.499 INFO   [6977CE\BB0BF8] Optimization was completed in 3 minutes 35.56 seconds with the score of 705.06 (100 unrouted and 870 violations).

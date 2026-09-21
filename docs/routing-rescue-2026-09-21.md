@@ -1,5 +1,10 @@
 # Four-layer routing completion, 2026-09-21
 
+For the next session, use the
+[handoff and runtime record](routing-session-handoff-2026-09-21.md). Run H took
+about 21 min 44 s through optimization; that excludes import, local repairs
+and validation, and is not a benchmark of the corrected exporter.
+
 **Mechanical follow-up:** the BNCs now have 24 mm spacing, the motor/encoder
 terminals have wider gaps, and the mounting holes have outer-copper hardware
 clearances. The same fabrication output path has been regenerated. See the

@@ -3,6 +3,13 @@
 Single-axis mouse joystick controller PCB for the Janelia Dudman lab joystick
 rig, integrated as a native pyControl peripheral.
 
+**Current layout, 2026-09-21:** the four-layer board is fully routed, with
+24 mm BNC spacing and regenerated fabrication outputs. Start with the
+[routing session handoff](docs/routing-session-handoff-2026-09-21.md) for the
+current board, validation, order files and measured routing time. The Rev 0
+descriptions below are historical; they do not describe the complete current
+v1.0 layout.
+
 ## Purpose
 
 This board is the interface between **one** joystick of the rig and a pyControl

@@ -3,6 +3,23 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Completed Task — Session handoff and routing timing (2026-09-21)
+
+- [x] Save a tracked [handoff](../docs/routing-session-handoff-2026-09-21.md)
+      linking the completed PCB, mechanical report and current order package.
+- [x] Preserve original run H timing lines: 21 min 43.702 s through optimization,
+      excluding import/refill, local repairs and validation. That historical
+      run used 31 configured threads and the older exporter; a fresh corrected
+      export at one thread is not benchmarked.
+- [x] Correct obsolete startup layout status and mark old routing checklists
+      as historical. The complete board is committed in `d5ae4b0`.
+- [x] Recheck the shunts: board R1203/R1204 are 0.15 ohm, but reusable block
+      R4003/R4004 remain 0.12 ohm. Correct the old checked library item below;
+      preserve the correct board shunts on any future block replacement.
+
+The handoff update changes documentation only. No new routing run or board
+change is needed to start the next session.
+
 ## Completed Task — Connector access and BNC spacing (2026-09-21)
 
 - [x] Preserve the previously routed board and fabrication package under
@@ -58,9 +75,9 @@ native reports are under `tmp/routing-rescue/`; manufacturing outputs go to
 superseded by these results. Optional circuit/bring-up work is not implied
 complete by routing or DRC.
 
-## Active Task — InstrumentPort Tap Resistors (opened 2026-09-19)
+## Completed Board Task — InstrumentPort Tap Resistors (opened 2026-09-19)
 
-**Blocks the routing task below.** Split every InstrumentPort observation branch
+**Completed before routing; library shunt follow-up remains below.** Split every InstrumentPort observation branch
 off its functional net with a series resistor, so the long runs to `J1501`
 become separate, deprioritisable, separately-classed nets. Twenty-four taps
 across seven design blocks and the `/mcu/` sheet.
@@ -87,10 +104,12 @@ Headline decisions, so they are not re-litigated:
   port as their only consumer.
 
 **Done 2026-09-20.** All twenty-four taps are placed and netlist-verified; the
-`INSTRUMENT` netclass is in place. What remains is routing, tracked below.
+`INSTRUMENT` netclass is in place. Routing completed on 2026-09-21, tracked above.
 
-- [x] Fix `../kicad-libs`'s `tmc5130` shunts to **0.15 Ω** first. `R1203`/`R1204`
-      read 0.15 Ω on the board after the re-place — the trap did not bite.
+- [ ] Correct `../kicad-libs`'s `tmc5130` shunts to **0.15 Ω** before future
+      replacement of this board's driver block. Rechecked 2026-09-21: the library
+      R4003/R4004 still read 0.12 Ω; the old checked item was inaccurate.
+      Board R1203/R1204 correctly read 0.15 Ω and the current order is unaffected.
 - [x] Add the tap resistors and tap pins to the **eight** blocks in
       `../kicad-libs`; add the two I2C taps on `/mcu/`. Eight, not seven: the
       spec's own table lists eight blocks plus the `/mcu/` sheet.
@@ -111,7 +130,8 @@ Headline decisions, so they are not re-litigated:
       and the pyControl RX pull-up is `R401` in `validation-plan.md`,
       `rev0-plan.md` and `power.md`. `bringup-log.md` is deliberately untouched.
 
-Left over, for the routing task below:
+Historical pre-routing findings (see completed routing above for disposition;
+remaining one-layer vias are recorded warnings, not opens):
 
 - [ ] Two pairs of exactly stacked vias at (129.175, 84.5) on `GND` and
       (127.425, 84.5) on `+36V_SW` — `holes_co_located`, delete one of each pair.

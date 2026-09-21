@@ -1,5 +1,11 @@
 # Autoroute Log — v1.0
 
+For current next steps and measured timings, use the
+[session handoff](routing-session-handoff-2026-09-21.md). The completed board
+uses run H plus verified local repairs. Its historical Freerouting runtime was
+21 min 44 s, excluding import/repair/validation. A fresh fully automatic run
+with the corrected exporter has not been benchmarked.
+
 **Connector access follow-up:** the BNC pitch is now 24 mm, motor/encoder
 terminal gaps are wider, and M3 hardware has outer-copper clearances. Routing
 still passes at zero DRC errors and zero unconnected pads; the fabrication
@@ -94,7 +100,11 @@ connections better than 4-layer, for roughly double the bare-board cost.
 | Confining INSTRUMENT to its own layer pair | +1 |
 | Enlarging the board and moving blocks | 0 |
 
-## Why The Remaining ~100 Cannot Be Autorouted
+## Historical Diagnosis Of The Remaining ~100 — Superseded
+
+The following interpretation was incorrect: import/refill left five KiCad
+opens, and local ground joins did not need via-in-pad. Retained as a record of
+the mistaken diagnosis, not as a requirement for future boards.
 
 The failure signature, measured rather than assumed:
 
@@ -137,7 +147,7 @@ GND pins out inside the design-block layouts so a consuming board never has to.
 - **Rotating the flash to fix QSPI.** The WSON-8 has four pins per side, so
   three QSPI signals are always on the far side. Rotation just swaps which three.
 
-## The Three Structural Problems## The Three Structural Problems
+## Historical Structural Observations
 
 ### 1. The router uses one layer
 
@@ -201,7 +211,10 @@ netclass could not escape a 0.5 mm pad pitch, run G routed three
 hand-picked relaxations rather than the automatic `--fit-pitch`, routed five of
 the seven — so the automatic fit is slightly less aggressive than hand-tuning.
 
-## Board State As Left, 2026-09-21
+## Historical Board State Before The Routing Rescue
+
+Superseded: the current board is completed on four layers. Do not apply the
+restoration instructions below to it.
 
 **The board is currently SIX layers** with three zones. Before ordering, decide
 whether to revert to four (the evidence says yes — see the run tables).
@@ -224,7 +237,10 @@ discards the two netclasses, so re-add them.
 Zones I added during experiments and already removed: `/GND` on F.Cu (no
 effect), `/+3.3V_MCU` on In2.Cu (no effect).
 
-## Next, In Order
+## Historical Next Steps — Completed Or Superseded
+
+Do not execute this old checklist on the current routed PCB. Current work
+resumes from the [session handoff](routing-session-handoff-2026-09-21.md).
 
 1. **Revert to 4 layers**, keep the B.Cu GND pour and both netclasses.
 2. **Re-export and re-run** to regenerate a 4-layer session matching run H

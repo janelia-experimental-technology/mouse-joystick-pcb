@@ -25,6 +25,15 @@ If `.agents/handoff.local.md` exists, read it before planning or editing.
 If the task is multi-step, risky, or likely to span more than one session, read
 `.agents/PLANS.md` and keep it updated as work progresses.
 
+## Current Routing Handoff — 2026-09-21
+
+Read [the routing session handoff](../docs/routing-session-handoff-2026-09-21.md)
+before planning PCB work. The four-layer board is routed and committed in
+`d5ae4b0`, with 24 mm BNC spacing and regenerated fabrication outputs. Resume
+from that board. Historical routing experiments and Rev 0 scope notes are not
+instructions to revert it. No fresh fully automatic routing benchmark exists;
+the measured 21 min 44 s run H preceded import/refill and local completion.
+
 ## Repository Purpose
 
 This repository owns the KiCad implementation and board-specific notes for
@@ -216,21 +225,19 @@ pin carries 10.0.6 or newer.
 
 ### KiCad Project State
 
-**Schematic capture is complete and cleared for layout as of 2026-08-17. Layout
-has not started.** ERC is clean at 0 violations across every severity, 142
-components, no duplicate refdes, every part footprinted, and zero undefined
-cross-domain nets. **ERC could not see most of what mattered** — every real
-finding in this review came from walking the flattened netlist against the
-manufacturer datasheets, and all of them passed ERC before and after the fix.
-Re-check by netlist export, not by ERC. See **Open Schematic Findings** in
-`.agents/PLANS.md` for the tracked record, including the layout decisions that are
-still open. (`.agents/handoff.local.md` is gitignored and absent on a fresh clone;
-treat `.agents/PLANS.md` as the tracked record.)
+**Layout and routing are complete as of 2026-09-21.** The four-layer PCB has
+364 footprints, with all 1,204 numbered pad identities matching the schematic.
+The configured fabrication build reports ERC 0 errors/0 warnings and DRC
+0 errors/0 unconnected pads. Its remaining warnings are 499 advisory clearances
+and 20 dangling vias; clearance regression passes with no voltage-bearing
+findings. These checks do not establish firmware or bench behavior.
 
-The project carries 21 netclasses, **130** netclass patterns, the 4-layer stackup,
-plot/fabrication setup, and the JLCPCB design rules, inherited from
-`tmc51x0-driver-dev-pcb` by way of `mouse-joysticks-pcb` and extended for this
-board on 2026-08-17 and 2026-09-17.
+ERC alone did not catch the earlier electrical findings. After schematic or
+layout edits, compare the exported schematic netlist to the PCB as well as
+running ERC/DRC. Use `.agents/PLANS.md` and the tracked handoff above for current
+status; older dated planning entries are history where completion supersedes
+them. The project now has 24 netclasses and 166 netclass patterns, the four-layer
+stackup, plot/fabrication setup and JLCPCB design rules.
 
 **The netclasses were doing nothing until 2026-09-17.** The `.kicad_dru` carried
 an unconditional `(constraint clearance (min 0.10mm))` rule, and **an
@@ -243,13 +250,10 @@ floor as an unconditional rule** — the file carries a comment saying so. All
 conditional rules were kept.
 
 `rule_severities.clearance` is `error` here and must stay that way. The
-advisory-warning treatment applies only to `../kicad-libs`'s authoring project,
-where the whole block library still has to be brought up to its netclass
-clearances.
-
-`kicad/mouse-joystick-pcb.kicad_pcb` is still empty, so DRC reports exactly one
-violation, `invalid_outline` — no edges on `Edge.Cuts`. Expected until an outline
-is drawn, not a defect to chase.
+existing scoped `Legacy low-voltage block clearance is advisory` rule demotes
+non-voltage-bearing pairs to warnings; HV, motor and other voltage-bearing
+classes remain errors. Preserve that distinction and run `make clearance-check`
+after routing. Never suppress the clearance category globally to hide failures.
 
 The inherited patterns were generic names (`+24V`, `VM`, `PGND`, `+3V3`,
 `USB_HS`) that matched almost nothing here — 146 of 156 nets fell to `Default` at
