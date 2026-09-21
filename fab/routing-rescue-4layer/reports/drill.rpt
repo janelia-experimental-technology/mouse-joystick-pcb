@@ -1,0 +1,39 @@
+Drill report for mouse-joystick-pcb.kicad_pcb
+Created on 2026-09-21T03:22:54
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  In1.Cu                    in1
+    L3 :  In2.Cu                    in2
+    L4 :  B.Cu                      back
+
+
+Drill file 'mouse-joystick-pcb.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.200mm  0.0079"  (3 holes))
+    T2  0.250mm  0.0098"  (5 holes))
+    T3  0.300mm  0.0118"  (315 holes))
+    T4  0.300mm  0.0118"  (48 holes))
+    T5  0.400mm  0.0157"  (9 holes))
+    T6  0.500mm  0.0197"  (14 holes))
+    T7  0.600mm  0.0236"  (4 holes)  (with 4 slots)
+    T8  0.900mm  0.0354"  (8 holes))
+    T9  1.100mm  0.0433"  (10 holes))
+    T10  1.200mm  0.0472"  (18 holes))
+    T11  1.400mm  0.0551"  (2 holes))
+    T12  1.600mm  0.0630"  (2 holes))
+
+    Total plated holes count 438
+
+
+Not plated through holes are merged with plated holes
+    unplated through holes:
+    =============================================================
+    T13  0.710mm  0.0280"  (2 holes))
+    T14  0.750mm  0.0295"  (4 holes))
+    T15  3.200mm  0.1260"  (4 holes))
+    T16  3.250mm  0.1280"  (2 holes))
+
+    Total unplated holes count 12

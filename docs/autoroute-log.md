@@ -1,8 +1,15 @@
 # Autoroute Log — v1.0
 
-**Status: not routed. Best 4-layer result 100 of ~270 unrouted (run H);
-best 6-layer 98 (run N). Decision: order 4-layer and hand-route. 2026-09-21,
-after eighteen runs.** This records what has been tried so runs are not repeated. The
+**Status: routed on four layers, 2026-09-21. Zero KiCad unconnected items and
+zero DRC errors after import, local repairs, and refill.** Run H's reported
+100 unrouted amounted to only **five actual KiCad connections**, not 100.
+See [the completion report](routing-rescue-2026-09-21.md) for the finished
+board, exporter defects, validation and remaining advisory warnings.
+
+**The earlier runs below are historical evidence. Their claims that fine-pitch
+grounds were impossible, pours could not help, and via-in-pad was required were
+not established by KiCad connectivity checks and are superseded.** This records
+what has been tried so runs are not repeated. The
 reusable freerouting knowledge — settings surface, verified defaults, source
 references, and the export post-processing — is in
 [`../../kicad-libs/docs/freerouting-autorouting.md`](../../kicad-libs/docs/freerouting-autorouting.md).

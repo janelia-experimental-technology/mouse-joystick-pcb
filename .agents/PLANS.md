@@ -3,6 +3,34 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Completed Task — Routing rescue (2026-09-21)
+
+- [x] Preserve the original six-layer board under `tmp/routing-rescue/baseline/`.
+- [x] Correct DSN plane/window nesting, unfracture filled polygons, constrain
+      duplicate-pad bridges to existing copper, and convert both `route`/`fix`
+      with `--protect-prerouted`. Five regression tests pass.
+- [x] Import the existing run H and refill: its 100 Freerouting residuals were
+      five real missing connections. Controlled new runs were stopped after
+      this discovery; no completed new exporter benchmark is claimed.
+- [x] Repair the five opens, exporter-created BNC shorts, HV clearances and
+      QSPI width. Four layers, zero DRC errors and zero unconnected items.
+- [x] Verify all 1,204 schematic numbered-pad identities against the PCB and
+      preserve all 364 footprint positions, rotations, values and library IDs.
+      User permits movement, preferring whole-mm and symmetric connectors;
+      movement proved unnecessary. Project rules and netclasses are unchanged.
+- [x] Promote the verified candidate to `kicad/mouse-joystick-pcb.kicad_pcb`.
+- [x] Complete `make fab` with KiCad 10.0.6: ERC 0 errors/0 warnings, DRC
+      0 errors/0 unconnected pads. All 81 BOM groups resolve, 360 placements
+      match. ZIP integrity and four-layer order verified. The remaining DRC
+      warnings are 499 advisory clearances and 20 dangling vias. Clearance
+      regression passes with no voltage-bearing findings.
+
+See [completion report](../docs/routing-rescue-2026-09-21.md). Experiments and
+native reports are under `tmp/routing-rescue/`; manufacturing outputs go to
+`fab/routing-rescue-4layer/`. The historical routing blockers below are
+superseded by these results. Optional circuit/bring-up work is not implied
+complete by routing or DRC.
+
 ## Active Task — InstrumentPort Tap Resistors (opened 2026-09-19)
 
 **Blocks the routing task below.** Split every InstrumentPort observation branch
@@ -66,7 +94,10 @@ Left over, for the routing task below:
 - [ ] Fifteen voltage-bearing clearance **errors**; see the severity split
       recorded in `kicad/mouse-joystick-pcb.kicad_dru`.
 
-## Active Task — v1.0 Layout And Routing (opened 2026-09-18)
+## Historical Task — v1.0 Layout And Routing (opened 2026-09-18)
+
+**Superseded by the completed four-layer routing above on 2026-09-21.**
+The following is the prior planning record, not the current board status.
 
 **Autorouting state, 2026-09-20: not routed. Best result 95 of 246 connections
 left unrouted, across five runs.** Before attempting another run, read

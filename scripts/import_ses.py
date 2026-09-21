@@ -123,6 +123,8 @@ def main() -> int:
     ap.add_argument("--no-restore-vias", action="store_true",
                     help="keep KiCad's netclass drill override on pre-existing vias")
     ap.add_argument("--no-backup", action="store_true")
+    ap.add_argument("--refill", action="store_true",
+                    help="refill zones after importing before saving")
     args = ap.parse_args()
 
     ses = args.ses or root / "fab" / "autoroute" / f"{args.pcb.stem}.ses"
@@ -192,6 +194,9 @@ def main() -> int:
     if args.dry_run:
         print("\n--dry-run: nothing written")
         return 0
+
+    if args.refill:
+        pcbnew.ZONE_FILLER(board).Fill(board.Zones())
 
     out = args.output or args.pcb
     if out == args.pcb and not args.no_backup:

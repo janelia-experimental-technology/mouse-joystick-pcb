@@ -1,0 +1,50 @@
+ERC report (2026-09-21T03:22:45, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+
+***** Sheet /usb2_vertical/
+
+***** Sheet /pycontrol_behavior_port_rj45_boundary_vertical/
+
+***** Sheet /mcu/
+
+***** Sheet /hv_input_36V_terminal_2pos_5p08_protected_vertical/
+
+***** Sheet /mcu/rp2040_with_gpio_isolation_sn74cb3q3245/
+
+***** Sheet /mcu/5v_to_3v3_tps73733_1/
+
+***** Sheet /motor_encoder_switch/analog_output_0_3v3_dac80501/
+
+***** Sheet /brake_torque_sensor/
+
+***** Sheet /5v_to_3v3_tps73733_2/
+
+***** Sheet /motor_encoder_switch/
+
+***** Sheet /motor_encoder_switch/tmc5130/
+
+***** Sheet /instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical/
+
+***** Sheet /instrument_port/
+
+***** Sheet /motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17/
+
+***** Sheet /motor_encoder_switch/limit_switch_debounced_input_vertical/
+
+***** Sheet /hv_to_5v_tpsm365r6/
+
+***** Sheet /brake_torque_sensor/brake_current_sink_0_49ma_dac80501/
+
+***** Sheet /brake_torque_sensor/hv_to_12v_tpsm365r6/
+
+***** Sheet /brake_torque_sensor/torque_bridge_0_3v3_ina821/
+
+ ** ERC messages: 0  Errors 0  Warnings 0
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

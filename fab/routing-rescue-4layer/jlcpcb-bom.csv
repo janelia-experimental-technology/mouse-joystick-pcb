@@ -1,0 +1,82 @@
+Comment,Designator,Footprint,LCSC
+1uF 35V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1001 C1002 C2017 C2019 C2021 C603 C604 C701 C702 C801 C804 C806,0402,C307413
+100V 100nF X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1201 C1203 C1204 C1206 C1207 C1209 C1210 C1302 C1303 C1304 C1305 C1504 C1505 C1601 C1805 C1806 C1807 C1809 C1810 C1813 C1814 C1816 C2001 C2007 C2009 C201 C2010 C2015 C2016 C2018 C2020 C2023 C301 C605 C606 C607 C608 C609 C610 C611 C612 C613 C614 C615 C616 C617 C618 C619 C803 C805 C808,0402,C162178
+100V 22nF X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1202 C503,0603,C161234
+35V 470nF X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1205 C1811 C811,0402,C711580
+25V 4.7uF X5R ±20% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1208 C1301 C1501,0402,C2858031
+100V 2.2uF X7T ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1211 C1212,0805,C2981733
+"-40℃~+105℃ 10.2mm 1000hrs@105℃ 100uF 110mA@120Hz 50V 8mm ±20% SMD,D8xL10.2mm Aluminum Electrolytic Capacitors - SMD ROHS",C1213 C1214,"SMD,D8xL10.2mm",C336425
+100V 470pF C0G ±5% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1502 C1503 C2003 C2005 C2022 C812,0402,C1518202
+100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1701 C1702 C1703 C1901 C1902 C1903,1206,C91151
+100V 100nF X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1704 C1818 C1904,0603,C77058
+1uF 25V X7R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1705 C1905,0805,C89190
+10V 22uF X5R ±20% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1706 C1707,1206,C108717
+10nF 50V C0G ±5% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1801 C1808 C1812 C1815 C1820 C2002 C2004 C2006 C2008 C807 C809,0805,C97905
+10uF 16V X5R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1802 C1803 C1804 C2011 C2012 C2013 C2014 C802,0805,C1713
+100V 470nF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1817,1206,C6119998
+10pF 25V C0G ±5% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1819 C810,0402,C161512
+10uF 25V X5R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C1906 C1907,1206,C9807
+10nF 50V X7R ±5% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C501,0603,C115056
+100V 220nF X7R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C502,0805,C513710
+15pF 25V C0G ±5% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS,C601 C602,0402,C3888936
+-65℃~+125℃ 1 Independent 1A 20V 300mV@1A 45A 600uA@20V SOD-123FL Schottky Diodes ROHS,D1801 D201 D301,SOD-123FL,C223608
+-55℃~+175℃ 1 Independent 150V 1A 1uA@150V 40A 900mV@1A SOD-123FL Schottky Diodes ROHS,D1802,SOD-123FL,C5362393
+-40℃~+125℃ 0.42pF 1 10nA 14V 2.5A@8/20us 40W@8/20us 5.5V 8.5V ESD IEC 61000-4-2、IEC 61000-4-5、IEC 61000-4-4 Unidirectional X1SON-2(0.6x1) ESD and Surge Protection (TVS/ESD) ROHS,D1803 D2001 D801,X1SON-2(0.6x1),C436349
+-65℃~+150℃ 15A 170uA@50V 290A 410mV@15A 50V PowerDI-5 Super Barrier Rectifiers (SBR) ROHS,D501,PowerDI-5,C211388
+-55℃~+125℃ 1 350mA 500mΩ 600Ω@100MHz ±25% 0603 Ferrite Beads ROHS,FB1801 FB1802 FB1803 FB2001 FB2002 FB801 FB802,0603,C141723
+-55℃~+125℃ 1 4GHz 50Ω 9.5mm BNC Board Side Inner hole Positive Pin Plugin Coaxial Connectors (RF) ROHS,J1101 J901,插件,C19712152
+"1 160V 1x4P 3.5mm 4 4P 8A Board Side/Socket - Closed Green Through Hole 插件,P=3.5mm Pluggable System Terminal Block ROHS",J1102,"插件,P=3.5mm",C480549
+"1 1x5P 3.5mm 300V 5 5P 8A Board Side/Socket - Closed Green Through Hole 插件,P=3.5mm Pluggable System Terminal Block ROHS",J1103 J2001,"插件,P=3.5mm",C5451793
+"-40℃~+85℃ 0.3mm 0.5mm 3.6mm 50P Gold Hinged Lid Phosphor bronze Single-side Contact/Vertical Surface Mount,Vertical SMD,P=0.5mm FFC, FPC (Flat Flexible) Connector Assemblies ROHS",J1301,"SMD,P=0.5mm",C597991
+"1 160V 1x2P 2 2P 3.5mm 8A Board Side/Socket - Closed Green Through Hole 插件,P=3.5mm Pluggable System Terminal Block ROHS",J1601 J1801,"插件,P=3.5mm",C3019639
+"-25℃~+85℃ 1 12P 48V 5A Black Female Surface Mount,Vertical Type-C USB 2.0 SMD USB Connectors ROHS",J201,SMD,C5815189
+-40℃~+85℃ 1 Gold Non-LED Phosphor bronze RJ45 Jack Shielded Through Hole 插件 Ethernet Connectors / Modular Connectors (RJ45 RJ11) ROHS,J301,插件,C588558
+"1 12A 1x2P 2 250V 2P 5.08mm Board Side/Socket - Closed Green Through Hole 插件,P=5.08mm Pluggable System Terminal Block ROHS",J501,"插件,P=5.08mm",C480503
+-55℃~+150℃ 1 N-channel 100V 2.8Ω@10V 260mA 2V 2pF 30pF 370mW 500pC@4.5V 7pF N-Channel SOT-23 MOSFETs ROHS,Q2001,SOT-23,C724949
+-55℃~+150℃ 1 NPN 100nA 140V 225mW 250mV 60 600mA 6V NPN SOT-23 Bipolar (BJT) ROHS,Q2002,SOT-23,C150072
+-55℃~+155℃ 100V 100mW 10kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS,R1101 R1102 R1103 R1104 R1105 R1106 R1107 R1201 R1301 R1302 R1303 R1304 R1701 R2011 R2012 R401 R404 R405 R502 R503 R504 R506 R507 R605 R901 R902 R903 R904 R905,0402,C278577
+-55℃~+155℃ 10Ω 50V 62.5mW Thick Film Resistor ±1% ±200ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1202 R2002 R2014,0402,C138066
+150mΩ 1W Current Sense Resistor SMD ±1% ±100ppm/℃ 1206 Current Sense Resistors / Shunt Resistors ROHS,R1203 R1204,1206,C2683383
+-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1205 R1206 R1207 R1208 R1305 R1306 R1307 R1308 R1309 R1310 R1311 R1312 R1313 R1314 R1315 R1316 R1317 R1318 R1319 R1320 R1321 R1322 R1323 R1324 R1325 R1326 R1327 R1328 R1329 R1330 R1331 R1332 R1333 R1334 R1335 R1336 R1507 R1508 R2024 R2025 R2026 R2027 R301 R302 R304 R305 R410 R411,0402,C25076
+-55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1209 R1210 R1211 R1602 R1807 R1809 R1813 R1820 R2004 R2005 R2013 R2022 R2028 R408 R409 R501 R505 R510 R511 R512 R603 R604 R606 R806 R808 R810,0402,C106235
+-55℃~+155℃ 100kΩ 50V 62.5mW Thick Film Resistor ±100ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS,R1501 R1502 R1505 R1506 R1601,0402,C106234
+-55℃~+155℃ 4.7kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1503 R1504 R1903 R402 R403 R406 R407,0402,C25900
+-55℃~+155℃ 10kΩ 50V 63mW Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1801 R1817 R1902 R1905 R2006 R2007 R2008 R2017 R2018 R803,0402,C191915
+-55℃~+155℃ 49.9kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1802 R1805 R1806 R1811 R1814 R1815,0402,C137969
+-55℃~+155℃ 3.2kΩ 50V 62.5mW Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1803 R1804 R1808 R1810 R1821 R2016 R2020 R804 R807 R811,0402,C705066
+-55℃~+125℃ 50V 6.34kΩ 62.5mW Thick Film Resistor ±1% ±200ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1812,0402,C100502
+-55℃~+155℃ 100mW 10Ω 350V Thick Film Resistor ±1% ±200ppm/℃ 0603 Chip Resistor - Surface Mount ROHS,R1816,0603,C2090788
+-55℃~+155℃ 110kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1818 R1904,0402,C2909311
+-55℃~+155℃ 249Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1819 R2021 R2023 R509 R809,0402,C482112
+-55℃~+155℃ 50V 62.5mW 7.87kΩ Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R1901 R607,0402,C2998145
+-55℃~+155℃ 249Ω 50V 63mW Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R2001,0402,C852662
+-55℃~+155℃ 50V 62.5mW 75kΩ Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R2003,0402,C728563
+-55℃~+155℃ 0Ω 50V 62.5mW Thick Film Resistor ±1% ±800ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R2009,0402,C17168
+-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS,R201 R202,0402,C413002
+-55℃~+155℃ 13kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R2010 R802,0402,C2909319
+-55℃~+155℃ 100kΩ 100mW 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface Mount ROHS,R2015 R2019 R805,0603,C25803
+250mW 360mΩ Thick Film Resistor ±1% ±600ppm/℃ 1206 Chip Resistor - Surface Mount ROHS,R303,1206,C327079
+-55℃~+155℃ 100mW 40kΩ 75V Thick Film Resistor ±1% ±100ppm/℃ 0603 Chip Resistor - Surface Mount ROHS,R508,0603,C3016445
+-55℃~+155℃ 100mW 27Ω Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS,R601 R602,0402,C278580
+-55℃~+155℃ 20kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS,R801,0402,C25765
+"-40℃~+85℃ 100,000 cycles 12V 2.2N 4.5mm 4.7mm 50mA J-Lead Rectangular Button SPST-NO Surface Mount, Right Angle SMD-4P,4.7x3.5mm Tactile Switches ROHS",SW601 SW602,-,C7185056
+"-40℃~+125℃@(Tj) 1 1A 25uA 3.3V 37dB@(10kHz) 5.5V 500mV@(1A) Fixed Over Current Protection、Over Temperature Protection、Enable Positive VSON-8-EP(3x3) Voltage Regulators - Linear, Low Drop Out (LDO) Regulators ROHS",U1001 U701,VSON-8-EP(3x3),C523768
+256 2A 4.75V~46V 4.75V~46V Bipolar Driver STEP/DIR、SPI、UART Yes TQFP-48-EP(7x7) Stepper Motor Driver ROHS,U1201,TQFP-48-EP(7x7),C188832
+"-40℃~+125℃ 1 16mA 16mA 20uA 2V~5.5V 74LV 7ns@5V,50pF 8 Power-off isolation、Output enable Tri-State Unidirectional VQFN-20(2.5x4.5) Buffers, Drivers, Receivers, Transceivers ROHS",U1301 U1302 U1303 U1304,VQFN-20(2.5x4.5),C7364695
+"-40℃~+125℃ 1 1.65V~5.5V 10uA 2 32mA 32mA 5.4ns@3.3V,50pF 74LVC Schmitt trigger SON-6(1x1.5) Buffers, Drivers, Receivers, Transceivers ROHS",U1501 U1803,SON-6(1x1.5),C2675856
+"-40℃~+125℃ 1 1:1 2.7V~5.5V SOT-143 Analog Switches, Multiplexers ROHS",U1601,SOT-143,C41637
+-40℃~+125℃@(TJ) 1 1MHz 3.6V~65V 4uA 5V 600mA Buck Buck Built-in Fixed Yes QFN-11(3.5x4.5) DC-DC Converters ROHS,U1701,QFN-11(3.5x4.5),C19078014
+-40℃~+125℃ 1 1.5mA 16 1LSB 2.7V~5.5V 5us I2C、SPI VSSOP-10-0.5mm Digital to Analog Converters (DAC) ROHS,U1801 U801,VSSOP-10-0.5mm,C1852033
+"-18V~-2.25V、2.25V~18V -40℃~+125℃ 1 100uV 10MHz 140dB 1mA 2.5uV/℃ 20V/us 20pA 4.5V~36V 5.5nV/√Hz@1kHz 5pA 65mA EMI filtering/RF suppression Rail-to-Rail Input, Rail-to-Rail Output SOT-23-5 Operational Amplifier ROHS",U1802 U1804 U1806 U2003 U2005 U2006 U802,SOT-23-5,C221351
+-55℃~+175℃ 1 N-channel 14A 14nC@10V 15W 36mΩ@10V 42pF 453pF 4V 60V 62pF N-Channel DFN2020MD-6 MOSFETs ROHS,U1805,DFN2020MD-6,C3288253
+-40℃~+125℃ 1 1V~13V 2mm 3.5mm 3.6V~65V 4.5mm 4uA 600mA 82.7% Buck Overheat protection、Over Current Protection ±1% QFN-11(3.5x4.5) DC-DC Power Modules ROHS,U1901,QFN-11(3.5x4.5),C6723000
+-18V~-2.25V、2.25V~18V -40℃~+125℃ 0.025% 1 10uV 110dB 150pA 150pA 1V/V~10000V/V 20mA 2V/us 4.5V~36V 4.7MHz 400nV/℃ 600uA 6us 7nV/√Hz@1kHz 92dB External resistor gain、Overvoltage protection、EMI filtering/RF suppression SOIC-8 Instrumentation Amplifiers ROHS,U2001,SOIC-8,C2060822
+-40℃~+125℃ 0.5LSB 1 1.65V~3.3V、4.75V~5.25V 100kHz 10uA 16 2.56V、5.12V、6.144V、10.24V、12.288V 7ppm/℃ 92dB Built-in SAR SPI Support TSSOP-16 Analog to Digital Converters (ADC) ROHS,U2002,TSSOP-16,C135986
+-40℃~+125℃@(Ta) 1.2mA 10.2V~18V 10V 10mA 30uVp-p 8ppm/℃ Fixed Series ±0.1% SOIC-8 Voltage Reference ROHS,U2004,SOIC-8,C913836
+2-line plus VBUS ESD protection array for USB 2.0 up to 480 Mb/s; IEC 61000-4-2 level 4 (15kV air / 8kV contact); 3.5pF max I/O-to-GND; 1.2pF typ I/O-to-I/O; 150nA max leakage at 5.25V; 6V min VBUS breakdown; -40℃~+150℃ junction; SOT-666-6 ESD and Surge Protection (TVS/ESD) ROHS,U201 U301,SOT-666-6,C2827693
+-40℃~+125℃ 1 4A 6V~60V 83mΩ Active High High Side Switch HTSSOP-14 Power Distribution Switches ROHS,U501,HTSSOP-14,C41558366
+12bit 133MHz 30 LQFN-56(7x7) Microcontrollers (MCU/MPU/SOC) ROHS,U601,LQFN-56(7x7),C2040
+"-40℃~+85℃ 100,000 cycles 10uA 120ms@(32KB) 128Mbit 133MHz 2.7V~3.6V 20 Years SPI WSON-8-EP(5x6) NOR FLASH ROHS",U602,WSON-8-EP(5x6),C190862
+"-40℃~+85℃ 11pF 2.3V~3.6V 200ps 2:1 500MHz 6.5ns 7.5ns 9Ω VQFN-20-EP(3.5x4.5) Analog Switches, Multiplexers ROHS",U603 U604 U605 U606,VQFN-20-EP(3.5x4.5),C201559
+-40℃~+85℃ 16MHz 3.3V 7mA HCMOS SMD2520-4P Crystal Oscillators ROHS,X1201,SMD2520-4P,C2451298
+-40℃~+85℃ 10pF 12MHz 50Ω Crystal Oscillator ±30ppm ±30ppm SMD3225-4P Crystals ROHS,Y601,SMD3225-4P,C20625731

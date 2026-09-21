@@ -1,0 +1,16 @@
+clearance severity in the real project: error
+clearance findings: 499 across 164 net pairs
+unconnected items:  0   (routing complete)
+still ignored by this project: footprint_filters_mismatch, footprint_type_mismatch, missing_courtyard, track_not_centered_on_via, tuning_profile_track_geometries
+
+voltage-bearing net pairs: 0 (0 findings)
+
+baseline: 499 findings / 143 pairs, 149 unconnected
+  voltage-bearing pair cleared: +36V_SW <-> +5V_SW
+  voltage-bearing pair cleared: +36V_SW <-> PG_12V
+  voltage-bearing pair cleared: +36V_SW <-> PG_5V
+  voltage-bearing pair cleared: +36V_SW <-> VCP
+  unconnected fell 149 -> 0
+  51 low-voltage pair(s) newly attributed (tool jitter unless the total also rose): +3.3V_FILT <-> GND, +3.3V_MCU <-> HV_LATCH, +3.3V_MCU <-> PYC_UART_TX, +3.3V_SW <-> TMC_DIAG1_INST, ANGLE_OUT <-> ~{TMC_DRV_EN}_INST ...
+
+no new or worsened clearance findings

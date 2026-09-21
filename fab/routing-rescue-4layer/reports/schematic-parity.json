@@ -1,0 +1,10 @@
+{
+  "schematic_nodes": 1204,
+  "pcb_pad_identities": 1204,
+  "mismatches": [],
+  "extra_assigned_pads": [],
+  "unchanged_footprints": true,
+  "copper_layers": 4,
+  "thickness_mm": 1.6,
+  "normalization": "KiCad {slash} escape decoded"
+}

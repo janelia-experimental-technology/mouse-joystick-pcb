@@ -20,24 +20,27 @@ invisible to the router. Re-check them with `make clearance-check` afterwards.
 Post-processing
 ---------------
 `pcbnew.ExportSpecctraDSN()` is faithful about most things and wrong about a few.
-Each fix below was added because a measured Freerouting run went wrong without
-it; see `docs/autoroute-log.md` for the runs.
+See `docs/routing-rescue-2026-09-21.md` for the corrected export geometry and
+`docs/autoroute-log.md` for historical router measurements. The early
+postprocessor had malformed plane nesting; its scores do not benchmark this
+corrected version.
 
   --plane-fill        (default on)  Replace each `(plane ...)` outline with the
                       zone's real filled polygons plus `(window ...)` cutouts.
                       KiCad exports the zone OUTLINE, so a pour on a layer that
                       already carries traces tells the router "this whole
                       rectangle is solid GND" on top of live signal copper.
-                      Measured: 4 NullPointerExceptions inside Freerouting's
-                      search tree with a B.Cu pour, zero once the fill is real.
+                      Unfracture polygons and nest windows inside planes,
+                      with planes inside structure.
 
   --bridge-split-pads (default on)  A pad number used more than once in one
                       footprint -- an exposed pad plus its thermal via array --
                       exports as N separate terminals. Freerouting's
                       connectivity is graph-based, not geometric, so it tries to
                       route traces between vias that sit inside a single pad.
-                      Emits short protected wires joining them. Measured: 51 of
-                      this board's 323 GND terminals were such phantoms.
+                      Emits protected wires only where a shared convex copper
+                      pad contains the joining segment. Separate contacts with
+                      the same number (e.g. BNC shell pins) are not bridged.
 
   --fit-pitch         (default off)  Reduce netclass clearance/width where the
                       class cannot physically escape the finest-pitch pad it has
@@ -45,8 +48,8 @@ it; see `docs/autoroute-log.md` for the runs.
                       is the single change that helped most. Measured: routed
                       five connections that had failed in every prior run.
 
-  --protect-prerouted (default off)  Rewrite pre-routed `(type route)` as
-                      `(type protect)`. UNMEASURED. Do not use `fix`: KiCad's
+  --protect-prerouted (default off)  Rewrite pre-routed `route` AND `fix` as
+                      `(type protect)`. Do not use `fix`: KiCad's
                       "locked" flag exports as `fix` and cost 157 already-
                       connected pins in a measured run.
 """
@@ -62,6 +65,55 @@ import sys
 
 REQUIRED_SECTIONS = ("parser", "resolution", "unit", "structure",
                      "placement", "library", "network", "wiring")
+
+
+def scope_spans(text: str):
+    """Yield (scope path, start, end) while respecting quoted identifiers.
+
+    Specctra's bare quote declaration is not a quoted string. Blank that line
+    without shifting offsets so it cannot consume the rest of the document.
+    """
+    source = re.sub(r'(?m)^.*\(string_quote[^\n]*',
+                    lambda m: ' ' * len(m.group()), text)
+    stack = []
+    quoted = escaped = False
+    for i, char in enumerate(source):
+        if quoted:
+            if escaped:
+                escaped = False
+            elif char == '\\':
+                escaped = True
+            elif char == '"':
+                quoted = False
+        elif char == '"':
+            quoted = True
+        elif char == '(':
+            match = re.match(r'\s*([^\s()]+)', source[i + 1:])
+            if not match:
+                raise ValueError('scope without a name')
+            stack.append((match.group(1), i))
+        elif char == ')':
+            if not stack:
+                raise ValueError('unbalanced parentheses (extra close)')
+            path = tuple(name for name, _ in stack)
+            _, start = stack.pop()
+            yield path, start, i + 1
+    if quoted or stack:
+        raise ValueError('unterminated string or unclosed scope')
+
+
+def replace_planes(text: str, fills: str) -> str:
+    """Replace only structure's plane children and keep other scopes intact."""
+    spans = list(scope_spans(text))
+    for path, start, end in sorted(spans, key=lambda item: item[1], reverse=True):
+        if path[-2:] == ('structure', 'plane'):
+            text = text[:start] + text[end:]
+    structure = next((s for s in scope_spans(text)
+                      if s[0] == ('pcb', 'structure')), None)
+    if structure is None:
+        raise ValueError('missing pcb/structure scope')
+    end = structure[2] - 1
+    return text[:end] + '\n' + fills + '\n  ' + text[end:]
 
 # DSN is written with `(resolution um 10)`: coordinates are micrometres with one
 # decimal, and y is negated relative to KiCad.
@@ -102,6 +154,15 @@ def validate(path: pathlib.Path) -> list[str]:
         problems.append(f"unbalanced parentheses ({depth} unclosed) — truncated?")
     if in_string:
         problems.append("unterminated string")
+    try:
+        for path, _, _ in scope_spans(text):
+            if path[-1] == 'plane' and path != ('pcb', 'structure', 'plane'):
+                problems.append('plane outside pcb/structure')
+            if path[-1] == 'window' and path[-2] not in (
+                    'plane', 'keepout', 'wire_keepout', 'via_keepout', 'wire'):
+                problems.append('window outside an area scope')
+    except ValueError as exc:
+        problems.append(str(exc))
     return problems
 
 
@@ -126,26 +187,32 @@ def real_plane_fills(board, pcbnew) -> tuple[str, int]:
                 continue
             if polys is None or polys.OutlineCount() == 0:
                 continue
+            # KiCad stores filled areas fractured: holes are joined to the
+            # outline with zero-width slits. Specctra wants separate windows.
+            # Work on a clone so exporting does not change the board's fill.
+            polys = polys.CloneDropTriangulation()
+            polys.Unfracture()
             name = board.GetLayerName(layer)
             for i in range(polys.OutlineCount()):
                 chain = polys.Outline(i)
                 pts = " ".join(
                     f"{_x(chain.CPoint(j).x)} {_y(chain.CPoint(j).y)}"
                     for j in range(chain.PointCount()))
-                block = [f'    (plane "{net}" (polygon {name} 0  {pts}))']
+                block = [f'    (plane "{net}" (polygon {name} 0  {pts})']
                 for h in range(polys.HoleCount(i)):
                     hole = polys.Hole(i, h)
                     hpts = " ".join(
                         f"{_x(hole.CPoint(j).x)} {_y(hole.CPoint(j).y)}"
                         for j in range(hole.PointCount()))
                     block.append(f'      (window (polygon {name} 0  {hpts}))')
+                block.append('    )')
                 out.append("\n".join(block))
                 n += 1
     return "\n".join(out), n
 
 
 def bridge_split_pads(board, pcbnew) -> tuple[list[str], int]:
-    """Protected wires joining pads that share a pad number in one footprint.
+    """Protected wires inside overlapping same-number, same-net convex pads.
 
     An exposed pad and its thermal via array are one piece of copper, but each
     instance exports as its own terminal and Freerouting will not infer the
@@ -164,23 +231,43 @@ def bridge_split_pads(board, pcbnew) -> tuple[list[str], int]:
             net = pads[0].GetNetname()
             if not net:
                 continue
-            # Anchor on the pad with the widest layer span -- usually the
-            # exposed pad itself -- then join each other instance on whichever
-            # copper layer the two of them share. A thermal via is through-hole
-            # and the exposed pad may be front-only, so there is often no single
-            # layer common to the whole group.
-            pads.sort(key=lambda p: -len([l for l in (pcbnew.F_Cu, pcbnew.B_Cu)
-                                          if p.IsOnLayer(l)]))
-            anchor = pads[0]
-            apos = anchor.GetPosition()
-            for pad in pads[1:]:
-                layer = next((l for l in (pcbnew.F_Cu, pcbnew.B_Cu)
-                              if anchor.IsOnLayer(l) and pad.IsOnLayer(l)), None)
-                if layer is None:
+            # Repeated pad numbers do NOT imply overlapping copper. BNC shell
+            # pads, for example, surround a signal pin: star-connecting their
+            # centres draws a ground short straight through that signal pad.
+            # Only join centres wholly contained in a convex copper pad.
+            # This permits thermal-via/EP bridges while leaving separated
+            # connector contacts for the real router.
+            pads.sort(key=lambda p: -(p.GetSize().x * p.GetSize().y))
+            connected = set()
+            for pad in pads:
+                if pad.GetNetname() != net:
                     continue
                 p = pad.GetPosition()
-                if p.x == apos.x and p.y == apos.y:
+                pair = None
+                for anchor in pads:
+                    if anchor is pad or anchor.GetNetname() != net:
+                        continue
+                    for layer in (pcbnew.F_Cu, pcbnew.B_Cu):
+                        if not (anchor.IsOnLayer(layer) and pad.IsOnLayer(layer)):
+                            continue
+                        if anchor.GetShape(layer) not in (
+                                pcbnew.PAD_SHAPE_RECT, pcbnew.PAD_SHAPE_ROUNDRECT,
+                                pcbnew.PAD_SHAPE_CIRCLE, pcbnew.PAD_SHAPE_OVAL):
+                            continue
+                        if (anchor.HitTest(anchor.GetPosition(), -50000, layer)
+                                and anchor.HitTest(p, -50000, layer)):
+                            pair = anchor, layer
+                            break
+                    if pair:
+                        break
+                if pair is None:
                     continue
+                anchor, layer = pair
+                apos = anchor.GetPosition()
+                key = tuple(sorted(((apos.x, apos.y), (p.x, p.y)))) + (layer,)
+                if key in connected or (p.x == apos.x and p.y == apos.y):
+                    continue
+                connected.add(key)
                 wires.append(
                     f'    (wire (path {board.GetLayerName(layer)} 100  '
                     f'{_x(apos.x)} {_y(apos.y)}  {_x(p.x)} {_y(p.y)})'
@@ -330,12 +417,14 @@ def main() -> int:
                     help="default: fab/autoroute/<board>.dsn")
     ap.add_argument("--no-plane-fill", action="store_true",
                     help="keep KiCad's zone-outline planes (see module docstring)")
+    ap.add_argument("--refill", action="store_true",
+                    help="refill zones in memory before export (source board unchanged)")
     ap.add_argument("--no-bridge-split-pads", action="store_true",
                     help="do not join pads sharing a pad number")
     ap.add_argument("--fit-pitch", action="store_true",
                     help="shrink netclass geometry that cannot escape its pads")
     ap.add_argument("--protect-prerouted", action="store_true",
-                    help="mark pre-routed wiring (type protect) [UNMEASURED]")
+                    help="mark pre-routed wiring (including locked tracks) protect")
     args = ap.parse_args()
 
     if not args.pcb.is_file():
@@ -353,6 +442,8 @@ def main() -> int:
         return 2
 
     board = pcbnew.LoadBoard(str(args.pcb))
+    if args.refill:
+        pcbnew.ZONE_FILLER(board).Fill(board.Zones())
     zones = board.Zones()
     counts = {
         "footprints": len(board.GetFootprints()),
@@ -377,10 +468,7 @@ def main() -> int:
     if not args.no_plane_fill and re.search(r"\n\s*\(plane\b", text):
         fills, n = real_plane_fills(board, pcbnew)
         if n:
-            text = re.sub(r"\n\s*\(plane\b.*?(?=\n\s*\((?:plane|wire_keepout|"
-                          r"keepout|via|region|snap_angle|control|rule)\b|\n  \))",
-                          "", text, flags=re.S)
-            text = text.replace("\n  (placement", "\n" + fills + "\n  (placement", 1)
+            text = replace_planes(text, fills)
             applied.append(f"plane-fill: {n} real filled polygon(s) "
                            f"replacing zone outlines")
 
@@ -398,7 +486,7 @@ def main() -> int:
             applied.append(f"fit-pitch: {note}")
 
     if args.protect_prerouted:
-        text, n = re.subn(r"\(type route\)", "(type protect)", text)
+        text, n = re.subn(r"\(type (?:route|fix)\)", "(type protect)", text)
         applied.append(f"protect-prerouted: {n} item(s) marked protect")
 
     out.write_text(text)
