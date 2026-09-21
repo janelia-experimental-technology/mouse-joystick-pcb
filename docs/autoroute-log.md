@@ -1,7 +1,8 @@
 # Autoroute Log — v1.0
 
-**Status: not routed. Best result 111 of 269 connections left unrouted (run G,
-2026-09-21), after twelve runs.** This records what has been tried so runs are not repeated. The
+**Status: not routed. Best 4-layer result 100 of ~270 unrouted (run H);
+best 6-layer 98 (run N). Decision: order 4-layer and hand-route. 2026-09-21,
+after eighteen runs.** This records what has been tried so runs are not repeated. The
 reusable freerouting knowledge — settings surface, verified defaults, source
 references, and the export post-processing — is in
 [`../../kicad-libs/docs/freerouting-autorouting.md`](../../kicad-libs/docs/freerouting-autorouting.md).
@@ -31,41 +32,100 @@ the ~60% completion rate while destroying the inter-block copper.
 
 ## Runs, 2026-09-21 (controlled, one variable each)
 
-All on the same board and the same DSN unless noted. **C is the control.**
+All on the same board unless noted. **C is the stock-settings control.**
+
+### Four-layer
 
 | Run | Configuration | Unrouted | Violations |
 |---|---|---|---|
 | A | `via_costs=10` + fanout flags | 137 | 1288 |
-| D | tuned + B.Cu pour (KiCad outline plane) | 134 | 1288 |
+| D | tuned + B.Cu pour, KiCad outline plane | 134 | 1288 |
 | **C** | **stock settings — control** | **124** | 1288 |
 | B | tuned + hand-relaxed netclasses | 120 | 1214 |
-| F | stock + hand-relaxed netclasses + QSPI class | 113 | 1188 |
-| **G** | **stock + `export_dsn.py` post-processing (best)** | **111** | **770** |
+| F | stock + hand-relaxed netclasses + QSPI | 113 | 1188 |
+| G | stock + `export_dsn.py` post-processing | 111 | 770 |
+| **H** | **G + QSPI + MCU_FINE netclasses** | **100** | 870 |
+| I | H + `+3.3V_MCU` pour on In2.Cu | 100 | 870 |
+| J | I + GND pour on F.Cu | 100 | 870 |
 
-**Router tuning is harmful here: A (137) against the control (124) is a loss of
-13 connections.** Every gain came from correcting the DSN, not the router. See
-[the reference doc](../../kicad-libs/docs/freerouting-autorouting.md#fix-the-export-not-the-router).
+### Six-layer (In1.Cu = GND plane, signal on F/In2/In3/In4, B.Cu GND pour)
 
-What each 2026-09-21 run established:
+| Run | Configuration | Unrouted | Violations |
+|---|---|---|---|
+| K | 6 layers, otherwise identical to H | **103** | 936 |
+| L | K + all classes confined to 3 layers each | abandoned | — |
+| M | K + INSTRUMENT confined to In3/In4 | **99** | 936 |
+| N | M-style but via size: 0.45 mm signal vias | **98** | 936 |
 
-- **A vs C** — `via_costs=10` plus the fanout escape-length changes cost 13
-  connections. It does shift work off F.Cu (75% → 65% of new segments) and the
-  fanout runs 4× faster, but the extra vias cost more than the layer access buys.
-- **B vs A** — relaxing the four pitch-limited netclasses gained 17 and routed
-  `+36V_SW`→`U1201-40`/`-21`, `+5V_SW`→`U1201-34`/`-39` and `BRB`→`R1204-1`,
-  every one of which had failed in all five earlier runs.
-- **F** — the same netclass fix without the harmful router flags: best result.
-- **D** — a B.Cu pour exported as KiCad's zone *outline* produced four
-  `NullPointerException`s from Freerouting's search tree, because 164 signal
-  segments sit inside the rectangle it was told is solid GND.
-- **G** — the same pour with the real fill plus all the export post-processing:
-  **zero exceptions**, escape **78.3%** from 73.4%, items entering routing
-  **269** from 302, and the best final result at **111**. Its 770 violations
-  against everyone else's 1288 matter too: the fixes removed real geometry
-  conflicts rather than masking them, so its score is not dominated by an
-  unfixable constant.
+**Six layers is not worth buying.** Plain 6-layer (103) is *worse* than 4-layer
+(100): In1.Cu stops being a free signal layer when it becomes the GND plane, and
+the plane adds 66 violations. Even the best 6-layer variant reaches 98 — two
+connections better than 4-layer, for roughly double the bare-board cost.
+**Decision 2026-09-21: order the 4-layer board.**
 
-## The Three Structural Problems
+## What Moved The Number, And What Did Not
+
+**Worked — 124 to 100, all of it from telling the router the truth:**
+
+- `export_dsn.py` post-processing (real plane fill, split-pad bridging): 124 -> 111
+- `QSPI` and `MCU_FINE` netclasses at 0.15 / 0.15: 111 -> 100
+
+**Did not work, each measured:**
+
+| Attempt | Result |
+|---|---|
+| `via_costs=10` + fanout escape-length flags | **-13** (137 vs 124 control) |
+| GND pour on F.Cu | 0 (J = H = 100) |
+| `+3.3V_MCU` pour on In2.Cu | 0 (I = H = 100) |
+| Six layers alone | **-3** (103 vs 100) |
+| 0.45 mm signal vias | +1 to +2 |
+| Confining INSTRUMENT to its own layer pair | +1 |
+| Enlarging the board and moving blocks | 0 |
+
+## Why The Remaining ~100 Cannot Be Autorouted
+
+The failure signature, measured rather than assumed:
+
+- **Median failing span is 4.4 mm.** Only 2 of 111 exceed 20 mm.
+- **23 of 100 are pin-to-pin on the same component.**
+- `/GND` alone is 36; `+3.3V_MCU` 6.
+- Zero placement violations (`validate_board`, 364 footprints).
+
+They are overwhelmingly **adjacent GND/power pins on fine-pitch parts** —
+`U606-11 -> U606-12`, `U1201-9 -> U1201-11`, `U1301-5 -> U1301-21`,
+`R1105-2 -> R1104-2`.
+
+**A copper pour cannot bridge them.** At 0.5 mm pitch the gap between adjacent
+pads is ~0.2 mm, and a pour needs its clearance on both sides: 0.2 + width + 0.2
+<= 0.2 has no solution. That is why pouring GND on F.Cu changed nothing. Each
+such pin needs its own via to a plane, and the via needs room *beside* the pad —
+the same escape bottleneck. Three independent attacks on it (more layers,
+smaller vias, relaxed fanout limits) each moved the escape rate by under one
+percentage point:
+
+| Config | Escape |
+|---|---|
+| 4 layers, 0.6 mm vias | 77.7% |
+| 6 layers, 0.6 mm vias | 78.2% |
+| 6 layers, 0.45 mm vias | 78.6% |
+
+The real fixes are upstream: via-in-pad on the fine-pitch parts, or fanning the
+GND pins out inside the design-block layouts so a consuming board never has to.
+
+## Ideas Considered And Ruled Out (with evidence)
+
+- **Reordering the InstrumentPort channel map to minimise crossings.** Sound in
+  general, useless here: **zero `_INST` nets and zero `DIGn_BUF`/`_ISO` nets
+  fail.** The tap topology plus the `INSTRUMENT` class already route all 24
+  cleanly. Revisit only if a future revision gets tight at the port, and do it
+  at schematic-capture time — `board-interfaces` owns that contract.
+- **A single blocking misplacement.** A real pattern on other boards, but not
+  here: median failing span 4.4 mm and zero placement violations. A misplaced
+  part produces a cluster of *long* failing connections.
+- **Rotating the flash to fix QSPI.** The WSON-8 has four pins per side, so
+  three QSPI signals are always on the far side. Rotation just swaps which three.
+
+## The Three Structural Problems## The Three Structural Problems
 
 ### 1. The router uses one layer
 
@@ -129,24 +189,46 @@ netclass could not escape a 0.5 mm pad pitch, run G routed three
 hand-picked relaxations rather than the automatic `--fit-pitch`, routed five of
 the seven — so the automatic fit is slightly less aggressive than hand-tuning.
 
+## Board State As Left, 2026-09-21
+
+**The board is currently SIX layers** with three zones. Before ordering, decide
+whether to revert to four (the evidence says yes — see the run tables).
+
+Uncommitted in `kicad/`:
+
+| Change | Keep? |
+|---|---|
+| Copper layers 4 -> 6 | **revert** — worth 2 connections for ~2x cost |
+| `/GND` zone on **In1.Cu** | only exists because of the 6-layer stackup |
+| `/GND` zone on **B.Cu** | **keep** — costs nothing, B.Cu is unused by the router |
+| `QSPI` netclass, pattern `*QSPI_*`, 0.15/0.15 | **keep** — part of the 111->100 win |
+| `MCU_FINE` netclass, 34 patterns, 0.15/0.15 | **keep** — same |
+
+Backups of the 4-layer board and project are in the session scratchpad as
+`board-before-6layer.kicad_pcb` / `pro-before-6layer.json`; if those are gone,
+`git checkout kicad/` restores the last committed 4-layer state, but that also
+discards the two netclasses, so re-add them.
+
+Zones I added during experiments and already removed: `/GND` on F.Cu (no
+effect), `/+3.3V_MCU` on In2.Cu (no effect).
+
 ## Next, In Order
 
-1. **`MCU_FINE` netclass at 0.15 / 0.15 for the rest of the RP2040.** The
-   escape-margin scan (`../../kicad-libs/scripts/dsn_escape_margin.py`) found
-   **43 U601 signals at exactly 0.000 mm** — the whole QFN-56 pin field, not just
-   QSPI. Largest single block of marginal geometry on the board. **QSPI is
-   already done** (class `QSPI`, pattern `*QSPI_*`, 0.15/0.15, verified
-   resolving all six nets).
-2. **Local power pours**, `+3.3V_MCU` around `U601` first. Nine of its failures
-   are U601-pin-to-U601-pin, which want copper, not traces threaded between
-   0.4 mm-pitch pins.
-3. **Keep the B.Cu GND pour** — with the real-fill export it is clean, and it is
-   the layer the router will not use anyway. Motor phases and `+36V_SW` stay on
-   B.Cu for the thicker outer foil; the pour flows around them.
-4. **Fix the thermal arrays and the F.Cu imbalance upstream** in `../kicad-libs`
-   so no board needs the export workaround, and so blocks stop arriving with
-   1629 of 1786 segments on one layer.
-5. **Only then consider 6 layers.** Still not supported by the evidence.
+1. **Revert to 4 layers**, keep the B.Cu GND pour and both netclasses.
+2. **Re-export and re-run** to regenerate a 4-layer session matching run H
+   (`make export-dsn` then freerouting with **stock settings** — no flags).
+3. **Import** with `scripts/import_ses.py`, then re-fill zones.
+4. **HV clearance check.** Non-negotiable: `--fit-pitch` tells the router
+   `PWR_HV_BUS` needs 100 um when `.kicad_dru` says 400, so nothing has verified
+   36 V spacing. Run DRC with clearance at error and read the findings on
+   `PWR_HV_*`, `MOTOR_2A`, `BOOTSTRAP`, `GATE_DRIVE`, `PWR_12V*`. Two silent
+   36 V spacing problems were already found on this board this session.
+5. **Hand-route the remaining ~100.** They are short and local: mostly adjacent
+   GND/power pins on `U1201`, `U601`, `U606`, `U604`, `U1301`, `U2002`. Expect
+   to place vias beside fine-pitch pads by hand where the router could not.
+6. **Upstream, for the next board:** fan the GND pins out inside the design-block
+   layouts, and rebalance block copper off F.Cu (1629 of 1786 segments arrive
+   there). Both are in `../kicad-libs/.agents/PLANS.md`.
 
 ## Import Cautions
 

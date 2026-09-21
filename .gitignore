@@ -25,3 +25,7 @@ __pycache__/
 **/*.dsn
 **/*.ses
 /tmp/
+
+# Session recovery copies of the board (see fab/autoroute/REVERT-README.md).
+# Large binaries, not source -- the README beside them is worth committing.
+fab/autoroute/REVERT-to-4layer.*
