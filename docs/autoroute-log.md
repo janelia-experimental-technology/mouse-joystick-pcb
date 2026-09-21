@@ -1,5 +1,10 @@
 # Autoroute Log — v1.0
 
+**Connector access follow-up:** the BNC pitch is now 24 mm, motor/encoder
+terminal gaps are wider, and M3 hardware has outer-copper clearances. Routing
+still passes at zero DRC errors and zero unconnected pads; the fabrication
+package was regenerated. See [the mechanical report](connector-access-2026-09-21.md).
+
 **Status: routed on four layers, 2026-09-21. Zero KiCad unconnected items and
 zero DRC errors after import, local repairs, and refill.** Run H's reported
 100 unrouted amounted to only **five actual KiCad connections**, not 100.

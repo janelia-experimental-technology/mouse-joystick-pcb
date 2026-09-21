@@ -11,6 +11,6 @@ baseline: 499 findings / 143 pairs, 149 unconnected
   voltage-bearing pair cleared: +36V_SW <-> PG_5V
   voltage-bearing pair cleared: +36V_SW <-> VCP
   unconnected fell 149 -> 0
-  51 low-voltage pair(s) newly attributed (tool jitter unless the total also rose): +3.3V_FILT <-> GND, +3.3V_MCU <-> HV_LATCH, +3.3V_MCU <-> PYC_UART_TX, +3.3V_SW <-> TMC_DIAG1_INST, ANGLE_OUT <-> ~{TMC_DRV_EN}_INST ...
+  48 low-voltage pair(s) newly attributed (tool jitter unless the total also rose): +3.3V_MCU <-> GND, +3.3V_MCU <-> ~{OE3}, +3.3V_SW <-> TMC_DIAG1_INST, AMP_VOUT <-> GND, BRAKE_ISENSE <-> TMC_DIAG1 ...
 
 no new or worsened clearance findings

@@ -3,7 +3,45 @@
   "pcb_pad_identities": 1204,
   "mismatches": [],
   "extra_assigned_pads": [],
-  "unchanged_footprints": true,
+  "unchanged_footprints": false,
+  "expected_placement_changes": [
+    {
+      "ref": "J1103",
+      "before": [
+        140.425,
+        59.0
+      ],
+      "after": [
+        138.425,
+        59.0
+      ]
+    },
+    {
+      "ref": "J1101",
+      "before": [
+        139.425,
+        110.0
+      ],
+      "after": [
+        129.425,
+        110.0
+      ]
+    },
+    {
+      "ref": "J1102",
+      "before": [
+        121.425,
+        59.0
+      ],
+      "after": [
+        116.425,
+        59.0
+      ]
+    }
+  ],
+  "other_footprints_unchanged": true,
+  "all_values_orientations_library_ids_unchanged": true,
+  "surviving_track_net_assignments_unchanged": true,
   "copper_layers": 4,
   "thickness_mm": 1.6,
   "normalization": "KiCad {slash} escape decoded"

@@ -1,7 +1,12 @@
 # Four-layer fabrication package
 
 Generated from the completed `kicad/mouse-joystick-pcb.kicad_pcb` using the
-project's `make fab` target and KiCad 10.0.6 on 2026-09-21.
+project’s `make fab` target and KiCad 10.0.6 on 2026-09-21.
+
+**Updated after the connector access review:** the BNCs now have 24 mm centre
+spacing, the motor/encoder terminals have wider housing gaps, and all four
+mounting holes have 7 mm outer-copper hardware clearances. This ZIP replaces
+the earlier package with 14 mm BNC spacing.
 
 Upload `mouse-joystick-pcb-jlcpcb.zip` for PCB fabrication. Assembly files are
 `jlcpcb-bom.csv` and `jlcpcb-mouse-joystick-pcb-all-pos.csv`.
@@ -16,7 +21,7 @@ Board details:
 - Minimum track width 0.10 mm; reported clearance minimum 0.1000 mm.
 - Smallest through via is 0.45 mm diameter / 0.20 mm drill; no microvias or
   new filled via-in-pad requirements were introduced by the routing repair.
-- Drill output contains 438 plated and 12 non-plated holes, with four plated
+- Drill output contains 437 plated and 12 non-plated holes, with four plated
   slots. The combined Excellon file labels plating separately for each tool.
 
 Validation:
@@ -28,13 +33,23 @@ Validation:
 - `reports/clearance-regression.txt`: passes the saved baseline, including
   `--all-track-errors`; no voltage-bearing clearance findings remain.
 - `reports/schematic-parity.json`: all 1,204 numbered pad identities match the
-  schematic; all 364 footprints retain their placement and identity.
+  schematic. J1101, J1102 and J1103 moved as documented; the other 361
+  footprints are unchanged. All values, rotations and library IDs are retained.
 - `reports/source-sha256.json`: hashes of the exact source files used.
 - `reports/board-top.svg`: top copper and silkscreen preview.
+- `reports/connector-clearances.svg`: connector arrangement with the 16 mm
+  BNC plug allowance and 7 mm mounting-hardware clearances.
+- `reports/connector-positions.csv`: board-relative coordinates for enclosure
+  work; origin at the upper-left nominal board edges, X right, Y down.
+- `reports/mechanical-review.json`: dimensions and the limits of the mechanical
+  review. Exact cable boots, mating plugs, latch access and lid geometry remain
+  enclosure-specific checks.
 
 All 81 BOM groups resolve in the local JLCPCB catalog, and all 360 assembly
 designators have placement rows. This is catalog validation, not a live stock
 reservation. No order has been placed.
 
-See [the routing report](../../docs/routing-rescue-2026-09-21.md) for the five
-completed connections, exporter corrections and remaining advisory findings.
+See [the connector access report](../../docs/connector-access-2026-09-21.md)
+for current placement and mechanical details, and
+[the initial routing report](../../docs/routing-rescue-2026-09-21.md) for the
+exporter corrections and original routing completion.

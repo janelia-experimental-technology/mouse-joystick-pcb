@@ -3,6 +3,33 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Completed Task — Connector access and BNC spacing (2026-09-21)
+
+- [x] Preserve the previously routed board and fabrication package under
+      `tmp/connector-access/baseline/` and `baseline-fab/`.
+- [x] Move angle BNC J1101 left by 10 mm: 24 mm pitch with J901, common Y,
+      board-relative centres (42, 55) and (66, 55) mm. A 16 mm plug allowance
+      leaves an 8 mm gap; the approximate STEP proxy is not fit evidence.
+- [x] Move motor J1102 left by 5 mm and encoder J1103 left by 2 mm. The top
+      terminal row stays aligned, with drawn body gaps of about 4.1/2.6 mm.
+      All connector origins remain on board-relative whole-mm coordinates.
+- [x] Reserve a 7 mm outer-copper hardware area around each M3 mounting hole.
+      Hole positions remain on the 90 by 70 mm rectangle. Review USB/RJ45/FFC
+      access; document enclosure-specific cable, latch and lid allowances.
+- [x] Repair routing, retain 0.8 mm motor tracks, refill and verify: zero DRC
+      errors/opens, zero ERC errors/warnings, clearance regression passes.
+      The existing warning counts remain 499 clearances and 20 dangling vias.
+- [x] Match all 1,204 schematic pad identities; only the three intended
+      footprints moved. All values, rotations and library IDs are unchanged.
+- [x] Regenerate `fab/routing-rescue-4layer/`, including the fabrication ZIP,
+      81 resolved BOM groups, 360 placements, mechanical drawing and coordinates.
+
+See [connector access report](../docs/connector-access-2026-09-21.md).
+The current ZIP supersedes the earlier 14 mm BNC package. The initial routing
+rescue below retained all placements; this later mechanical correction changes
+three. No order has been placed. Actual mating cable/plug and enclosure fit
+remain separate from electrical DRC; the FH12 requires its specified FFC.
+
 ## Completed Task — Routing rescue (2026-09-21)
 
 - [x] Preserve the original six-layer board under `tmp/routing-rescue/baseline/`.

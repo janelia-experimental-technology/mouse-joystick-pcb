@@ -1,5 +1,12 @@
 # Four-layer routing completion, 2026-09-21
 
+**Mechanical follow-up:** the BNCs now have 24 mm spacing, the motor/encoder
+terminals have wider gaps, and the mounting holes have outer-copper hardware
+clearances. The same fabrication output path has been regenerated. See the
+[connector access report](connector-access-2026-09-21.md) for the current
+placement. The unchanged-placement statement below describes the initial
+routing rescue, before that follow-up.
+
 The board is fully connected on four copper layers. KiCad 10.0.6 reports zero
 unconnected items and zero DRC errors after zone refill. All 1,204 numbered
 pad identities match the exported schematic netlist (decoding KiCad's
@@ -98,10 +105,11 @@ preserved in `tmp/routing-rescue/baseline/` before updating `kicad/`.
 - [Package notes](../fab/routing-rescue-4layer/README.md) and
   [top copper/silkscreen preview](../fab/routing-rescue-4layer/reports/board-top.svg).
 
-The ZIP's integrity and Gerber job file were checked: exactly four copper
+The original ZIP's integrity and Gerber job file were checked: exactly four copper
 layers in F/In1/In2/B order, 1.6 mm board thickness, masks, silkscreens, paste,
-outline, and drill data. The drill report has 438 plated and 12 non-plated
-holes, including four plated slots. Source hashes still match the checked
+outline, and drill data. That initial drill report had 438 plated and 12 non-plated
+holes, including four plated slots. The connector follow-up removes one
+redundant via; the current report has 437 plated holes. Source hashes match the checked
 schematic, PCB, project and rules. Catalog resolution is not a live stock quote.
 
 Fabrication command used:
