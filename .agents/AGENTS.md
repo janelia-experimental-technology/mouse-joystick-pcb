@@ -227,11 +227,23 @@ KiCad's frame — see `kicad-libs/docs/board-documentation.md`.
 
 ### Local KiCad Overlay
 
-The pinned channel carries KiCad 10.0.5. `.guix/manifest-kicad-local.scm` and
-`.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in 10.0.6
-overlay: `make kicad-version-local`, `kicad-shell-local`, `kicad-edits-local`,
-`fab-local`. Delete the overlay files and the `-local` targets once the channel
-pin carries 10.0.6 or newer.
+The pinned Guix channel (`dd8c1c5`) already carries KiCad 10.0.6, verified
+2026-09-25 with `guix time-machine -C .guix/channels.scm -- show kicad`, so the
+opt-in overlay in `.guix/manifest-kicad-local.scm` and
+`.guix/local-modules/orb-weaver/kicad-local.scm` (`make kicad-version-local`,
+`kicad-shell-local`, `kicad-edits-local`, `fab-local`) is redundant. Plain
+`make kicad-edits` gives 10.0.6. Delete the overlay files and the `-local`
+targets at the next convenient commit; `camera-gpio-interface-pcb` was
+scaffolded without them.
+
+### Routing Helpers
+
+`make export-dsn`, `make freeroute`, `make import-ses`, `make clearance-baseline`
+and `make clearance-check` call the shared kicad-libs commands
+(`orb-weaver-kicad-export-dsn`, `-import-ses`, `-clearance-check`); the scripts
+moved out of this repository's `scripts/` on 2026-09-25 and the channel pin
+`768a00b` ships them. `kicad/clearance-baseline.json` is still this board's
+baseline. Workflow: kicad-libs `docs/freerouting-autorouting.md`.
 
 ### KiCad Project State
 
