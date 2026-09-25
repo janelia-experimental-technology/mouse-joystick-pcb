@@ -40,6 +40,17 @@ FAB_OPTIONS ?=
 DOCS_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs,orb-weaver-kicad-docs)
 DOCS_OUTPUT_DIR ?= docs/generated
 DOCS_OPTIONS ?=
+# Routing helpers from kicad-libs (bin/orb-weaver-kicad-*). Like DOCS_TOOL they
+# prefer the sibling checkout; the packaged commands appear once the channel pin
+# carries a kicad-libs commit that ships them. See kicad-libs
+# docs/freerouting-autorouting.md for the routing workflow.
+EXPORT_DSN_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-export-dsn),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-export-dsn,orb-weaver-kicad-export-dsn)
+IMPORT_SES_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-import-ses),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-import-ses,orb-weaver-kicad-import-ses)
+CLEARANCE_CHECK_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-clearance-check),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-clearance-check,orb-weaver-kicad-clearance-check)
+SES ?= fab/autoroute/$(basename $(notdir $(PROJECT))).ses
+EXPORT_DSN_OPTIONS ?=
+IMPORT_SES_OPTIONS ?=
+CLEARANCE_CHECK_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -51,7 +62,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: docs docs-check export-dsn export-dsn-local freeroute freeroute-local clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -65,6 +76,7 @@ help:
 	  'make export-dsn        Export the PCB to Specctra DSN for Freerouting' \
 	  'make freeroute         Export the DSN and open it in the Freerouting GUI' \
 	  'make freeroute-local   Same, but take Guix packages from the local kicad-libs checkout' \
+	  'make import-ses        Apply the Freerouting .ses to the PCB headlessly, with a backup' \
 	  'make clearance-check   Re-enable clearance DRC on a copy and diff against the baseline' \
 	  'make clearance-baseline Record the current clearance state as the baseline' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
@@ -119,12 +131,18 @@ test:
 
 # kicad-cli has no Specctra subcommand, so the DSN comes from KiCad's pcbnew
 # Python bindings. DSN carries netclasses and existing wiring but not the
-# .kicad_dru custom rules -- run `make clearance-check` after routing.
+# .kicad_dru custom rules -- run `make clearance-check` after routing. The
+# scripts moved to kicad-libs on 2026-09-25 (orb-weaver-kicad-export-dsn,
+# -import-ses, -clearance-check); the *_TOOL variables above select them.
 DSN ?= fab/autoroute/$(basename $(notdir $(PROJECT))).dsn
 
 export-dsn:
 	$(MAKE) prepare-kicad-config
-	$(KICAD_MANAGED_SHELL) python3 scripts/export_dsn.py --output "$(DSN)"
+	$(KICAD_MANAGED_SHELL) "$(EXPORT_DSN_TOOL)" --project "$(PROJECT)" --output "$(DSN)" $(EXPORT_DSN_OPTIONS)
+
+import-ses:
+	$(MAKE) prepare-kicad-config
+	$(KICAD_MANAGED_SHELL) "$(IMPORT_SES_TOOL)" --project "$(PROJECT)" --ses "$(SES)" $(IMPORT_SES_OPTIONS)
 
 # Opens the Freerouting GUI with the design already loaded. -di points the
 # open/save dialogs at the same directory so the .ses lands beside the .dsn.
@@ -152,10 +170,10 @@ freeroute-local:
 # touched -- and diff it against a recorded baseline. Run clearance-baseline
 # before routing, clearance-check after.
 clearance-baseline:
-	$(KICAD_MANAGED_SHELL) python3 scripts/clearance_check.py --save-baseline
+	$(KICAD_MANAGED_SHELL) "$(CLEARANCE_CHECK_TOOL)" --project "$(PROJECT)" --save-baseline $(CLEARANCE_CHECK_OPTIONS)
 
 clearance-check:
-	$(KICAD_MANAGED_SHELL) python3 scripts/clearance_check.py
+	$(KICAD_MANAGED_SHELL) "$(CLEARANCE_CHECK_TOOL)" --project "$(PROJECT)" $(CLEARANCE_CHECK_OPTIONS)
 
 check-kicad-libs:
 	@orb_libs="$(ORB_WEAVER_KICAD_LIBS)"; \

@@ -86,11 +86,11 @@ The next requested work can start with ordering, enclosure design or bring-up.
 
 If new changes need autorouting, use the project's KiCad environment:
 
-1. Refill/export with `python3 scripts/export_dsn.py --refill --protect-prerouted`.
+1. Refill/export with `make export-dsn EXPORT_DSN_OPTIONS="--refill --protect-prerouted"` (the script now lives in kicad-libs as `orb-weaver-kicad-export-dsn`).
 2. Use Freerouting v2.4.1 with stock costs/fanout and
    `--router.max_threads=1`. The historical combined lower-via-cost/fanout
    experiment performed worse; raising pass limits did not resolve the stall.
-3. Import with `python3 scripts/import_ses.py --refill`, inspect actual KiCad
+3. Import with `make import-ses IMPORT_SES_OPTIONS="--refill"`, inspect actual KiCad
    opens and DRC, and run `make clearance-check`. The DSN does not carry KiCad's
    scoped custom rules. `--fit-pitch` is not a clearance waiver.
 4. Verify schematic parity and regenerate fabrication outputs after PCB edits.
