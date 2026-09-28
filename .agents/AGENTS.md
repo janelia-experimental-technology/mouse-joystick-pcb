@@ -227,14 +227,17 @@ KiCad's frame — see `kicad-libs/docs/board-documentation.md`.
 
 ### Local KiCad Overlay
 
-The pinned Guix channel (`dd8c1c5`) already carries KiCad 10.0.6, verified
-2026-09-25 with `guix time-machine -C .guix/channels.scm -- show kicad`, so the
-opt-in overlay in `.guix/manifest-kicad-local.scm` and
+The pinned Guix channel (`dd8c1c5`) carries KiCad 10.0.6, verified with
+`guix time-machine -C .guix/channels.scm -- show kicad`, so plain
+`make kicad-edits` gives 10.0.6. The opt-in overlay in
+`.guix/manifest-kicad-local.scm` and
 `.guix/local-modules/orb-weaver/kicad-local.scm` (`make kicad-version-local`,
-`kicad-shell-local`, `kicad-edits-local`, `fab-local`) is redundant. Plain
-`make kicad-edits` gives 10.0.6. Delete the overlay files and the `-local`
-targets at the next convenient commit; `camera-gpio-interface-pcb` was
-scaffolded without them.
+`kicad-shell-local`, `kicad-edits-local`, `fab-local`) stays as the hook for
+the interval between a KiCad release and its Guix package; the user uses it
+whenever KiCad is ahead of Guix. On 2026-09-28 its 10.0.6 override was reset to
+plain upstream aliases, so today the `-local` targets equal the default ones.
+Override it again only while the pin lags a release (the procedure is in
+`kicad-libs/docs/guix-packaging.md`), and reset it once the pin catches up.
 
 ### Routing Helpers
 
