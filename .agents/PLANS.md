@@ -2433,3 +2433,29 @@ Ready for active PCB work when:
   `VM = 36 V`, so `VCC` must be supplied externally, and that the 36 V input
   block populates no TVS. Also flagged the pre-/post-switch feed point as the one
   way to make an unbootable board out of correct blocks.
+
+## Planned Task — OBS-HW-JOYSTICK: current-board qualification and future debug/trace planning (2026-09-29)
+
+The new [board observability plan](../docs/observability-plan.md) owns this
+workstream's detailed queue. The [central roadmap](../../orb-weaver-context/context/experimental-system-observability-plan.md)
+owns cross-repository gates and parallel workstreams. Existing dated board
+decisions and measured bring-up records remain authoritative; this entry
+records intent and no new hardware validation.
+
+- [ ] Claim `.1` and prepare the actual v1.0 overlay, expected states, test
+      criteria and evidence manifest with `OBS-IF`/`OBS-FW` (G0).
+- [ ] On actual unit arrival/readiness, perform `.2` through the qualified
+      `OBS-HW-ADAPTER` path and record measured limits per serial (G1).
+- [ ] Coordinate `.3` with `OBS-FW`/`OBS-HOST` for one bounded command, bus,
+      encoder/limit and physical-response capture with uncertainty (G4).
+- [ ] Prepare `.4` as a separate future-revision SWD/trace proposal after the
+      shared contract and actual pin budget are reviewed. Preserve current
+      routing and the external-probe choice; no on-board debug MCU or RP2040
+      QP support is implied by the Teensy-only `OBS-QP` pilot.
+
+Claim file ownership before parallel edits and reserve shared bench resources
+through the central session record before measurements. Offline fixture and
+documentation work can proceed in parallel. Keep current manufactured-board
+qualification separate from future revision design; do not edit `kicad-libs`
+for this documentation task. Report evidence-linked results and limits to the
+central roadmap owner before marking a gate complete.

@@ -441,6 +441,7 @@ release and its Guix package, `.guix/manifest-kicad-local.scm` and
 
 ## Key Documents
 
+- [Observability development plan](docs/observability-plan.md): board workstream, parallel tasks and evidence gates
 - [Rev 0 Plan](docs/rev0-plan.md)
 - [Interface Map](docs/interface-map.md) — RP2040 and InstrumentPort-40 pinouts
 - [InstrumentPort Tap Resistors](docs/instrument-port-tap-resistors.md) — the 24 series taps
