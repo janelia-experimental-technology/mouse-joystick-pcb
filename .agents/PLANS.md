@@ -2436,6 +2436,30 @@ Ready for active PCB work when:
 
 ## Planned Task — OBS-HW-JOYSTICK: current-board qualification and future debug/trace planning (2026-09-29)
 
+**MCU comparison update, 2026-09-30:** the local observability plan now links the
+stocked STM32G0B1CEU6 versus RP2040/RP2354B assessment and PIO UART tradeoffs.
+Future pin/peripheral budget studies can proceed independently; three STM32
+UART pairs coexist statically with USB/SWD, but this is not a complete joystick
+allocation or qualification. PIO does not create spare physical pins. No current
+board design or active QP target changes; central Context plan owns check results.
+
+**Later 2026-09-30 update:** the Debug-Trace-20 logical pinout is accepted for
+planning; see the local observability plan and owning interface contract.
+Physical connector/cable, driver inhibit and new board allocation remain open.
+RP2354B is now a candidate to assess against the nearly allocated RP2040 pin map;
+this does not select an MCU migration or change the active RP2040 QP target.
+
+**Direction update, 2026-09-30:** the separate optional connector and reusable
+external RP2040 probe are future-revision evaluation work. This reopens only
+that planning scope from the dated 2026-09-08 rejection of a second FFC port;
+retain its historical rationale, the current manufactured-board restrictions
+and the absence of SWD on the existing board. `OBS-PROBE` owns external-probe
+qualification in `instrument-control`; a second UART bridge is not assumed.
+`OBS-QP` now prioritizes RP2040/Earle Philhower Arduino, QP 7.3.4/QV only.
+Previous Teensy build evidence remains valid within its recorded scope, with
+Teensy hardware deferred/nonblocking; STM32G0B1CEU6 is later. No RP2040 QP
+support or new hardware result is established by this target change.
+
 The new [board observability plan](../docs/observability-plan.md) owns this
 workstream's detailed queue. The [central roadmap](../../orb-weaver-context/context/experimental-system-observability-plan.md)
 owns cross-repository gates and parallel workstreams. Existing dated board
@@ -2448,10 +2472,15 @@ records intent and no new hardware validation.
       `OBS-HW-ADAPTER` path and record measured limits per serial (G1).
 - [ ] Coordinate `.3` with `OBS-FW`/`OBS-HOST` for one bounded command, bus,
       encoder/limit and physical-response capture with uncertainty (G4).
-- [ ] Prepare `.4` as a separate future-revision SWD/trace proposal after the
-      shared contract and actual pin budget are reviewed. Preserve current
-      routing and the external-probe choice; no on-board debug MCU or RP2040
-      QP support is implied by the Teensy-only `OBS-QP` pilot.
+- [ ] Prepare `.4` as a separate future-revision debug/trace-connector proposal
+      with `OBS-IF`, `OBS-FW` and `OBS-PROBE`; review pin mux, actual probe UART
+      capability, voltage, cable and power behavior before schematic work.
+      Preserve current routing and read-only 32-signal Digital-50. Defer
+      combined-60 and a permanently on-board debug MCU until demonstrated need.
+- [ ] Record direct researcher-to-DUT USB and separate external-probe USB,
+      preventing VBUS tying and signal-pin back-powering. Two connectors are
+      not evidence of isolation. Scope any future attached-monitoring session
+      separately; no halt/reset/program/write authority follows from attachment.
 
 Claim file ownership before parallel edits and reserve shared bench resources
 through the central session record before measurements. Offline fixture and
