@@ -51,6 +51,13 @@ SES ?= fab/autoroute/$(basename $(notdir $(PROJECT))).ses
 EXPORT_DSN_OPTIONS ?=
 IMPORT_SES_OPTIONS ?=
 CLEARANCE_CHECK_OPTIONS ?=
+MECHANICAL_DATUMS_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-mechanical-datums),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-mechanical-datums,orb-weaver-kicad-mechanical-datums)
+MECHANICAL_DATUMS ?= docs/generated/mechanical-datums.json
+MECHANICAL_DATUMS_OPTIONS ?=
+BOARD_MANIFEST_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-manifest),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-manifest,orb-weaver-kicad-board-manifest)
+BOARD_MANIFEST ?= kicad/board-manifest.yaml
+BOARD_MANIFEST_MAP ?= docs/interface-map.md
+BOARD_MANIFEST_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -62,7 +69,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -79,6 +86,10 @@ help:
 	  'make import-ses        Apply the Freerouting .ses to the PCB headlessly, with a backup' \
 	  'make clearance-check   Re-enable clearance DRC on a copy and diff against the baseline' \
 	  'make clearance-baseline Record the current clearance state as the baseline' \
+	  'make mechanical-datums Export connector mating datums and the block placement record' \
+	  'make board-manifest-check   Check kicad/board-manifest.yaml against the board, the library and the netclass patterns' \
+	  'make board-manifest-derive  Write the manifest from the schematic hierarchy and the placement record (keeps meanings and reasons)' \
+	  'make board-manifest-render  Render the interface map block from the manifest into docs/interface-map.md' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make docs             Generate published board documentation for PROJECT' \
@@ -253,6 +264,36 @@ kicad-edits:
 
 kicad-edits-local:
 	$(MAKE) kicad-edits GUIX_MANIFEST_KICAD=$(GUIX_MANIFEST_KICAD_LOCAL) GUIX_SHELL_EXTRA_OPTIONS="-L .guix/local-modules" PROJECT="$(PROJECT)"
+
+# Connector mating centres and directions and the placed-block record, in board
+# coordinates relative to the board datum (aux axis origin when set), for the
+# enclosure and the documentation; also the placement record the board
+# manifest reads. Writes JSON and CSV beside each other (KiCad shell).
+mechanical-datums:
+	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
+	$(MAKE) prepare-kicad-config
+	mkdir -p "$(dir $(MECHANICAL_DATUMS))"
+	$(KICAD_MANAGED_SHELL) "$(MECHANICAL_DATUMS_TOOL)" --project "$(PROJECT)" --output "$(MECHANICAL_DATUMS)" --csv "$(MECHANICAL_DATUMS:.json=.csv)" $(MECHANICAL_DATUMS_OPTIONS)
+
+# The board manifest (kicad-libs PLANS 2026-09-30 D20): kicad/board-manifest.yaml
+# names every placed block with its anchor, rotation and side, maps each port
+# to the label it meets in its parent sheet (or `open` with a reason), lists
+# the board-authored wrapper sheets and the netclass profiles, and gives every
+# net its class. `board-manifest-derive` writes it from the schematic and the
+# mechanical-datums record (run `make mechanical-datums` first; an existing
+# manifest keeps its meanings, reasons and notes); `board-manifest-check`
+# compares it with the board, the library and the project's netclass patterns,
+# and fails on a port neither mapped nor open; `board-manifest-render` writes
+# the generated block of docs/interface-map.md. Pure Python, lightweight shell.
+board-manifest-derive:
+	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
+	$(AGENT_MANAGED_SHELL) "$(BOARD_MANIFEST_TOOL)" derive --project "$(PROJECT)" --output "$(BOARD_MANIFEST)" $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(BOARD_MANIFEST_OPTIONS)
+
+board-manifest-check:
+	$(AGENT_MANAGED_SHELL) "$(BOARD_MANIFEST_TOOL)" check "$(BOARD_MANIFEST)" $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(BOARD_MANIFEST_OPTIONS)
+
+board-manifest-render:
+	$(AGENT_MANAGED_SHELL) "$(BOARD_MANIFEST_TOOL)" render "$(BOARD_MANIFEST)" --output "$(BOARD_MANIFEST_MAP)" $(BOARD_MANIFEST_OPTIONS)
 
 fab:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi

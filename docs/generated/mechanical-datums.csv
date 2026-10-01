@@ -1,0 +1,7 @@
+reference,footprint,positions,pitch_mm,side,rotation_degrees,mating_x_mm,mating_y_mm,mating_direction,pad_centre_x_mm,pad_centre_y_mm,pin1_x_mm,pin1_y_mm
+J1102,"orb_weaver_tht:PhoenixContact_MCV_1,5_4-G-3.5_1x04_P3.50mm_Vertical",4,3.5,front,180.0,-21.0,-36.0,+z,-21.0,-36.0,-15.75,-36.0
+J1103,"orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical",5,3.5,front,180.0,1.0,-36.0,+z,1.0,-36.0,8.0,-36.0
+J1601,"orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical",2,3.5,front,180.0,18.0,-36.0,+z,18.0,-36.0,19.75,-36.0
+J1801,"orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical",2,3.5,front,180.0,37.0,12.0,+z,37.0,12.0,38.75,12.0
+J2001,"orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical",5,3.5,front,180.0,37.0,-18.0,+z,37.0,-18.0,44.0,-18.0
+J501,"orb_weaver_tht:PhoenixContact_MSTBVA_2,5_2-G-5,08_1x02_P5.08mm_Vertical",2,5.08,front,270.0,-44.0,-24.0,+z,-44.0,-24.0,-44.0,-26.54

@@ -63,6 +63,15 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   rule below. If a change needs more pins than are free, say so rather than
   quietly cutting a reserved function. See `docs/interface-map.md` and
   `docs/rev0-plan.md`.
+- **`kicad/board-manifest.yaml` is the board's manifest** (kicad-libs decision
+  D20, written 2026-10-01): every placed block with its anchor, each port mapped
+  to the label it meets in its parent sheet or `open` with a reason, the four
+  wrapper sheets, the netclass profiles and every net's class. After placing,
+  wiring or moving a block: `make mechanical-datums`, `make board-manifest-derive`
+  (keeps the written meanings and reasons), `make board-manifest-check`. The block
+  between the `GENERATED BOARD MANIFEST` markers at the top of
+  `docs/interface-map.md` is its rendering (`make board-manifest-render`), never
+  edited by hand; the narrative below the block is.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** As of 2026-08-17 this is the *only* electrical difference

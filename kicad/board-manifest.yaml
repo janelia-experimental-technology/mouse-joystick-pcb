@@ -1,0 +1,1592 @@
+schema: orb-weaver/board-manifest/1
+board: mouse-joystick-pcb
+project: mouse-joystick-pcb.kicad_pro
+summary: 'Single-axis mouse joystick: RP2040 with GPIO isolation, one TMC5130A, torque bridge, brake current sink, analog
+  angle output, InstrumentPort-Digital-50 taps, 36 V protected input with 12 V and 5 V regulators; v1.0 as built.'
+rules:
+  profiles:
+  - hv-power-24v
+  - instrument-taps
+  grid_mm: 1.0
+  datum:
+    kind: aux axis origin
+    kicad_mm: [137.425, 95.0]
+sheets:
+- name: instrument_port
+  file: instrument_port.kicad_sch
+  parent: /
+  ports:
+    +3.3V: +3.3V_MCU
+    DAQ_SCL: DAC_SCL_INST
+    DAQ_SDA: DAC_SDA_INST
+    ENCA: ENCA_INST
+    ENCB: ENCB_INST
+    FW_TRIG0: FW_TRIG0
+    FW_TRIG1: FW_TRIG1
+    GND: GND
+    HV_DIAG_EN: HV_DIAG_EN_INST
+    HV_EN: HV_EN_INST
+    LIMIT_SW: LIMIT_SW_INST
+    PG_5V: PG_5V
+    PG_12V: PG_12V
+    PYC_UART_RX: PYC_UART_RX_INST
+    PYC_UART_TX: PYC_UART_TX_INST
+    TMC_DIAG0: TMC_DIAG0_INST
+    TMC_DIAG1: TMC_DIAG1_INST
+    TMC_SPI_CIPO: TMC_SPI_CIPO_INST
+    TMC_SPI_COPI: TMC_SPI_COPI_INST
+    TMC_SPI_SCK: TMC_SPI_SCK_INST
+    TQ_CAL_EN: TQ_CAL_EN_INST
+    TQ_CONVST_CS: TQ_CONVST_CS_INST
+    TQ_SPI_CIPO: TQ_SPI_CIPO_INST
+    TQ_SPI_COPI: TQ_SPI_COPI_INST
+    TQ_SPI_SCK: TQ_SPI_SCK_INST
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}_INST
+    ~{BUS_SW_EN}: ~{BUS_SW_EN}_INST
+    ~{HV_FAULT}: ~{HV_FAULT}_INST
+    ~{TMC_CS}: ~{TMC_CS}_INST
+    ~{TMC_DRV_EN}: ~{TMC_DRV_EN}_INST
+  note: board-authored sheet, 0 parts
+- name: mcu
+  file: mcu.kicad_sch
+  parent: /
+  ports:
+    +3.3V_MCU: +3.3V_MCU
+    +3.3V_SW: +3.3V_SW
+    +5V_MCU: +5V_MCU
+    ANGLE_OUT_MON: ANGLE_OUT_MON
+    BRAKE_ISENSE: BRAKE_ISENSE
+    DAC_SCL: DAC_SCL
+    DAC_SCL_INST: DAC_SCL_INST
+    DAC_SDA: DAC_SDA
+    DAC_SDA_INST: DAC_SDA_INST
+    FW_TRIG0: FW_TRIG0
+    FW_TRIG1: FW_TRIG1
+    GND: GND
+    HV_DIAG_EN: HV_DIAG_EN
+    HV_EN: HV_EN
+    HV_LATCH: HV_LATCH
+    HV_SNS: HV_SNS
+    PYC_UART_RX: PYC_UART_RX
+    PYC_UART_TX: PYC_UART_TX
+    TMC_DIAG0: TMC_DIAG0
+    TMC_DIAG1: TMC_DIAG1
+    TMC_SPI_CIPO: TMC_SPI_CIPO
+    TMC_SPI_COPI: TMC_SPI_COPI
+    TMC_SPI_SCK: TMC_SPI_SCK
+    TQ_CAL_EN: TQ_CAL_EN
+    TQ_CONVST_CS: TQ_CONVST_CS
+    TQ_SPI_CIPO: TQ_SPI_CIPO
+    TQ_SPI_COPI: TQ_SPI_COPI
+    TQ_SPI_SCK: TQ_SPI_SCK
+    USB_D+: USB_D+
+    USB_D-: USB_D-
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}
+    ~{BUS_SW_EN}_INST: ~{BUS_SW_EN}_INST
+    ~{HV_FAULT}: ~{HV_FAULT}
+    ~{TMC_CS}: ~{TMC_CS}
+    ~{TMC_DRV_EN}: ~{TMC_DRV_EN}
+  note: board-authored sheet, 11 parts
+- name: motor_encoder_switch
+  file: motor_encoder_switch.kicad_sch
+  parent: /
+  ports:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    ANGLE_OUT_MON: ANGLE_OUT_MON
+    DAC_SCL: DAC_SCL
+    DAC_SDA: DAC_SDA
+    DIAG0: TMC_DIAG0
+    DIAG0_INST: TMC_DIAG0_INST
+    DIAG1: TMC_DIAG1
+    DIAG1_INST: TMC_DIAG1_INST
+    ENCA_INST: ENCA_INST
+    ENCB_INST: ENCB_INST
+    GND: GND
+    LIMIT_SW_INST: LIMIT_SW_INST
+    TMC_SPI_CIPO: TMC_SPI_CIPO
+    TMC_SPI_CIPO_INST: TMC_SPI_CIPO_INST
+    TMC_SPI_COPI: TMC_SPI_COPI
+    TMC_SPI_COPI_INST: TMC_SPI_COPI_INST
+    TMC_SPI_SCK: TMC_SPI_SCK
+    TMC_SPI_SCK_INST: TMC_SPI_SCK_INST
+    VM: +36V_SW
+    ~{DRV_EN}: ~{TMC_DRV_EN}
+    ~{DRV_EN}_INST: ~{TMC_DRV_EN}_INST
+    ~{TMC_CS}: ~{TMC_CS}
+    ~{TMC_CS}_INST: ~{TMC_CS}_INST
+  note: board-authored sheet, 10 parts
+- name: brake_torque_sensor
+  file: brake_torque_sensor.kicad_sch
+  parent: /
+  ports:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    +36V: +36V_SW
+    BRAKE_ISENSE: BRAKE_ISENSE
+    DAC_SCL: DAC_SCL
+    DAC_SDA: DAC_SDA
+    GND: GND
+    PG_12V: PG_12V
+    TQ_AOUT_MON:
+      open: no-connect flag
+    TQ_CAL_EN: TQ_CAL_EN
+    TQ_CAL_EN_INST: TQ_CAL_EN_INST
+    TQ_CONVST_CS: TQ_CONVST_CS
+    TQ_CONVST_CS_INST: TQ_CONVST_CS_INST
+    TQ_SPI_CIPO: TQ_SPI_CIPO
+    TQ_SPI_CIPO_INST: TQ_SPI_CIPO_INST
+    TQ_SPI_COPI: TQ_SPI_COPI
+    TQ_SPI_COPI_INST: TQ_SPI_COPI_INST
+    TQ_SPI_SCK: TQ_SPI_SCK
+    TQ_SPI_SCK_INST: TQ_SPI_SCK_INST
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}
+    ~{BRAKE_FAULT}_INST: ~{BRAKE_FAULT}_INST
+  note: board-authored sheet, 6 parts
+placements:
+- name: instrument_port_digital_50_dut_ffc_boundary_vertical
+  block: orb_weaver_private:instrument_port_digital_50_dut_ffc_boundary_vertical
+  parent: /instrument_port
+  anchor_mm: [0.0, 36.0]
+  rotation_degrees: 180
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 91.44]
+    pins:
+      +3.3V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      DIG0:
+        edge: west
+        offset_mm: 10.16
+        angle: 180
+        shape: input
+      DIG1:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: input
+      DIG2:
+        edge: west
+        offset_mm: 15.24
+        angle: 180
+        shape: input
+      DIG3:
+        edge: west
+        offset_mm: 17.78
+        angle: 180
+        shape: input
+      DIG8:
+        edge: west
+        offset_mm: 30.48
+        angle: 180
+        shape: input
+      DIG9:
+        edge: west
+        offset_mm: 33.02
+        angle: 180
+        shape: input
+      DIG10:
+        edge: west
+        offset_mm: 35.56
+        angle: 180
+        shape: input
+      DIG11:
+        edge: west
+        offset_mm: 38.1
+        angle: 180
+        shape: input
+      DIG12:
+        edge: west
+        offset_mm: 40.64
+        angle: 180
+        shape: input
+      DIG13:
+        edge: west
+        offset_mm: 43.18
+        angle: 180
+        shape: input
+      DIG14:
+        edge: west
+        offset_mm: 45.72
+        angle: 180
+        shape: input
+      DIG15:
+        edge: west
+        offset_mm: 48.26
+        angle: 180
+        shape: input
+      DIG16:
+        edge: west
+        offset_mm: 50.8
+        angle: 180
+        shape: input
+      DIG17:
+        edge: west
+        offset_mm: 53.34
+        angle: 180
+        shape: input
+      DIG18:
+        edge: west
+        offset_mm: 55.88
+        angle: 180
+        shape: input
+      DIG19:
+        edge: west
+        offset_mm: 58.42
+        angle: 180
+        shape: input
+      DIG20:
+        edge: west
+        offset_mm: 60.96
+        angle: 180
+        shape: input
+      DIG21:
+        edge: west
+        offset_mm: 63.5
+        angle: 180
+        shape: input
+      DIG22:
+        edge: west
+        offset_mm: 66.04
+        angle: 180
+        shape: input
+      DIG23:
+        edge: west
+        offset_mm: 68.58
+        angle: 180
+        shape: input
+      DIG24:
+        edge: west
+        offset_mm: 71.12
+        angle: 180
+        shape: input
+      DIG25:
+        edge: west
+        offset_mm: 73.66
+        angle: 180
+        shape: input
+      DIG26:
+        edge: west
+        offset_mm: 76.2
+        angle: 180
+        shape: input
+      DIG27:
+        edge: west
+        offset_mm: 78.74
+        angle: 180
+        shape: input
+      DIG28:
+        edge: west
+        offset_mm: 81.28
+        angle: 180
+        shape: input
+      DIG29:
+        edge: west
+        offset_mm: 83.82
+        angle: 180
+        shape: input
+      DIG30:
+        edge: west
+        offset_mm: 86.36
+        angle: 180
+        shape: input
+      DIG31:
+        edge: west
+        offset_mm: 88.9
+        angle: 180
+        shape: input
+      GND:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+      DIG4:
+        edge: east
+        offset_mm: 20.32
+        angle: 0
+        shape: input
+      DIG5:
+        edge: east
+        offset_mm: 22.86
+        angle: 0
+        shape: input
+      DIG6:
+        edge: east
+        offset_mm: 25.4
+        angle: 0
+        shape: input
+      DIG7:
+        edge: east
+        offset_mm: 27.94
+        angle: 0
+        shape: input
+  connections:
+    +3.3V: +3.3V
+    DIG0: FW_TRIG0
+    DIG1: FW_TRIG1
+    DIG2: PYC_UART_TX
+    DIG3: PYC_UART_RX
+    DIG4: GND
+    DIG5: GND
+    DIG6: GND
+    DIG7: GND
+    DIG8: TMC_SPI_SCK
+    DIG9: ~{TMC_CS}
+    DIG10: TMC_SPI_COPI
+    DIG11: TMC_SPI_CIPO
+    DIG12: TMC_DIAG0
+    DIG13: TMC_DIAG1
+    DIG14: ~{TMC_DRV_EN}
+    DIG15: LIMIT_SW
+    DIG16: TQ_SPI_SCK
+    DIG17: TQ_CONVST_CS
+    DIG18: TQ_SPI_COPI
+    DIG19: TQ_SPI_CIPO
+    DIG20: TQ_CAL_EN
+    DIG21: ~{BRAKE_FAULT}
+    DIG22: DAQ_SDA
+    DIG23: DAQ_SCL
+    DIG24: HV_EN
+    DIG25: HV_DIAG_EN
+    DIG26: ~{HV_FAULT}
+    DIG27: ~{BUS_SW_EN}
+    DIG28: ENCA
+    DIG29: ENCB
+    DIG30: PG_5V
+    DIG31: PG_12V
+    GND: GND
+- name: rp2040_with_gpio_isolation_sn74cb3q3245
+  block: orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245
+  parent: /mcu
+  anchor_mm: [-32.0, 19.0]
+  rotation_degrees: 90
+  side: front
+  sheet_pins:
+    size_mm: [40.64, 99.06]
+    pins:
+      +3.3V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      GND:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: passive
+      USB_D+:
+        edge: west
+        offset_mm: 10.16
+        angle: 180
+        shape: bidirectional
+      USB_D-:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: bidirectional
+      GPIO0:
+        edge: west
+        offset_mm: 17.78
+        angle: 180
+        shape: bidirectional
+      GPIO1:
+        edge: west
+        offset_mm: 20.32
+        angle: 180
+        shape: bidirectional
+      GPIO2:
+        edge: west
+        offset_mm: 22.86
+        angle: 180
+        shape: bidirectional
+      GPIO3:
+        edge: west
+        offset_mm: 25.4
+        angle: 180
+        shape: bidirectional
+      GPIO4:
+        edge: west
+        offset_mm: 27.94
+        angle: 180
+        shape: bidirectional
+      GPIO5:
+        edge: west
+        offset_mm: 30.48
+        angle: 180
+        shape: bidirectional
+      GPIO6:
+        edge: west
+        offset_mm: 33.02
+        angle: 180
+        shape: bidirectional
+      GPIO7:
+        edge: west
+        offset_mm: 35.56
+        angle: 180
+        shape: bidirectional
+      GPIO8:
+        edge: west
+        offset_mm: 38.1
+        angle: 180
+        shape: bidirectional
+      GPIO10:
+        edge: west
+        offset_mm: 43.18
+        angle: 180
+        shape: bidirectional
+      GPIO11:
+        edge: west
+        offset_mm: 45.72
+        angle: 180
+        shape: bidirectional
+      GPIO12:
+        edge: west
+        offset_mm: 48.26
+        angle: 180
+        shape: bidirectional
+      GPIO13:
+        edge: west
+        offset_mm: 50.8
+        angle: 180
+        shape: bidirectional
+      GPIO14:
+        edge: west
+        offset_mm: 53.34
+        angle: 180
+        shape: bidirectional
+      GPIO15:
+        edge: west
+        offset_mm: 55.88
+        angle: 180
+        shape: bidirectional
+      GPIO16:
+        edge: west
+        offset_mm: 58.42
+        angle: 180
+        shape: bidirectional
+      GPIO17:
+        edge: west
+        offset_mm: 60.96
+        angle: 180
+        shape: bidirectional
+      GPIO18:
+        edge: west
+        offset_mm: 63.5
+        angle: 180
+        shape: bidirectional
+      GPIO19:
+        edge: west
+        offset_mm: 66.04
+        angle: 180
+        shape: bidirectional
+      GPIO20:
+        edge: west
+        offset_mm: 68.58
+        angle: 180
+        shape: bidirectional
+      GPIO21:
+        edge: west
+        offset_mm: 71.12
+        angle: 180
+        shape: bidirectional
+      GPIO22:
+        edge: west
+        offset_mm: 73.66
+        angle: 180
+        shape: bidirectional
+      GPIO23:
+        edge: west
+        offset_mm: 76.2
+        angle: 180
+        shape: bidirectional
+      GPIO24:
+        edge: west
+        offset_mm: 78.74
+        angle: 180
+        shape: bidirectional
+      GPIO25:
+        edge: west
+        offset_mm: 81.28
+        angle: 180
+        shape: bidirectional
+      GPIO26:
+        edge: west
+        offset_mm: 83.82
+        angle: 180
+        shape: passive
+      GPIO27:
+        edge: west
+        offset_mm: 86.36
+        angle: 180
+        shape: passive
+      GPIO28:
+        edge: west
+        offset_mm: 88.9
+        angle: 180
+        shape: passive
+      GPIO29:
+        edge: west
+        offset_mm: 91.44
+        angle: 180
+        shape: passive
+      ~{BUS_SW_EN}:
+        edge: west
+        offset_mm: 96.52
+        angle: 180
+        shape: output
+      ISO0:
+        edge: east
+        offset_mm: 17.78
+        angle: 0
+        shape: passive
+      ISO1:
+        edge: east
+        offset_mm: 20.32
+        angle: 0
+        shape: passive
+      ISO2:
+        edge: east
+        offset_mm: 22.86
+        angle: 0
+        shape: passive
+      ISO3:
+        edge: east
+        offset_mm: 25.4
+        angle: 0
+        shape: passive
+      ISO4:
+        edge: east
+        offset_mm: 27.94
+        angle: 0
+        shape: passive
+      ISO5:
+        edge: east
+        offset_mm: 30.48
+        angle: 0
+        shape: passive
+      ISO6:
+        edge: east
+        offset_mm: 33.02
+        angle: 0
+        shape: passive
+      ISO7:
+        edge: east
+        offset_mm: 35.56
+        angle: 0
+        shape: passive
+      ISO8:
+        edge: east
+        offset_mm: 38.1
+        angle: 0
+        shape: passive
+      ISO10:
+        edge: east
+        offset_mm: 43.18
+        angle: 0
+        shape: passive
+      ISO11:
+        edge: east
+        offset_mm: 45.72
+        angle: 0
+        shape: passive
+      ISO12:
+        edge: east
+        offset_mm: 48.26
+        angle: 0
+        shape: passive
+      ISO13:
+        edge: east
+        offset_mm: 50.8
+        angle: 0
+        shape: passive
+      ISO14:
+        edge: east
+        offset_mm: 53.34
+        angle: 0
+        shape: passive
+      ISO15:
+        edge: east
+        offset_mm: 55.88
+        angle: 0
+        shape: passive
+      ISO16:
+        edge: east
+        offset_mm: 58.42
+        angle: 0
+        shape: passive
+      ISO17:
+        edge: east
+        offset_mm: 60.96
+        angle: 0
+        shape: passive
+      ISO18:
+        edge: east
+        offset_mm: 63.5
+        angle: 0
+        shape: passive
+      ISO19:
+        edge: east
+        offset_mm: 66.04
+        angle: 0
+        shape: passive
+      ISO20:
+        edge: east
+        offset_mm: 68.58
+        angle: 0
+        shape: passive
+      ISO21:
+        edge: east
+        offset_mm: 71.12
+        angle: 0
+        shape: passive
+      ISO22:
+        edge: east
+        offset_mm: 73.66
+        angle: 0
+        shape: passive
+      ISO23:
+        edge: east
+        offset_mm: 76.2
+        angle: 0
+        shape: passive
+      ISO24:
+        edge: east
+        offset_mm: 78.74
+        angle: 0
+        shape: passive
+      ISO25:
+        edge: east
+        offset_mm: 81.28
+        angle: 0
+        shape: passive
+      ISO26:
+        edge: east
+        offset_mm: 83.82
+        angle: 0
+        shape: passive
+      ISO27:
+        edge: east
+        offset_mm: 86.36
+        angle: 0
+        shape: passive
+      ISO28:
+        edge: east
+        offset_mm: 88.9
+        angle: 0
+        shape: passive
+      ISO29:
+        edge: east
+        offset_mm: 91.44
+        angle: 0
+        shape: passive
+      ~{BUS_SW_EN}_INST:
+        edge: east
+        offset_mm: 96.52
+        angle: 0
+        shape: output
+  connections:
+    +3.3V: +3.3V_MCU
+    GND: GND
+    GPIO0: PYC_UART_TX
+    GPIO1: PYC_UART_RX
+    GPIO2:
+      open: no-connect flag
+    GPIO3:
+      open: no-connect flag
+    GPIO4:
+      open: no-connect flag
+    GPIO5:
+      open: no-connect flag
+    GPIO6:
+      open: no-connect flag
+    GPIO7:
+      open: no-connect flag
+    GPIO8:
+      open: no-connect flag
+    GPIO10:
+      open: no-connect flag
+    GPIO11:
+      open: no-connect flag
+    GPIO12:
+      open: no-connect flag
+    GPIO13:
+      open: no-connect flag
+    GPIO14: HV_DIAG_EN
+    GPIO15:
+      open: no-connect flag
+    GPIO16: DAC_SDA_BYP
+    GPIO17: DAC_SCL_BYP
+    GPIO18:
+      open: no-connect flag
+    GPIO19: HV_EN
+    GPIO20:
+      open: no-connect flag
+    GPIO21: FW_TRIG1
+    GPIO22:
+      open: no-connect flag
+    GPIO23: ~{HV_FAULT}
+    GPIO24: HV_LATCH
+    GPIO25: FW_TRIG0
+    GPIO26: SW_RAIL_SENSE_DIV_2
+    GPIO27: BRAKE_ISENSE
+    GPIO28: HV_SNS
+    GPIO29: ANGLE_OUT_MON
+    ISO0:
+      open: no-connect flag
+    ISO1:
+      open: no-connect flag
+    ISO2: ~{TMC_CS}
+    ISO3: ~{TMC_DRV_EN}
+    ISO4: TMC_SPI_CIPO
+    ISO5: TMC_DIAG0
+    ISO6: TMC_SPI_SCK
+    ISO7: TMC_SPI_COPI
+    ISO8: TMC_DIAG1
+    ISO10: TQ_SPI_SCK
+    ISO11: TQ_SPI_COPI
+    ISO12: TQ_SPI_CIPO
+    ISO13: ~{BRAKE_FAULT}
+    ISO14:
+      open: no-connect flag
+    ISO15: TQ_CONVST_CS
+    ISO16: DAC_SDA
+    ISO17: DAC_SCL
+    ISO18: TQ_CAL_EN
+    ISO19:
+      open: no-connect flag
+    ISO20:
+      open: no-connect flag
+    ISO21:
+      open: no-connect flag
+    ISO22:
+      open: no-connect flag
+    ISO23:
+      open: no-connect flag
+    ISO24:
+      open: no-connect flag
+    ISO25:
+      open: no-connect flag
+    ISO26:
+      open: no-connect flag
+    ISO27:
+      open: no-connect flag
+    ISO28:
+      open: no-connect flag
+    ISO29:
+      open: no-connect flag
+    USB_D+: USB_D+
+    USB_D-: USB_D-
+    ~{BUS_SW_EN}:
+      open: no-connect flag
+    ~{BUS_SW_EN}_INST: ~{BUS_SW_EN}_INST
+- name: 5v_to_3v3_tps73733_1
+  block: orb_weaver_private:5v_to_3v3_tps73733
+  parent: /mcu
+  anchor_mm: [-28.5, 2.0]
+  rotation_degrees: 90
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 7.62]
+    pins:
+      +5V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: passive
+      GND:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+  connections:
+    +3.3V: +3.3V_MCU
+    +5V: +5V_MCU
+    GND: GND
+  off_grid: 'as built: -28.5, 2 is off the 1 mm grid (review)'
+- name: pycontrol_behavior_port_rj45_boundary_vertical
+  block: orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical
+  parent: /
+  anchor_mm: [-39.98, -8.0]
+  rotation_degrees: 270
+  side: front
+  sheet_pins:
+    size_mm: [35.56, 22.86]
+    pins:
+      PYC_CONN_5V:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: passive
+      +5V_PYC:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+      GND:
+        edge: east
+        offset_mm: 7.62
+        angle: 0
+        shape: passive
+      PYC_DIO_A_HOSTTX_SCL_MOSI:
+        edge: east
+        offset_mm: 12.7
+        angle: 0
+        shape: bidirectional
+      PYC_DIO_B_HOSTRX_SDA_MISO:
+        edge: east
+        offset_mm: 15.24
+        angle: 0
+        shape: bidirectional
+      PYC_DIO_A_INST:
+        edge: east
+        offset_mm: 17.78
+        angle: 0
+        shape: output
+      PYC_DIO_B_INST:
+        edge: east
+        offset_mm: 20.32
+        angle: 0
+        shape: output
+  connections:
+    +5V_PYC: +5V_MCU
+    GND: GND
+    PYC_CONN_5V:
+      open: no-connect flag
+    PYC_DIO_A_HOSTTX_SCL_MOSI: PYC_UART_RX
+    PYC_DIO_A_INST: PYC_UART_RX_INST
+    PYC_DIO_B_HOSTRX_SDA_MISO: PYC_UART_TX
+    PYC_DIO_B_INST: PYC_UART_TX_INST
+  off_grid: 'as built: -39.98, -8 is off the 1 mm grid (review)'
+- name: 5v_to_3v3_tps73733_2
+  block: orb_weaver_private:5v_to_3v3_tps73733
+  parent: /
+  anchor_mm: [-14.0, 1.75]
+  rotation_degrees: 180
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 7.62]
+    pins:
+      +5V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: passive
+      GND:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+  connections:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    GND: GND
+  off_grid: 'as built: -14, 1.75 is off the 1 mm grid (review)'
+- name: usb2_vertical
+  block: orb_weaver_private:usb2_vertical
+  parent: /
+  anchor_mm: [-45.0, 11.0]
+  rotation_degrees: 90
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 15.24]
+    pins:
+      VBUS:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: passive
+      +5V_USB:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+      GND:
+        edge: east
+        offset_mm: 7.62
+        angle: 0
+        shape: passive
+      USB_D+:
+        edge: east
+        offset_mm: 10.16
+        angle: 0
+        shape: bidirectional
+      USB_D-:
+        edge: east
+        offset_mm: 12.7
+        angle: 0
+        shape: bidirectional
+  connections:
+    +5V_USB: +5V_MCU
+    GND: GND
+    USB_D+: USB_D+
+    USB_D-: USB_D-
+    VBUS:
+      open: no-connect flag
+- name: analog_output_0_3v3_dac80501
+  block: orb_weaver_private:analog_output_0_3v3_dac80501
+  parent: /motor_encoder_switch
+  anchor_mm: [-1.0, 2.0]
+  rotation_degrees: 180
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 20.32]
+    pins:
+      +5V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: passive
+      GND:
+        edge: west
+        offset_mm: 7.62
+        angle: 180
+        shape: passive
+      SCL:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: input
+      SDA:
+        edge: west
+        offset_mm: 15.24
+        angle: 180
+        shape: bidirectional
+      AOUT_MON:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: output
+      AOUT:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: output
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    AOUT: ANGLE_OUT
+    AOUT_MON: ANGLE_OUT_MON
+    GND: GND
+    SCL: DAC_SCL
+    SDA: DAC_SDA
+- name: quadrature_encoder_input_5v_sn74lvc2g17
+  block: orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17
+  parent: /motor_encoder_switch
+  anchor_mm: [9.0, -28.0]
+  rotation_degrees: 270
+  side: front
+  sheet_pins:
+    size_mm: [25.4, 17.78]
+    pins:
+      VENC:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: passive
+      GND:
+        edge: west
+        offset_mm: 7.62
+        angle: 180
+        shape: passive
+      EA:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: input
+      EB:
+        edge: west
+        offset_mm: 15.24
+        angle: 180
+        shape: input
+      ENCA:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: output
+      ENCB:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: output
+      ENCA_INST:
+        edge: east
+        offset_mm: 12.7
+        angle: 0
+        shape: output
+      ENCB_INST:
+        edge: east
+        offset_mm: 15.24
+        angle: 0
+        shape: output
+  connections:
+    +3.3V: +3.3V
+    EA: ENCA_5V
+    EB: ENCB_5V
+    ENCA: ENCA
+    ENCA_INST: ENCA_INST
+    ENCB: ENCB
+    ENCB_INST: ENCB_INST
+    GND: GND
+    VENC: +5V
+- name: limit_switch_debounced_input_vertical
+  block: orb_weaver_private:limit_switch_debounced_input_vertical
+  parent: /motor_encoder_switch
+  anchor_mm: [18.0, -36.0]
+  rotation_degrees: 180
+  side: front
+  connections:
+    +3.3V_SW: +3.3V
+    GND: GND
+    LIMIT_SW: LIMIT_SW
+    LIMIT_SW_INST: LIMIT_SW_INST
+- name: tmc5130
+  block: orb_weaver_private:tmc5130
+  parent: /motor_encoder_switch
+  anchor_mm: [1.0, -14.0]
+  rotation_degrees: 90
+  side: front
+  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    CIPO: TMC_SPI_CIPO
+    CIPO_INST: TMC_SPI_CIPO_INST
+    COPI: TMC_SPI_COPI
+    COPI_INST: TMC_SPI_COPI_INST
+    ENCA: ENCA
+    ENCB: ENCB
+    ENCN:
+      open: no-connect flag
+    GND: GND
+    OA1: OA1
+    OA2: OA2
+    OB1: OB1
+    OB2: OB2
+    REFL: LIMIT_SW
+    REFR: GND
+    SCK: TMC_SPI_SCK
+    SCK_INST: TMC_SPI_SCK_INST
+    SWN_DIAG0: DIAG0
+    SWN_DIAG0_INST: DIAG0_INST
+    SWP_DIAG1: DIAG1
+    SWP_DIAG1_INST: DIAG1_INST
+    SWSEL:
+      open: no-connect flag
+    VM: VM
+    ~{CS}: ~{TMC_CS}
+    ~{CS}_INST: ~{TMC_CS}_INST
+    ~{DRV_EN}: ~{DRV_EN}
+    ~{DRV_EN}_INST: ~{DRV_EN}_INST
+- name: hv_to_5v_tpsm365r6
+  block: orb_weaver_private:hv_to_5v_tpsm365r6
+  parent: /
+  anchor_mm: [-21.25, -7.0]
+  rotation_degrees: 90
+  side: front
+  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+  connections:
+    +5V: +5V_SW
+    GND: GND
+    PGOOD: PG_5V
+    VIN: +36V_SW
+- name: torque_bridge_0_3v3_ina821
+  block: orb_weaver_private:torque_bridge_0_3v3_ina821
+  parent: /brake_torque_sensor
+  anchor_mm: [37.0, -18.0]
+  rotation_degrees: 180
+  side: front
+  sheet_pins:
+    size_mm: [40.64, 33.02]
+    pins:
+      +12V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +5V:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: west
+        offset_mm: 7.62
+        angle: 180
+        shape: passive
+      GND:
+        edge: west
+        offset_mm: 10.16
+        angle: 180
+        shape: passive
+      SCK:
+        edge: west
+        offset_mm: 17.78
+        angle: 180
+        shape: input
+      COPI:
+        edge: west
+        offset_mm: 20.32
+        angle: 180
+        shape: input
+      CIPO:
+        edge: west
+        offset_mm: 22.86
+        angle: 180
+        shape: output
+      TQ_CONVST_CS:
+        edge: west
+        offset_mm: 25.4
+        angle: 180
+        shape: input
+      TQ_CAL_EN:
+        edge: west
+        offset_mm: 30.48
+        angle: 180
+        shape: input
+      TQ_AOUT:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: output
+      TQ_AOUT_MON:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: output
+      SCK_INST:
+        edge: east
+        offset_mm: 17.78
+        angle: 0
+        shape: output
+      COPI_INST:
+        edge: east
+        offset_mm: 20.32
+        angle: 0
+        shape: output
+      CIPO_INST:
+        edge: east
+        offset_mm: 22.86
+        angle: 0
+        shape: output
+      TQ_CONVST_CS_INST:
+        edge: east
+        offset_mm: 25.4
+        angle: 0
+        shape: output
+      TQ_CAL_EN_INST:
+        edge: east
+        offset_mm: 30.48
+        angle: 0
+        shape: output
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    +12V: +12V
+    CIPO: TQ_SPI_CIPO
+    CIPO_INST: TQ_SPI_CIPO_INST
+    COPI: TQ_SPI_COPI
+    COPI_INST: TQ_SPI_COPI_INST
+    GND: GND
+    SCK: TQ_SPI_SCK
+    SCK_INST: TQ_SPI_SCK_INST
+    TQ_AOUT: TQ_AOUT
+    TQ_AOUT_MON: TQ_AOUT_MON
+    TQ_CAL_EN: TQ_CAL_EN
+    TQ_CAL_EN_INST: TQ_CAL_EN_INST
+    TQ_CONVST_CS: TQ_CONVST_CS
+    TQ_CONVST_CS_INST: TQ_CONVST_CS_INST
+- name: hv_to_12v_tpsm365r6
+  block: orb_weaver_private:hv_to_12v_tpsm365r6
+  parent: /brake_torque_sensor
+  anchor_mm: [35.0, -29.0]
+  rotation_degrees: 180
+  side: front
+  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+  connections:
+    +12V: +12V
+    GND: GND
+    PGOOD: PG_12V
+    VIN: +36V
+- name: brake_current_sink_0_49ma_dac80501
+  block: orb_weaver_private:brake_current_sink_0_49ma_dac80501
+  parent: /brake_torque_sensor
+  anchor_mm: [37.0, 12.0]
+  rotation_degrees: 180
+  side: front
+  sheet_pins:
+    size_mm: [30.48, 22.86]
+    pins:
+      +36V:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      +12V:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: passive
+      +5V:
+        edge: west
+        offset_mm: 7.62
+        angle: 180
+        shape: passive
+      +3.3V:
+        edge: west
+        offset_mm: 10.16
+        angle: 180
+        shape: passive
+      GND:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: passive
+      SCL:
+        edge: west
+        offset_mm: 17.78
+        angle: 180
+        shape: input
+      SDA:
+        edge: west
+        offset_mm: 20.32
+        angle: 180
+        shape: bidirectional
+      BRAKE_ISENSE:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: output
+      ~{BRAKE_FAULT}:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: output
+      ~{BRAKE_FAULT}_INST:
+        edge: east
+        offset_mm: 20.32
+        angle: 0
+        shape: output
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    +12V: +12V
+    +36V: +36V
+    BRAKE_ISENSE: BRAKE_ISENSE
+    GND: GND
+    SCL: DAC_SCL
+    SDA: DAC_SDA
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}
+    ~{BRAKE_FAULT}_INST: ~{BRAKE_FAULT}_INST
+- name: hv_input_36V_terminal_2pos_5p08_protected_vertical
+  block: orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical
+  parent: /
+  anchor_mm: [-44.0, -24.0]
+  rotation_degrees: 270
+  side: front
+  sheet_pins:
+    size_mm: [33.02, 17.78]
+    pins:
+      +3.3V_MCU:
+        edge: west
+        offset_mm: 2.54
+        angle: 180
+        shape: passive
+      ENABLE:
+        edge: west
+        offset_mm: 5.08
+        angle: 180
+        shape: input
+      SNS:
+        edge: west
+        offset_mm: 7.62
+        angle: 180
+        shape: output
+      ~{FAULT}:
+        edge: west
+        offset_mm: 10.16
+        angle: 180
+        shape: output
+      DIAG_ENABLE:
+        edge: west
+        offset_mm: 12.7
+        angle: 180
+        shape: input
+      LATCH:
+        edge: west
+        offset_mm: 15.24
+        angle: 180
+        shape: input
+      HV_IN:
+        edge: east
+        offset_mm: 2.54
+        angle: 0
+        shape: passive
+      +36V:
+        edge: east
+        offset_mm: 5.08
+        angle: 0
+        shape: passive
+      GND:
+        edge: east
+        offset_mm: 7.62
+        angle: 0
+        shape: passive
+      ENABLE_INST:
+        edge: east
+        offset_mm: 10.16
+        angle: 0
+        shape: output
+      DIAG_ENABLE_INST:
+        edge: east
+        offset_mm: 12.7
+        angle: 0
+        shape: output
+      ~{FAULT}_INST:
+        edge: east
+        offset_mm: 15.24
+        angle: 0
+        shape: output
+  connections:
+    +3.3V_MCU: +3.3V_MCU
+    +36V: +36V_SW
+    DIAG_ENABLE: HV_DIAG_EN
+    DIAG_ENABLE_INST: HV_DIAG_EN_INST
+    ENABLE: HV_EN
+    ENABLE_INST: HV_EN_INST
+    GND: GND
+    HV_IN:
+      open: no-connect flag
+    LATCH: HV_LATCH
+    SNS: HV_SNS
+    ~{FAULT}: ~{HV_FAULT}
+    ~{FAULT}_INST: ~{HV_FAULT}_INST
+nets:
+  /+3.3V_MCU:
+    class: PWR_3V3
+  /+3.3V_SW:
+    class: PWR_3V3
+  /+36V_SW:
+    class: PWR_HV_BUS
+  /+5V_MCU:
+    class: PWR_5V
+  /+5V_SW:
+    class: PWR_5V
+  /ANGLE_OUT_MON:
+    class: MCU_FINE
+    meaning: Analog output readback, ADC3¹¹; in as the MCU sees it
+    gpio: GP29
+  /BRAKE_ISENSE:
+    class: MCU_FINE
+    meaning: Brake sink current readback, ADC1¹¹; in as the MCU sees it
+    gpio: GP27
+  /DAC_SCL:
+    class: Default
+    meaning: I2C0 SCL — same bus⁷; out as the MCU sees it, via the bus switch
+    gpio: GP17
+  /DAC_SCL_INST:
+    class: INSTRUMENT
+  /DAC_SDA:
+    class: Default
+    meaning: I2C0 SDA — analog 0x48, brake 0x49⁷; bidi as the MCU sees it, via the bus switch
+    gpio: GP16
+  /DAC_SDA_INST:
+    class: INSTRUMENT
+  /ENCA_INST:
+    class: INSTRUMENT
+  /ENCB_INST:
+    class: INSTRUMENT
+  /FW_TRIG0:
+    class: MCU_FINE
+    meaning: Firmware timing marker; out as the MCU sees it
+    gpio: GP25
+  /FW_TRIG1:
+    class: MCU_FINE
+    meaning: Firmware timing marker; out as the MCU sees it
+    gpio: GP21
+  /GND:
+    class: PWR_RETURN_LOCAL
+  /HV_DIAG_EN:
+    class: MCU_FINE
+    meaning: 36 V switch diagnostics enable⁵; out as the MCU sees it
+    gpio: GP14
+  /HV_DIAG_EN_INST:
+    class: INSTRUMENT
+  /HV_EN:
+    class: MCU_FINE
+    meaning: 36 V input switch enable; out as the MCU sees it
+    gpio: GP19
+  /HV_EN_INST:
+    class: INSTRUMENT
+  /HV_LATCH:
+    class: MCU_FINE
+    meaning: 36 V switch latch-off select¹⁰; out as the MCU sees it
+    gpio: GP24
+  /HV_SNS:
+    class: MCU_FINE
+    meaning: 36 V input load-current sense, `R_SNS` = 249 Ω; in as the MCU sees it
+    gpio: GP28
+  /LIMIT_SW_INST:
+    class: INSTRUMENT
+  /PG_12V:
+    class: Default
+  /PG_5V:
+    class: Default
+  /PYC_UART_RX:
+    class: MCU_FINE
+    meaning: UART RX from pyControl (`UART0 RX`); in as the MCU sees it
+    gpio: GP1
+  /PYC_UART_RX_INST:
+    class: INSTRUMENT
+  /PYC_UART_TX:
+    class: MCU_FINE
+    meaning: UART TX to pyControl (`UART0 TX`); out as the MCU sees it
+    gpio: GP0
+  /PYC_UART_TX_INST:
+    class: INSTRUMENT
+  /TMC_DIAG0:
+    class: Default
+    meaning: Driver diagnostic 0; in as the MCU sees it, via the bus switch
+    gpio: GP5
+  /TMC_DIAG0_INST:
+    class: INSTRUMENT
+  /TMC_DIAG1:
+    class: Default
+    meaning: Driver diagnostic 1; in as the MCU sees it, via the bus switch
+    gpio: GP8
+  /TMC_DIAG1_INST:
+    class: INSTRUMENT
+  /TMC_SPI_CIPO:
+    class: Default
+    meaning: Driver SPI CIPO (`SPI0 RX`); in as the MCU sees it, via the bus switch
+    gpio: GP4
+  /TMC_SPI_CIPO_INST:
+    class: INSTRUMENT
+  /TMC_SPI_COPI:
+    class: Default
+    meaning: Driver SPI COPI (`SPI0 TX`); out as the MCU sees it, via the bus switch
+    gpio: GP7
+  /TMC_SPI_COPI_INST:
+    class: INSTRUMENT
+  /TMC_SPI_SCK:
+    class: Default
+    meaning: Driver SPI clock (`SPI0 SCK`); out as the MCU sees it, via the bus switch
+    gpio: GP6
+  /TMC_SPI_SCK_INST:
+    class: INSTRUMENT
+  /TQ_CAL_EN:
+    class: Default
+    meaning: Torque calibration enable⁷; out as the MCU sees it, via the bus switch
+    gpio: GP18
+  /TQ_CAL_EN_INST:
+    class: INSTRUMENT
+  /TQ_CONVST_CS:
+    class: Default
+    meaning: ADS8689 convert-start / frame, plain GPIO⁷; out as the MCU sees it, via the bus switch
+    gpio: GP15
+  /TQ_CONVST_CS_INST:
+    class: INSTRUMENT
+  /TQ_SPI_CIPO:
+    class: Default
+    meaning: Torque ADC SPI CIPO (`SPI1 RX`)⁷; in as the MCU sees it, via the bus switch
+    gpio: GP12
+  /TQ_SPI_CIPO_INST:
+    class: INSTRUMENT
+  /TQ_SPI_COPI:
+    class: Default
+    meaning: Torque ADC SPI COPI (`SPI1 TX`)⁷; out as the MCU sees it, via the bus switch
+    gpio: GP11
+  /TQ_SPI_COPI_INST:
+    class: INSTRUMENT
+  /TQ_SPI_SCK:
+    class: Default
+    meaning: Torque ADC SPI clock (`SPI1 SCK`)⁷; out as the MCU sees it, via the bus switch
+    gpio: GP10
+  /TQ_SPI_SCK_INST:
+    class: INSTRUMENT
+  /USB_D+:
+    class: USB_HS
+  /USB_D-:
+    class: USB_HS
+  /~{BRAKE_FAULT}:
+    class: Default
+    meaning: Brake block fault, active low⁷; in as the MCU sees it, via the bus switch
+    gpio: GP13
+  /~{BRAKE_FAULT}_INST:
+    class: INSTRUMENT
+  /~{BUS_SW_EN}_INST:
+    class: INSTRUMENT
+  /~{HV_FAULT}:
+    class: MCU_FINE
+    meaning: 36 V switch fault, open-drain, pull-up 3.3 V¹¹; in as the MCU sees it
+    gpio: GP23
+  /~{HV_FAULT}_INST:
+    class: INSTRUMENT
+  /~{TMC_CS}:
+    class: Default
+    meaning: Driver chip select; out as the MCU sees it, via the bus switch
+    gpio: GP2
+  /~{TMC_CS}_INST:
+    class: INSTRUMENT
+  /~{TMC_DRV_EN}:
+    class: Default
+    meaning: Driver enable, active low; out as the MCU sees it, via the bus switch
+    gpio: GP3
+  /~{TMC_DRV_EN}_INST:
+    class: INSTRUMENT
+  /brake_torque_sensor/+12V:
+    class: PWR_12V_LOCAL
+  /brake_torque_sensor/TQ_AOUT:
+    class: Default
+  /mcu/DAC_SCL_BYP:
+    class: MCU_FINE
+  /mcu/DAC_SDA_BYP:
+    class: MCU_FINE
+  /mcu/SW_RAIL_SENSE_DIV_2:
+    class: MCU_FINE
+    meaning: +3.3V_SW presence and level, divided by 2 inside mcu (R408/R409); in as the MCU sees it
+    gpio: GP26
+  /motor_encoder_switch/ANGLE_OUT:
+    class: Default
+  /motor_encoder_switch/ENCA:
+    class: Default
+  /motor_encoder_switch/ENCA_5V:
+    class: Default
+  /motor_encoder_switch/ENCB:
+    class: Default
+  /motor_encoder_switch/ENCB_5V:
+    class: Default
+  /motor_encoder_switch/LIMIT_SW:
+    class: Default
+  /motor_encoder_switch/OA1:
+    class: MOTOR_2A
+  /motor_encoder_switch/OA2:
+    class: MOTOR_2A
+  /motor_encoder_switch/OB1:
+    class: MOTOR_2A
+  /motor_encoder_switch/OB2:
+    class: MOTOR_2A
+  /brake_torque_sensor/torque_bridge_0_3v3_ina821/TQ_AOUT_MON:
+    class: Default
