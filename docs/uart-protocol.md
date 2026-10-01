@@ -511,3 +511,187 @@ analog outputs. Implemented and testable now:
 
 Unimplemented verbs answer `badverb` rather than acking, so a host cannot believe
 the analog output is live and record a trace of nothing.
+
+---
+
+# Protocol v1 Proposal — 2026-10-01
+
+**Status:** signed off 2026-10-01 for implementation, with four changes from
+the first draft (chunked `FETCH`, `ev;S` routing, `TRIAL` once per `WATCH`
+including `outcome=NONE`, `stream_hz` ≤ 50 and the `a_peak` definition) and
+the draft's eleven decisions accepted; a fifth change from the review of the
+implementation the same day: the capture is a ring around the outcome
+(`CFG pre_ms`/`post_ms`, `FETCH` below), not a linear buffer from `WATCH`. Transcribed from the firmware work
+brief of 2026-10-01 (`../../mouse-joystick-firm/.agents/handoff-rig-system-plan-2026-10-01.md`,
+section 3) and the rig system plan of record
+(`../../orb-weaver-context/context/mouse-joystick-rig-system-plan.md`, section 4).
+Nothing above this line changes until this section is signed off; the corpus
+(`../../mouse-joystick-firm/pycontrol/tests/fixtures/protocol_cases.txt`)
+changes only after that, and both implementations after the corpus.
+Points the brief left open are marked **DECISION** with the value this draft
+proposes; the reserved decisions of the brief's section 8 are listed at the
+end rather than decided here.
+
+Unchanged: framing, `seq`, `ack`/`nak`, the watchdog rule (any well-formed
+frame resets it, before dispatch) and the retransmission rule (state-changing
+commands cached, reads re-executed, two entries).
+
+## V1.1 What the protocol is for
+
+Two boards sit under a pyControl task that owns the experiment. pyControl sends
+parameters and bounded primitives down; the board sends events and one
+per-trial summary up. The board owns everything that must be ordered or timed
+better than a few milliseconds: homing, moves, the brake-then-release sequence,
+classifying what the animal did, and sampling angle and torque at 1 kHz. The
+OneBox records the analog copies at 30 kHz; the UART is not a sample path.
+One trial:
+
+```text
+MOVETO present → ev;TARGET → (pyControl cues) → BRAKE torque → ev;RELEASED
+→ WATCH pull;push;timeout → exactly one of ev;PULL | ev;PUSH | ev;NOMOVE | ev;ABORT
+→ MOVETO park → ev;TRIAL (summary) → ev;TARGET
+```
+
+The heartbeat is `STATUS`, not `PING`, at 10–25 Hz from the device class.
+
+## V1.2 Protocol version and capabilities
+
+- **DECISION:** `ID` reports `proto=2`. `FREEWHEEL` and `ARMPULL` are removed
+  (not aliased), so a `proto=1` host would break; the device class refuses a
+  major version it does not know, which is what the Versioning section asks
+  for. The alternative, keeping `proto=1` and the two old verbs as aliases,
+  carries the bring-up primitives into the experiment vocabulary for no
+  benefit.
+- `caps` gains tokens as implemented, and the device class gates on them,
+  never on `fw`: `brake`, `torque` and `angout` are hardware facts of the
+  board revision; **DECISION:** `watch`, `fetch`, `stream` and `cfg` are
+  firmware facts and are present in every `proto=2` firmware, so a host may
+  rely on them once `proto=2` is confirmed. `freewheel` leaves `caps`.
+- `fw` is the firmware build's `git describe` string and `hw` the board
+  revision from the build (`rev0`, `rev1`, …); neither is a placeholder any
+  more (fixed 2026-10-01).
+
+## V1.3 New and changed verbs
+
+| Verb | Args | Semantics |
+| --- | --- | --- |
+| `BRAKE` | `torque_Ncm` | Atomic in firmware: (1) set the brake DAC to the calibrated code, (2) wait for coil current to reach the setpoint or a fixed settle time (B5Z specification about 6 ms; **to be confirmed from `BRAKE_ISENSE` at v1.0 bring-up**), (3) release the driver, (4) `ev;RELEASED;t;angle=…;torque=…;brake=…`. State → `RELEASED`. Refused unless `ARMED` (`nak;notarmed`). On boards whose `caps` lacks `brake`: accepted, `torque` ignored, steps (3)–(4) only. This is today's `FREEWHEEL` and replaces it; `FREEWHEEL` answers `badverb`. |
+| `WATCH` | `pull=deg;push=deg;timeout=ms[;hold=ms][;touch=Ncm][;maxdur=ms]` | One-shot classifier, valid only in `RELEASED` (`nak;notreleased` otherwise). Thresholds are relative to the angle at `RELEASED`; `pull` is positive displacement in the pull direction, `push` positive in the push direction. Emits exactly one outcome event: `PULL` once the angle has been at or past `pull` continuously for `hold` ms (default 0); `PUSH` once the angle is at or past `push`; `NOMOVE` if no first motion (angle change above the deadband, V1.6) before `timeout`; `ABORT` if first motion occurred but no outcome within `maxdur` (default disabled; **DECISION:** measured from the `WATCH` command, like `timeout`). `TOUCH` (torque at or above `touch`, default disabled) is informational, at most once, and may precede the outcome. The classifier evaluates on every sample (the firmware's 1 kHz tick; the simulator's every service step). After the outcome the classifier is disarmed; a new `WATCH` re-arms. Replaces `ARMPULL`, which answers `badverb`. |
+| `MOVETO` | `deg[;profile]` | Unchanged, plus named profiles `present`, `retract`, `slow` (constants in the firmware's `AppConfig.hpp` first; `nak;badargs` for an unknown name; the simulator accepts the names and moves every profile at its one `v_max`, so corpus timings do not depend on them). Leaving `RELEASED`: re-engage the driver, resync `XACTUAL` from `X_ENC` (exit only, finding 5), emit `ev;TRIAL`, then release the brake. |
+| `MOVE` | `deg[;profile]` | Unchanged for now. Candidate for deletion together with the retransmission cache (finding 1); reserved decision. |
+| `CFG` | `key=value[;key=value…]` / `get` | Bounded runtime configuration. v1 keys: `wdt_ms` (host-loss timeout, 50–500, default 100; a change applies from the next watchdog refresh), `deadband_deg` (first-motion threshold for `NOMOVE`, 0.05–10, default 0.5), `stream_hz` (default `STREAM` rate, 1–50, default 10), `pre_ms` and `post_ms` (the capture window around the `WATCH` outcome, see `FETCH`: each 0–2047 and `pre_ms + post_ms ≤ 2047` so that the window fits the 2048-sample ring; defaults 500 and 500; a change applies to the next window that freezes). A value outside its bounds → `nak;outofrange` and nothing in the line is applied; an unknown key → `nak;badargs`. `CFG get` → `ack;s;wdt_ms=…;deadband_deg=…;stream_hz=…;pre_ms=…;post_ms=…`. |
+| `FETCH` | `[k0;n]` | Returns the last `WATCH` capture **in host-paced chunks**: `ack;s;n=N;k0=K;t0=T;dt_us=1000;pre=P`, then `N` lines `cap;k;angle;torque` for `k` from `K`, then `cap;end`. `n` is capped at **32** lines per request (`FETCH` alone means `k0=0;n=32`); the host asks again with the next `k0` until a reply carries fewer lines than it asked for. Reason: a 150-line burst at 115200 lasts about 330 ms, `IRQ_RXIDLE` may not fire until it ends, and a 200-byte receive buffer overflows; the device class also raises its `rxbuf` to 2048. `T` is the board time of sample `K`; sample `k` is at `T + (k−K)·dt_us`. **The capture is a ring** (review of 2026-10-01; it replaced a linear buffer that started at `WATCH` and stopped after two seconds, which missed any outcome later than that in a trial whose `timeout` may be 10 s): the angle (and torque) is sampled on the 1 ms grid from `RELEASED` on into a ring of 2048 samples that keeps running however long the trial takes. When the outcome is decided, the window freezes `post_ms` samples later and holds the last `pre_ms` samples before the outcome sample, the outcome sample itself and the `post_ms` samples after it: `pre + 1 + post` lines, and **`k = pre` is the outcome sample**. If the host leaves `RELEASED` first the window freezes at the exit with what exists: fewer post samples, or, with no outcome yet (`TRIAL outcome=NONE`), only the samples before the exit and no outcome sample, so the line count equals `pre`. `pre` reports the samples the ring actually holds, which is fewer than `pre_ms` when `RELEASED` (or a `WATCH` re-armed after a frozen window, which restarts the ring) is younger than `pre_ms`; history from before the `WATCH` counts. `nak;busy` while a `WATCH` is armed or the post window is still filling. A new `BRAKE` restarts the ring and discards the previous window, so the host fetches between trials; a `RELEASED` period in which no `WATCH` was armed leaves no window; no window → `n=0;k0=0;t0=0;pre=0` and `cap;end`. **DECISION:** the window bounds are `CFG pre_ms`/`post_ms`, each 0–2047 with `pre_ms + post_ms ≤ 2047`, defaults 500/500; the 2048-sample bound stays. **DECISION:** on boards whose `caps` lacks `torque` the `torque` field is empty (`cap;k;angle;`), so the line has the same field count everywhere. |
+| `STREAM` | `on[;rate_hz]` / `off` | Optional decimated telemetry at **1 to 50 Hz at 115200 baud** (raise the bound only with the baud), for display only, off by default and off again after a fault or `DISARM`; `rate_hz` outside the bound → `nak;outofrange`, omitted → `CFG stream_hz`. Sample lines are `ev;S;t;angle=…;torque=…`, an event in framing, so the device class has no fourth message kind to decode; **the device class routes `ev;S` lines to its `AnalogChannel`s and never publishes them as framework events.** |
+| `TQ` | `zero` / `cal;on` / `cal;off` / `get` | Torque tare (store the offset), shunt-calibration switch (`TQ_CAL_EN`), raw read. v1.0 boards only; `badverb` when `caps` lacks `torque`. |
+| `ANGOUT`, `ANGSCALE` | as in the command table | Must work in the protocol firmware, not only in the bench console. `GAIN = 0x0101` written before the first data write; the output is 0 V, or the agreed fault code, while unhomed, faulted or disabled (reserved decision: code 0 or code 497). |
+| `INSTR` | unchanged | **Found 2026-10-01:** the firmware enables the InstrumentPort buffers at boot for its proof of life, so `INSTR STATE` answers `instr=1` on a fresh board; the simulator answered `0`. The boot default is **on**. The verb now really drives the buffers (fixed 2026-10-01). On the QP build the QS trace leaves on `FW_TRIG1` through the same buffers, so **`INSTR OFF` also silences the trace**. On a v1.0 board the Digital-50 port has no enable at all; there the verb is accepted and `STATE` always reports `1`. |
+
+**DECISION:** the retransmission classification (finding 1) extends as: cached
+(state-changing) `BRAKE`, `WATCH`, `CFG k=v`, `TQ zero`, `TQ cal`, `STREAM`;
+re-executed (reads) `FETCH`, `CFG get`, `TQ get`.
+
+**DECISION:** a `WATCH` while one is already armed replaces it (one `ack`, no
+event for the superseded one). A `BRAKE` while already `RELEASED` is refused
+(`nak;notarmed`) as the brief states; whether the brake level should be
+adjustable mid-trial is a question for the researcher.
+
+## V1.4 Replies and events
+
+- `STATUS` → `ack;s;state=…;angle=…;xactual=…;torque=…;brake=…;homed=…;limit=…;faults=…;hv=…;t=…`.
+  `t` is the board clock in microseconds, 64-bit, decimal. The device class
+  pairs it with pyControl's millisecond clock on every heartbeat; nothing else
+  is needed for alignment. **DECISION:** `torque` and `brake` are always
+  present and empty on boards without the capability, so field positions never
+  move.
+- All event timestamps are the same 64-bit clock (fixed 2026-10-01; the
+  previous 32-bit `t` wrapped at 71.6 minutes).
+- New events: `RELEASED;t;angle=…;torque=…;brake=…`, `TOUCH;t;angle=…;torque=…`,
+  `ABORT;t;angle=…;torque=…`, and the per-trial summary:
+
+  ```text
+  ev;TRIAL;t;outcome=PULL;t_rel=…;t_touch=…;t_move=…;t_out=…;a0=…;a_peak=…;a_end=…;tq_peak=…;tq_out=…;dur_thr=…
+  ```
+
+  `outcome` is one of `PULL`, `PUSH`, `NOMOVE`, `ABORT`; `t_*` are board
+  microseconds, `t_touch`/`t_move` empty if they did not occur; `a0` the angle
+  at release; `a_peak`, `tq_peak` the signed extrema in the window
+  (pull-positive); `a_end`, `tq_out` the values at the outcome; `dur_thr` the
+  whole milliseconds spent at or past the pull threshold between `WATCH` and
+  the outcome. **`a_peak` is the signed excursion of largest magnitude** from
+  `a0`, pull-positive; `a_end` is likewise the excursion at the outcome (or at
+  the exit for `outcome=NONE`), not an absolute angle. **`TRIAL` is emitted
+  exactly once per `WATCH`**: when the board leaves `RELEASED` (`MOVETO`,
+  `STOP`, `DISARM`, fault), or 1 s after the outcome if the host has not left
+  `RELEASED` by then, whichever comes first; when the host leaves `RELEASED`
+  before any outcome it carries `outcome=NONE` with `t_out` empty. A
+  `RELEASED` period with no `WATCH` produces no `TRIAL`. On the wire the
+  `TRIAL` event precedes the `ack` of the command that left `RELEASED`, as
+  every event produced inside a handler does.
+- `PULL`, `PUSH`, `NOMOVE` and `ABORT` carry `t;angle=…;torque=…` like
+  `RELEASED`, where `angle` is the absolute angle at the event.
+- `BRAKE` answers `ack` first and `ev;RELEASED` when the release has
+  happened (the same service step on a board without a brake; after the
+  settle on a board with one).
+- Line length: a full `STATUS` is about 125 bytes. `MAX_LINE` rises from 120
+  to **200**, `ID` reports `rxbuf=200`, and the device class's receive buffer
+  becomes **2048** so a 32-line `FETCH` chunk cannot overflow it.
+- `caps` tokens appear in a fixed order with absent ones omitted:
+  `motion+home+instr+hv+watch+fetch+stream+cfg+angout+brake+torque`.
+
+## V1.5 State machine
+
+```text
+BOOT → IDLE ─HOME→ HOMED ─ARM→ ARMED ─MOVETO→ ACTIVE → ARMED
+                                 └─BRAKE→ RELEASED ─(WATCH outcome; stays RELEASED)
+                                              └─MOVETO/STOP/DISARM→ re-engage → ARMED/HOMED
+any fault → FAULTED ─CLRFAULT→ IDLE (homed cleared)
+```
+
+The state string `FREEWHEEL` becomes `RELEASED` everywhere it is reported.
+
+## V1.6 Configuration defaults and the deadband
+
+`deadband_deg` defaults to 0.5° until the bench measures the
+encoder's noise and the mechanism's play on a released joystick; `wdt_ms`
+defaults to 100 (today's value); `stream_hz` defaults to 10 for `STREAM on`
+without a rate. The mechanism's sign (which encoder direction is "pull") is a
+board-and-harness fact to be recorded once in `bringup-log.md` per board; the
+firmware exposes pull-positive numbers and the device class hides nothing.
+
+## V1.7 Fault bits (bits 9 and up are reserved for exactly this)
+
+| Bit | Name | Cause |
+| --- | --- | --- |
+| 9 | `brake_fault` | `~{BRAKE_FAULT}` asserted |
+| 10 | `brake_current` | `BRAKE_ISENSE` outside tolerance of the setpoint for more than N ms (N from bring-up) |
+| 11 | `torque_adc` | ADS8689 not responding or conversion timeout |
+| 12 | `torque_range` | bridge saturated or excitation out of range |
+| 13 | `not_following` | `XACTUAL` against `X_ENC` divergence while driving only (finding 5); never in `RELEASED` |
+
+Bit 13 is what finding 5 asked for: stall detection becomes implementable.
+
+## V1.8 Safe state on host loss or fault
+
+Today: abort motion, `HV` off, motor coasts. With a brake fitted the proposal
+is: brake to a configurable holding level (`CFG hold_Ncm`), driver off,
+`FAULTED` latched. The behaviour is selectable by configuration and the
+default stays today's until the researcher decides (reserved decision).
+
+## V1.9 Reserved decisions (brief section 8; ask, do not assume)
+
+- Delete `MOVE` and the retransmission cache, or keep them.
+- The `TRIAL` field list and names.
+- `FETCH` as ASCII lines (this draft) or a binary block.
+- The fault level on `ANGLE_OUT`: code 0 or code 497 (25 mV); `GAIN` 0x0101
+  or 0x0000.
+- Whether `WATCH` needs outcomes beyond the five above before the researcher
+  answers the trial-vocabulary question.
+- The default safe state on host loss once the brake exists (V1.8).
+
+## V1.10 What changes where, once signed off
+
+Spec (this section merged into the tables above) → corpus (new cases for every
+verb, every `nak` reason, the `RELEASED`→outcome sequences with an `ANGLE`
+and `TORQUE` stimulus line added to the corpus grammar, the 64-bit `t`) →
+`board_sim.py` → the firmware → the device class in the same change set →
+hardware last, with numbers in `bringup-log.md`.
