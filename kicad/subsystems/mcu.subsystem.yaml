@@ -1,0 +1,275 @@
+schema: orb-weaver/subsystem/1
+name: mcu
+summary: mcu as drawn on mouse-joystick-pcb, 11 parts
+source:
+  board: mouse-joystick-pcb
+  sheet: mcu.kicad_sch
+  derived: '2026-10-02'
+ports:
+- name: +3.3V_MCU
+  shape: passive
+  shared: true
+- name: +3.3V_SW
+  shape: passive
+  shared: true
+- name: +5V_MCU
+  shape: passive
+  shared: true
+- name: ANGLE_OUT_MON
+  shape: input
+- name: BRAKE_ISENSE
+  shape: input
+- name: DAC_SCL
+  shape: output
+- name: DAC_SCL_INST
+  shape: output
+- name: DAC_SDA
+  shape: bidirectional
+- name: DAC_SDA_INST
+  shape: output
+- name: FW_TRIG0
+  shape: output
+- name: FW_TRIG1
+  shape: output
+- name: GND
+  shape: passive
+  shared: true
+- name: HV_DIAG_EN
+  shape: output
+- name: HV_EN
+  shape: output
+- name: HV_LATCH
+  shape: output
+- name: HV_SNS
+  shape: input
+- name: PYC_UART_RX
+  shape: input
+- name: PYC_UART_TX
+  shape: output
+- name: TMC_DIAG0
+  shape: input
+- name: TMC_DIAG1
+  shape: input
+- name: TMC_SPI_CIPO
+  shape: input
+- name: TMC_SPI_COPI
+  shape: output
+- name: TMC_SPI_SCK
+  shape: output
+- name: TQ_CAL_EN
+  shape: output
+- name: TQ_CONVST_CS
+  shape: output
+- name: TQ_SPI_CIPO
+  shape: input
+- name: TQ_SPI_COPI
+  shape: output
+- name: TQ_SPI_SCK
+  shape: output
+- name: USB_D+
+  shape: bidirectional
+- name: USB_D-
+  shape: bidirectional
+- name: ~{BRAKE_FAULT}
+  shape: input
+- name: ~{BUS_SW_EN}_INST
+  shape: output
+- name: ~{HV_FAULT}
+  shape: input
+- name: ~{TMC_CS}
+  shape: output
+- name: ~{TMC_DRV_EN}
+  shape: output
+blocks:
+- role: rp2040_with_gpio_isolation_sn74cb3q3245
+  block: orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245
+  connections:
+    +3.3V: +3.3V_MCU
+    GND: GND
+    GPIO0: PYC_UART_TX
+    GPIO1: PYC_UART_RX
+    GPIO2:
+      open: no-connect flag
+    GPIO3:
+      open: no-connect flag
+    GPIO4:
+      open: no-connect flag
+    GPIO5:
+      open: no-connect flag
+    GPIO6:
+      open: no-connect flag
+    GPIO7:
+      open: no-connect flag
+    GPIO8:
+      open: no-connect flag
+    GPIO10:
+      open: no-connect flag
+    GPIO11:
+      open: no-connect flag
+    GPIO12:
+      open: no-connect flag
+    GPIO13:
+      open: no-connect flag
+    GPIO14: HV_DIAG_EN
+    GPIO15:
+      open: no-connect flag
+    GPIO16: DAC_SDA_BYP
+    GPIO17: DAC_SCL_BYP
+    GPIO18:
+      open: no-connect flag
+    GPIO19: HV_EN
+    GPIO20:
+      open: no-connect flag
+    GPIO21: FW_TRIG1
+    GPIO22:
+      open: no-connect flag
+    GPIO23: ~{HV_FAULT}
+    GPIO24: HV_LATCH
+    GPIO25: FW_TRIG0
+    GPIO26: SW_RAIL_SENSE_DIV_2
+    GPIO27: BRAKE_ISENSE
+    GPIO28: HV_SNS
+    GPIO29: ANGLE_OUT_MON
+    ISO0:
+      open: no-connect flag
+    ISO1:
+      open: no-connect flag
+    ISO2: ~{TMC_CS}
+    ISO3: ~{TMC_DRV_EN}
+    ISO4: TMC_SPI_CIPO
+    ISO5: TMC_DIAG0
+    ISO6: TMC_SPI_SCK
+    ISO7: TMC_SPI_COPI
+    ISO8: TMC_DIAG1
+    ISO10: TQ_SPI_SCK
+    ISO11: TQ_SPI_COPI
+    ISO12: TQ_SPI_CIPO
+    ISO13: ~{BRAKE_FAULT}
+    ISO14:
+      open: no-connect flag
+    ISO15: TQ_CONVST_CS
+    ISO16: DAC_SDA
+    ISO17: DAC_SCL
+    ISO18: TQ_CAL_EN
+    ISO19:
+      open: no-connect flag
+    ISO20:
+      open: no-connect flag
+    ISO21:
+      open: no-connect flag
+    ISO22:
+      open: no-connect flag
+    ISO23:
+      open: no-connect flag
+    ISO24:
+      open: no-connect flag
+    ISO25:
+      open: no-connect flag
+    ISO26:
+      open: no-connect flag
+    ISO27:
+      open: no-connect flag
+    ISO28:
+      open: no-connect flag
+    ISO29:
+      open: no-connect flag
+    USB_D+: USB_D+
+    USB_D-: USB_D-
+    ~{BUS_SW_EN}:
+      open: no-connect flag
+    ~{BUS_SW_EN}_INST: ~{BUS_SW_EN}_INST
+- role: 5v_to_3v3_tps73733_1
+  block: orb_weaver_private:5v_to_3v3_tps73733
+  connections:
+    +3.3V: +3.3V_MCU
+    +5V: +5V_MCU
+    GND: GND
+glue:
+  parts:
+  - part: OW-RES-4K7-0402
+    references:
+    - R402
+    - R403
+    - R406
+    - R407
+    value: 4.7k
+    role: pullup-pulldown
+  - part: OW-RES-10K-0402
+    references:
+    - R401
+    - R404
+    - R405
+    value: 10k
+    role: pullup-pulldown
+  - part: OW-PASS-RC0402FR-071KL
+    references:
+    - R408
+    - R409
+    value: 1k
+  - part: OW-PASS-0402WGF1000TCE
+    references:
+    - R410
+    - R411
+    value: '100'
+  nets:
+  - name: +3.3V_MCU
+    kind: port
+    pins:
+    - R401.1
+    - R402.1
+    - R403.1
+  - name: +3.3V_SW
+    kind: port
+    pins:
+    - R406.1
+    - R407.1
+    - R408.1
+  - name: DAC_SCL
+    kind: port
+    pins:
+    - R406.2
+    - R410.1
+  - name: DAC_SCL_INST
+    kind: port
+    pins:
+    - R410.2
+  - name: DAC_SDA
+    kind: port
+    pins:
+    - R407.2
+    - R411.1
+  - name: DAC_SDA_INST
+    kind: port
+    pins:
+    - R411.2
+  - name: FW_TRIG0
+    kind: port
+    pins:
+    - R404.1
+  - name: FW_TRIG1
+    kind: port
+    pins:
+    - R405.1
+  - name: GND
+    kind: port
+    pins:
+    - R404.2
+    - R405.2
+    - R409.2
+  - name: PYC_UART_RX
+    kind: port
+    pins:
+    - R401.2
+  - name: DAC_SCL_BYP
+    kind: label
+    pins:
+    - R402.2
+  - name: DAC_SDA_BYP
+    kind: label
+    pins:
+    - R403.2
+  - name: SW_RAIL_SENSE_DIV_2
+    kind: label
+    pins:
+    - R408.2
+    - R409.1

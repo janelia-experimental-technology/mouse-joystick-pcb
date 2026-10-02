@@ -82,6 +82,17 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   the dry run; after a real run, `make mechanical-datums` then
   `make board-manifest-check`. The scratch proof lives in `tmp/compose-proof/`
   (ignored) until the GUI gate is done.
+- **`kicad/board.yaml` is the board's source** (kicad-libs D27, written
+  2026-10-02): the `motor_encoder_switch` recipe from kicad-libs by reference
+  (pinned by hash; the `driver` role overridden to the as-built retired
+  `tmc5130` block, which the expansion reports as drift), the three
+  board-local recipes in `kicad/subsystems/` (`mcu`, `brake_torque_sensor`,
+  `instrument_port`), the five root blocks, and the net meanings;
+  `kicad/sheet-pins.yaml` holds this board's own sheet-pin arrangements.
+  `make expand` writes `kicad/board-manifest.yaml` from it and
+  `make expand-check` compares (exact as of 2026-10-02). The manifest stays
+  the checked file: edit the source, `make expand`, `make
+  board-manifest-check`, then `make compose`.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** As of 2026-08-17 this is the *only* electrical difference

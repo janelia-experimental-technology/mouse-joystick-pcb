@@ -1,0 +1,270 @@
+schema: orb-weaver/board/1
+board: mouse-joystick-pcb
+project: mouse-joystick-pcb.kicad_pro
+summary: 'Single-axis mouse joystick: RP2040 with GPIO isolation, one TMC5130A, torque bridge, brake current sink, analog
+  angle output, InstrumentPort-Digital-50 taps, 36 V protected input with 12 V and 5 V regulators; v1.0 as built.'
+rules:
+  profiles:
+  - hv-power-24v
+  - instrument-taps
+  grid_mm: 1.0
+  datum:
+    kind: aux axis origin
+    kicad_mm: [137.425, 95.0]
+sheet_pins_file: sheet-pins.yaml
+subsystems:
+- name: instrument_port
+  recipe: subsystems/instrument_port.subsystem.yaml
+  note: board-authored sheet, 0 parts
+  connections:
+    +3.3V: +3.3V_MCU
+    DAQ_SCL: DAC_SCL_INST
+    DAQ_SDA: DAC_SDA_INST
+    ENCA: ENCA_INST
+    ENCB: ENCB_INST
+    HV_DIAG_EN: HV_DIAG_EN_INST
+    HV_EN: HV_EN_INST
+    LIMIT_SW: LIMIT_SW_INST
+    PYC_UART_RX: PYC_UART_RX_INST
+    PYC_UART_TX: PYC_UART_TX_INST
+    TMC_DIAG0: TMC_DIAG0_INST
+    TMC_DIAG1: TMC_DIAG1_INST
+    TMC_SPI_CIPO: TMC_SPI_CIPO_INST
+    TMC_SPI_COPI: TMC_SPI_COPI_INST
+    TMC_SPI_SCK: TMC_SPI_SCK_INST
+    TQ_CAL_EN: TQ_CAL_EN_INST
+    TQ_CONVST_CS: TQ_CONVST_CS_INST
+    TQ_SPI_CIPO: TQ_SPI_CIPO_INST
+    TQ_SPI_COPI: TQ_SPI_COPI_INST
+    TQ_SPI_SCK: TQ_SPI_SCK_INST
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}_INST
+    ~{BUS_SW_EN}: ~{BUS_SW_EN}_INST
+    ~{HV_FAULT}: ~{HV_FAULT}_INST
+    ~{TMC_CS}: ~{TMC_CS}_INST
+    ~{TMC_DRV_EN}: ~{TMC_DRV_EN}_INST
+  blocks:
+    instrument_port_digital_50_dut_ffc_boundary_vertical:
+      anchor_mm: [0.0, 36.0]
+      rotation_degrees: 180
+      side: front
+- name: mcu
+  recipe: subsystems/mcu.subsystem.yaml
+  note: board-authored sheet, 11 parts
+  blocks:
+    rp2040_with_gpio_isolation_sn74cb3q3245:
+      anchor_mm: [-32.0, 19.0]
+      rotation_degrees: 90
+      side: front
+    5v_to_3v3_tps73733_1:
+      name: 5v_to_3v3_tps73733_1
+      anchor_mm: [-28.5, 2.0]
+      rotation_degrees: 90
+      side: front
+      off_grid: 'as built: -28.5, 2 is off the 1 mm grid (review)'
+- name: motor_encoder_switch
+  recipe: orb_weaver:motor_encoder_switch
+  recipe_sha256: b0074408b1c2093e2523af55f1ffe39c57b8a08ac6f035701fecf927390f754e
+  note: board-authored sheet, 10 parts
+  connections:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    DIAG0: TMC_DIAG0
+    DIAG0_INST: TMC_DIAG0_INST
+    DIAG1: TMC_DIAG1
+    DIAG1_INST: TMC_DIAG1_INST
+    VM: +36V_SW
+    ~{DRV_EN}: ~{TMC_DRV_EN}
+    ~{DRV_EN}_INST: ~{TMC_DRV_EN}_INST
+  blocks:
+    analog_output:
+      anchor_mm: [-1.0, 2.0]
+      rotation_degrees: 180
+      side: front
+    encoder_input:
+      anchor_mm: [9.0, -28.0]
+      rotation_degrees: 270
+      side: front
+    limit_switch:
+      anchor_mm: [18.0, -36.0]
+      rotation_degrees: 180
+      side: front
+    driver:
+      name: tmc5130
+      block: orb_weaver_private:tmc5130
+      anchor_mm: [1.0, -14.0]
+      rotation_degrees: 90
+      side: front
+      anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+- name: brake_torque_sensor
+  recipe: subsystems/brake_torque_sensor.subsystem.yaml
+  note: board-authored sheet, 6 parts
+  connections:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    +36V: +36V_SW
+    TQ_AOUT_MON:
+      open: no-connect flag
+  blocks:
+    torque_bridge_0_3v3_ina821:
+      anchor_mm: [37.0, -18.0]
+      rotation_degrees: 180
+      side: front
+    hv_to_12v_tpsm365r6:
+      anchor_mm: [35.0, -29.0]
+      rotation_degrees: 180
+      side: front
+      anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+    brake_current_sink_0_49ma_dac80501:
+      anchor_mm: [37.0, 12.0]
+      rotation_degrees: 180
+      side: front
+blocks:
+- name: pycontrol_behavior_port_rj45_boundary_vertical
+  block: orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical
+  anchor_mm: [-39.98, -8.0]
+  rotation_degrees: 270
+  side: front
+  connections:
+    +5V_PYC: +5V_MCU
+    GND: GND
+    PYC_CONN_5V:
+      open: no-connect flag
+    PYC_DIO_A_HOSTTX_SCL_MOSI: PYC_UART_RX
+    PYC_DIO_A_INST: PYC_UART_RX_INST
+    PYC_DIO_B_HOSTRX_SDA_MISO: PYC_UART_TX
+    PYC_DIO_B_INST: PYC_UART_TX_INST
+  off_grid: 'as built: -39.98, -8 is off the 1 mm grid (review)'
+- name: 5v_to_3v3_tps73733_2
+  block: orb_weaver_private:5v_to_3v3_tps73733
+  anchor_mm: [-14.0, 1.75]
+  rotation_degrees: 180
+  side: front
+  connections:
+    +3.3V: +3.3V_SW
+    +5V: +5V_SW
+    GND: GND
+  off_grid: 'as built: -14, 1.75 is off the 1 mm grid (review)'
+- name: usb2_vertical
+  block: orb_weaver_private:usb2_vertical
+  anchor_mm: [-45.0, 11.0]
+  rotation_degrees: 90
+  side: front
+  connections:
+    +5V_USB: +5V_MCU
+    GND: GND
+    USB_D+: USB_D+
+    USB_D-: USB_D-
+    VBUS:
+      open: no-connect flag
+- name: hv_to_5v_tpsm365r6
+  block: orb_weaver_private:hv_to_5v_tpsm365r6
+  anchor_mm: [-21.25, -7.0]
+  rotation_degrees: 90
+  side: front
+  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+  connections:
+    +5V: +5V_SW
+    GND: GND
+    PGOOD: PG_5V
+    VIN: +36V_SW
+- name: hv_input_36V_terminal_2pos_5p08_protected_vertical
+  block: orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical
+  anchor_mm: [-44.0, -24.0]
+  rotation_degrees: 270
+  side: front
+  connections:
+    +3.3V_MCU: +3.3V_MCU
+    +36V: +36V_SW
+    DIAG_ENABLE: HV_DIAG_EN
+    DIAG_ENABLE_INST: HV_DIAG_EN_INST
+    ENABLE: HV_EN
+    ENABLE_INST: HV_EN_INST
+    GND: GND
+    HV_IN:
+      open: no-connect flag
+    LATCH: HV_LATCH
+    SNS: HV_SNS
+    ~{FAULT}: ~{HV_FAULT}
+    ~{FAULT}_INST: ~{HV_FAULT}_INST
+nets:
+  /ANGLE_OUT_MON:
+    meaning: Analog output readback, ADC3¹¹; in as the MCU sees it
+    gpio: GP29
+  /BRAKE_ISENSE:
+    meaning: Brake sink current readback, ADC1¹¹; in as the MCU sees it
+    gpio: GP27
+  /DAC_SCL:
+    meaning: I2C0 SCL — same bus⁷; out as the MCU sees it, via the bus switch
+    gpio: GP17
+  /DAC_SDA:
+    meaning: I2C0 SDA — analog 0x48, brake 0x49⁷; bidi as the MCU sees it, via the bus switch
+    gpio: GP16
+  /FW_TRIG0:
+    meaning: Firmware timing marker; out as the MCU sees it
+    gpio: GP25
+  /FW_TRIG1:
+    meaning: Firmware timing marker; out as the MCU sees it
+    gpio: GP21
+  /HV_DIAG_EN:
+    meaning: 36 V switch diagnostics enable⁵; out as the MCU sees it
+    gpio: GP14
+  /HV_EN:
+    meaning: 36 V input switch enable; out as the MCU sees it
+    gpio: GP19
+  /HV_LATCH:
+    meaning: 36 V switch latch-off select¹⁰; out as the MCU sees it
+    gpio: GP24
+  /HV_SNS:
+    meaning: 36 V input load-current sense, `R_SNS` = 249 Ω; in as the MCU sees it
+    gpio: GP28
+  /PYC_UART_RX:
+    meaning: UART RX from pyControl (`UART0 RX`); in as the MCU sees it
+    gpio: GP1
+  /PYC_UART_TX:
+    meaning: UART TX to pyControl (`UART0 TX`); out as the MCU sees it
+    gpio: GP0
+  /TMC_DIAG0:
+    meaning: Driver diagnostic 0; in as the MCU sees it, via the bus switch
+    gpio: GP5
+  /TMC_DIAG1:
+    meaning: Driver diagnostic 1; in as the MCU sees it, via the bus switch
+    gpio: GP8
+  /TMC_SPI_CIPO:
+    meaning: Driver SPI CIPO (`SPI0 RX`); in as the MCU sees it, via the bus switch
+    gpio: GP4
+  /TMC_SPI_COPI:
+    meaning: Driver SPI COPI (`SPI0 TX`); out as the MCU sees it, via the bus switch
+    gpio: GP7
+  /TMC_SPI_SCK:
+    meaning: Driver SPI clock (`SPI0 SCK`); out as the MCU sees it, via the bus switch
+    gpio: GP6
+  /TQ_CAL_EN:
+    meaning: Torque calibration enable⁷; out as the MCU sees it, via the bus switch
+    gpio: GP18
+  /TQ_CONVST_CS:
+    meaning: ADS8689 convert-start / frame, plain GPIO⁷; out as the MCU sees it, via the bus switch
+    gpio: GP15
+  /TQ_SPI_CIPO:
+    meaning: Torque ADC SPI CIPO (`SPI1 RX`)⁷; in as the MCU sees it, via the bus switch
+    gpio: GP12
+  /TQ_SPI_COPI:
+    meaning: Torque ADC SPI COPI (`SPI1 TX`)⁷; out as the MCU sees it, via the bus switch
+    gpio: GP11
+  /TQ_SPI_SCK:
+    meaning: Torque ADC SPI clock (`SPI1 SCK`)⁷; out as the MCU sees it, via the bus switch
+    gpio: GP10
+  /~{BRAKE_FAULT}:
+    meaning: Brake block fault, active low⁷; in as the MCU sees it, via the bus switch
+    gpio: GP13
+  /~{HV_FAULT}:
+    meaning: 36 V switch fault, open-drain, pull-up 3.3 V¹¹; in as the MCU sees it
+    gpio: GP23
+  /~{TMC_CS}:
+    meaning: Driver chip select; out as the MCU sees it, via the bus switch
+    gpio: GP2
+  /~{TMC_DRV_EN}:
+    meaning: Driver enable, active low; out as the MCU sees it, via the bus switch
+    gpio: GP3
+  /mcu/SW_RAIL_SENSE_DIV_2:
+    meaning: +3.3V_SW presence and level, divided by 2 inside mcu (R408/R409); in as the MCU sees it
+    gpio: GP26

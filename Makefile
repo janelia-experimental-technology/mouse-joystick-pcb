@@ -60,6 +60,9 @@ BOARD_MANIFEST_MAP ?= docs/interface-map.md
 BOARD_MANIFEST_OPTIONS ?=
 COMPOSE_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-compose),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-compose,orb-weaver-kicad-compose)
 COMPOSE_OPTIONS ?=
+BOARD_SOURCE_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-source),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-source,orb-weaver-kicad-board-source)
+BOARD_SOURCE ?= kicad/board.yaml
+BOARD_SOURCE_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -71,7 +74,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check expand expand-check docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -94,6 +97,8 @@ help:
 	  'make board-manifest-render  Render the interface map block from the manifest into docs/interface-map.md' \
 	  'make compose           Make the project agree with kicad/board-manifest.yaml: create the sheet instances, pin connections and PCB groups it lacks (KiCad shell)' \
 	  'make compose-check     Report what compose would create and what differs; exit 1 when there is anything' \
+	  'make expand            Write kicad/board-manifest.yaml from kicad/board.yaml and its subsystem recipes' \
+	  'make expand-check      Compare the expansion of kicad/board.yaml with kicad/board-manifest.yaml; exit 1 on a difference' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make docs             Generate published board documentation for PROJECT' \
@@ -312,6 +317,19 @@ compose:
 
 compose-check:
 	$(AGENT_MANAGED_SHELL) "$(COMPOSE_TOOL)" check "$(BOARD_MANIFEST)" $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(COMPOSE_OPTIONS)
+
+# The board source (kicad-libs PLANS 2026-09-30 step 4d, D27): kicad/board.yaml
+# names the motor_encoder_switch recipe from kicad-libs by reference (pinned by
+# hash) and the three board-local recipes in kicad/subsystems/, places the
+# blocks per role and writes only the renames and opens; kicad/sheet-pins.yaml
+# holds this board's own sheet-pin arrangements. `make expand` writes the
+# record from it, `make expand-check` compares (exit 1 on a difference); the
+# record stays the checked file.
+expand:
+	$(AGENT_MANAGED_SHELL) "$(BOARD_SOURCE_TOOL)" expand "$(BOARD_SOURCE)" --write --output "$(BOARD_MANIFEST)" $(BOARD_SOURCE_OPTIONS)
+
+expand-check:
+	$(AGENT_MANAGED_SHELL) "$(BOARD_SOURCE_TOOL)" expand "$(BOARD_SOURCE)" --check --output "$(BOARD_MANIFEST)" $(BOARD_SOURCE_OPTIONS)
 
 fab:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi

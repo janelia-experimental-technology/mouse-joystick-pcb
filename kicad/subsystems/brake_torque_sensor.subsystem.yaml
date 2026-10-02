@@ -1,0 +1,146 @@
+schema: orb-weaver/subsystem/1
+name: brake_torque_sensor
+summary: brake_torque_sensor as drawn on mouse-joystick-pcb, 6 parts
+source:
+  board: mouse-joystick-pcb
+  sheet: brake_torque_sensor.kicad_sch
+  derived: '2026-10-02'
+ports:
+- name: +3.3V
+  shape: passive
+  shared: true
+- name: +5V
+  shape: passive
+  shared: true
+- name: +36V
+  shape: passive
+  shared: true
+- name: BRAKE_ISENSE
+  shape: output
+- name: DAC_SCL
+  shape: input
+- name: DAC_SDA
+  shape: bidirectional
+- name: GND
+  shape: passive
+  shared: true
+- name: PG_12V
+  shape: output
+- name: TQ_AOUT_MON
+  shape: output
+- name: TQ_CAL_EN
+  shape: input
+- name: TQ_CAL_EN_INST
+  shape: input
+- name: TQ_CONVST_CS
+  shape: input
+- name: TQ_CONVST_CS_INST
+  shape: output
+- name: TQ_SPI_CIPO
+  shape: output
+- name: TQ_SPI_CIPO_INST
+  shape: output
+- name: TQ_SPI_COPI
+  shape: input
+- name: TQ_SPI_COPI_INST
+  shape: output
+- name: TQ_SPI_SCK
+  shape: input
+- name: TQ_SPI_SCK_INST
+  shape: output
+- name: ~{BRAKE_FAULT}
+  shape: output
+- name: ~{BRAKE_FAULT}_INST
+  shape: output
+blocks:
+- role: torque_bridge_0_3v3_ina821
+  block: orb_weaver_private:torque_bridge_0_3v3_ina821
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    +12V: +12V
+    CIPO: TQ_SPI_CIPO
+    CIPO_INST: TQ_SPI_CIPO_INST
+    COPI: TQ_SPI_COPI
+    COPI_INST: TQ_SPI_COPI_INST
+    GND: GND
+    SCK: TQ_SPI_SCK
+    SCK_INST: TQ_SPI_SCK_INST
+    TQ_AOUT: TQ_AOUT
+    TQ_AOUT_MON: TQ_AOUT_MON
+    TQ_CAL_EN: TQ_CAL_EN
+    TQ_CAL_EN_INST: TQ_CAL_EN_INST
+    TQ_CONVST_CS: TQ_CONVST_CS
+    TQ_CONVST_CS_INST: TQ_CONVST_CS_INST
+- role: hv_to_12v_tpsm365r6
+  block: orb_weaver_private:hv_to_12v_tpsm365r6
+  connections:
+    +12V: +12V
+    GND: GND
+    PGOOD: PG_12V
+    VIN: +36V
+- role: brake_current_sink_0_49ma_dac80501
+  block: orb_weaver_private:brake_current_sink_0_49ma_dac80501
+  connections:
+    +3.3V: +3.3V
+    +5V: +5V
+    +12V: +12V
+    +36V: +36V
+    BRAKE_ISENSE: BRAKE_ISENSE
+    GND: GND
+    SCL: DAC_SCL
+    SDA: DAC_SDA
+    ~{BRAKE_FAULT}: ~{BRAKE_FAULT}
+    ~{BRAKE_FAULT}_INST: ~{BRAKE_FAULT}_INST
+glue:
+  parts:
+  - part: OW-CONN-HL-BNC-KHDA
+    references:
+    - J901
+    value: Conn_Coaxial_HL-BNC-KHDA
+  - part: OW-RES-10K-0402
+    references:
+    - R901
+    - R902
+    - R903
+    - R904
+    - R905
+    value: 10k
+    role: pullup-pulldown
+  nets:
+  - name: +3.3V
+    kind: port
+    pins:
+    - R904.1
+  - name: GND
+    kind: port
+    pins:
+    - J901.2
+    - R901.2
+    - R902.2
+    - R903.2
+    - R905.2
+  - name: TQ_CAL_EN
+    kind: port
+    pins:
+    - R905.1
+  - name: TQ_CONVST_CS
+    kind: port
+    pins:
+    - R904.2
+  - name: TQ_SPI_COPI
+    kind: port
+    pins:
+    - R903.1
+  - name: TQ_SPI_SCK
+    kind: port
+    pins:
+    - R902.1
+  - name: ~{BRAKE_FAULT}
+    kind: port
+    pins:
+    - R901.1
+  - name: TQ_AOUT
+    kind: label
+    pins:
+    - J901.1
