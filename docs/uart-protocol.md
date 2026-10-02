@@ -143,7 +143,7 @@ Still:
 | `ID` | — | hw rev, **board serial**, fw version, protocol version, axis count, capabilities, buffer state, and since 2026-10-02 `boot=por\|wdt\|reboot;crumb=N`: why the board last booted (power-on, the 2 s hardware watchdog, a forced reboot) and the last bring-up breadcrumb before a watchdog reboot, both captured once at boot | Must work before `ARM` and must never fail |
 | `PING` | — | `ack` | Heartbeat. Carries no data and has no side effect of its own — **any** well-formed command resets the host-loss watchdog, so this is simply the command to send when there is nothing else to say |
 | `STATUS` | — | state, angle, position, homed flag, limit state, fault mask | Safe at any time |
-| `LIMITS` | — | configured travel, velocity, acceleration, current bounds | Reports what the board will enforce |
+| `LIMITS` | — | configured travel, velocity, acceleration, current bounds | Reports what the board will enforce. `v_max` and `a_max` are the values programmed into the ramp generator (VMAX and AMAX, in degrees), not independent limits: on the rig firmware `a_max` is 180 deg/s² from its 0.5 rev/s² ramp (2026-10-02); the simulator reports its own programmed numbers |
 | `HOME` | `[timeout_ms]` | `ack` then `!HOMED` | Bounded travel and timeout, enforced locally |
 | `ARM` | — | `ack` | Required before motion; refused if not homed or if faulted |
 | `DISARM` | — | `ack` | Always permitted |

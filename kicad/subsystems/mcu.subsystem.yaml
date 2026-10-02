@@ -273,3 +273,5 @@ glue:
     pins:
     - R408.2
     - R409.1
+  power_flags:
+  - +5V_MCU

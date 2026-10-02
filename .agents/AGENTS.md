@@ -105,6 +105,20 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   `hv_to_12v_tpsm365r6` → `orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v`)
   are its targets on the real board, when you decide to; the regulators'
   new port copper lands on your own routing (DRC names it).
+- **`make generate-glue`** draws this board's own parts, the glue a recipe or
+  `kicad/board.yaml` names (the pulls and series resistors, the connectors,
+  the mounting holes, the PWR_FLAGs), into the sheets `make compose` created:
+  a symbol with a stub and a local label per pin carrying the recipe's net
+  name, two-pin parts upright in a row with reference and value at the right
+  (kicad-libs step 8b, D28; proven 2026-10-02 by regenerating this whole
+  schematic into `tmp/generate-proof/` to the hand-built netlist). It creates
+  and never moves: a part already drawn under the recipe's reference, or
+  placed by an earlier run, is skipped, so on the drawn board it has nothing
+  to draw. Designators of parts it draws follow the sheet's page band; the
+  recipe-to-board mapping is in `kicad/board-manifest.compose.json`.
+  `GENERATE_GLUE_OPTIONS=--dry-run` reports first. The order for a new
+  board: edit the source, `make expand`, `make compose`, `make generate-glue`,
+  `make board-manifest-check`.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** As of 2026-08-17 this is the *only* electrical difference

@@ -186,6 +186,18 @@ blocks:
     SNS: HV_SNS
     ~{FAULT}: ~{HV_FAULT}
     ~{FAULT}_INST: ~{HV_FAULT}_INST
+glue:
+  parts:
+  - part: OW-MECH-MH-3-2MM-M3
+    references:
+    - H101
+    - H102
+    - H103
+    - H104
+    value: Mounting Hole 3.2mm M3
+    role: mounting-hole
+  power_flags:
+  - GND
 nets:
   /ANGLE_OUT_MON:
     meaning: Analog output readback, ADC3¹¹; in as the MCU sees it
