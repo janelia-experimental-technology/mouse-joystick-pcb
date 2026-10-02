@@ -63,6 +63,8 @@ COMPOSE_OPTIONS ?=
 BOARD_SOURCE_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-source),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-board-source,orb-weaver-kicad-board-source)
 BOARD_SOURCE ?= kicad/board.yaml
 BOARD_SOURCE_OPTIONS ?=
+REFRESH_BLOCK_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-refresh-block),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-refresh-block,orb-weaver-kicad-refresh-block)
+REFRESH_BLOCK_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -74,7 +76,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check expand expand-check docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check expand expand-check refresh-block docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -99,6 +101,7 @@ help:
 	  'make compose-check     Report what compose would create and what differs; exit 1 when there is anything' \
 	  'make expand            Write kicad/board-manifest.yaml from kicad/board.yaml and its subsystem recipes' \
 	  'make expand-check      Compare the expansion of kicad/board.yaml with kicad/board-manifest.yaml; exit 1 on a difference' \
+	  'make refresh-block     Bring one placed block up to its library block and report what changed (INSTANCE= [BLOCK=] [RENAME=OLD=NEW]; KiCad shell)' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make docs             Generate published board documentation for PROJECT' \
@@ -330,6 +333,17 @@ expand:
 
 expand-check:
 	$(AGENT_MANAGED_SHELL) "$(BOARD_SOURCE_TOOL)" expand "$(BOARD_SOURCE)" --check --output "$(BOARD_MANIFEST)" $(BOARD_SOURCE_OPTIONS)
+
+# The refresh (kicad-libs PLANS 2026-09-30 step 5, D22): one placed block
+# brought up to its library block, the board's own copper and wires left
+# alone, the changes printed. Proven on a scratch copy of this board
+# 2026-10-02 (the 5 V regulator to tpsm365r6_fixed_5v, the digital-50 DUT
+# boundary's copper). Then edit kicad/board.yaml, `make expand`, `make
+# compose`, `make mechanical-datums`, `make board-manifest-check`.
+refresh-block:
+	@if [ -z "$(INSTANCE)" ]; then echo "INSTANCE=<placed block name> is required"; exit 1; fi
+	$(MAKE) prepare-kicad-config
+	$(KICAD_MANAGED_SHELL) "$(REFRESH_BLOCK_TOOL)" "$(BOARD_MANIFEST)" --instance "$(INSTANCE)" $(if $(BLOCK),--block "$(BLOCK)") $(if $(RENAME),--rename "$(RENAME)") $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(REFRESH_BLOCK_OPTIONS)
 
 fab:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi

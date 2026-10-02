@@ -93,6 +93,18 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   `make expand-check` compares (exact as of 2026-10-02). The manifest stays
   the checked file: edit the source, `make expand`, `make
   board-manifest-check`, then `make compose`.
+- **`make refresh-block INSTANCE=<name> [BLOCK=] [RENAME=OLD=NEW]`** brings one
+  placed block up to its library block (kicad-libs D22, proven on a scratch
+  copy of this board 2026-10-02: the 5 V regulator to
+  `orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v`, whose output port is `VOUT`
+  where the board says `+5V`; the digital-50 boundary's copper). It keeps
+  designators, restores pins by name, replaces the group's copper by identity
+  and leaves everything else byte for byte; it prints what to change in
+  `kicad/board.yaml`. The three retired blocks (`tmc5130` →
+  `orb_weaver_tmc5130:tmc5130_spi_r150`, `hv_to_5v_tpsm365r6`,
+  `hv_to_12v_tpsm365r6` → `orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v`)
+  are its targets on the real board, when you decide to; the regulators'
+  new port copper lands on your own routing (DRC names it).
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** As of 2026-08-17 this is the *only* electrical difference
