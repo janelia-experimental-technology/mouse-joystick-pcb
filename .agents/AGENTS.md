@@ -72,6 +72,16 @@ The previous-generation joystick board is `~/Repositories/kicad/mouse-joystick-p
   between the `GENERATED BOARD MANIFEST` markers at the top of
   `docs/interface-map.md` is its rendering (`make board-manifest-render`), never
   edited by hand; the narrative below the block is.
+  **`make compose` makes the project agree with the manifest** (kicad-libs D28,
+  proven on a scratch copy of this board 2026-10-02): a placement the board
+  lacks gets its child sheet from the library block, its sheet symbol with the
+  recorded pins, a stub and label per mapped port, a no-connect per open port
+  and its PCB group with the block's copper at the recorded anchor; a pin wired
+  to nothing gets its stub. It never moves, renames or deletes, so a difference
+  it reports is fixed in the drawing or the manifest. `make compose-check` is
+  the dry run; after a real run, `make mechanical-datums` then
+  `make board-manifest-check`. The scratch proof lives in `tmp/compose-proof/`
+  (ignored) until the GUI gate is done.
 - **Current sense is 0.15 Ω with `vsense = 1` and `IRUN = 28`** for the 0.67 A/
   phase motor, on both shunt positions. **The `tmc5130` block ships 0.12 Ω as its
   default — change it.** As of 2026-08-17 this is the *only* electrical difference

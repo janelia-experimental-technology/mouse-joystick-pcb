@@ -58,6 +58,8 @@ BOARD_MANIFEST_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb
 BOARD_MANIFEST ?= kicad/board-manifest.yaml
 BOARD_MANIFEST_MAP ?= docs/interface-map.md
 BOARD_MANIFEST_OPTIONS ?=
+COMPOSE_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-compose),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-compose,orb-weaver-kicad-compose)
+COMPOSE_OPTIONS ?=
 
 MANAGED_ENV = KICAD_CONFIG_HOME=$(KICAD_CONFIG_HOME) XDG_CACHE_HOME=$(XDG_CACHE_HOME) $(if $(ORB_WEAVER_KICAD_LIBS),ORB_WEAVER_KICAD_LIBS=$(ORB_WEAVER_KICAD_LIBS))
 TLS_ENV = export SSL_CERT_FILE="$${GUIX_ENVIRONMENT}/etc/ssl/certs/ca-certificates.crt"; export GIT_SSL_CAINFO="$$SSL_CERT_FILE"; export CURL_CA_BUNDLE="$$SSL_CERT_FILE"; export SSL_CERT_DIR="$${GUIX_ENVIRONMENT}/etc/ssl/certs"; exec "$$@"
@@ -69,7 +71,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -90,6 +92,8 @@ help:
 	  'make board-manifest-check   Check kicad/board-manifest.yaml against the board, the library and the netclass patterns' \
 	  'make board-manifest-derive  Write the manifest from the schematic hierarchy and the placement record (keeps meanings and reasons)' \
 	  'make board-manifest-render  Render the interface map block from the manifest into docs/interface-map.md' \
+	  'make compose           Make the project agree with kicad/board-manifest.yaml: create the sheet instances, pin connections and PCB groups it lacks (KiCad shell)' \
+	  'make compose-check     Report what compose would create and what differs; exit 1 when there is anything' \
 	  'make kicad-edits-local Open PROJECT in KiCad with the local KiCad overlay' \
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make docs             Generate published board documentation for PROJECT' \
@@ -294,6 +298,20 @@ board-manifest-check:
 
 board-manifest-render:
 	$(AGENT_MANAGED_SHELL) "$(BOARD_MANIFEST_TOOL)" render "$(BOARD_MANIFEST)" --output "$(BOARD_MANIFEST_MAP)" $(BOARD_MANIFEST_OPTIONS)
+
+# The composer (kicad-libs PLANS 2026-09-30 step 4, D28): `make compose` makes
+# the project agree with kicad/board-manifest.yaml, creating the child sheet,
+# sheet symbol, stubs, labels, no-connects and PCB group of a placement the
+# board lacks, a subsystem sheet's file, or a bare pin's stub; it never moves,
+# renames or deletes. Then `make mechanical-datums` (the record keys groups by
+# sheet UUID) and `make board-manifest-check`. `make compose-check` is the dry
+# run. Proven 2026-10-02 on a scratch copy of this board (kicad-libs PLANS 4b).
+compose:
+	$(MAKE) prepare-kicad-config
+	$(KICAD_MANAGED_SHELL) "$(COMPOSE_TOOL)" compose "$(BOARD_MANIFEST)" $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(COMPOSE_OPTIONS)
+
+compose-check:
+	$(AGENT_MANAGED_SHELL) "$(COMPOSE_TOOL)" check "$(BOARD_MANIFEST)" $(if $(wildcard $(MECHANICAL_DATUMS)),--datums "$(MECHANICAL_DATUMS)") $(COMPOSE_OPTIONS)
 
 fab:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
