@@ -39,6 +39,8 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
 | **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. **Drives the LEFT joystick** (Breakout 1.2 port 1). First stage-4 result recorded 2026-09-03 — see [Board 3, stage 4](#board-3--e4654c159f591d34--stage-4-protocol). No stage 1, 2 or 3 measurements exist for this unit; treat every motion number in this file as belonging to another board until it is measured here |
 | **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Drives the RIGHT joystick.** **The angle output is characterised as of 2026-09-10** — unity gain to 0.03%, 4.5 mV floor, `VREFIO` 2.500 V, no motor coupling, and a live 1 kHz encoder-to-analog loop measured at exactly 1000.0 Hz over 835 000 updates. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). Stage 4 not run on this unit |
+| **Board 5** | *read from `RP2040SelfTest` on arrival* | **v1.0**, `MJ_BOARD_REV=2`. Not yet powered. See [v1.0 Boards](#v10-boards--arriving-2026-10-05-nothing-measured-yet) |
+| **Board 6** | *read from `RP2040SelfTest` on arrival* | **v1.0**, `MJ_BOARD_REV=2`. Not yet powered |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -80,6 +82,89 @@ carries the serial, and never by `ttyACM` number.
 
 Everything from here to [Board 2](#board-2--e4654c159f4d1334) is **board 1**
 unless a line says otherwise.
+
+## v1.0 Boards — arriving 2026-10-05 (nothing measured yet)
+
+**Two v1.0 units ordered from the fabrication package committed in `646b8f4`
+(2026-09-21); the board file has been unchanged since `d5ae4b0`.** No `v1.0`
+tag exists at the time of writing; tag the fabricated commit before recording
+the first measurement so this section can cite it. Add one row per unit to the
+table above as each serial is read from `RP2040SelfTest`, and keep one section
+set per serial below this one, as for boards 1–4.
+
+v1.0 is **`MJ_BOARD_REV=2`** in firmware (`env:mouse_joystick_rev2`,
+`mouse_joystick_qp_rev2*`), written 2026-10-04 from the pad-to-net map of
+footprint **`U601`** — the RP2040 moved into the combined MCU block
+(`rp2040_with_gpio_isolation_sn74cb3q3245`) and **`U501` is now the 36 V
+switch**. Every designator below is v1.0's, read off the `.kicad_pcb`; most of
+them collide with v0.3 names that meant something else.
+
+### What stage 1 (USB only, 36 V unplugged) touches on v1.0
+
+| Net | v1.0 part | Value | Firmware expects at reset |
+| --- | --- | --- | --- |
+| `~{BUS_SW_EN}` (GP9) | `R607` | 7.87 kΩ to `+3.3V_MCU` | high — bus isolated |
+| `PYC_UART_RX` (GP1) | `R401` | 10 kΩ to `+3.3V_MCU` | high |
+| `~{HV_FAULT}` (**GP23**, moved from GP29) | `R507` via `R504` | 10 kΩ to `+3.3V_MCU`, 10 kΩ series | high — no fault |
+| `DAC_SDA_BYP` / `DAC_SCL_BYP` (GP16/GP17, MCU side) | `R403` / `R402` | 4.7 kΩ to `+3.3V_MCU` | high |
+| `HV_LATCH` (**GP24**, was `~{INSTR_BUF_OE}`) | `R503` | 10 kΩ series to `U501` LATCH | recorded, not judged: the switch is unpowered |
+| `FW_TRIG0` / `FW_TRIG1` (GP25/GP21) | `R404` / `R405` | 10 kΩ to GND | driven by firmware; markers reach Digital-50 `DIG0`/`DIG1` |
+| `SW_RAIL_SENSE_DIV_2` (GP26) | `R408` / `R409` | 1 kΩ / 1 kΩ | ≈ 0 V, rail off |
+| `HV_SNS` (GP28) | `R509` behind `R505` | 249 Ω to GND, 1 kΩ series | ≈ 0 V (`DIAG_EN` low) |
+| `BRAKE_ISENSE` (GP27, new) | `R1819`, `R1818` | 249 Ω series, 110 kΩ to GND | ≈ 0 V, rail off |
+| `ANGLE_OUT_MON` (GP29, new) | `R810`, `R805` | 1 kΩ series, 100 kΩ to GND | ≈ 0 V, rail off |
+| spare pads | — | GP20, GP22 only | pull both ways |
+
+Expected result line: **20 checks** (24 on v0.3, less seven spare pads and the
+buffer-enable strap, plus the two I2C straps and the two monitors). The count
+is derived, not yet observed; the first run settles it.
+
+### What stage 1 cannot see on v1.0, and why the rig plan's A1 was wrong
+
+Both DAC80501Z parts (`U801` angle at I2C 0x48 via `R806`; `U1801` brake at
+0x49 via `R1807`) run from `+3.3V_FILT`; the ADS8689 (`U2002`) runs from
+`+3.3V_SW` and `+5V_FILT`; and every one of their bus lines — `DAC_SDA`/`DAC_SCL`,
+`TQ_SPI_*`, `TQ_CONVST_CS`, `TQ_CAL_EN`, `~{BRAKE_FAULT}` — is on the ISO side of
+the bus switch. **Nothing on I2C or SPI1 can answer on USB power alone.** The
+"I2C sees 0x48 and 0x49, SPI1 sees the ADS8689" checks belong to A2/A3 with the
+rail up and the bus closed; the rig plan was corrected on 2026-10-04.
+
+### v1.0 facts firmware relies on (from the netlist, to be confirmed here)
+
+- `LATCH` is a GPIO for the first time. `PowerSequence::powerUp()` holds GP24
+  low through the ramp and raises it once `+3.3V_SW` is up; the latch probe in
+  `TMC5130Communication` should **PASS** on this revision and the power-up
+  method should read "LATCH held low, direct HV_EN assertion". Record both.
+- The DAC80501**Z** resets its data register to zero code, so the brake sink
+  commands 0 mA from the instant the switched domain comes up until firmware
+  writes it. `GAIN` must be `0x0101` (REF-DIV 1, BUFF-GAIN 1) on both DACs; at
+  3.3 V supply a wrong GAIN forces the output to 0 V, not full scale.
+- Angle output: 2.5 V at the DAC → ×1.32 (`U802`, `R804`/`R803`) → ÷2
+  (`R807`/`R811`) → **1.650 V full scale** at the BNC (`R809` 249 Ω) and at
+  `ANGLE_OUT_MON` (`R810` 1 kΩ).
+- Brake monitor: 10 Ω shunt `R1816`, ×4.125 (`U1804`, `R1817`/`R1821`), ÷2
+  (`R1808`/`R1810`) → **0–1.006 V for 0–48.78 mA** at `BRAKE_ISENSE`; the
+  ceiling `V_LIMIT` = 5 V × 6.34/56.24 ≈ 0.564 V across 10 Ω ≈ **56 mA**, and
+  `~{BRAKE_FAULT}` (`U1803`) is low only while limiting.
+- Torque: `VEXC` 10.000 V (`U2004` REF5010A, `U2003`, `Q2002`), `VMID` 5.000 V
+  (`U2006`), INA821 gain with `R2001` + `R2002` = 259 Ω, ÷3 (`R2006`–`R2008`),
+  filter `R2010` 13 kΩ, buffer `U2005`; the ADS8689 sees `AMP_VOUT` through
+  `R2023` 249 Ω **before** the ÷2 (`R2016`/`R2020`) that feeds the BNC and
+  `TQ_AOUT_MON`. `R2003` 75 kΩ is the shunt-cal resistor switched by `TQ_CAL_EN`.
+  **No pull-up on `TQ_CONVST_CS`** (the design note claims one): firmware
+  drives it high in the safe state.
+- The RUN pin is connected for the first time (`C615`); SWD still is not.
+
+### Instrument port on v1.0
+
+InstrumentPort-Digital-50 (`J1301`, FH12-50S), four `SN74LV541A` (`U1301`–`U1304`)
+on `+3.3V_MCU`, always enabled. Mates the `la5032-instrument-port-adapter`
+**v2.0** through a Molex Premo-Flex 15020 FFC — both on hand, **neither
+continuity-checked nor permutation-checked** as of 2026-10-04. The boot
+signature is the first thing to look for: three 10 ms pulses on `FW_TRIG1`
+(`DIG1`, CH1) then eight 1 ms pulses on `FW_TRIG0` (`DIG0`, CH0); on CH30/CH31
+instead if the cable reverses. Record the outcome in the adapter's bring-up
+log, not here.
 
 ## Board 4 — `E4654C159F171E34` — v0.3, Stage 1
 
