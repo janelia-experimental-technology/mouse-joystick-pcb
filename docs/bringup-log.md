@@ -1297,6 +1297,156 @@ the ~60° estimate and with the left joystick's 64.174° full swing. **This is n
 the deliberate hard-stop survey** that plan item still wants — it is a
 measurement of where the right joystick's stop happens to sit today.
 
+### Regression of the HEAD firmware on board 4 — 2026-10-05, stages 1–3, AngleOutput, QP session
+
+Firmware `ec3b36d` (`mouse-joystick-firm` HEAD after the 2026-10-04 v1.0
+preparation refactor), every example built for `mouse_joystick_rev1`; the QP
+build pulls qp-arduino from its GitHub tag `v7.3.4`. Purpose: run the tools
+that v1.0 bring-up will use on known-good v0.3 hardware first, so a different
+result on v1.0 is the board. Driven non-interactively over USB CDC: no meter,
+no hand pull, no pyboard (none on the bench). 36 V supply on throughout, rail
+switched by firmware. Evidence, captures and console logs:
+`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/`.
+
+| Stage | Build | Result |
+| --- | --- | --- |
+| 1 `RP2040SelfTest` | `mouse_joystick_rev1` | **24 checks, 0 failed** (as 2026-09-09) |
+| 2 `TMC5130Communication` | `mouse_joystick_rev1` | rail up **133 ms**, **5 register checks, 0 failed** |
+| 3 `MotionAndHoming` | `mouse_joystick_rev1` | switch witnessed, homed, **5 of 5 repeats, spread 2.0 counts** (as 2026-09-09); encoder follow **0.88–0.94** (was 1.0000) |
+| 5 `AngleOutput` | `mouse_joystick_rev1` | rail, bus, SPI1, `GAIN 0x101` written; commanded codes only, no meter |
+| QP `PyControlLinkQp` | `mouse_joystick_qp_rev1_usb` | see below |
+
+#### Stage 1, USB only, 36 V connected but `HV_EN` low
+
+Serial `E4654C159F171E34`, built Oct 5 2026 11:29:57, reset reason
+`software (3)` (the picotool reboot after the flash). `clk_sys` 133000 kHz
+measured against `clk_ref`; flash 16 MiB with no aliasing at +2/+4/+8 MiB;
+heap 252228 bytes. Straps at reset: `R601` bus isolated, `GP24` OE high,
+`R403` RX high, `R1905` `~{HV_FAULT}` high. Nine spare pads move both ways.
+
+| Reading | Value |
+| --- | --- |
+| `+3.3V_SW` via `GP26` | 12 counts = 0.0193 V, off |
+| `HV_SNS` via `GP28` | 10 counts = 0.0081 V (13 counts on the `a` re-read) |
+| die temperature | 28.5 °C |
+| `k` 10 s tick stream | 1000166 … 10000094 µs on the RP2040 clock (host timestamps not taken) |
+
+LA5032 through the v1.0 adapter, capture `captures/s1_selftest_boot.sr`
+(100 kSa/s, CH16/CH17, started before the reflash):
+
+| Marker | Measured |
+| --- | --- |
+| `FW_TRIG1` boot signature | 3 pulses: 10.140, 10.010, 10.000 ms |
+| `FW_TRIG0` boot signature | 8 pulses: 1.000–1.010 ms |
+| `FW_TRIG0` heartbeat | half-period 500.25 ms, period 1000.52 ms (56 pulses) |
+| `t` burst | 1001 pulses of 0.1 ms on CH16, 503 of 0.2 ms on CH17 |
+| `I` beacon | 3 frames, 50 ms start on CH17, 64 clocks each on CH16, 134.3 ms apart |
+| reflash gap | 2.88 s from the last QP tick pulse of the old firmware to the signature |
+
+#### Stage 2, 36 V on, driver disabled
+
+`s`: `+3.3V_SW` 0.0177 V before; method `firmware staircase (R1903 straps
+LATCH high)`; up in **133 ms, peak 3.2944 V**, live 3.2895 V; `HV_SNS`
+0.0137 V (17 counts, offset floor); `~{HV_FAULT}` high; bus closed with
+`~{TMC_DRV_EN}` high. Registers: `IOIN` 0x11000018 (`REFL_STEP` 0, `ENCA` 1,
+`ENCB` 0, `VERSION` 0x11, `DRV_ENN` 1, `SD_MODE` 0), `GSTAT` 0x1 then cleared,
+`GCONF` 0, `CHOPCONF` 0 (`vsense` 0 at reset, reported not written),
+`DRV_STATUS` 0x80000000, `XACTUAL` 0, `X_ENC` 0. **5 checks, 0 failed.**
+
+SPI taps CH2–CH5 at 10 MSa/s (`captures/s2_tmc_spi.sr`): 16 datagrams of
+40 bits decoded, **every MOSI/MISO byte equal to what the console printed**
+(`04 00 00 00 00` → `39 11 00 00 18`, …), SCK 1.00 MHz, the `FW_TRIG1` burst
+marker 14.30 ms high.
+
+**`m` (36 V input current) fails whenever the rail was live, and works from
+a cold rail.** `PowerSequence::measureHvCurrent()` calls `powerDown()`, waits
+50 ms, then `powerUp()`, which refuses while `+3.3V_SW` still reads live; the
+208 µF `+36V_SW` bulk bleeds down in ~700 ms, so straight after `s` it reports
+`rail: NOT UP` with a 0.00 live count. Re-run after `x` and a 4 s wait it
+measured **zero 11.77 counts, live 16.76, delta 4.98 counts = 12.9 mA** of
+36 V input current with the bus open and the driver disabled (`KSNS` 800,
+`R1907` 249 Ω, 2.6 mA per count). Firmware fix: wait for the rail to read
+dead before `powerUp()`. The ordering is right: the bus opens before `HV_EN`
+drops.
+
+#### Stage 3, motor, encoder, limit switch, correct gate order `b c e W g h H t L`
+
+`b`: rail up 133 ms, peak 3.298 V; TMC5130A 0x11; `uv_cp` 0; DAC `GAIN 0x101`.
+`c`: `CHOPCONF` 0x10030153, **`vsense` reads back 1**, `IRUN` 8 = 0.211 A RMS,
+`IHOLD` 2. `e`: driver enabled.
+
+| Measurement | 2026-10-05 | 2026-09-09 |
+| --- | --- | --- |
+| `W` switch found from the negative hard stop | engaged at 8319 µsteps (58.49°), released 8063, throw 256 µsteps, active high | engaged 28.8° from where it stood, throw 1.80° |
+| `g` out −1280 / back +1280 | encoder −1203 / +1126, follow **0.9398 / 0.8797**, residual **−77 µsteps (−6.0 counts)** | follow **1.0000** |
+| `h` approach 0.200 rev/s, creep 0.010 rev/s | stopped by the switch at 8415 (follow 1.1278), release edge 8020, closing-to-release 395 µsteps, 1721 ms | — |
+| `H` 5 runs | 5 of 5, `ENC_LATCH` 51/38/51/64/38, **spread 26 µsteps = 2.0 counts (0.183°)**, closing-to-release 708–746 µsteps | 2.0 counts |
+| `t` switch reporting delay | **FAIL**: the slow approach ended without a latch | 8.74 ms |
+| `L` live encoder→DAC loop | **1000.1 Hz**, 8009 updates in 8008.2 ms, worst loop **386 µs** of 1000, code 4805 static | 1000.0 Hz, worst 527 µs |
+| `p` after | `DRV_STATUS` 0x8102003B, `ot`/`otpw` 0, `ola`/`olb` 0 | — |
+
+**The mechanism has lost motion it did not have in September.** Both `g`
+legs fall short by 6–12 counts, the 58° witness sweep tracked at ~0.92 on the
+encoder tap (≈600 raw counts for 8319 commanded µsteps against 650 expected),
+and in the `t` window the 0.010 rev/s approach followed at ~0.63 and stopped
+1.3 s in without reaching the switch (tap `captures/s3b_motion.sr`, 51.3–53.8 s;
+`LIMIT_SW` edges only at 51.732 and 52.012 s). Deficits are not multiples of a
+full step (256 µsteps), so this is between the motor shaft and the encoder,
+not stepper stall: look at the coupling set screws and the gear mesh before
+using these numbers as the comparison for v1.0's A6. The motion code
+(`MotionSetup.cpp`) is unchanged since the 1.0000 result, so the firmware is
+not the suspect. The homing repeatability is unaffected because every run
+re-zeroes at the release edge.
+
+**Tool notes from the first, mis-ordered pass** (`W` before `e`): `W` ran the
+ramp generator 21760 µsteps (153°) with the driver disabled and reported "the
+sweep ran out of time"; the encoder tap confirms zero motion. `W` should
+refuse, or enable the driver itself, when `~{TMC_DRV_EN}` is high. `g` from
+rest against the hard stop then failed exactly as its own text predicts.
+
+Encoder and switch taps (`captures/s3b_motion.sr`, 1 MSa/s, CH0/CH1/CH11/CH17):
+3184 A/B edges, **0 invalid quadrature transitions**; raw count decreases for
+positive motion, as documented; `LIMIT_SW` showed 18 transitions matching `W`,
+`h`, the six `H` homes (throwaway plus five) and `t`'s fast approach.
+
+#### Stage 5 `AngleOutput`, no meter
+
+`b`: rail 132 ms, bus closed, SPI1 on GP10/GP11/GP13, `GAIN 0x101` written
+(not readable over SPI). `q`: 2.5000 V full scale at the DAC, 3.3000 V at the
+BNC, 38.15 µV/LSB. `m`, `f`, `t` (step on `FW_TRIG1`), `z`, `x` all ran. No
+voltage was measured; the 2026-09-10 characterisation stands.
+
+#### QP protocol session, `PyControlLinkQp` on `mouse_joystick_qp_rev1_usb` (protocol over USB CDC)
+
+Phases a–e of `qp-arduino-example/evidence/bench-scripts/board4_session.sh`
+run without stops, meter prompts unanswered, no hand pull. `ID`: `hw=rev1`,
+`fw=ec3b36d`, `proto=2`, caps `motion+home+instr+hv+watch+fetch+stream+cfg+angout`,
+`boot=reboot;crumb=0`. `LIMITS`: travel −10.125 … 0.0°, `v_max` 36.0 °/s,
+`a_max` 180.0 °/s², `i_max` 0.421 A.
+
+| Phase | Result |
+| --- | --- |
+| b | `hv on` acked (one tick of 1346 µs; `DAC_STATE` 1 then 2, 7.0 ms apart); `HOMED angle=0.0`; `angscale −10.12 0.00`; `angout on`; TARGET at −7.474 / −5.674 / −3.066 for −7.59 / −5.06 / −2.53 commanded, park at −0.541 for 0.00; `angout off`; disarm. The TARGET offsets of 0.1–0.6° are the lost motion below plus the rotor snap, as on 2026-10-02 |
+| c | 20 of 20 moves, ack→TARGET p50 434.8 ms; `cfg get` `wdt_ms=100;deadband_deg=0.5;stream_hz=10;pre_ms=500;post_ms=500`; `brake 0` → `RELEASED angle=−0.816`; `watch pull=5 push=5 timeout=6000 hold=100`: the released joystick drifted to +0.9° (first motion at 712 ms) so neither `NOMOVE` nor `ABORT` (`maxdur` off) could fire, per spec; `moveto 0` left RELEASED with `TRIAL outcome=NONE a0=−0.816 a_peak=0.9 a_end=0.9` and the resync (`angle=−0.183 xactual=0.0`); FETCH 500 samples in 16 chunks, 125 ms, `lost=0`; `stream on 50` delivered 100 `ev;S` in 2 s; host-loss `FAULT code=0 host_timeout` **124.7 ms** after the last heartbeat, rail dropped (`hv=0`, `DAC_STATE 0`); `clrfault` → IDLE |
+| d | 300 of 300 moves, ack→TARGET p50 434.5 / max 473.9 ms, no naks |
+| e | `hv off` acked, `status` `hv=0`, `DAC_STATE 0` |
+
+Tick cost (`SAMPLE_STAT`, 1 kHz sampler, 400 µs budget): holding with the
+angle output on **158 µs light / 379 µs snapshot** (p50 last / p50 worst per
+second); holding without it **46 / 88 µs**; during back-to-back moves the
+command-handling tick costs **1081 µs p50, 1328 max**, one per `moveto`, so
+every second of phase d is over budget while the sampler itself is not; 738
+of 80003 ticks coalesced, 0 dropped, 96 back-to-back TICK levels on CH16 out
+of 90035; tick period on CH8 1000.0 µs, stdev 12.4 µs, none missed. TMC SPI
+taps during d: 123948 datagrams, SCK 3.33 MHz, 2 per tick p50 (10 p99),
+intra-tick gap 5.3 µs p50. Trace buffer high-water 548, never full; line pool
+min free 1 of 8, queue 9. On 2026-10-02 the rev 1 build holding measured
+201 / 387 µs and the rev 0 build moving p50 444 / p99 1138 / max 2065; today
+moving is p50 146 / p99 542 / max 1490. Full tables in the evidence README.
+
+**Not run today:** the UART0 path with a pyboard (none on the bench), the
+meter readings of phase b, the hand pull.
+
 ## Board 3 — `E4654C159F591D34` — Stage 4, Protocol
 
 **First protocol contact over the RJ-45, 2026-09-03. Passed, with the 36 V
