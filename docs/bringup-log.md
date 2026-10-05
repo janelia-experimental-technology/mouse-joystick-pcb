@@ -23,7 +23,7 @@ independently calibrated and independently suspect.
 
 ## Boards In This Rig
 
-**Four units are now known, and they are no longer all the same PCB revision.**
+**Seven units are now known, across three PCB revisions.**
 `v0.1`→`v0.2` is layout-only — same schematic, byte-identical pad-to-net map — so
 measurements transfer between those tags but **not between the units**. Keep them
 apart; that is what the serials are for.
@@ -39,8 +39,9 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 2** | `E4654C159F4D1334` | `R203` intact, i.e. as-built. **Stages 2 and 3 passed 2026-09-02** — motor turns, encoder tracks, homing repeats to 4 encoder counts. Stage 1 has never been run on it. See [Board 2](#board-2--e4654c159f4d1334) |
 | **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. **Drives the LEFT joystick** (Breakout 1.2 port 1). First stage-4 result recorded 2026-09-03 — see [Board 3, stage 4](#board-3--e4654c159f591d34--stage-4-protocol). No stage 1, 2 or 3 measurements exist for this unit; treat every motion number in this file as belonging to another board until it is measured here |
 | **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Drives the RIGHT joystick.** **The angle output is characterised as of 2026-09-10** — unity gain to 0.03%, 4.5 mV floor, `VREFIO` 2.500 V, no motor coupling, and a live 1 kHz encoder-to-analog loop measured at exactly 1000.0 Hz over 835 000 updates. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). Stage 4 not run on this unit |
-| **Board 5** | *read from `RP2040SelfTest` on arrival* | **v1.0**, `MJ_BOARD_REV=2`. Not yet powered. See [v1.0 Boards](#v10-boards--arriving-2026-10-05-nothing-measured-yet) |
-| **Board 6** | *read from `RP2040SelfTest` on arrival* | **v1.0**, `MJ_BOARD_REV=2`. Not yet powered |
+| **Board 5** | `E465C0164B30612D` | **Second `v0.3` unit**, `MJ_BOARD_REV=1`, named board 5 in the firmware handoff of 2026-10-02. Carries a `mouse_joystick_qp_rev1_usb` build from that morning; **stages 1–3 have never run on it.** Not on the bench 2026-10-05 |
+| **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05. **Stage 1 passed 2026-10-05, 20 checks, 0 failed.** `C1208` and `C1501` still to be replaced before stage 2. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) |
+| **Board 7 (v1.0 unit B)** | *read from `RP2040SelfTest` on arrival* | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Same wrong part at `C1301`, `C1208`, `C1501`; not powered since; needs the same rework |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -98,6 +99,303 @@ footprint **`U601`** — the RP2040 moved into the combined MCU block
 (`rp2040_with_gpio_isolation_sn74cb3q3245`) and **`U501` is now the 36 V
 switch**. Every designator below is v1.0's, read off the `.kicad_pcb`; most of
 them collide with v0.3 names that meant something else.
+
+### First power-up of the first v1.0 unit — 2026-10-05, 13:30: not alive on USB, instrument port silent
+
+Bench: joystick, motor, encoder, limit switch, brake and torque sensor cabled,
+USB connected, 36 V connected, Digital-50 to the LA5032 through the v2.0
+adapter and a Molex 15020 FFC. Serial not yet known: **the board did not
+enumerate at all** — no `2e8a:0003` RP2040 bootloader (a blank flash would
+show one) and no CDC device, while the LA5032 on the same host enumerated
+normally. A 5 s capture of all 32 channels at 100 kSa/s
+(`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1_quiet_all32.sr`) read
+**every channel low with no edges**. With `+3.3V_MCU` up the always-on
+buffers would hold `DIG3` (`R401`), `DIG26` (`R507`) and `DIG27` (`R607`) high
+in either cable orientation (CH3/26/27 straight, CH28/5/4 reversed); none was.
+Two independent symptoms with one common cause: **the MCU domain is not
+powered**, or the FFC is not making contact *and* USB fails separately. The
+netlist is not the reason: `J201` has `R201`/`R202` 5.1 kΩ on CC1/CC2, `D201`
+Schottky feeds `+5V_MCU`, `U701` TPS73733 makes `+3.3V_MCU`. No test points
+exist; probe `C201` 100 nF (VBUS), `C701` 1 µF (`+5V_MCU`) and the `U701`
+output. Nothing was energised by firmware: `HV_EN` floats low with the MCU
+unpowered, so the switched domain stayed off (`PG_5V`/`PG_12V` low).
+**13:36, USB cable swapped: unchanged** — still no `2e8a` device, all 32
+channels still low (`v1/v1_quiet2_all32.sr`). Meter readings owed at `C201`
+(VBUS), `C701` (`+5V_MCU`) and `C1301` (`+3.3V_MCU`).
+**13:42, second v1.0 unit swapped in: identical** — no `2e8a` device, all 32
+channels low (`v1/v1b_quiet_all32.sr`). Two units failing the same way points
+at the design, the assembly or the bench feed rather than one bad board.
+
+**Prime suspect, 13:50: the v1.0 fabrication package's placement rotations.**
+The v0.3 package carried the KiCad rotation unchanged for every footprint
+and assembled correctly. The v1.0 package applied a `kicad-libs` rotation table
+that adds **+270°** to footprints the two boards share and that were right at
+v0.3 without any offset: the flash `U602` (WSON-8), the bus switches
+`U603`–`U606` (RGY VQFN-20), the USB ESD array `U201` (SOT-666), the 36 V
+switch `U501` (HTSSOP-14), plus the new `U1301`–`U1304`, `U801`/`U1801`,
+`U2002`. At most one of the two conventions is right, and v0.3 works. A
+SOT-666 USBLC6 placed off its pads shorts `VBUS` to `GND`, which removes
+the host's 5 V and matches both symptoms on both units. **Check the pin-1
+marks of `U201`, `U602` and `U501` against the v0.3 board before anything
+else, and keep the 36 V supply off until `U501`'s orientation is confirmed.**
+`U701`, `U601`, `D201`, `J201`, `SW601`/`SW602` and `Y601` carry no offset,
+and the USB-C receptacle, the tactile switch and the crystal footprints have the
+same rotation on both orders, so they are not suspects. The table's rows are
+"verified" in the sense that the corrected v1.0 CPL looked right in the JLCPCB
+placement viewer before the order; the v0.3 CPL copied KiCad verbatim and those
+boards nevertheless came out right, so one of the two orders has `U201`
+(`USBLC6-2P6`, pin 5 = VBUS, pin 2 = GND) and the other rotated parts 270° off.
+A rotated `U201` or a rotated `+3.3V_MCU` load (`U1301`–`U1304`, `U603`–`U606`)
+is the one fault that explains **both** symptoms on **both** units without a
+second one: the host's 5 V is shorted, the always-on domain never rises, and
+the port buffers stay dark. Decisive checks, in order: pin-1 mark of `U201`,
+`U602` and `U1301` against the same parts on a v0.3 board; VBUS at `C201` with
+the board plugged in (≈0 V means the host port has folded back); `sudo dmesg`
+for an over-current message.
+
+**14:05, by eye and thermal camera (Peter): no chip is rotated, and `U701`,
+the always-on `+5V_MCU` → `+3.3V_MCU` TPS73733, runs very hot with no visible
+pin short.** That retires the placement-rotation suspect and says what the
+fault is: the always-on 3.3 V rail is shorted or grossly overloaded, so the
+regulator sits in current limit (up to ~5 W in a 3×3 mm VSON) and the rail
+never rises — the RP2040's ROM never runs USB and the port buffers stay dark,
+one cause for both symptoms on both units. `U1001`, the switched-domain twin,
+cannot be the hot one with `HV_EN` low. Nothing in the netlist ties
+`+3.3V_MCU` to `GND` except capacitors; the DRC saw no `+3.3V_MCU`-to-`GND`
+proximity (its seven `+3.3V_MCU` clearance warnings are against signal tracks:
+the buffer `~{OE}` nets at `U1302`/`U1304` pad 20, which tie to `GND` only
+through 10 kΩ, and GPIO tracks at `C607`/`C614`). Owed measurements: `+3.3V_MCU`
+at `C1301` and `+5V_MCU` at `C701` powered; resistance `+3.3V_MCU` to `GND`
+unpowered (a healthy board reads kΩ); a slow thermal pass over the whole board
+for a second hot spot (a cracked 0402 on the rail or a bridged QFN pad heats
+at 1 A, a copper short does not). The BOM is clean for every part on
+`VBUS`, `+5V_MCU` and `+3.3V_MCU` (right MLCCs, right resistor values, right
+ICs), the DRC's closest copper on those rails is 0.100 mm to signal tracks and
+none to `GND`, and `U701` is the same LCSC part (`C523768`) that works on v0.3.
+Two regulators share the description "5 V to 3.3 V": `U701` (always-on, at
+board (108.9, 97) mm beside the RP2040) and `U1001` (switched domain, at
+(123.4, 96.8) mm); only `U701` can be live with `HV_EN` low. A healthy
+always-on domain draws ~0.2 A, which already makes `U701` the warmest part on
+the board, so heat alone does not prove an overload: the voltage does.
+Side note, not the cause: v1.0 has **no pull-down on `HV_EN`** (v0.3 had
+`R1904` 10 kΩ); `U501`'s EN relies on the RP2040 pad's default pull-down and
+on the part's internal pull-down while the MCU is unpowered.
+
+**14:30, prime suspect found by eye (Peter): `C1301` is not a ceramic
+capacitor.** With only USB connected and `U701` hot, the part at `C1301`
+(`+3.3V_MCU` to `GND`, board (151.4, 121) mm beside the Digital-50 buffers) has
+a **green body with a black band at the `+3.3V_MCU` end**. The BOM position is
+LCSC `C2858031`, Murata `GRM155R61E475ME15D`, 4.7 µF 25 V X5R 0402: a plain
+grey ceramic with unmarked metal ends and no polarity. A banded green 0402 is
+a polarised part, so the reel at that position was substituted or mis-picked.
+The same reel feeds **`C1208`** (TMC5130A `5VOUT` to `GND`) and **`C1501`**
+(`+5V_SW` to `GND`), both in the switched domain and not yet energised; on
+v0.3 the same LCSC number sits at `C1208` and `C801` as the genuine Murata
+part. A diode-like part across the always-on rail clamps it below the
+RP2040's USB minimum, holds `U701` in current limit (hot) and keeps the port
+buffers dark: one cause, both units, every symptom. Plan: measure across
+`C1301` as mounted, remove it (the TPS737 is stable without it; `C702`,
+`C603` and fifteen 100 nF remain), retry USB, test the removed part in diode
+mode, then inspect and replace `C1208` and `C1501` before the first `HV_EN`.
+
+**14:40, confirmed by eye (Peter): `C1208` and `C1501` carry the same green,
+black-banded part on v1.0, and the `C1208` on a v0.3 board, same LCSC
+number, is a normal unmarked ceramic.** So the v1.0 assembly run placed a
+wrong reel at every `C2858031` position, on both units. Rework for both
+boards: remove all three; `C1301` may stay empty for bring-up; **`C1208`
+must be refitted with a real 2.2–4.7 µF ceramic** because it is the TMC5130A's
+`5VOUT` regulator capacitor, which the driver needs for stability; `C1501`
+(`+5V_SW` local bulk) may stay empty or take any 1–10 µF ≥ 10 V ceramic.
+This is a quality claim against the assembler: the BOM line, the three
+positions and a photo of a green part beside the v0.3 ceramic are the
+evidence.
+
+### v1.0 unit A (board 6) — `E4654C159F274534` — Stage 1 passed 2026-10-05, 15:04, after removing `C1301`
+
+**The dead-board fault was the wrong part at `C1301`.** With it removed and
+USB alone connected, the board enumerated as the RP2040 ROM bootloader
+(`2e8a:0003`, blank flash), took `RP2040SelfTest` for `mouse_joystick_rev2`
+by UF2 copy, and came back as `2e8a:f00a` with the serial above. **20
+checks, 0 failed** — the count derived on 2026-10-04 is now observed.
+Console log: `../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/s1_selftest_rev2_boardA.log`.
+`C1208` and `C1501` still carry the wrong part on this unit; the 36 V supply
+stays off until they are replaced.
+
+| Check | Result |
+| --- | --- |
+| reset reason | `software (3)` (the UF2 reboot) |
+| `clk_sys` against `clk_ref` | 133000 kHz; `clk_ref` 12000, `clk_peri`/`clk_usb`/`clk_adc` 48000 kHz |
+| flash | unique id read, 16 MiB declared, no aliasing at +2/+4/+8 MiB |
+| heap | 252224 total, 16 KiB allocation and pattern walk ok |
+| `GP9` `~{BUS_SW_EN}` | high — `R607` 7.87 kΩ holds the bus isolated |
+| `GP24` `HV_LATCH` | **low** (informational: switch unpowered; low = auto-retry) |
+| `GP16`/`GP17` `DAC_SDA`/`DAC_SCL` | high — `R403`/`R402` 4.7 kΩ |
+| `GP1` `PYC_UART_RX` | high — `R401` 10 kΩ |
+| `GP23` `~{HV_FAULT}` | high — `R507` 10 kΩ, no latched fault |
+| spare pads `GP20`, `GP22` | both move both ways |
+| `GP26` `SW_RAIL_SENSE_DIV_2` | 11 counts = 0.0089 V divided = **0.0177 V on `+3.3V_SW`**, off |
+| `GP28` `HV_SNS` | 9–10 counts = 0.0073–0.0081 V across `R509` 249 Ω |
+| `GP27` `BRAKE_ISENSE` | 7–11 counts = 0.0056–0.0089 V (0–1.006 V is 0–48.78 mA with the rail up) |
+| `GP29` `ANGLE_OUT_MON` | 12–14 counts = 0.0097–0.0113 V (0–1.650 V with the rail up) |
+| die temperature | 30.9 °C at boot, 32.3 °C a minute later |
+
+**Digital-50 through the v2.0 adapter, 15:10 — straight mapping, markers and
+beacon good.** With the LA5032 back: `R401`/`R507`/`R607` put `DIG3`/`DIG26`/
+`DIG27` on **CH3/CH26/CH27** (a reversing cable would have given CH28/CH5/CH4),
+so `CHn` observes `DIGn`; the four `GND`-tied strands and every switched-domain
+tap read low as their biases predict with the rail off. Boot signature on a
+commanded reboot: **CH1 (`FW_TRIG1`) 10.135, 10.005, 10.001 ms; CH0 (`FW_TRIG0`)
+8 × 1.001–1.008 ms**, 1.18 s after the last heartbeat edge; heartbeat half-period
+500.25 ms. The `I` beacon's three frames (50.0 ms start, 64 clocks) each decode
+to **`E4654C159F274534`**, the flash id above. Captures
+`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_boot_all32.sr` (all 32
+channels, 100 kSa/s) and `v1a_signature.sr` (1 MSa/s). Owned by the adapter's
+log; recorded there too. Not yet done on this unit: the `k` crystal check
+against the host clock, the cold power-on reset reason.
+
+**Firmware finding from the same capture: `~{BUS_SW_EN}` (CH27) drops low for
+34 µs at every firmware boot**, 182 µs before the first signature pulse.
+`SafeState::driveOutput()` calls `pinMode(OUTPUT)` before `digitalWrite(HIGH)`,
+and the RP2040's output register is 0 after reset, so the pad drives low
+until the second call: the bus switch closes for 34 µs at each boot. The MCU
+pins are still inputs at that moment, so nothing drives into the switched
+domain and today it is harmless; it is still the one thing the firmware
+contract says must never happen. Fix is to set the level before the
+direction. Not applied.
+
+### v1.0 unit A — Stage 2 passed 2026-10-05, 15:34, direct LATCH-GPIO power-up, after a firmware fix
+
+`C1208` refitted with a genuine 4.7 µF and `C1501` removed (Peter), 36 V on,
+everything cabled but the RJ-45. `TMC5130Communication` on
+`mouse_joystick_rev2`, Digital-50 taps CH1/8–11/14/24/26/27/30/31 at 10 MSa/s
+(`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_s2_tmc.sr`, `v1a_s2b_tmc.sr`).
+
+**First attempt, firmware `ec3b36d`: the rail came up and the firmware then
+armed latch-off too early.** The tap timeline of the failed `s`: `HV_EN` high
+for 116 ms; **`PG_5V` up at +6.6 ms, `PG_12V` at +10.9 ms** — the bucks run
+from a few volts of `+36V_SW`, so `+3.3V_SW` read live while the switch was
+still charging 208 µF in current limit; `powerUp()` saw the rail up, waited
+10 ms and drove `HV_LATCH` high; `PG_12V` fell at +36.7 ms and `PG_5V` at
++59.6 ms (the switch tripped on the remaining inrush with latch-off armed and
+stayed off); the fault check at +114 ms read `~{HV_FAULT}` low. The `m`
+measurement a few seconds later, same code, survived by timing luck: rail
+held 3.15 s, no fault, **51.3 mA** of 36 V input current with the bus open.
+The LATCH probe's first half (LATCH driven high on purpose) failed as
+designed: came up, held 13 ms, peak 3.293 V, fault latched, started cold.
+`p` then also collapsed because `powerDown()` left LATCH high after the probe;
+its table shows `HV_SNS` at the ISNSFLT level (1.65 V) throughout the charge.
+
+**Fix (firmware, `PowerSequence`):** with LATCH on a GPIO, keep it low until
+`HV_SNS` has read below the fault level for 20 ms running (the bulk is charged
+when the switch leaves current limit), then arm latch-off; give up after 1 s
+and report a short; `powerDown()` returns LATCH to low; the report carries
+`charge_ms`. **Two passes after the fix, both clean:**
+
+| Quantity | run 1 | run 2 |
+| --- | --- | --- |
+| method | LATCH held low, direct `HV_EN` | same |
+| `+3.3V_SW` up | 4 ms, peak 3.2927 V | 3 ms, peak 3.2927 V |
+| bulk charged, latch-off armed | **34 ms** | **33 ms** |
+| `PG_5V` / `PG_12V` after `HV_EN` (tap) | +6.4 / +8.4 ms, never fell | +6.0 / +8.3 ms, never fell |
+| `~{HV_FAULT}` (tap, DIAG_EN high) | one low edge at +4.2 ms during the inrush retry, then high | one at +3.1 ms |
+| `HV_SNS` right after power-up / later | 0.0395 V = 126.9 mA (charging tail) / 0.0193 V floor | 0.0193 V floor |
+| bus closed (`~{BUS_SW_EN}` low, tap) | +140 ms | +139 ms |
+| `IOIN` | 0x1100001C: `VERSION` 0x11, `DRV_ENN` 1, `SD_MODE` 0, `REFL_STEP` 0, `ENCA` 1, `ENCB` 1 | same |
+| `GSTAT` / `CHOPCONF` / `DRV_STATUS` / `XACTUAL` / `X_ENC` | 0x1 then 0 / 0 (`vsense` 0 at reset) / 0x80000000 / 0 / 0 | same |
+| register checks | 5, 0 failed | 5, 0 failed; `r` re-read 5, 0 failed |
+| `m` from a cold rail | | **43.6 mA** idle, rail live |
+
+So on v1.0 the staircase is retired: a plain `HV_EN` with LATCH low gets
+through the inrush by the part's own retry, and latch-off is armed 33 ms
+later. `~{BUS_SW_EN}` also shows the 34 µs boot glitch at every
+`disconnectBus()` call (the `driveOutput()` order, above).
+
+### v1.0 unit A — Stage A3, the angle DAC over I2C, 2026-10-05, 15:38
+
+`AngleOutput` on `mouse_joystick_rev2`, I2C taps `DIG22`/`DIG23` on CH22/CH23 at
+10 MSa/s (`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a3_dac.sr`).
+Rail up in 3 ms (direct method), bus closed, I2C0 on GP17/GP16 to **0x48**.
+Every transaction ACKed on the tap: soft reset (`0x05` ← 0x000A), `CONFIG`
+(`0x03` ← 0x0000), **`GAIN` (`0x04` ← 0x0101)**, `SYNC` (`0x02` ← 0x0000), then
+`GAIN` read back **0x0101, matched** — the first time this board family could
+verify its DAC gain — and **`DEVID` 0x115**, `REF-ALARM` clear, twice. Codes
+0x8000, 0xFFFF and 0 were commanded (0.825, 1.650, 0 V expected at the BNC
+after the v1.0 ÷2). 13 writes and 5 reads to 0x48 in the capture, no NACK
+except the terminal one of each read.
+
+**15:49, measured at the BNC node through `ANGLE_OUT_MON` (GP29, 16-sample
+average), after adding the readback to `AngleOutput` and setting I2C to
+400 kHz** (`v1/a3b_angleoutput_rev2_boardA.log`). The RP2040 ADC against its
+3.3 V supply is the reference here, so ±1 % is the instrument, not the board;
+a meter on the BNC is still owed for the fit.
+
+| DAC code | expected at the BNC | `ANGLE_OUT_MON` | difference |
+| --- | --- | --- | --- |
+| 0 | 0 V (floor) | **0.0121–0.0129 V** (15.3–15.7 counts) | the v1.0 output floor, ~12 mV after the ÷2 (v0.3 measured 4.5 mV before it) |
+| 497 (25 mV at the DAC) | 0.0125 V | 0.0226 V | floor plus the step |
+| 0x8000 | 0.8250 V | **0.8236 V** (1021.9 counts) | −1.4 mV, −0.17 % |
+| 0xFFFF | 1.6500 V | **1.6415 V** (2036.8 counts) | −8.5 mV, −0.5 % |
+
+`DEVID` 0x115 and `REF-ALARM` clear again after the sweep. The 12 mV floor
+means the out-of-band "unhomed" level needs the same thought as on v0.3
+(code 497 reads 22.6 mV here, only 10 mV above the floor).
+
+### v1.0 unit A — Stage A6 (stage 3 on v1.0) passed 2026-10-05, 15:41, replacement joystick unit
+
+`MotionAndHoming` on `mouse_joystick_rev2`, taps CH1/14/15/24/26/28/29 at
+1 MSa/s (`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a6_motion.sr`).
+`b`: rail up 3 ms (direct method), bulk charged 34 ms, TMC5130A 0x11, `uv_cp`
+0, encoder scaled, DAC over I2C at 0x48 with `GAIN 0x101`. `c`: `vsense` read
+back 1, IRUN 8 = 0.211 A RMS. `e`: enabled.
+
+| Measurement | Result |
+| --- | --- |
+| `W` switch found from where it rested | engaged at 6271 µsteps (44.09°), released 6015, throw 256, active high |
+| `g` out −1280 / back +1280 | encoder −1203 / +1100 (0.9398 / 0.8594), residual −103 µsteps (−8.0 counts) |
+| `h` approach 0.200 rev/s, creep 0.010 | stopped by the switch (328 → 397, 1.21), closing 6343, release edge 5978, closing-to-release 365 µsteps, 1454 ms |
+| `H` 5 runs | **5 of 5, spread 25 µsteps = 2.0 counts (0.176°)** |
+| reversal dead band (IRUN 8) | continuing jogs 1.0102 / 1.0000 / 1.0195; every reversal **1191 of 1280 (0.9305), 89 µsteps = 7 counts**; `g` residual −102 µsteps |
+| second `h` from 4667 µsteps away | approach follow 0.9927, closing-to-release 702 µsteps, 2784 ms |
+| `L` live encoder → I2C DAC | **1000.1 Hz achieved, worst loop 1082 µs of 1000** at the 100 kHz I2C default (v0.3 over SPI: 386–527 µs), code 7190 static; **732 µs worst after setting I2C to 400 kHz** (15:50, 10019 updates, 1000.1 Hz, `v1/a6b_liveloop_rev2_boardA.log`) |
+| `p` after | `DRV_STATUS` 0x81020034, `ot`/`otpw` 0 |
+
+The reversal dead band is the same 89–90 µsteps this joystick unit measured on
+board 4 earlier today, so it travels with the mechanism and motor, not with the
+board or the driver. Homing repeatability is unchanged at 2.0 counts. **The
+live loop's worst iteration exceeded the millisecond for the first time**: the
+bench consoles left `Wire` at its 100 kHz default (the QP build already ran
+400 kHz), where one three-byte DAC write costs ~400 µs. At 400 kHz the worst
+iteration is 732 µs, still above v0.3's SPI figure; the remaining cost is the
+I2C transaction itself (~90 µs) plus the same polling as before.
+
+### v1.0 unit A — QP protocol session on `mouse_joystick_qp_rev2_usb`, 2026-10-05, 15:51–16:05
+
+Phases a–e of the board-4 session on the v1.0 build (protocol over USB CDC,
+QS trace on `FW_TRIG1` = CH1, TICK level on `FW_TRIG0` = CH0, tick probe on
+the UART0 TX pad = CH2, TMC SPI on CH8–CH11), no stops, no meter, no hand.
+Files: `../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/qp/`. `ID`: `hw=rev2`,
+caps `motion+home+instr+hv+watch+fetch+stream+cfg+angout`. No `ASSERT` in any
+trace; trace buffer never full; line pool min free 3 of 8 (rev 1 had 1).
+
+| Phase | Result |
+| --- | --- |
+| b | `hv on` acked (the direct power-up inside `TmcMotion`; `DAC_STATE` 1 then 2, 5.2 ms apart), HOMED, `angscale`, `angout on`, TARGET at −7.566 / −5.766 / −3.15 for −7.59 / −5.06 / −2.53, park −0.541, `angout off`, disarm |
+| c | 20 of 20 moves, ack→TARGET p50 435.1 ms; `brake 0` → RELEASED at −0.816°; `watch` with no hand: first motion at 713 ms (drift to −0.9°), `TRIAL outcome=NONE` on leaving RELEASED; FETCH 500 samples `lost=0` in 153 ms; `stream on 50` 100 lines in 2 s; host-loss FAULT after **105.7 ms**; `clrfault` |
+| d | 300 of 300 moves, ack→TARGET p50 433.7 / max 473.7 ms, no naks |
+| e | `hv off` → `hv=0`, `DAC_STATE 0` |
+
+Tick cost on v1.0 (`SAMPLE_STAT`, p50 last / p50 worst-per-second, µs):
+holding with the angle output on **305 / 357** (rev 1 on v0.3: 158 / 379 — the
+I2C DAC write at 400 kHz replaces the SPI one); idle with it off **15 / 52**;
+moving back to back **116 / 1081** (the command tick, one per `moveto`, as on
+v0.3). TICK level on CH0 p50 106–117 µs, max 1.46–1.75 ms; tick period
+1000.0 µs, none missed; 92–96 back-to-back levels per 90 s. TMC SPI 3.33 MHz,
+2 datagrams per tick p50, 10 p99. Ping round trip over USB CDC p50 3.1–3.4 ms.
+
+**Rev 2 is now exercised end to end on hardware**: stages 1, 2, A3, A6 and the
+QP protocol build, all on unit A. Owed on v1.0: A4 brake, A5 torque (no
+firmware yet), a meter fit of the angle output, the UART0 path with a pyboard
+(Gate E), and unit B.
 
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
@@ -1312,7 +1610,7 @@ switched by firmware. Evidence, captures and console logs:
 | --- | --- | --- |
 | 1 `RP2040SelfTest` | `mouse_joystick_rev1` | **24 checks, 0 failed** (as 2026-09-09) |
 | 2 `TMC5130Communication` | `mouse_joystick_rev1` | rail up **133 ms**, **5 register checks, 0 failed** |
-| 3 `MotionAndHoming` | `mouse_joystick_rev1` | switch witnessed, homed, **5 of 5 repeats, spread 2.0 counts** (as 2026-09-09); encoder follow **0.88–0.94** (was 1.0000) |
+| 3 `MotionAndHoming` | `mouse_joystick_rev1` | switch witnessed, homed, **5 of 5 repeats, spread 2.0 counts** (as 2026-09-09); encoder follow 1.0000 continuing, **0.93–0.96 on every reversal**: the stepper's dead band against friction, present in September too, same on a replacement joystick unit; see below |
 | 5 `AngleOutput` | `mouse_joystick_rev1` | rail, bus, SPI1, `GAIN 0x101` written; commanded codes only, no meter |
 | QP `PyControlLinkQp` | `mouse_joystick_qp_rev1_usb` | see below |
 
@@ -1385,18 +1683,66 @@ drops.
 | `L` live encoder→DAC loop | **1000.1 Hz**, 8009 updates in 8008.2 ms, worst loop **386 µs** of 1000, code 4805 static | 1000.0 Hz, worst 527 µs |
 | `p` after | `DRV_STATUS` 0x8102003B, `ot`/`otpw` 0, `ola`/`olb` 0 | — |
 
-**The mechanism has lost motion it did not have in September.** Both `g`
-legs fall short by 6–12 counts, the 58° witness sweep tracked at ~0.92 on the
-encoder tap (≈600 raw counts for 8319 commanded µsteps against 650 expected),
-and in the `t` window the 0.010 rev/s approach followed at ~0.63 and stopped
-1.3 s in without reaching the switch (tap `captures/s3b_motion.sr`, 51.3–53.8 s;
-`LIMIT_SW` edges only at 51.732 and 52.012 s). Deficits are not multiples of a
-full step (256 µsteps), so this is between the motor shaft and the encoder,
-not stepper stall: look at the coupling set screws and the gear mesh before
-using these numbers as the comparison for v1.0's A6. The motion code
-(`MotionSetup.cpp`) is unchanged since the 1.0000 result, so the firmware is
-not the suspect. The homing repeatability is unaffected because every run
-re-zeroes at the release edge.
+**The lost motion is a direction-reversal dead band of the stepper against
+the mechanism's friction. It is in neither the TMC5130A nor the encoder
+signals, it is not a defect of the joystick unit, and it was already there in
+September.** Settled the same afternoon with the encoder taps on the
+instrument port (CH0/CH1), a jog series at two currents on the original unit
+(`consoles/s6_irun_rev1.log`, `captures/s6_irun.sr`) and the same series on a
+**replacement joystick unit** (`consoles/s7_newjoy_rev1.log`,
+`captures/s7_newjoy.sr`):
+
+- The raw quadrature on the taps agrees with the driver's `X_ENC` to within
+  2 counts on every move (`g`: taps +94/−88 counts, `X_ENC` 1203/1126 µsteps
+  = 94.0/88.0 counts). The chip counts what the encoder sends.
+- A move continuing in the previous direction follows at **0.99–1.02**. Every
+  reversal loses a fixed amount: **77–90 µsteps (6–7 counts, 0.54–0.63°) at
+  IRUN 8**, **52–64 µsteps (4–5 counts) at IRUN 17**; the round-trip residual
+  is one reversal (−77/−90 at 8, −52/−77 at 17). **The replacement unit
+  measured the same: 90 µsteps on every reversal at IRUN 8.**
+- On the taps a reversal's first encoder count comes **52 ms later** than a
+  same-direction move's (63 vs 11 ms after the move marker), about 50 µsteps
+  of ramp travel with the shaft still; the shaft stops 25–35 ms *before* the
+  firmware declares the move done and does not creep afterwards, so the
+  reading is of a settled shaft, not a premature one.
+- Doubling the current shrinks the band by about a third, which a loose
+  coupling or hub could not do. The lag each way, ~45 µsteps = 16° electrical
+  at IRUN 8, says the static friction torque is about 0.27 of the holding
+  torque at 0.211 A (sin 16°); at 0.421 A the same friction predicts a
+  ~45 µstep band, measured 52–64.
+- It is not new: board 2's stage 3 on 2026-09-02 left a round-trip residual of
+  **−51 µsteps (−4 counts)** at IRUN 8, recorded as "unexplained", and board
+  4's `g` return on 2026-09-09 read **0.9195**; the 1.0000 figures were
+  same-direction legs. Today's band is one to two counts wider.
+
+| Move (1280 µsteps = 9°) | IRUN 8, original unit | IRUN 17, original unit | IRUN 8, replacement unit | IRUN 17, replacement unit |
+| --- | --- | --- | --- | --- |
+| continuing in the previous direction | −1280, −1280 (1.0000) | −1280 (1.0000), +1292 | −1306 (1.0203), −1267 (0.9898) | −1293 (1.0102) |
+| reversal | 1190 ×4 (0.9297), 1203 (0.9398) | 1216 ×2, 1228 ×2 (0.9500–0.9594) | 1190 ×5 (0.9297), 1177 (0.9195) | 1242, 1177, 1165, 1216 (0.91–0.97) |
+| `g` round-trip residual | −77 (−6.0 counts) | −52 (−4.1) | −90 (−7.0) | −77 (−6.0) |
+
+Motor and encoder both turn 1:1 with the joystick axis (`ENC_CONST` 12.8
+µsteps per count at 4000 counts/rev), so 0.4–0.6° of *commanded* joystick
+position is lost at each reversal. The encoder, the angle output and WATCH
+read the true angle and are unaffected; the follow rule's 1° grace tolerates
+it; homing re-zeroes at the switch, which is why the repeatability is 1–2
+counts on either unit (replacement unit: **5 of 5, spread 13 µsteps = 1.0
+count**; switch found 21.65° from where it rested, throw 256 µsteps, active
+high). IRUN 17 roughly halves the band if commanded positioning ever needs it.
+`MotionSetup.cpp` is unchanged since September, so the firmware is not a
+suspect.
+
+**`t` (switch reporting delay) fails on both units for a related reason.**
+After its fast approach stops hard on the switch, its 1280-µstep move away
+produced only 14 counts on the taps and left the switch engaged (tap 77.44 to
+92.47 s, `LIMIT_SW` high), so the slow approach was never attempted; the code
+ignores the away move's report. A reversal straight off a full-speed switch
+stop shows a wider dead band than a free reversal, and the blocking
+`MotionSetup::moveTo()` judges its first 200-µstep window against 0.25 with
+**no grace distance and no second window**, unlike `TmcMotion`'s rule (142
+µsteps of grace, two failing windows), so it ended the move. Firmware nits:
+give the bench console the delivery firmware's follow rule, and have `t`
+check the away report and jog clear before judging, as `W` learned to.
 
 **Tool notes from the first, mis-ordered pass** (`W` before `e`): `W` ran the
 ramp generator 21760 µsteps (153°) with the driver disabled and reported "the
