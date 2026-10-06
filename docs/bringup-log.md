@@ -593,6 +593,243 @@ every protocol step above behaved as specified, and the ramp's largest single
 step (19 mA) is below the ~60 % of full scale where the coil was seen to
 overshoot.
 
+### v1.0 unit A — first contact over the RJ-45 and the delivery build's tick budget, 2026-10-06, 09:59–10:05
+
+Peter plugged the Breakout 1.2 into the board's RJ-45 and the pyboard into
+USB (PYBV11, MicroPython 1.26.1, serial `397734803233`, pyControl framework
+on its flash). The board runs `examples/PyControlLinkQp` on
+**`mouse_joystick_qp_rev2`**, the delivery build: protocol on UART0, QS trace
+on `FW_TRIG1`, USB CDC only a banner. Driven from the pyboard's REPL with
+`machine.UART` directly (`tools/pyboard_repl.py`), as on 2026-09-03: first
+contact should not have the framework as a second unknown. Digital-50
+CH0–CH3, CH24, CH27 at 10 MSa/s. Evidence
+`../../qp-arduino-example/evidence/2026-10-06-0959-unitA-uart0-first-contact/`
+and `…-1001-unitA-uart0-protocol/`.
+
+**Which port.** `id` on `UART(4)` (port 1) and `UART(1)` (port 3): nothing.
+On **`UART(3)` = Breakout 1.2 port 4**: `ack;2;hw=rev2;serial=E4654C159F274534;
+fw=9b6d2ef;proto=2;axes=1;caps=motion+home+instr+hv+watch+fetch+stream+cfg+angout+brake+torque;rxbuf=200;boot=reboot;crumb=0`.
+Port 4 is the RIGHT joystick's port in `mouse_joystick_bringup.py`, which is
+the joystick unit A drives. The same bytes decoded on the taps: `id;2` on CH3
+(`PYC_UART_RX`) and the 170-character reply on CH2 (`PYC_UART_TX`), so the
+adapter's CH2 is verified for the first time and the UART wiring and polarity
+on v1.0 are as on rev 0 (`R401` 10 kΩ holds RX idle high; `DIO-A` → RX,
+TX → `DIO-B`).
+
+**The protocol over the real link, 36 V on** (`…-1001-…/repl/protocol_session.txt`):
+
+| Step | Over UART0 |
+| --- | --- |
+| `status` cold | `state=IDLE;…;torque=0.0;brake=0.0;hv=0` |
+| `hv on` | `ack`; then `torque=-0.262` live, `tq get` −0.261, `tq zero`, `tq get` → `torque=0.001;raw=-0.26` |
+| `home` | `HOMED` within the 3 s read window |
+| `arm`, `brake 1.0` | `ev;RELEASED;…;angle=0.084;torque=0.016;brake=1.0`; `STATUS` in `RELEASED` with `brake=1.0` under 60 ms pings |
+| `watch pull=5;push=5;timeout=1500;touch=0.3` | `ev;NOMOVE` 1500.0 ms after the command (205679784 − 204179… µs), `ev;TRIAL` exactly 1 s later with `tq_peak=-0.009;tq_out=-0.007;a_peak=0.183` |
+| `fetch;0;3` | `n=3;…;pre=500;lost=0`, three `cap;k;0.267;-0.007` lines, `cap;end` |
+| then | **`ev;FAULT;…;code=0;detail=host_timeout`**: the REPL script waited 150 ms on the fetch with no command in between — the host's fault, and the board did what the spec says: `hv=0`, `brake=0.0`, `FAULTED`, `brake;68;3.4` → `nak;faulted`, pings still answered, `clrfault` afterwards → `IDLE` |
+
+**The tick budget on the delivery build** (`SAMPLE_STAT`/`POLL_STAT` from the
+trace, compare the USB bench build earlier today):
+
+| State | USB bench build | UART0 delivery build |
+| --- | --- | --- |
+| rail down, idle: last tick | 35–60 µs | 50–79 µs |
+| rail up, `ARMED`/`HOMED`: last / max | 260–1080 / 2100–2500 µs | **273–344 / 533–795 µs** |
+| rail up, `RELEASED` + `WATCH`: last / max | 1170–2260 / 2160–3410 µs | **1167–1440 / 2264–3414 µs** |
+| worst X_ENC read / five-register snapshot | 350–555 / 400–670 µs | **161–167 / 308–317 µs** |
+| worst ADS8689 sample / `BRAKE_ISENSE` read | 230–480 / 110–230 µs | **103–107 / 57–137 µs** |
+| decimated from `hv on` to `hv off` | yes | yes |
+
+So the USB protocol port was inflating every primitive two- to fourfold (its
+servicing runs at interrupt level in the Arduino core), and over UART0 the
+primitives sit at 3× their bench-console cost (interrupt time from the tick
+alarm, the UART and the trace's PIO ISR). What is left is structural and the
+same on both builds: `ProtocolBoard` polls both hardware backends at every
+scheduler stop, the classifier's 1 kHz ring adds one stop per millisecond in
+`RELEASED`, and the sampler's decimated mode — entered during the `hv on`
+transient (one 3.9 ms tick plus the four peripheral phases) — is only left
+when the rail goes down, so a decimated tick covers 2 ms of ring stops: three
+polls of ~300 µs each is the 1.2 ms. Both are firmware fixes (a once-per-tick
+rate limit on the hardware polls; hysteresis on the decimation) and are in
+the firmware plan.
+
+### v1.0 unit A — Gate E through pyControl, and the tick budget after the poll fixes, 2026-10-06, 10:17–10:45
+
+The Breakout 1.2 on the RJ-45, the pyboard on USB, 36 V on; pyControl 2.1.1
+running the bring-up task `mouse_joystick_check` on the pyboard
+(`mouse-joystick-firm/tools/pycontrol_run.py`, the GUI's `Pycboard` path).
+Three runs of the same 50 s task against three builds of
+`mouse_joystick_qp_rev2`, each under a Digital-50 capture (CH0–CH3, CH24,
+CH27 at 10 MSa/s) with the QS trace decoded. Evidence
+`../../qp-arduino-example/evidence/2026-10-06-1019-unitA-gate-e/`, `-1037-`,
+`-1043-`. The pyControl side is in "pyControl Integration" below; this
+section is the board's tick.
+
+**The sequence, from the board's clock (run 1043, booted 30 s earlier):**
+`hv on` acked in 185 ms; `home` → `HOMED` 836 ms; `arm` → `ARMED` 23 ms;
+`moveto -5` → `TARGET` 338 ms at −5.041°; `brake 1.0` → `RELEASED` 12 ms
+(the ramp and the 6 ms settle); `watch` 17 ms later; `TOUCH` 20 ms after
+`RELEASED` at −0.349 N·cm (the rest offset, nobody touching); `NOMOVE` at
+the 10 s timeout; `TRIAL` 1.000 s after; park → `TARGET` 338 ms at −0.991°;
+`stop`, `disarm`, `hv off` from the task's `run_end`. Identical in all three
+runs to the millisecond, and to run 1019's (rail already up from the
+crashed run before it, so `hv on` acked in 6 ms there).
+
+**The tick, three builds** (`SAMPLE_STAT`/`POLL_STAT` per second; `last` is
+a typical handled tick, `max` the worst in that second; the sampler was
+decimated — every other tick — from `hv on` to `hv off` in every run):
+
+| Build (hardware-poll rate limit) | `RELEASED`+`WATCH`, 10 s: bus polls/s | handled ticks/s | overrun skips/s | coalesced/s | handler last / max | `ARMED` idle: last / max |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1019: once per 500 µs of **protocol** time | 1000 | ≈380 | ≈310 | ≈65 | 1050–1750 / 2100–2450 µs | 284–625 / 785–898 µs |
+| 1037: once per 500 µs of **wall-clock** time | 720–734 | ≈400 | ≈145 | ≈55 | 600–1460 / 1800–2800 µs | 310–630 / 760–960 µs |
+| 1043: **once per advance** of the protocol clock, plus the 500 µs guard | **487–489** | ≈488 | **≈30** | ≈40 | **550–1040 / 1150–1270 µs** | 290–670 / 820–950 µs |
+
+Why three tries: `ProtocolBoard::advance()` services once per scheduled
+stop, and in `RELEASED` the classifier's ring schedules a stop every
+millisecond, so one late tick runs two or three services. Keyed to the
+protocol clock the limit let every one of them read the bus (the stops are
+1 ms apart on that clock). Keyed to the wall clock it still let the second
+one through whenever the first poll had itself taken longer than 500 µs —
+which, with the primitives inflated as below, it had. One read per advance
+(`MotionBackend::beginAdvance()`) is what the design meant.
+
+**What one poll costs on this board, in the link build, rail up** (worst
+per second; the bench console measured the same primitives without the QP
+link at 2026-10-06 09:00: X_ENC read ≈ 70 µs, five-register snapshot
+≈ 340 µs, ADS8689 sample 37 µs, `BRAKE_ISENSE` `analogRead` 4.8 µs, DAC
+write 110 µs):
+
+| Primitive | `RELEASED`+`WATCH` (run 1043) | `ARMED` idle (run 1043) |
+| --- | --- | --- |
+| X_ENC read (2 datagrams, 4 MHz) | 240–345 µs | 277–308 µs |
+| five-register snapshot (10 datagrams, every 10th poll) | 400–566 µs | 375–495 µs |
+| motion poll (one of the two above plus the ramp logic) | 430–600 µs | 407–529 µs |
+| ADS8689 sample (CONVST, wait, one 32-bit frame) | 150–270 µs | 160–263 µs |
+| `BRAKE_ISENSE` `analogRead` | 105–200 µs | 70–160 µs |
+| brake/torque poll | 220–400 µs | 230–330 µs |
+| handled tick, rail down (no bus) | — | 57–73 µs (max 144–319) |
+
+Every primitive is 2–4× its console cost, the 5 µs `analogRead` 20–40×:
+the inflation is time stolen from inside the transactions, not the
+transactions. The candidates are interrupt time (the 1 kHz tick alarm with
+its QS records, UART0 RX/TX for the host lines, the trace's PIO UART ISR,
+TinyUSB's housekeeping with the CDC enumerated) and XIP cache misses on a
+code path that is much larger in the link build than in the console. Not
+attributed yet; the firmware plan has the experiments. As it stands the
+sampler holds **500 Hz in `RELEASED` with ~6 % of its ticks lost** (skips
+plus coalesced), and 1 kHz is not reached with the rail up. The angle DAC
+write is now skipped when the value is unchanged (−110 µs on a resting
+tick), which did not move the typical `ARMED` tick: the inflation
+dominates.
+
+**Two observations for the rig, both runs:** (1) the torque reading at rest
+after `RELEASED` is −0.2 to −0.35 N·cm (the third A4/A5 finding), so a
+`watch` with `touch=0.3` reports `TOUCH` 20 ms after release with nobody
+there — `tq zero` before the trial, or a higher touch level; (2) parking at
+0° after the trial ends with the encoder at −0.991° and the driver
+satisfied, in all three runs — the lost degree is on the reversal from the
+−5° presentation, so coupling backlash, and a home before a trial whose
+park position matters.
+
+### v1.0 unit A — the tick budget attributed on the bus and on the pin, 2026-10-06, 11:04–11:45
+
+Peter's call after Gate E: the sampler should hold 1 kHz with the rail up if
+bugs are what stop it. Measured with the LA5032 on the Digital-50 taps rather
+than with the firmware's own clock, so the numbers below are what the bus
+and the pin did, not what the stalled CPU thought.
+
+**The TMC5130 SPI bus** (CH8 `TMC_SPI_SCK`, CH9 `~{TMC_CS}`, CH10 COPI, CH11
+CIPO at 50 MSa/s, 1 s in the task's `ARMED` idle; evidence
+`../../qp-arduino-example/evidence/2026-10-06-1104-unitA-tmc-spi-timing/`):
+
+| TMC51X0 library | per datagram (CS low) | between datagrams | X_ENC read (2 datagrams) | snapshot | polls/s |
+| --- | --- | --- | --- | --- | --- |
+| 4.1.0: five `transfer(byte)` calls, two datagrams per register | 17.1 µs (40 clocks at 3.85 MHz in 14.8 µs: four 1.5 µs byte gaps) | 11.6 µs | **60 µs** | 10 datagrams, **269 µs** | 511 (decimated) |
+| working copy: in-place `transfer(buf, 5)` (still a byte loop on this core), pipelined `readMany` | 17.3 µs | 3.5 µs | 38 µs | 6 datagrams, 167 µs | 513 |
+| working copy: two-buffer `transfer(tx, rx, 5)` (one SDK call, clocks back to back) | **12.0 µs** (9.8 µs of clocks, no gaps) | 3.2 µs | **27 µs** | **134 µs** | 515 |
+| the same, trace off (`instr off`) | 17.3 | 3.5 | 38 | 166 | 515 |
+| the same, host heartbeat 2.5/s instead of 25/s (`cfg wdt_ms=500`) | 17.3 | 3.5 | 38 | 144 | **1004 — the sampler at 1 kHz** |
+
+The SCK is 3.85 MHz (the 4 MHz request through the PL022 divider), CS lead
+and trail 1.2 and 1.0 µs. The 4.1.0 library's datagrams were also stretched
+on the bus itself (CS low p90 31.6 µs against a 17.1 µs median, one at
+201 µs): the CPU stalled mid-datagram between the byte transfers. With the
+single buffer transfer the p90 equals the median; the rare long stall
+remains (max 96–142 µs, one or two per second).
+
+**What the firmware thinks the same operations cost** (`POLL_STAT` maxima
+per second, rail up): X_ENC read 240–430 µs, snapshot 400–570 µs, ADS8689
+sample 150–270 µs, `BRAKE_ISENSE` `analogRead` 100–200 µs — 2–8× the bus,
+and **unchanged by the 37 % bus-time cut**. A `LINK_WORK` record per host
+line says the same from the other side: a `ping` costs the active object
+1.2–1.9 ms (advance ≈ 450 µs, parse-dispatch-reply ≈ 650 µs, queueing the
+6-byte `ack` ≈ 300 µs). The trace off changes nothing; fewer host lines let
+the sampler recover to 1 kHz in the `ARMED` idle but not in `RELEASED`.
+
+**The TICK handler on the pin** (`MJ_TICK_LEVEL` build, `FW_TRIG0` high for
+the whole handler, CH0–CH3 at 2 MSa/s for 30 s, 14 303 handlers; evidence
+`…/2026-10-06-1132-unitA-tick-attribution/tick_level/`):
+
+| State | handlers/s | median | p90 | max |
+| --- | --- | --- | --- | --- |
+| `RELEASED` + `WATCH` (first 7 s) | 440 | **758 µs** | 1090 µs | 1.5–2.3 ms |
+| `ARMED` idle | 488 | **268 µs** | 465 µs | 0.7–0.9 ms |
+| the tick within 3 ms after a host line (650 of 14 303) | — | 568 µs | 820 µs | 1.25 ms |
+| every other tick | — | 279 µs | 764 µs | 2.27 ms |
+
+So a host line adds ~300 µs to the tick that follows it, but at 24 lines/s
+that is 5 % of the ticks; the other 95 % cost 268 µs in `ARMED` for ~70 µs
+of bus work, and 758 µs in `RELEASED` for the same bus work plus the
+classifier and the capture ring — a few hundred instructions. The time is
+in executing code. The board runs its code from the W25Q128JVZPIQ through
+the RP2040's 16 KB XIP cache, and every build so far has used the generic
+single-lane 03h stage 2 (`boot2_generic_03h_4`, a command and address per
+word), kept since the first article "until stage 1 passes"; the quad-lane
+stage 2 matched to this flash (`boot2_w25q128jvxq_4`) was never tried on
+hardware. That is the experiment that follows.
+
+**The quad-lane stage 2** (`env:mouse_joystick_qp_rev2_fastflash`, 11:40;
+the board enumerated and ran the whole task sequence first time; the QE bit
+the stage 2 sets is non-volatile, so the generic stage 2 still boots the
+board afterwards). The same probe, same task, same host:
+
+| | generic 03h stage 2 | quad-lane stage 2 |
+| --- | --- | --- |
+| TICK handler, `RELEASED`+`WATCH`: median / p90 / max (pin) | 758 / 1090 / 1500–2300 µs | **346 / 450 / 610–760 µs** |
+| TICK handler, `ARMED` idle: median / p90 / max (pin) | 268 / 465 / 700–900 µs | **146 / 235 / 310–370 µs** |
+| handlers per second, `ARMED` idle (pin) | 488 (decimated) | **1000** |
+| the tick after a host line vs the rest (median) | 568 vs 279 µs | 186 vs 147 µs |
+| a `ping`, `LINK_WORK`: advance / feed / after (mean) | 450 / 650 / 300 µs | **183 / 236 / 94 µs** |
+| `POLL_STAT` maxima: X_ENC / snapshot / ADS8689 / `analogRead` | 240–430 / 400–570 / 150–270 / 100–200 µs | **100–147 / 175–231 / 61–125 / 28–92 µs** |
+| on the bus: X_ENC read / snapshot (two-buffer transfer) | 27 / 134 µs | 27 / **101 µs** (the gaps between datagrams halved too) |
+| trace run (run 8, `…-1140-unitA-gate-e-fastflash/`): sampler | decimated from `hv on` to `hv off` | 1 kHz in `ARMED` (1003–1008 polls/s, max 330–370 µs); decimated in `RELEASED` only, 68 overrun skips and 45 coalesced ticks in the whole run (from ≈1900 and ≈1500) |
+
+Everything the CPU does got two to three times faster; the bus did not
+change, which is the proof that the inflation was instruction fetch. What
+was left in run 8 is the budget constant: the `RELEASED` handler's p90 of
+450 µs crosses the declared 400 µs three ticks in a row and decimates the
+sampler for the trial; the firmware raises the budget to 700 µs (measured
+headroom: the worst handler 760 µs, the idle loop keeps ≥ 240 µs of the
+millisecond) and run 9 below measures the result. Evidence
+`…/2026-10-06-1132-unitA-tick-attribution/tick_level_fastflash/`,
+`…-1104-unitA-tmc-spi-timing/captures/after_fastflash.sr`.
+
+**Run 9, quad-lane stage 2 and the 700 µs budget**
+(`…/2026-10-06-1147-unitA-gate-e-fastflash/`, 11:47): **the sampler held
+1 kHz for the whole run** — never decimated, not even through the `hv on`
+transient (one 2.6 ms tick, no longer three in a row), 988–1013 bus polls
+per second in `RELEASED` as in `ARMED`. Handler maxima 553–798 µs in
+`RELEASED` (typical 290–460), 310–371 µs in `ARMED` (typical 140–160),
+19–26 µs with the rail down. In 50 s: 79 overrun skips, 47 coalesced ticks,
+almost all inside the rail-up, home and brake transients; the previous
+morning's runs lost ≈1900 and ≈1500 respectively. `POLL_STAT` maxima: X_ENC
+91–186 µs, snapshot 171–208, ADS8689 sample 70–132, `analogRead` 30–113. A
+`ping` 485 µs of handler time. The task sequence itself is unchanged to the
+millisecond (`hv on` 180 ms, `HOMED` +850 ms, `RELEASED` 12 ms after
+`brake`, park 338 ms); the tare leaves the torque at +0.08 to +0.12 N·cm
+with no `TOUCH`. This is the configuration the board was left in.
+
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
 | Net | v1.0 part | Value | Firmware expects at reset |
@@ -3645,13 +3882,43 @@ channel:
 
 ## pyControl Integration
 
-- pyControl version:
-- Task file used:
-- Events received and logged:
-- Timestamp agreement after Rsync alignment, with uncertainty:
-- If two boards: cross-joystick event ordering reconstructed, and the resulting
-  uncertainty:
-- Failure and recovery behavior from the task's perspective:
+First filled 2026-10-06 (Gate E on v1.0 unit A; details in
+`mouse-joystick-firm/pycontrol/README.md`, "Gate E Passed On v1.0 Unit A").
+
+- pyControl version: **2.1.1** (`~/Repositories/github/pycontrol-code`
+  checkout, GUI not used: `tools/pycontrol_run.py` drives the same `Pycboard`
+  API headlessly), pyboard **PYBV11, MicroPython 1.26.1**, serial
+  `397734803233`, Breakout 1.2 **port 4** (`machine.UART(3)`) → the board's
+  RJ-45.
+- Task file used: `mouse-joystick-firm/pycontrol/tasks/mouse_joystick_check.py`
+  with `hardware_definitions/mouse_joystick_bringup.py` (`right` = port 4),
+  both uploaded as the comment-free copies `tools/pycontrol_lean.py`
+  generates (the pyboard's 95 KB flash had 36 KB free).
+- Events received and logged: `id` reply, `HOMED`, `TARGET` (twice),
+  `RELEASED` (23 ms after `brake 1.0`), `TOUCH`, `NOMOVE`, `TRIAL`, the
+  heartbeat replies at 25/s (1236 lines in 50 s, none lost), through
+  pyControl's data log as `print` and `input` events; runs
+  `qp-arduino-example/evidence/2026-10-06-1019-unitA-gate-e/` and `-1037-`.
+- Timestamp agreement after Rsync alignment, with uncertainty: **not yet** —
+  the bring-up task does not send `rsync`; the board's `t_us` and the
+  pyboard's ms clock were only compared by eye (sequence and spacing agree).
+- If two boards: **not yet** (unit B is not on the bench).
+- Failure and recovery behavior from the task's perspective: two cases seen.
+  (1) A host that stops talking: the REPL session of 10:01 waited 150 ms
+  during a `fetch` and the board faulted `host_timeout`, dropped the rail
+  and the brake, answered pings and `clrfault` — as specified. (2) A task
+  that dies **between `hv on` and its first heartbeat** (run 10:17, a
+  `NameError` in the task): the board's host watchdog was not armed yet, so
+  the rail stayed up, idle, until the next run's `hv on`/`hv off`. Harmless
+  here; a task should send its first heartbeat (or arm the watchdog) right
+  after `hv on`, and `run_end` must always `stop`/`disarm`/`hv off`, which
+  `mouse_joystick_check` does.
+- Observation for the rig: parking at 0° after a trial ended with the
+  encoder at −0.9/−0.99° while the driver reported its target reached (both
+  runs). The resync at the trial's close had made the two agree, so the
+  degree was lost in the park move itself, a direction reversal after the
+  move to −5°: coupling backlash, most likely. Home before a trial that
+  needs the park position exact.
 
 ## Two-Board Rig Notes
 

@@ -119,6 +119,11 @@ the real cable rather than by assumption.
   (`badframe`) does **not** reset it: a host with a wedged serial driver
   emitting garbage is not usefully alive and must not hold the safety timeout
   open.
+- **The watchdog runs for as long as the motor rail is on**: `HV ON` arms it,
+  `HV OFF` or a fault disarms it, `ARM` refreshes it and `DISARM` leaves it
+  running (2026-10-06; until then `ARM` armed it and `DISARM` cleared it, and
+  a host that died between `HV ON` and `ARM` left the rail up). A host must
+  heartbeat from the moment it asks for the rail.
 - The board never requires a message in order to become safe.
 
 ## Message Rate
@@ -146,7 +151,7 @@ Still:
 | `LIMITS` | — | configured travel, velocity, acceleration, current bounds | Reports what the board will enforce. `v_max` and `a_max` are the values programmed into the ramp generator (VMAX and AMAX, in degrees), not independent limits: on the rig firmware `a_max` is 180 deg/s² from its 0.5 rev/s² ramp (2026-10-02); the simulator reports its own programmed numbers |
 | `HOME` | `[timeout_ms]` | `ack` then `!HOMED` | Bounded travel and timeout, enforced locally |
 | `ARM` | — | `ack` | Required before motion; refused if not homed or if faulted |
-| `DISARM` | — | `ack` | Always permitted |
+| `DISARM` | — | `ack` | Always permitted; the host-loss watchdog keeps running while the rail is on |
 | `MOVETO` | `deg [profile]` | `ack` then `!TARGET` | Absolute; rejected outside travel limits |
 | `MOVE` | `deg [profile]` | `ack` then `!TARGET` | Relative; rejected if the result is outside limits |
 | `STOP` | — | `ack` | Controlled stop; always permitted |
@@ -157,7 +162,7 @@ Still:
 | `CLRFAULT` | — | `ack` or `nak;latched` | Clears only clearable faults whose cause has gone |
 | `CAL` | `get` / `set k v` | calibration values | Encoder offset, angle zero, travel limits |
 | `INSTR` | `ON`/`OFF`/`STATE` | `ack` / state | Instrumentation buffer output enable |
-| `HV` | `ON`/`OFF`/`STATE` | `ack` / state | Motor rail high-side switch, see `docs/power.md` |
+| `HV` | `ON`/`OFF`/`STATE` | `ack` / state | Motor rail high-side switch, see `docs/power.md`. `ON` arms the host-loss watchdog, `OFF` disarms it (2026-10-06) |
 
 Deliberately absent, and to stay absent: any verb that sets raw driver current,
 raw PWM, a step count, or a velocity without a bounded destination.
@@ -236,7 +241,7 @@ A bitmask, so several faults can be present at once.
 
 | Bit | Code | Cause |
 | --- | --- | --- |
-| 0 | `HOST_TIMEOUT` | Heartbeat not received within the timeout |
+| 0 | `HOST_TIMEOUT` | Heartbeat not received within the timeout while the motor rail is on |
 | 1 | `DRIVER_FAULT` | TMC5130A `DIAG0` or `DIAG1` asserted |
 | 2 | `OVER_TRAVEL` | Commanded or measured position outside travel limits |
 | 3 | `HOME_TIMEOUT` | Homing exceeded its bound |
@@ -695,6 +700,34 @@ verb, every `nak` reason, the `RELEASED`→outcome sequences with an `ANGLE`
 and `TORQUE` stimulus line added to the corpus grammar, the 64-bit `t`) →
 `board_sim.py` → the firmware → the device class in the same change set →
 hardware last, with numbers in `bringup-log.md`.
+
+## V1.12 The watchdog runs with the rail — 2026-10-06
+
+Adopted into the tables above the same day. Gate E's first run on a v1.0
+board had the pyControl task die one step after `HV ON` (a `NameError` in
+the task), before its first heartbeat; the watchdog was not armed until
+`ARM`, so the rail stayed up, idle, until the next run two minutes later.
+Now `HV ON` arms the watchdog, `HV OFF` (or any fault) disarms it, `ARM`
+refreshes it and `DISARM` leaves it running while the rail is on. The
+corpus case `hv-on-arms-the-watchdog` pins it, and two older cases that
+idled with the rail on for longer than the timeout were rewritten to turn
+the rail off first or to keep the heartbeat (`event-time-is-64-bit`,
+`home-timeout-above-the-maximum-is-clipped-not-refused`). Consequence for
+hosts: send the first heartbeat right after `HV ON`; the device class's
+heartbeat timer already runs from the start of a task.
+
+One firmware detail the rule exposed: `HV ON` blocks in the rail's soft start
+(185 ms on pcb v1.0, longer than the 100 ms timeout) while the board's
+protocol clock stands at the line's arrival, so a deadline armed after the
+call read as already expired on the first advance (the first run after the
+change faulted `host_timeout` at the `ack`), and a `home` that blocked
+~130 ms had the heartbeats that arrived meanwhile read only after the
+deadline check (the second run). The firmware now moves its protocol clock
+to the wall clock after every dispatched line and credits the time it spent
+blocked to the deadlines then running (the host watchdog, the home bound):
+the host could not be heard during it. So the timeout counts from the moment
+a blocking command returns — which is also when its `ack` leaves. The
+simulator has no such delays and the corpus timings are unchanged.
 
 ## V1.11 Implementation notes from the first brake and torque firmware — 2026-10-06
 
