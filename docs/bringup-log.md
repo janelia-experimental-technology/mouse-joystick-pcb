@@ -830,6 +830,65 @@ millisecond (`hv on` 180 ms, `HOMED` +850 ms, `RELEASED` 12 ms after
 `brake`, park 338 ms); the tare leaves the torque at +0.08 to +0.12 N·cm
 with no `TOUCH`. This is the configuration the board was left in.
 
+### v1.0 unit A — the park error measured, 2026-10-06, 14:07–14:25
+
+Every trial today parked at 0° with the ramp generator satisfied and the
+encoder at −0.99°. Peter asked whether that could be the quadrature encoder
+block or the firmware. Measured with the bring-up task's `park` knob
+(`mouse_joystick_check.py`; evidence
+`../../qp-arduino-example/evidence/2026-10-06-1407-unitA-park-error/`), on
+the delivery build:
+
+| Probe | encoder `angle` | ramp generator `xactual` |
+| --- | --- | --- |
+| at `RELEASED`, 20 ms after the drive let go under the brake | −4.774 | −4.999 (the rotor relaxed 0.27° when the drive let go; the ramp generator is frozen) |
+| `stop` instead of a move (re-engage, resync, brake off), 40 ms later | −4.774 | −4.774 after the resync |
+| 300 ms later, brake fully off | −4.866 / −4.774 (two runs) | −4.774 |
+| then `moveto 0`, 300 ms after the `stop` | **−0.991** | 0.0 |
+
+So the release, the resync and the brake are not it: with both frames equal
+and the brake off for 300 ms, the move still arrives 0.99° short. A chain of
+six moves after the park, encoder at each `TARGET` (error = angle − target):
+
+| move | direction | IRUN 8 (0.21 A RMS, the bring-up current) | IRUN 17 (0.42 A RMS, one probe build) |
+| --- | --- | --- | --- |
+| home → −5 | − | −0.04 | +0.05 |
+| park → 0 | **+ (reversal)** | **−0.99** | **−0.63** |
+| → −5 | − (reversal) | −0.22 | −0.32 |
+| → −2.5 | + (reversal) | −0.83 | −0.65 |
+| → 0 | + (same direction) | −0.82 | −0.63 |
+| → −2.5 | − (reversal) | −0.47 | −0.29 |
+| → −5 | − (same direction) | −0.40 | −0.40 |
+| → 0 | + (reversal) | −0.90 | −0.63 |
+
+The loss happens only on a change of direction (0.35–0.77° per reversal at
+IRUN 8) and not at all on a move in the same direction (≤ 0.07°); it does
+not grow with distance (a 2.5° reversal loses as much as a 4.8° one) and
+does not accumulate. That rules out the encoder (a missed-edge or scaling
+error grows with distance and is not direction-symmetric) and the firmware
+(the frames agree before the move, and the ramp generator's count is what
+the driver executed). It is lost motion between the electrical angle and
+the joystick: at twice the run current the "after a positive move" state
+became −0.633° three times out of three (from −0.82…−0.99) and the
+hysteresis between directions shrank by about a third, so roughly 0.3° is
+the stepper's own torque angle under the mechanism's friction at the low
+bring-up current (the rotor settles short of its electrical position in the
+direction it came from), and the remaining 0.3–0.6° is in the drive train
+(coupling slack or torsional compliance against pivot friction) — not felt
+by hand, which is consistent with a few tenths of a degree at the lever.
+
+**What to do about it (rig plan):** the bring-up task and the rig's trial
+task home before every trial for now (0.9 s). Three real fixes, any of
+which the firmware can own: approach every target from the same direction
+(overshoot and return, the CNC backlash convention); raise `IRUN` toward
+the 0.42 A conservative figure once the thermal survey allows (it halves the
+torque-angle share and makes the error repeatable); or settle on the
+encoder after `TARGET` with one or two correction moves of the residual,
+which removes both shares and is what an encoder is for. The last is the
+one to implement; it belongs with the `TARGET` semantics in
+`uart-protocol.md` (does `TARGET` mean "ramp generator arrived" or "encoder
+arrived"?).
+
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
 | Net | v1.0 part | Value | Firmware expects at reset |
