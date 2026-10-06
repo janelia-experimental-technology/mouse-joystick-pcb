@@ -695,3 +695,57 @@ verb, every `nak` reason, the `RELEASED`→outcome sequences with an `ANGLE`
 and `TORQUE` stimulus line added to the corpus grammar, the 64-bit `t`) →
 `board_sim.py` → the firmware → the device class in the same change set →
 hardware last, with numbers in `bringup-log.md`.
+
+## V1.11 Implementation notes from the first brake and torque firmware — 2026-10-06
+
+Written by the implementation (`mouse-joystick-firm`, both the RP2040 side and
+`pycontrol/sim/board_sim.py`, held to the corpus by five new cases under a
+`CAPS brake torque` directive) where the tables above left a choice open. Each
+is a decision this document should either adopt into the tables or overrule;
+none changes a line already specified.
+
+- **`BRAKE` is not a step, and the state during the engage is `ARMED`.** The
+  v1.0 bench (bring-up log, A4, 2026-10-06) found a code step to full scale
+  overshoots the coil current to 127 % for ~5 ms, so the firmware ramps the
+  setpoint (8 ms to full scale) and waits for the current to settle before
+  phase (3), the release. `BRAKE` answers `ack` at once; between the ack and
+  `ev;RELEASED` the state reads `ARMED` with `brake=<level>`, `MOVETO`,
+  `MOVE`, `HOME` and a second `BRAKE` answer `nak;busy`, and `STOP` or
+  `DISARM` cancel the engage (brake back to 0, no `RELEASED` ever emitted).
+  The simulator settles in a fixed 10 000 µs; the firmware's backend decides
+  from `BRAKE_ISENSE`. `RELEASED` is dated at the release, not at the ack.
+- **The `brake` field is a number whenever `caps` has `brake`**: the
+  commanded level while the brake engages or holds in `RELEASED`, `0.0`
+  otherwise. (V1.4 says "empty on boards without the capability"; this reads
+  the complement literally so a host never has to guess whether an empty
+  field is a missing brake or a brake at zero.) `torque` likewise: a number
+  whenever `caps` has `torque`.
+- **`TQ get` → `ack;s;torque=<Ncm>;raw=<Ncm>;cal=0|1`**: the tared reading,
+  the untared one on the nominal scale about the nominal zero (what a tare
+  removed), and the shunt-calibration switch's state. `TQ zero` and
+  `TQ cal;on|off` answer `ack`; anything else `nak;badargs`; the verb is
+  `badverb` without the capability. On v1.0 as built the cal switch is inert
+  (bring-up log, A5), so `TQ cal` is a verb and not a calibration there.
+- **`TOUCH` fires on the magnitude of the torque** (`|torque| ≥ touch`), at
+  most once per `WATCH`, before the outcome when both fall on one sample.
+  Which sign a pull produces is a harness fact for the calibration; `tq_peak`
+  in `TRIAL` is the signed value of largest magnitude, `tq_out` the torque at
+  the outcome (or at the exit for `outcome=NONE`), `t_touch` the `TOUCH`
+  instant.
+- **The capture's third field is the torque sample** taken on the same tick
+  as the angle (`cap;k;angle;torque`), as V1.3 says.
+- **Leaving `RELEASED` re-engages the drive before the brake comes off**, in
+  that order, as 3a requires: `MOVETO`/`STOP`/`DISARM` from `RELEASED` and
+  `HOME` from `RELEASED` all enable the driver first. A fault releases the
+  brake with everything else (V1.8's default stands).
+- **Fault bits 9–12 exist in the firmware** with the names in V1.7:
+  `brake_fault` (`~{BRAKE_FAULT}` low for 5 ms while engaged, or no brake to
+  drive when `BRAKE` was accepted), `brake_current` (`BRAKE_ISENSE` more than
+  15 % of full scale from the setpoint for 50 ms once settled), `torque_adc`
+  (the ADS8689 did not read back its range at rail-up), `torque_range` (the
+  ADC within 64 codes of a rail). The 50 ms and 15 % are bring-up values
+  (V1.7's "N from bring-up"), chosen so the sweep's ±0.5 mA agreement never
+  trips them and an open coil does. Bit 9's indication is suspect on v1.0:
+  the pin stayed high through a 62 mA overshoot (bring-up log).
+- **Corpus grammar: `CAPS <tokens>`** right after `CASE` boots the board with
+  those hardware facts, and the `TORQUE <Ncm>` stimulus is live.

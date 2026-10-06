@@ -3,6 +3,50 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Active Task — v1.0 unit A findings from the A4/A5 bring-up (2026-10-06)
+
+Measured on unit A (`E4654C159F274534`) with `mouse-joystick-firm`'s new
+`examples/BrakeAndTorque`; numbers in `docs/bringup-log.md` → "v1.0 unit A —
+Stages A4 and A5". Three board-level items came out of it, none of which the
+firmware can settle:
+
+- [ ] **A full-scale brake step overshoots to 62 mA (127 % of 48.78 mA) for
+      ~5 ms and `~{BRAKE_FAULT}` never asserts**, although 62 mA is above the
+      56.4 mA ceiling (`V_LIMIT` 0.564 V / 10 Ω). Overshoot begins above ~60 %
+      of full scale (90 %: +26 %, 75 %: +15 %, 60 %: +1 %); the first
+      millisecond slews 8–14 mA/ms at every amplitude, so it is the coil's
+      `L di/dt` against the drain headroom (coil ≈ 1–1.5 H) and the loop
+      integrator winding up while the current cannot follow the ~2 ms
+      command filter. Decide with a scope on `V_SENSE` (top of `R1816`) and
+      `LIMIT_OUT` during a full-scale step: (a) the ceiling amplifier is
+      slower than the excursion, (b) it limits but `LIMIT_OUT` never falls
+      below `U1803`'s threshold, or (c) the monitor overshoots and the coil
+      does not. If (b), the fault indication is blind to exactly the event it
+      was added for (the 2026-09-08 reasoning above). Firmware ramps `BRAKE`
+      setpoints meanwhile, so the next spin may also choose to slow the
+      command filter or add anti-windup instead.
+- [ ] **The torque shunt-calibration switch is inert on the as-built board**:
+      `TQ_CAL_EN` low / high / low moved the ADS8689 reading by 0.0 codes
+      against a design step of 0.744 V (9522 codes). The 2026-10-04 review in
+      `kicad-libs/docs/torque-sensor-interface-design.md` predicted it: the
+      N-channel enhancement MOSFET's source sits at `SIG_N` ≈ 5 V against a
+      3.3 V gate. Fix in the block (a P-channel or a level shift) for the next
+      spin; until then calibration is weights on the lever arm (rig plan C3).
+- [ ] **Torque rest reading 69–71 mV below the ideal 1.6667 V zero** at
+      `AMP_VOUT` (−0.255 N·cm on the nominal scale), 7× the sensor's zero
+      balance. Mechanism preload (the joystick against its stop through the
+      coupling) or front-end offset (`VEXC`, `VMID`, INA821): free the
+      joystick by hand and read again, or meter `VEXC` (10.000 V) and `VMID`
+      (5.000 V). Not a defect until separated; tare handles it either way.
+- [x] Confirmed on the wire, for the record: I2C 0x48 and 0x49 both ACK;
+      brake DAC `GAIN` 0x0101 reads back, `DEVID` 0x115; ADS8689 `RANGE_SEL`
+      0x0B reads back, SDO loopback patterns clean, noise 95–112 µV rms at
+      1 kHz; brake 0–48.80 mA linear (full scale 1.0065 V against 1.006 V
+      design, the 12 V gate drive is sufficient); no brake-to-torque coupling
+      at 0.1 mV; `ALARM` 0x0041 at power-up (tripped high-AVDD flag from the
+      `+5V_FILT` ramp) clears on read; `DEVICE_ID[15:0]` reads 0x0010 where
+      the datasheet says 0 (harmless, noted).
+
 ## Completed Task — Session handoff and routing timing (2026-09-21)
 
 - [x] Save a tracked [handoff](../docs/routing-session-handoff-2026-09-21.md)

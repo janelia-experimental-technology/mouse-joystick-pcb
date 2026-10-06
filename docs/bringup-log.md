@@ -40,7 +40,7 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 3** | `E4654C159F591D34` | **Added to this log 2026-09-03.** `R203` intact, i.e. as-built. **Drives the LEFT joystick** (Breakout 1.2 port 1). First stage-4 result recorded 2026-09-03 — see [Board 3, stage 4](#board-3--e4654c159f591d34--stage-4-protocol). No stage 1, 2 or 3 measurements exist for this unit; treat every motion number in this file as belonging to another board until it is measured here |
 | **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Drives the RIGHT joystick.** **The angle output is characterised as of 2026-09-10** — unity gain to 0.03%, 4.5 mV floor, `VREFIO` 2.500 V, no motor coupling, and a live 1 kHz encoder-to-analog loop measured at exactly 1000.0 Hz over 835 000 updates. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). Stage 4 not run on this unit |
 | **Board 5** | `E465C0164B30612D` | **Second `v0.3` unit**, `MJ_BOARD_REV=1`, named board 5 in the firmware handoff of 2026-10-02. Carries a `mouse_joystick_qp_rev1_usb` build from that morning; **stages 1–3 have never run on it.** Not on the bench 2026-10-05 |
-| **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05. **Stage 1 passed 2026-10-05, 20 checks, 0 failed.** `C1208` and `C1501` still to be replaced before stage 2. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) |
+| **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05, then `C1208` refitted with a genuine 4.7 µF and `C1501` removed. **Stages 1, 2, A3, A6 and the QP protocol session passed 2026-10-05; stages A4 (brake sink) and A5 (torque bridge) passed 2026-10-06** — brake 0–48.80 mA linear, full-scale step overshoots to 62 mA with no `~{BRAKE_FAULT}`; ADS8689 alive, 95–112 µV rms, shunt-cal switch inert. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) and [A4/A5](#v10-unit-a--stages-a4-and-a5-brake-sink-and-torque-bridge-2026-10-06-08480855) |
 | **Board 7 (v1.0 unit B)** | *read from `RP2040SelfTest` on arrival* | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Same wrong part at `C1301`, `C1208`, `C1501`; not powered since; needs the same rework |
 
 **Which board drives which joystick — established 2026-09-03.**
@@ -393,9 +393,205 @@ v0.3). TICK level on CH0 p50 106–117 µs, max 1.46–1.75 ms; tick period
 2 datagrams per tick p50, 10 p99. Ping round trip over USB CDC p50 3.1–3.4 ms.
 
 **Rev 2 is now exercised end to end on hardware**: stages 1, 2, A3, A6 and the
-QP protocol build, all on unit A. Owed on v1.0: A4 brake, A5 torque (no
-firmware yet), a meter fit of the angle output, the UART0 path with a pyboard
-(Gate E), and unit B.
+QP protocol build, all on unit A; A4 and A5 followed on 2026-10-06 (next
+section). Still owed on v1.0: a meter fit of the angle output, the UART0 path
+with a pyboard (Gate E), the brake and torque paths in the protocol build, and
+unit B.
+
+### v1.0 unit A — Stages A4 and A5, brake sink and torque bridge, 2026-10-06, 08:48–08:55
+
+Bench as left on 2026-10-05: replacement joystick, motor, encoder, limit
+switch, brake and torque sensor cabled, 36 V supply on, RJ-45 unplugged,
+Digital-50 to the LA5032 through the v2.0 adapter (straight, `CHn` = `DIGn`).
+Firmware: the new `examples/BrakeAndTorque` on `mouse_joystick_rev2`
+(`mouse-joystick-firm` HEAD `80fdf3b` plus that day's uncommitted ADS8689
+driver, console and `SafeState` fix). Driven non-interactively by
+`qp-arduino-example/evidence/bench-scripts/unitA_brake_torque.sh` and
+`unitA_brake_steps.sh`; console transcripts and captures in
+`../../qp-arduino-example/evidence/2026-10-06-0848-unitA-brake-torque/` and
+`…-0853-unitA-brake-steps/`. **The motor driver was never enabled.** No meter:
+every brake number is the RP2040's ADC against its 3.3 V supply (0.806 mV =
+39 µA of coil current per count through the 20.625 V/A monitor) and every
+torque number the ADS8689's own 4.096 V reference (78.125 µV per code on the
+0–5.12 V range). The design values compared against are in
+`mouse-joystick-firm/src/Conversions.hpp` (from `kicad-libs`
+`docs/brake-current-sink-design.md` and `docs/torque-sensor-interface-design.md`).
+
+**Bring-up (`b`).** Rail up in 4 ms, peak 3.2895 V, bulk charged and latch-off
+armed at 36 ms; bus closed. I2C0 at 400 kHz: **0x48 ACK, 0x49 ACK** (rig plan
+A1b). Brake DAC `U1801` at 0x49: soft reset, `CONFIG` 0, **`GAIN` 0x0101
+written and read back 0x0101**, `SYNC` 0, **`DEVID` 0x115** (DAC80501**Z**,
+zero-scale reset), `REF-ALARM` clear — decoded byte for byte from CH22/CH23
+(`captures/p1_bringup.sr`). `BRAKE_ISENSE` at code 0: **0.0113 V**
+(14.0–14.3 counts), the monitor amplifier's floor (design ~12.5 mV after the
+÷2), reported as 0.55 mA-equivalent; `~{BRAKE_FAULT}` high. SPI1 at 2 MHz,
+mode 0, CONVST/CS on GP15: ADS8689 `U2002` `SDI_CTL` 0, `SDO_CTL` 0,
+`DATAOUT_CTL` 0, **`RANGE_SEL` 0x000B written and read back 0x000B**,
+loopback `DATA_VAL` all-ones **0xFFFF**, all-zeros **0x0000**,
+`DEVICE_ID[15:0]` 0x0010 (datasheet: reserved, reads 0), `RST_PWRCTL` 0 —
+decoded from CH16–CH19 as 32-bit words (`D0080000`, `D00C0000`, `D0100000`,
+`D014000B`, `C8140000` → `000B0000`, `D0100005` → `FFFF0000`, …). The
+conversion results shifted out *during* the configuration writes, before
+`RANGE_SEL` took effect, were 0x909E–0x90B2 (37022–37042): in the reset
+±12.288 V range (375 µV per code, 0 V at 0x8000) that is 1.595–1.603 V, the
+same node the 0–5.12 V range then read at 1.5956 V, so the two ranges agree and
+the datasheet's straight-binary coding of the bipolar ranges is confirmed on
+the wire.
+
+**A4, brake sweep** (`s`: every point approached from code 0, 100 ms settle,
+64-sample average; `captures/p2_brake.sr` at 1 MSa/s):
+
+| % | code | commanded | `BRAKE_ISENSE` | measured | error, % of FS |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 0 | 0.000 mA | 0.0113 V | 0.547 mA | +1.12 (the floor) |
+| 10 | 6553 | 4.878 mA | 0.1096 V | 5.314 mA | +0.89 |
+| 20 | 13107 | 9.756 mA | 0.2087 V | 10.120 mA | +0.75 |
+| 30 | 19660 | 14.634 mA | 0.3103 V | 15.043 mA | +0.84 |
+| 40 | 26214 | 19.512 mA | 0.4102 V | 19.888 mA | +0.77 |
+| 50 | 32767 | 24.390 mA | 0.5029 V | 24.381 mA | −0.02 |
+| 60 | 39321 | 29.268 mA | 0.6036 V | 29.265 mA | −0.01 |
+| 70 | 45874 | 34.145 mA | 0.7035 V | 34.110 mA | −0.07 |
+| 80 | 52428 | 39.024 mA | 0.8042 V | 38.994 mA | −0.06 |
+| 90 | 58981 | 43.901 mA | 0.9050 V | 43.878 mA | −0.05 |
+| 100 | 65535 | 48.780 mA | **1.0065 V** | **48.801 mA** | +0.04 |
+
+**Full scale reads 1.0065 V against the 1.006 V design**: the pass device
+reaches 48.78 mA and the 12 V gate drive is sufficient (firmware contract
+item 7). Above 50 % the chain is within ±0.07 % of full scale; below it the
+monitor floor adds its ~0.4–0.5 mA-equivalent to every reading, which is the
+floor and not coil current (the RP2040 ADC's own ~1 % is on top of all of it).
+`~{BRAKE_FAULT}` was never low: in the console and on CH21 for the whole
+sweep and every step below.
+
+**Brake step response** (`S`: 0 → code → 0, `BRAKE_ISENSE` at 5 kHz for 25 ms
+each way; `FW_TRIG1` on CH1 marks each step, 125.5 ms wide;
+`…-0853-unitA-brake-steps/consoles/p1_steps.log`):
+
+| target | rise t10 / t50 / t90 | peak | overshoot | fall t10 / t50 / t90 |
+| --- | --- | --- | ---: | --- |
+| 48.78 mA (100 %) | 1.4 / 3.0 / 6.0 ms (one of three runs 4.0 / 5.6 / 8.6 — a 3 ms late start, see below) | **61.5–62.1 mA** at 11.8–14.4 ms | **+26–27 %** | 0.4 / 1.2 / 3.0 ms |
+| 43.90 mA (90 %) | 1.4 / 2.8 / 5.2 ms | 55.2 mA at 9.0 ms | +26 % | 0.4 / 1.2 / 3.2 ms |
+| 36.59 mA (75 %) | 1.6 / 2.8 / 4.4 ms | 42.1 mA at 6.0 ms | +15 % | 0.4 / 1.2 / 3.4 ms |
+| 29.27 mA (60 %) | 1.8 / 2.8 / 4.2 ms | 29.7 mA | +1 % | 0.4 / 1.2 / 3.6 ms |
+| 24.39 mA (50 %) | 2.0 / 3.0 / 4.6 ms | 24.6 mA | +1 % | 0.6 / 1.4 / 3.8 ms |
+
+The first millisecond of every rise slews at 8–14 mA/ms regardless of the
+target: the coil's inductance against the pass device's drain headroom sets
+it (at full scale 36 V − 22.8 V ≈ 13 V across the coil's `L di/dt`, which
+puts the B5Z's unspecified inductance near 1–1.5 H). The command filter
+reaches 90 % in about 2 ms, so above ~60 % the current cannot follow it, the
+loop integrator winds up, and the current **overshoots** — by 27 % at full
+scale, for about 5 ms above the setpoint, settling by 16–17 ms. The
+full-scale peak, 62 mA = 1.28 V at `BRAKE_ISENSE`, is above the **56.4 mA
+ceiling**, yet **`~{BRAKE_FAULT}` stayed high** at 5 kHz in the console and on
+CH21 at 1 MSa/s. One of three things is true: the ceiling amplifier's
+integrator is slower than the excursion; it limits but `LIMIT_OUT` does not
+fall below the `SN74LVC2G17`'s threshold while the gate sits near the FET's
+threshold; or the monitor path overshoots and the coil current does not. A
+scope on `V_SENSE` (top of `R1816`) and on `LIMIT_OUT` during a full-scale
+step settles it — **owed, needs a hand and a scope**. The firmware
+consequence is independent of which: **`BRAKE` must ramp the setpoint over at
+least ~6 ms (or stage it below 60 % first) rather than step it**, or the brake
+applies up to 127 % of the commanded torque for ~5 ms at every release.
+Falls are clean: 48.8 → 1.4 mA in 8 ms, then a 15 ms tail from 1.4 to 0.6 mA
+that is the monitor floor settling, not current. The one late-starting
+full-scale rise (3 ms at 0.5 mA before moving) was the first step after `b`
+in that session and did not recur; unexplained, noted.
+
+**A5, torque bridge.** At rest, the joystick where the 2026-10-05 session left
+it: **20424–20448 codes = 1.5956–1.5975 V at `AMP_VOUT`**, 0.798–0.799 V at
+the BNC, i.e. **69–71 mV below the ideal 1.6667 V zero** — −0.255 N·cm on the
+nominal 0.2715 V/N·cm scale. That is 7× the sensor's ±1 % R.O. zero balance
+(±9.6 mV at `AMP_VOUT`), so it includes the mechanism's rest torque through
+the coupling (the joystick against its stop) and the front end's own
+offsets; separating them needs the joystick freed by hand, or a meter on
+`VEXC` and `VMID`. **Noise: sd 1.22–1.43 codes = 95–112 µV rms at `AMP_VOUT`
+= 0.35–0.41 mN·cm rms**, span 8–11 codes over 1000 and 10000 samples at
+1 kHz — the ADS8689's own LSB dominates, and it is 10× below the lightest
+training load (1 gf ≈ 21 mV at the BNC = 540 codes). **Shunt calibration
+(`k`, `TQ_CAL_EN` low / high / low, 500 samples each; CH20 shows the 549 ms
+high): step 0.0 codes = 0.00 mV against a design step of 0.744 V (9522
+codes). The calibration switch does nothing on the as-built v1.0**, as the
+2026-10-04 design review predicted: the N-channel enhancement MOSFET's source
+sits at ~5 V (`SIG_N`) against a 3.3 V gate. Board finding, filed in
+`.agents/PLANS.md`; the firmware's `TQ cal` verb stays, and a calibration is
+not a measurement until the switch is fixed. `ALARM` read **0x0041** the first
+time (`OVW_ALARM` + `TRP_VDD_H_FLAG`, a tripped high-AVDD flag from the
+`+5V_FILT` ramp) and **0x0000** the second: the tripped flags clear on read,
+no active alarm. The other registers sat at their reset values with
+`RANGE_SEL` 0x000B.
+
+**Live loop (`L 10`)**: 10000 ticks in 9999 ms = **1000.1 Hz**, one ADS8689
+conversion (CONVST pulse, 6 µs wait, one 32-bit NOP frame at 2 MHz: ~22 µs)
+and one `BRAKE_ISENSE` read per tick, **worst iteration 295 µs**, 0 overruns,
+torque mean within 1 code of the tare. **Coupling (`X`)**: torque mean with
+the brake at 0 / 24.38 / 48.80 / 0 mA = 20446.4 / 20447.7 / 20446.6 /
+20446.4 codes: **1.3 codes (0.1 mV, 0.4 mN·cm) between the extremes**, inside
+the sd. No brake-current-to-torque coupling at the 0.1 mV level, electrical or
+mechanical, with the joystick untouched.
+
+**The `~{BUS_SW_EN}` boot glitch is fixed.** With `SafeState::driveOutput()`
+writing the level before the direction (SDK calls, no `gpio_init()`), CH27
+showed **no transition at all across a warm reboot** (`…-0853-…/captures/
+p0_reboot.sr`, 10 MSa/s; the boot signature on CH1 10.139 / 10.010 /
+10.008 ms and CH0 8 × 1.01 ms places the boot at 2.54–2.62 s of the capture),
+where 2026-10-05 saw a 34 µs low at every boot and every `disconnectBus()`.
+Power-down (`x`): `~{BUS_SW_EN}` high at 39750.049 ms and `HV_EN` low at
+39750.088 ms — the bus opened 39 µs before the rail dropped, the ordering the
+power sequence requires.
+
+### v1.0 unit A — brake and torque in the protocol build, 2026-10-06, 09:20–09:35
+
+`examples/PyControlLinkQp` on `mouse_joystick_qp_rev2_usb` with the day's
+protocol work: `caps` gains `brake` and `torque`, `BRAKE` ramps the brake
+DAC and releases the drive once the coil current has settled, `TQ` answers,
+torque rides in every field. Driven by
+`qp-arduino-example/tools/brake_torque_steps.py` (new) over USB CDC with a
+40 ms heartbeat; Digital-50 CH0/CH1 and CH16–CH27 at 10 MSa/s. Three runs:
+`../../qp-arduino-example/evidence/2026-10-06-0920-…` (the host script's
+heartbeat starved itself and the board faulted `host_timeout` 100 ms after the
+last ping, correctly), `…-0925-…` and `…-0931-…` (complete). Numbers below are
+the 0931 run unless said; the 0925 run agrees within a few percent.
+
+| Step | Result |
+| --- | --- |
+| `id` | `caps=motion+home+instr+hv+watch+fetch+stream+cfg+angout+brake+torque`, `hw=rev2` |
+| `hv on` | ack 181 ms (host round trip); the switched-domain peripherals then came up one tick each: `DAC_STATE` 1 (angle DAC reset) at +173 ms after the command, 2 at +4.4 ms, **3 (brake DAC reset) +1.0 ms, 4 (brake DAC `GAIN` 0x0101 read back) +3.7 ms, 5 (ADS8689 range read back, loopback) +3.4 ms** |
+| torque before/after the tare | `torque=-0.301` on the nominal zero (as the bench console read, −0.26 to −0.31 N·cm); `tq get` → `torque=-0.301;raw=-0.301;cal=0`; after `tq zero` → `torque=-0.001;raw=-0.302`; `tq cal;on` → `cal=1`, reading unchanged (the inert switch) |
+| `brake 1.0` | ack; **`ev;RELEASED` 11.6 ms after the command reached the board** (`LINK_RX` → the event's `t`: 9119149 → 9130786 µs; 10.7 and 12.4 ms in the other runs) = the 8 ms-to-full-scale ramp (18809 codes, three 1 ms steps) plus the 6 ms settle; `RELEASED` carried `torque=0.051;brake=1.0` |
+| `brake 3.4` | **`RELEASED` 15.1–16.7 ms** after arrival (63950 codes, eight steps, plus the settle); `brake=3.4` in `STATUS` while held |
+| the held joystick | `STATUS` in `RELEASED` at the two levels: angle 0.267 → 0.267 (1.0 N·cm) and 0.176 → 0.176 (3.4 N·cm) over 300 ms, torque −0.03 to +0.02 N·cm; after `stop` the drive re-engaged first, then the brake off: `state=ARMED;brake=0.0`, angle resynced |
+| `watch` without a hand | `pull=5;push=5;timeout=3000;touch=0.3` → **`ev;NOMOVE` 3000.1 ms after the command**, no `TOUCH` (torque stayed within ±0.08 N·cm), `ev;TRIAL` exactly 1 s later with `tq_peak=-0.075;tq_out=-0.028;a_peak=0.0` |
+| `fetch;0;4` | `n=4;k0=0;t0=13132801;dt_us=1000;pre=500;lost=0`, lines `cap;k;0.176;-0.028` — the torque in the capture's third field |
+| `moveto 0.0`, `disarm`, `hv off` | `TARGET`, then `HOMED`, `hv=0`, `torque=0.0` with the rail down (the dying bridge's last sample is discarded, fixed between the 0920 and 0925 runs), `faults=0` — no spurious range fault from the collapse |
+| trace | no `ASSERT`; `BRAKE_STATE` records at each engage, release and brake-off |
+
+**The brake DAC writes on the I2C tap (0925 run, CH22/CH23)** show the ramp
+with coarse steps: for 1.0 N·cm a single write of 18809, for 3.4 N·cm three
+writes 25550 → 53541 → 63950 at 3.0 and 2.0 ms intervals, instead of eight
+1 ms steps. The ramp is slew-limited per unit time (6.1 mA/ms), so a late
+poll takes a proportionally larger step; the polls were late because the
+**1 kHz sampler was in its decimated mode the whole time the rail was up**
+(`SAMPLE_STAT` `last` 1.2 ms in `RELEASED` with a `WATCH` armed, 0.26–1.1 ms
+otherwise, `max` 2.1–2.5 ms every second, `decimated=1`). Yesterday's run of
+the same build without the brake and torque paths was already decimated with
+the rail up (`last` 110–750 µs, `max` 0.9–1.5 ms), so this is the standing
+tick-budget problem with ~50 µs more per poll on top (the console's `M`
+measured the ADS8689 sample at 37 µs, `BRAKE_ISENSE` at 4.8 µs, a DAC write
+at 110 µs); the first suspicion, `delayMicroseconds()` in the ADS8689
+transport, was changed to a busy wait and made no difference (0925 → 0931).
+A `POLL_STAT` trace record (per-backend poll cost, per primitive; run
+`…-0942-unitA-qp-brake-torque/`) then showed **every bus primitive inflated
+to 100–500 µs maxima with the rail up** — the TMC X_ENC read, the
+five-register snapshot, the ADS8689 sample and even the 5 µs `BRAKE_ISENSE`
+`analogRead` (110–230 µs) — which is interrupt time landing inside the
+transactions, not the transactions themselves; the bench build's USB CDC
+protocol port (serviced at interrupt level by the Arduino core) is the
+suspect, and the budget is to be judged on the UART0 delivery build. The
+finding and its follow-up live in the firmware plan. Even in that state
+every protocol step above behaved as specified, and the ramp's largest single
+step (19 mA) is below the ~60 % of full scale where the coil was seen to
+overshoot.
 
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
