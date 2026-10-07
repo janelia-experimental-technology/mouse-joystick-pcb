@@ -41,7 +41,7 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 4** | `E4654C159F171E34` | **First `v0.3` unit, added 2026-09-09.** `LATCH` strap intact — on this revision that is **`R1903`**, not `R203`. **Drives the RIGHT joystick.** **The angle output is characterised as of 2026-09-10** — unity gain to 0.03%, 4.5 mV floor, `VREFIO` 2.500 V, no motor coupling, and a live 1 kHz encoder-to-analog loop measured at exactly 1000.0 Hz over 835 000 updates. **Stages 1, 2 and 3 all passed 2026-09-09** — stage 1 on USB alone (24 checks, 0 failed), then stage 2 and stage 3 with everything connected: rail up in 132 ms, TMC5130A alive, encoder follow ratio **1.0000**, homing repeatable to **2.0 encoder counts**. See [stage 1](#board-4--e4654c159f171e34--v03-stage-1), [stage 2](#stage-2-passed-on-board-4--2026-09-09-36-v-on-nothing-else-connected), [stage 3](#stage-3-passed-on-board-4--2026-09-09-everything-connected). Stage 4 not run on this unit |
 | **Board 5** | `E465C0164B30612D` | **Second `v0.3` unit**, `MJ_BOARD_REV=1`, named board 5 in the firmware handoff of 2026-10-02. Carries a `mouse_joystick_qp_rev1_usb` build from that morning; **stages 1–3 have never run on it.** Not on the bench 2026-10-05 |
 | **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05, then `C1208` refitted with a genuine 4.7 µF and `C1501` removed. **Stages 1, 2, A3, A6 and the QP protocol session passed 2026-10-05; stages A4 (brake sink) and A5 (torque bridge) passed 2026-10-06** — brake 0–48.80 mA linear, full-scale step overshoots to 62 mA with no `~{BRAKE_FAULT}`; ADS8689 alive, 95–112 µV rms, shunt-cal switch inert. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) and [A4/A5](#v10-unit-a--stages-a4-and-a5-brake-sink-and-torque-bridge-2026-10-06-08480855) |
-| **Board 7 (v1.0 unit B)** | *read from `RP2040SelfTest` on arrival* | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Same wrong part at `C1301`, `C1208`, `C1501`; not powered since; needs the same rework |
+| **Board 7 (v1.0 unit B)** | `E4654C159F404534` | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with the same wrong part at `C1301`, `C1208`, `C1501`; reworked by Peter 2026-10-07 (`C1208` refitted, `C1301` and `C1501` removed). **Stage 1 passed 2026-10-07, 09:08: 20 checks, 0 failed.** For the LEFT joystick of Rig 1 (Breakout port 1). See [v1.0 unit B](#v10-unit-b-board-7--e4654c159f404534--stage-1-passed-2026-10-07-0908) |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -970,6 +970,300 @@ IRUN 17 the torque increment per microstep doubles and the question changes;
 decide it with the thermal survey. Lost motion between the motor shaft the
 encoder reads and the joystick lever (gear pair, coupling) is invisible to
 the board either way.
+
+### v1.0 unit A — the rig's trial task, dry run without homing between trials, 2026-10-07, 08:40–08:45
+
+The rig's own files, not the bring-up ones: `joystick-rig` branch
+`feat/mouse-joystick`, `hardware_definition_joystick.py` (`left` on port 1,
+unpopulated; `right` on port 4; solenoid on port 5; rsync on `DAC_2`; camera
+trigger on `BNC_1`) and `tasks/rig1/joystick_trial.py` with
+`home_each_trial = 0`, run headlessly through pyControl 2.1.1's board API
+from the checkouts (`mouse-joystick-firm/tools/pycontrol_run.py
+--hwd-path/--task-dir`, added today) against unit A on the right joystick,
+nobody at the rig: `n_trials=8`, `watch_timeout_ms=2000`, `iti_ms=1000`,
+the rest the task's defaults. Firmware as the previous section. Evidence
+`../../qp-arduino-example/evidence/2026-10-07-0840-unitA-rig-trial-dryrun/`.
+
+| trial | present `TARGET` (−5.0 commanded) | park `TARGET` (0.0 commanded) |
+| --- | --- | --- |
+| 1 | −4.95 | +0.084 |
+| 2 | −5.041 | 0.0 |
+| 3 | −4.95 | 0.0 |
+| 4 | −4.95 | +0.084 |
+| 5 | −4.95 | +0.084 |
+| 6 | −4.95 | +0.084 |
+| 7 | −4.95 | +0.084 |
+| 8 | −4.95 | +0.084 |
+
+One home at the start (1.05 s), then eight trials of identify-free
+present → `BRAKE 1.0` → `RELEASED` ~20 ms later → tare → `WATCH` → `NOMOVE`
+at 2 s → `TRIAL` 1 s later → park → 1 s ITI, 5.1 s a trial, **every
+present and every park within one encoder count (0.09°) of its command, no
+home between trials**; `a0` −4.95 in every `TRIAL` summary, the torque at
+rest after the tare 0.03–0.06 N·cm, no `TOUCH`, no `nak`, no `FAULT`; the
+40 ms heartbeat ran throughout (1072 link events in 41 s), the rsync pulses
+and the 150 Hz camera trigger alongside. The present move takes 0.36 s when
+the park landed within a count and 0.58 s after the one park that needed a
+correction; the park 0.55 s.
+
+**pyControl finding, the pyboard's flash:** the first attempt failed with
+"Insufficient space on pyboard filesystem" — `statvfs` showed 0 blocks free.
+pyControl never removes device files it has uploaded
+(`transfer_device_files` runs with `remove_files=False`): `MCP.py` (9 KB) and
+`rotary_encoder.py` (2.5 KB), dragged along by a comment on 2026-10-06's first
+Gate E attempt, were still there, and the aborted transfer had left a
+512-byte `frame_trigger.py` (the file is 1093 bytes) that would have failed
+to import. Only "Load framework" wipes the folder. After removing the four
+files, 16.9 KB were free; the rig's hardware definition is 15.5 KB of mostly
+comments and its task 10.2 KB, so the comment-free copies went up (706 bytes
+and 5.2 KB, `tools/pycontrol_lean.py`'s function on the rig's files; the
+copies are in the evidence directory). Through the GUI the files go up
+verbatim: load the framework first, and the budget after the devices is
+about 3 KB. Written up in `mouse-joystick-firm/pycontrol/README.md`.
+
+### v1.0 unit A — the reward path and the pull sign, 2026-10-07, 08:53–08:59
+
+The solenoid cable moved to Breakout 1.2 port 5 (`POW_A`) by Peter at
+~08:50, then the rig's trial task (as the dry run above) on the right
+joystick with Peter pulling the lever by hand during the watch. Evidence
+`../../qp-arduino-example/evidence/2026-10-07-0855-unitA-solenoid-pull/`.
+
+| run | window | what the board saw | outcome |
+| --- | --- | --- | --- |
+| `pull2`, 08:53 | 2 × 25 s | trial 1: `TOUCH` 0.31 N·cm 15 ms before the timeout, `NOMOVE`; trial 2: nothing | the pull came after each window closed |
+| `pull1_60s`, 08:55 | 60 s | `TOUCH` 0.30 N·cm at 9.4 s, then the lever from −4.95 to **−9.991** in 0.26 s: **`PUSH`**, `TRIAL a_peak=-5.041 outcome=PUSH`; the park then faulted **`not_following`** 0.48 s in (the hand still on the lever), rail off | pull sign +1 was wrong for this board; no reward |
+| `pull1_60s_signed`, 08:59 | 60 s | `TOUCH` 0.32 N·cm at 7.9 s, the lever to **−10.083** 93 ms later: **`PULL`**, the task's 50 ms solenoid pulse, `TRIAL a_peak=5.041 outcome=PULL dur_thr=0`, park `TARGET` 0.0, `session complete: pull 1` | **the reward path works end to end** |
+
+Findings:
+
+- **Unit A's pull is the decreasing-angle direction**, away from the home
+  switch and further into the travel, like board 4's on 2026-09-02:
+  `BoardCalibration.hpp` now carries `{"E4654C159F274534", -1.0}` and the
+  board was flashed with it at 08:58. A pull-positive excursion of 5.04°
+  from the presented −4.95° reaches the travel's far end (−10.0°); the
+  `pull` threshold of 5° therefore means "all the way".
+- **Two direct 50 ms pulses on `port_5.POW_A`** through the pyboard's REPL
+  at 08:58 (`hardware_definition.solenoid.on()/off()`), before the signed
+  run, for the ear.
+- **A lever held through the park faults the board, correctly.** The TRIAL
+  summary comes one second after the outcome and the task parks at once; at
+  IRUN 8 the drive cannot move a held lever, the ramp generator advances
+  while the encoder does not, and the follow check faults `not_following`
+  (bit 2) and drops the rail — the stall detector doing its job, and the end
+  of a session if a mouse does it. The protocol or the task needs a rule
+  for it: wait for the lever to be free (torque below a level, angle still)
+  before the park, or recover with `CLRFAULT` → `HV ON` → `HOME`. Open in
+  the firmware plan and `uart-protocol.md` V1.9.
+- **One refused command, unexplained:** 5 ms after that `FAULT` event the
+  task's first `faults` request was answered `nak;326;badverb`; the task
+  re-entered its faulted state and the second `faults` was acknowledged
+  (`mask=4`, `over_travel: not_following`). The verb is dispatched by exact
+  match and was accepted a few milliseconds later, so a byte of the first
+  line was most likely corrupted on its way in, around the switched domain
+  collapsing; the LA5032 was not capturing. Next fault, capture CH3 (board
+  RX). No other `nak` in 1 500 lines today.
+
+### v1.0 unit B (board 7) — `E4654C159F404534` — Stage 1 passed 2026-10-07, 09:08
+
+First power-on of the second v1.0 unit, after Peter's rework (the wrong
+green banded part: `C1208` next to the TMC5130A refitted, `C1301` and
+`C1501` removed, as on unit A). USB alone: the board enumerated as the
+RP2040 ROM bootloader (`2e8a:0003`, `RPI-RP2`), took `RP2040SelfTest` for
+`mouse_joystick_rev2` by UF2 copy and came back as `2e8a:f00a` with the
+serial above on `/dev/ttyACM2`, beside unit A. **result: 20 checks, 0 failed.** Console log:
+`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s1_selftest_rev2_boardB.log`.
+
+| Check | Result |
+| --- | --- |
+| reset reason | `software (3)` (the UF2 reboot) |
+| `clk_sys` against `clk_ref` | 133000 kHz; `clk_ref` 12000, `clk_peri`/`clk_usb`/`clk_adc` 48000 kHz |
+| flash | unique id read, 16 MiB declared, no aliasing at +2/+4/+8 MiB |
+| heap | 252224/96/252128 |
+| `GP9` `~{BUS_SW_EN}` | high — `R607` holds the bus isolated |
+| `GP24` `HV_LATCH` | low (informational: switch unpowered) |
+| `GP16`/`GP17` `DAC_SDA`/`DAC_SCL` | high — `R403`/`R402` |
+| `GP1` `PYC_UART_RX` | high — `R401` |
+| `GP23` `~{HV_FAULT}` | high — `R507`, no latched fault |
+| spare pads `GP20`, `GP22` | both move both ways |
+| `GP26` `SW_RAIL_SENSE_DIV_2` | 17 counts = 0.0137 V divided = **0.0274 V on `+3.3V_SW`**, off |
+| `GP28` `HV_SNS` | 15 counts = 0.0121 V across `R509` |
+| `GP27` `BRAKE_ISENSE` | 13 counts = 0.0105 V |
+| `GP29` `ANGLE_OUT_MON` | 18 counts = 0.0145 V |
+| die temperature | 29.0 C at boot |
+
+The floors are 4–8 counts above unit A's (9–14 counts there): ADC offset,
+nothing more at the rail-off level. Not done on this unit: the Digital-50
+check (the adapter is on unit A), the `k` crystal check, the cold power-on
+reset reason. Next: 36 V with nothing else connected (stage 2,
+`TMC5130Communication`), then the left joystick's cables.
+
+### v1.0 unit B — Stage 2 passed 2026-10-07, 09:12, direct LATCH-GPIO power-up
+
+36 V connected to `J501` by Peter (nothing else on the board: no joystick,
+no RJ-45), `TMC5130Communication` on `mouse_joystick_rev2` (firmware
+`51322e7`-dirty) over USB, the timed key sequence `v d s i d x s r x m x l x`
+(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s2_tmc_rev2_boardB.log`).
+
+| Step | Result |
+| --- | --- |
+| `v`, `d` before | `+3.3V_SW` 0.0274 V off; `HV_SNS` 14 counts, offset floor; `~{HV_FAULT}` high |
+| `s`, first pass | method **LATCH held low, direct HV_EN assertion**; `+3.3V_SW` up in 4 ms, peak 3.3008 V; bulk charged (HV_SNS below the fault level 20 ms running) at 34 ms, latch-off armed; live 3.3040 V; `HV_SNS` 51 counts = 132 mA during the charge; bus closed with `~{TMC_DRV_EN}` high; `VERSION` 0x11, `DRV_ENN` 1, `SD_MODE` 0, IOIN invariants ok; **register checks 5, 0 failed** |
+| `s`, second pass after `x` | identical, bulk at 30 ms, `+3.3V_SW` 3.3008 V; 5/0; `r` re-read 5/0 |
+| `m` | zero 13.94 counts, live 25.50, delta 11.56 → **36 V input current 29.9 mA** idle with the bus open (unit A read 43.6–51.3 mA on 2026-10-05; one count is 2.6 mA) |
+| `l` LATCH probe | strapped half (GP24 driven high through `R503`): rail up, held 32 of 250 ms, peak 3.306 V, `~{HV_FAULT}` LOW, fault latched — **FAIL as designed**, as on unit A; the direct method of the `s` passes is the GPIO half passing |
+
+Same behaviour as unit A on 2026-10-05 to the millisecond; the refitted
+`C1208` (TMC `5VOUT`) is doing its job since the chip answers. Not done: the
+Digital-50 taps (the adapter is on unit A). Next: A3 (the I2C angle DAC and
+`ANGLE_OUT_MON`) with the same connections, then the left joystick's cables.
+
+### v1.0 unit B — Stage A3, the angle DAC over I2C, 2026-10-07, 09:14
+
+Same connections as stage 2 (36 V, USB, nothing else), `AngleOutput` on
+`mouse_joystick_rev2` (`51322e7`-dirty; the uploader's 1200-baud touch left
+the board in BOOTSEL with "RP2040 device returned an error", the UF2 copy
+finished it), keys `b d q z m f z d x`
+(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a3_angleoutput_rev2_boardB.log`).
+
+| Step | Result |
+| --- | --- |
+| `b` | `+3.3V_SW` up in 3 ms, bus closed, I2C on GP17/GP16 to 0x48, `GAIN 0x101` written and **read back matched** (2.5 V at the DAC, 1.650 V at the BNC) |
+| `d` | `DEVID 0x115`, `REF-ALARM` clear, before and after the codes |
+| `z` code 0 | `ANGLE_OUT_MON` **0.0161 / 0.0153 V** (19–20 counts): the floor (unit A 12 mV) |
+| `m` code 32768 | expected 0.8250 V at the BNC node, **measured 0.8292 V** (unit A 0.8236) |
+| `f` code 65535 | expected 1.6500 V, **measured 1.6488 V** (unit A 1.6415) |
+
+Within the RP2040 ADC's accuracy of the design values, as unit A; a meter
+fit at the BNC is still owed on both units. Next: the left joystick's
+cables (motor, encoder, limit switch, brake, torque sensor) for A6, A4
+and A5.
+
+### v1.0 unit B — Stage A6 (stage 3 on v1.0) passed 2026-10-07, 09:22–09:25, the LEFT joystick
+
+The left joystick's motor, encoder, limit switch, brake and torque sensor
+cabled by Peter, the second LA5032 on the Digital-50 (straight cable, see
+the adapter's log), `MotionAndHoming` on `mouse_joystick_rev2`
+(`51322e7`-dirty) over USB; the key sequences `b c e p W p` and then
+`g h H k k j k j k g h L p x`, as unit A's on 2026-10-05
+(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a6a_gates_unitB.log`,
+`a6b_motion_unitB.log`, captures `a6a_gates_unitB.sr`, `a6b_motion_unitB.sr`
+at 1 MSa/s on CH0/1, CH8–11, CH14, CH15, CH24, CH27, CH28/29).
+
+| Gate | Result on unit B | Unit A, 2026-10-05 |
+| --- | --- | --- |
+| `b` | `+3.3V_SW` 4 ms, bulk 33 ms, direct method; bus closed; `VERSION` 0x11; converter, driver, controller, encoder configured; `GAIN 0x101` | same |
+| `c` | `CHOPCONF` 0x10030153, `vsense` read back 1 | same |
+| `e`, `p` | enabled; `X_ENC` 38 microsteps (0.27°) against `XACTUAL` 0: the enable snap | same order |
+| `W` | the switch found **toward the POSITIVE end** after 3583 microsteps (25.19°) of travel, throw 256 microsteps, **active high**, `pol_stop` 0; `XACTUAL` 3327 / `X_ENC` 3392 afterwards | same end, same polarity |
+| `g` | follow ratios 0.93 / 0.89, residual −52 microsteps (−4.1 counts) after the round trip, within 7 % | 0.94 / 0.86, −103 (−8 counts) |
+| `h` | approach stopped by the switch (390 commanded, 422 measured); closing latch 3717, release edge 3326, closing-to-release 391 microsteps (2.75°); backed off to −1401; **homed**, 1741 ms | same structure |
+| `H` | **5 of 5; release `ENC_LATCH` 115, 102, 0, 12, 12 microsteps → spread 115 microsteps (0.81°, 9.0 counts)**; runs 3–5 agree within one count, runs 1–2 sit 100 microsteps away | spread 25 microsteps (2 counts) |
+| jogs `k k j k j k` | follow ratios 0.93–1.01 | same |
+| `g` again | residual −77 microsteps (−6 counts), within 1 % | −102 |
+| `h` again | homed | |
+| `L` | live angle output at 1 kHz, **worst loop 350 µs** of the 1000 µs budget | 1082 µs (before the 400 kHz I2C) |
+| `p` after the back-off | `XACTUAL` −1404 / `X_ENC` −1229 microsteps | −1346 / −1229 |
+
+Same geometry as the right joystick: the switch at the positive end, active
+high, the encoder counting with the ramp generator, the motor direction as
+configured — no `o`, `m` or `y` flip needed, so one `AppConfig` serves both
+boards. **The one difference is the homing repeatability**: the left
+joystick's first two counted homes landed 8 counts from the last three,
+which agreed to one count. Whether that is the switch bedding in after a
+day's rest or play in this joystick's mechanism, a second `H` series later
+will say; the settled figure matters because the rig task no longer homes
+every trial (V1.13 settles on the encoder instead).
+
+### v1.0 unit B — Stages A4 and A5, brake sink and torque bridge, 2026-10-07, 09:27–09:31, the LEFT joystick
+
+`BrakeAndTorque` on `mouse_joystick_rev2` (`51322e7`-dirty) over USB, the
+left joystick's brake and torque sensor cabled, joystick untouched; the key
+sequences `b i r s S "S 32768" 0 i` and `t "T 1000" d k z t "L 10" X i x`,
+as unit A's on 2026-10-06; the second LA5032 on CH16–CH23 (torque SPI,
+`TQ_CAL_EN`, `~{BRAKE_FAULT}`, DAC I2C) at 10 MSa/s
+(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a4_brake_unitB.log`,
+`a5_torque_unitB.log`, captures `a4_brake_unitB.sr`, `a5_torque_unitB.sr`).
+
+**A4, the brake sink:**
+
+| Step | Result on unit B | Unit A |
+| --- | --- | --- |
+| `b` | both DACs ACK (0x48, 0x49); brake `GAIN 0x101` read back, `DEVID` 0x115; ADS8689 `RANGE_SEL` 0xB read back, SDO loopback all-ones/all-zeros ok | same |
+| floor | `BRAKE_ISENSE` 0.0145 V (18 counts) = 0.70 mA at code 0, `~{BRAKE_FAULT}` high | |
+| `s` sweep 0–100 % | linear: 5.51, 10.35, 15.28, 19.97, 24.62, 29.54, 34.42, 39.31, 44.23, **49.11 mA at full scale** (1.0130 V), error 0.5–1.4 % FS, the floor included; no fault at any point | 48.80 mA, ±0.07 % FS above half scale |
+| `S` full-scale step | rise to 49.1 mA, **peak 62.67 mA (128.5 %) at 13 ms**, settled by 16 ms; `~{BRAKE_FAULT}` never asserted; fall to 0.7 mA in ~4 ms | 62 mA (127 %), the same silent ceiling |
+| `S 32768` half-scale step | peak 24.93 mA (51.1 %), settled by 7 ms, no overshoot | same |
+
+**A5, the torque bridge:**
+
+| Step | Result on unit B | Unit A |
+| --- | --- | --- |
+| `t`, `T 1000` | rest **26718 codes = 2.0873 V at `AMP_VOUT`, 1.0437 V at the BNC = +1.5495 N·cm on the nominal scale**; sd 1.31 codes = **102.6 µV rms** (0.38 mN·cm), span 8 codes | 1.5956 V rest, 95–112 µV rms |
+| `d` | `DEVICE_ID` 0x0010, `RANGE_SEL` 0x000B, `ALARM` 0x0041 | same |
+| `k` shunt-cal | step **−0.1 codes** of the 9522 designed: the switch is inert on this unit too | inert |
+| `z`, `t` | tared at code 26721; **the nominal zero is 21333, 5388 codes = 420.9 mV off** (the sensor's zero balance is ±1 % R.O. = ±9.6 mV); tared reading 0.0003 N·cm | 69 mV off |
+| `L 10` | **1000.1 Hz, worst iteration 137 µs**, 0 overruns; 114 µV rms over 10 000 samples | 295 µs worst |
+| `X` coupling | torque mean 26725.9 → 26713.9 → 26703.9 → 26724.6 codes at brake 0 → 24.6 → 49.1 → 0 mA: **−22 codes = −1.7 mV = −0.006 N·cm at full brake current**, reversible | none at 0.1 mV |
+
+Two things for the left joystick, both the mechanism's rather than the
+board's: **the torque sensor rests 1.55 N·cm from its nominal zero**, forty
+times the sensor's zero-balance tolerance, so the bridge is under a
+mechanical preload (the lever resting against something, or the sensor
+mounted under strain) — the tare hides it and the range still has 3 V of
+headroom above and 2 V below, but it is worth a look at the sensor's
+mounting before trusting absolute torque; and **a small brake-to-torque
+coupling** (−0.006 N·cm at 49 mA), fifty times below the 0.3 N·cm touch
+level and reversible, which unit A's joystick did not show. The rest
+reading's sign (+1.55 on the nominal scale) and the pull direction are to
+be put together once a hand pull has been classified through the protocol.
+
+### v1.0 unit B — Gate E through pyControl on Breakout port 1, 2026-10-07, 09:37
+
+RJ-45 from unit B to Breakout 1.2 port 1 (`UART(4)`), the PYBV11 on
+`/dev/ttyACM1`, unit A still on port 4; `examples/PyControlLinkQp` on
+`mouse_joystick_qp_rev2` (`51322e7`-dirty, UF2 copy) on unit B;
+`pixi run -e pycontrol pycontrol-run` with `mouse_joystick_bringup` and
+`mouse_joystick_check --set board=left --set watch_timeout_ms=2000`, nobody
+at the joystick; the second LA5032 on CH0–CH3 at 2 MSa/s
+(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/pilot/gate_e_left.txt`,
+`captures/gate_e_left.sr`).
+
+| Task time | What happened |
+| --- | --- |
+| 0.023 s | `id`: `serial E4654C159F404534 fw 51322e7-dirty hw rev2 proto 2 caps …+angout+brake+torque` |
+| 0.193 s | `hv on` acked (170 ms) |
+| 1.312 s | `HOMED` at 0.0° (1.12 s) |
+| 1.697 s | `TARGET` −4.95° (358 ms after `arm`) |
+| 1.719 s | `brake 1.0` → `RELEASED` 21 ms later, **torque 1.524 N·cm untared** (the left sensor's rest offset, A5) |
+| 1.741 s | `status`: angle −4.774, xactual −4.999 (the rotor relaxed 0.23° under the brake), torque 1.672 |
+| 3.737 s | `NOMOVE` at the 2 s timeout, torque −0.118 after the tare, **no `TOUCH`** |
+| 4.750 s | `TRIAL outcome=NOMOVE a_peak=0.176 tq_peak=-0.211` |
+| 5.278 s | park → `TARGET` −0.091° (one count) |
+| 30 s | `run_end`: stop, disarm, rail off |
+
+The same sequence as unit A's Gate E to within tens of milliseconds, over
+the other port and the other UART, with unit A idle on port 4 (nothing
+printed as "other board"). The park within one count is V1.13 at work on
+the second mechanism.
+
+**The left joystick's pull direction, 09:34–09:38** (`pilot/pull_left_60s.txt`,
+`pull_left_60s_signed.txt`): a hand pull during a 60 s watch took the lever
+from −5.041 to **−10.174°** and was classified **`PUSH`** with the default
+pull sign +1 (`TRIAL a_peak=-5.133`), the lever released in time and the
+park landed at 0.0. `BoardCalibration.hpp` gained `{"E4654C159F404534", -1.0}`,
+the board was flashed with it (UF2 copy, 09:36), and the same pull was
+**`PULL`** at −10.083 (`TRIAL a_peak=5.041 outcome=PULL`), park 0.0, sequence
+complete. So **both joysticks pull toward decreasing angle**, away from the
+home switch. **The left torque sensor reads the pull NEGATIVE** (−0.55 N·cm
+at the outcome, −0.33 at `TOUCH`) where the right one reads positive
+(+0.49); `TOUCH` uses the magnitude, `tq_peak` carries the sign, so the
+rig's analysis must not assume one torque sign for both joysticks. The
+untared rest reading at `RELEASED` was 1.524–1.529 N·cm every run (A5's
+preload), and the tare before `watch` removed it each time.
+
+**Both v1.0 boards now pass Gate E on their own Breakout ports (unit A on
+4, unit B on 1) under one hardware definition**, with the pull signs of both
+measured; a task that drives both in one session is the researcher's.
 
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 

@@ -692,6 +692,12 @@ default stays today's until the researcher decides (reserved decision).
 - Whether `WATCH` needs outcomes beyond the five above before the researcher
   answers the trial-vocabulary question.
 - The default safe state on host loss once the brake exists (V1.8).
+- **A lever held when the host leaves `RELEASED` (2026-10-07).** The park
+  move against a held lever faults `not_following` and drops the rail (the
+  stall detector, correctly; seen on unit A with a hand on the lever through
+  the `TRIAL` summary). Whether the board should refuse or defer the move
+  while the torque reading says the lever is held, or the task should
+  recover with `CLRFAULT` → `HV ON` → `HOME`, is the researcher's call.
 
 ## V1.10 What changes where, once signed off
 
