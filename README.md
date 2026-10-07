@@ -449,11 +449,14 @@ release and its Guix package, `.guix/manifest-kicad-local.scm` and
 - [Relationship To The Twin-Axis Board](docs/relationship-to-twin-axis-board.md)
 - [Design Block Map](docs/design-block-map.md)
 - [Encoder Analog Output](docs/encoder-analog-output.md)
+- [OneBox Analog And Timing Interface](docs/onebox-analog-interface.md) — the 0-3.3 V acquisition contract
 - [pyControl Port Pinout](docs/pycontrol-port-pinout.md)
 - [pyControl Interface](docs/pycontrol-interface.md)
 - [UART Protocol](docs/uart-protocol.md)
 - [Instrument Strategy](docs/instrument-strategy.md)
 - [Prior Art](docs/prior-art.md)
+- [B5Z Magnetic Particle Brake Controller](docs/b5z-magnetic-particle-brake-controller.md) — brake requirements, prior art and noise rules; its topology is superseded by the kicad-libs brake block
+- [Brake And Torque Purchase Plan](docs/mouse-joystick-brake-torque-purchase-plan.md)
 - [Validation Plan](docs/validation-plan.md)
 - [Bring-Up Log](docs/bringup-log.md)
 - [Generated Board Documentation](docs/generated/README.md) — schematic, renders,

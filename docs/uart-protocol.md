@@ -178,7 +178,7 @@ infer.
 `ANGSCALE` maps onto **0.05-3.300 V, not 0-3.300 V**, and both ends of that are
 deliberate. **Updated 2026-08-26**; the range used to read 0-5 V, changed to
 0-3.3 V by the OneBox acquisition contract in
-`../kicad-libs/docs/onebox-analog-interface.md`.
+`docs/onebox-analog-interface.md`.
 
 - The **top** is a hardware limit: the DAC cannot exceed its own 2.5 V reference,
   so the gain stage cannot exceed 3.300 V. Firmware cannot overshoot it.

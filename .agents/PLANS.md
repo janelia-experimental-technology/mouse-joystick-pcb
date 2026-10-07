@@ -393,7 +393,7 @@ LA5032 on `FW_TRIG0`/`FW_TRIG1`.
       ~~Does the analog output span matter? — decides an op-amp purchase.~~
       v1.0 halves every board-exiting analog output with a ÷2 divider so nothing
       can exceed 3.3 V on a pyControl pin
-      (`../kicad-libs/docs/onebox-analog-interface.md`). That costs exactly one
+      (`docs/onebox-analog-interface.md`). That costs exactly one
       bit. **The criterion is whether the recorded trace is already
       OneBox-quantization-limited with margin to spare.** Record a static,
       homed, motor-idle angle trace at full span and look at the width of the

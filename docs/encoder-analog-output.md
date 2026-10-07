@@ -14,7 +14,7 @@ connector. One joystick, one output.
 
 The original researcher request was 0-5 V and this document was written against
 it. The contract became **0-3.3 V** on 2026-08-20 in
-`../kicad-libs/docs/onebox-analog-interface.md`, from the acquisition side rather
+`docs/onebox-analog-interface.md`, from the acquisition side rather
 than the board side: the Neuropixels OneBox ADC runs its +/-5 V range at
 152.6 uV/code, which gives about 14.40 ideal bits across 0-3.3 V against 15.00
 across 0-5 V. The 0.60-bit cost was accepted there, with the reasoning recorded.
@@ -292,7 +292,7 @@ encoder ──> TMC5130A X_ENC counter ──> RP2040 reads over SPI0
   `AD7616-P` and its datasheet specifies 1 Mohm**, so the loading error is
   -0.025%, or -0.82 mV at full scale, which per-board calibration absorbs. No
   bench measurement is needed — see
-  `../kicad-libs/docs/onebox-analog-interface.md`.
+  `docs/onebox-analog-interface.md`.
 - **The output cannot reach a true 0 V, and the floor is 4.5 mV — not 25 mV.**
   **MEASURED 2026-09-10** on board `E4654C159F171E34`, Fluke 87 on DC volts at
   the BNC. The estimate below was wrong by 5.6x.
