@@ -1265,6 +1265,44 @@ preload), and the tare before `watch` removed it each time.
 4, unit B on 1) under one hardware definition**, with the pull signs of both
 measured; a task that drives both in one session is the researcher's.
 
+### v1.0 unit A — both analog outputs on an oscilloscope with the joystick in the hand, 2026-10-07, 09:50–10:10
+
+Peter's scope on the right board's `ANGLE_OUT` and `TQ_AOUT` BNCs; the
+bring-up task's new `hold` knob (`mouse_joystick_check`: `hold=1 angout=1`
+presents at −5°, sets the brake to `brake_ncm` 1.0, releases the drive and
+stays `RELEASED` with no watch, printing `status` every 2 s until the run
+ends; `angscale ang_lo ang_hi` and `angout on` are sent behind the present
+move). Evidence
+`../../qp-arduino-example/evidence/2026-10-07-0950-unitA-scope-hold/pilot/`.
+
+- **Run 1 (`hold.txt`), angle scale −10.125..0°:** the angle BNC stayed at
+  0 V — the `angout` line, queued behind `home` with `angscale`, was lost to
+  a `nak;;badframe` (`home` blocks the board ~130 ms; three lines behind it
+  were one too many, see the firmware's `pycontrol/README.md`). The torque
+  BNC moved with the hand regardless. `status` showed the hand taking the
+  lever from −4.77° to **−20.07°** and back, so the −10.125° scale would
+  have pinned the output anyway. The run ended `FAULTED host_timeout` when
+  its host process was killed: the pyboard stalls on USB backpressure and
+  stops pinging — the board did what it is for (rail off within 100 ms).
+- **Run 2 (`hold2.txt`), the lines behind the move, scale −28.125..0°,
+  `clrfault` before `id`:** no refusal; `angle output on`, `TARGET` −5.041,
+  `RELEASED` with the brake at 1.0 N·cm, `holding`. **Peter: both traces
+  follow the joystick** — the angle BNC through the encoder at 1 kHz on the
+  full-travel scale (−5° ≈ 1.36 V, −20° ≈ 0.49 V), the torque BNC from the
+  bridge amplifier (pull positive on this joystick). Resistance felt is the
+  brake's 1.0 N·cm (14 mA). The run ended cleanly at 600 s (`run_end`: stop,
+  disarm, rail off), 299 `status` samples, no `nak`, no fault; over the ten
+  minutes the hand took the encoder from **−48.24° to +0.90°** (torque
+  −0.175 to +0.563 N·cm), so the mechanism's free swing on this joystick is
+  about 49°, far past both the firmware's commandable travel (−10.125..0°)
+  and the 28° "measured travel" constant, which the open issue below
+  already calls a hard-stop setting rather than a mechanism property; the
+  angle BNC pins at its floor beyond the scale's −28.125°.
+
+Not measured: voltages against a meter, the angle output's step response
+or the filter group delay on the scope; this was a look, not a
+characterisation (A3 and the 2026-09-10 board-4 section have those).
+
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
 | Net | v1.0 part | Value | Firmware expects at reset |
