@@ -1303,6 +1303,32 @@ Not measured: voltages against a meter, the angle output's step response
 or the filter group delay on the scope; this was a look, not a
 characterisation (A3 and the 2026-09-10 board-4 section have those).
 
+### v1.0 unit A — 400 trials unattended, the soak before the researcher session, 2026-10-07, 10:40–11:14
+
+The rig's own `joystick_trial.py` (the slimmed file, uploaded verbatim as
+the GUI would) on the right joystick through Breakout port 4, nobody at the
+lever: `n_trials=400`, `watch_timeout_ms=2000`, `iti_ms=1000`,
+`home_each_trial=0`, the 40 ms heartbeat, one home at the start. Firmware
+`51322e7`-dirty `mouse_joystick_qp_rev2` (unit A's 08:58 build). Evidence
+`../../qp-arduino-example/evidence/2026-10-07-1040-unitA-soak/pilot/soak400.txt`.
+
+| Quantity | Over 400 trials |
+| --- | --- |
+| outcome | 400 `NOMOVE`, 0 `TOUCH`, **0 `nak`, 0 `FAULT`**, `session complete` at 33 min 53 s |
+| present `TARGET` (−5.0 commanded) | −4.95 × 358, −5.041 × 42: always one of the two encoder counts beside the command; mean −4.960, sd 0.028 |
+| park `TARGET` (0.0 commanded) | **0.0 × 399, −0.091 × 1**: within one count every time, no homing between trials |
+| trial period | 5.081 s mean, sd 0.023 s, min 4.95, max 5.16; first ten 5.068, last ten 5.084 — no drift |
+| torque at `RELEASED`, untared | 0.132 N·cm mean, sd 0.026 (0.015–0.181); after the tare, `tq_out` 0.044 ± 0.025 |
+| link | 53 190 lines in 2029 s (26/s: the heartbeat acks and the events), none lost |
+
+So the delivery firmware, the device class and the trial loop hold for half
+an hour and four hundred reversals without a park drifting, a tick budget
+problem surfacing on the link, or a fault: the position stays on the
+encoder count, the timing on the millisecond. What this does not exercise:
+a hand or an animal on the lever (`PULL`/`PUSH`, the reward, the held-lever
+case), the second board at the same time, or an hour-long session; a longer
+run can be left overnight when the rig is otherwise idle.
+
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
 | Net | v1.0 part | Value | Firmware expects at reset |
