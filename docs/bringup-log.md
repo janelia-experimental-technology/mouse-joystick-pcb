@@ -889,6 +889,88 @@ one to implement; it belongs with the `TARGET` semantics in
 `uart-protocol.md` (does `TARGET` mean "ramp generator arrived" or "encoder
 arrived"?).
 
+### v1.0 unit A — the encoder settle after a move (protocol V1.13), 2026-10-07, 08:07–08:12
+
+The fix for yesterday's park error, measured. Firmware `examples/PyControlLinkQp`
+on `mouse_joystick_qp_rev2` (quad-lane stage 2, TMC51X0 4.2.0, IRUN 8), working
+tree `bd9bcbb`-dirty: `TmcMotion` commands each move relative to the encoder
+(`XTARGET = XACTUAL + (target − X_ENC)`), waits after `position_reached` for
+`X_ENC` to stand still (within one count for 10 ms, bounded at 100 ms) and
+corrects a residual above one count (13 microsteps, 0.09°) with a further move,
+at most twice; `TARGET` then carries the encoder's angle (`uart-protocol.md`
+V1.13). The same probe chain as yesterday (`mouse_joystick_check`, `park=3`:
+present −5°, brake and release, 2 s watch, park to 0°, then −5, −2.5, 0, −2.5,
+−5, 0), run twice, the second with the QS trace on the LA5032 (`MOVE_SETTLE`:
+the residual between encoder and target when the ramp generator first
+arrived and at `TARGET`, the corrections, the time between). Evidence
+`../../qp-arduino-example/evidence/2026-10-07-0807-unitA-encoder-settle/`.
+
+**`TARGET` error (encoder angle − target), degrees:**
+
+| move | direction | 2026-10-06, before | run 1, 08:08 | run 2, 08:11 |
+| --- | --- | --- | --- | --- |
+| home → −5 | − | −0.04 | +0.05 | +0.05 |
+| park → 0 | + (reversal) | **−0.99** | **0.00** | **+0.08** |
+| → −5 | − (reversal) | −0.22 | −0.04 | +0.05 |
+| → −2.5 | + (reversal) | −0.83 | −0.02 | −0.12 |
+| → 0 | + (same direction) | −0.82 | +0.18 | +0.18 |
+| → −2.5 | − (reversal) | −0.47 | −0.12 | −0.02 |
+| → −5 | − (same direction) | −0.40 | +0.05 | +0.05 |
+| → 0 | + (reversal) | −0.90 | 0.00 | −0.09 |
+
+Every one of sixteen moves within 0.18° (two encoder counts); eleven within one
+count. Before: eight of eight short by 0.22–0.99°.
+
+**`MOVE_SETTLE`, run 2** (residual = target − `X_ENC` in microsteps, 12.8 per
+encoder count; settle = from the ramp generator's first `position_reached` to
+`TARGET`; move = `OP_START` to `OP_DONE`):
+
+| move | residual at first arrival | residual at `TARGET` | corrections | settle ms | move ms |
+| --- | --- | --- | --- | --- | --- |
+| home → −5 | −7 (−0.05°) | −7 | 0 | 11 | 351 |
+| park → 0 | +141 (+0.99°) | −12 (−0.08°) | 1 | 177 | 515 |
+| → −5 | −96 (−0.68°) | −7 | 2 | 217 | 563 |
+| → −2.5 | +119 (+0.84°) | +17 (+0.12°) | 2 | 258 | 496 |
+| → 0 (same direction) | −51 (−0.36°, past the target) | −25 (−0.18°) | 2 | 218 | 472 |
+| → −2.5 | +4 | +4 | 0 | 10 | 263 |
+| → −5 (same direction) | −19 (−0.13°) | −7 | 1 | 79 | 326 |
+| → 0 | +90 (+0.63°) | +13 (+0.09°) | 1 | 149 | 485 |
+
+Reading it:
+
+- The reversal error is yesterday's: +141 microsteps = 0.99° on the park,
+  0.63–0.84° on the probe reversals, with the ramp generator satisfied. **One
+  correction removes most of it** (the park: 0.99° → 0.08° in one leg).
+- **What the budget leaves is one to two counts** (−25…+17 microsteps). A
+  correction of 13–25 microsteps advances the electrical angle by 5–10 % of a
+  full step, a torque increment of a few per cent of the holding torque at
+  IRUN 8, and that does not break the mechanism's static friction: the ramp
+  generator moves, the rotor does not. The stuck correction then surfaces on
+  the **next same-direction move as an overshoot** — probe 3 arrived 0.36°
+  past its target after probe 2's two corrections had advanced the ramp frame
+  without moving the rotor, and needed two corrections of its own. The
+  mechanism is the same one the reversal shows, seen from the other side.
+- **Cost.** A move without a correction gains only the 10 ms stand-still wait
+  (263 ms for 2.5°, 351 ms for 5°, within the 10 ms snapshot latency of the
+  old `TARGET`); a correction leg costs 70–110 ms plus its wait; **a reversal
+  costs 150–260 ms more than before**. `settle_us` of 10–11 ms on the
+  uncorrected moves says the encoder was already still when the ramp generator
+  reported arrival: the rotor does not go on moving after `position_reached`
+  at this current.
+- **The settled park is at least as good as a home.** Homing repeatability was
+  2–5 counts (2026-09-02); the park now lands within 0–1 count. The rig task's
+  home-before-every-trial (0.9 s a trial) is no longer needed for the park
+  position.
+
+**Open, for the firmware (`.agents/PLANS.md`):** the tolerance. At IRUN 8 a
+one- or two-count correction rarely moves the rotor, so the second correction
+mostly spends ~100 ms and over-advances the ramp frame; a two-count tolerance
+(26 microsteps, 0.18°) would skip it at the price of the last count. At
+IRUN 17 the torque increment per microstep doubles and the question changes;
+decide it with the thermal survey. Lost motion between the motor shaft the
+encoder reads and the joystick lever (gear pair, coupling) is invisible to
+the board either way.
+
 ### What stage 1 (USB only, 36 V unplugged) touches on v1.0
 
 | Net | v1.0 part | Value | Firmware expects at reset |

@@ -204,7 +204,7 @@ natural place to enforce it.
 | --- | --- | --- | --- |
 | `READY` | `fw`, `proto`, `serial` | — | Once after boot; host should reconnect and re-`ID` |
 | `HOMED` | `t`, `angle` | — | |
-| `TARGET` | `t`, `angle` | — | UART only; motion completion is not latency-critical |
+| `TARGET` | `t`, `angle` | — | UART only; motion completion is not latency-critical. **`angle` is the encoder's, within one count of the commanded target** (V1.13, 2026-10-07): the ramp generator arriving is not the joystick arriving, and the board corrects the residual before it reports |
 | `PULL` | `t`, `angle` | `PULL_EVENT` | |
 | `LIMIT` | `t` | — | Limit asserted outside homing |
 | `FAULT` | `t`, `code`, `detail` | `FAULT` | Latched; motion already stopped before this is sent |
@@ -782,3 +782,61 @@ none changes a line already specified.
   the pin stayed high through a 62 mA overshoot (bring-up log).
 - **Corpus grammar: `CAPS <tokens>`** right after `CASE` boots the board with
   those hardware facts, and the `TORQUE <Ncm>` stimulus is live.
+
+## V1.13 `TARGET` means the encoder arrived — 2026-10-07
+
+Decided from the measurement of 2026-10-06 (`bringup-log.md`, "the park
+error measured", pcb v1.0 unit A): with the ramp generator at its target the
+encoder landed 0.35–0.77° short on every direction reversal and within 0.07°
+on a same-direction move, independent of distance, not accumulating — the
+rotor's torque angle under the mechanism's friction at the bring-up current
+plus lost motion in the drive train, not the encoder and not a step loss.
+Every trial parked 0.99° short, and both tasks homed before every trial to
+hide it (0.9 s a trial).
+
+- **DECISION: `TARGET` promises the encoder, not the ramp generator.** The
+  board emits it when the encoder stands within one count (12.8 microsteps,
+  0.09°) of the commanded target, or when it has spent its correction
+  budget; `angle` is the encoder's reading either way, so a host that cares
+  compares `angle` with what it asked for.
+- **How the firmware does it.** The move is commanded relative to the
+  encoder (`XTARGET = XACTUAL + (target − X_ENC)`), so a frame difference
+  left by the previous move does not enter the next one and a small move
+  cannot run the wrong way. When the ramp generator reports
+  `position_reached` the firmware waits for `X_ENC` to stand still (within
+  one count for 10 ms, bounded at 100 ms), then, if the residual exceeds one
+  count, commands a correction move of the residual and waits again; at most
+  two corrections. `XACTUAL` is never rewritten for this (finding 5: a resync
+  deletes the stall detector); the follow check keeps judging commanded
+  against measured travel through the corrections. Constants in the
+  firmware's `Conversions.hpp` (`kMoveSettle*`).
+- **What a host can see.** `TARGET` comes later than the ramp generator's
+  arrival by the settle wait and any correction — measured 2026-10-07 on
+  unit A (`bringup-log.md`, "the encoder settle after a move"): 10 ms on a
+  move that needs no correction, 150–260 ms more on a direction reversal;
+  every `TARGET` within 0.18° of its target where the reversal used to leave
+  0.99°, one to two counts remaining that a correction at IRUN 8 cannot move
+  against static friction; the state is `ACTIVE` throughout. After a settled move `STATUS`'s
+  `xactual` stands ahead of `angle` by the lost motion the correction
+  absorbed; that is the ramp generator's frame against the encoder's and it
+  is expected, not a divergence. `HOMED` is unchanged: homing writes both
+  frames. `STOP` during a correction holds where the encoder is and resyncs,
+  as during any move.
+- **Simulators.** The corpus gained a `SLIP <deg>` stimulus (the next move
+  lands that far short on the encoder, in its direction of travel) and three
+  cases (`target-waits-for-the-encoder-after-lost-motion`,
+  `a-residual-within-one-count-is-not-corrected`,
+  `stop-during-a-correction-resyncs-the-frames`). Both simulators judge the
+  residual at the instant of arrival, with no settle wait, so every existing
+  `TARGET` time is unchanged. The QP build reports each settle in a
+  `MOVE_SETTLE` trace record (residual at first arrival and at `TARGET`,
+  corrections, duration).
+- **What this does not fix.** Lost motion between the motor shaft the encoder
+  reads and the joystick lever (the gear pair, the coupling) is invisible to
+  the board; the torque sensor and the camera are the only witnesses to it.
+  The rig task's home-before-every-trial workaround (`v.home_each_trial`)
+  went the same day: homing repeats to 2–5 counts, the settled park lands
+  within 0–1. Until the thermal survey allows `IRUN` to rise, the torque-angle
+  share stays and is what the correction mostly absorbs; whether the
+  tolerance should be two counts rather than one at IRUN 8 is an open
+  question in the firmware plan.
