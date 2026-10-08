@@ -2532,3 +2532,15 @@ documentation work can proceed in parallel. Keep current manufactured-board
 qualification separate from future revision design; do not edit `kicad-libs`
 for this documentation task. Report evidence-linked results and limits to the
 central roadmap owner before marking a gate complete.
+
+## Pure agent shell update (2026-10-08)
+
+- Pinned guix-agent-tools to published commit
+  `788874ea3af208c30d66bd4e415b18e35ec14c2b`; other channel pins are unchanged.
+- Task manifests provide Make; the agent manifest also declares Guix so
+  nested managed Make targets work without host PATH.
+- Verified the final pure agent environment, basic Make entrypoints, and
+  both published agent launchers using offline probes and temporary state.
+- 5 task manifests passed pure runtime smoke checks.
+- Validation logs: `/tmp/pure-rollout`; cross-repository summary in
+  guix-agent-tools/.agents/PLANS.md. Changes left uncommitted.

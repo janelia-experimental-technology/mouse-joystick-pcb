@@ -22,6 +22,7 @@
          (@ (orb-weaver kicad-local) kicad-templates)))
   ((@ (gnu packages) specifications->manifest)
    '("bash"
+     "make"
      "python"
      "git"
      "nss-certs"
