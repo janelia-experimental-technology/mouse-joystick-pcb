@@ -290,10 +290,12 @@ The pinned Guix channel (`dd8c1c5`) carries KiCad 10.0.6, verified with
 `.guix/local-modules/orb-weaver/kicad-local.scm` (`make kicad-version-local`,
 `kicad-shell-local`, `kicad-edits-local`, `fab-local`) stays as the hook for
 the interval between a KiCad release and its Guix package; the user uses it
-whenever KiCad is ahead of Guix. On 2026-09-28 its 10.0.6 override was reset to
-plain upstream aliases, so today the `-local` targets equal the default ones.
-Override it again only while the pin lags a release (the procedure is in
-`kicad-libs/docs/guix-packaging.md`), and reset it once the pin catches up.
+whenever KiCad is ahead of Guix. Since 2026-10-08 it overrides KiCad 10.0.7
+(released that day; the Guix update is submitted upstream), so the `-local`
+targets give 10.0.7 and the default ones 10.0.6. The module is byte-identical
+in `kicad-libs`, `mouse-joysticks-pcb` and `tmc51x0-driver-dev-pcb`; bump all
+four together (the procedure is in `kicad-libs/docs/guix-packaging.md`), and
+reset it to plain aliases once the pin catches up.
 
 ### Routing Helpers
 

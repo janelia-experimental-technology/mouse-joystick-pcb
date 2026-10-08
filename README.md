@@ -436,8 +436,10 @@ The pinned channel carries KiCad 10.0.6. For the interval between a KiCad
 release and its Guix package, `.guix/manifest-kicad-local.scm` and
 `.guix/local-modules/orb-weaver/kicad-local.scm` provide an opt-in overlay:
 `make kicad-edits-local`, `kicad-shell-local`, `kicad-version-local`,
-`fab-local`. The module currently holds plain upstream aliases (reset
-2026-09-28); override it only while the pin lags a release, then reset it.
+`fab-local`. The module currently overrides KiCad 10.0.7 (set 2026-10-08,
+while the Guix update waits upstream; the same module is in `kicad-libs`,
+`mouse-joysticks-pcb` and `tmc51x0-driver-dev-pcb`, bump all four together).
+Reset it to plain aliases once the pin carries the release.
 
 ## Key Documents
 
