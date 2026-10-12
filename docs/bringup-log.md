@@ -23,7 +23,7 @@ independently calibrated and independently suspect.
 
 ## Boards In This Rig
 
-**Seven units are now known, across three PCB revisions.**
+**Nine units are now known, across three PCB revisions.**
 `v0.1`→`v0.2` is layout-only — same schematic, byte-identical pad-to-net map — so
 measurements transfer between those tags but **not between the units**. Keep them
 apart; that is what the serials are for.
@@ -42,6 +42,8 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 5** | `E465C0164B30612D` | **Second `v0.3` unit**, `MJ_BOARD_REV=1`, named board 5 in the firmware handoff of 2026-10-02. Carries a `mouse_joystick_qp_rev1_usb` build from that morning; **stages 1–3 have never run on it.** Not on the bench 2026-10-05 |
 | **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05, then `C1208` refitted with a genuine 4.7 µF and `C1501` removed. **Stages 1, 2, A3, A6 and the QP protocol session passed 2026-10-05; stages A4 (brake sink) and A5 (torque bridge) passed 2026-10-06** — brake 0–48.80 mA linear, full-scale step overshoots to 62 mA with no `~{BRAKE_FAULT}`; ADS8689 alive, 95–112 µV rms, shunt-cal switch inert. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) and [A4/A5](#v10-unit-a--stages-a4-and-a5-brake-sink-and-torque-bridge-2026-10-06-08480855) |
 | **Board 7 (v1.0 unit B)** | `E4654C159F404534` | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with the same wrong part at `C1301`, `C1208`, `C1501`; reworked by Peter 2026-10-07 (`C1208` refitted, `C1301` and `C1501` removed). **Stage 1 passed 2026-10-07, 09:08: 20 checks, 0 failed.** For the LEFT joystick of Rig 1 (Breakout port 1). See [v1.0 unit B](#v10-unit-b-board-7--e4654c159f404534--stage-1-passed-2026-10-07-0908) |
+| **Board 8 (v1.0 unit C)** | `E4654C159F504534` | **Third `v1.0` unit**, `MJ_BOARD_REV=2`, on Peter's desk rig since 2026-10-12: Breakout port 1, the LEFT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque negative on a pull) the same day. See "Desk rig" below. |
+| **Board 9 (v1.0 unit D)** | `E4654C159F234234` | **Fourth `v1.0` unit**, `MJ_BOARD_REV=2`, desk rig, Breakout port 4, the RIGHT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque positive on a pull) 2026-10-12. |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -1395,6 +1397,146 @@ signature is the first thing to look for: three 10 ms pulses on `FW_TRIG1`
 (`DIG1`, CH1) then eight 1 ms pulses on `FW_TRIG0` (`DIG0`, CH0); on CH30/CH31
 instead if the cable reverses. Record the outcome in the adapter's bring-up
 log, not here.
+
+## Desk rig — boards 8 and 9 (v1.0 units C and D) — 2026-10-12
+
+Peter's desk rig, built for verifying firmware and task changes before they
+reach Rig 1: two further v1.0 boards on a second Breakout 1.2 (pyboard USB
+serial `3968348E3233`), both mechanisms with motor, encoder, limit switch,
+brake and torque sensor on 36 V, an LA5032 on each board's instrument port,
+everything on USB to Peter's Linux computer. Evidence:
+`mouse-joystick-firm/evidence/2026-10-12-1355-deskrig-bringup/`
+(`meta.txt` names every file). The rig's cabling is in `joystick-rig`,
+`Hardware/rig-connections.md`.
+
+### Arrival and stage 1, 13:55–14:05
+
+Both boards had never been powered: each enumerated as the RP2040 ROM
+bootloader (`2e8a:0003`) and `picotool info` reported no program. Flashed with
+`picotool load -x --bus 1 --address N` (the two bootloaders share the ROM's
+fixed USB serial, so the USB address is what tells them apart), then the
+stage 1 self test (`examples/RP2040SelfTest`, `mouse_joystick_rev2`, firmware
+`316f802`) re-run with `r` on the console, USB only:
+
+| | Board 8 (unit C) | Board 9 (unit D) |
+| --- | --- | --- |
+| USB path on the desk hub | `1-5.1.1` | `1-5.1.2` |
+| flash unique id | `E4654C159F504534` | `E4654C159F234234` |
+| stage 1 | 20 checks, 0 failed | 20 checks, 0 failed |
+| `clk_sys` measured | 133001 kHz | see log |
+| boot cause | watchdog (picotool's reboot after load) | same |
+| log | `s1_selftest_rev2_boardA_E4654C159F504534.log` | `s1_selftest_rev2_boardB_E4654C159F234234.log` |
+
+Both enumerate as manufacturer `Janelia Research Campus`, product
+`mouse-joystick-pcb`: the first boards flashed since that string replaced
+`Orb Weaver`.
+
+### Delivery build, 14:08
+
+`examples/PyControlLinkQp`, `mouse_joystick_qp_rev2`, `316f802`. Board 8
+took it through `pixi run upload` (the 1200 baud touch, then picotool) in
+7.3 s. On board 9 the touch worked and picotool then failed with
+`The RP2040 device returned an error: <unknown>`, the failure board 7 showed
+on 2026-10-07; a direct `picotool load -x --bus 1 --address 51` on the board
+it had left in BOOTSEL succeeded first time. The delivery build is silent on
+USB, so the check that it runs is the `id` reply over the RJ-45 below.
+
+### Which board is on which port, 14:15
+
+`id;1` sent from the pyboard's REPL over each port (`uart_id_probe.log`):
+
+| Breakout port | UART | Board | Reply |
+| --- | --- | --- | --- |
+| 1 (the hardware definition's `left`) | `UART(4)` | 8, `E4654C159F504534` | `hw=rev2 fw=316f802 proto=2 caps=motion+home+instr+hv+watch+fetch+stream+cfg+angout+brake+torque boot=reboot` |
+| 4 (`right`) | `UART(3)` | 9, `E4654C159F234234` | the same |
+
+### One trial each through pyControl, 14:20–14:25
+
+The pyboard was found on MicroPython 1.22.2 with pyControl 2.1.1 and no
+joystick device files; its filesystem was copied off through the REPL
+(`pyboard-flash-before/`, 18 files, 71 309 bytes) and MicroPython 1.26.1
+(`PYBV11-20250911-v1.26.1.dfu`) written with dfu-util. The ST bootloader
+only jumped to the new image after a second download with `-s :leave`. The
+files survived. The rig's headless runner (`joystick-rig`,
+`pycontrol/tools/run_task_headless.py`, `--load-framework` on the first run)
+then uploaded the framework, the rig's hardware definition, the lean device
+files and `joystick_trial.py` as committed that day, and ran one trial per
+board with `watch_timeout_ms=2000`, `iti_ms=1000`, nobody at the lever
+(`run_right_1trial.log`/`.json`, `run_left_1trial.log`/`.json`):
+
+| | Board 9, right, port 4 | Board 8, left, port 1 |
+| --- | --- | --- |
+| `hv on` ack → `HOMED` | 1.39 s | 1.32 s |
+| present move, ack → `TARGET` | 0.36 s to −5.041° | 0.36 s to −5.041° |
+| `RELEASED` after `brake 1.0` | 20 ms; torque at release −1.786 N·cm | 21 ms; torque at release 0.397 N·cm |
+| angle at `NOMOVE` (2.0 s later) | −4.774° | −4.866° |
+| torque after the tare, at `NOMOVE` | 0.018 N·cm | 0.014 N·cm |
+| `TRIAL` | `NOMOVE`, `a_peak` 0.267, `tq_peak` 0.085 | `NOMOVE`, `a_peak` 0.176, `tq_peak` 0.037 |
+| park, ack → `TARGET` | 0.54 s to −0.091° | 0.51 s to 0.0° |
+| session | complete, 1 trial, 0 resends, 0 bad frames, 0 naks | same |
+
+Both mechanisms homed and presented at the first attempt, which is also the
+check that each harness is the right one for its mechanism: a swapped harness
+faults the homing. The torque reading at release before the tare (−1.786 and
+0.397 N·cm) is the sensors' rest offset, as on units A and B; the task tares
+before every watch. The 0.18–0.27° relaxation between `RELEASED` and `NOMOVE`
+is the rotor settling under the brake, as measured on unit A on 2026-10-06.
+
+### Pull sign, 14:40
+
+One trial per board with a 60 s watch and Peter's hand on the lever, under the
+firmware default `pull_sign +1` (`pull_right_60s.log`, `pull_left_60s.log`):
+
+| | Board 9, right | Board 8, left |
+| --- | --- | --- |
+| released at | −4.95° | −5.041° |
+| `TOUCH` | 1.55 s after release, torque 0.309 N·cm | 1.78 s, −0.319 N·cm |
+| outcome | `PUSH` at −9.991°, 123 ms after the touch | `PUSH` at −10.083°, 62 ms after |
+| `TRIAL` | `a_peak` −5.041, `tq_peak` 0.383 | `a_peak` −5.041, `tq_peak` −0.392 |
+| park | −0.091° | 0.0° |
+
+A hand pull is the decreasing-angle direction on both, as on every board so
+far, so both went into `src/BoardCalibration.hpp` as `−1.0`. The left sensor
+reads the pull negative and the right positive, the same split as units B
+and A on Rig 1.
+
+**Confirmed with the calibrated build, 15:05–15:15** (`pull_right_60s_signed.log`,
+`pull_left_60s_signed.log`; the firmware reports itself `316f802-dirty`
+until the calibration commit is tagged):
+
+| | Board 9, right | Board 8, left |
+| --- | --- | --- |
+| `TOUCH` | 1.67 s after release, 0.304 N·cm | 2.26 s, −0.314 N·cm |
+| outcome | **`PULL`** at −10.083°, 114 ms after the touch | **`PULL`** at −10.083°, 44 ms after |
+| `TRIAL` | `a_peak` +5.041, `tq_peak` 0.359; reward pulse fired | `a_peak` +5.041, `tq_peak` −0.418; reward pulse fired |
+| park | −0.091° | +0.084° |
+
+Two runs on the right before that ended `NOMOVE` because nobody pulled in
+the window; they are kept as the earlier `pull_right_60s_signed` attempts
+only in the metadata, the files hold the confirming run.
+
+### Two things that bit, for the next session
+
+- **Board 9 ignores the 1200 baud touch under the delivery build.** Board 8
+  takes it (`pixi run upload` succeeded three times); board 9 entered BOOTSEL
+  on the touch once, from the self test, and then never again from the QP
+  build: PlatformIO's upload failed `The RP2040 device returned an error:
+  <unknown>` or left the board running, a pyserial open at 1200 baud
+  returned a broken pipe on the DTR ioctl, a termios open did nothing, and
+  `picotool reboot -f` found no reset interface. This is what unit B did on
+  2026-10-07. Manual BOOTSEL (RJ-45 and USB out, button, USB in) then
+  `picotool load -x --bus 1 --address N` works first time; the two ROM
+  bootloaders share one USB serial, so the address is what selects a board.
+  Board-specific, two of four v1.0 units, worth a look at the USB path.
+- **The second pyboard wedged after a probe exec timed out on `UART(3)`**,
+  streaming raw-REPL `OK` acknowledgements at about 400 bytes/s with no input
+  and ignoring every control key; only the RST button brought it back. The
+  REPL probe and pyControl's runner must never overlap on the pyboard's one
+  USB port, and a probe that times out must be followed by a reset before
+  the runner is used.
+
+**Not yet measured on these two boards:** the angle and torque outputs on a
+scope, and which LA5032 sits on which board (the beacon).
 
 ## Board 4 — `E4654C159F171E34` — v0.3, Stage 1
 
