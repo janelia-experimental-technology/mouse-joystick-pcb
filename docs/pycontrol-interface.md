@@ -19,7 +19,7 @@ electrical properties unverified.
 **Companion:** `docs/pycontrol-port-pinout.md` holds the established pinout, UART
 parameters, and UART-capable port list. Read that first; this file covers how
 this board uses them.
-**Derived from:** `../mouse-joysticks-pcb/docs/pycontrol-interface.md`
+**Derived from:** `mouse-joysticks-pcb/docs/pycontrol-interface.md`
 **Gate:** Must reach a resolved state to pass Gate A in `docs/validation-plan.md`.
 
 ## The Rule

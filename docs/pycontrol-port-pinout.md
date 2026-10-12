@@ -20,7 +20,7 @@ spare.
 module and the controller breakout itself. Bench verification still required for
 continuity and cable behavior.
 **Date:** 2026-08-14, amended 2026-08-28.
-**Derived from:** `../mouse-joysticks-pcb/docs/pycontrol-port-pinout.md`. The
+**Derived from:** `mouse-joysticks-pcb/docs/pycontrol-port-pinout.md`. The
 pinout is a property of pyControl, not of either board, so it is identical in
 both repositories. **If it changes, change it in both.** The 2026-08-14 and
 2026-08-28 findings are mirrored there.
@@ -28,7 +28,7 @@ both repositories. **If it changes, change it in both.** The 2026-08-14 and
 **Partially promoted 2026-08-28.** The *controller-side capability map* — which
 MCU pin each port's `DIO-A`/`DIO-B`/`DIO-C` reaches on Breakout 1.0, Breakout 1.2
 and the H7 breakout, and the alternate functions that follow — now lives in
-`../board-interfaces/docs/pycontrol-behavior-port.md`. It went early because it
+`board-interfaces/docs/pycontrol-behavior-port.md`. It went early because it
 is datasheet- and vendor-source-derived and makes no claim about our physical
 link. **The connector profile in this file is still not promoted** and still
 waits on Gate B.
@@ -37,7 +37,7 @@ waits on Gate B.
 
 ### 1. The syringe pump module — the device side
 
-`~/Repositories/github/syringe-pump` — a multi-axis syringe pump that ships a
+`syringe-pump` — a multi-axis syringe pump that ships a
 pyControl module and is documented as working with pyControl v2.1.1.
 
 | Artifact | Path |
@@ -52,7 +52,7 @@ pyControl module and is documented as working with pyControl v2.1.1.
 
 ### 2. The pyControl H7 breakout — the controller side
 
-`~/Repositories/github/pycontrol-h7-breakout`, PCB v0.7 (`pcb/h7_breakout.kicad_sch`),
+`pycontrol-h7-breakout`, PCB v0.7 (`pcb/h7_breakout.kicad_sch`),
 an STM32H743VIT6 breakout with **10 RJ-45 behavior ports**. Traced by netlist
 export on 2026-08-14.
 
@@ -261,7 +261,7 @@ From `pump_controller.py` and the device firmware:
 **Resolved for the H7 breakout on 2026-08-28.** The full controller-side
 capability map — which MCU pin every port's `DIO-A`/`DIO-B`/`DIO-C` reaches on
 each breakout, and what each of those pins can do — now lives in
-`../board-interfaces/docs/pycontrol-behavior-port.md`. Read that before
+`board-interfaces/docs/pycontrol-behavior-port.md`. Read that before
 assigning a port. The summary below is what this board needs.
 
 | Breakout board | UART-capable ports | Evidence |
@@ -640,7 +640,7 @@ Record the pinout's provenance in the block's own description so a future reader
 knows it was schematic-derived rather than bench-verified.
 
 **Amended 2026-08-28: the capability map went first, and on purpose.**
-`../board-interfaces/docs/pycontrol-behavior-port.md` now holds the
+`board-interfaces/docs/pycontrol-behavior-port.md` now holds the
 controller-side capability map — port → MCU pin → alternate functions, for all
 three breakouts. That is a *different kind of claim* from the connector profile
 and it was promoted on different evidence: an ST datasheet, pyControl's own

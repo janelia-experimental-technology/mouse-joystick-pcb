@@ -55,7 +55,7 @@ all stocked. **Eight boundary ports**: `+5V`, `+3.3V`, `GND`, `SCK`, `SDI`,
 > `AOUT_MON` tap moving to its midpoint — halving full scale to **1.650 V**.
 > `brake_current_sink_0_49ma_dac80501` has already had the equivalent I2C and
 > divider work done; use it as the worked example. Specs in
-> `../kicad-libs/.agents/PLANS.md` item 5 and `.agents/handoff.local.md` there.
+> `kicad-libs/.agents/PLANS.md` item 5 and `.agents/handoff.local.md` there.
 > **Rewrite this section when the block is re-placed, not before.**
 
 ```text

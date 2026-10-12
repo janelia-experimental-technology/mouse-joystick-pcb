@@ -1,13 +1,13 @@
 # OneBox Analog And Timing Interface
 
-**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `../kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `../kicad-libs-nonfree/datasheets/`.
+**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `kicad-libs-nonfree/datasheets/`.
 
 **Status:** interface decision for the next `mouse-joystick-pcb` iteration. The
 angle path is now built as a design block; the torque path is still a paper
 design. Neither is bench-validated.
 
-**Evidence:** `../kicad-libs-nonfree/datasheets/onebox-user-manual.pdf` (technical user manual V1.0.1) and
-`../kicad-libs-nonfree/datasheets/onebox-datasheet.pdf`, reviewed 2026-08-20.
+**Evidence:** `kicad-libs-nonfree/datasheets/onebox-user-manual.pdf` (technical user manual V1.0.1) and
+`kicad-libs-nonfree/datasheets/onebox-datasheet.pdf`, reviewed 2026-08-20.
 
 **Amended 2026-08-26.** The encoder-angle implementation changed when the block
 was actually built: `DAC80501` with an analog gain stage, not `DAC8563` with a
@@ -176,7 +176,7 @@ one, which is the honest trade for the hardware bound above.
 
 ### Torque
 
-**Superseded 2026-09-04 by `../kicad-libs/docs/torque-sensor-interface-design.md`.** The
+**Superseded 2026-09-04 by `kicad-libs/docs/torque-sensor-interface-design.md`.** The
 settled front end centres the internal signal at **5.000 V** and attenuates by
 **1/3**, not 2.5 V and 0.66, because the ÷3 ratio makes the domain crossing
 fault-containing. The INA821 is powered from the buffered 10.000 V excitation
@@ -258,7 +258,7 @@ maximums.
 
 | Receiver | Part | Absolute maximum on a non-5 V-tolerant pin |
 | --- | --- | --- |
-| Breakout 1.2 | `STM32F405` | `VSS − 0.3 V` to **4.0 V** (`../kicad-libs-nonfree/datasheets/stm32f405xx.pdf`, Table 11) |
+| Breakout 1.2 | `STM32F405` | `VSS − 0.3 V` to **4.0 V** (`kicad-libs-nonfree/datasheets/stm32f405xx.pdf`, Table 11) |
 | `pycontrol-h7-breakout` | `STM32H743VIT6` | TT-class pins are typically `VDDA + 0.3 V` ≈ **3.6 V** — **unverified** |
 
 ### Every board-exiting analog signal is bounded by its output buffer's rail, not by its signal path
@@ -312,7 +312,7 @@ signal.** The value matters and the first-pass answer of "shunt the existing
 re-proposed:
 
 - **Power.** A 249 Ω / 249 Ω divider draws 13.3 mA at a 3.3 V full scale and puts
-  **43.7 mW continuous** into a 62.5 mW 0402. `../kicad-libs/docs/analog-output-design.md`
+  **43.7 mW continuous** into a 62.5 mW 0402. `kicad-libs/docs/analog-output-design.md`
   already quotes that figure — as the bound on a *fault*, not as the steady state.
   At 3.2 kΩ the current is 0.52 mA and the dissipation 0.86 mW.
 - **Tempco.** A divider's ratio becomes the channel's gain. Two ±1% / 100 ppm
@@ -347,7 +347,7 @@ voltage*, so the InstrumentPort capture and the OneBox record need no different
 scale factors. It also does **not** reintroduce the problem that moved this tap
 to `AMP_VOUT` on 2026-08-27: the midpoint is a block-internal node, so no
 permanently DC-connected stub from the researcher's BNC lands on the 40-pin
-unshielded FFC. See `../mouse-joystick-pcb/docs/interface-map.md`.
+unshielded FFC. See `mouse-joystick-pcb/docs/interface-map.md`.
 
 One real if minor cost of that: FFC-injected crosstalk previously landed on the
 op amp's hard low-impedance output and now sees 1.6 kΩ back to the source.
@@ -366,12 +366,12 @@ per-board calibration absorbs, and it is why the 0.1% / 25 ppm parts matter more
 than the absolute value does.
 
 **Calibration consequence:** every documented endpoint in this file and in
-`../kicad-libs/docs/torque-sensor-interface-design.md` halves. Re-fit gain and offset per board
+`kicad-libs/docs/torque-sensor-interface-design.md` halves. Re-fit gain and offset per board
 serial against the new endpoints; do not scale an older fit arithmetically,
 because the divider's own tolerance is now part of the gain.
 
 **The 100 kΩ-load rule still applies and gets stricter.** With a 1.85 kΩ source,
-`../kicad-libs/docs/analog-output-design.md`'s "requires a high-impedance load of 100 kΩ or
+`kicad-libs/docs/analog-output-design.md`'s "requires a high-impedance load of 100 kΩ or
 more" costs 1.8% at exactly 100 kΩ. Keep the receiver at 1 MΩ or better, and a
 50 Ω terminated input is still forbidden.
 
@@ -415,13 +415,13 @@ it, but a missed write now yields 0 V rather than an overvoltage.
   itself is correct and stays — moving it to the BNC side would put a permanently
   DC-connected stub from the researcher's node onto a 40-pin unshielded FFC
   carrying SPI and UART edges, which
-  `../mouse-joystick-pcb/docs/interface-map.md` rejected on 2026-08-27 for good
+  `mouse-joystick-pcb/docs/interface-map.md` rejected on 2026-08-27 for good
   reason. Adding the shunt at the *connector* end bounds it without touching the
   tap.
 
 ### This also closes torque open item 14
 
-`../kicad-libs/docs/torque-sensor-interface-design.md` open item 14 asks for the `INA821`'s
+`kicad-libs/docs/torque-sensor-interface-design.md` open item 14 asks for the `INA821`'s
 actual light-load positive swing limit, because the 3.283 V ceiling assumes the
 datasheet's 0.15 V from the rail and a real 0.05 V would make it 3.32 V — which
 would have *violated* this contract by 20 mV. After the divider the upstream

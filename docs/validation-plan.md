@@ -40,7 +40,7 @@ uses a pre-placement name, the as-built name is given alongside it: `J1501`
 
 **Status:** Planning
 **Date:** 2026-08-12
-**Derived from:** `../mouse-joysticks-pcb/docs/validation-plan.md`
+**Derived from:** `mouse-joysticks-pcb/docs/validation-plan.md`
 
 This plan adapts the Gates A-F sequence from
 `orb-weaver-context/context/pcb-development-plan.md` to this board.
@@ -436,7 +436,7 @@ follows each one. Every item is a resistor value or a single wire; see the audit
 
 ### Mechanical and process
 
-- Board outline and mounting are decided. `../mouse-joysticks-mech` describes the
+- Board outline and mounting are decided. `mouse-joysticks-mech` describes the
   two-joystick assembly; how a per-axis board mounts in it is a decision, not a
   derivation.
 - A unit-identifier field is on the silkscreen if the rig will hold two boards.

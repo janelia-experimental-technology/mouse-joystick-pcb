@@ -1,9 +1,9 @@
 # B5Z Magnetic Particle Brake Controller
 
-**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `../kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `../kicad-libs-nonfree/datasheets/`.
+**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `kicad-libs-nonfree/datasheets/`.
 
 **Status:** topology selection and the brake purchase list in this note are
-**superseded as of 2026-08-31** by `../kicad-libs/docs/brake-current-sink-design.md`, which
+**superseded as of 2026-08-31** by `kicad-libs/docs/brake-current-sink-design.md`, which
 owns the circuit, its values, and its bill of materials. What remains current
 here: the brake requirements, the previous-board prior art, the brake/torque
 noise-isolation rules, and the validation plan.
@@ -28,7 +28,7 @@ what was rejected and why:
    pass device. At only 49 mA the worst pass-element dissipation is 0.71 W, so
    the switching converter is avoided with no meaningful thermal penalty. The
    pass device is now a **stocked MOSFET, not a high-voltage NPN** — see
-   `../kicad-libs/docs/brake-current-sink-design.md` for the base-current argument. Full
+   `kicad-libs/docs/brake-current-sink-design.md` for the base-current argument. Full
    values, BOM, and open items live in that document.
 2. **Rejected as the final design, retained as prior art:** the stocked
    `BCR421UE6327` with its 30 ohm set resistor. It programs average torque by
@@ -42,7 +42,7 @@ what was rejected and why:
    Purchases](#switching-fallback-purchases) are cancelled.
 
 **Two requirements consequences were missed on the first pass** and are now
-recorded in `../kicad-libs/docs/brake-current-sink-design.md`: coil I²R (1.11 W at rated
+recorded in `kicad-libs/docs/brake-current-sink-design.md`: coil I²R (1.11 W at rated
 current) is not slip heat and is the term that sets case temperature, which makes
 the NTC case probe optional rather than Priority A; and the datasheet's
 approach-direction torque hysteresis is percent-level, which caps the useful
@@ -65,7 +65,7 @@ the open-loop brake.
 
 ## Brake Requirements
 
-Source datasheet: `../kicad-libs-nonfree/datasheets/B5Z-metric-data-sheet-1.pdf`
+Source datasheet: `kicad-libs-nonfree/datasheets/B5Z-metric-data-sheet-1.pdf`
 
 - Winding: 24 V nominal
 - Rated coil resistance: 467 ohm
@@ -139,7 +139,7 @@ If the BCR421 is prototyped:
 ## Preferred Low-Noise Linear Current Sink
 
 **The concept below is the chosen design. Its values are now settled in
-`../kicad-libs/docs/brake-current-sink-design.md`; use that document for anything you intend to
+`kicad-libs/docs/brake-current-sink-design.md`; use that document for anything you intend to
 draw.** The remaining text here is the reasoning, and two of its specifics have
 been revised: `R_SENSE` is 10 ohm as suggested, but the pass device is a stocked
 MOSFET rather than an `MJD340`-class NPN, and the independent ceiling is a third
@@ -197,7 +197,7 @@ gain spread, varying with current and temperature. That is a *systematic* error 
 a torque-calibrated system, and a MOSFET removes it rather than requiring it to be
 characterized. The DC-SOA objection to a MOSFET does not survive the numbers at
 0.71 W and 49 mA: see the SOA and hot-spot analysis in
-`../kicad-libs/docs/brake-current-sink-design.md`. The stocked `BUK7D36-60EX` is the pass
+`kicad-libs/docs/brake-current-sink-design.md`. The stocked `BUK7D36-60EX` is the pass
 device, with the 80 V `BSC072N08NS5ATMA1` placed as a DNP alternate against the
 documented `+36V_SW` ringing. No `MJD340T4G`, `MJD122T4G`, or LinearL2 MOSFET
 purchase is needed.
@@ -223,7 +223,7 @@ A DAC's absolute-maximum output is its `VDD`, which for the `DACx0501` family in
 `BUFF-GAIN = 1` is twice its programmed full scale. A divider that maps 2.5 V to
 49 mA therefore still permits 98 mA at `VDD = 5 V`, or 62 mA at `VDD = 3.3 V`,
 under a firmware or DAC fault. Two changes close this, and both are in
-`../kicad-libs/docs/brake-current-sink-design.md`:
+`kicad-libs/docs/brake-current-sink-design.md`:
 
 - **Power the brake DAC from 3.3 V.** `REF-DIV = 0` is the reset default and is
   out of spec at `VDD = 3.3 V`, and the datasheet states that improper
@@ -305,7 +305,7 @@ boundary. Its last duty setting persists if firmware hangs. If it is used:
 
 **Dropped 2026-08-31, not deferred.** Total brake load is 1.76 W; a 400 kHz
 switch node beside a 15 mV bridge is not worth 0.7 W of linear dissipation, and
-the headroom analysis in `../kicad-libs/docs/brake-current-sink-design.md` shows the linear
+the headroom analysis in `kicad-libs/docs/brake-current-sink-design.md` shows the linear
 stage has 4.2 V of margin at the worst-case hot winding and low rail. The section
 is retained only so that a future revision does not have to re-derive it, and the
 purchases it calls for are cancelled.
@@ -406,7 +406,7 @@ arbitrary split in the ground plane.
 
 ## Stocked Supporting Parts
 
-Based on `../kicad-libs/db/source/jlc_inventory_export.csv` during this review:
+Based on `kicad-libs/db/source/jlc_inventory_export.csv` during this review:
 
 | Role | Stocked part |
 | --- | --- |
@@ -419,7 +419,7 @@ Based on `../kicad-libs/db/source/jlc_inventory_export.csv` during this review:
 | Small HV bypass | 100 nF 100 V, `C77058`, qty 4000 |
 | Input bulk | 150 uF 63 V, `C51018328`, qty 400 |
 | Brake connector | `1844210`, `C3584780`, 2-position 3.5 mm, qty 485 |
-| **Pass device (final, 2026-08-31)** | `BUK7D36-60EX`, `C3288253`, qty 1360; 60 V, 2.3 W at `Ta`. **Sole pass device — no alternate is placed.** Linear-mode operation at 0.71 W / 49 mA analysed in `../kicad-libs/docs/brake-current-sink-design.md`; confirm `V_GS(th)` and the SOA curve against NXP's datasheet and a measured case temperature |
+| **Pass device (final, 2026-08-31)** | `BUK7D36-60EX`, `C3288253`, qty 1360; 60 V, 2.3 W at `Ta`. **Sole pass device — no alternate is placed.** Linear-mode operation at 0.71 W / 49 mA analysed in `kicad-libs/docs/brake-current-sink-design.md`; confirm `V_GS(th)` and the SOA curve against NXP's datasheet and a measured case temperature |
 | ~~Pass device DNP alternate~~ | ~~`BSC072N08NS5ATMA1`~~ **Rejected 2026-08-31.** Its `V_GS(th)` is 3.8 V max at 36 µA, so at 49 mA the gate node lands near 4.6 V against an `OPA197` ceiling of about 4.85 V on a 5 V rail — 0.25 V of margin, consumed by a cold start. And a 60 V part cannot be the weakest thing on the rail: the TMC5130A's inductive-load absolute maximum is 49 V, which is 80% of 60 V, so ringing that threatens the brake FET has already destroyed the driver. Fix that case with a TVS at the 36 V entry, not a bigger brake FET |
 | Precision op amp on hand | `OPA2210IDRGR`, `C2866278`, qty 50; input common-mode does not make it the default low-side loop choice |
 
@@ -431,8 +431,8 @@ weaker 40-60 V devices in the system.
 
 **Cancelled 2026-08-31.** The whole brake column resolved to stock. Every part the
 brake driver needs is already in JLCPCB inventory and already in
-`../kicad-libs/db/source/internal_parts.csv` with a symbol and footprint — see the bill of
-materials in `../kicad-libs/docs/brake-current-sink-design.md`. Specifically cancelled from the
+`kicad-libs/db/source/internal_parts.csv` with a symbol and footprint — see the bill of
+materials in `kicad-libs/docs/brake-current-sink-design.md`. Specifically cancelled from the
 tables below: `DAC60501ZDGSR`, `OPA2197IDR`, `MJD340T4G`, `TLV7041DBVR`, the
 precision current shunt, the precision DAC scaling network, the default-off clamp
 transistor, and the brake case-temperature probe. `TPS3431SDRBR`, `MJD122T4G`,
@@ -478,7 +478,7 @@ only the exact board quantity.
 ## Proposed Design-Block Boundary
 
 **Settled 2026-08-31** as `brake_current_sink_0_49ma_dac80501`, with the port list
-and the boundary decisions in `../kicad-libs/docs/brake-current-sink-design.md`. Three things
+and the boundary decisions in `kicad-libs/docs/brake-current-sink-design.md`. Three things
 changed from the proposal below: the **connector is inside the block** (the flyback
 diode has to sit across its pins, and separating the two invites a board that
 forgets it, so this follows the `hv_input_*` blocks rather than
@@ -513,7 +513,7 @@ more truthful digital observation. `AIN1` remains a natural home for buffered
 **Resolved 2026-08-31:** `DIG11` becomes `BRAKE_CS`, the DAC frame, which lets a
 capture timestamp every brake command — the DAC-update marker option above.
 `DIG12` keeps `~{BRAKE_FAULT}`, and `AIN1` takes `BRAKE_ISENSE`. Propagated to
-`../mouse-joystick-pcb/docs/interface-map.md`.
+`mouse-joystick-pcb/docs/interface-map.md`.
 
 Keep the first block private and project-specific until bench results validate
 it. Promote a reusable abstraction only after the mouse board verifies it and

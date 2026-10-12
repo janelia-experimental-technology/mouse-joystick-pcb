@@ -103,7 +103,7 @@ separately on a saved unfinished candidate, retaining the DSN, settings, session
 and log. Check the imported result even when the router counter stalls.
 
 The reusable guidance lives in
-[`kicad-libs/docs/freerouting-autorouting.md`](../../kicad-libs/docs/freerouting-autorouting.md).
+`kicad-libs/docs/freerouting-autorouting.md`.
 Local repair scripts and diagnostic snapshots remain under
 `tmp/routing-rescue/` and `tmp/connector-access/`; these ignored scratch files
 are not needed to use the committed PCB or order package. Future promotion of

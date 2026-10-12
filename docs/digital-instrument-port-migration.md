@@ -1,7 +1,7 @@
 # Digital InstrumentPort migration plan
 
 **Status:** New direction documented 2026-09-12. Updated 2026-09-15: **both
-KiCad blocks are built** in `../kicad-libs` — DUT and adapter, vertical FH12,
+KiCad blocks are built** in `kicad-libs` — DUT and adapter, vertical FH12,
 schematic and layout, passing `check` and `validate` — and the buffers carry no
 disable control.
 
@@ -13,7 +13,7 @@ removed from the board, and the 32-channel map is allocated in
 `GP24` is reclaimed. **No cable has been purchased**, so the end-to-end
 permutation is still assumed rather than measured, and that is now the largest
 single unknown in front of the v1.0 order.
-**Contract:** [Digital InstrumentPort draft](../../board-interfaces/docs/instrument-port-digital.md).
+**Contract:** Digital InstrumentPort draft (`board-interfaces/docs/instrument-port-digital.md`).
 
 ## Direction and v1.0 release decision
 
@@ -42,7 +42,7 @@ and their LA5032 adapters remain legacy evidence; do not relabel them.
 
 ## Board integration
 
-Use the [planned integrated block](../../kicad-libs/docs/digital-instrument-port-design-blocks.md)
+Use the planned integrated block (`kicad-libs/docs/digital-instrument-port-design-blocks.md`)
 with four SN74LV541ARKSR octal buffers. Its local symbol/footprint already exist;
 the exact STEP model and the actual integrated block remain outstanding.
 
@@ -54,7 +54,7 @@ four packages are held low with no jumper, no firmware link and no port, so the
 port observes whenever `+3.3V_MCU` is valid and cannot be muted without
 desoldering. The owning contract was relaxed the same day from requiring manual
 disabling to permitting none; the rationale is in the
-[block plan](../../kicad-libs/docs/digital-instrument-port-design-blocks.md#no-disable-control-and-why).
+block plan (`kicad-libs/docs/digital-instrument-port-design-blocks.md#no-disable-control-and-why`).
 
 **This frees `GP24`.** The legacy `~{INSTR_BUF_OE}` existed because the
 `SN74LVC125A` port was default-*off* and firmware had to switch it on. Nothing
@@ -82,7 +82,7 @@ Do not silently carry the old SPI DAC assignments into the I2C design.
 The 32-channel budget includes two firmware marker/beacon channels in the first
 bank. Their indices are not frozen: DIG14/15 was the earlier proposal;
 the 2026-09-13 recommendation is to consider DIG0/1 so smaller prefixes retain
-identity. Resolve the [canonical marker decision](../../board-interfaces/docs/instrument-port-digital.md#markers-identity-and-capture-records)
+identity. Resolve the canonical marker decision (`board-interfaces/docs/instrument-port-digital.md#markers-identity-and-capture-records`)
 before wiring `FW_TRIG0` / `FW_TRIG1`. Keep the existing beacon payload unchanged
 and use the selected adapter's channel map. The old 18-channel budget no longer
 forces eviction of
@@ -93,7 +93,7 @@ Future opportunity, not v1.0 scope: a separately reviewed adapter could combine
 two reduced 16-channel joystick boards into one 32-channel analyzer capture,
 using one sampling timebase. This does not eliminate buffer/cable skew and
 would join the board grounds. See the
-[subdivision/aggregation observations](../../board-interfaces/docs/instrument-port-digital.md#subdivision-and-symmetry-observations).
+subdivision/aggregation observations (`board-interfaces/docs/instrument-port-digital.md#subdivision-and-symmetry-observations`).
 Do not redesign the current two-analyzer setup solely to exercise this option.
 
 The analog timing witness is a separate decision. Do not put `AMP_VOUT`,

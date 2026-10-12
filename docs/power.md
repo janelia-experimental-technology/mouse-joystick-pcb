@@ -8,7 +8,7 @@ now in place on the board and verified against the flattened netlist on
 **Input:** 36 V through a 2-position 5.08 mm pluggable terminal block
 
 **Updated 2026-08-14:** the pyControl 5 V supply was traced from the host side in
-`~/Repositories/github/pycontrol-h7-breakout`. Pin 6 is a shared **1.0 A** rail
+`pycontrol-h7-breakout`. Pin 6 is a shared **1.0 A** rail
 that also feeds the controller's own logic regulator, with no per-port fuse — so
 this board now **requires a polyfuse on its pin 6 branch**. See
 [What Pin 6 Can Actually Supply](#what-pin-6-can-actually-supply). One open
@@ -656,7 +656,7 @@ attributed to a benefit:
 - **Motor performance.** Higher rail voltage means faster current rise in the
   coil, so the same motor holds torque to a higher step rate. On a joystick that
   has to feel responsive to a mouse, that is the whole point.
-- **Rev-2 brake headroom.** `../kicad-libs/docs/brake-current-sink-design.md`
+- **Rev-2 brake headroom.** `kicad-libs/docs/brake-current-sink-design.md`
   requires a **36 V** input as constant-current compliance, because a 24 V rail
   cannot force 49 mA through a 605 Ω hot coil. **Quantified 2026-08-31:** the
   settled design has 4.2 V of pass-device compliance at 36 V −5% with the hot
@@ -685,9 +685,9 @@ thing the MCU has to survive switching off.
 
 **pyControl pin 6 is 5 V, confirmed on two independent designs.** Read out of the
 reference design's own netlist — in
-`~/Repositories/github/syringe-pump/ecad/module_pycontrol.kicad_sch` the RJ-45
+`syringe-pump/ecad/module_pycontrol.kicad_sch` the RJ-45
 pin 6 net is `5VDC` and pin 8 is `Vmotor` at 12 V — and confirmed again from the
-host side in `~/Repositories/github/pycontrol-h7-breakout` (see below). So both
+host side in `pycontrol-h7-breakout` (see below). So both
 ORed sources are nominal 5 V and the OR happens at 5 V, upstream of the MCU's own
 LDO. There is no 3.3 V pin on the port to worry about.
 
@@ -700,7 +700,7 @@ way.
 
 ### What Pin 6 Can Actually Supply
 
-Traced from `~/Repositories/github/pycontrol-h7-breakout` PCB v0.7 by netlist
+Traced from `pycontrol-h7-breakout` PCB v0.7 by netlist
 export on 2026-08-14. This resolves the third open decision in this document and
 the corresponding Gate A row. Full detail in `docs/pycontrol-port-pinout.md`.
 
@@ -847,7 +847,7 @@ obvious "simplification" of merging them would reintroduce it.
 | Analog output `OPA197` (rev 1) | **4.5 V minimum supply.** Below that the gain stage is out of spec — this is now the analog section's binding 5 V requirement |
 | Analog output `DAC80501` `VDD` (rev 1) | ≥ the 2.5 V reference with `REF-DIV=1`; 5 V gives ample margin |
 | Brake block, 3× `OPA197` (rev 2) | **4.5 V minimum**, same binding requirement. The loop amplifier must reach the pass device's `V_GS` plus the 0.49 V shunt drop, about 3.2 V worst case, which a 5 V RRIO output clears comfortably |
-| Brake block `DAC80501` `VDD` (rev 2) | **3.3 V, deliberately not 5 V.** `+3.3V_SW`, not this rail. At 3.3 V the reset `REF-DIV = 0` is out of spec, and the datasheet forces all outputs to 0 V on improper reference-divider configuration, so the 0-2.5 V span becomes a hardware property and a wrong-`GAIN` write is fail-safe. It also removes the 5 V back-powering path the angle block had to reason about. See `../kicad-libs/docs/brake-current-sink-design.md` |
+| Brake block `DAC80501` `VDD` (rev 2) | **3.3 V, deliberately not 5 V.** `+3.3V_SW`, not this rail. At 3.3 V the reset `REF-DIV = 0` is out of spec, and the datasheet forces all outputs to 0 V on improper reference-divider configuration, so the 0-2.5 V span becomes a hardware property and a wrong-`GAIN` write is fail-safe. It also removes the 5 V back-powering path the angle block had to reason about. See `kicad-libs/docs/brake-current-sink-design.md` |
 | `TMC5130A` `VCC` | **4.6 V to 5.25 V** operating range, per rev 1.21 chapter 30 |
 | Encoder, if 5 V | Per its datasheet |
 

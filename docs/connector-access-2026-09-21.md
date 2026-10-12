@@ -53,8 +53,8 @@ it. No component value, library identifier or schematic connection changed.
   additional room for fingers, cable insertion and bending. Use a cable meeting
   its straight-ended FFC specification. The previously owned eared Molex cable
   is still unqualified for this connector. See the
-  [FH12 asset record](../../kicad-libs/docs/fh12-50-library-assets.md) and
-  [cable guide](../../kicad-libs/docs/instrument-port-50-ffc-cables.md).
+  FH12 asset record (`kicad-libs/docs/fh12-50-library-assets.md`) and
+  cable guide (`kicad-libs/docs/instrument-port-50-ffc-cables.md`).
 
 This review found no further required PCB placement changes from the available
 connector/body geometry. It is not a fit qualification of an unspecified lid,

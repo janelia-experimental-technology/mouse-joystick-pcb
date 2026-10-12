@@ -975,7 +975,7 @@ through the block's single `GND` port, and the buffer supply once through its
 `+3.3V` port. One row here is one sheet pin to wire.
 
 One thing is still owed from outside: the `DIG0`/`DIG1` marker pair is not frozen
-in [`board-interfaces`](../../board-interfaces/docs/instrument-port-digital.md),
+in `board-interfaces/docs/instrument-port-digital.md`,
 so hold `FW_TRIG0`/`FW_TRIG1` until it is.
 
 #### Why The Channels Are Grouped The Way They Are
@@ -985,7 +985,7 @@ banks.** The profile lays each bank out as `GND, signal, signal`, so channels
 arrive in **pairs that share a gap with no ground between them** — pins (14,15),
 (17,18), (20,21) and so on. Coupling inside a pair is much higher than across a
 ground, so what sits next to what is a real choice, and
-[`board-interfaces`](../../board-interfaces/docs/instrument-port-digital.md)
+`board-interfaces/docs/instrument-port-digital.md`
 designed the pair unit for it: *"Pairs suit UART TX/RX, I2C clock/data, encoder
 A/B, and beacon clock/data."* That same paragraph is honest about the limit —
 *"The two signals within a pair can still couple; nearby returns are not a
@@ -1038,7 +1038,7 @@ subsystems only because a five-channel bus cannot fill a bank alone.
 channel index — capture takes channel indices as arguments and the beacon's
 `--clock`/`--data` are explicit overrides. The "preferred SPI SCK overlay"-style
 language in
-[`la5032-instrument-port-40-mapping.md`](../../board-interfaces/docs/la5032-instrument-port-40-mapping.md)
+`board-interfaces/docs/la5032-instrument-port-40-mapping.md`
 belongs to the **legacy 40-pin** adapter; the digital-50 draft says outright that
 `DIG` names are *"not fixed assignments to SPI, UART, or particular MCU pins."*
 The only block-of-eight that matters is the buffer package on this board.
@@ -2509,7 +2509,7 @@ behaviour together.
 
 ## What Carries Forward To The Twin-Axis Board
 
-If this board is later superseded by `../mouse-joysticks-pcb`, these carry over
+If this board is later superseded by `mouse-joysticks-pcb`, these carry over
 unchanged:
 
 - the pyControl port pinout and signal set;

@@ -11,7 +11,7 @@ this repository; they are sources to read and mine.
 
 ## Read This First
 
-`../mouse-joysticks-pcb` — the twin-axis board for the same rig, documented in
+`mouse-joysticks-pcb` — the twin-axis board for the same rig, documented in
 detail through 2026-08-11. **Most of this repository's documentation derives from
 it.** Before concluding that something here is a new problem, check whether that
 repository already solved it. Its `docs/` covers the pyControl port pinout, the
@@ -31,14 +31,14 @@ exist and what has to be kept in sync between them.
 | **Brake driver — settled design.** The circuit, values, bill of materials, block boundary, firmware contract, and open items. DAC-programmed linear current sink; 48.78 mA full scale; every part in stock. **Read this one first**; it supersedes the topology choice and purchase list in the two documents below. | `kicad-libs/docs/brake-current-sink-design.md` |
 | **Brake controller background note.** B5Z requirements, previous-board `BCR421` prior art, brake/torque noise-isolation and return-path rules, validation plan. Its topology ladder (`LM3404HV` switching, `BCR421` PWM) is **superseded as of 2026-08-31**. **Assumes a 36 V rail** — relevant to this board's supply choice. | `docs/b5z-magnetic-particle-brake-controller.md` (moved here from kicad-libs 2026-10-07) |
 | **Brake and torque purchase plan.** Torque column still current and still needs ordering. Brake column revised 2026-08-31: ten lines cancelled because the driver resolved entirely to stock. | `docs/mouse-joystick-brake-torque-purchase-plan.md` (moved here from kicad-libs 2026-10-07) |
-| **New-rig mechanical assembly.** STEP and glTF of the **two**-joystick assembly. A single-axis board's mounting is a decision, not a derivation from this. | `orb-weaver/mouse-joysticks-mech/` |
+| **New-rig mechanical assembly.** STEP and glTF of the **two**-joystick assembly. A single-axis board's mounting is a decision, not a derivation from this. | `mouse-joysticks-mech` |
 | **MBM system models.** `published-2025.mbm.yaml` for the paper-reported previous rig, `current-acquisition-2026.mbm.yaml` for the collaborator's device-and-signal map. Neither describes the upgraded rig completely. | `mechatronic-boundary-modeling/examples/joystick-rig/` |
-| **Motor-control predecessor.** RP2040 plus TMC5130A/TMC5160A validation board, 16 composed blocks, board ERC at 0. The closest trustworthy source for this board's driver and instrumentation composition. | `orb-weaver/tmc51x0-driver-dev-pcb/` |
-| **pyControl module reference design.** Working peripheral with a shipping device class; the source of the port pinout and UART parameters. | `~/Repositories/github/syringe-pump` |
+| **Motor-control predecessor.** RP2040 plus TMC5130A/TMC5160A validation board, 16 composed blocks, board ERC at 0. The closest trustworthy source for this board's driver and instrumentation composition. | `tmc51x0-driver-dev-pcb` |
+| **pyControl module reference design.** Working peripheral with a shipping device class; the source of the port pinout and UART parameters. | `syringe-pump` |
 
 ## Previous-Generation Board
 
-`~/Repositories/kicad/mouse-joystick-pcb`
+`janelia-kicad/mouse-joystick-pcb`
 
 Same name as this repository, different thing — a complete, fabricated, fully
 routed board from 2017, documentation version 1.0.0, released 2026-01-14,
@@ -113,10 +113,10 @@ rig's `WO-208-13-01D`. The part number is still unidentified.
 
 | What | Where |
 | --- | --- |
-| Earlier controller board, includes `torque_sensor.kicad_sch` | `~/Repositories/kicad/mouse_joystick_controller/` |
-| Even earlier reach-rig board | `~/Repositories/kicad/mouse_reach_controller/` |
-| Arduino/modular-device firmware for the previous rig | `~/Repositories/modular-devices/mouse_joystick_controller/` |
-| Python host interface for the previous rig | `~/Repositories/python/mouse_joystick_interface_python/` |
+| Earlier controller board, includes `torque_sensor.kicad_sch` | `janelia-kicad/mouse_joystick_controller` |
+| Even earlier reach-rig board | `janelia-kicad/mouse_reach_controller` |
+| Arduino/modular-device firmware for the previous rig | `janelia-modular-devices/mouse_joystick_controller` |
+| Python host interface for the previous rig | `janelia-python/mouse_joystick_interface_python` |
 
 The previous firmware implemented the experiment state machine on the MCU. That
 responsibility moves to pyControl in the new rig, so the firmware is a source for

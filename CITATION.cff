@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this board design in published work, please cite it as below."
+type: software
+title: "mouse-joystick-pcb: single-axis mouse joystick controller board"
+abstract: >-
+  KiCad design, fabrication outputs and documentation for a single-axis mouse
+  joystick controller PCB used as a native pyControl peripheral in the Janelia
+  Dudman lab joystick rig: an RP2040, a TMC5130A stepper driver with encoder
+  and limit-switch inputs, a brake current sink, a torque bridge, analog angle
+  and torque outputs, and a 50-pin digital instrument port.
+authors:
+  - family-names: Polidoro
+    given-names: Peter
+    email: polidorop@janelia.hhmi.org
+    affiliation: "Janelia Research Campus, Howard Hughes Medical Institute"
+repository-code: "https://github.com/peterpolidoro/mouse-joystick-pcb"
+version: "1.0"
+license:
+  - CC-BY-SA-4.0
+  - BSD-3-Clause
+keywords:
+  - pyControl
+  - KiCad
+  - joystick
+  - stepper motor
+  - behavioral neuroscience
+  - open hardware

@@ -76,7 +76,7 @@ here is that **it carries no measurement history**, and that the two boards on
 the bench as of 2026-09-03 are boards 2 and 3.
 
 A consequence worth stating because it has already caused confusion: the console
-harness examples in this file and in `../mouse-joystick-firm/docs/` that name
+harness examples in this file and in `mouse-joystick-firm/docs/` that name
 `/dev/ttyACM0` were written when that was board 2. With boards 2 and 3 attached,
 `/dev/ttyACM0` is board 3. **Address boards by `/dev/serial/by-id/`**, which
 carries the serial, and never by `ttyACM` number.
@@ -108,7 +108,7 @@ adapter and a Molex 15020 FFC. Serial not yet known: **the board did not
 enumerate at all** — no `2e8a:0003` RP2040 bootloader (a blank flash would
 show one) and no CDC device, while the LA5032 on the same host enumerated
 normally. A 5 s capture of all 32 channels at 100 kSa/s
-(`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1_quiet_all32.sr`) read
+(`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1_quiet_all32.sr`) read
 **every channel low with no edges**. With `+3.3V_MCU` up the always-on
 buffers would hold `DIG3` (`R401`), `DIG26` (`R507`) and `DIG27` (`R607`) high
 in either cable orientation (CH3/26/27 straight, CH28/5/4 reversed); none was.
@@ -217,7 +217,7 @@ USB alone connected, the board enumerated as the RP2040 ROM bootloader
 (`2e8a:0003`, blank flash), took `RP2040SelfTest` for `mouse_joystick_rev2`
 by UF2 copy, and came back as `2e8a:f00a` with the serial above. **20
 checks, 0 failed** — the count derived on 2026-10-04 is now observed.
-Console log: `../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/s1_selftest_rev2_boardA.log`.
+Console log: `qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/s1_selftest_rev2_boardA.log`.
 `C1208` and `C1501` still carry the wrong part on this unit; the 36 V supply
 stays off until they are replaced.
 
@@ -248,7 +248,7 @@ commanded reboot: **CH1 (`FW_TRIG1`) 10.135, 10.005, 10.001 ms; CH0 (`FW_TRIG0`)
 8 × 1.001–1.008 ms**, 1.18 s after the last heartbeat edge; heartbeat half-period
 500.25 ms. The `I` beacon's three frames (50.0 ms start, 64 clocks) each decode
 to **`E4654C159F274534`**, the flash id above. Captures
-`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_boot_all32.sr` (all 32
+`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_boot_all32.sr` (all 32
 channels, 100 kSa/s) and `v1a_signature.sr` (1 MSa/s). Owned by the adapter's
 log; recorded there too. Not yet done on this unit: the `k` crystal check
 against the host clock, the cold power-on reset reason.
@@ -268,7 +268,7 @@ direction. Not applied.
 `C1208` refitted with a genuine 4.7 µF and `C1501` removed (Peter), 36 V on,
 everything cabled but the RJ-45. `TMC5130Communication` on
 `mouse_joystick_rev2`, Digital-50 taps CH1/8–11/14/24/26/27/30/31 at 10 MSa/s
-(`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_s2_tmc.sr`, `v1a_s2b_tmc.sr`).
+(`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_s2_tmc.sr`, `v1a_s2b_tmc.sr`).
 
 **First attempt, firmware `ec3b36d`: the rail came up and the firmware then
 armed latch-off too early.** The tap timeline of the failed `s`: `HV_EN` high
@@ -313,7 +313,7 @@ later. `~{BUS_SW_EN}` also shows the 34 µs boot glitch at every
 ### v1.0 unit A — Stage A3, the angle DAC over I2C, 2026-10-05, 15:38
 
 `AngleOutput` on `mouse_joystick_rev2`, I2C taps `DIG22`/`DIG23` on CH22/CH23 at
-10 MSa/s (`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a3_dac.sr`).
+10 MSa/s (`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a3_dac.sr`).
 Rail up in 3 ms (direct method), bus closed, I2C0 on GP17/GP16 to **0x48**.
 Every transaction ACKed on the tap: soft reset (`0x05` ← 0x000A), `CONFIG`
 (`0x03` ← 0x0000), **`GAIN` (`0x04` ← 0x0101)**, `SYNC` (`0x02` ← 0x0000), then
@@ -343,7 +343,7 @@ means the out-of-band "unhomed" level needs the same thought as on v0.3
 ### v1.0 unit A — Stage A6 (stage 3 on v1.0) passed 2026-10-05, 15:41, replacement joystick unit
 
 `MotionAndHoming` on `mouse_joystick_rev2`, taps CH1/14/15/24/26/28/29 at
-1 MSa/s (`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a6_motion.sr`).
+1 MSa/s (`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/v1a_a6_motion.sr`).
 `b`: rail up 3 ms (direct method), bulk charged 34 ms, TMC5130A 0x11, `uv_cp`
 0, encoder scaled, DAC over I2C at 0x48 with `GAIN 0x101`. `c`: `vsense` read
 back 1, IRUN 8 = 0.211 A RMS. `e`: enabled.
@@ -373,7 +373,7 @@ I2C transaction itself (~90 µs) plus the same polling as before.
 Phases a–e of the board-4 session on the v1.0 build (protocol over USB CDC,
 QS trace on `FW_TRIG1` = CH1, TICK level on `FW_TRIG0` = CH0, tick probe on
 the UART0 TX pad = CH2, TMC SPI on CH8–CH11), no stops, no meter, no hand.
-Files: `../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/qp/`. `ID`: `hw=rev2`,
+Files: `qp-arduino-example/evidence/2026-10-05-1142-board4-regression/v1/qp/`. `ID`: `hw=rev2`,
 caps `motion+home+instr+hv+watch+fetch+stream+cfg+angout`. No `ASSERT` in any
 trace; trace buffer never full; line pool min free 3 of 8 (rev 1 had 1).
 
@@ -408,7 +408,7 @@ Firmware: the new `examples/BrakeAndTorque` on `mouse_joystick_rev2`
 driver, console and `SafeState` fix). Driven non-interactively by
 `qp-arduino-example/evidence/bench-scripts/unitA_brake_torque.sh` and
 `unitA_brake_steps.sh`; console transcripts and captures in
-`../../qp-arduino-example/evidence/2026-10-06-0848-unitA-brake-torque/` and
+`qp-arduino-example/evidence/2026-10-06-0848-unitA-brake-torque/` and
 `…-0853-unitA-brake-steps/`. **The motor driver was never enabled.** No meter:
 every brake number is the RP2040's ADC against its 3.3 V supply (0.806 mV =
 39 µA of coil current per count through the 20.625 V/A monitor) and every
@@ -548,7 +548,7 @@ DAC and releases the drive once the coil current has settled, `TQ` answers,
 torque rides in every field. Driven by
 `qp-arduino-example/tools/brake_torque_steps.py` (new) over USB CDC with a
 40 ms heartbeat; Digital-50 CH0/CH1 and CH16–CH27 at 10 MSa/s. Three runs:
-`../../qp-arduino-example/evidence/2026-10-06-0920-…` (the host script's
+`qp-arduino-example/evidence/2026-10-06-0920-…` (the host script's
 heartbeat starved itself and the board faulted `host_timeout` 100 ms after the
 last ping, correctly), `…-0925-…` and `…-0931-…` (complete). Numbers below are
 the 0931 run unless said; the 0925 run agrees within a few percent.
@@ -603,7 +603,7 @@ on `FW_TRIG1`, USB CDC only a banner. Driven from the pyboard's REPL with
 `machine.UART` directly (`tools/pyboard_repl.py`), as on 2026-09-03: first
 contact should not have the framework as a second unknown. Digital-50
 CH0–CH3, CH24, CH27 at 10 MSa/s. Evidence
-`../../qp-arduino-example/evidence/2026-10-06-0959-unitA-uart0-first-contact/`
+`qp-arduino-example/evidence/2026-10-06-0959-unitA-uart0-first-contact/`
 and `…-1001-unitA-uart0-protocol/`.
 
 **Which port.** `id` on `UART(4)` (port 1) and `UART(1)` (port 3): nothing.
@@ -661,7 +661,7 @@ running the bring-up task `mouse_joystick_check` on the pyboard
 Three runs of the same 50 s task against three builds of
 `mouse_joystick_qp_rev2`, each under a Digital-50 capture (CH0–CH3, CH24,
 CH27 at 10 MSa/s) with the QS trace decoded. Evidence
-`../../qp-arduino-example/evidence/2026-10-06-1019-unitA-gate-e/`, `-1037-`,
+`qp-arduino-example/evidence/2026-10-06-1019-unitA-gate-e/`, `-1037-`,
 `-1043-`. The pyControl side is in "pyControl Integration" below; this
 section is the board's tick.
 
@@ -741,7 +741,7 @@ and the pin did, not what the stalled CPU thought.
 
 **The TMC5130 SPI bus** (CH8 `TMC_SPI_SCK`, CH9 `~{TMC_CS}`, CH10 COPI, CH11
 CIPO at 50 MSa/s, 1 s in the task's `ARMED` idle; evidence
-`../../qp-arduino-example/evidence/2026-10-06-1104-unitA-tmc-spi-timing/`):
+`qp-arduino-example/evidence/2026-10-06-1104-unitA-tmc-spi-timing/`):
 
 | TMC51X0 library | per datagram (CS low) | between datagrams | X_ENC read (2 datagrams) | snapshot | polls/s |
 | --- | --- | --- | --- | --- | --- |
@@ -836,7 +836,7 @@ Every trial today parked at 0° with the ramp generator satisfied and the
 encoder at −0.99°. Peter asked whether that could be the quadrature encoder
 block or the firmware. Measured with the bring-up task's `park` knob
 (`mouse_joystick_check.py`; evidence
-`../../qp-arduino-example/evidence/2026-10-06-1407-unitA-park-error/`), on
+`qp-arduino-example/evidence/2026-10-06-1407-unitA-park-error/`), on
 the delivery build:
 
 | Probe | encoder `angle` | ramp generator `xactual` |
@@ -903,7 +903,7 @@ present −5°, brake and release, 2 s watch, park to 0°, then −5, −2.5, 0,
 −5, 0), run twice, the second with the QS trace on the LA5032 (`MOVE_SETTLE`:
 the residual between encoder and target when the ramp generator first
 arrived and at `TARGET`, the corrections, the time between). Evidence
-`../../qp-arduino-example/evidence/2026-10-07-0807-unitA-encoder-settle/`.
+`qp-arduino-example/evidence/2026-10-07-0807-unitA-encoder-settle/`.
 
 **`TARGET` error (encoder angle − target), degrees:**
 
@@ -982,7 +982,7 @@ from the checkouts (`mouse-joystick-firm/tools/pycontrol_run.py
 --hwd-path/--task-dir`, added today) against unit A on the right joystick,
 nobody at the rig: `n_trials=8`, `watch_timeout_ms=2000`, `iti_ms=1000`,
 the rest the task's defaults. Firmware as the previous section. Evidence
-`../../qp-arduino-example/evidence/2026-10-07-0840-unitA-rig-trial-dryrun/`.
+`qp-arduino-example/evidence/2026-10-07-0840-unitA-rig-trial-dryrun/`.
 
 | trial | present `TARGET` (−5.0 commanded) | park `TARGET` (0.0 commanded) |
 | --- | --- | --- |
@@ -1026,7 +1026,7 @@ about 3 KB. Written up in `mouse-joystick-firm/pycontrol/README.md`.
 The solenoid cable moved to Breakout 1.2 port 5 (`POW_A`) by Peter at
 ~08:50, then the rig's trial task (as the dry run above) on the right
 joystick with Peter pulling the lever by hand during the watch. Evidence
-`../../qp-arduino-example/evidence/2026-10-07-0855-unitA-solenoid-pull/`.
+`qp-arduino-example/evidence/2026-10-07-0855-unitA-solenoid-pull/`.
 
 | run | window | what the board saw | outcome |
 | --- | --- | --- | --- |
@@ -1071,7 +1071,7 @@ green banded part: `C1208` next to the TMC5130A refitted, `C1301` and
 RP2040 ROM bootloader (`2e8a:0003`, `RPI-RP2`), took `RP2040SelfTest` for
 `mouse_joystick_rev2` by UF2 copy and came back as `2e8a:f00a` with the
 serial above on `/dev/ttyACM2`, beside unit A. **result: 20 checks, 0 failed.** Console log:
-`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s1_selftest_rev2_boardB.log`.
+`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s1_selftest_rev2_boardB.log`.
 
 | Check | Result |
 | --- | --- |
@@ -1102,7 +1102,7 @@ reset reason. Next: 36 V with nothing else connected (stage 2,
 36 V connected to `J501` by Peter (nothing else on the board: no joystick,
 no RJ-45), `TMC5130Communication` on `mouse_joystick_rev2` (firmware
 `51322e7`-dirty) over USB, the timed key sequence `v d s i d x s r x m x l x`
-(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s2_tmc_rev2_boardB.log`).
+(`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/s2_tmc_rev2_boardB.log`).
 
 | Step | Result |
 | --- | --- |
@@ -1123,7 +1123,7 @@ Same connections as stage 2 (36 V, USB, nothing else), `AngleOutput` on
 `mouse_joystick_rev2` (`51322e7`-dirty; the uploader's 1200-baud touch left
 the board in BOOTSEL with "RP2040 device returned an error", the UF2 copy
 finished it), keys `b d q z m f z d x`
-(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a3_angleoutput_rev2_boardB.log`).
+(`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a3_angleoutput_rev2_boardB.log`).
 
 | Step | Result |
 | --- | --- |
@@ -1145,7 +1145,7 @@ cabled by Peter, the second LA5032 on the Digital-50 (straight cable, see
 the adapter's log), `MotionAndHoming` on `mouse_joystick_rev2`
 (`51322e7`-dirty) over USB; the key sequences `b c e p W p` and then
 `g h H k k j k j k g h L p x`, as unit A's on 2026-10-05
-(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a6a_gates_unitB.log`,
+(`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a6a_gates_unitB.log`,
 `a6b_motion_unitB.log`, captures `a6a_gates_unitB.sr`, `a6b_motion_unitB.sr`
 at 1 MSa/s on CH0/1, CH8–11, CH14, CH15, CH24, CH27, CH28/29).
 
@@ -1181,7 +1181,7 @@ left joystick's brake and torque sensor cabled, joystick untouched; the key
 sequences `b i r s S "S 32768" 0 i` and `t "T 1000" d k z t "L 10" X i x`,
 as unit A's on 2026-10-06; the second LA5032 on CH16–CH23 (torque SPI,
 `TQ_CAL_EN`, `~{BRAKE_FAULT}`, DAC I2C) at 10 MSa/s
-(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a4_brake_unitB.log`,
+(`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/a4_brake_unitB.log`,
 `a5_torque_unitB.log`, captures `a4_brake_unitB.sr`, `a5_torque_unitB.sr`).
 
 **A4, the brake sink:**
@@ -1225,7 +1225,7 @@ RJ-45 from unit B to Breakout 1.2 port 1 (`UART(4)`), the PYBV11 on
 `pixi run -e pycontrol pycontrol-run` with `mouse_joystick_bringup` and
 `mouse_joystick_check --set board=left --set watch_timeout_ms=2000`, nobody
 at the joystick; the second LA5032 on CH0–CH3 at 2 MSa/s
-(`../../qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/pilot/gate_e_left.txt`,
+(`qp-arduino-example/evidence/2026-10-07-0908-unitB-bringup/pilot/gate_e_left.txt`,
 `captures/gate_e_left.sr`).
 
 | Task time | What happened |
@@ -1273,7 +1273,7 @@ presents at −5°, sets the brake to `brake_ncm` 1.0, releases the drive and
 stays `RELEASED` with no watch, printing `status` every 2 s until the run
 ends; `angscale ang_lo ang_hi` and `angout on` are sent behind the present
 move). Evidence
-`../../qp-arduino-example/evidence/2026-10-07-0950-unitA-scope-hold/pilot/`.
+`qp-arduino-example/evidence/2026-10-07-0950-unitA-scope-hold/pilot/`.
 
 - **Run 1 (`hold.txt`), angle scale −10.125..0°:** the angle BNC stayed at
   0 V — the `angout` line, queued behind `home` with `angscale`, was lost to
@@ -1310,7 +1310,7 @@ the GUI would) on the right joystick through Breakout port 4, nobody at the
 lever: `n_trials=400`, `watch_timeout_ms=2000`, `iti_ms=1000`,
 `home_each_trial=0`, the 40 ms heartbeat, one home at the start. Firmware
 `51322e7`-dirty `mouse_joystick_qp_rev2` (unit A's 08:58 build). Evidence
-`../../qp-arduino-example/evidence/2026-10-07-1040-unitA-soak/pilot/soak400.txt`.
+`qp-arduino-example/evidence/2026-10-07-1040-unitA-soak/pilot/soak400.txt`.
 
 | Quantity | Over 400 trials |
 | --- | --- |
@@ -1649,7 +1649,7 @@ removed the staircase from v1.0 planning on false evidence.
 **Measured: `+36V_SW` takes 691 ms** to bleed down to where `+3.3V_SW` reads
 off, with only board leakage as a load. The 50 ms delay was short by ~14×.
 
-Fixed in `../mouse-joystick-firm`: `probeLatchBehaviour()` and
+Fixed in `mouse-joystick-firm`: `probeLatchBehaviour()` and
 `profilePowerUp()` now call the **already-existing** `waitForRailOff()` helper
 plus a 200 ms margin — the helper was written for precisely this hazard and
 documented it, and these two callers simply did not use it. `LatchProbe` gained
@@ -1883,7 +1883,7 @@ partial clearance the move "succeeds" and the encoder asymmetry is the only
 witness.
 
 The verdict now classifies the round trip first, through
-`classifyRoundTrip()` in `../mouse-joystick-firm/src/Conversions.hpp`. It lives
+`classifyRoundTrip()` in `mouse-joystick-firm/src/Conversions.hpp`. It lives
 there rather than beside `MoveReport` because `MotionSetup.hpp` needs
 `Arduino.h` and `TMC51X0.hpp`, and this arithmetic has to be reachable from the
 host tests — which now pin it with the real measured numbers.
@@ -2055,11 +2055,11 @@ supply-side case has not been tested.
 
 ### DAC80501 driver written and exercised on hardware, 2026-09-09 evening
 
-`../mouse-joystick-firm/src/DAC80501.hpp` + `src/DAC80501Registers.hpp` +
+`mouse-joystick-firm/src/DAC80501.hpp` + `src/DAC80501Registers.hpp` +
 `src/DAC80501/`, with `examples/AngleOutput` as its bring-up console. Every
 register address, reset value, field position and I2C address came out of TI
 SBAS794E rather than from memory; a local copy is at
-`../kicad-libs/tmp/dac60501.pdf`, which despite the filename is the family
+`kicad-libs/tmp/dac60501.pdf`, which despite the filename is the family
 datasheet and covers the 80501 throughout.
 
 **Supports both transports**, decided later by the `SPI2C` strap: `SpiTransport`
@@ -2536,7 +2536,7 @@ that v1.0 bring-up will use on known-good v0.3 hardware first, so a different
 result on v1.0 is the board. Driven non-interactively over USB CDC: no meter,
 no hand pull, no pyboard (none on the bench). 36 V supply on throughout, rail
 switched by firmware. Evidence, captures and console logs:
-`../../qp-arduino-example/evidence/2026-10-05-1142-board4-regression/`.
+`qp-arduino-example/evidence/2026-10-05-1142-board4-regression/`.
 
 | Stage | Build | Result |
 | --- | --- | --- |
@@ -3593,7 +3593,7 @@ board clocks its own flash unique id out of `FW_TRIG0`/`FW_TRIG1` on command
 (the `I` command, `SelfTest::emitIdentityBeacon()`), so each analyzer identifies
 itself by what it recorded rather than by elimination. Both analyzers decoded
 the serial of the board they were wired to in a single pass. Run
-`tools/identify_boards.py` in `../instrument-control`.
+`tools/identify_boards.py` in `instrument-control`.
 
 **This needs no 36 V and no motion**, which is the property that makes it usable
 before anything is energised: `U1801` runs from `+3.3V_MCU` and reaches `J1501`
@@ -3607,7 +3607,7 @@ Measured incidentally, and worth having: the beacon's frame-start pulse captured
 at **50.0 ms (5005 samples at 100 kSa/s)** against a firmware-specified 50 ms.
 That is a check on the RP2040 timebase and on the whole buffer chain, taken
 without energising anything. The frame contract is
-`../board-interfaces/docs/instrument-port-identity-beacon.md`.
+`board-interfaces/docs/instrument-port-identity-beacon.md`.
 
 **Two analyzers means this rig is now in option 2 of
 [`docs/instrument-strategy.md`](instrument-strategy.md)**, not option 1. Nothing
@@ -4384,7 +4384,7 @@ channel:
 First filled 2026-10-06 (Gate E on v1.0 unit A; details in
 `mouse-joystick-firm/pycontrol/README.md`, "Gate E Passed On v1.0 Unit A").
 
-- pyControl version: **2.1.1** (`~/Repositories/github/pycontrol-code`
+- pyControl version: **2.1.1** (`pycontrol-code`
   checkout, GUI not used: `tools/pycontrol_run.py` drives the same `Pycboard`
   API headlessly), pyboard **PYBV11, MicroPython 1.26.1**, serial
   `397734803233`, Breakout 1.2 **port 4** (`machine.UART(3)`) → the board's
@@ -5041,7 +5041,7 @@ firmware now sets it from a `HomeEnd` setting and homes positive.
 
 **Nothing to change on the board** — `swap_lr` exists for exactly this, and
 `REFR` is tied to GND so the swapped-in left stop reads a harmless 0. Worth
-knowing before anyone wires the second joystick, or `../mouse-joysticks-pcb`,
+knowing before anyone wires the second joystick, or `mouse-joysticks-pcb`,
 and assumes the switch end is a free choice. If a future revision wants the
 hardware default to be the natural one, put the switch at the negative end of
 travel or wire it to `REFR`.

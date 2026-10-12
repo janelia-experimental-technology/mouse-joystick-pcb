@@ -413,7 +413,7 @@ routed to a test pad** — `J1103` pin 2 is a reserved no-connect and the TMC's
 | Board function | Candidate block | Rev 0 | Notes |
 | --- | --- | --- | --- |
 | Event-line BNC group | `pycontrol_event_bnc_group` | rev 1 | Three lines: `PULL_EVENT`, `FAULT`, `RSYNC`. Stocked `DOSIN-801-0095` dual right-angle BNC jack, so two jacks cover three lines with one spare. Feeds `DIG13`-`DIG15`. |
-| Brake current driver | `brake_current_sink_0_49ma_dac80501` | rev 2 | **Decided 2026-08-31**, renamed from `b5z_brake_current_driver` — nothing in the block is B5Z-specific except the connector and one divider ratio. DAC-programmed linear current sink: a second `DAC80501ZDGSR` at **3.3 V** (not the angle DAC's 5 V), a 0.19512 precision divider giving 48.78 mA full scale, three `OPA197` singles (loop error amplifier, independent 56 mA ceiling, `BRAKE_ISENSE` buffer), a `BUK7D36-60EX` pass device, a 10 Ω Kelvin shunt, and an `S115Q` flyback across the in-block connector. **`LM3404HV` and `BCR421UE6327` are both rejected, not undecided**, and there is **no alternate pass device** — the 80 V `BSC072N08NS5ATMA1` was briefly carried as a DNP option and rejected on gate-drive headroom, so only one land pattern is needed. **Schematic drawn and netlist-verified 2026-08-31**: 47 parts, 26 named nets, no floating pins. Not laid out, not bench validated. Feeds `DIG11` **`BRAKE_CS`** — not `BRAKE_DIM`; there is no PWM in this design — `DIG12` `~{BRAKE_FAULT}` (optional buffer), and `AIN1` `BRAKE_ISENSE`. Every part is in stock and in the parts DB. Full specification, values, connection table, BOM, and open items: `../kicad-libs/docs/brake-current-sink-design.md`. |
+| Brake current driver | `brake_current_sink_0_49ma_dac80501` | rev 2 | **Decided 2026-08-31**, renamed from `b5z_brake_current_driver` — nothing in the block is B5Z-specific except the connector and one divider ratio. DAC-programmed linear current sink: a second `DAC80501ZDGSR` at **3.3 V** (not the angle DAC's 5 V), a 0.19512 precision divider giving 48.78 mA full scale, three `OPA197` singles (loop error amplifier, independent 56 mA ceiling, `BRAKE_ISENSE` buffer), a `BUK7D36-60EX` pass device, a 10 Ω Kelvin shunt, and an `S115Q` flyback across the in-block connector. **`LM3404HV` and `BCR421UE6327` are both rejected, not undecided**, and there is **no alternate pass device** — the 80 V `BSC072N08NS5ATMA1` was briefly carried as a DNP option and rejected on gate-drive headroom, so only one land pattern is needed. **Schematic drawn and netlist-verified 2026-08-31**: 47 parts, 26 named nets, no floating pins. Not laid out, not bench validated. Feeds `DIG11` **`BRAKE_CS`** — not `BRAKE_DIM`; there is no PWM in this design — `DIG12` `~{BRAKE_FAULT}` (optional buffer), and `AIN1` `BRAKE_ISENSE`. Every part is in stock and in the parts DB. Full specification, values, connection table, BOM, and open items: `kicad-libs/docs/brake-current-sink-design.md`. |
 | Torque bridge front end | `torque_bridge_frontend` | rev 2 | Wheatstone bridge conditioner, `PGA305` (I2C, stocked, board precedent) versus `ADS1220` (SPI). **Takes `DIG0`/`DIG1` back from the Rev 0 encoder taps.** The I2C-versus-SPI choice decides whether two slots are enough — see `docs/interface-map.md`. |
 
 Do not create the rev 1 and rev 2 candidates speculatively, and do not promote any
@@ -615,7 +615,7 @@ both hostage to the still-open encoder part number.
 
 ## Board-Specific Glue
 
-- Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
+- Board outline, mounting, and enclosure constraints. `mouse-joysticks-mech`
   describes the two-joystick assembly, so decide how a per-axis board mounts in
   it before fixing the outline.
 - **Connector family.** `J1102` motor, `J1103` encoder, and `J1301` limit switch
@@ -677,13 +677,13 @@ both hostage to the still-open encoder part number.
 
 ## Source Material To Mine
 
-- `../mouse-joysticks-pcb/docs/` — the twin-axis treatment of the same rig. Most
+- `mouse-joysticks-pcb/docs/` — the twin-axis treatment of the same rig. Most
   of this repository's documentation derives from it; read it before concluding
   something here is novel.
-- `../tmc51x0-driver-dev-pcb` for the validated TMC5130A composition,
+- `tmc51x0-driver-dev-pcb` for the validated TMC5130A composition,
   current-sense choices, the GPIO isolation bypass group, and the instrumentation
   buffering pattern.
-- `~/Repositories/kicad/mouse-joystick-pcb` for joystick-specific circuits:
+- `janelia-kicad/mouse-joystick-pcb` for joystick-specific circuits:
   `joystick-motor`, `microcontroller`, `power`. See `docs/prior-art.md`.
 
 ## Pre-Commit Reminder

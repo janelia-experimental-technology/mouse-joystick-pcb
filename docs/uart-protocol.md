@@ -11,7 +11,7 @@ index pulse.
 
 **Status:** Draft v0.1. Not implemented, not frozen.
 **Date:** 2026-08-12
-**Derived from:** `../mouse-joysticks-pcb/docs/uart-protocol.md` v0.3, with the
+**Derived from:** `mouse-joysticks-pcb/docs/uart-protocol.md` v0.3, with the
 axis argument removed.
 **Ownership:** This project owns the application protocol. `board-interfaces`
 owns the physical port profile.
@@ -20,7 +20,7 @@ owns the physical port profile.
 
 ## Align With The Lab's Existing Idiom
 
-The syringe pump at `~/Repositories/github/syringe-pump` is a working pyControl
+The syringe pump at `syringe-pump` is a working pyControl
 peripheral in this lab, documented against pyControl v2.1.1. This draft adopts
 its framing conventions rather than inventing a parallel style:
 
@@ -288,14 +288,14 @@ paths. Add:
 # Open Questions From The First Implementation
 
 **Added 2026-09-02.** Raised by implementing both ends of this draft in
-`../mouse-joystick-firm/pycontrol/` — the codec, a host simulator, a pyControl
+`mouse-joystick-firm/pycontrol/` — the codec, a host simulator, a pyControl
 device class and a 22-case conformance corpus, 128 host tests passing. Nothing
 above this line has been changed. This section records what the draft does not
 answer, so the command table can be revised deliberately rather than by whoever
 implements it next.
 
 Full detail, and the eleven smaller gaps that were filled to make the thing run,
-in `../mouse-joystick-firm/pycontrol/README.md`.
+in `mouse-joystick-firm/pycontrol/README.md`.
 
 ## 1. The retransmission rule and the heartbeat — RESOLVED 2026-09-03
 
@@ -527,11 +527,11 @@ including `outcome=NONE`, `stream_hz` ≤ 50 and the `a_peak` definition) and
 the draft's eleven decisions accepted; a fifth change from the review of the
 implementation the same day: the capture is a ring around the outcome
 (`CFG pre_ms`/`post_ms`, `FETCH` below), not a linear buffer from `WATCH`. Transcribed from the firmware work
-brief of 2026-10-01 (`../../mouse-joystick-firm/.agents/handoff-rig-system-plan-2026-10-01.md`,
+brief of 2026-10-01 (`mouse-joystick-firm/.agents/handoff-rig-system-plan-2026-10-01.md`,
 section 3) and the rig system plan of record
-(`../../orb-weaver-context/context/mouse-joystick-rig-system-plan.md`, section 4).
+(`mouse-joystick-rig-system-plan.md`, section 4, in the shared planning repository named in `docs/development.md`).
 Nothing above this line changes until this section is signed off; the corpus
-(`../../mouse-joystick-firm/pycontrol/tests/fixtures/protocol_cases.txt`)
+(`mouse-joystick-firm/pycontrol/tests/fixtures/protocol_cases.txt`)
 changes only after that, and both implementations after the corpus.
 Points the brief left open are marked **DECISION** with the value this draft
 proposes; the reserved decisions of the brief's section 8 are listed at the

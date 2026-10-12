@@ -3,8 +3,8 @@
 **Workstream:** `OBS-HW-JOYSTICK` (board slice of `OBS-HW`).
 **Status:** Planned, updated 2026-09-30. All new work below is pending.
 
-The [system architecture](../../orb-weaver-context/context/experimental-system-observability.md)
-and [development roadmap](../../orb-weaver-context/context/experimental-system-observability-plan.md)
+The system architecture (`orb-weaver-context/context/experimental-system-observability.md`)
+and development roadmap (`orb-weaver-context/context/experimental-system-observability-plan.md`)
 own the cross-repository intent, gate definitions, and workstream dependencies.
 This document owns only this board's contribution. It records planned work,
 not new electrical measurements, hardware validation, or deployment approval.
@@ -19,7 +19,7 @@ plan](validation-plan.md) and [bring-up log](bringup-log.md) remain the local
 acceptance and measured-evidence records. Dated completion notes supersede
 older unchecked layout tasks; this plan does not reopen completed routing.
 
-As of the adapter's 2026-09-28 [bring-up record](../../la5032-instrument-port-adapter/docs/bringup-log.md),
+As of the adapter's 2026-09-28 bring-up record (`la5032-instrument-port-adapter/docs/bringup-log.md`),
 the v1.0 companion target was ordered and awaited. Confirm receipt and the
 actual unit before scheduling its electrical tests. Existing v0.x measurements
 remain evidence for their identified units and assemblies. They do not qualify
@@ -49,9 +49,9 @@ VBUS tying or back-powering through either power or signal connections. No
 connector pinout, pin mux, voltage compatibility, cable assembly or power
 arrangement is qualified by this decision.
 
-[OBS-PROBE](../../instrument-control/docs/probe-development-plan.md) owns the
+OBS-PROBE (`instrument-control/docs/probe-development-plan.md`) owns the
 external probe/host evaluation; `OBS-IF` owns the
-[candidate physical/electrical contract](../../board-interfaces/docs/debug-trace-interface.md). The upstream RP2040
+candidate physical/electrical contract (`board-interfaces/docs/debug-trace-interface.md`). The upstream RP2040
 `debugprobe` candidate typically offers SWD and one UART bridge. A second
 independent UART, simultaneous command/trace capture, or additional probe
 functionality must be demonstrated rather than assumed. Choose the actual
@@ -67,7 +67,7 @@ electrical/behavioral evidence, including probe reset and disconnect cases.
 ## Debug-Trace-20 and future MCU budget
 
 The user accepted the separate
-[20-pin FFC logical pinout](../../board-interfaces/docs/debug-trace-interface.md#debug-trace-20-logical-pinout).
+20-pin FFC logical pinout (`board-interfaces/docs/debug-trace-interface.md#debug-trace-20-logical-pinout`).
 Exact parts, power/reset/inhibit circuits, cable behavior and this board's MCU
 allocation remain open. Keep the current manufactured revision unchanged. A future
 overlay can observe buffered trace TX, SYNC, reset and useful UART nets through
@@ -84,9 +84,9 @@ RP2354B, already cataloged in the inventory, is a candidate for a future board
 with more I/O headroom: 48 GPIO rather than 30 and 520 kB SRAM rather than 264 kB.
 It still has only two hardware UARTs, so pyControl plus separate command and trace
 UARTs needs a deliberate USB/PIO/external-UART or reduced-profile choice. See the
-[shared assessment](../../orb-weaver-context/context/experimental-system-observability.md#mcu-choice-and-pin-budget--assessment-2026-09-30)
+shared assessment (`orb-weaver-context/context/experimental-system-observability.md#mcu-choice-and-pin-budget--assessment-2026-09-30`)
 for sources and scope. The detailed
-[stocked MCU comparison](../../orb-weaver-context/context/instrument-controller-mcu-selection.md)
+stocked MCU comparison (`orb-weaver-context/context/instrument-controller-mcu-selection.md`)
 also evaluates STM32G0B1CEU6: six USART plus two LPUART engines, a static three-UART
 allocation with USB/SWD, 144 kB SRAM and up to 44 GPIO including USB/SWD/reset
 pads. Compare it with RP2354B under a complete joystick pin/peripheral budget.

@@ -99,7 +99,7 @@ separate gate.
 
 ## Why This Board Instead Of The Twin-Axis Board
 
-The rig has two joysticks, and `../mouse-joysticks-pcb` is the twin-axis design
+The rig has two joysticks, and `mouse-joysticks-pcb` is the twin-axis design
 for it. This board exists because it can be finished sooner:
 
 | Twin-axis board | This board |
@@ -402,7 +402,7 @@ needs the same circuit, so design it to be promotable.
 ## pyControl Interface
 
 Rev 0 populates the serial link only. Pinout established from
-`~/Repositories/github/syringe-pump`, a working pyControl module documented
+`syringe-pump`, a working pyControl module documented
 against pyControl v2.1.1. See `docs/pycontrol-port-pinout.md`.
 
 | RJ-45 pin | Signal | Rev 0 |
@@ -463,7 +463,7 @@ Three consequences, all deliberate:
 - **Two `5v_to_3v3_tps73733` instances**, one per domain. Not one.
 - **Two ORing diodes**, both populated. `OW-MISC-MBR120VLSFT1G` is the stocked
   candidate. pyControl pin 6 **is 5 V** — confirmed from the reference design's
-  netlist in `~/Repositories/github/syringe-pump`, where RJ-45 pin 6 is `5VDC`
+  netlist in `syringe-pump`, where RJ-45 pin 6 is `5VDC`
   and pin 8 is 12 V.
 - **The board does not boot on 36 V alone.** It needs USB or pyControl. That is
   accepted, and it should be silkscreened near the terminal block so a board that
@@ -573,7 +573,7 @@ what blocks the schedule:
 4. Whether screw terminals are acceptable for the motor and encoder harnesses, or
    whether a locking 4-pos motor connector must be sourced. Confined to the motor terminal (`J1102` as of 2026-08-27).
 5. Which breakout the lab deploys, and which port is assigned to this board.
-6. Board outline, mounting, and enclosure constraints. `../mouse-joysticks-mech`
+6. Board outline, mounting, and enclosure constraints. `mouse-joysticks-mech`
    describes the **two**-joystick assembly, so a single-axis board's mechanical
    envelope is not derivable from it without a decision about how two of these
    boards mount in the rig.

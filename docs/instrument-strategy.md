@@ -39,7 +39,7 @@ arrive. Full allocation in `docs/interface-map.md`.
 
 **Status:** Planning
 **Date:** 2026-08-16
-**Derived from:** `../mouse-joysticks-pcb/docs/instrument-strategy.md`
+**Derived from:** `mouse-joysticks-pcb/docs/instrument-strategy.md`
 **Source profile:** `board-interfaces/docs/instrument-port-40.md`,
 `board-interfaces/docs/la5032-instrument-port-40-mapping.md`
 
@@ -137,8 +137,8 @@ changes and what it does not:
   It needs no 36 V, because `U1801` is on `+3.3V_MCU`. The current mapping and
   the procedure are in [`docs/bringup-log.md`](bringup-log.md) under "Instruments
   Attached To This Rig"; the frame contract is
-  `../board-interfaces/docs/instrument-port-identity-beacon.md`; the host tools
-  are in `../instrument-control`.
+  `board-interfaces/docs/instrument-port-identity-beacon.md`; the host tools
+  are in `instrument-control`.
 
   This also settles, in passing, the "agent-accessible observation" goal listed
   above: an agent can now establish which instrument is on which board without
@@ -173,7 +173,7 @@ pull-down; there is no manual jumper, no firmware link and no GPIO. A defined
 pull-down is a hardware default, not an undefined power-on state. Capture must
 not require successful MCU boot or new firmware. See the
 [migration plan](digital-instrument-port-migration.md) and the
-[rationale](../../kicad-libs/docs/digital-instrument-port-design-blocks.md#no-disable-control-and-why).
+rationale (`kicad-libs/docs/digital-instrument-port-design-blocks.md#no-disable-control-and-why`).
 
 This retires `~{INSTR_BUF_OE}` and returns `GP24` to the spare pool: it existed
 only because the legacy LVC125A port was default-off and needed firmware to

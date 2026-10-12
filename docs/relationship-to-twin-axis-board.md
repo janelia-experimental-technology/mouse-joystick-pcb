@@ -12,7 +12,7 @@ Two repositories exist for the same rig:
 
 | Repository | Scope |
 | --- | --- |
-| `../mouse-joysticks-pcb` | One PCB controlling **both** joysticks over one pyControl UART |
+| `mouse-joysticks-pcb` | One PCB controlling **both** joysticks over one pyControl UART |
 | `mouse-joystick-pcb` (this one) | One PCB controlling **one** joystick; two boards per rig |
 
 Both are live. This file records why, what each one costs, and what has to
@@ -139,7 +139,7 @@ a genuine schedule benefit to the twin board, not just to this one.
 
 ## If The Choice Is Reversed
 
-Switching to `../mouse-joysticks-pcb` later costs:
+Switching to `mouse-joysticks-pcb` later costs:
 
 - A new layout. Nothing physical carries over.
 - A new GPIO map and a new instrument overlay, both of which are already written
@@ -153,7 +153,7 @@ Switching to `../mouse-joysticks-pcb` later costs:
   settled brake current sink needs at least about 31 V to hold 49 mA through a
   605 Ω hot winding, so a 24 V rail cannot drive the brake at rated torque at all.
   Any board that carries a `B5Z` needs 36 V. See
-  `../kicad-libs/docs/brake-current-sink-design.md`.
+  `kicad-libs/docs/brake-current-sink-design.md`.
 
 What it does **not** cost: the pyControl integration evidence, the device class,
 the protocol, the calibration semantics, or the instrument tooling. Those are the
@@ -161,7 +161,7 @@ expensive unknowns, and this board resolves them either way.
 
 ## Keeping The Repositories Honest
 
-- Documents in this repository that were derived from `../mouse-joysticks-pcb`
+- Documents in this repository that were derived from `mouse-joysticks-pcb`
   say so at the top.
 - **When a shared fact changes — the motor part, the encoder part, the pyControl
   pinout, the DAC logic-level answer — update both repositories.** A divergence

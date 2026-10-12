@@ -1,14 +1,14 @@
 # Mouse Joystick Brake And Torque Purchase Plan
 
-**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `../kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `../kicad-libs-nonfree/datasheets/`.
+**Moved** here from `kicad-libs/docs/` on 2026-10-07. Paths into that repository are written `kicad-libs/…`; the datasheets it cited from its `tmp/` cache are in the private store `kicad-libs-nonfree/datasheets/`.
 
 **Status:** component-shopping recommendation; no schematic or layout has been
 validated yet.
 
 **Brake column revised 2026-08-31.** The brake driver resolved entirely to stock:
 every part it needs is already in JLCPCB inventory and already in
-`../kicad-libs/db/source/internal_parts.csv` with a symbol and footprint. See
-`../kicad-libs/docs/brake-current-sink-design.md` for the settled circuit and its bill of
+`kicad-libs/db/source/internal_parts.csv` with a symbol and footprint. See
+`kicad-libs/docs/brake-current-sink-design.md` for the settled circuit and its bill of
 materials. Ten brake lines are **cancelled** below — `DAC60501ZDGSR`,
 `OPA2197IDR`, `MJD340T4G`, `MJD122T4G`, `IXTA6N50L2`, `TLV7041DBVR`,
 `TPS3431SDRBR`, the precision brake shunt, the DAC scaling network, the
@@ -20,14 +20,14 @@ full.**~~ **Revised 2026-09-04 — see the next paragraph.**
 
 **Inventory basis:** kicad-libs `tmp/Parts Inventory on JLCPCB.csv`, exported 2026-08-20,
 and the five-board Rev 0 BOM in
-`../mouse-joystick-pcb/fab/mouse-joystick-pcb/jlcpcb-bom.csv`.
+`mouse-joystick-pcb/fab/mouse-joystick-pcb/jlcpcb-bom.csv`.
 
 **Datasheet audit:** the manufacturer PDFs downloaded to kicad-libs `tmp/` were checked
 on 2026-08-20, including the OneBox technical user manual V1.0.1 and product
 datasheet. Exact JLCPCB/LCSC availability and assembly class remain unverified.
 
 **Torque column revised 2026-09-04.** The torque front end is now a settled
-design in `../kicad-libs/docs/torque-sensor-interface-design.md`, and it removes five lines
+design in `kicad-libs/docs/torque-sensor-interface-design.md`, and it removes five lines
 below rather than adding any. **Cancelled:** `LT3042EMSE#PBF` and
 `TPS7A4901DGNR` (excitation noise reaches the signal attenuated 667× by the
 sensor's 1.5 mV/V, so ultra-low-noise regulation buys nothing, while the
@@ -46,7 +46,7 @@ the board total is 7 per board and the replenishment target moves from 150 to
 about 200.
 
 **Every replenishment line in this document is stale, checked 2026-09-04
-against `../kicad-libs/db/source/jlc_inventory_export.csv`.** The quantities below predate a
+against `kicad-libs/db/source/jlc_inventory_export.csv`.** The quantities below predate a
 restock and the plan over-orders as a result. Actual stock, against the per-board
 counts *including* the torque block: `CL05A105KL5NRNC` **9976** (not 0, so the
 200-piece buy is cancelled); `OPA197IDBVR` **298** (not 100 — 7 per board now
@@ -55,10 +55,10 @@ covers 42 boards, so the 150-piece replenishment is cancelled);
 cancelled too); `ERA2AEB103X` **994** against 7 per board; `TPSM365R6FRDNR`
 **100** against 1 per board. **Nothing needs replenishing.** The order for the
 torque block is five new lines and nothing else — three ICs and two precision
-resistors. See `../kicad-libs/docs/torque-sensor-interface-design.md`, "Bill Of Materials".
+resistors. See `kicad-libs/docs/torque-sensor-interface-design.md`, "Bill Of Materials".
 
 The machine-friendly subset of the shopping list is in
-`../kicad-libs/docs/reports/mouse_joystick_brake_torque_purchase_list.csv`.
+`kicad-libs/docs/reports/mouse_joystick_brake_torque_purchase_list.csv`.
 
 ## Decisions To Carry Into The Schematic
 
@@ -183,17 +183,17 @@ notes rather than accepting a superficially similar search result.
 | A | Quiet 10 V bridge regulator | `LT3042EMSE#PBF` | 10 | 25 | Feed from the local 12 V rail; 200 mA comfortably exceeds the 28.6 mA bridge load. A 10 V output uses nominal 100 kohm `RSET`; provide at least 4.7 uF ceramic at both `IN` and `OUT` and follow its unusually sensitive post-regulator layout guidance. Search `LT3045` only as a pin-incompatible higher-current alternative. |
 | A | Quiet 5 V analog regulator | `TPS7A4901DGNR` | 10 | 25 | Feed ADC/reference from 12 V. Use at least 2.2 uF at the output; 10 uF input/output plus 10 nF `NR/SS` is the low-noise starting point. Keep feedback current at or above 5 uA. A second LT3042 is a lower-noise but higher-cost alternative. |
 | A | Midpoint reference | `REF5025EIDR` | 10 | 25 | Retain the 2.5 V internal midpoint. A 0.66 connector scale produces 1.65 V externally, so no separate 1.65 V reference is needed. Buffer before driving INA `REF` and filter bias loads. |
-| ~~A~~ **Cancelled** | Brake command DAC | ~~`DAC60501ZDGSR`~~ | 0 | 0 | **2026-08-31:** use a second stocked `DAC80501ZDGSR` package instead. Same family, same register map, one datasheet for both DACs, 50 already in stock. The rule this line existed to enforce — never share a *package* between the brake command and the scientific outputs — is satisfied by a second package of the same part number. Run it at **3.3 V**, not 5 V: `REF-DIV = 0` is the reset default and is out of spec at 3.3 V, and the datasheet forces all outputs to 0 V on improper reference-divider configuration, so the 0-2.5 V span becomes a hardware property and a wrong-`GAIN` write becomes fail-safe. See `../kicad-libs/docs/brake-current-sink-design.md`. |
+| ~~A~~ **Cancelled** | Brake command DAC | ~~`DAC60501ZDGSR`~~ | 0 | 0 | **2026-08-31:** use a second stocked `DAC80501ZDGSR` package instead. Same family, same register map, one datasheet for both DACs, 50 already in stock. The rule this line existed to enforce — never share a *package* between the brake command and the scientific outputs — is satisfied by a second package of the same part number. Run it at **3.3 V**, not 5 V: `REF-DIV = 0` is the reset default and is out of spec at 3.3 V, and the datasheet forces all outputs to 0 V on improper reference-divider configuration, so the 0-2.5 V span becomes a hardware property and a wrong-`GAIN` write becomes fail-safe. See `kicad-libs/docs/brake-current-sink-design.md`. |
 | A **Replenish** | Brake and angle command DAC | `DAC80501ZDGSR` | 50 | 50 | **Added 2026-08-31.** Now 2 per board — one for the encoder angle output in `analog_output_0_3v3_dac80501`, one for the brake command. 50 in stock covers exactly 25 boards with no rework margin, which is why this is a buy. |
 | ~~A~~ **Cancelled** | Brake and torque RRIO op amps | ~~`OPA2197IDR`~~ | 0 | 0 | **2026-08-31:** the dual is not stocked and the single is. Three `OPA197IDBVR` singles per brake block — loop error amplifier, independent ceiling, `BRAKE_ISENSE` buffer — give better channel isolation in SOT-23-5 and reuse a part already in the DB and already in a built block. |
 | A **Replenish** | Brake, torque, and angle RRIO op amps | `OPA197IDBVR` | 150 | 150 | **Revised 2026-08-31.** About 6 per board: 3 brake, 1 angle, about 2 torque. 100 in stock covers roughly 16 boards, so this is the tighter of the two brake replenishments. RRIO, 4.5-36 V, ±100 µV maximum offset, ±65 mA output, 1 nF maximum capacitive load — the last figure is why the brake block's 1 kΩ gate resistor is not optional. |
 | A | Encoder BNC gain stage and buffer | `OPA197IDBVR` | 10 | 25 | **Settled 2026-08-26.** Not a unity buffer — a non-inverting **gain of 1.32** that takes the DAC's 0-2.5 V span to the 0-3.3 V contract, which is what makes the range a hardware limit instead of a firmware promise. Single RRIO, 4.5 V minimum supply. Source resistor is **249 ohm** and output protection is a `TPD1E05U06`. Direct DAC drive is ruled out, not merely unproven. |
 | B | Optional OneBox 5 V TTL transmitter | `SN74AHCT1G125DBVR` | 10 | 25 if board drives sync | Populate only if the mouse board must drive OneBox `SMA1`; `SN74AHCT1G17DBVR` is the non-tristate alternative. Prefer receiving OneBox timing with the stocked 5.5-V-tolerant `SN74LVC2G17`. |
 | ~~A~~ **Cancelled** | Independent current-limit comparator | ~~`TLV7041DBVR`~~ | 0 | 0 | **2026-08-31:** replaced by a third stocked `OPA197IDBVR`, and this is an improvement rather than a substitution. This row's own warning is the reason — ±8 mV offset plus 3-25 mV internal hysteresis is ±3.3% of a 550 mV threshold, which forces the ceiling higher than wanted. The `OPA197`'s ±100 µV offset is ±0.02%, so the ceiling sits at 56 mA with 13% clear margin over the 48.78 mA command maximum. It still overrides pass-device drive without firmware, through a Schottky minimum-wins clamp on the gate node. |
-| ~~A~~ **Cancelled** | Hardware watchdog/safe-state gate | ~~`TPS3431SDRBR`~~ | 0 | 0 | **2026-08-31, judgement call, reversible by purchase.** "Brake stuck at 49 mA" is the brake's *rated continuous operating condition*, not a damage mode, so the hazard is experimental and welfare-related rather than destructive. The board already gives the MCU an unconditional hardware kill: `HV_EN` drops `+36V_SW` through the `TPS1HTC100-Q1`, and `../mouse-joystick-pcb/docs/power.md` records that `HV_EN` deliberately bypasses the GPIO isolation bus switch so it works regardless of bus state. Reinstate if bench experience disagrees. |
-| ~~A~~ **Cancelled** | High-voltage BJT prototype | ~~`MJD340T4G`~~ | 0 | 0 | **2026-08-31:** the base-current error this row asked to characterize is a *systematic* 0.7-3.3% shunt error across the guaranteed gain spread, varying with current and temperature. A MOSFET removes it instead of characterizing it. Use the stocked `BUK7D36-60EX`; the DC-SOA objection does not survive the numbers at 0.71 W and 49 mA — see `../kicad-libs/docs/brake-current-sink-design.md`. |
+| ~~A~~ **Cancelled** | Hardware watchdog/safe-state gate | ~~`TPS3431SDRBR`~~ | 0 | 0 | **2026-08-31, judgement call, reversible by purchase.** "Brake stuck at 49 mA" is the brake's *rated continuous operating condition*, not a damage mode, so the hazard is experimental and welfare-related rather than destructive. The board already gives the MCU an unconditional hardware kill: `HV_EN` drops `+36V_SW` through the `TPS1HTC100-Q1`, and `mouse-joystick-pcb/docs/power.md` records that `HV_EN` deliberately bypasses the GPIO isolation bus switch so it works regardless of bus state. Reinstate if bench experience disagrees. |
+| ~~A~~ **Cancelled** | High-voltage BJT prototype | ~~`MJD340T4G`~~ | 0 | 0 | **2026-08-31:** the base-current error this row asked to characterize is a *systematic* 0.7-3.3% shunt error across the guaranteed gain spread, varying with current and temperature. A MOSFET removes it instead of characterizing it. Use the stocked `BUK7D36-60EX`; the DC-SOA objection does not survive the numbers at 0.71 W and 49 mA — see `kicad-libs/docs/brake-current-sink-design.md`. |
 | ~~B~~ **Cancelled** | High-gain BJT comparison | ~~`MJD122T4G`~~ | 0 | 0 | **2026-08-31:** moot once the pass device is a MOSFET with zero DC gate current. |
-| ~~B~~ **Cancelled** | Linear-rated MOSFET comparison | ~~`IXTA6N50L2`~~ | 0 | 0 | **2026-08-31:** no distributor purchase, and no pass-device comparison at all. The design settled on a single stocked `BUK7D36-60EX`; the 80 V `BSC072N08NS5ATMA1` was briefly carried as a DNP alternate and then rejected on gate-drive headroom the same day. See `../kicad-libs/docs/brake-current-sink-design.md`. |
+| ~~B~~ **Cancelled** | Linear-rated MOSFET comparison | ~~`IXTA6N50L2`~~ | 0 | 0 | **2026-08-31:** no distributor purchase, and no pass-device comparison at all. The design settled on a single stocked `BUK7D36-60EX`; the 80 V `BSC072N08NS5ATMA1` was briefly carried as a DNP alternate and then rejected on gate-drive headroom the same day. See `kicad-libs/docs/brake-current-sink-design.md`. |
 | C | True 50-ohm output driver | Hold until DAQ requirements are known | 0 | Only if required | OneBox documentation does not specify its ADC termination. Do not treat `OPA810IDBVR` as a general 0-3.3 V/50-ohm driver; select a driver only if a measured/confirmed 50-ohm load requires one. |
 
 ~~The BJT comparison is intentionally a bench decision.~~ **Closed 2026-08-31 in
@@ -325,9 +325,9 @@ datasheet resolution.
 
 ## Sources
 
-- `../kicad-libs-nonfree/datasheets/B5Z-metric-data-sheet-1.pdf`
-- `../kicad-libs-nonfree/datasheets/onebox-user-manual.pdf` (technical user manual V1.0.1)
-- `../kicad-libs-nonfree/datasheets/onebox-datasheet.pdf`
+- `kicad-libs-nonfree/datasheets/B5Z-metric-data-sheet-1.pdf`
+- `kicad-libs-nonfree/datasheets/onebox-user-manual.pdf` (technical user manual V1.0.1)
+- `kicad-libs-nonfree/datasheets/onebox-datasheet.pdf`
 - <https://www.transducertechniques.com/rts-torque-sensor.aspx>
 - <https://www.ti.com/lit/ds/symlink/ads8691.pdf> (ADS8691/ADS8695/ADS8699 family)
 - <https://www.ti.com/lit/ds/symlink/ina821.pdf>
@@ -336,10 +336,10 @@ datasheet resolution.
 - <https://www.ti.com/lit/ds/symlink/opa2210.pdf>
 - <https://www.ti.com/lit/ds/symlink/ref50.pdf>
 - `docs/b5z-magnetic-particle-brake-controller.md`
-- `../kicad-libs/docs/brake-current-sink-design.md` (settled brake circuit, values, and BOM)
+- `kicad-libs/docs/brake-current-sink-design.md` (settled brake circuit, values, and BOM)
 
 Local audited copies sat in kicad-libs `tmp/`; the store
-`../kicad-libs-nonfree/datasheets/` now holds `ads869x.pdf`, `ina821.pdf`,
+`kicad-libs-nonfree/datasheets/` now holds `ads869x.pdf`, `ina821.pdf`,
 `lt3042.pdf`, `tps7a49.pdf`, `tlv7031.pdf`, `tps3431.pdf`, `MJD340-D.PDF`,
 `MJD122-D.PDF`, `opa810.pdf`, `dac8563.pdf` and `ads131m02.pdf`; `ref50xx.pdf`,
 `dac60501.pdf` and `opa2197.pdf` are not in it under those names.

@@ -192,7 +192,7 @@ Three facts made identical by two swaps.
 
 A mis-built cable is invisible. Every failure mode it can produce is detectable
 in a couple of minutes with `mouse-joystick-firm` `examples/MotionAndHoming` —
-see `../mouse-joystick-firm/docs/motion-bringup.md`. Run this on **each** station
+see `mouse-joystick-firm/docs/motion-bringup.md`. Run this on **each** station
 after building its harness:
 
 1. `b`, `c` — rail up, bus closed, `vsense` read back as 1.

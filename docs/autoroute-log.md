@@ -23,7 +23,7 @@ not established by KiCad connectivity checks and are superseded.** This records
 what has been tried so runs are not repeated. The
 reusable freerouting knowledge — settings surface, verified defaults, source
 references, and the export post-processing — is in
-[`../../kicad-libs/docs/freerouting-autorouting.md`](../../kicad-libs/docs/freerouting-autorouting.md).
+`kicad-libs/docs/freerouting-autorouting.md`.
 Read that first; this file is only the board's own history.
 
 Tooling: `scripts/export_dsn.py`, `scripts/import_ses.py`, freerouting **v2.4.1**
@@ -181,13 +181,13 @@ and 25 × `Round[A]Pad_700_um` thermal vias sitting inside them.
 **Fixed 2026-09-21 in `scripts/export_dsn.py --bridge-split-pads`** (on by
 default), which emits 58 protected wires joining them. Escape rose 73.4% →
 78.3% and items entering routing fell 302 → 269. The upstream fix — tying the
-thermal arrays inside the block layouts in `../kicad-libs` — is still worth
+thermal arrays inside the block layouts in `kicad-libs` — is still worth
 doing so no board needs the workaround.
 
 ### 3. Block copper saturates F.Cu
 
 1629 of 1786 pre-routed segments arrive on F.Cu. Fixing this means rebalancing
-block layouts in `../kicad-libs`, which is the expensive option.
+block layouts in `kicad-libs`, which is the expensive option.
 
 ## Where The Failures Cluster
 
@@ -256,7 +256,7 @@ resumes from the [session handoff](routing-session-handoff-2026-09-21.md).
    to place vias beside fine-pitch pads by hand where the router could not.
 6. **Upstream, for the next board:** fan the GND pins out inside the design-block
    layouts, and rebalance block copper off F.Cu (1629 of 1786 segments arrive
-   there). Both are in `../kicad-libs/.agents/PLANS.md`.
+   there). Both are in `kicad-libs/.agents/PLANS.md`.
 
 ## Import Cautions
 

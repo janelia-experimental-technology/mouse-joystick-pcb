@@ -246,7 +246,7 @@ restriction, not a re-route.
 
 ## Execution Notes
 
-The blocks are edited in `../kicad-libs` and re-placed here by hand. Known costs,
+The blocks are edited in `kicad-libs` and re-placed here by hand. Known costs,
 all documented elsewhere and repeated here so they are not rediscovered:
 
 - **`tmc5130` re-place reverts the current sense resistors.** `R1203`/`R1204` are
