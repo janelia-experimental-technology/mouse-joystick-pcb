@@ -129,7 +129,7 @@ records the diagnosis and the rework.
 - [Routing rescue, 2026-09-21](routing-rescue-2026-09-21.md) and [autoroute log](autoroute-log.md): the layout record, run by run
 - [Connector access correction, 2026-09-21](connector-access-2026-09-21.md): the BNC spacing change and the regenerated package
 - [HV input block schematic note](hv-input-block-schematic-note.txt): the text block that travels with the 36 V input block
-- `captures/` and `evidence/`: logic-analyzer captures and timing records cited by the bring-up log; the v1.0 capture files live in `qp-arduino-example/evidence/`
+- `captures/` and `evidence/`: logic-analyzer captures and timing records from the rev 0 boards; the v1.0 runs are in `mouse-joystick-firm/evidence/`
 
 ## Agent Guidance
 
