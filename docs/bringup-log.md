@@ -1515,6 +1515,24 @@ Two runs on the right before that ended `NOMOVE` because nobody pulled in
 the window; they are kept as the earlier `pull_right_60s_signed` attempts
 only in the metadata, the files hold the confirming run.
 
+### Link loss, 15:30: the task's reply timeouts on hardware
+
+The lost-reply case the PR 9 review raised, provoked by pulling the port 4
+RJ-45 on board 9 (`linkloss_a_*`, `linkloss_b_*`, `linkloss_c_*` in the
+evidence directory):
+
+| Case | What happened | Task |
+| --- | --- | --- |
+| a: link already unplugged at start | `id` unanswered | `no ack in identifying, resend 1/2/3` at 0.50, 1.00, 1.51 s; `no reply in identifying - ending the session` at 2.01 s; framework stopped at 2.26 s |
+| b: cable pulled ~3 s into a 10 s watch (`event_timeout_ms` 5000) | no `NOMOVE` ever arrived | `no reply in watching - ending the session` at 16.85 s, 15.01 s after the watch began; stopped at 17.10 s |
+| board after b, read over the restored link | `faults` mask 1 `host_timeout`, `hv=0`, state `FAULTED`, angle −4.591° (the lever relaxed from −5.041° once the rail dropped), `homed=1` | |
+| c: next normal session | `run_start`'s `clrfault` cleared it | home 1.06 s, present, release, `NOMOVE`, `TRIAL`, park 0.0°, session complete |
+
+So a cut link ends the session cleanly on both paths instead of hanging, the
+board makes itself safe on its own within its 100 ms host-loss timeout, and
+the following session recovers without anyone touching the board. Before
+2026-10-12 case a and case b both waited forever.
+
 ### Two things that bit, for the next session
 
 - **Board 9 ignores the 1200 baud touch under the delivery build.** Board 8
