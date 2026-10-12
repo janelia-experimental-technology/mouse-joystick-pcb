@@ -126,6 +126,7 @@ one shows up.
 - [UART protocol](docs/uart-protocol.md): the line protocol pyControl speaks to the board
 - [pyControl port pinout](docs/pycontrol-port-pinout.md) and [pyControl interface](docs/pycontrol-interface.md): the RJ-45 and how the board uses it
 - [Harness pinouts](docs/harness-pinouts.md): the left and right joystick cables
+- [Rig layout](docs/rig-layout.md): how a board sits in the rig and what plugs into each connector
 - [Power](docs/power.md): the 36 V chain, the two domains and the pyControl 5 V budget
 - [OneBox analog interface](docs/onebox-analog-interface.md) and [encoder analog output](docs/encoder-analog-output.md): the angle and torque BNC outputs
 - [Bring-up log](docs/bringup-log.md): every measurement, by board serial
