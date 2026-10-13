@@ -47,6 +47,30 @@ firmware can settle:
       `+5V_FILT` ramp) clears on read; `DEVICE_ID[15:0]` reads 0x0010 where
       the datasheet says 0 (harmless, noted).
 
+## Open Item — Two of four v1.0 units ignore the USB 1200 baud touch (opened 2026-10-13)
+
+Unit B (board 7, `E4654C159F404534`, 2026-10-07) and unit D (board 9,
+`E4654C159F234234`, 2026-10-12) enter BOOTSEL on the 1200 baud touch at most
+once and then never again under the delivery build (`mouse_joystick_qp_rev2`):
+PlatformIO's upload fails `The RP2040 device returned an error: <unknown>` or
+leaves the board running, a pyserial open at 1200 baud returns a broken pipe
+on the DTR ioctl, and `picotool reboot -f` finds no reset interface. Units A
+and C take the touch every time with the same build. Manual BOOTSEL (RJ-45
+and USB out, button, USB in) then `picotool load -x --bus B --address N`
+works first time. Record: `docs/bringup-log.md`, "Two things that bit" under
+the desk rig, and the unit B session of 2026-10-07.
+
+- [ ] Decide whether this is the board's USB path or the firmware's CDC
+      handling. Board side: compare the four units' USB-C block (`J201`,
+      the series resistors, the ESD part) and the `+5V_MCU` rail under USB
+      enumeration; a unit that enumerates but drops the control transfer
+      that carries the line-coding change points at signal quality. Firmware
+      side: `mouse-joystick-firm/.agents/PLANS.md` holds the mirror item
+      (the touch is honoured by the Arduino core's CDC, and the two failing
+      units took it once from the self-test build).
+- [ ] Until then the firmware README documents the button procedure; a
+      reflash of Rig 1's left board needs hands at the rig.
+
 ## Completed Task — Session handoff and routing timing (2026-09-21)
 
 - [x] Save a tracked [handoff](../docs/routing-session-handoff-2026-09-21.md)

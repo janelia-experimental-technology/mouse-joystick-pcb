@@ -40,6 +40,7 @@ FAB_OPTIONS ?=
 DOCS_TOOL ?= $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT)/bin/orb-weaver-kicad-docs,orb-weaver-kicad-docs)
 DOCS_OUTPUT_DIR ?= docs/generated
 DOCS_OPTIONS ?=
+GLB_OUTPUT_DIR ?= tmp/glb
 # Routing helpers from kicad-libs (bin/orb-weaver-kicad-*). Like DOCS_TOOL they
 # prefer the sibling checkout; the packaged commands appear once the channel pin
 # carries a kicad-libs commit that ships them. See kicad-libs
@@ -78,7 +79,7 @@ MANAGED_SHELL = $(AGENT_MANAGED_SHELL)
 LIBS_WORKSPACE := $(if $(wildcard $(ORB_WEAVER_KICAD_LIBS_CHECKOUT)),$(ORB_WEAVER_KICAD_LIBS_CHECKOUT),$(ORB_WEAVER_KICAD_LIBS))
 PCB_AGENT_EXTRA_DIRS ?= $(BOARD_INTERFACES_CHECKOUT) $(ORB_WEAVER_CONTEXT_CHECKOUT) $(GUIX_AGENT_TOOLS_CHECKOUT) $(MOUSE_JOYSTICKS_MECH_CHECKOUT) $(MOUSE_JOYSTICKS_PCB_CHECKOUT) $(TMC51X0_DEV_PCB_CHECKOUT) $(SYRINGE_PUMP_CHECKOUT) $(M2K_ADAPTER_CHECKOUT) $(LA5032_ADAPTER_CHECKOUT) $(if $(LIBS_WORKSPACE),$(LIBS_WORKSPACE)) $(if $(wildcard $(AGENT_MEMORY_REPO_CHECKOUT)/AGENTS.md),$(AGENT_MEMORY_REPO_CHECKOUT))
 
-.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check expand expand-check refresh-block generate-glue docs docs-check export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
+.PHONY: mechanical-datums board-manifest-derive board-manifest-check board-manifest-render compose compose-check expand expand-check refresh-block generate-glue docs docs-check glb export-dsn export-dsn-local freeroute freeroute-local import-ses clearance-check clearance-baseline help test prepare-kicad-config check-kicad-libs shell kicad-shell kicad-shell-local kicad-version kicad-version-local agent-reflection codex claude agent-project agent-libs agent-both agent-edits kicad-edits kicad-edits-local freecad-edits validate-db fab fab-local
 
 help:
 	@printf '%s\n' \
@@ -109,6 +110,7 @@ help:
 	  'make fab               Generate Gerber/drill fabrication files for PROJECT' \
 	  'make docs             Generate published board documentation for PROJECT' \
 	  'make docs-check       Report whether the generated documentation is stale' \
+	  'make glb               Export the assembled board as glTF for the rig atlas (tmp/glb/)' \
 	  'make fab-local         Generate fabrication files with the local KiCad overlay' \
 	  'make agent-reflection  Print Codex and Claude dry-run Reflection records' \
 	  'make codex             Start Codex with this board, libraries, interfaces, context, and memory' \
@@ -373,6 +375,15 @@ docs:
 docs-check:
 	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
 	$(KICAD_MANAGED_SHELL) "$(DOCS_TOOL)" --project "$(PROJECT)" --output-dir "$(DOCS_OUTPUT_DIR)" --check
+
+# The assembled board as binary glTF, with components, silkscreen and soldermask,
+# for the rig atlas in mouse-joysticks-mech (atlas/boards/). Written under tmp/,
+# which is ignored; copy it there and update its PROVENANCE.md.
+glb:
+	@if [ -z "$(PROJECT)" ]; then echo "PROJECT=/path/to/project.kicad_pro is required"; exit 1; fi
+	$(MAKE) prepare-kicad-config
+	mkdir -p "$(GLB_OUTPUT_DIR)"
+	$(KICAD_MANAGED_SHELL) kicad-cli pcb export glb --subst-models --include-silkscreen --include-soldermask --force --output "$(GLB_OUTPUT_DIR)/$(basename $(notdir $(PROJECT))).glb" "$(PROJECT:.kicad_pro=.kicad_pcb)"
 
 fab-local:
 	$(MAKE) fab GUIX_MANIFEST_KICAD=$(GUIX_MANIFEST_KICAD_LOCAL) GUIX_SHELL_EXTRA_OPTIONS="-L .guix/local-modules" PROJECT="$(PROJECT)" FAB_OUTPUT_DIR="$(FAB_OUTPUT_DIR)" FAB_OPTIONS="$(FAB_OPTIONS)"

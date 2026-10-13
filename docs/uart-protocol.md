@@ -9,8 +9,15 @@ than leaving it reserved; see `docs/interface-map.md`, "The Encoder And Limit
 Switch Do Not Reach The MCU". Encoder integrity rests on the driver's count and the
 index pulse.
 
-**Status:** Draft v0.1. Not implemented, not frozen.
-**Date:** 2026-08-12
+**Status:** Protocol v1, `proto=2` on the wire: implemented at both ends in
+`mouse-joystick-firm` and in service on the four pcb v1.0 boards of Rig 1
+and the desk rig since 2026-10-12. The specification of record is the
+[Protocol v1 Proposal](#protocol-v1-proposal--2026-10-01) section below,
+whose last recorded decision is V1.13 (2026-10-07); the sections before it
+are the v0.1 draft it amends and the questions the first implementation
+raised. The "Rev 0 scope" paragraph above is history: `ENCODER_MISMATCH`
+was retired.
+**Date:** 2026-08-12; status updated 2026-10-13
 **Derived from:** `mouse-joysticks-pcb/docs/uart-protocol.md` v0.3, with the
 axis argument removed.
 **Ownership:** This project owns the application protocol. `board-interfaces`

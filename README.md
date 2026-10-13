@@ -7,14 +7,16 @@ encoder and limit switch, a magnetic-particle brake, a torque-sensor bridge
 and two analog outputs, and speaks a line protocol to pyControl over one
 UART. The rig has two joysticks and two of these boards.
 
-**Status, October 2026:** v1.0 is the fabricated revision. Two assembled
-boards were ordered from JLCPCB from the package in
+**Status, October 2026:** v1.0 is the fabricated revision, tagged `v1.0`.
+Four assembled boards have been built by JLCPCB from the package in
 [fab/mouse-joystick-pcb/](fab/mouse-joystick-pcb/README.md) (committed
-2026-09-21). Both passed bench bring-up, ran the rig's trial task end to end
-through pyControl, and were installed in the rig on 2026-10-12 running
-[mouse-joystick-firm](https://github.com/peterpolidoro/mouse-joystick-firm).
-Every measurement made on a board is in [the bring-up log](docs/bringup-log.md),
-under the board's serial.
+2026-09-21). All four passed bench bring-up and ran the rig's trial task end
+to end through pyControl running
+[mouse-joystick-firm](https://github.com/peterpolidoro/mouse-joystick-firm):
+units A and B were installed in Rig 1 on 2026-10-09, and units C and D run
+the verification rig at Peter's desk since 2026-10-12. Every measurement
+made on a board is in [the bring-up log](docs/bringup-log.md), under the
+board's serial.
 
 ## The Board
 
