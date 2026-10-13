@@ -1086,7 +1086,7 @@ placements:
     LIMIT_SW: LIMIT_SW
     LIMIT_SW_INST: LIMIT_SW_INST
 - name: tmc5130
-  block: orb_weaver_private:tmc5130
+  block: orb_weaver_tmc5130:tmc5130_spi_r150
   parent: /motor_encoder_switch
   anchor_mm: [1.0, -14.0]
   rotation_degrees: 90
@@ -1124,17 +1124,17 @@ placements:
     ~{DRV_EN}: ~{DRV_EN}
     ~{DRV_EN}_INST: ~{DRV_EN}_INST
 - name: hv_to_5v_tpsm365r6
-  block: orb_weaver_private:hv_to_5v_tpsm365r6
+  block: orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v
   parent: /
   anchor_mm: [-21.25, -7.0]
   rotation_degrees: 90
   side: front
   anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
   connections:
-    +5V: +5V_SW
     GND: GND
     PGOOD: PG_5V
     VIN: +36V_SW
+    VOUT: +5V_SW
 - name: torque_bridge_0_3v3_ina821
   block: orb_weaver_private:torque_bridge_0_3v3_ina821
   parent: /brake_torque_sensor
@@ -1241,18 +1241,6 @@ placements:
     TQ_CAL_EN_INST: TQ_CAL_EN_INST
     TQ_CONVST_CS: TQ_CONVST_CS
     TQ_CONVST_CS_INST: TQ_CONVST_CS_INST
-- name: hv_to_12v_tpsm365r6
-  block: orb_weaver_private:hv_to_12v_tpsm365r6
-  parent: /brake_torque_sensor
-  anchor_mm: [35.0, -29.0]
-  rotation_degrees: 180
-  side: front
-  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
-  connections:
-    +12V: +12V
-    GND: GND
-    PGOOD: PG_12V
-    VIN: +36V
 - name: brake_current_sink_0_49ma_dac80501
   block: orb_weaver_private:brake_current_sink_0_49ma_dac80501
   parent: /brake_torque_sensor
@@ -1406,6 +1394,18 @@ placements:
     SNS: HV_SNS
     ~{FAULT}: ~{HV_FAULT}
     ~{FAULT}_INST: ~{HV_FAULT}_INST
+- name: hv_to_12v_tpsm365r6
+  block: orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v
+  parent: /brake_torque_sensor
+  anchor_mm: [35.0, -29.0]
+  rotation_degrees: 180
+  side: front
+  anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
+  connections:
+    GND: GND
+    PGOOD: PG_12V
+    VIN: +36V
+    VOUT: +12V
 nets:
   /+3.3V_MCU:
     class: PWR_3V3

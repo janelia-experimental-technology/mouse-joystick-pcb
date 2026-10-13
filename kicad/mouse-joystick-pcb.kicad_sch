@@ -4507,7 +4507,7 @@
 	)
 	(group "hv_to_5v_tpsm365r6"
 		(uuid "f65f17ac-a27b-49a4-9a74-cb30afd8d32b")
-		(lib_id "orb_weaver_private:hv_to_5v_tpsm365r6")
+		(lib_id "orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v")
 		(members "cc3989d8-d81e-44ec-9135-47b541df34e1")
 	)
 	(sheet
@@ -5864,9 +5864,9 @@
 				(justify left top)
 			)
 		)
-		(pin "+5V" passive
+				(pin "VOUT" passive
 			(at 177.8 27.94 0)
-			(uuid "bed100e5-4dff-4f28-9cda-437eeb9ea104")
+			(uuid "1c6866d0-c72c-51a6-832d-3e6fae38f0c8")
 			(effects
 				(font
 					(size 1.27 1.27)

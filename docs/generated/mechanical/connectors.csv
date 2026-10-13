@@ -10,5 +10,5 @@ J1301,FH12-50S-0.5SVA(54),orb_weaver_connectors:Hirose_FH12-50S-0.5SVA_1x50-4MP_
 J1601,TBH-1x02-3.5mm,"orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical",top,18.0,36.0,180.0,13.3,31.25,22.7,39.5
 J1801,TBH-1x02-3.5mm,"orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical",top,37.0,-12.0,180.0,32.3,-16.75,41.7,-8.5
 J2001,TBH-1x05-3.5mm,"orb_weaver_tht:PhoenixContact_MCV_1,5_5-G-3.5_1x05_P3.50mm_Vertical",top,37.0,18.0,180.0,27.05,13.25,46.95,21.5
-SW601,Switch_Tactile_SPST-NO_SMT_Side,orb_weaver_smd:SMT_1045822_WRE,top,-47.5,-27.5,270.0,-49.5,-31.0,-45.5,-24.0
-SW602,Switch_Tactile_SPST-NO_SMT_Side,orb_weaver_smd:SMT_1045822_WRE,top,-47.5,-20.5,270.0,-49.5,-24.0,-45.5,-17.0
+SW601,436333045822,orb_weaver_smd:SMT_1045822_WRE,top,-47.5,-27.5,270.0,-49.5,-31.0,-45.5,-24.0
+SW602,436333045822,orb_weaver_smd:SMT_1045822_WRE,top,-47.5,-20.5,270.0,-49.5,-24.0,-45.5,-17.0

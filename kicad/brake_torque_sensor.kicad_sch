@@ -3724,7 +3724,7 @@
 	)
 	(group "hv_to_12v_tpsm365r6"
 		(uuid "d6eb2d17-ceb8-4306-b05a-0c8e05900c73")
-		(lib_id "orb_weaver_private:hv_to_12v_tpsm365r6")
+		(lib_id "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v")
 		(members "670aba7c-5d0b-40f5-98be-71b6a2ad93fc")
 	)
 	(sheet
@@ -3971,9 +3971,9 @@
 				(justify left top)
 			)
 		)
-		(pin "+12V" passive
+				(pin "VOUT" passive
 			(at 152.4 27.94 0)
-			(uuid "1e63a1ca-1d53-4acf-bb79-40d268aea910")
+			(uuid "2011483b-d5b7-5d41-8260-7d1c70dbecef")
 			(effects
 				(font
 					(size 1.27 1.27)

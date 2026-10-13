@@ -79,5 +79,5 @@ keep-clear rectangle in the same frame, which is what a panel cutout needs.
 | J1601 | TBH-1x02-3.5mm | top | 18.0 | 36.0 | 180 | 13.3 to 22.7 | 31.25 to 39.5 |
 | J1801 | TBH-1x02-3.5mm | top | 37.0 | -12.0 | 180 | 32.3 to 41.7 | -16.75 to -8.5 |
 | J2001 | TBH-1x05-3.5mm | top | 37.0 | 18.0 | 180 | 27.05 to 46.95 | 13.25 to 21.5 |
-| SW601 | Switch_Tactile_SPST-NO_SMT_Side | top | -47.5 | -27.5 | 270 | -49.5 to -45.5 | -31.0 to -24.0 |
-| SW602 | Switch_Tactile_SPST-NO_SMT_Side | top | -47.5 | -20.5 | 270 | -49.5 to -45.5 | -24.0 to -17.0 |
+| SW601 | 436333045822 | top | -47.5 | -27.5 | 270 | -49.5 to -45.5 | -31.0 to -24.0 |
+| SW602 | 436333045822 | top | -47.5 | -20.5 | 270 | -49.5 to -45.5 | -24.0 to -17.0 |

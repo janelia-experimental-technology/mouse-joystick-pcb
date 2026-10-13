@@ -48,6 +48,10 @@ More views, including both elevations, are in [the generated documentation](docs
 | --- | --- |
 | Schematic, all sheets, PDF | [mouse-joystick-pcb-schematic.pdf](docs/generated/schematic/mouse-joystick-pcb-schematic.pdf) |
 | Schematic sheets, SVG (20) | [schematic/](docs/generated/schematic/) |
+| Schematic, instance overviews and details, PDF | [Review booklet](docs/generated/schematic/mouse-joystick-pcb-schematic-review.pdf) |
+| Design blocks placed (15), one page each | [blocks/README.md](docs/generated/blocks/README.md) |
+| Subsystem sheets (4), from their recipes | [subsystems/README.md](docs/generated/subsystems/README.md) |
+| MCU pin allocation, from the board source | [gpio-allocation.md](docs/generated/gpio-allocation.md) |
 | Assembly view, top | [assembly-top.svg](docs/generated/layout/assembly-top.svg) |
 | Assembly view, bottom | [assembly-bottom.svg](docs/generated/layout/assembly-bottom.svg) |
 | Assembled board, STEP, for FreeCAD | [mouse-joystick-pcb-assembled.step](docs/generated/3d/mouse-joystick-pcb-assembled.step) |
@@ -87,8 +91,8 @@ what a panel cutout has to clear. Full tables in [board-dimensions.md](docs/gene
 | J1601 | TBH-1x02-3.5mm | 18.0 | 36.0 | 180.0 | 13.3 to 22.7 | 31.25 to 39.5 |
 | J1801 | TBH-1x02-3.5mm | 37.0 | -12.0 | 180.0 | 32.3 to 41.7 | -16.75 to -8.5 |
 | J2001 | TBH-1x05-3.5mm | 37.0 | 18.0 | 180.0 | 27.05 to 46.95 | 13.25 to 21.5 |
-| SW601 | Switch_Tactile_SPST-NO_SMT_Side | -47.5 | -27.5 | 270.0 | -49.5 to -45.5 | -31.0 to -24.0 |
-| SW602 | Switch_Tactile_SPST-NO_SMT_Side | -47.5 | -20.5 | 270.0 | -49.5 to -45.5 | -24.0 to -17.0 |
+| SW601 | 436333045822 | -47.5 | -27.5 | 270.0 | -49.5 to -45.5 | -31.0 to -24.0 |
+| SW602 | 436333045822 | -47.5 | -20.5 | 270.0 | -49.5 to -45.5 | -24.0 to -17.0 |
 
 <!-- END GENERATED BOARD DOCUMENTATION -->
 

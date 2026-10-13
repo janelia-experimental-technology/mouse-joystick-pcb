@@ -3,7 +3,7 @@
   "board": "mouse-joystick-pcb",
   "source": {
     "file": "mouse-joystick-pcb.kicad_pcb",
-    "sha256": "1099dc981dc34a995856c19807aad0b7fb092bddb9851166e9f98d118842d662"
+    "sha256": "663f9187836f811beefd696061c4a0ba74315242a381891c25cc4d64417a19f3"
   },
   "units": "mm",
   "frame": {
@@ -426,7 +426,7 @@
     },
     {
       "reference": "SW601",
-      "value": "Switch_Tactile_SPST-NO_SMT_Side",
+      "value": "436333045822",
       "footprint": "orb_weaver_smd:SMT_1045822_WRE",
       "side": "top",
       "x_mm": -47.5,
@@ -444,7 +444,7 @@
     },
     {
       "reference": "SW602",
-      "value": "Switch_Tactile_SPST-NO_SMT_Side",
+      "value": "436333045822",
       "footprint": "orb_weaver_smd:SMT_1045822_WRE",
       "side": "top",
       "x_mm": -47.5,

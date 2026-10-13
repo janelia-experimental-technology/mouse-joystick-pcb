@@ -3,2242 +3,717 @@
 	(generator "eeschema")
 	(generator_version "10.0")
 	(uuid "ef989454-b6ff-4039-91ff-bb77b1e84bd8")
-	(paper "A4")
-	(title_block
-		(title "Orb Weaver Design Block Mining")
-		(date "2026-09-20")
-		(comment 1 "Copy or recreate old project circuits here, then save cleaned selections as design blocks.")
-	)
+	(paper "A2")
+	(title_block (title "Debounced limit-switch input, vertical terminal") (date "2026-10-04") (rev "Source migration 1") (company "Orb Weaver") (comment 1 "Migrated from the saved library sheet; circuit and PCB unchanged") (comment 2 "Circuit and PCB layout guidance"))
+
 	(lib_symbols
 		(symbol "orb_weaver_internal:All/OW-CAP-100N-0402-X5R-16V"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "C"
-				(at 0.635 2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "100nF"
-				(at 0.635 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-				(at 0.9652 -3.81 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-CAP-100N-0402-X5R-16V"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_passives_c_0_1uf_100v_0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C162178"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C162178"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "9978"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "100nF 0402 decoupling capacitor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "passives"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "capacitor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "100nF"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "Capacitor_SMD:C_0402_1005Metric"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" "16V"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" "<=20%"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" "X5R"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" "mcu-decoupling"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" "X7R or C0G is also acceptable when available"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-CAP-100N-0402-X5R-16V 100nF 0402 decoupling capacitor passives 100nF Generic 100nF 0402 ceramic decoupling capacitor Device:C Capacitor_SMD:C_0402_1005Metric capacitor 100nF Capacitor_SMD:C_0402_1005Metric 0402 16V <=20% X5R mcu-decoupling X7R or C0G i"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Capacitor_SMD:C_0402_1005Metric"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-CAP-100N-0402-X5R-16V_0_1"
-				(polyline
-					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "All/OW-CAP-100N-0402-X5R-16V_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
+		(pin_numbers
+			(hide yes)
 		)
-		(symbol "orb_weaver_internal:All/OW-MISC-MAX6816EUS-T"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "U"
-				(at -7.62 7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "MAX6816"
-				(at -7.62 6.35 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "orb_weaver_smd:SOT192P237X122-4N"
-				(at 0 -19.05 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Description" "-40℃~+125℃ 1 1:1 2.7V~5.5V SOT-143 Analog Switches, Multiplexers ROHS"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-MISC-MAX6816EUS-T"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_misc_max6816"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C41637"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C41637"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "98"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "MAX6816"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "misc"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "interface"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "MAX6816"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "orb_weaver_smd:SOT192P237X122-4N"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "SOT-143"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" "MAX6816EUS+T"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-MISC-MAX6816EUS-T MAX6816 misc MAX6816 -40℃~+125℃ 1 1:1 2.7V~5.5V SOT-143 Analog Switches, Multiplexers ROHS orb_weaver_misc:MAX6816 orb_weaver_smd:SOT192P237X122-4N interface MAX6816 orb_weaver_smd:SOT192P237X122-4N SOT-143 MAX6816EUS+T sym_orb_we"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "orb_weaver_smd:SOT192P237X122-4N"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-MISC-MAX6816EUS-T_1_1"
-				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -10.16 0 0)
-					(length 2.54)
-					(name "IN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 10.16 0 180)
-					(length 2.54)
-					(name "OUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 7.62 270)
-					(length 2.54)
-					(name "Vcc"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
+		(pin_names
+			(offset 0.254)
 		)
-		(symbol "orb_weaver_internal:All/OW-PASS-RC0402FR-071KL"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "R"
-				(at 2.286 1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "1k"
-				(at 2.286 -1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-				(at -1.778 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 2.032 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-				)
-			)
-			(property "Description" "-55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-PASS-RC0402FR-071KL"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_passives_r_1k_0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C106235"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C106235"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "10129"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "1k 0402 resistor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "passives"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "resistor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "1k"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-PASS-RC0402FR-071KL 1k 0402 resistor passives 1k -55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS orb_weaver_passives:R_1k_0402 Resistor_SMD:R_0402_1005Metric resistor 1k Resistor_SMD:R_0402_1"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Resistor_SMD:R_0402_1005Metric"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-PASS-RC0402FR-071KL_0_1"
-				(rectangle
-					(start -1.016 3.81)
-					(end 1.016 -3.81)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "All/OW-PASS-RC0402FR-071KL_1_1"
-				(pin passive line
-					(at 0 6.35 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -6.35 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "orb_weaver_internal:All/OW-PASS-RC0402JR-07100KL"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "R"
-				(at 2.286 1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "100k"
-				(at 2.286 -1.27 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-				(at -1.778 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 2.032 0 90)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-				)
-			)
-			(property "Description" "-55℃~+155℃ 100kΩ 50V 62.5mW Thick Film Resistor ±100ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-PASS-RC0402JR-07100KL"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_passives_r_100k_0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C106234"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C106234"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "9963"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "100k 0402 resistor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Group" "passives"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "resistor"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "100k"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "0402"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-PASS-RC0402JR-07100KL 100k 0402 resistor passives 100k -55℃~+155℃ 100kΩ 50V 62.5mW Thick Film Resistor ±100ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS orb_weaver_passives:R_100k_0402 Resistor_SMD:R_0402_1005Metric resistor 100k Resistor_"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Resistor_SMD:R_0402_1005Metric"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "All/OW-PASS-RC0402JR-07100KL_0_1"
-				(rectangle
-					(start -1.016 3.81)
-					(end 1.016 -3.81)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "All/OW-PASS-RC0402JR-07100KL_1_1"
-				(pin passive line
-					(at 0 6.35 270)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -6.35 90)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.524 1.524)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "orb_weaver_internal:Connectors/OW-CONN-TBH-1X02-3P5-VERT"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "J"
-				(at 2.54 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "TBH-1x02-3.5mm"
-				(at 2.54 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.016 1.016)
-						(bold yes)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
-				(at 0 35.56 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 21.59 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "OW_PART" "OW-CONN-TBH-1X02-3P5-VERT"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "PartID" "sym_orb_weaver_connectors_conn_01x02_p3_5mm_tbh_vertical_screw"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "LCSC" "C3019639"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Vendor SKU" "C3019639"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "JLC Qty" "148"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Name" "Terminal block header 1x02 P3.5mm, vertical"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqType" "connector"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqValue" "TBH-1x02-3.5mm"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPackage" "Plugin P=3.5mm"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinVoltage" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqMinCurrent" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqPower" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqTolerance" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqDielectric" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqProtocol" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqRole" "terminal-block-header"
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqExactMPN" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ReqNotes" ""
-				(at 0 0 0)
-				(show_name yes)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "OW-CONN-TBH-1X02-3P5-VERT Terminal block header 1x02 P3.5mm, vertical connectors TBH-1x02-3.5mm 2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V orb_weaver_connectors:Conn_01x02_P3.5mm_TBH_Vertical_Screw orb_weav"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "Connectors/OW-CONN-TBH-1X02-3P5-VERT_1_1"
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy 0.8636 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-	)
-	(wire
-		(pts
-			(xy 152.4 73.66) (xy 152.4 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0099264a-76e4-489b-a5b5-a32e71d273cc")
-	)
-	(wire
-		(pts
-			(xy 101.6 86.36) (xy 101.6 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "04d454d7-f2b9-496c-a358-723db827faab")
-	)
-	(wire
-		(pts
-			(xy 190.5 68.58) (xy 190.5 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1ebe4217-64aa-430d-9d76-56470ef7abef")
-	)
-	(wire
-		(pts
-			(xy 165.1 83.82) (xy 162.56 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "20f98aa6-1ccf-4eab-b432-62e23d5bbdc5")
-	)
-	(wire
-		(pts
-			(xy 101.6 73.66) (xy 101.6 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "22fdac86-558c-42dc-a12b-94e651d2dd57")
-	)
-	(wire
-		(pts
-			(xy 218.44 58.42) (xy 220.98 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b7280fc-a409-460d-9233-f1c64e1f24b9")
-	)
-	(wire
-		(pts
-			(xy 233.68 58.42) (xy 236.22 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4182539b-0e21-4aa1-a442-0fdb8674c62d")
-	)
-	(wire
-		(pts
-			(xy 152.4 93.98) (xy 152.4 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "487b2f6c-9413-43e8-a1f6-e3bc3216e1d5")
-	)
-	(wire
-		(pts
-			(xy 139.7 83.82) (xy 142.24 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "685a7ba1-1c63-47f3-bec5-9f1fbf11df59")
-	)
-	(wire
-		(pts
-			(xy 190.5 86.36) (xy 190.5 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6f12b25c-1606-4b85-9fc3-127e97e48be4")
-	)
-	(wire
-		(pts
-			(xy 149.86 48.26) (xy 152.4 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7ae506ad-591b-4824-b26c-baeff83777bf")
-	)
-	(wire
-		(pts
-			(xy 104.14 53.34) (xy 101.6 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7b8b2654-3f32-404f-b129-acd9b42d9ec4")
-	)
-	(wire
-		(pts
-			(xy 104.14 50.8) (xy 101.6 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9762dc8f-8896-4bb4-93f2-b5cc00086a2b")
-	)
-	(wire
-		(pts
-			(xy 104.14 55.88) (xy 101.6 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bae67423-f8ec-4b0f-bd25-62969b1d72f0")
-	)
-	(wire
-		(pts
-			(xy 149.86 50.8) (xy 152.4 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d0f966fb-60f7-4966-8a3a-5fb76adb2184")
-	)
-	(label "GND"
-		(at 190.5 86.36 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "05ff2ee5-4e9d-410a-9989-e25716ee3925")
-	)
-	(label "+3.3V_SW"
-		(at 104.14 50.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1363b2be-dd38-47fc-b126-1bfa3fbe3373")
-	)
-	(label "LIMIT_SW"
-		(at 190.5 68.58 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "1fb5114c-50af-42dd-ae5c-e6f244dbada2")
-	)
-	(label "GND"
-		(at 104.14 53.34 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "239cac12-2e5c-4f01-9125-42a3b396ef5b")
-	)
-	(label "GND"
-		(at 149.86 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2a11750b-cbdf-4d1e-90be-84eeb4c90d75")
-	)
-	(label "IN"
-		(at 149.86 48.26 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "561935be-2e26-4204-aaff-eb42a9171d32")
-	)
-	(label "GND"
-		(at 152.4 93.98 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "56719c7c-5bf4-480f-8fb0-f508bc5f8dc2")
-	)
-	(label "+3.3V_SW"
-		(at 152.4 73.66 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5a0f99e5-ee25-45f7-bda4-2a252e0aec83")
-	)
-	(label "+3.3V_SW"
-		(at 101.6 73.66 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5ac601ef-d8a6-4731-9f6a-12d4a9adbc6c")
-	)
-	(label "GND"
-		(at 101.6 86.36 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7a3ab804-84dd-4901-a65f-863b486b09fd")
-	)
-	(label "LIMIT_SW"
-		(at 104.14 55.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7b8d81c1-109f-42da-8691-0f6334e70961")
-	)
-	(label "LIMIT_SW"
-		(at 165.1 83.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "956d5820-7bb2-48df-8ff6-9d520384a5c5")
-	)
-	(label "IN"
-		(at 139.7 83.82 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d273be3a-6601-49b7-bb44-25609fb9172f")
-	)
-	(label "LIMIT_SW"
-		(at 218.44 58.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e3c7cbe3-b179-4656-877d-6de3072c832e")
-	)
-	(hierarchical_label "GND"
-		(shape passive)
-		(at 101.6 53.34 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "31a37a61-b288-412a-9515-37fb1aa46ff8")
-	)
-	(hierarchical_label "+3.3V_SW"
-		(shape passive)
-		(at 101.6 50.8 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "327073b4-86bf-4f3d-ba57-c6bb80d2014e")
-	)
-	(hierarchical_label "LIMIT_SW_INST"
-		(shape output)
-		(at 236.22 58.42 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8355575a-62ec-42f6-9686-03edd90706fa")
-	)
-	(hierarchical_label "LIMIT_SW"
-		(shape output)
-		(at 101.6 55.88 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f4a4ef1e-d1b2-45b7-88fa-66a7256fda9d")
-	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-RC0402JR-07100KL")
-		(at 190.5 77.47 0)
-		(unit 1)
-		(body_style 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "1a5dbbac-981b-4337-8c39-817e15b42b3f")
-		(property "Reference" "R1601"
-			(at 193.04 76.2 0)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
+			(at 0 0 0)
+			(show_name yes)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "All/OW-CAP-100N-0402-X5R-16V_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "All/OW-CAP-100N-0402-X5R-16V_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+(property "OW_PART" "OW-CAP-100N-0402-X5R-16V"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "PartID" "sym_orb_weaver_passives_c_0_1uf_100v_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Name" "100nF 0402 decoupling capacitor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Group" "passives"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqType" "capacitor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqValue" "100nF"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqFootprint" "Capacitor_SMD:C_0402_1005Metric"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPackage" "0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinVoltage" "16V"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqTolerance" "<=20%"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqDielectric" "X5R"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqRole" "mcu-decoupling"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqNotes" "X7R or C0G is also acceptable when available"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_keywords" "OW-CAP-100N-0402-X5R-16V 100nF 0402 decoupling capacitor passives 100nF Generic 100nF 0402 ceramic decoupling capacitor Device:C Capacitor_SMD:C_0402_1005Metric capacitor 100nF Capacitor_SMD:C_0402_1005Metric 0402 16V <=20% X5R mcu-decoupling X7R or C0G i"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_fp_filters" "Capacitor_SMD:C_0402_1005Metric"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+	)
+		(symbol "orb_weaver_internal:Connectors/OW-CONN-TBH-1X02-3P5-VERT"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 2.54 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TBH-1x02-3.5mm"
+			(at 2.54 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
+			(at 0 35.56 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1843606"
+			(at 0 21.59 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
+			(at 0 0 0)
+			(show_name yes)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Connectors/OW-CONN-TBH-1X02-3P5-VERT_1_1"
+			(rectangle
+				(start 0.8636 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type outline)
+				)
+			)
+			(rectangle
+				(start 0.8636 -2.413)
+				(end 0 -2.667)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type outline)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.27 0) (xy 0.8636 0)
+				)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.27 -2.54) (xy 0.8636 -2.54)
+				)
+				(stroke
+					(width 0.1524)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at 5.08 0 180)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 5.08 -2.54 180)
+				(length 3.81)
+				(name "Pin_2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+(property "OW_PART" "OW-CONN-TBH-1X02-3P5-VERT"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "PartID" "sym_orb_weaver_connectors_conn_01x02_p3_5mm_tbh_vertical_screw"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Name" "Terminal block header 1x02 P3.5mm, vertical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqType" "connector"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqValue" "TBH-1x02-3.5mm"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPackage" "Plugin P=3.5mm"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqRole" "terminal-block-header"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_keywords" "OW-CONN-TBH-1X02-3P5-VERT Terminal block header 1x02 P3.5mm, vertical connectors TBH-1x02-3.5mm 2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V orb_weaver_connectors:Conn_01x02_P3.5mm_TBH_Vertical_Screw orb_weav"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_fp_filters" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+	)
+		(symbol "orb_weaver_internal:All/OW-PASS-RC0402JR-07100KL"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.286 1.27 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2250,7 +725,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 193.04 78.74 0)
+			(at 2.286 -1.27 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2262,10 +737,10 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 188.722 77.47 90)
-			(hide yes)
+			(at -1.778 0 90)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 0.762 0.762)
@@ -2273,304 +748,1015 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 192.532 77.47 90)
-			(hide yes)
+			(at 2.032 0 90)
 			(show_name no)
 			(do_not_autoplace no)
+			(hide yes)
 			(effects
 				(font
 					(size 0.762 0.762)
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100kΩ 50V 62.5mW Thick Film Resistor ±100ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
-			(at 190.5 77.47 0)
-			(hide yes)
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
+			(at 0 0 0)
 			(show_name yes)
 			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-PASS-RC0402JR-07100KL"
-			(at 190.5 77.47 0)
 			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "PartID" "sym_orb_weaver_passives_r_100k_0402"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+		(symbol "All/OW-PASS-RC0402JR-07100KL_0_1"
+			(rectangle
+				(start -1.016 3.81)
+				(end 1.016 -3.81)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
 				)
 			)
 		)
-		(property "JLC Qty" "9963"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+		(symbol "All/OW-PASS-RC0402JR-07100KL_1_1"
+			(pin passive line
+				(at 0 6.35 270)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -6.35 90)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
 				)
 			)
 		)
-		(property "Name" "100k 0402 resistor"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+		(embedded_fonts no)
+(property "OW_PART" "OW-PASS-RC0402JR-07100KL"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "Group" "passives"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "PartID" "sym_orb_weaver_passives_r_100k_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqType" "resistor"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "Name" "100k 0402 resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqValue" "100k"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "Group" "passives"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqType" "resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqPackage" "0402"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqValue" "100k"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqPackage" "0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqPower" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqTolerance" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqDielectric" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqProtocol" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqRole" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqExactMPN" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "ReqNotes" ""
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "LCSC" "C106234"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(property "Vendor SKU" "C106234"
-			(at 190.5 77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
+(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(pin "2"
-			(uuid "ab757344-6bd3-4974-a689-30bcaf8687cd")
-		)
-		(pin "1"
-			(uuid "aca19f2b-56ea-4243-bb06-35879a3d0e1d")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
-					(reference "R1601")
-					(unit 1)
+(property "ki_keywords" "OW-PASS-RC0402JR-07100KL 100k 0402 resistor passives 100k 100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402 orb_weaver_passives:R_100k_0402 Resistor_SMD:R_0402_1005Metric resistor 100k Resistor_SMD:R_0402_1005Metric 0402 0402"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f"
-					(reference "R33001")
-					(unit 1)
+(property "ki_fp_filters" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
 	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-CAP-100N-0402-X5R-16V")
-		(at 101.6 80.01 0)
-		(unit 1)
-		(body_style 1)
+		(symbol "orb_weaver_internal:All/OW-PASS-RC0402FR-071KL"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.286 1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1k"
+			(at 2.286 -1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 0.762 0.762)
+				)
+			)
+		)
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
+			(at 0 0 0)
+			(show_name yes)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "All/OW-PASS-RC0402FR-071KL_0_1"
+			(rectangle
+				(start -1.016 3.81)
+				(end 1.016 -3.81)
+				(stroke
+					(width 0.3048)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "All/OW-PASS-RC0402FR-071KL_1_1"
+			(pin passive line
+				(at 0 6.35 270)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -6.35 90)
+				(length 2.54)
+				(name ""
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.524 1.524)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+(property "OW_PART" "OW-PASS-RC0402FR-071KL"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "PartID" "sym_orb_weaver_passives_r_1k_0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Name" "1k 0402 resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Group" "passives"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqType" "resistor"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqValue" "1k"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPackage" "0402"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqExactMPN" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_keywords" "OW-PASS-RC0402FR-071KL 1k 0402 resistor passives 1k 1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402 orb_weaver_passives:R_1k_0402 Resistor_SMD:R_0402_1005Metric resistor 1k Resistor_SMD:R_0402_1005Metric 0402 0402 resistor re"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_fp_filters" "Resistor_SMD:R_0402_1005Metric"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+	)
+		(symbol "orb_weaver_internal:All/OW-MISC-MAX6816EUS-T"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at -7.62 10.16 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MAX6816EUS+T"
+			(at -7.62 8.89 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.016 1.016)
+					(bold yes)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:SOT192P237X122-4N"
+			(at 0 -19.05 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX6816-MAX6818.pdf"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Description" "Single CMOS switch debouncer, 2.7 V to 5.5 V, 50 ms typical debounce, internal 63 kΩ input pull-up, ±25 V tolerant input with ±15 kV ESD, push-pull output without Ioff, SOT143-4."
+			(at 0 0 0)
+			(show_name yes)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "All/OW-MISC-MAX6816EUS-T_1_1"
+			(rectangle
+				(start -7.62 7.62)
+				(end 7.62 -7.62)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(pin power_in line
+				(at 0 -10.16 90)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -10.16 0 0)
+				(length 2.54)
+				(name "IN"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin output line
+				(at 10.16 0 180)
+				(length 2.54)
+				(name "OUT"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 10.16 270)
+				(length 2.54)
+				(name "Vcc"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+(property "OW_PART" "OW-MISC-MAX6816EUS-T"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "PartID" "sym_orb_weaver_misc_max6816"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Name" "MAX6816 switch debouncer"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "Group" "misc"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqType" "interface"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqValue" "MAX6816EUS+T"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqFootprint" "orb_weaver_smd:SOT192P237X122-4N"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPackage" "SOT-143"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinVoltage" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqMinCurrent" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqPower" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqTolerance" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqDielectric" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqProtocol" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqRole" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqExactMPN" "MAX6816EUS+T"
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ReqNotes" ""
+				(at 0 0 0)
+				(show_name yes)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_keywords" "OW-MISC-MAX6816EUS-T MAX6816 switch debouncer misc MAX6816EUS+T Single CMOS switch debouncer, 2.7 V to 5.5 V, 50 ms typical debounce, internal 63 kΩ input pull-up, ±25 V tolerant input with ±15 kV ESD, push-pull output without Ioff, SOT143-4. orb_weave"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+(property "ki_fp_filters" "orb_weaver_smd:SOT192P237X122-4N"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+	)
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-CAP-100N-0402-X5R-16V")
+		(at 35.56 72.39 0)
+		(unit 1)
+		(body_style 1)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(exclude_from_sim no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "877edc0d-8517-4bfb-9a8a-87ef2f65742a")
 		(property "Reference" "C1601"
-			(at 105.41 78.7399 0)
+			(at 44.154571 70.485 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "100nF"
-			(at 105.41 81.2799 0)
+			(at 43.407083 74.295 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 102.5652 83.82 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2581,7 +1767,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2592,7 +1778,7 @@
 			)
 		)
 		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2603,7 +1789,7 @@
 			)
 		)
 		(property "OW_PART" "OW-CAP-100N-0402-X5R-16V"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2614,18 +1800,7 @@
 			)
 		)
 		(property "PartID" "sym_orb_weaver_passives_c_0_1uf_100v_0402"
-			(at 101.6 80.01 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "9978"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2636,7 +1811,7 @@
 			)
 		)
 		(property "Name" "100nF 0402 decoupling capacitor"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2647,7 +1822,7 @@
 			)
 		)
 		(property "Group" "passives"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2658,7 +1833,7 @@
 			)
 		)
 		(property "ReqType" "capacitor"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2669,7 +1844,7 @@
 			)
 		)
 		(property "ReqValue" "100nF"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2680,7 +1855,7 @@
 			)
 		)
 		(property "ReqFootprint" "Capacitor_SMD:C_0402_1005Metric"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2691,7 +1866,7 @@
 			)
 		)
 		(property "ReqPackage" "0402"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2702,7 +1877,7 @@
 			)
 		)
 		(property "ReqMinVoltage" "16V"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2713,7 +1888,7 @@
 			)
 		)
 		(property "ReqMinCurrent" ""
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2724,7 +1899,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2735,7 +1910,7 @@
 			)
 		)
 		(property "ReqTolerance" "<=20%"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2746,7 +1921,7 @@
 			)
 		)
 		(property "ReqDielectric" "X5R"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2757,7 +1932,7 @@
 			)
 		)
 		(property "ReqProtocol" ""
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2768,7 +1943,7 @@
 			)
 		)
 		(property "ReqRole" "mcu-decoupling"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2779,7 +1954,7 @@
 			)
 		)
 		(property "ReqExactMPN" ""
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2790,7 +1965,7 @@
 			)
 		)
 		(property "ReqNotes" "X7R or C0G is also acceptable when available"
-			(at 101.6 80.01 0)
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -2800,8 +1975,8 @@
 				)
 			)
 		)
-		(property "LCSC" "C162178"
-			(at 101.6 80.01 0)
+		(property "Placement" "beside ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE}.4 (Vcc), on +3.3V_SW"
+			(at 35.56 72.39 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2810,390 +1985,102 @@
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(property "Vendor SKU" "C162178"
-			(at 101.6 80.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "bc6f4bbf-578a-4943-9aa4-6fb427a5f664")
 		)
 		(pin "1"
 			(uuid "2877e0c6-0253-434a-98bb-6a67c868909c")
 		)
+		(pin "2"
+			(uuid "bc6f4bbf-578a-4943-9aa4-6fb427a5f664")
+		)
 		(instances
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "C33001") (unit 1))
+			)
+			(project "limit_switch_debounced_input_vertical_layout"
+				(path "/ef34d2bd-7045-54ad-b8ef-f2225efb9aed/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "C33001") (unit 1))
+			)
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
 					(reference "C1601")
 					(unit 1)
 				)
 			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f"
-					(reference "C33001")
-					(unit 1)
-				)
-			)
 		)
 	)
-	(symbol
-		(lib_id "orb_weaver_internal:All/OW-MISC-MAX6816EUS-T")
-		(at 152.4 83.82 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ed1d27a5-4fdc-4e73-a297-77a8487eb0d8")
-		(property "Reference" "U1601"
-			(at 165.1 77.3999 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
+	(wire
+		(pts
+			(xy 35.56 68.58) (xy 35.56 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e2bb513-e56d-5c80-904b-83c90045fecb")
+	)
+	(label "+3.3V_SW"
+		(at 35.56 66.04 90)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify left bottom)
 		)
-		(property "Value" "MAX6816"
-			(at 165.1 79.9399 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.016 1.016)
-					(bold yes)
-				)
+		(uuid "6e733d23-d811-5766-9018-c9f458eb416d")
+	)
+	(wire
+		(pts
+			(xy 35.56 76.2) (xy 35.56 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d0a1154c-7106-583f-8fdb-d0be56960584")
+	)
+	(label "GND"
+		(at 35.56 78.74 270)
+		(effects
+			(font
+				(size 1.27 1.27)
 			)
+			(justify right bottom)
 		)
-		(property "Footprint" "orb_weaver_smd:SOT192P237X122-4N"
-			(at 152.4 102.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 152.4 83.82 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.524 1.524)
-				)
-			)
-		)
-		(property "Description" "-40℃~+125℃ 1 1:1 2.7V~5.5V SOT-143 Analog Switches, Multiplexers ROHS"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "OW_PART" "OW-MISC-MAX6816EUS-T"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "PartID" "sym_orb_weaver_misc_max6816"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "98"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "MAX6816"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Group" "misc"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqType" "interface"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqValue" "MAX6816"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqFootprint" "orb_weaver_smd:SOT192P237X122-4N"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPackage" "SOT-143"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinVoltage" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqMinCurrent" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqPower" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqTolerance" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqDielectric" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqProtocol" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqRole" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqExactMPN" "MAX6816EUS+T"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "ReqNotes" ""
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C41637"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C41637"
-			(at 152.4 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "3"
-			(uuid "07f07585-1139-4522-a81a-6c1e9a8b0045")
-		)
-		(pin "1"
-			(uuid "68809e8f-2beb-42c5-b7dd-eeb7fc73fc20")
-		)
-		(pin "2"
-			(uuid "0d8215d8-74ba-44aa-883c-7097b9a29ff0")
-		)
-		(pin "4"
-			(uuid "572cedd9-8237-47f1-a397-7c5f1a8b38e1")
-		)
-		(instances
-			(project "mouse-joystick-pcb"
-				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
-					(reference "U1601")
-					(unit 1)
-				)
-			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f"
-					(reference "U33001")
-					(unit 1)
-				)
-			)
-		)
+		(uuid "b8084bf6-4717-5ba0-ab12-6a542be0a304")
 	)
 	(symbol
 		(lib_id "orb_weaver_internal:Connectors/OW-CONN-TBH-1X02-3P5-VERT")
-		(at 157.48 50.8 180)
+		(at 33.02 170.18 0)
 		(unit 1)
 		(body_style 1)
-		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
+		(exclude_from_sim no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fb560492-07c1-40ba-abbe-6bac76e602ff")
 		(property "Reference" "J1601"
-			(at 158.75 48.26 0)
+			(at 33.02 160.686 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.016 1.016)
-					(bold yes)
+					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Value" "TBH-1x02-3.5mm"
-			(at 158.75 50.8 0)
+			(at 33.02 164.496 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.016 1.016)
-					(bold yes)
+					(size 1.27 1.27)
 				)
-				(justify right)
 			)
 		)
 		(property "Footprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
-			(at 157.48 86.36 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3203,8 +2090,8 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 157.48 72.39 0)
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1843606"
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3215,7 +2102,7 @@
 			)
 		)
 		(property "Description" "2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3226,7 +2113,7 @@
 			)
 		)
 		(property "OW_PART" "OW-CONN-TBH-1X02-3P5-VERT"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3237,18 +2124,7 @@
 			)
 		)
 		(property "PartID" "sym_orb_weaver_connectors_conn_01x02_p3_5mm_tbh_vertical_screw"
-			(at 157.48 50.8 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "JLC Qty" "148"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3259,7 +2135,7 @@
 			)
 		)
 		(property "Name" "Terminal block header 1x02 P3.5mm, vertical"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3270,7 +2146,7 @@
 			)
 		)
 		(property "ReqType" "connector"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3281,7 +2157,7 @@
 			)
 		)
 		(property "ReqValue" "TBH-1x02-3.5mm"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3292,7 +2168,7 @@
 			)
 		)
 		(property "ReqFootprint" "orb_weaver_tht:PhoenixContact_MCV_1,5_2-G-3.5_1x02_P3.50mm_Vertical"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3303,7 +2179,7 @@
 			)
 		)
 		(property "ReqPackage" "Plugin P=3.5mm"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3314,7 +2190,7 @@
 			)
 		)
 		(property "ReqMinVoltage" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3325,7 +2201,7 @@
 			)
 		)
 		(property "ReqMinCurrent" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3336,7 +2212,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3347,7 +2223,7 @@
 			)
 		)
 		(property "ReqTolerance" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3358,7 +2234,7 @@
 			)
 		)
 		(property "ReqDielectric" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3369,7 +2245,7 @@
 			)
 		)
 		(property "ReqProtocol" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3380,7 +2256,7 @@
 			)
 		)
 		(property "ReqRole" "terminal-block-header"
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3391,7 +2267,7 @@
 			)
 		)
 		(property "ReqExactMPN" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3402,7 +2278,7 @@
 			)
 		)
 		(property "ReqNotes" ""
-			(at 157.48 50.8 0)
+			(at 33.02 170.18 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3412,106 +2288,123 @@
 				)
 			)
 		)
-		(property "LCSC" "C3019639"
-			(at 157.48 50.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Vendor SKU" "C3019639"
-			(at 157.48 50.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
+		(pin "1"
+			(uuid "8ab2bd8e-2dc7-4714-8b2d-d8083c04f402")
 		)
 		(pin "2"
 			(uuid "e128f753-42d1-4bd1-b50b-296c9f6a347c")
 		)
-		(pin "1"
-			(uuid "8ab2bd8e-2dc7-4714-8b2d-d8083c04f402")
-		)
 		(instances
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "J33001") (unit 1))
+			)
+			(project "limit_switch_debounced_input_vertical_layout"
+				(path "/ef34d2bd-7045-54ad-b8ef-f2225efb9aed/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "J33001") (unit 1))
+			)
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
 					(reference "J1601")
 					(unit 1)
 				)
 			)
-			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f"
-					(reference "J33001")
-					(unit 1)
-				)
-			)
 		)
 	)
+	(wire
+		(pts
+			(xy 38.1 170.18) (xy 40.64 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d6c55ba-eba8-51d9-a3c3-4219d79e8c44")
+	)
+	(label "GND"
+		(at 40.64 170.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "83e4bcec-370a-5bf0-8521-d4ae24b76274")
+	)
+	(wire
+		(pts
+			(xy 38.1 172.72) (xy 40.64 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "630013f6-cf18-51f7-a984-1afaa8988b16")
+	)
+	(label "IN"
+		(at 40.64 172.72 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "87080ebf-6335-51d9-94d4-67f8f6011bb5")
+	)
 	(symbol
-		(lib_id "orb_weaver_internal:All/OW-PASS-RC0402FR-071KL")
-		(at 227.33 58.42 90)
+		(lib_id "orb_weaver_internal:All/OW-PASS-RC0402JR-07100KL")
+		(at 63.5 125.73 0)
 		(unit 1)
 		(body_style 1)
-		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
+		(exclude_from_sim no)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "fb894a4c-a934-4f36-81fc-dbadc5d06e8e")
-		(property "Reference" "R1602"
-			(at 227.33 52.07 90)
+		(uuid "1a5dbbac-981b-4337-8c39-817e15b42b3f")
+		(property "Reference" "R1601"
+			(at 71.332571 123.825 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.016 1.016)
-					(bold yes)
+					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "1k"
-			(at 227.33 54.61 90)
+		(property "Value" "100k"
+			(at 69.962179 127.635 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 1.016 1.016)
-					(bold yes)
+					(size 1.27 1.27)
 				)
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 227.33 60.198 90)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.27 1.27)
 				)
 			)
 		)
 		(property "Datasheet" ""
-			(at 227.33 56.388 90)
+			(at 63.5 125.73 0)
+			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
-					(size 0.762 0.762)
+					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 1kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
-			(at 227.33 58.42 0)
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3521,8 +2414,8 @@
 				)
 			)
 		)
-		(property "OW_PART" "OW-PASS-RC0402FR-071KL"
-			(at 227.33 58.42 0)
+		(property "OW_PART" "OW-PASS-RC0402JR-07100KL"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3532,8 +2425,8 @@
 				)
 			)
 		)
-		(property "PartID" "sym_orb_weaver_passives_r_1k_0402"
-			(at 227.33 58.42 0)
+		(property "PartID" "sym_orb_weaver_passives_r_100k_0402"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3543,19 +2436,8 @@
 				)
 			)
 		)
-		(property "JLC Qty" "10129"
-			(at 227.33 58.42 0)
-			(hide yes)
-			(show_name yes)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Name" "1k 0402 resistor"
-			(at 227.33 58.42 0)
+		(property "Name" "100k 0402 resistor"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3566,7 +2448,7 @@
 			)
 		)
 		(property "Group" "passives"
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3577,7 +2459,7 @@
 			)
 		)
 		(property "ReqType" "resistor"
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3587,8 +2469,8 @@
 				)
 			)
 		)
-		(property "ReqValue" "1k"
-			(at 227.33 58.42 0)
+		(property "ReqValue" "100k"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3599,7 +2481,7 @@
 			)
 		)
 		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3610,7 +2492,7 @@
 			)
 		)
 		(property "ReqPackage" "0402"
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3621,7 +2503,7 @@
 			)
 		)
 		(property "ReqMinVoltage" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3632,7 +2514,7 @@
 			)
 		)
 		(property "ReqMinCurrent" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3643,7 +2525,7 @@
 			)
 		)
 		(property "ReqPower" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3654,7 +2536,7 @@
 			)
 		)
 		(property "ReqTolerance" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3665,7 +2547,7 @@
 			)
 		)
 		(property "ReqDielectric" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3676,7 +2558,7 @@
 			)
 		)
 		(property "ReqProtocol" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3687,7 +2569,7 @@
 			)
 		)
 		(property "ReqRole" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3698,7 +2580,7 @@
 			)
 		)
 		(property "ReqExactMPN" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3709,7 +2591,7 @@
 			)
 		)
 		(property "ReqNotes" ""
-			(at 227.33 58.42 0)
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name yes)
 			(do_not_autoplace no)
@@ -3719,8 +2601,8 @@
 				)
 			)
 		)
-		(property "LCSC" "C106235"
-			(at 227.33 58.42 0)
+		(property "Placement" "beside ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE}.3 (OUT), on LIMIT_SW"
+			(at 63.5 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3730,36 +2612,965 @@
 				)
 			)
 		)
-		(property "Vendor SKU" "C106235"
-			(at 227.33 58.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
+		(pin "1"
+			(uuid "aca19f2b-56ea-4243-bb06-35879a3d0e1d")
 		)
 		(pin "2"
-			(uuid "7510fbc0-5c9a-465c-a3ea-3a7bafdfc8e1")
+			(uuid "ab757344-6bd3-4974-a689-30bcaf8687cd")
+		)
+		(instances
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "R33001") (unit 1))
+			)
+			(project "limit_switch_debounced_input_vertical_layout"
+				(path "/ef34d2bd-7045-54ad-b8ef-f2225efb9aed/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "R33001") (unit 1))
+			)
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
+					(reference "R1601")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 63.5 119.38) (xy 63.5 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1f9ded9-a43e-595f-8c42-a09450ce3cef")
+	)
+	(label "LIMIT_SW"
+		(at 63.5 116.84 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "82eb9393-376c-5fc6-926d-ee857f125599")
+	)
+	(wire
+		(pts
+			(xy 63.5 132.08) (xy 63.5 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "895bb29f-b8ac-5c7d-b841-30805280952e")
+	)
+	(label "GND"
+		(at 63.5 134.62 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9e107436-0d2b-5588-849d-6a35edfeb557")
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-PASS-RC0402FR-071KL")
+		(at 242.57 68.58 90)
+		(unit 1)
+		(body_style 1)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(exclude_from_sim no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fb894a4c-a934-4f36-81fc-dbadc5d06e8e")
+		(property "Reference" "R1602"
+			(at 242.57 59.086 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1k"
+			(at 242.57 62.896 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-PASS-RC0402FR-071KL"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_passives_r_1k_0402"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "1k 0402 resistor"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "passives"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "resistor"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "1k"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "Resistor_SMD:R_0402_1005Metric"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "0402"
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 242.57 68.58 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
 		)
 		(pin "1"
 			(uuid "57ea6f67-1b43-45fd-b275-6af852ab9f43")
 		)
+		(pin "2"
+			(uuid "7510fbc0-5c9a-465c-a3ea-3a7bafdfc8e1")
+		)
 		(instances
+			(project "design_block_mining_project"
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "R33002") (unit 1))
+			)
+			(project "limit_switch_debounced_input_vertical_layout"
+				(path "/ef34d2bd-7045-54ad-b8ef-f2225efb9aed/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "R33002") (unit 1))
+			)
 			(project "mouse-joystick-pcb"
 				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
 					(reference "R1602")
 					(unit 1)
 				)
 			)
+		)
+	)
+	(wire
+		(pts
+			(xy 236.22 68.58) (xy 233.68 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eacaa034-ad3a-5f7e-ab0f-20a851f6ec00")
+	)
+	(label "LIMIT_SW"
+		(at 233.68 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b7e4acd2-0f76-5bc8-9c52-97e5ce717b60")
+	)
+	(wire
+		(pts
+			(xy 248.92 68.58) (xy 251.46 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4199592f-f8c5-5867-8eef-547dd592e5e2")
+	)
+	(label "LIMIT_SW_INST"
+		(at 251.46 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "432109e4-3f72-56c2-a24f-1f6d9efddf67")
+	)
+	(symbol
+		(lib_id "orb_weaver_internal:All/OW-MISC-MAX6816EUS-T")
+		(at 35.56 119.38 0)
+		(unit 1)
+		(body_style 1)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(exclude_from_sim no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ed1d27a5-4fdc-4e73-a297-77a8487eb0d8")
+		(property "Reference" "U1601"
+			(at 35.56 88.959271 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MAX6816EUS+T"
+			(at 35.56 92.769271 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "orb_weaver_smd:SOT192P237X122-4N"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX6816-MAX6818.pdf"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Single CMOS switch debouncer, 2.7 V to 5.5 V, 50 ms typical debounce, internal 63 kΩ input pull-up, ±25 V tolerant input with ±15 kV ESD, push-pull output without Ioff, SOT143-4."
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "OW_PART" "OW-MISC-MAX6816EUS-T"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "PartID" "sym_orb_weaver_misc_max6816"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Name" "MAX6816 switch debouncer"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Group" "misc"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqType" "interface"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqValue" "MAX6816EUS+T"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqFootprint" "orb_weaver_smd:SOT192P237X122-4N"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPackage" "SOT-143"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinVoltage" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqMinCurrent" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqPower" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqTolerance" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqDielectric" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqProtocol" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqRole" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqExactMPN" "MAX6816EUS+T"
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ReqNotes" ""
+			(at 35.56 119.38 0)
+			(hide yes)
+			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "68809e8f-2beb-42c5-b7dd-eeb7fc73fc20")
+		)
+		(pin "2"
+			(uuid "0d8215d8-74ba-44aa-883c-7097b9a29ff0")
+		)
+		(pin "3"
+			(uuid "07f07585-1139-4522-a81a-6c1e9a8b0045")
+		)
+		(pin "4"
+			(uuid "572cedd9-8237-47f1-a397-7c5f1a8b38e1")
+		)
+		(instances
 			(project "design_block_mining_project"
-				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f"
-					(reference "R33002")
+				(path "/27d18e23-f39e-4b17-8d1a-a4f7fdc280ee/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "U33001") (unit 1))
+			)
+			(project "limit_switch_debounced_input_vertical_layout"
+				(path "/ef34d2bd-7045-54ad-b8ef-f2225efb9aed/d5885ee5-14fc-49fe-a6fe-0ff2215e014f" (reference "U33001") (unit 1))
+			)
+			(project "mouse-joystick-pcb"
+				(path "/004d6f75-7365-204a-6f79-737469636b00/80cd7232-94ab-41ea-965f-e2da584d580d/e0325974-8683-4600-ba1d-6577d3d476a7"
+					(reference "U1601")
 					(unit 1)
 				)
 			)
 		)
 	)
+	(wire
+		(pts
+			(xy 35.56 129.54) (xy 35.56 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3080a60d-3fa1-5e84-ad28-9dc674e57124")
+	)
+	(label "GND"
+		(at 35.56 132.08 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2870ebdb-6e06-5d1d-8a22-a5cb7d5a1447")
+	)
+	(wire
+		(pts
+			(xy 25.4 119.38) (xy 22.86 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fdf7590-a39d-5ee9-b742-567480b2ec3a")
+	)
+	(label "IN"
+		(at 22.86 119.38 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b8f76227-c94e-53aa-84da-602e10686fa7")
+	)
+	(wire
+		(pts
+			(xy 45.72 119.38) (xy 48.26 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0a58337-b774-5066-a28b-0b0eb314e776")
+	)
+	(label "LIMIT_SW"
+		(at 48.26 119.38 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6b2f3129-31a2-57e1-82e4-4d20eaac750d")
+	)
+	(wire
+		(pts
+			(xy 35.56 109.22) (xy 35.56 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4b295f7-7fcd-5d48-b505-2fb5bef6a492")
+	)
+	(label "+3.3V_SW"
+		(at 35.56 106.68 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "91590efe-c86b-5e08-8d14-9a4194d25892")
+	)
+	(hierarchical_label "+3.3V_SW"
+		(shape passive)
+		(at 439.42 43.18 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "24b3492c-1f5c-5d21-b3e5-118dae09c674")
+	)
+	(wire
+		(pts
+			(xy 439.42 43.18) (xy 441.96 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a4676273-da4d-5ef5-92f1-07f23fb85398")
+	)
+	(label "+3.3V_SW"
+		(at 441.96 43.18 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8ed0df95-5fae-58ac-b47a-77e397ad3a12")
+	)
+	(hierarchical_label "GND"
+		(shape passive)
+		(at 434.34 55.88 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "38eae518-5b4c-550f-9698-18f5d3db6211")
+	)
+	(wire
+		(pts
+			(xy 434.34 55.88) (xy 436.88 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "918ce313-6cb8-5720-9d85-9d467da3d645")
+	)
+	(label "GND"
+		(at 436.88 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0bc94d36-ebd5-5438-a727-ce5b573c9201")
+	)
+	(hierarchical_label "LIMIT_SW"
+		(shape output)
+		(at 436.88 68.58 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a4e794f8-bf4f-5e2f-9cdb-80b17b656b82")
+	)
+	(wire
+		(pts
+			(xy 436.88 68.58) (xy 439.42 68.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "209b4843-c27c-5f52-98e1-be01bdf1fcc6")
+	)
+	(label "LIMIT_SW"
+		(at 439.42 68.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "934b8cec-64b8-58ed-accb-4fd8714b935c")
+	)
+	(hierarchical_label "LIMIT_SW_INST"
+		(shape output)
+		(at 441.96 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c91cca25-beb7-5aa4-92b6-740aa4b114e4")
+	)
+	(wire
+		(pts
+			(xy 441.96 83.82) (xy 444.5 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40a740c0-01ed-53c6-8ffe-ffd054931a61")
+	)
+	(label "LIMIT_SW_INST"
+		(at 444.5 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "939ba411-2251-5e4f-8305-85d911e8b4f9")
+	)
+	(text "Debounced limit-switch input, vertical terminal | MAX6816, output pull-down, instrument tap" (at 15.24 15.24 0) (effects (font (size 2.54 2.54) (bold yes)) (justify left top)) (uuid "87ad8589-4209-5781-acdb-c7bbaf2f82ef"))
+	(text "Debounced limit-switch input with its own 2-position 3.5 mm VERTICAL, top-entry pluggable screw terminal — Phoenix MCV 1,5/2-G-3,5, OW-CONN-TBH-1X02-3P5-VERT, on the local orb_weaver_tht copy of the MCV footprint — plus a MAX6816 single switch debouncer and local Vcc decoupling." (at 15.24 21.082 0) (effects (font (size 1.5 1.5)) (justify left top)) (uuid "77b624bb-a971-5afa-b09d-db7099052ae1"))
+	(text "Matching net labels are connected. Group order explains function; PCB placement priorities are stated below." (at 15.24 26.322 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "09a647c3-203d-5ce4-8273-6e45a8d8ffc1"))
+	(polyline (pts (xy 15.24 36.482) (xy 211.88 36.482)) (stroke (width 0.254) (type default)) (fill (type none)) (uuid "15c9c593-fab7-5995-bd21-1f6c0146bc68"))
+	(text "1. Switch terminal and debouncer" (at 15.24 39.022 0) (effects (font (size 1.6 1.6) (bold yes)) (justify left top)) (uuid "6da381b1-8526-55b7-bdfd-6c527e0a0e9a"))
+	(text "${fb560492-07c1-40ba-abbe-6bac76e602ff:REFERENCE} brings the dry contact onto IN (pin 2) and GND (pin 1); ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE} debounces IN and drives LIMIT_SW from its push-pull OUT. ${877edc0d-8517-4bfb-9a8a-87ef2f65742a:REFERENCE} (100 nF) bypasses Vcc (pin 4) to GND (pin 1)." (at 15.24 43.172 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "edf556de-e36b-5c44-8992-fd545f8e10ed"))
+	(text "Switch debouncer" (at 20.32 142.924592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "b739062c-d679-5674-93d0-44ffc921cee5"))
+	(text "${877edc0d-8517-4bfb-9a8a-87ef2f65742a:REFERENCE}: Vcc bypass for ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE}" (at 20.32 145.464592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "227cee12-b1d9-5886-8190-979d23e0764a"))
+	(text "${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE}: Output pull-down for the unpowered state" (at 20.32 148.004592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "53f44c71-b88e-55ca-bb05-677e518a3e22"))
+	(text "Vertical switch terminal, pin 1" (at 20.32 178.238592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "48b5b603-41e6-5809-bacf-26012e6bda90"))
+	(text "GND, pin 2 IN" (at 20.32 180.778592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "1a610c75-202f-566e-b6a8-9e40d7d86085"))
+	(text "PLACE: Keep ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE} next to ${fb560492-07c1-40ba-abbe-6bac76e602ff:REFERENCE} so IN stays short; nothing else connects to IN. Leave the 4.75 mm inboard keepout of the vertical terminal free, and give the enclosure an aperture" (at 15.24 185.858592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "31fa7b85-e705-5367-a35b-24cb13a7a7cd"))
+	(text "above it for the plug, the screw head and the wire loop." (at 15.24 188.398592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "603a35ca-98ac-5c7c-84c3-7d66943a6d57"))
+	(text "PLACE: Place ${877edc0d-8517-4bfb-9a8a-87ef2f65742a:REFERENCE} hard against pin 4 with a short return to pin 1." (at 15.24 192.208592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "d207cac3-0d70-558b-95d3-7cf6fc577517"))
+	(text "ROUTE: The LIMIT_SW and GND runs share the corridor bounded by the IN pad on 0.5 mm centres: every track in the block is 0.3 mm, which leaves the LIMIT_SW-to-GND gap at exactly the" (at 15.24 196.018592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "47a5d34e-9e6a-54eb-b341-960ddf9ad862"))
+	(text "0.200 mm netclass rule. Move a run before widening it and re-run DRC after any change here." (at 15.24 198.558592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "112cf70e-3564-595f-8b82-bda1a0802416"))
+	(text "ROUTE: +3.3V_SW has no reference-project class here (Default); the placing board classes the switched rail." (at 15.24 202.368592 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "490a8fc6-172d-53e9-8c42-2c6566189139"))
+	(polyline (pts (xy 219.5 36.482) (xy 399.5 36.482)) (stroke (width 0.254) (type default)) (fill (type none)) (uuid "640a0964-c610-5132-84b3-ddafc89fbf6b"))
+	(text "2. Output pull-down and instrument tap" (at 219.5 39.022 0) (effects (font (size 1.6 1.6) (bold yes)) (justify left top)) (uuid "bb02d968-8c6d-5db7-89aa-f08cac4eb59e"))
+	(text "${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE} (100 k) holds LIMIT_SW low while the debouncer is unpowered; ${fb894a4c-a934-4f36-81fc-dbadc5d06e8e:REFERENCE} (1 k) is the series tap from LIMIT_SW to LIMIT_SW_INST." (at 219.5 43.172 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "40a72f7e-7147-518d-af2e-bbac3b6485f0"))
+	(text "Instrument tap series resistor" (at 224.58 73.406 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "2032771d-3046-54fc-8b40-7fcd98267d4c"))
+	(text "PLACE: ${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE} sits above ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE} with its LIMIT_SW pad on the OUT side, so LIMIT_SW and GND never need to cross; ${fb894a4c-a934-4f36-81fc-dbadc5d06e8e:REFERENCE} goes where LIMIT_SW leaves toward the" (at 219.5 78.486 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "04d10a9f-6c05-5b1b-a10c-a95c71706233"))
+	(text "instrument port." (at 219.5 81.026 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "5de22ce2-dd1b-5b06-8a34-e14d9182d1c9"))
+	(text "ROUTE: LIMIT_SW and LIMIT_SW_INST leave through vias (port copper); LIMIT_SW_INST carries the INSTRUMENT class." (at 219.5 84.836 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "8a14d134-f0c4-589d-a865-3e353951eb68"))
+	(text "INTERFACES" (at 423.76 36.482 0) (effects (font (size 1.6 1.6) (bold yes)) (justify left top)) (uuid "b740525a-4c54-53ff-b3f9-69a7fbd118db"))
+	(text "Debouncer supply, 2.7 to 5.5 V; bind it to the switched domain of whatever LIMIT_SW drives, so the debouncer cannot back-power a powered-down" (at 423.76 46.99 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "6c93435b-42ed-501e-97cc-c7da14d91b13"))
+	(text "consumer through OUT." (at 423.76 49.53 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "03f6c7de-22fc-5b87-8909-8329e62ac6ae"))
+	(text "Return; terminal pin 1 (the switch's other side), the Vcc bypass and the output pull-down." (at 423.76 59.69 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "8c01f10a-fa2f-59a3-bae0-7c41ae63df4d"))
+	(text "Debounced switch state, active low on contact closure and about 50 ms late; push-pull at Vcc levels while powered, held low by ${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE} when" (at 423.76 72.39 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "aef2de75-2f16-5558-a718-c82342c38f7c"))
+	(text "+3.3V_SW is off." (at 423.76 74.93 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "181aa209-5c11-5be3-b2b2-96d692b3e3be"))
+	(text "Instrument tap of LIMIT_SW through ${fb894a4c-a934-4f36-81fc-dbadc5d06e8e:REFERENCE} (1 k), INSTRUMENT class; reads asserted while the switched rail is off." (at 423.76 87.63 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "f01e8a87-321b-561c-a9a9-59aa5dd243c1"))
+	(polyline (pts (xy 423.76 102.87) (xy 578.76 102.87)) (stroke (width 0.254) (type default)) (fill (type none)) (uuid "4b58c56d-f5b1-598b-9b5e-9f46c08ce14b"))
+	(text "OPERATION" (at 423.76 105.41 0) (effects (font (size 1.6 1.6) (bold yes)) (justify left top)) (uuid "c2bb8f0c-cbfa-530a-8d41-57efb02217f2"))
+	(text "Signal path: ${fb560492-07c1-40ba-abbe-6bac76e602ff:REFERENCE} pin 2 -> IN -> ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE} IN (pin 2) -> OUT (pin 3) -> LIMIT_SW, tapped through ${fb894a4c-a934-4f36-81fc-dbadc5d06e8e:REFERENCE} to LIMIT_SW_INST; ${fb560492-07c1-40ba-abbe-6bac76e602ff:REFERENCE} pin 1 is" (at 423.76 109.56 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "5b524a0e-5a50-5ccd-a720-7b1da61c3e0e"))
+	(text "GND. A closed contact pulls IN low; OUT follows IN non-inverting after the debounce (20 to 80 ms, 50 ms typical), so LIMIT_SW is active low and" (at 423.76 112.1 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "cb5b00bb-8901-5cbf-9d69-da924985df44"))
+	(text "asserts late: bound the homing approach velocity." (at 423.76 114.64 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "ddfbadfa-657e-5986-85ae-ed05f05b098c"))
+	(text "IN is complete inside ${ed1d27a5-4fdc-4e73-a297-77a8487eb0d8:REFERENCE}: internal pull-up 63 k typical, -25 to +25 V range, +/-15 kV air-gap ESD. No external pull-up, series resistor or" (at 423.76 118.45 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "7150c283-b508-534e-a964-3346bd8dff45"))
+	(text "capacitor on IN; a capacitor fights the debounce and degrades the ESD rating." (at 423.76 120.99 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "5a413e2c-143b-5ebf-8dde-07d9913c09d8"))
+	(text "Supply 2.7 to 5.5 V at 6 uA typical (UVLO 1.9 to 2.6 V). ${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE} (100 k) defines LIMIT_SW low while +3.3V_SW is off, since the MAX6816 has no Ioff;" (at 423.76 124.8 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3c2adf2f-54b3-599d-b1f6-d476053fc2e8"))
+	(text "the net idles high with a normally-open contact (about 33 uA at 3.3 V), so a capture on LIMIT_SW_INST reads asserted whenever the switched rail is" (at 423.76 127.34 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "877c4b8b-c762-5afa-97e1-7894b6daef7d"))
+	(text "off." (at 423.76 129.88 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "c1e76b1e-fd31-58be-88ed-9b7c311a8864"))
+	(text "Same circuit as limit_switch_debounced_input plus the tap. ${fb560492-07c1-40ba-abbe-6bac76e602ff:REFERENCE} (Phoenix MCV 1,5/2-G-3,5) is pad-identical to the horizontal MC 1,5 but" (at 423.76 133.69 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "2c6ef056-758b-5f29-a919-d5d1eea52b40"))
+	(text "anchored on pin 1, with a 4.75 mm inboard courtyard and the wire leaving perpendicular to the board. Never rotate it 180 degrees to face outboard:" (at 423.76 136.23 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "44a73ff0-d93c-5cca-8375-69a3480b5584"))
+	(text "that swaps GND and the switch node in board space." (at 423.76 138.77 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "794a6ad8-8739-588b-9703-bfba9194177a"))
+	(polyline (pts (xy 423.76 150.2) (xy 578.76 150.2)) (stroke (width 0.254) (type default)) (fill (type none)) (uuid "54724404-d1ad-5824-83ad-d2a461268f5b"))
+	(text "DESIGN CONTRACT" (at 423.76 152.74 0) (effects (font (size 1.6 1.6) (bold yes)) (justify left top)) (uuid "74e365ed-f92e-591d-93ba-1fa306013fa2"))
+	(text "Debounced limit-switch input with its own 2-position 3.5 mm VERTICAL, top-entry pluggable screw terminal — Phoenix MCV 1,5/2-G-3,5," (at 423.76 156.89 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "cddcc864-8fca-587a-a396-d04df4d50fb6"))
+	(text "OW-CONN-TBH-1X02-3P5-VERT, on the local orb_weaver_tht copy of the MCV footprint — plus a MAX6816 single switch debouncer and local Vcc" (at 423.76 159.43 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "4add9f7f-71e7-5b23-a7e3-277826dd8fc8"))
+	(text "decoupling. Four parts: nothing external belongs on the IN side, because the MAX6816 supplies its own IN pull-up and +/-15 kV ESD protection and" (at 423.76 161.97 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "1d84c9ae-8929-53eb-95c8-27514b6a41b0"))
+	(text "needs no external pull-up, series resistor, or input capacitor — the fourth part is a 100 kohm pull-down on the OUTPUT, doing an unrelated job." (at 423.76 164.51 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3e567156-3363-5571-9abc-00cd61e75ccc"))
+	(text "Electrically identical to the horizontal limit_switch_debounced_input block, port for port and part for part including the pull-down: +3.3V_SW, GND," (at 423.76 167.05 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "58c73c39-d65f-5059-bc8f-c637cce0cf1f"))
+	(text "LIMIT_SW." (at 423.76 169.59 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "b72fe2bb-27f4-5e16-9c8f-e4cf3832ca73"))
+	(text "Connect a dry-contact mechanical switch across the terminal; pin 1 is GND, pin 2 is the switch node, and the contact is polarity-agnostic. OUT" (at 423.76 172.13 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "f08d39ef-1f8e-59e1-871f-02d1a616a8cb"))
+	(text "follows IN non-inverting after roughly 50 ms of debounce, so LIMIT_SW is ACTIVE LOW on switch closure and asserts ~50 ms late — bound homing" (at 423.76 174.67 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "1a006328-a47f-51da-ab3d-8f67454786a0"))
+	(text "approach velocity so that delay cannot overshoot the mechanical stop." (at 423.76 177.21 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "b5ebd625-8b69-508e-a079-8ceb86130a47"))
+	(text "Supply +3.3V from the SWITCHED power domain on any board where LIMIT_SW drives a chip that can be powered down: if the debouncer stays alive" (at 423.76 179.75 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "99ae5ba2-2cc5-51fd-a896-83911d5fe7b9"))
+	(text "while its consumer does not, OUT back-powers that chip through its input pin, by a route a GPIO bus switch cannot cover. On mouse-joystick-pcb" (at 423.76 182.29 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "288b69f9-b4a8-5a42-a9ef-125c5c6db324"))
+	(text "that means +3V3_SW, and LIMIT_SW fans out to the TMC5130A REFL pin and to an always-on instrumentation buffer — it reaches no MCU GPIO in any" (at 423.76 184.83 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "99387886-dbdd-5f2b-93c8-fcf583c624c7"))
+	(text "revision, decided 2026-08-16, so nothing downstream defines this net either." (at 423.76 187.37 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3724df80-c67e-5340-bca1-a17aae1b11bd"))
+	(text "${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE}, 100 kohm from LIMIT_SW to GND (OW-PASS-RC0402JR-07100KL, LCSC C106234), is what defines it while that domain is down, and it is" (at 423.76 189.91 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "5f022e95-d61a-59f3-af3a-ba4e10562b08"))
+	(text "REQUIRED, not optional: THE MAX6816 HAS NO Ioff. With Vcc at 0 V its push-pull OUT is undefined, and a board that taps LIMIT_SW for instrumentation" (at 423.76 192.45 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "d09ca199-9f9c-5743-b6f6-d98d6efe8dc8"))
+	(text "must put the tap buffer on the ALWAYS-ON rail — a buffer on the switched rail cannot observe the domain it is powering down with — so without this" (at 423.76 194.99 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3015bd11-46a3-5383-ad4a-418214d5f7cf"))
+	(text "resistor a live, non-Schmitt CMOS input sees a floating source every time the switched domain is cycled, which on that board is the normal reset" (at 423.76 197.53 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "66f9f2bb-fdfd-52e4-a66c-6a12781c46c0"))
+	(text "path. IT BELONGS IN THE BLOCK, NOT AT BOARD LEVEL, and that does not contradict the usual rule: that rule exists because a net shared between two" (at 423.76 200.07 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3b98be17-1651-5763-9209-ded679ce3ae1"))
+	(text "instances of one block gets its pull halved, and LIMIT_SW is point-to-point inside a single instance — place this block twice and you get two" (at 423.76 202.61 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "8fa059aa-d138-5aef-86ac-5904d54cda3f"))
+	(text "switches, two debouncers and two independent LIMIT_SW nets, each with its own pull-down. The same call is already made in" (at 423.76 205.15 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "52710c99-a903-5391-b369-796e033f2dd4"))
+	(text "quadrature_encoder_input_5v_sn74lvc2g17, whose R30005/R30006 cover Ioff high-Z on that block's outputs for exactly this reason; the case here is" (at 423.76 207.69 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "c8494346-b3f7-5bfe-933c-990bb0e86b32"))
+	(text "stronger, because the SN74LVC2G17 has Ioff and the MAX6816 does not." (at 423.76 210.23 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "f6d1ea19-99ea-57f3-9ec5-cf4c469f0856"))
+	(text "100 kohm AND NOT 10 kohm: this net idles HIGH, since a normally-open contact plus the internal IN pull-up puts OUT high whenever the axis is away" (at 423.76 212.77 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "6c5744cf-c2f7-5eef-8c6c-0d062260f310"))
+	(text "from the limit, so the pull-down conducts continuously in the normal state — 33 uA at 100 kohm against 330 uA at 10 kohm — and 100 kohm" (at 423.76 215.31 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "30ba381e-f988-52a3-8901-eff22165539f"))
+	(text "spends no meaningful VOH margin either." (at 423.76 217.85 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "8029ceb5-db24-5120-bb67-135abb8891a0"))
+	(text "KNOW THE POLARITY CONSEQUENCE BEFORE TRUSTING A CAPTURE: LIMIT_SW is active low, so this resistor makes an instrument tap read ASSERTED, limit" (at 423.76 220.39 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "a7d5013a-3d70-5a07-9631-78a050a01b82"))
+	(text "reached, whenever the switched rail is off. Defined-but-untrue is the deliberate trade against floating, and the analysis layer must gate the channel" (at 423.76 222.93 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "7eaeb040-4830-5700-b11e-2b88d35b0202"))
+	(text "on rail state. A pull-up is not an alternative — it would have to reference the switched rail, which is at 0 V exactly when it would be needed." (at 423.76 225.47 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "1b9f632e-190c-529f-87ae-00061d468a19"))
+	(text "Bring REFL to a labelled test pad at board level so a jumper can force a closure during bring-up. Add no capacitor on IN — it fights the debounce" (at 423.76 228.01 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "395c353f-e9b0-52bd-9ea7-260687efd334"))
+	(text "and degrades the ESD rating. Keep the decoupling hard against Vcc." (at 423.76 230.55 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "d5a054aa-8cd7-50a4-aecc-7280d2dd21c4"))
+	(text "ROUTING THE PULL-DOWN IS TIGHT, AND IT IS AT THE LIMIT: ${1a5dbbac-981b-4337-8c39-817e15b42b3f:REFERENCE} sits above the MAX6816 with its LIMIT_SW pad on the same side as the IC's OUT" (at 423.76 233.09 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "6f767ee4-b505-5928-a49d-49f94cb489a0"))
+	(text "pin, so the two nets never need to cross — but they share a corridor bounded by the IN pad and sit on 0.5 mm centres. EVERY TRACK IN THIS BLOCK" (at 423.76 235.63 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "7f0b5847-411c-5ad9-a6a8-a223a9cbf76c"))
+	(text "IS THEREFORE 0.3 mm, not the 0.4 mm it was authored at, which puts the LIMIT_SW-to-GND gap at exactly 0.200 mm against a 0.200 mm netclass" (at 423.76 238.17 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "fb340e65-727b-5e3b-99b7-116a3bb9dd03"))
+	(text "rule and the GND-to-IN-pad gap at 0.225 mm: DRC-clean with ZERO MARGIN on the first of those. Do not widen either run without moving it first —" (at 423.76 240.71 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "035026b3-c2ad-524d-8b69-d99beba12863"))
+	(text "0.4 mm on these centres is a 0.100 mm gap, which sits exactly on the JLCPCB routine copper floor in .kicad_dru and errors under any 0.2 mm" (at 423.76 243.25 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "d025f0d0-a7c9-538d-bd76-6b942cc3646b"))
+	(text "netclass. There is room to move: the LIMIT_SW column can go about 0.5 mm further from GND, straight up out of OUT. Re-run DRC after any change" (at 423.76 245.79 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "a2ba90e1-d5ab-50e3-bc48-68caedc1bf3c"))
+	(text "here, because design_block_tools.py check counts only unconnected items and is blind to a clearance error." (at 423.76 248.33 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "3e4f9b13-d453-54e5-984a-af9005545a3c"))
+	(text "THIS BLOCK IS A FORK BY CHOICE, NOT BY GEOMETRY. Unlike usb2_vertical and pycontrol_behavior_port_rj45_boundary_vertical, whose land patterns are" (at 423.76 250.87 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "1183e4bc-8337-5e72-bc6e-a8db178b9ec2"))
+	(text "unrelated to their horizontal counterparts, this footprint is pad-identical to the horizontal MC 1,5/2-G-3,5: both are 1.8 x 3.6 mm pads on a 1.2 mm" (at 423.76 253.41 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "89bd1e78-dabc-5d9e-973f-3b3c6a00024c"))
+	(text "drill at 3.50 mm pitch, pin order ascending in +x. The copper is a drop-in; only the footprint ANCHOR moves, because the horizontal is centred on" (at 423.76 255.95 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "2034e683-d1dc-579c-92c9-3d4664f40329"))
+	(text "the pad array with pin 1 at (-1.75, 0) while the vertical puts pin 1 at the origin. Migrating an existing placement therefore means changing the part" (at 423.76 258.49 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "193c5d42-6024-5a93-a6fb-c610217b5406"))
+	(text "and then MOVING THE FOOTPRINT BY (-1.75, 0) so pad 1 returns to its old absolute position; skip that and the whole connector translates by 1.75" (at 423.76 261.03 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "9a50ffd5-921d-53d5-a017-91ac1847d8cb"))
+	(text "mm and drags every attached track with it. The two parts are genuinely interchangeable at the catalog level and belong to equiv_group" (at 423.76 263.57 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "f61b60c6-27a1-512c-b62f-f52f4be4864d"))
+	(text "conn-tbh-1x02-3p5, which docs/connector-orientation-plan.md specifies but which is not yet populated on any row — treat it as owed. Because the" (at 423.76 266.11 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "da344b97-5747-5dea-b249-de5a4ccc592a"))
+	(text "pads are identical, the two layouts stay transferable in either direction once the connector is shifted by (-1.75, 0)." (at 423.76 268.65 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "20933b07-23fd-567e-8df7-8798ca0ecec5"))
+	(text "What actually changes is the mechanical envelope, and it inverts. Relative to pad 1 the horizontal courtyard runs x -2.45 to +5.95, y -2.00 to +8.25;" (at 423.76 271.19 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "f1de9e88-b179-5096-8638-6f64009b0fbe"))
+	(text "the vertical runs x -2.95 to +6.45, y -4.75 to +3.50. The outboard overhang collapses from 8.25 mm to 3.50 mm, so the terminal can move inboard" (at 423.76 273.73 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "9aabf1f6-29f6-59ea-a73f-a48bbe331c1d"))
+	(text "and the board outline notes change — but the INBOARD KEEPOUT GROWS from 2.00 mm to 4.75 mm, so a swap in place can collide with whatever sits" (at 423.76 276.27 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "bcf68739-481f-523a-9cb4-6ba1d88bafcd"))
+	(text "behind the connector even though no pad moved. DO NOT ROTATE 180 DEGREES to make the wire entry face outboard: pin order runs the same" (at 423.76 278.81 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "c9957fbe-4e7e-58dd-8ed0-806e806a9caa"))
+	(text "direction in both footprints, and rotating reverses it in board space, silently swapping GND and the switch node. The wire now leaves perpendicular to" (at 423.76 281.35 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "ffa4b32a-414a-55f0-866b-db698abbe1a7"))
+	(text "the board, so the enclosure in ../mouse-joysticks-mech needs an aperture above the terminal plus clearance for the screw head, the mating plug," (at 423.76 283.89 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "4612e08d-79cd-5eef-9cd0-0cfa2986496c"))
+	(text "and the wire loop." (at 423.76 286.43 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "64bf62fa-b526-5384-8bf7-0f5736b0cf03"))
+	(text "Project-local pending bench verification; promotable once a second board uses it." (at 423.76 288.97 0) (effects (font (size 1.27 1.27)) (justify left top)) (uuid "217a36b2-12b7-5325-a949-c37c2e5743b6"))
+	(group "Review page 01: 1. Switch terminal and debouncer" (uuid "9b0cf95f-51e9-5f18-a103-91534e9538dc") (members "877edc0d-8517-4bfb-9a8a-87ef2f65742a" "0e2bb513-e56d-5c80-904b-83c90045fecb" "6e733d23-d811-5766-9018-c9f458eb416d" "d0a1154c-7106-583f-8fdb-d0be56960584" "b8084bf6-4717-5ba0-ab12-6a542be0a304" "fb560492-07c1-40ba-abbe-6bac76e602ff" "2d6c55ba-eba8-51d9-a3c3-4219d79e8c44" "83e4bcec-370a-5bf0-8521-d4ae24b76274" "630013f6-cf18-51f7-a984-1afaa8988b16" "87080ebf-6335-51d9-94d4-67f8f6011bb5" "1a5dbbac-981b-4337-8c39-817e15b42b3f" "d1f9ded9-a43e-595f-8c42-a09450ce3cef" "82eb9393-376c-5fc6-926d-ee857f125599" "895bb29f-b8ac-5c7d-b841-30805280952e" "9e107436-0d2b-5588-849d-6a35edfeb557" "ed1d27a5-4fdc-4e73-a297-77a8487eb0d8" "3080a60d-3fa1-5e84-ad28-9dc674e57124" "2870ebdb-6e06-5d1d-8a22-a5cb7d5a1447" "9fdf7590-a39d-5ee9-b742-567480b2ec3a" "b8f76227-c94e-53aa-84da-602e10686fa7" "b0a58337-b774-5066-a28b-0b0eb314e776" "6b2f3129-31a2-57e1-82e4-4d20eaac750d" "d4b295f7-7fcd-5d48-b505-2fb5bef6a492" "91590efe-c86b-5e08-8d14-9a4194d25892" "15c9c593-fab7-5995-bd21-1f6c0146bc68" "6da381b1-8526-55b7-bdfd-6c527e0a0e9a" "edf556de-e36b-5c44-8992-fd545f8e10ed" "b739062c-d679-5674-93d0-44ffc921cee5" "227cee12-b1d9-5886-8190-979d23e0764a" "53f44c71-b88e-55ca-bb05-677e518a3e22" "48b5b603-41e6-5809-bacf-26012e6bda90" "1a610c75-202f-566e-b6a8-9e40d7d86085" "31fa7b85-e705-5367-a35b-24cb13a7a7cd" "603a35ca-98ac-5c7c-84c3-7d66943a6d57" "d207cac3-0d70-558b-95d3-7cf6fc577517" "47a5d34e-9e6a-54eb-b341-960ddf9ad862" "112cf70e-3564-595f-8b82-bda1a0802416" "490a8fc6-172d-53e9-8c42-2c6566189139"))
+	(group "Review page 02: 2. Output pull-down and instrument tap" (uuid "ec45625c-338e-58a4-a6d8-49706b6a4523") (members "fb894a4c-a934-4f36-81fc-dbadc5d06e8e" "eacaa034-ad3a-5f7e-ab0f-20a851f6ec00" "b7e4acd2-0f76-5bc8-9c52-97e5ce717b60" "4199592f-f8c5-5867-8eef-547dd592e5e2" "432109e4-3f72-56c2-a24f-1f6d9efddf67" "640a0964-c610-5132-84b3-ddafc89fbf6b" "bb02d968-8c6d-5db7-89aa-f08cac4eb59e" "40a72f7e-7147-518d-af2e-bbac3b6485f0" "2032771d-3046-54fc-8b40-7fcd98267d4c" "04d10a9f-6c05-5b1b-a10c-a95c71706233" "5de22ce2-dd1b-5b06-8a34-e14d9182d1c9" "8a14d134-f0c4-589d-a865-3e353951eb68"))
+	(group "Review page 03: Interfaces" (uuid "c2b9e9ea-27c0-53cd-8ac7-6b1b1ffedb7f") (members "24b3492c-1f5c-5d21-b3e5-118dae09c674" "a4676273-da4d-5ef5-92f1-07f23fb85398" "8ed0df95-5fae-58ac-b47a-77e397ad3a12" "38eae518-5b4c-550f-9698-18f5d3db6211" "918ce313-6cb8-5720-9d85-9d467da3d645" "0bc94d36-ebd5-5438-a727-ce5b573c9201" "a4e794f8-bf4f-5e2f-9cdb-80b17b656b82" "209b4843-c27c-5f52-98e1-be01bdf1fcc6" "934b8cec-64b8-58ed-accb-4fd8714b935c" "c91cca25-beb7-5aa4-92b6-740aa4b114e4" "40a740c0-01ed-53c6-8ffe-ffd054931a61" "939ba411-2251-5e4f-8305-85d911e8b4f9" "b740525a-4c54-53ff-b3f9-69a7fbd118db" "6c93435b-42ed-501e-97cc-c7da14d91b13" "03f6c7de-22fc-5b87-8909-8329e62ac6ae" "8c01f10a-fa2f-59a3-bae0-7c41ae63df4d" "aef2de75-2f16-5558-a718-c82342c38f7c" "181aa209-5c11-5be3-b2b2-96d692b3e3be" "f01e8a87-321b-561c-a9a9-59aa5dd243c1"))
+	(group "Review page 04: Operation and PCB guidance" (uuid "ae60211e-2989-5d6f-8992-5d6aa0c49d71") (members "4b58c56d-f5b1-598b-9b5e-9f46c08ce14b" "c2bb8f0c-cbfa-530a-8d41-57efb02217f2" "5b524a0e-5a50-5ccd-a720-7b1da61c3e0e" "cb5b00bb-8901-5cbf-9d69-da924985df44" "ddfbadfa-657e-5986-85ae-ed05f05b098c" "7150c283-b508-534e-a964-3346bd8dff45" "5a413e2c-143b-5ebf-8dde-07d9913c09d8" "3c2adf2f-54b3-599d-b1f6-d476053fc2e8" "877c4b8b-c762-5afa-97e1-7894b6daef7d" "c1e76b1e-fd31-58be-88ed-9b7c311a8864" "2c6ef056-758b-5f29-a919-d5d1eea52b40" "44a73ff0-d93c-5cca-8375-69a3480b5584" "794a6ad8-8739-588b-9703-bfba9194177a" "54724404-d1ad-5824-83ad-d2a461268f5b" "74e365ed-f92e-591d-93ba-1fa306013fa2" "cddcc864-8fca-587a-a396-d04df4d50fb6" "4add9f7f-71e7-5b23-a7e3-277826dd8fc8" "1d84c9ae-8929-53eb-95c8-27514b6a41b0" "3e567156-3363-5571-9abc-00cd61e75ccc" "58c73c39-d65f-5059-bc8f-c637cce0cf1f" "b72fe2bb-27f4-5e16-9c8f-e4cf3832ca73" "f08d39ef-1f8e-59e1-871f-02d1a616a8cb" "1a006328-a47f-51da-ab3d-8f67454786a0" "b5ebd625-8b69-508e-a079-8ceb86130a47" "99ae5ba2-2cc5-51fd-a896-83911d5fe7b9" "288b69f9-b4a8-5a42-a9ef-125c5c6db324" "99387886-dbdd-5f2b-93c8-fcf583c624c7" "3724df80-c67e-5340-bca1-a17aae1b11bd" "5f022e95-d61a-59f3-af3a-ba4e10562b08" "d09ca199-9f9c-5743-b6f6-d98d6efe8dc8" "3015bd11-46a3-5383-ad4a-418214d5f7cf" "66f9f2bb-fdfd-52e4-a66c-6a12781c46c0" "3b98be17-1651-5763-9209-ded679ce3ae1" "8fa059aa-d138-5aef-86ac-5904d54cda3f" "52710c99-a903-5391-b369-796e033f2dd4" "c8494346-b3f7-5bfe-933c-990bb0e86b32" "f6d1ea19-99ea-57f3-9ec5-cf4c469f0856" "6c5744cf-c2f7-5eef-8c6c-0d062260f310" "30ba381e-f988-52a3-8901-eff22165539f" "8029ceb5-db24-5120-bb67-135abb8891a0" "a7d5013a-3d70-5a07-9631-78a050a01b82" "7eaeb040-4830-5700-b11e-2b88d35b0202" "1b9f632e-190c-529f-87ae-00061d468a19" "395c353f-e9b0-52bd-9ea7-260687efd334" "d5a054aa-8cd7-50a4-aecc-7280d2dd21c4" "6f767ee4-b505-5928-a49d-49f94cb489a0" "7f0b5847-411c-5ad9-a6a8-a223a9cbf76c" "fb340e65-727b-5e3b-99b7-116a3bb9dd03" "035026b3-c2ad-524d-8b69-d99beba12863" "d025f0d0-a7c9-538d-bd76-6b942cc3646b" "a2ba90e1-d5ab-50e3-bc48-68caedc1bf3c" "3e4f9b13-d453-54e5-984a-af9005545a3c" "1183e4bc-8337-5e72-bc6e-a8db178b9ec2" "89bd1e78-dabc-5d9e-973f-3b3c6a00024c" "2034e683-d1dc-579c-92c9-3d4664f40329" "193c5d42-6024-5a93-a6fb-c610217b5406" "9a50ffd5-921d-53d5-a017-91ac1847d8cb" "f61b60c6-27a1-512c-b62f-f52f4be4864d" "da344b97-5747-5dea-b249-de5a4ccc592a" "20933b07-23fd-567e-8df7-8798ca0ecec5" "f1de9e88-b179-5096-8638-6f64009b0fbe" "9aabf1f6-29f6-59ea-a73f-a48bbe331c1d" "bcf68739-481f-523a-9cb4-6ba1d88bafcd" "c9957fbe-4e7e-58dd-8ed0-806e806a9caa" "ffa4b32a-414a-55f0-866b-db698abbe1a7" "4612e08d-79cd-5eef-9cd0-0cfa2986496c" "64bf62fa-b526-5384-8bf7-0f5736b0cf03" "217a36b2-12b7-5325-a949-c37c2e5743b6"))
+	(embedded_fonts no)
 )

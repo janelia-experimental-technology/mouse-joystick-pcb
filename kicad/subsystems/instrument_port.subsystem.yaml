@@ -1,6 +1,12 @@
 schema: orb-weaver/subsystem/1
 name: instrument_port
-summary: instrument_port as drawn on mouse-joystick-pcb, 0 parts
+summary: 'The InstrumentPort-Digital-50 DUT boundary on a sheet of its own: every instrument tap and firmware marker the board
+  exposes, renamed at the boundary from the DUT block''s DIG channel names to the board''s _INST nets; no parts of its own.'
+notes:
+- The channel order and grouping follow docs/interface-map.md, InstrumentPort-Digital-50 Pinout; the DUT block's DIG channels
+  are read-only buffers, so a tap loads its net with one CMOS input and nothing on the instrument side can drive the board.
+- Shared bus lines (the TMC SPI, the DAC I2C) are tapped once, by the board, in the sheet that owns the pull; a block's own
+  signals carry their _INST tap inside the block (layout convention 14).
 source:
   board: mouse-joystick-pcb
   sheet: instrument_port.kicad_sch

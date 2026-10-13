@@ -1,0 +1,401 @@
+{
+ "schema": "orb-weaver/compose-record/1",
+ "created": {},
+ "refreshed": [
+  {
+   "instance": "instrument_port_digital_50_dut_ffc_boundary_vertical",
+   "from": "orb_weaver_private:instrument_port_digital_50_dut_ffc_boundary_vertical",
+   "to": "orb_weaver_private:instrument_port_digital_50_dut_ffc_boundary_vertical",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 46,
+    "gr_text": 1,
+    "segment": 249,
+    "via": 25
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 46,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "rp2040_with_gpio_isolation_sn74cb3q3245",
+   "from": "orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245",
+   "to": "orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 35,
+    "gr_text": 3,
+    "segment": 450,
+    "via": 49
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 35,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "5v_to_3v3_tps73733_1",
+   "from": "orb_weaver_private:5v_to_3v3_tps73733",
+   "to": "orb_weaver_private:5v_to_3v3_tps73733",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 3,
+    "gr_text": 2,
+    "segment": 12
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 3,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "pycontrol_behavior_port_rj45_boundary_vertical",
+   "from": "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical",
+   "to": "orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 9,
+    "segment": 30,
+    "via": 6
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 9,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "5v_to_3v3_tps73733_2",
+   "from": "orb_weaver_private:5v_to_3v3_tps73733",
+   "to": "orb_weaver_private:5v_to_3v3_tps73733",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 3,
+    "gr_text": 2,
+    "segment": 12
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 0,
+   "footprints_kept_by_part": 3,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "usb2_vertical",
+   "from": "orb_weaver_private:usb2_vertical",
+   "to": "orb_weaver_private:usb2_vertical",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 6,
+    "segment": 49,
+    "via": 8
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 6,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "analog_output_0_3v3_dac80501",
+   "from": "orb_weaver_private:analog_output_0_3v3_dac80501",
+   "to": "orb_weaver_private:analog_output_0_3v3_dac80501",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 28,
+    "gr_text": 1,
+    "segment": 119,
+    "via": 2
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 28,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "quadrature_encoder_input_5v_sn74lvc2g17",
+   "from": "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17",
+   "to": "orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 14,
+    "segment": 59,
+    "via": 9
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 14,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "limit_switch_debounced_input_vertical",
+   "from": "orb_weaver_private:limit_switch_debounced_input_vertical",
+   "to": "orb_weaver_private:limit_switch_debounced_input_vertical",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 5,
+    "segment": 17,
+    "via": 2
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 5,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "torque_bridge_0_3v3_ina821",
+   "from": "orb_weaver_private:torque_bridge_0_3v3_ina821",
+   "to": "orb_weaver_private:torque_bridge_0_3v3_ina821",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 63,
+    "gr_text": 6,
+    "segment": 275,
+    "via": 17
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 63,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "brake_current_sink_0_49ma_dac80501",
+   "from": "orb_weaver_private:brake_current_sink_0_49ma_dac80501",
+   "to": "orb_weaver_private:brake_current_sink_0_49ma_dac80501",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 54,
+    "gr_text": 1,
+    "segment": 250,
+    "via": 19
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 54,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "hv_input_36V_terminal_2pos_5p08_protected_vertical",
+   "from": "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical",
+   "to": "orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 18,
+    "gr_text": 2,
+    "segment": 61,
+    "via": 6
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 18,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "tmc5130",
+   "from": "orb_weaver_private:tmc5130",
+   "to": "orb_weaver_tmc5130:tmc5130_spi_r150",
+   "date": "2026-10-13",
+   "removed_ports": [],
+   "added_ports": [],
+   "renamed": {},
+   "new_items": {
+    "footprint": 27,
+    "segment": 159,
+    "via": 29
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 25,
+   "footprints_kept_by_part": 2,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "hv_to_5v_tpsm365r6",
+   "from": "orb_weaver_private:hv_to_5v_tpsm365r6",
+   "to": "orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v",
+   "date": "2026-10-13",
+   "removed_ports": [
+    "+5V"
+   ],
+   "added_ports": [
+    "VOUT"
+   ],
+   "renamed": {
+    "+5V": "VOUT"
+   },
+   "new_items": {
+    "footprint": 9,
+    "gr_text": 4,
+    "segment": 55,
+    "via": 6
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 9,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "hv_to_12v_tpsm365r6",
+   "from": "orb_weaver_private:hv_to_12v_tpsm365r6",
+   "to": "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v",
+   "date": "2026-10-13",
+   "removed_ports": [
+    "+12V"
+   ],
+   "added_ports": [
+    "VOUT"
+   ],
+   "renamed": {
+    "+12V": "VOUT"
+   },
+   "new_items": {
+    "footprint": 13,
+    "gr_text": 4,
+    "segment": 63,
+    "via": 5
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 13,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  },
+  {
+   "instance": "hv_to_12v_tpsm365r6",
+   "from": "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v",
+   "to": "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v",
+   "date": "2026-10-13",
+   "removed_ports": [
+    "+12V"
+   ],
+   "added_ports": [
+    "VOUT"
+   ],
+   "renamed": {
+    "+12V": "VOUT"
+   },
+   "new_items": {
+    "footprint": 13,
+    "gr_text": 4,
+    "segment": 63,
+    "via": 5
+   },
+   "pads_moved": [],
+   "pads_gone": [],
+   "pads_new": [],
+   "transform": "copper kept; no new footprint to place",
+   "keep_copper": true,
+   "footprints_kept_by_identity": 13,
+   "footprints_kept_by_part": 0,
+   "footprints_removed": [],
+   "footprints_new": 0
+  }
+ ]
+}

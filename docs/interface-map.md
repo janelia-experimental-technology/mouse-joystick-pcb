@@ -657,38 +657,14 @@ convenience — see [GPIO Isolation](#gpio-isolation).
 hierarchical pin on the `mcu` sheet — `out` → Output, `in` → Input. See
 [Signal Direction And Sheet Pin Types](#signal-direction-and-sheet-pin-types).
 
-| GPIO   | Net                   | Function                                            | v1.0     | Iso   | Dir    |
-|--------|-----------------------|-----------------------------------------------------|----------|-------|--------|
-| `GP0`  | `PYC_UART_TX`         | UART TX to pyControl (`UART0 TX`)                   | **yes**  | `byp` | `out`  |
-| `GP1`  | `PYC_UART_RX`         | UART RX from pyControl (`UART0 RX`)                 | **yes**  | `byp` | `in`   |
-| `GP2`  | `~{TMC_CS}`           | Driver chip select                                  | **yes**  | `sw`  | `out`  |
-| `GP3`  | `~{TMC_DRV_EN}`       | Driver enable, active low                           | **yes**  | `sw`  | `out`  |
-| `GP4`  | `TMC_SPI_CIPO`        | Driver SPI CIPO (`SPI0 RX`)                         | **yes**  | `sw`  | `in`   |
-| `GP5`  | `TMC_DIAG0`           | Driver diagnostic 0                                 | **yes**  | `sw`  | `in`   |
-| `GP6`  | `TMC_SPI_SCK`         | Driver SPI clock (`SPI0 SCK`)                       | **yes**  | `sw`  | `out`  |
-| `GP7`  | `TMC_SPI_COPI`        | Driver SPI COPI (`SPI0 TX`)                         | **yes**  | `sw`  | `out`  |
-| `GP8`  | `TMC_DIAG1`           | Driver diagnostic 1                                 | **yes**  | `sw`  | `in`   |
-| `GP9`  | `~{BUS_SW_EN}`        | GPIO isolation enable, active low                   | **yes**  | `byp` | `out`² |
-| `GP10` | `TQ_SPI_SCK`          | Torque ADC SPI clock (`SPI1 SCK`)⁷                  | **yes**  | `sw`  | `out`  |
-| `GP11` | `TQ_SPI_COPI`         | Torque ADC SPI COPI (`SPI1 TX`)⁷                    | **yes**  | `sw`  | `out`  |
-| `GP12` | `TQ_SPI_CIPO`         | Torque ADC SPI CIPO (`SPI1 RX`)⁷                    | **yes**  | `sw`  | `in`   |
-| `GP13` | `~{BRAKE_FAULT}`      | Brake block fault, active low⁷                      | **yes**  | `sw`  | `in`   |
-| `GP14` | `HV_DIAG_EN`          | 36 V switch diagnostics enable⁵                     | **yes**  | `byp` | `out`  |
-| `GP15` | `TQ_CONVST_CS`        | ADS8689 convert-start / frame, plain GPIO⁷          | **yes**  | `sw`  | `out`  |
-| `GP16` | `DAC_SDA`             | I2C0 SDA — analog 0x48, brake 0x49⁷                 | **yes**  | `sw`  | `bidi` |
-| `GP17` | `DAC_SCL`             | I2C0 SCL — same bus⁷                                | **yes**  | `sw`  | `out`  |
-| `GP18` | `TQ_CAL_EN`           | Torque calibration enable⁷                          | **yes**  | `sw`  | `out`  |
-| `GP19` | `HV_EN`               | 36 V input switch enable                            | **yes**  | `byp` | `out`  |
-| `GP20` | `PYC_PULL_EVENT`      | Pull event out — **no connector on this board**⁸    | reserved | `byp` | `out`  |
-| `GP21` | `FW_TRIG1`            | Firmware timing marker                              | **yes**¹ | `byp` | `out`  |
-| `GP22` | `PYC_FAULT`           | Latched fault out — **no connector on this board**⁸ | reserved | `byp` | `out`  |
-| `GP23` | `~{HV_FAULT}`         | 36 V switch fault, open-drain, pull-up 3.3 V¹¹      | **yes**  | `byp` | `in`   |
-| `GP24` | `HV_LATCH`            | 36 V switch latch-off select¹⁰                      | **yes**  | `byp` | `out`  |
-| `GP25` | `FW_TRIG0`            | Firmware timing marker                              | **yes**¹ | `byp` | `out`  |
-| `GP26` | `SW_RAIL_SENSE_DIV_2` | `+3.3V_SW` presence and level, ÷2 divider⁴          | **yes**  | `byp` | `in`   |
-| `GP27` | `BRAKE_ISENSE`        | Brake sink current readback, ADC1¹¹                 | **yes**  | `byp` | `in`   |
-| `GP28` | `HV_SNS`              | 36 V input load-current sense, `R_SNS` = 249 Ω      | **yes**  | `byp` | `in`   |
-| `GP29` | `ANGLE_OUT_MON`       | Analog output readback, ADC3¹¹                      | **yes**  | `byp` | `in`   |
+The allocation table itself is generated from `kicad/board.yaml`'s `nets` (the
+`gpio` and `meaning` of every MCU net) into
+[`docs/generated/gpio-allocation.md`](generated/gpio-allocation.md) by `make
+docs`, with the class and every block or sheet port each net reaches; it
+replaced the hand-written table here on 2026-10-13. The numbered notes below
+are what its meanings cite, and the **Iso** and **Dir** reading above still
+applies: a net whose meaning says "via the bus switch" is switched, one that
+does not bypasses it, and "out" or "in" is the direction as the MCU sees it.
 
 ¹ Rev 0 lands `FW_TRIG0`/`FW_TRIG1` on `TRIG0`/`TRIG1` of the InstrumentPort.
 They are the cheapest bring-up instrumentation on the board and the natural

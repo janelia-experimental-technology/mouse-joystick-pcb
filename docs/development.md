@@ -115,7 +115,7 @@ package's per-footprint rotation correction now prevents; the bring-up log
 records the diagnosis and the rework.
 
 - [Rev 0 plan](rev0-plan.md): the design record and the Rev 0 scope decisions
-- [Design block map](design-block-map.md): which library block implements what, and the v1.0 rebuild
+- [Design block map](design-block-map.md): retired 2026-10-13; points at the generated block, subsystem and GPIO pages under `docs/generated/`
 - [Relationship to the twin-axis board](relationship-to-twin-axis-board.md): why a single-axis board, and what carries over
 - [Prior art](prior-art.md): the previous rig's boards, firmware and documentation
 - [Validation plan](validation-plan.md): the Gates A to F sequence adapted to this board

@@ -200,7 +200,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -785,7 +785,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -954,7 +954,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1120,7 +1120,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1282,7 +1282,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1444,7 +1444,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -1607,7 +1607,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1770,7 +1770,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -1937,7 +1937,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -2106,7 +2106,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -2271,7 +2271,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2694,7 +2694,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -2857,7 +2857,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -3019,7 +3019,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -3608,7 +3608,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 100nF X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "100 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -4037,7 +4037,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -4179,7 +4179,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Oscillator_16MHz_3.3V"
+		(property "Value" "16MHz"
 			(at 2.25 -1.25 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4204,7 +4204,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16 MHz 3.3 V HCMOS clock oscillator, 7 mA, 2.5 x 2.0 mm 4-pad surface mount, -40 to 85 °C (ECS-2520S33)."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -4458,7 +4458,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 Ω ±1 % 100 mW thick-film chip resistor, ±200 ppm/°C, 350 V rated, 0603"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4620,7 +4620,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4782,7 +4782,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -4950,7 +4950,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5120,7 +5120,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5291,7 +5291,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -5447,7 +5447,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5458,7 +5458,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -5864,7 +5864,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -6287,7 +6287,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6454,7 +6454,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -6879,7 +6879,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -7046,7 +7046,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7215,7 +7215,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 pF ±5 % 25 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -7386,7 +7386,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -7552,7 +7552,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -8892,7 +8892,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9056,7 +9056,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9218,7 +9218,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "0 Ω ±1 % 62.5 mW thick-film chip resistor, ±800 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -9357,7 +9357,7 @@
 				)
 			)
 		)
-		(property "Value" "Regulator_Linear_3.3V_1A_5.5Vin_TPS73733QDRBRQ1"
+		(property "Value" "TPS73733QDRBRQ1"
 			(at 0 3.75 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9371,7 +9371,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps737-q1.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9383,7 +9383,7 @@
 				)
 			)
 		)
-		(property "Description" "-40℃~+125℃@(Tj) 1 1A 25uA 3.3V 37dB@(10kHz) 5.5V 500mV@(1A) Fixed Over Current Protection、Over Temperature Protection、Enable Positive VSON-8-EP(3x3) Voltage Regulators - Linear, Low Drop Out (LDO) Regulators ROHS"
+		(property "Description" "Automotive 1 A low-dropout regulator, 2.2 V to 5.5 V input, fixed 3.3 V output with ±1.5 % accuracy, 130 mV typical dropout at 1 A, reverse-current protection, VSON-8 (DRB)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -9486,7 +9486,7 @@
 				)
 			)
 		)
-		(property "ReqValue" "Regulator_Linear_3.3V_1A_5.5Vin_TPS73733QDRBRQ1"
+		(property "ReqValue" "TPS73733QDRBRQ1"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9499,7 +9499,7 @@
 				)
 			)
 		)
-		(property "Name" "Regulator Linear 3.3V 1A 5.5Vin TPS73733QDRBRQ1"
+		(property "Name" "TPS73733-Q1 3.3 V 1 A LDO regulator"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10083,7 +10083,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -10510,7 +10510,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -10934,7 +10934,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11084,7 +11084,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11096,7 +11096,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -11926,7 +11926,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12088,7 +12088,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12676,7 +12676,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -12819,7 +12819,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "Switch_Tactile_SPST-NO_SMT_Side"
+		(property "Value" "436333045822"
 			(at 0 3.5 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12833,7 +12833,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/436333045822.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -12845,7 +12845,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Side-actuated SMT tactile switch, 4.7 x 3.5 mm, 1.65 mm high, J-bend leads with locating boss, 50 mA 12 VDC, 100 mΩ contact resistance, 220 g operating force, 0.3 mm stroke, 100 000 cycles."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -13580,7 +13580,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -13592,7 +13592,7 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+		(property "KiLib_Generator" "sym_orb_weaver_passives_c_0_1uf_100v_0402"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13751,7 +13751,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 35V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -14036,7 +14036,7 @@
 			)
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
-		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/73ee15de-2613-4e0e-afe7-43fe7abaca21")
+		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/91999db7-1f40-49d4-a7fa-8614df73114b")
 		(sheetname "/5v_to_3v3_tps73733_2/")
 		(sheetfile "5v_to_3v3_tps73733_2.kicad_sch")
 		(units
@@ -14176,7 +14176,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14338,7 +14338,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14506,7 +14506,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -14649,7 +14649,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "D_SCHOTTKY_20V_1A"
+		(property "Value" "MBR120VLSFT1G"
 			(at -2.75 -1.25 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14664,7 +14664,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/mbr120vlsft1-d.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -14675,7 +14675,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "20 V 1 A Schottky rectifier, 0.34 V max forward drop at 1 A, 0.6 mA leakage at 25 °C, 45 A single-cycle surge, 125 °C junction, SOD-123FL (NRVB variant is AEC-Q101)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -15307,7 +15307,7 @@
 				)
 			)
 		)
-		(property "Description" "10V 22uF X5R ±20% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "22 µF ±20 % 10 V X5R multilayer ceramic capacitor, 1206"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -15732,7 +15732,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16156,7 +16156,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16322,7 +16322,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2 µF ±10 % 100 V X7T multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16487,7 +16487,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16649,7 +16649,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16815,7 +16815,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -16981,7 +16981,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17143,7 +17143,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17572,7 +17572,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -17738,7 +17738,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 Ω ±1 % 62.5 mW thick-film chip resistor, ±200 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -17832,7 +17832,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(R2001-Pad2)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/RG_LINK")
 			(pintype "passive")
 			(uuid "f5ec72de-63f8-4fbd-bc4f-4864042c6842")
 		)
@@ -17900,7 +17900,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -18062,7 +18062,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18230,7 +18230,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -18385,7 +18385,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK7D36-60E.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18396,7 +18396,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "60 V compact N-channel MOSFET for baseline TMC5160 external bridge power-stage layouts"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18760,7 +18760,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TMC5130A-TA"
+		(property "Value" "TMC5130A-TA-T"
 			(at 10 3 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18774,7 +18774,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.trinamic.com/fileadmin/assets/Products/ICs_Documents/TMC5130_datasheet_Rev1.17.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -18785,7 +18785,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Integrated TMC5130A 46 V stepper motor controller/driver with STEP/DIR SPI UART encoder diagnostics and internal power stages"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20112,7 +20112,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -20534,7 +20534,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20702,7 +20702,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 27 ohm 0402 series resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -20856,7 +20856,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20869,7 +20869,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.3-V to 3.6-V 8-channel bidirectional high-bandwidth FET bus switch with active-low output enable and powered-off isolation"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21855,7 +21855,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 25V X5R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "10 µF ±10 % 25 V X5R multilayer ceramic capacitor, 1206"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -22701,7 +22701,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -22869,7 +22869,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23035,7 +23035,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23138,7 +23138,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(R2006-Pad2)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/ATT_TOP_LINK")
 			(pintype "passive")
 			(uuid "aa3b9894-158e-42f3-8231-7623bfbb1fd0")
 		)
@@ -23198,7 +23198,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -23620,7 +23620,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -23786,7 +23786,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 35V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -24217,7 +24217,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 4.7k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -24383,7 +24383,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -24546,7 +24546,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -24709,7 +24709,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25136,7 +25136,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 25V X7R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 25 V X7R multilayer ceramic capacitor, 0805"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -25560,7 +25560,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -25721,7 +25721,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -25887,7 +25887,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±1 % 100 mW thick-film chip resistor, ±100 ppm/°C, 75 V rated, 0603"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -26050,7 +26050,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 10kΩ 50V 63mW Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -26462,7 +26462,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1755736"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -26473,7 +26473,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2-position 5.08mm pluggable terminal block header, vertical top-entry plug-in, rated 12A 250V"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -28331,7 +28331,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -29218,7 +29218,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29380,7 +29380,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -29965,7 +29965,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30134,7 +30134,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30300,7 +30300,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -30463,7 +30463,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -30885,7 +30885,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -31047,7 +31047,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "13 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -31209,7 +31209,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -32062,7 +32062,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -32225,7 +32225,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -32387,7 +32387,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -32537,7 +32537,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -32550,7 +32550,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.3-V to 3.6-V 8-channel bidirectional high-bandwidth FET bus switch with active-low output enable and powered-off isolation"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -33116,7 +33116,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 4.7k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -33282,7 +33282,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -33385,7 +33385,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(R2001-Pad2)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/RG_LINK")
 			(pintype "passive")
 			(uuid "a4f8ab62-209f-420a-8049-9b82547ef62b")
 		)
@@ -33445,7 +33445,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 Ω ±1 % 62.5 mW thick-film chip resistor, ±200 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -34020,7 +34020,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 pF ±5 % 25 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34181,7 +34181,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34344,7 +34344,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -34506,7 +34506,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -34934,7 +34934,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -35103,7 +35103,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 35V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -35532,7 +35532,7 @@
 				)
 			)
 		)
-		(property "Description" "10V 22uF X5R ±20% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "22 µF ±20 % 10 V X5R multilayer ceramic capacitor, 1206"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -35933,7 +35933,7 @@
 				)
 			)
 		)
-		(property "Value" "D_SCHOTTKY_20V_1A"
+		(property "Value" "MBR120VLSFT1G"
 			(at 0 -2.75 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -35948,7 +35948,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/mbr120vlsft1-d.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -35960,7 +35960,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "20 V 1 A Schottky rectifier, 0.34 V max forward drop at 1 A, 0.6 mA leakage at 25 °C, 45 A single-cycle surge, 125 °C junction, SOD-123FL (NRVB variant is AEC-Q101)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -36166,7 +36166,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -36329,7 +36329,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "7.87 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -36492,7 +36492,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±1 % 100 mW thick-film chip resistor, ±100 ppm/°C, 75 V rated, 0603"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -36654,7 +36654,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 nF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -36820,7 +36820,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -37935,7 +37935,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -38097,7 +38097,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -38260,7 +38260,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "249 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -38423,7 +38423,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -38846,7 +38846,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39015,7 +39015,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39186,7 +39186,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39477,7 +39477,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "5.1 kΩ ±5 % 100 mW thick-film chip resistor, ±200 ppm/°C, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -39891,7 +39891,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40056,7 +40056,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 4.7uF 0402 ceramic bypass capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40222,7 +40222,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40389,7 +40389,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150 mΩ ±1 % 1 W current-sense resistor, ±100 ppm/°C, 1206"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40413,7 +40413,7 @@
 			)
 		)
 		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
-		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/e42510bf-12f3-499e-99b2-0445c30415a0/7fc2b155-1acf-438f-ac8c-7a846262f270")
+		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/e42510bf-12f3-499e-99b2-0445c30415a0/42b0183a-56ab-4816-a3be-1e1a54bb7267")
 		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
@@ -40554,7 +40554,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -40717,7 +40717,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -40999,7 +40999,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -41151,7 +41151,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -41164,7 +41164,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Single-channel bidirectional ESD protection diode, 5.5 V working voltage, 0.42 pF line capacitance, ±12 kV IEC 61000-4-2 contact, 2.5 A 8/20 µs surge, 0.6 x 1.0 mm X1SON (DPY)."
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -41327,7 +41327,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ads8689.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -41339,7 +41339,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16-bit 100 kSPS SAR ADC with programmable bipolar and unipolar input ranges up to ±12.288 V, 1 MΩ resistive input, internal 4.096 V reference, SPI-compatible 32-bit interface up to 66.67 MHz, TSSOP-16 (PW)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -41687,7 +41687,7 @@
 			(size 1.475 0.4)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "unconnected-(U2002-ALARM{slash}SDO-1{slash}GPO-Pad14)")
+			(net "unconnected-(U2002-ALARM/SDO-1/GPO-Pad14)")
 			(pinfunction "ALARM/SDO-1/GPO_14")
 			(pintype "tri_state+no_connect")
 			(uuid "09301ed6-b22a-4be3-9fe7-44a8e15afb94")
@@ -41744,7 +41744,7 @@
 				)
 			)
 		)
-		(property "Value" "Transistor_BJT_MMBT5550LT1G"
+		(property "Value" "MMBT5550LT1G"
 			(at 0 2.4 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -41756,7 +41756,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/mmbt5550lt1-d.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -41768,7 +41768,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "140 V NPN high-voltage transistor, 600 mA collector current, hFE 60 to 250 at 10 mA, VCE(sat) 0.15 V max at 10 mA, 225 mW on FR-5, SOT-23, AEC-Q101 qualified."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42074,7 +42074,7 @@
 			(size 1.475 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(Q2002-B)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/VEXC_B")
 			(pinfunction "B_1")
 			(pintype "input")
 			(uuid "4998dfa2-efb3-43df-a790-72932a586058")
@@ -42143,7 +42143,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42155,7 +42155,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -42562,7 +42562,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -43185,7 +43185,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43336,7 +43336,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1843606"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -43347,7 +43347,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -43832,7 +43832,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.2 µF ±10 % 100 V X7T multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -43996,7 +43996,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44580,7 +44580,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44741,7 +44741,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -44902,7 +44902,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "220 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0805"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -45070,7 +45070,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "15 pF ±5 % 25 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -45236,7 +45236,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -46082,7 +46082,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -46251,7 +46251,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "15 pF ±5 % 25 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47254,7 +47254,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47420,7 +47420,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -47842,7 +47842,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -48004,7 +48004,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -48426,7 +48426,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49010,7 +49010,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49173,7 +49173,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49595,7 +49595,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -49756,7 +49756,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -49922,7 +49922,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -50075,7 +50075,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpsm365r6.pdf"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50086,7 +50086,7 @@
 				)
 			)
 		)
-		(property "Description" "-40℃~+125℃@(TJ) 1 1MHz 3.6V~65V 4uA 5V 600mA Buck Buck Built-in Fixed Yes QFN-11(3.5x4.5) DC-DC Converters ROHS"
+		(property "Description" "Synchronous buck power module with integrated inductor, 3.6 V to 65 V input, fixed 5 V output at 600 mA, PGOOD window comparator, 4 µA no-load IQ, 11-pin QFN-FCMOD (RDN)."
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -50188,7 +50188,7 @@
 				)
 			)
 		)
-		(property "Name" "TPSM365R6V5RDNR"
+		(property "Name" "TPSM365R6 buck module, 5 V fixed 600 mA"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -51020,7 +51020,7 @@
 			(at 1.2 1.000001 90)
 			(size 1.599999 2.150001)
 			(layers "F.Cu")
-			(net "Net-(U1701-SW-Pad5)")
+			(net "/hv_to_5v_tpsm365r6/SW")
 			(pinfunction "SW_5")
 			(pintype "passive")
 			(uuid "6c415afc-29fa-4eb0-84d0-a99923cdb3d8")
@@ -51029,7 +51029,7 @@
 			(at 1.4 -0.650001 90)
 			(size 1.2 0.349999)
 			(layers "F.Cu")
-			(net "Net-(U1701-SW-Pad5)")
+			(net "/hv_to_5v_tpsm365r6/SW")
 			(pinfunction "SW_6")
 			(pintype "passive")
 			(uuid "068abce8-ab8f-4ba2-aa6c-96056a85086d")
@@ -51135,7 +51135,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -52486,7 +52486,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -52656,7 +52656,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -52826,7 +52826,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53414,7 +53414,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -53577,7 +53577,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -54423,7 +54423,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -54850,7 +54850,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "20 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55015,7 +55015,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55177,7 +55177,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55317,7 +55317,7 @@
 				)
 			)
 		)
-		(property "Value" "Memory_Flash_W25Q128JVZPIQ"
+		(property "Value" "W25Q128JVPIQ"
 			(at -3.5 1 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -55332,7 +55332,7 @@
 				(justify right)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.winbond.com/resource-files/W25Q128JV%20RevI%2008232021%20Plus.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55344,7 +55344,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "128 Mbit (16 MB) serial NOR flash, 2.7 V to 3.6 V, standard, dual, and quad SPI up to 133 MHz, 256-byte pages, 4 kB sectors, WSON-8 6x5 mm with QE permanently set (Q suffix)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -55778,7 +55778,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 27 ohm 0402 series resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -55948,7 +55948,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 50V 62.5mW 7.87kΩ Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "7.87 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -56373,7 +56373,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -56514,7 +56514,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "D_50V_15A"
+		(property "Value" "SBRT15U50SP5-13"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -56528,7 +56528,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/SBRT15U50SP5.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -56539,7 +56539,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "50 V 15 A trench super-barrier rectifier, 0.47 V max forward drop at 15 A, 0.5 mA max leakage at 50 V and 25 °C, 290 A surge, 440 pF, AEC-Q101, PowerDI 5 (1.1 mm profile)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -57015,7 +57015,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -57185,7 +57185,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 100nF X7R ±10% 0603 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "100 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -57615,7 +57615,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -57786,7 +57786,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -58044,7 +58044,7 @@
 				)
 			)
 		)
-		(property "ReqValue" "50 contacts, 0.5mm pitch, vertical FFC/FPC"
+		(property "ReqValue" "FH12-50S-0.5SVA(54)"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -58070,7 +58070,7 @@
 				)
 			)
 		)
-		(property "ReqPackage" "SMD vertical, 50 contacts plus four mounting lands"
+		(property "ReqPackage" "SMD P=0.5mm"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -58161,7 +58161,7 @@
 				)
 			)
 		)
-		(property "ReqRole" "Vertical 50-pin FFC connector"
+		(property "ReqRole" "ffc-connector"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -59419,7 +59419,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Switch_Tactile_SPST-NO_SMT_Side"
+		(property "Value" "436333045822"
 			(at 0 -4.5 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -59432,7 +59432,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/436333045822.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -59444,7 +59444,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Side-actuated SMT tactile switch, 4.7 x 3.5 mm, 1.65 mm high, J-bend leads with locating boss, 50 mA 12 VDC, 100 mΩ contact resistance, 220 g operating force, 0.3 mm stroke, 100 000 cycles."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -59737,7 +59737,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -59748,7 +59748,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -60158,7 +60158,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -60322,7 +60322,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -60484,7 +60484,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -60587,7 +60587,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(Q2002-B)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/VEXC_B")
 			(pintype "passive")
 			(uuid "559364dd-f2ba-4fe6-a349-124bb8641feb")
 		)
@@ -60650,7 +60650,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 12MHz 3225 4-pin crystal with 10pF load capacitance"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -60814,7 +60814,7 @@
 				)
 			)
 		)
-		(property "Value" "REF5010AD"
+		(property "Value" "REF5010AIDR"
 			(at 0 3.4 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -60826,7 +60826,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ref5010.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -60838,7 +60838,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 V precision voltage reference, ±0.05 % initial accuracy and 3 ppm/°C maximum drift (A grade), 3 µVpp/V low-frequency noise, ±10 mA output, input from VOUT + 0.2 V to 18 V, SOIC-8."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -61134,7 +61134,7 @@
 			(size 1.95 0.6)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "unconnected-(U2004-Trim{slash}NR-Pad5)")
+			(net "unconnected-(U2004-Trim/NR-Pad5)")
 			(pinfunction "Trim/NR_5")
 			(pintype "passive+no_connect")
 			(uuid "145f67c3-fd1f-4df9-9e47-bf0598ad8399")
@@ -62073,7 +62073,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -62238,7 +62238,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -62406,7 +62406,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -62571,7 +62571,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "22 nF ±10 % 100 V X7R multilayer ceramic capacitor, 0603"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -62723,7 +62723,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/dac80501.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -62734,7 +62734,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16-bit buffered voltage-output DAC with 2.5 V internal reference, 2.7 V to 5.5 V supply, ±1 LSB INL, SPI up to 50 MHz or I2C selected by the SPI2C pin, power-on reset to zero scale (Z), VSSOP-10 (DGS)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -63144,7 +63144,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -63310,7 +63310,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -63460,7 +63460,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -63472,7 +63472,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -63867,7 +63867,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -63880,7 +63880,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.3-V to 3.6-V 8-channel bidirectional high-bandwidth FET bus switch with active-low output enable and powered-off isolation"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -64440,7 +64440,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -64603,7 +64603,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -64765,7 +64765,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -64927,7 +64927,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -65090,7 +65090,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -65939,7 +65939,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -66092,7 +66092,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -66105,7 +66105,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2.3-V to 3.6-V 8-channel bidirectional high-bandwidth FET bus switch with active-low output enable and powered-off isolation"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -66664,7 +66664,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -66826,7 +66826,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -66993,7 +66993,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -67417,7 +67417,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -67578,7 +67578,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -67740,7 +67740,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -68167,7 +68167,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -68336,7 +68336,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -68493,7 +68493,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/dac80501.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -68505,7 +68505,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "16-bit buffered voltage-output DAC with 2.5 V internal reference, 2.7 V to 5.5 V supply, ±1 LSB INL, SPI up to 50 MHz or I2C selected by the SPI2C pin, power-on reset to zero scale (Z), VSSOP-10 (DGS)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -68914,7 +68914,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -69341,7 +69341,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -69510,7 +69510,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 Ω ±1 % 62.5 mW thick-film chip resistor, ±200 ppm/°C, 50 V rated, 0402"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -70097,7 +70097,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -70260,7 +70260,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -70851,7 +70851,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -70993,7 +70993,7 @@
 				)
 			)
 		)
-		(property "Value" "Regulator_Linear_3.3V_1A_5.5Vin_TPS73733QDRBRQ1"
+		(property "Value" "TPS73733QDRBRQ1"
 			(at 0 3.75 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -71007,7 +71007,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps737-q1.pdf"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -71019,7 +71019,7 @@
 				)
 			)
 		)
-		(property "Description" "-40℃~+125℃@(Tj) 1 1A 25uA 3.3V 37dB@(10kHz) 5.5V 500mV@(1A) Fixed Over Current Protection、Over Temperature Protection、Enable Positive VSON-8-EP(3x3) Voltage Regulators - Linear, Low Drop Out (LDO) Regulators ROHS"
+		(property "Description" "Automotive 1 A low-dropout regulator, 2.2 V to 5.5 V input, fixed 3.3 V output with ±1.5 % accuracy, 130 mV typical dropout at 1 A, reverse-current protection, VSON-8 (DRB)."
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -71122,7 +71122,7 @@
 				)
 			)
 		)
-		(property "ReqValue" "Regulator_Linear_3.3V_1A_5.5Vin_TPS73733QDRBRQ1"
+		(property "ReqValue" "TPS73733QDRBRQ1"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -71135,7 +71135,7 @@
 				)
 			)
 		)
-		(property "Name" "Regulator Linear 3.3V 1A 5.5Vin TPS73733QDRBRQ1"
+		(property "Name" "TPS73733-Q1 3.3 V 1 A LDO regulator"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -71292,7 +71292,7 @@
 			)
 		)
 		(property ki_fp_filters "orb_weaver_smd:TPS737Q1")
-		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/83cf2575-3ded-448c-99fb-2dc0317fba60")
+		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/243dc86c-09c3-4e67-89d3-884f6d2a89b8")
 		(sheetname "/5v_to_3v3_tps73733_2/")
 		(sheetfile "5v_to_3v3_tps73733_2.kicad_sch")
 		(units
@@ -72568,7 +72568,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "13 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -72734,7 +72734,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -72896,7 +72896,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -73747,7 +73747,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -73912,7 +73912,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "40 kΩ ±1 % 100 mW thick-film chip resistor, ±100 ppm/°C, 75 V rated, 0603"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -74198,7 +74198,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 25V X7R ±10% 0805 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 25 V X7R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74623,7 +74623,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±1 % 100 mW thick-film chip resistor, ±100 ppm/°C, 75 V rated, 0603"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74786,7 +74786,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -74949,7 +74949,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75111,7 +75111,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -75278,7 +75278,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -75436,7 +75436,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/usblc6-2.pdf"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -75449,7 +75449,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Two-line plus VBUS ESD protection array for USB 2.0 high speed, 3.5 pF maximum line capacitance, 6 V minimum VBUS breakdown, IEC 61000-4-2 level 4 (15 kV air and contact), SOT-666."
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -76162,7 +76162,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77008,7 +77008,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77174,7 +77174,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "8P8C modular jack, Cat5e, vertical top-entry, through-hole termination, shielded shell with PCB retention and locators"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77419,7 +77419,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 nF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -77588,7 +77588,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -77757,7 +77757,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 10kΩ 50V 63mW Thin Film Resistor ±0.1% ±25ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -78188,7 +78188,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -78360,7 +78360,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "360 mΩ ±1 % 250 mW thick-film chip resistor, ±600 ppm/°C, 1206"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -78372,7 +78372,7 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+		(property "KiLib_Generator" "Resistor_SMD:R_1206_3216Metric"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -78527,7 +78527,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "75 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -78694,7 +78694,7 @@
 				)
 			)
 		)
-		(property "Description" "1uF 35V X5R ±10% 0402 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -78979,7 +78979,7 @@
 			)
 		)
 		(property ki_fp_filters "Capacitor_SMD:C_0402_1005Metric")
-		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/6c6e626f-e6f5-4713-ab4f-32e99966ed01")
+		(path "/72a6e0d8-0034-436c-8227-3a0b0df3a34e/68459500-01ed-4288-8c6d-971de7f04cb5")
 		(sheetname "/5v_to_3v3_tps73733_2/")
 		(sheetfile "5v_to_3v3_tps73733_2.kicad_sch")
 		(units
@@ -79123,7 +79123,7 @@
 				)
 			)
 		)
-		(property "Description" "10uF 25V X5R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "10 µF ±10 % 25 V X5R multilayer ceramic capacitor, 1206"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -79548,7 +79548,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -79971,7 +79971,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80134,7 +80134,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -80557,7 +80557,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -80724,7 +80724,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -81149,7 +81149,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -81311,7 +81311,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81473,7 +81473,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -81636,7 +81636,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 kΩ ±5 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -81788,7 +81788,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc2g17.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -81799,7 +81799,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Dual non-inverting Schmitt-trigger LVC buffer with 5.5V-tolerant inputs and Ioff; receives 5V single-ended or slow-edge logic into a 3.3V domain"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82022,7 +82022,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82162,7 +82162,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "D_SCHOTTKY_20V_1A"
+		(property "Value" "MBR120VLSFT1G"
 			(at -3 1.25 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -82177,7 +82177,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/mbr120vlsft1-d.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82189,7 +82189,7 @@
 				)
 			)
 		)
-		(property "Description" "-65℃~+125℃ 1 Independent 1A 20V 300mV@1A 45A 600uA@20V SOD-123FL Schottky Diodes ROHS"
+		(property "Description" "20 V 1 A Schottky rectifier, 0.34 V max forward drop at 1 A, 0.6 mA leakage at 25 °C, 45 A single-cycle surge, 125 °C junction, SOD-123FL (NRVB variant is AEC-Q101)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -82240,7 +82240,7 @@
 				)
 			)
 		)
-		(property "Name" "D SCHOTTKY 20V 1A"
+		(property "Name" "MBR120VLSF 20 V 1 A Schottky rectifier"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -82279,7 +82279,7 @@
 				)
 			)
 		)
-		(property "ReqValue" "D_SCHOTTKY_20V_1A"
+		(property "ReqValue" "MBR120VLSFT1G"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -82648,7 +82648,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://gct.co/files/drawings/usb4145.pdf"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -82776,7 +82776,7 @@
 				)
 			)
 		)
-		(property "ReqPackage" "USB-C-SMD-VERTICAL"
+		(property "ReqPackage" "SMD USB-C 16P"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -83380,7 +83380,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83547,7 +83547,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 110kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "110 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -83972,7 +83972,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -84401,7 +84401,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -84560,7 +84560,7 @@
 				(justify right)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1843606"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -84572,7 +84572,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "2-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85048,7 +85048,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps1htc100-q1.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -85059,7 +85059,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "60V 4A smart high-side switch with adjustable current limit and analog current sense"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -85739,7 +85739,7 @@
 				)
 			)
 		)
-		(property "Value" "INA821xD"
+		(property "Value" "INA821IDR"
 			(at 0 3.4 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85751,7 +85751,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/ina821.pdf"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -85763,7 +85763,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Precision instrumentation amplifier, 35 µV maximum offset, 7 nV/√Hz input noise, gain 1 to 10000 set by RG (G = 1 + 49.4 kΩ/RG), ±2.25 V to ±18 V dual or 4.5 V to 36 V single supply, SOIC-8."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86269,7 +86269,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 10k 0402 resistor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86432,7 +86432,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -86595,7 +86595,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86736,7 +86736,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "MCU_RP2040"
+		(property "Value" "RP2040"
 			(at -2.75 -4.25 0)
 			(unlocked yes)
 			(layer "F.SilkS")
@@ -86751,7 +86751,7 @@
 				(justify right)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -86763,7 +86763,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Dual Cortex-M0+ microcontroller at up to 133 MHz with 264 kB SRAM, QSPI execute-in-place flash interface, USB 1.1 host and device, 4-channel 12-bit 500 ksps ADC, 30 GPIO, 1.1 V core from an on-chip regulator, QFN-56 7x7 mm."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -87776,7 +87776,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -88199,7 +88199,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -88362,7 +88362,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -88776,7 +88776,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -88789,7 +88789,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Single-channel bidirectional ESD protection diode, 5.5 V working voltage, 0.42 pF line capacitance, ±12 kV IEC 61000-4-2 contact, 2.5 A 8/20 µs surge, 0.6 x 1.0 mm X1SON (DPY)."
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -88964,7 +88964,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89128,7 +89128,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 nF ±5 % 50 V C0G multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89289,7 +89289,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 nF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -89451,7 +89451,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 kΩ ±0.1 % 63 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89545,7 +89545,7 @@
 			(size 0.54 0.64)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.25)
-			(net "Net-(R2006-Pad2)")
+			(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/ATT_TOP_LINK")
 			(pintype "passive")
 			(uuid "3d2f9abe-4c09-4c2e-a247-64d8daadda6e")
 		)
@@ -89603,7 +89603,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.phoenixcontact.com/en-pc/products/1843635"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -89615,7 +89615,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "5-position 3.5mm pluggable terminal block header, vertical top-entry plug-in, rated 8A 160V"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -90541,7 +90541,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -90552,7 +90552,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -90964,7 +90964,7 @@
 				)
 			)
 		)
-		(property "Description" "2-line plus VBUS ESD protection array for USB 2.0 up to 480 Mb/s; IEC 61000-4-2 level 4 (15kV air / 8kV contact); 3.5pF max I/O-to-GND; 1.2pF typ I/O-to-I/O; 150nA max leakage at 5.25V; 6V min VBUS breakdown; -40℃~+150℃ junction; SOT-666-6 ESD and Surge Protection (TVS/ESD) ROHS"
+		(property "Description" "Two-line plus VBUS ESD protection array for USB 2.0 high speed, 3.5 pF maximum line capacitance, 6 V minimum VBUS breakdown, IEC 61000-4-2 level 4 (15 kV air and contact), SOT-666."
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -91029,7 +91029,7 @@
 				)
 			)
 		)
-		(property "Name" "USBLC6-2P6"
+		(property "Name" "USBLC6-2 USB ESD protection array"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -92211,7 +92211,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -92224,7 +92224,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Single-channel bidirectional ESD protection diode, 5.5 V working voltage, 0.42 pF line capacitance, ±12 kV IEC 61000-4-2 contact, 2.5 A 8/20 µs surge, 0.6 x 1.0 mm X1SON (DPY)."
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -92407,7 +92407,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -92576,7 +92576,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -92746,7 +92746,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -92758,7 +92758,7 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+		(property "KiLib_Generator" "Resistor_SMD:R_0402_1005Metric"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -92912,7 +92912,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -93074,7 +93074,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -93497,7 +93497,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "3.2 kΩ ±0.1 % 62.5 mW thin-film chip resistor, ±25 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -93661,7 +93661,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -93828,7 +93828,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -93992,7 +93992,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "6.34 kΩ ±1 % 62.5 mW thick-film chip resistor, ±200 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -94160,7 +94160,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -94331,7 +94331,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 4.7uF 0402 ceramic bypass capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -94473,7 +94473,7 @@
 				)
 			)
 		)
-		(property "Value" "MOSFET-N-CH-EN_100V_260mA"
+		(property "Value" "2SK1589-T1B-VB"
 			(at 0 2.4 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -94485,7 +94485,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C724949.html"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -94497,7 +94497,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 V N-channel small-signal MOSFET, 2.8 Ω max at 10 V, 260 mA continuous, 1 to 2.5 V threshold, 30 pF input capacitance, 0.5 nC gate charge, 0.37 W, SOT-23 (VBsemi 2SK1589 second source)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -94890,7 +94890,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100mW 5.1kΩ Thick Film Resistor ±200ppm/℃ ±5% 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "5.1 kΩ ±5 % 100 mW thick-film chip resistor, ±200 ppm/°C, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -95731,7 +95731,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 nF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -95896,7 +95896,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -96319,7 +96319,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "470 pF ±5 % 100 V C0G multilayer ceramic capacitor, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -96648,7 +96648,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "600 Ω at 100 MHz ferrite bead, 350 mA rated current, 500 mΩ DCR, ±25 %, 0603, -55 to 125 °C."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -96790,7 +96790,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "D_Schottky_150V_1A"
+		(property "Value" "S115Q"
 			(at -2.75 -1.25 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -96816,7 +96816,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150 V 1 A Schottky rectifier, 0.9 V max forward drop at 1 A, 1 µA leakage at 25 °C (1 mA at 125 °C), 40 A surge, 175 °C junction, 30 pF, AEC-Q101 (Q suffix), SOD-123FL."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -97028,7 +97028,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -97194,7 +97194,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -97358,7 +97358,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "110 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -97946,7 +97946,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "150 mΩ ±1 % 1 W current-sense resistor, ±100 ppm/°C, 1206"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -97970,7 +97970,7 @@
 			)
 		)
 		(property ki_fp_filters "Resistor_SMD:R_1206_3216Metric")
-		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/e42510bf-12f3-499e-99b2-0445c30415a0/b3f3c617-58f4-49ae-8351-fd510845249e")
+		(path "/80cd7232-94ab-41ea-965f-e2da584d580d/e42510bf-12f3-499e-99b2-0445c30415a0/d3c56657-4bda-4df0-99bc-6fe5ef977e56")
 		(sheetname "/motor_encoder_switch/tmc5130/")
 		(sheetfile "tmc5130.kicad_sch")
 		(units
@@ -98111,7 +98111,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -98534,7 +98534,7 @@
 				)
 			)
 		)
-		(property "Description" "-55℃~+155℃ 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/℃ 0402 Chip Resistor - Surface Mount ROHS"
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -98934,7 +98934,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "MAX6816"
+		(property "Value" "MAX6816EUS+T"
 			(at 0 2 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -98946,7 +98946,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/MAX6816-MAX6818.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -98958,7 +98958,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Single CMOS switch debouncer, 2.7 V to 5.5 V, 50 ms typical debounce, internal 63 kΩ input pull-up, ±25 V tolerant input with ±15 kV ESD, push-pull output without Ioff, SOT143-4."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -99218,7 +99218,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -99803,7 +99803,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -99965,7 +99965,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "49.9 kΩ ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100119,7 +100119,7 @@
 				(justify right)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74lvc2g17.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100131,7 +100131,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Dual non-inverting Schmitt-trigger LVC buffer with 5.5V-tolerant inputs and Ioff; receives 5V single-ended or slow-edge logic into a 3.3V domain"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100349,7 +100349,7 @@
 				(justify left)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/opa197.pdf"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100361,7 +100361,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "36 V precision rail-to-rail input and output operational amplifier, 25 µV typical offset, 10 MHz gain-bandwidth, 20 V/µs slew, 1 mA quiescent, JFET input with picoamp bias, SOT-23-5 (DBV)."
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -100771,7 +100771,7 @@
 				)
 			)
 		)
-		(property "Description" "-40℃~+125℃ 1 1V~13V 2mm 3.5mm 3.6V~65V 4.5mm 4uA 600mA 82.7% Buck Overheat protection、Over Current Protection ±1% QFN-11(3.5x4.5) DC-DC Power Modules ROHS"
+		(property "Description" "Synchronous buck power module with integrated inductor, 3.6 V to 65 V input, adjustable 1 V to 13 V output at 600 mA set by an FB divider against a 1.000 V reference, PGOOD window comparator, 11-pin QFN-FCMOD (RDN)."
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -100873,7 +100873,7 @@
 				)
 			)
 		)
-		(property "Name" "TPSM365R6FRDNR"
+		(property "Name" "TPSM365R6 buck module, adjustable 600 mA"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -101706,7 +101706,7 @@
 			(at 1.2 1.000001 180)
 			(size 1.599999 2.150001)
 			(layers "F.Cu")
-			(net "Net-(U1901-SW-Pad5)")
+			(net "/brake_torque_sensor/hv_to_12v_tpsm365r6/SW")
 			(pinfunction "SW_5")
 			(pintype "passive")
 			(uuid "6d1b196c-be1b-4d0a-8c5e-b21040a2eb45")
@@ -101715,7 +101715,7 @@
 			(at 1.4 -0.650001 180)
 			(size 1.2 0.349999)
 			(layers "F.Cu")
-			(net "Net-(U1901-SW-Pad5)")
+			(net "/brake_torque_sensor/hv_to_12v_tpsm365r6/SW")
 			(pinfunction "SW_6")
 			(pintype "passive")
 			(uuid "ec0a8428-8610-400e-850e-9d6b284d2dd4")
@@ -101824,7 +101824,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 µF ±20 % 50 V aluminium electrolytic capacitor, surface-mount 8 x 10.2 mm, 110 mA ripple at 120 Hz, 1000 h at 105 °C, -40 to 105 °C"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -102241,7 +102241,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Generic 100nF 0402 ceramic decoupling capacitor"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -102408,7 +102408,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 µF ±20 % 50 V aluminium electrolytic capacitor, surface-mount 8 x 10.2 mm, 110 mA ripple at 120 Hz, 1000 h at 105 °C, -40 to 105 °C"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -102820,7 +102820,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -102988,7 +102988,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "1 µF ±10 % 35 V X5R multilayer ceramic capacitor, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -103158,7 +103158,7 @@
 				)
 			)
 		)
-		(property "Description" "100V 1uF X7R ±10% 1206 Multilayer Ceramic Capacitors MLCC - SMD/SMT ROHS"
+		(property "Description" "1 µF ±10 % 100 V X7R multilayer ceramic capacitor, 1206"
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
@@ -104011,7 +104011,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "100 Ω ±1 % 62.5 mW thick-film chip resistor, ±100 ppm/°C, 50 V rated, 0402"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -104023,7 +104023,7 @@
 				)
 			)
 		)
-		(property "KiLib_Generator" "SMD_2terminal_chip_molded"
+		(property "KiLib_Generator" "Resistor_SMD:R_0402_1005Metric"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -104182,7 +104182,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -104347,7 +104347,7 @@
 				)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "10 µF ±10 % 16 V X5R multilayer ceramic capacitor, 0805"
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -122011,7 +122011,7 @@
 		(width 0.2)
 		(locked yes)
 		(layer "F.Cu")
-		(net "Net-(R2001-Pad2)")
+		(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/RG_LINK")
 		(uuid "0f0712a8-ca40-4307-9a8c-825e65df8da4")
 	)
 	(segment
@@ -126280,7 +126280,7 @@
 		(width 0.2)
 		(locked yes)
 		(layer "F.Cu")
-		(net "Net-(R2006-Pad2)")
+		(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/ATT_TOP_LINK")
 		(uuid "c4c8e68a-0d39-41ed-916d-2ecd6c06919b")
 	)
 	(segment
@@ -132080,7 +132080,7 @@
 		(width 0.2)
 		(locked yes)
 		(layer "F.Cu")
-		(net "Net-(Q2002-B)")
+		(net "/brake_torque_sensor/torque_bridge_0_3v3_ina821/VEXC_B")
 		(uuid "6e5ec54a-751d-43cd-a771-4592a93b8c97")
 	)
 	(segment
@@ -133456,7 +133456,7 @@
 		(width 0.2)
 		(locked yes)
 		(layer "F.Cu")
-		(net "Net-(U1701-SW-Pad5)")
+		(net "/hv_to_5v_tpsm365r6/SW")
 		(uuid "04ad02d1-5405-427f-8d7b-219e8bd4a4cd")
 	)
 	(segment
@@ -136125,7 +136125,7 @@
 		(width 0.2)
 		(locked yes)
 		(layer "F.Cu")
-		(net "Net-(U1901-SW-Pad5)")
+		(net "/brake_torque_sensor/hv_to_12v_tpsm365r6/SW")
 		(uuid "2a6153b9-ec9c-4198-9b95-aecfa7cefbd1")
 	)
 	(segment
@@ -147936,7 +147936,7 @@
 	(group "hv_to_5v_tpsm365r6"
 		(uuid "3d847312-b42a-572c-aba6-cdde27e77c54")
 		(locked yes)
-		(lib_id "orb_weaver_private:hv_to_5v_tpsm365r6")
+		(lib_id "orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v")
 		(members "04ad02d1-5405-427f-8d7b-219e8bd4a4cd" "0595cae4-8aab-4520-9994-20a8782972c3"
 			"061ff474-374c-42c4-ab2a-a3c3402f17d8" "0aba0b6d-58fe-4636-8ccb-c11914ee2363"
 			"0d4ba98c-f65a-4c22-8900-40ae63dfa40b" "0f9ee552-953e-43b6-800d-0c87f436eab7"
@@ -148422,7 +148422,7 @@
 	(group "hv_to_12v_tpsm365r6"
 		(uuid "bc9e3786-5ea0-58c3-971f-12c7df2c95fe")
 		(locked yes)
-		(lib_id "orb_weaver_private:hv_to_12v_tpsm365r6")
+		(lib_id "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v")
 		(members "06366723-9e29-45bf-bb72-dd93c0132877" "081e32e5-b4f3-4b9c-b032-72aab04c5ebd"
 			"08a6fbb5-85ae-42b8-acae-741014c494d5" "0c7eb5d6-3622-4919-81f4-0c880bb5ddb0"
 			"0d2e8250-ff98-45cb-931c-522a948944c3" "10f70e1f-a712-48fe-9780-447643aea1ca"
@@ -148940,7 +148940,7 @@
 	(group "tmc5130"
 		(uuid "5c4c193d-776f-5f5a-a4aa-bfedf082d9ea")
 		(locked yes)
-		(lib_id "orb_weaver_private:tmc5130")
+		(lib_id "orb_weaver_tmc5130:tmc5130_spi_r150")
 		(members "01d83357-d5d6-44b9-9565-6da7187a4e2c" "052a2f03-72ab-4a2a-b20a-64a67e2edca1"
 			"060963f6-dddb-4615-8707-21326b9597a3" "0636b2f4-0a37-4af8-bd01-693cce8baf25"
 			"08fba706-7c29-4074-a0d2-29c66dbb4f25" "0d868cf8-8f0f-4d2f-8705-c720fdba1ce5"

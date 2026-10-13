@@ -1,6 +1,17 @@
 schema: orb-weaver/subsystem/1
 name: brake_torque_sensor
-summary: brake_torque_sensor as drawn on mouse-joystick-pcb, 6 parts
+summary: 'The brake and torque subsystem: the RTS-5 torque bridge front end with its 10 V excitation and ADS8689 ADC on SPI1,
+  the 12 V regulator that feeds the bridge excitation from the 36 V rail, and the DAC80501-programmed 0 to 48.78 mA current
+  sink that drives the magnetic particle brake.'
+notes:
+- The torque bridge's analog monitor leaves on J901 (TQ_AOUT, a BNC) as a bench signal; it does not reach the MCU, torque
+  arrives digitally over SPI1.
+- 'The pulls are the board''s (layout convention 10): R904 (10 k to +3.3V) holds TQ_CONVST_CS high so the ADC is idle until
+  firmware frames a conversion; R901, R902, R903 and R905 (10 k to GND) define ~{BRAKE_FAULT}, TQ_SPI_SCK, TQ_SPI_COPI and
+  TQ_CAL_EN while the bus switch is open, so neither the torque ADC nor the fault input floats at reset.'
+- The 12 V regulator is the adjustable TPSM365R6 family's 12 V configuration; its PGOOD is PG_12V for the MCU to read before
+  trusting the bridge.
+- The brake sink's fault is ~{BRAKE_FAULT} (open drain, pulled low here); its current readback is BRAKE_ISENSE on GP27 (ADC1).
 source:
   board: mouse-joystick-pcb
   sheet: brake_torque_sensor.kicad_sch
@@ -73,11 +84,11 @@ blocks:
     TQ_CONVST_CS: TQ_CONVST_CS
     TQ_CONVST_CS_INST: TQ_CONVST_CS_INST
 - role: hv_to_12v_tpsm365r6
-  block: orb_weaver_private:hv_to_12v_tpsm365r6
+  block: orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v
   connections:
-    +12V: +12V
     GND: GND
     PGOOD: PG_12V
+    VOUT: +12V
     VIN: +36V
 - role: brake_current_sink_0_49ma_dac80501
   block: orb_weaver_private:brake_current_sink_0_49ma_dac80501

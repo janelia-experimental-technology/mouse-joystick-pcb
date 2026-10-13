@@ -498,7 +498,7 @@
   },
   {
    "group": "hv_to_12v_tpsm365r6",
-   "lib_id": "orb_weaver_private:hv_to_12v_tpsm365r6",
+   "lib_id": "orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v",
    "sheet_path": "/f229cd8b-936a-4ad1-8bff-4cac135737f9/670aba7c-5d0b-40f5-98be-71b6a2ad93fc",
    "anchor_reference": "U1901",
    "anchor_footprint": "orb_weaver_smd:RDN0011A-MFG",
@@ -529,7 +529,7 @@
   },
   {
    "group": "hv_to_5v_tpsm365r6",
-   "lib_id": "orb_weaver_private:hv_to_5v_tpsm365r6",
+   "lib_id": "orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v",
    "sheet_path": "/cc3989d8-d81e-44ec-9135-47b541df34e1",
    "anchor_reference": "U1701",
    "anchor_footprint": "orb_weaver_smd:RDN0011A-MFG",
@@ -755,7 +755,7 @@
   },
   {
    "group": "tmc5130",
-   "lib_id": "orb_weaver_private:tmc5130",
+   "lib_id": "orb_weaver_tmc5130:tmc5130_spi_r150",
    "sheet_path": "/80cd7232-94ab-41ea-965f-e2da584d580d/e42510bf-12f3-499e-99b2-0445c30415a0",
    "anchor_reference": "U1201",
    "anchor_footprint": "orb_weaver_smd:TQFP-48-1EP_7x7mm_P0.5mm_EP5x5mm_ThermalVias_JLCPCB",

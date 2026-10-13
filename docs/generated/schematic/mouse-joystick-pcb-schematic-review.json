@@ -1,0 +1,2796 @@
+{
+  "source_schematic": "mouse-joystick-pcb.kicad_sch",
+  "sheets": [
+    {
+      "path": "/",
+      "page": "1",
+      "paper": "A4",
+      "regions": [],
+      "file": "mouse-joystick-pcb.kicad_sch",
+      "sha256": "3e7e2abf99a77e606154b2e81592659f25b6baff20e709cfa61b8ece1ef2f4f1"
+    },
+    {
+      "path": "/instrument_port",
+      "page": "14",
+      "paper": "A4",
+      "regions": [],
+      "file": "instrument_port.kicad_sch",
+      "sha256": "207bb597a86fb278481d0c4e624cabbdf6c9b3766d8d21cb9de1cf954d815750"
+    },
+    {
+      "path": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical",
+      "page": "13",
+      "paper": "A1",
+      "regions": [
+        {
+          "title": "1. Octet DIG0 to DIG7: U39001",
+          "box": [
+            13.97,
+            35.211999999999996,
+            196.51000000000002,
+            207.01000000000002
+          ]
+        },
+        {
+          "title": "2. Octet DIG8 to DIG15: U39002",
+          "box": [
+            232.476667,
+            35.211999999999996,
+            415.016667,
+            207.01000000000002
+          ]
+        },
+        {
+          "title": "3. Octet DIG16 to DIG23: U39003",
+          "box": [
+            450.983333,
+            35.211999999999996,
+            633.523333,
+            207.01000000000002
+          ]
+        },
+        {
+          "title": "4. Octet DIG24 to DIG31: U39004",
+          "box": [
+            13.97,
+            214.37599999999998,
+            196.51000000000002,
+            387.34999999999997
+          ]
+        },
+        {
+          "title": "5. Rail-entry bulk bypass",
+          "box": [
+            232.476667,
+            214.37599999999998,
+            415.016667,
+            279.06859199999997
+          ]
+        },
+        {
+          "title": "6. FFC receptacle",
+          "box": [
+            450.983333,
+            214.37599999999998,
+            633.523333,
+            390.144
+          ]
+        },
+        {
+          "title": "Interfaces (1 of 2)",
+          "box": [
+            669.49,
+            35.211999999999996,
+            757.190736587,
+            240.28400000000002
+          ]
+        },
+        {
+          "title": "Interfaces (2 of 2)",
+          "box": [
+            669.49,
+            240.696,
+            740.372350996,
+            435.864
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            13.97,
+            397.51,
+            227.396667,
+            545.764
+          ]
+        }
+      ],
+      "file": "instrument_port_digital_50_dut_ffc_boundary_vertical.kicad_sch",
+      "sha256": "466022b2c9f6e7dbf855cc42e7506eaf2b70fc54829de8435da54929c92f72bc"
+    },
+    {
+      "path": "/mcu",
+      "page": "4",
+      "paper": "A4",
+      "regions": [],
+      "file": "mcu.kicad_sch",
+      "sha256": "5fdc75bf41bfad4f2cdc3511b5b6cae75b75059c8a655e8e78a4c354e63bad53"
+    },
+    {
+      "path": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245",
+      "page": "6",
+      "paper": "A0",
+      "regions": [
+        {
+          "title": "1. Controller core (1 of 2)",
+          "box": [
+            13.97,
+            35.211999999999996,
+            309.96999999999997,
+            226.998592
+          ]
+        },
+        {
+          "title": "1. Controller core (2 of 2)",
+          "box": [
+            13.97,
+            228.014592,
+            176.10791854800001,
+            243.50859200000002
+          ]
+        },
+        {
+          "title": "2. Clock",
+          "box": [
+            515.73,
+            35.211999999999996,
+            761.53,
+            139.338592
+          ]
+        },
+        {
+          "title": "3. QSPI flash",
+          "box": [
+            766.61,
+            35.211999999999996,
+            1012.41,
+            154.60859200000002
+          ]
+        },
+        {
+          "title": "4. USB",
+          "box": [
+            515.73,
+            146.704592,
+            761.53,
+            194.25859200000002
+          ]
+        },
+        {
+          "title": "5. BOOTSEL and RUN",
+          "box": [
+            766.61,
+            161.974592,
+            1012.41,
+            257.078592
+          ]
+        },
+        {
+          "title": "6. Bus switch enable",
+          "box": [
+            515.73,
+            201.62459199999998,
+            761.53,
+            281.41218299999997
+          ]
+        },
+        {
+          "title": "7. Bus switches U40003 and U40004",
+          "box": [
+            13.97,
+            250.87459199999998,
+            259.77,
+            380.668592
+          ]
+        },
+        {
+          "title": "8. Bus switches U40005 and U40006",
+          "box": [
+            264.85,
+            250.87459199999998,
+            510.65,
+            383.208592
+          ]
+        },
+        {
+          "title": "Interfaces (1 of 3)",
+          "box": [
+            1017.49,
+            35.211999999999996,
+            1104.754773019,
+            273.304
+          ]
+        },
+        {
+          "title": "Interfaces (2 of 3)",
+          "box": [
+            1017.49,
+            276.256,
+            1111.108397853,
+            524.764
+          ]
+        },
+        {
+          "title": "Interfaces (3 of 3)",
+          "box": [
+            1017.49,
+            525.176,
+            1092.545804803,
+            759.3439999999999
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            13.97,
+            390.574592,
+            309.96999999999997,
+            535.128592
+          ]
+        }
+      ],
+      "file": "rp2040_with_gpio_isolation_sn74cb3q3245.kicad_sch",
+      "sha256": "740f29d1bb57716a15c721a04b8efa63e44411559f402edd282d05e4cadc4d46"
+    },
+    {
+      "path": "/mcu/5v_to_3v3_tps73733_1",
+      "page": "7",
+      "paper": "A4",
+      "regions": [
+        {
+          "title": "1. Regulator and bypass",
+          "box": [
+            13.97,
+            35.211999999999996,
+            190.41,
+            101.268592
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            195.48999999999998,
+            35.211999999999996,
+            271.480167552,
+            75.184
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            195.48999999999998,
+            86.36,
+            283.03,
+            143.174
+          ]
+        }
+      ],
+      "file": "5v_to_3v3_tps73733_1.kicad_sch",
+      "sha256": "d4023396b615e3a76330f9276f4c58f3a365c812ab3e18d508a5c983d5ba6470"
+    },
+    {
+      "path": "/pycontrol_behavior_port_rj45_boundary_vertical",
+      "page": "3",
+      "paper": "A2",
+      "regions": [
+        {
+          "title": "1. Shielded jack and ESD clamp",
+          "box": [
+            13.97,
+            35.211999999999996,
+            213.15,
+            240.003183
+          ]
+        },
+        {
+          "title": "2. DIO series resistors and instrument taps",
+          "box": [
+            218.23,
+            35.211999999999996,
+            400.77,
+            116.84
+          ]
+        },
+        {
+          "title": "3. Port 5 V, fuse position and diode-OR",
+          "box": [
+            218.23,
+            124.206,
+            400.77,
+            173.99
+          ]
+        },
+        {
+          "title": "4. Power drive declarations",
+          "box": [
+            218.23,
+            181.356,
+            400.77,
+            239.06904200000002
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            422.49,
+            35.211999999999996,
+            506.017308942,
+            125.984
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            422.49,
+            137.16,
+            580.03,
+            355.604
+          ]
+        }
+      ],
+      "file": "pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch",
+      "sha256": "d7a4722c22ca8bc87a775456b18756f9c1da6464aeef9786b2fd55915eb9e456"
+    },
+    {
+      "path": "/5v_to_3v3_tps73733_2",
+      "page": "10",
+      "paper": "A4",
+      "regions": [
+        {
+          "title": "1. Regulator and bypass",
+          "box": [
+            13.97,
+            35.211999999999996,
+            190.41,
+            101.268592
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            195.48999999999998,
+            35.211999999999996,
+            271.480167552,
+            75.184
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            195.48999999999998,
+            86.36,
+            283.03,
+            143.174
+          ]
+        }
+      ],
+      "file": "5v_to_3v3_tps73733_2.kicad_sch",
+      "sha256": "b7e4ea6a6c8fa681538b326b5c173a3aed650803e4f789e63bdce6b98f4d39b5"
+    },
+    {
+      "path": "/usb2_vertical",
+      "page": "2",
+      "paper": "A2",
+      "regions": [
+        {
+          "title": "1. Receptacle and ESD clamp",
+          "box": [
+            13.97,
+            35.211999999999996,
+            213.15,
+            273.49670799999996
+          ]
+        },
+        {
+          "title": "2. CC sink declaration",
+          "box": [
+            218.23,
+            35.211999999999996,
+            400.77,
+            98.72859199999999
+          ]
+        },
+        {
+          "title": "3. Power drive declarations",
+          "box": [
+            218.23,
+            106.094592,
+            400.77,
+            154.397525
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            422.49,
+            35.211999999999996,
+            507.38770066399996,
+            100.584
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            422.49,
+            111.76,
+            580.03,
+            251.464
+          ]
+        }
+      ],
+      "file": "usb2_vertical.kicad_sch",
+      "sha256": "3256bf0538e5431ed074117a100e87e67b48541575df3da400ab7bb7b8cf0cb2"
+    },
+    {
+      "path": "/motor_encoder_switch",
+      "page": "11",
+      "paper": "A4",
+      "regions": [],
+      "file": "motor_encoder_switch.kicad_sch",
+      "sha256": "b742470df4e218577c24302f326df887d07e6050e778618c2867b71496bcff66"
+    },
+    {
+      "path": "/motor_encoder_switch/analog_output_0_3v3_dac80501",
+      "page": "8",
+      "paper": "A1",
+      "regions": [
+        {
+          "title": "1. DAC and address straps",
+          "box": [
+            13.97,
+            35.211999999999996,
+            227.396667,
+            200.80272100000002
+          ]
+        },
+        {
+          "title": "2. Reconstruction filter and gain amplifier (1 of 3)",
+          "box": [
+            232.476667,
+            35.211999999999996,
+            445.903333,
+            48.50600000000001
+          ]
+        },
+        {
+          "title": "2. Reconstruction filter and gain amplifier (2 of 3)",
+          "box": [
+            237.55666699999998,
+            56.1594,
+            324.29933341699996,
+            298.118592
+          ]
+        },
+        {
+          "title": "2. Reconstruction filter and gain amplifier (3 of 3)",
+          "box": [
+            232.476667,
+            305.81600000000003,
+            414.42303919999995,
+            376.606592
+          ]
+        },
+        {
+          "title": "3. Output divider, series resistor and ESD clamp",
+          "box": [
+            450.983333,
+            35.211999999999996,
+            633.523333,
+            148.25859200000002
+          ]
+        },
+        {
+          "title": "4. Power drive declarations",
+          "box": [
+            450.983333,
+            155.62459199999998,
+            633.523333,
+            210.803662
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            669.49,
+            35.211999999999996,
+            817.363349668,
+            131.06400000000002
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance (1 of 2)",
+          "box": [
+            669.49,
+            142.23999999999998,
+            827.03,
+            327.32399999999996
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance (2 of 2)",
+          "box": [
+            669.49,
+            334.69,
+            827.03,
+            474.984
+          ]
+        }
+      ],
+      "file": "analog_output_0_3v3_dac80501.kicad_sch",
+      "sha256": "4c14c278b5251f14e43ed76feb8278f553988a094035873a0350c4a82f883827"
+    },
+    {
+      "path": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17",
+      "page": "15",
+      "paper": "A2",
+      "regions": [
+        {
+          "title": "1. Channel A input conditioning",
+          "box": [
+            13.97,
+            35.211999999999996,
+            145.063333,
+            136.82859200000001
+          ]
+        },
+        {
+          "title": "2. Channel B input conditioning",
+          "box": [
+            150.14333299999998,
+            35.211999999999996,
+            281.23666699999995,
+            131.748592
+          ]
+        },
+        {
+          "title": "3. Schmitt buffer and VCC bypass",
+          "box": [
+            286.316667,
+            35.211999999999996,
+            417.40999999999997,
+            202.868592
+          ]
+        },
+        {
+          "title": "4. Output pull-downs and instrument taps",
+          "box": [
+            150.14333299999998,
+            139.114592,
+            281.23666699999995,
+            214.63000000000002
+          ]
+        },
+        {
+          "title": "5. Encoder supply bypass",
+          "box": [
+            13.97,
+            144.194592,
+            145.063333,
+            207.94859200000002
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            422.49,
+            35.211999999999996,
+            518.226250996,
+            148.84400000000002
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            422.49,
+            160.01999999999998,
+            580.03,
+            311.154
+          ]
+        }
+      ],
+      "file": "quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch",
+      "sha256": "7d1fcb330836a3853af976e77b449cd6cc5c20e6255b73afc8cb34126e7eddfa"
+    },
+    {
+      "path": "/motor_encoder_switch/limit_switch_debounced_input_vertical",
+      "page": "16",
+      "paper": "A2",
+      "regions": [
+        {
+          "title": "1. Switch terminal and debouncer",
+          "box": [
+            13.97,
+            35.211999999999996,
+            213.15,
+            205.16259200000002
+          ]
+        },
+        {
+          "title": "2. Output pull-down and instrument tap",
+          "box": [
+            218.23,
+            35.211999999999996,
+            400.77,
+            87.63
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            422.49,
+            35.211999999999996,
+            575.471166224,
+            90.42399999999999
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            422.49,
+            101.60000000000001,
+            580.03,
+            291.764
+          ]
+        }
+      ],
+      "file": "limit_switch_debounced_input_vertical.kicad_sch",
+      "sha256": "45bbee1820863da4921b99079e662070fdcc1f5e58a8ab4085c45d340d25263b"
+    },
+    {
+      "path": "/motor_encoder_switch/tmc5130",
+      "page": "12",
+      "paper": "A1",
+      "regions": [
+        {
+          "title": "1. Driver core (1 of 3)",
+          "box": [
+            13.97,
+            35.211999999999996,
+            309.96999999999997,
+            51.04600000000001
+          ]
+        },
+        {
+          "title": "1. Driver core (2 of 3)",
+          "box": [
+            19.05,
+            56.565799999999996,
+            154.88133355600002,
+            293.038592
+          ]
+        },
+        {
+          "title": "1. Driver core (3 of 3)",
+          "box": [
+            13.97,
+            294.054592,
+            169.00676688800004,
+            332.408592
+          ]
+        },
+        {
+          "title": "2. Clock",
+          "box": [
+            341.73,
+            35.211999999999996,
+            637.73,
+            157.148592
+          ]
+        },
+        {
+          "title": "3. Charge pump",
+          "box": [
+            341.73,
+            164.514592,
+            524.27,
+            230.061104
+          ]
+        },
+        {
+          "title": "4. Instrument taps",
+          "box": [
+            341.73,
+            237.42710399999999,
+            550.0899029999999,
+            317.13
+          ]
+        },
+        {
+          "title": "Interfaces (1 of 2)",
+          "box": [
+            669.49,
+            35.211999999999996,
+            769.773481297,
+            199.644
+          ]
+        },
+        {
+          "title": "Interfaces (2 of 2)",
+          "box": [
+            669.49,
+            200.05599999999998,
+            771.642193714,
+            363.104
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            669.49,
+            374.28000000000003,
+            827.03,
+            548.774
+          ]
+        }
+      ],
+      "file": "tmc5130.kicad_sch",
+      "sha256": "dcf09395ac6dac7255cae5eeaa3e589704b581a5f5d28f734c7995a32de78d5e"
+    },
+    {
+      "path": "/hv_to_5v_tpsm365r6",
+      "page": "17",
+      "paper": "A3",
+      "regions": [
+        {
+          "title": "1. Buck module and output capacitors",
+          "box": [
+            13.97,
+            35.211999999999996,
+            280.81,
+            225.867083
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            285.89000000000004,
+            35.211999999999996,
+            370.91231027000003,
+            87.884
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            285.89000000000004,
+            99.06,
+            406.03,
+            209.554
+          ]
+        }
+      ],
+      "file": "hv_to_5v_tpsm365r6.kicad_sch",
+      "sha256": "fd15f021ac746a0ae6710fb1821bc7382a386e882f538fdf653f1d3c1e065733"
+    },
+    {
+      "path": "/brake_torque_sensor",
+      "page": "9",
+      "paper": "A4",
+      "regions": [],
+      "file": "brake_torque_sensor.kicad_sch",
+      "sha256": "9b985652ed1fb27be2287df850fd1c85b6510a43be20befba487d29624211690"
+    },
+    {
+      "path": "/brake_torque_sensor/torque_bridge_0_3v3_ina821",
+      "page": "20",
+      "paper": "A1",
+      "regions": [
+        {
+          "title": "1. Sensor connector and calibration review",
+          "box": [
+            13.97,
+            35.211999999999996,
+            196.51000000000002,
+            202.868592
+          ]
+        },
+        {
+          "title": "2. 10 V reference and excitation servo",
+          "box": [
+            232.476667,
+            35.211999999999996,
+            436.57503099999997,
+            221.91859200000002
+          ]
+        },
+        {
+          "title": "3. Differential input filter and instrumentation gain",
+          "box": [
+            450.983333,
+            35.211999999999996,
+            633.523333,
+            205.072954
+          ]
+        },
+        {
+          "title": "4. Ratiometric 5 V midpoint",
+          "box": [
+            13.97,
+            210.234592,
+            196.51000000000002,
+            331.13859199999996
+          ]
+        },
+        {
+          "title": "5. One-third attenuation, low-pass filter and buffer",
+          "box": [
+            450.983333,
+            212.438954,
+            659.5549599999999,
+            383.208592
+          ]
+        },
+        {
+          "title": "6. Half-scale analog output and monitor",
+          "box": [
+            232.476667,
+            229.284592,
+            415.016667,
+            369.238592
+          ]
+        },
+        {
+          "title": "7. Full-amplitude ADC and its references",
+          "box": [
+            13.97,
+            338.504592,
+            214.64030983400002,
+            521.638592
+          ]
+        },
+        {
+          "title": "8. Digital observation taps and bus ownership",
+          "box": [
+            232.476667,
+            376.604592,
+            415.016667,
+            502.91999999999996
+          ]
+        },
+        {
+          "title": "9. Filtered analog rails",
+          "box": [
+            450.983333,
+            390.574592,
+            633.523333,
+            505.12859199999997
+          ]
+        },
+        {
+          "title": "10. Power drive declarations",
+          "box": [
+            232.476667,
+            510.286,
+            415.016667,
+            565.780758
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            669.49,
+            35.211999999999996,
+            758.2496696989999,
+            219.964
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            669.49,
+            231.14,
+            827.03,
+            517.574
+          ]
+        }
+      ],
+      "file": "torque_bridge_0_3v3_ina821.kicad_sch",
+      "sha256": "a7b697d05468a246f7c13bc5e2a35e220977448417bc945babdf3dee325eece1"
+    },
+    {
+      "path": "/brake_torque_sensor/hv_to_12v_tpsm365r6",
+      "page": "19",
+      "paper": "A3",
+      "regions": [
+        {
+          "title": "1. Buck module, input bypass and output capacitors (1 of 2)",
+          "box": [
+            13.97,
+            35.211999999999996,
+            280.81,
+            196.518592
+          ]
+        },
+        {
+          "title": "1. Buck module, input bypass and output capacitors (2 of 2)",
+          "box": [
+            13.97,
+            197.534592,
+            168.07244338200005,
+            243.50859200000002
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            285.89000000000004,
+            35.211999999999996,
+            376.020152988,
+            87.884
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            285.89000000000004,
+            99.06,
+            406.03,
+            229.87400000000002
+          ]
+        }
+      ],
+      "file": "hv_to_12v_tpsm365r6.kicad_sch",
+      "sha256": "946784efff88a092718757929bfed8e04c7d19b749ba77f2d05052f3dde7f367"
+    },
+    {
+      "path": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501",
+      "page": "18",
+      "paper": "A1",
+      "regions": [
+        {
+          "title": "1. DAC and address straps",
+          "box": [
+            13.97,
+            38.812,
+            172.77,
+            200.80272100000002
+          ]
+        },
+        {
+          "title": "2. Set-point divider and command filter",
+          "box": [
+            177.85,
+            38.812,
+            336.65,
+            140.63859200000002
+          ]
+        },
+        {
+          "title": "3. Loop amplifier and gate drive",
+          "box": [
+            341.73,
+            38.812,
+            500.53,
+            297.528551
+          ]
+        },
+        {
+          "title": "4. Pass device, Kelvin shunt, coil terminal and flyback",
+          "box": [
+            505.61,
+            38.812,
+            664.41,
+            249.55357
+          ]
+        },
+        {
+          "title": "5. Current ceiling",
+          "box": [
+            177.85,
+            148.004592,
+            336.65,
+            300.92025
+          ]
+        },
+        {
+          "title": "6. Current monitor and output divider",
+          "box": [
+            13.97,
+            208.16872099999998,
+            172.77,
+            496.016012
+          ]
+        },
+        {
+          "title": "7. Fault buffer",
+          "box": [
+            505.61,
+            256.91957,
+            664.41,
+            407.838592
+          ]
+        },
+        {
+          "title": "8. Supply ferrites and bypass",
+          "box": [
+            341.73,
+            304.89455100000004,
+            500.53,
+            418.76859199999996
+          ]
+        },
+        {
+          "title": "9. Power drive declarations",
+          "box": [
+            177.85,
+            308.28625,
+            336.65,
+            363.203662
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            669.49,
+            38.812,
+            822.65804139,
+            164.984
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            669.49,
+            176.16,
+            827.03,
+            385.50399999999996
+          ]
+        }
+      ],
+      "file": "brake_current_sink_0_49ma_dac80501.kicad_sch",
+      "sha256": "3ff9eaccad243649df161f9ae06ed7460d974dcc6c198b23fadaf77550e96619"
+    },
+    {
+      "path": "/hv_input_36V_terminal_2pos_5p08_protected_vertical",
+      "page": "5",
+      "paper": "A2",
+      "regions": [
+        {
+          "title": "1. Entry and reverse-polarity protection",
+          "box": [
+            13.97,
+            37.912,
+            213.15,
+            99.69
+          ]
+        },
+        {
+          "title": "2. High-side switch, input bypass, current limit and output",
+          "box": [
+            218.23,
+            37.912,
+            417.40999999999997,
+            246.94859200000002
+          ]
+        },
+        {
+          "title": "3. Enable, diagnostics and latch inputs",
+          "box": [
+            13.97,
+            107.056,
+            196.51000000000002,
+            156.21
+          ]
+        },
+        {
+          "title": "4. Fault output",
+          "box": [
+            13.97,
+            163.576,
+            196.51000000000002,
+            212.99
+          ]
+        },
+        {
+          "title": "5. Instrument taps",
+          "box": [
+            13.97,
+            220.356,
+            196.51000000000002,
+            273.04999999999995
+          ]
+        },
+        {
+          "title": "6. Load-current sense output",
+          "box": [
+            218.23,
+            254.31459199999998,
+            400.77,
+            342.56859199999997
+          ]
+        },
+        {
+          "title": "7. Power drive declarations",
+          "box": [
+            13.97,
+            280.416,
+            196.51000000000002,
+            327.553567
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "box": [
+            422.49,
+            37.912,
+            538.844392386,
+            182.764
+          ]
+        },
+        {
+          "title": "Operation and PCB guidance",
+          "box": [
+            422.49,
+            193.94,
+            580.03,
+            374.81399999999996
+          ]
+        }
+      ],
+      "file": "hv_input_36V_terminal_2pos_5p08_protected_vertical.kicad_sch",
+      "sha256": "0aa5c86bce0f5cf9351a7aa234939bf01ace3a60dd7f17c708fc6a80ba79b31c"
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/"
+    },
+    {
+      "page": 2,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/instrument_port"
+    },
+    {
+      "page": 3,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        841.0,
+        594.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 4,
+      "title": "1. Octet DIG0 to DIG7: U39001",
+      "box": [
+        13.97,
+        35.211999999999996,
+        196.51000000000002,
+        207.01000000000002
+      ],
+      "scale": 1.222,
+      "text_mm": 1.55,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 5,
+      "title": "2. Octet DIG8 to DIG15: U39002",
+      "box": [
+        232.476667,
+        35.211999999999996,
+        415.016667,
+        207.01000000000002
+      ],
+      "scale": 1.222,
+      "text_mm": 1.55,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 6,
+      "title": "3. Octet DIG16 to DIG23: U39003",
+      "box": [
+        450.983333,
+        35.211999999999996,
+        633.523333,
+        207.01000000000002
+      ],
+      "scale": 1.222,
+      "text_mm": 1.55,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 7,
+      "title": "4. Octet DIG24 to DIG31: U39004",
+      "box": [
+        13.97,
+        214.37599999999998,
+        196.51000000000002,
+        387.34999999999997
+      ],
+      "scale": 1.214,
+      "text_mm": 1.54,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 8,
+      "title": "5. Rail-entry bulk bypass",
+      "box": [
+        232.476667,
+        214.37599999999998,
+        415.016667,
+        279.06859199999997
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 9,
+      "title": "6. FFC receptacle",
+      "box": [
+        450.983333,
+        214.37599999999998,
+        633.523333,
+        390.144
+      ],
+      "scale": 1.195,
+      "text_mm": 1.52,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 10,
+      "title": "Interfaces (1 of 2)",
+      "box": [
+        669.49,
+        35.211999999999996,
+        757.190736587,
+        240.28400000000002
+      ],
+      "scale": 1.448,
+      "text_mm": 1.84,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 11,
+      "title": "Interfaces (2 of 2)",
+      "box": [
+        669.49,
+        240.696,
+        740.372350996,
+        435.864
+      ],
+      "scale": 1.522,
+      "text_mm": 1.93,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 12,
+      "title": "Operation and PCB guidance",
+      "box": [
+        13.97,
+        397.51,
+        227.396667,
+        545.764
+      ],
+      "scale": 1.392,
+      "text_mm": 1.77,
+      "instance": "/instrument_port/instrument_port_digital_50_dut_ffc_boundary_vertical"
+    },
+    {
+      "page": 13,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/mcu"
+    },
+    {
+      "page": 14,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        1189.0,
+        841.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 15,
+      "title": "1. Controller core (1 of 2)",
+      "box": [
+        13.97,
+        35.211999999999996,
+        309.96999999999997,
+        226.998592
+      ],
+      "scale": 1.003,
+      "text_mm": 1.27,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 16,
+      "title": "1. Controller core (2 of 2)",
+      "box": [
+        13.97,
+        228.014592,
+        176.10791854800001,
+        243.50859200000002
+      ],
+      "scale": 1.832,
+      "text_mm": 2.33,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 17,
+      "title": "2. Clock",
+      "box": [
+        515.73,
+        35.211999999999996,
+        761.53,
+        139.338592
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 18,
+      "title": "3. QSPI flash",
+      "box": [
+        766.61,
+        35.211999999999996,
+        1012.41,
+        154.60859200000002
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 19,
+      "title": "4. USB",
+      "box": [
+        515.73,
+        146.704592,
+        761.53,
+        194.25859200000002
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 20,
+      "title": "5. BOOTSEL and RUN",
+      "box": [
+        766.61,
+        161.974592,
+        1012.41,
+        257.078592
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 21,
+      "title": "6. Bus switch enable",
+      "box": [
+        515.73,
+        201.62459199999998,
+        761.53,
+        281.41218299999997
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 22,
+      "title": "7. Bus switches U40003 and U40004",
+      "box": [
+        13.97,
+        250.87459199999998,
+        259.77,
+        380.668592
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 23,
+      "title": "8. Bus switches U40005 and U40006",
+      "box": [
+        264.85,
+        250.87459199999998,
+        510.65,
+        383.208592
+      ],
+      "scale": 1.208,
+      "text_mm": 1.53,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 24,
+      "title": "Interfaces (1 of 3)",
+      "box": [
+        1017.49,
+        35.211999999999996,
+        1104.754773019,
+        273.304
+      ],
+      "scale": 1.247,
+      "text_mm": 1.58,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 25,
+      "title": "Interfaces (2 of 3)",
+      "box": [
+        1017.49,
+        276.256,
+        1111.108397853,
+        524.764
+      ],
+      "scale": 1.195,
+      "text_mm": 1.52,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 26,
+      "title": "Interfaces (3 of 3)",
+      "box": [
+        1017.49,
+        525.176,
+        1092.545804803,
+        759.3439999999999
+      ],
+      "scale": 1.268,
+      "text_mm": 1.61,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 27,
+      "title": "Operation and PCB guidance",
+      "box": [
+        13.97,
+        390.574592,
+        309.96999999999997,
+        535.128592
+      ],
+      "scale": 1.003,
+      "text_mm": 1.27,
+      "instance": "/mcu/rp2040_with_gpio_isolation_sn74cb3q3245"
+    },
+    {
+      "page": 28,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/mcu/5v_to_3v3_tps73733_1"
+    },
+    {
+      "page": 29,
+      "title": "1. Regulator and bypass",
+      "box": [
+        13.97,
+        35.211999999999996,
+        190.41,
+        101.268592
+      ],
+      "scale": 1.683,
+      "text_mm": 2.14,
+      "instance": "/mcu/5v_to_3v3_tps73733_1"
+    },
+    {
+      "page": 30,
+      "title": "Interfaces",
+      "box": [
+        195.48999999999998,
+        35.211999999999996,
+        271.480167552,
+        75.184
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/mcu/5v_to_3v3_tps73733_1"
+    },
+    {
+      "page": 31,
+      "title": "Operation and PCB guidance",
+      "box": [
+        195.48999999999998,
+        86.36,
+        283.03,
+        143.174
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/mcu/5v_to_3v3_tps73733_1"
+    },
+    {
+      "page": 32,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        594.0,
+        420.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 33,
+      "title": "1. Shielded jack and ESD clamp",
+      "box": [
+        13.97,
+        35.211999999999996,
+        213.15,
+        240.003183
+      ],
+      "scale": 1.054,
+      "text_mm": 1.34,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 34,
+      "title": "2. DIO series resistors and instrument taps",
+      "box": [
+        218.23,
+        35.211999999999996,
+        400.77,
+        116.84
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 35,
+      "title": "3. Port 5 V, fuse position and diode-OR",
+      "box": [
+        218.23,
+        124.206,
+        400.77,
+        173.99
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 36,
+      "title": "4. Power drive declarations",
+      "box": [
+        218.23,
+        181.356,
+        400.77,
+        239.06904200000002
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 37,
+      "title": "Interfaces",
+      "box": [
+        422.49,
+        35.211999999999996,
+        506.017308942,
+        125.984
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 38,
+      "title": "Operation and PCB guidance",
+      "box": [
+        422.49,
+        137.16,
+        580.03,
+        355.604
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/pycontrol_behavior_port_rj45_boundary_vertical"
+    },
+    {
+      "page": 39,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/5v_to_3v3_tps73733_2"
+    },
+    {
+      "page": 40,
+      "title": "1. Regulator and bypass",
+      "box": [
+        13.97,
+        35.211999999999996,
+        190.41,
+        101.268592
+      ],
+      "scale": 1.683,
+      "text_mm": 2.14,
+      "instance": "/5v_to_3v3_tps73733_2"
+    },
+    {
+      "page": 41,
+      "title": "Interfaces",
+      "box": [
+        195.48999999999998,
+        35.211999999999996,
+        271.480167552,
+        75.184
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/5v_to_3v3_tps73733_2"
+    },
+    {
+      "page": 42,
+      "title": "Operation and PCB guidance",
+      "box": [
+        195.48999999999998,
+        86.36,
+        283.03,
+        143.174
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/5v_to_3v3_tps73733_2"
+    },
+    {
+      "page": 43,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        594.0,
+        420.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 44,
+      "title": "1. Receptacle and ESD clamp",
+      "box": [
+        13.97,
+        35.211999999999996,
+        213.15,
+        273.49670799999996
+      ],
+      "scale": 1.054,
+      "text_mm": 1.34,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 45,
+      "title": "2. CC sink declaration",
+      "box": [
+        218.23,
+        35.211999999999996,
+        400.77,
+        98.72859199999999
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 46,
+      "title": "3. Power drive declarations",
+      "box": [
+        218.23,
+        106.094592,
+        400.77,
+        154.397525
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 47,
+      "title": "Interfaces",
+      "box": [
+        422.49,
+        35.211999999999996,
+        507.38770066399996,
+        100.584
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 48,
+      "title": "Operation and PCB guidance",
+      "box": [
+        422.49,
+        111.76,
+        580.03,
+        251.464
+      ],
+      "scale": 1.503,
+      "text_mm": 1.91,
+      "instance": "/usb2_vertical"
+    },
+    {
+      "page": 49,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch"
+    },
+    {
+      "page": 50,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        841.0,
+        594.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 51,
+      "title": "1. DAC and address straps",
+      "box": [
+        13.97,
+        35.211999999999996,
+        227.396667,
+        200.80272100000002
+      ],
+      "scale": 1.268,
+      "text_mm": 1.61,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 52,
+      "title": "2. Reconstruction filter and gain amplifier (1 of 3)",
+      "box": [
+        232.476667,
+        35.211999999999996,
+        445.903333,
+        48.50600000000001
+      ],
+      "scale": 1.392,
+      "text_mm": 1.77,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 53,
+      "title": "2. Reconstruction filter and gain amplifier (2 of 3)",
+      "box": [
+        237.55666699999998,
+        56.1594,
+        324.29933341699996,
+        298.118592
+      ],
+      "scale": 1.227,
+      "text_mm": 1.56,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 54,
+      "title": "2. Reconstruction filter and gain amplifier (3 of 3)",
+      "box": [
+        232.476667,
+        305.81600000000003,
+        414.42303919999995,
+        376.606592
+      ],
+      "scale": 1.632,
+      "text_mm": 2.07,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 55,
+      "title": "3. Output divider, series resistor and ESD clamp",
+      "box": [
+        450.983333,
+        35.211999999999996,
+        633.523333,
+        148.25859200000002
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 56,
+      "title": "4. Power drive declarations",
+      "box": [
+        450.983333,
+        155.62459199999998,
+        633.523333,
+        210.803662
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 57,
+      "title": "Interfaces",
+      "box": [
+        669.49,
+        35.211999999999996,
+        817.363349668,
+        131.06400000000002
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 58,
+      "title": "Operation and PCB guidance (1 of 2)",
+      "box": [
+        669.49,
+        142.23999999999998,
+        827.03,
+        327.32399999999996
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 59,
+      "title": "Operation and PCB guidance (2 of 2)",
+      "box": [
+        669.49,
+        334.69,
+        827.03,
+        474.984
+      ],
+      "scale": 1.497,
+      "text_mm": 1.9,
+      "instance": "/motor_encoder_switch/analog_output_0_3v3_dac80501"
+    },
+    {
+      "page": 60,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        594.0,
+        420.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 61,
+      "title": "1. Channel A input conditioning",
+      "box": [
+        13.97,
+        35.211999999999996,
+        145.063333,
+        136.82859200000001
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 62,
+      "title": "2. Channel B input conditioning",
+      "box": [
+        150.14333299999998,
+        35.211999999999996,
+        281.23666699999995,
+        131.748592
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 63,
+      "title": "3. Schmitt buffer and VCC bypass",
+      "box": [
+        286.316667,
+        35.211999999999996,
+        417.40999999999997,
+        202.868592
+      ],
+      "scale": 1.602,
+      "text_mm": 2.03,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 64,
+      "title": "4. Output pull-downs and instrument taps",
+      "box": [
+        150.14333299999998,
+        139.114592,
+        281.23666699999995,
+        214.63000000000002
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 65,
+      "title": "5. Encoder supply bypass",
+      "box": [
+        13.97,
+        144.194592,
+        145.063333,
+        207.94859200000002
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 66,
+      "title": "Interfaces",
+      "box": [
+        422.49,
+        35.211999999999996,
+        518.226250996,
+        148.84400000000002
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 67,
+      "title": "Operation and PCB guidance",
+      "box": [
+        422.49,
+        160.01999999999998,
+        580.03,
+        311.154
+      ],
+      "scale": 1.389,
+      "text_mm": 1.76,
+      "instance": "/motor_encoder_switch/quadrature_encoder_input_5v_sn74lvc2g17"
+    },
+    {
+      "page": 68,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        594.0,
+        420.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/limit_switch_debounced_input_vertical"
+    },
+    {
+      "page": 69,
+      "title": "1. Switch terminal and debouncer",
+      "box": [
+        13.97,
+        35.211999999999996,
+        213.15,
+        205.16259200000002
+      ],
+      "scale": 1.236,
+      "text_mm": 1.57,
+      "instance": "/motor_encoder_switch/limit_switch_debounced_input_vertical"
+    },
+    {
+      "page": 70,
+      "title": "2. Output pull-down and instrument tap",
+      "box": [
+        218.23,
+        35.211999999999996,
+        400.77,
+        87.63
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/motor_encoder_switch/limit_switch_debounced_input_vertical"
+    },
+    {
+      "page": 71,
+      "title": "Interfaces",
+      "box": [
+        422.49,
+        35.211999999999996,
+        575.471166224,
+        90.42399999999999
+      ],
+      "scale": 1.941,
+      "text_mm": 2.47,
+      "instance": "/motor_encoder_switch/limit_switch_debounced_input_vertical"
+    },
+    {
+      "page": 72,
+      "title": "Operation and PCB guidance",
+      "box": [
+        422.49,
+        101.60000000000001,
+        580.03,
+        291.764
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/motor_encoder_switch/limit_switch_debounced_input_vertical"
+    },
+    {
+      "page": 73,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        841.0,
+        594.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 74,
+      "title": "1. Driver core (1 of 3)",
+      "box": [
+        13.97,
+        35.211999999999996,
+        309.96999999999997,
+        51.04600000000001
+      ],
+      "scale": 1.003,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 75,
+      "title": "1. Driver core (2 of 3)",
+      "box": [
+        19.05,
+        56.565799999999996,
+        154.88133355600002,
+        293.038592
+      ],
+      "scale": 1.256,
+      "text_mm": 1.6,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 76,
+      "title": "1. Driver core (3 of 3)",
+      "box": [
+        13.97,
+        294.054592,
+        169.00676688800004,
+        332.408592
+      ],
+      "scale": 1.916,
+      "text_mm": 2.43,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 77,
+      "title": "2. Clock",
+      "box": [
+        341.73,
+        35.211999999999996,
+        637.73,
+        157.148592
+      ],
+      "scale": 1.003,
+      "text_mm": 1.27,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 78,
+      "title": "3. Charge pump",
+      "box": [
+        341.73,
+        164.514592,
+        524.27,
+        230.061104
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 79,
+      "title": "4. Instrument taps",
+      "box": [
+        341.73,
+        237.42710399999999,
+        550.0899029999999,
+        317.13
+      ],
+      "scale": 1.425,
+      "text_mm": 1.81,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 80,
+      "title": "Interfaces (1 of 2)",
+      "box": [
+        669.49,
+        35.211999999999996,
+        769.773481297,
+        199.644
+      ],
+      "scale": 1.806,
+      "text_mm": 2.29,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 81,
+      "title": "Interfaces (2 of 2)",
+      "box": [
+        669.49,
+        200.05599999999998,
+        771.642193714,
+        363.104
+      ],
+      "scale": 1.822,
+      "text_mm": 2.31,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 82,
+      "title": "Operation and PCB guidance",
+      "box": [
+        669.49,
+        374.28000000000003,
+        827.03,
+        548.774
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/motor_encoder_switch/tmc5130"
+    },
+    {
+      "page": 83,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        420.0,
+        297.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/hv_to_5v_tpsm365r6"
+    },
+    {
+      "page": 84,
+      "title": "1. Buck module and output capacitors",
+      "box": [
+        13.97,
+        35.211999999999996,
+        280.81,
+        225.867083
+      ],
+      "scale": 1.101,
+      "text_mm": 1.4,
+      "instance": "/hv_to_5v_tpsm365r6"
+    },
+    {
+      "page": 85,
+      "title": "Interfaces",
+      "box": [
+        285.89000000000004,
+        35.211999999999996,
+        370.91231027000003,
+        87.884
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/hv_to_5v_tpsm365r6"
+    },
+    {
+      "page": 86,
+      "title": "Operation and PCB guidance",
+      "box": [
+        285.89000000000004,
+        99.06,
+        406.03,
+        209.554
+      ],
+      "scale": 1.901,
+      "text_mm": 2.41,
+      "instance": "/hv_to_5v_tpsm365r6"
+    },
+    {
+      "page": 87,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        297.0,
+        210.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/brake_torque_sensor"
+    },
+    {
+      "page": 88,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        841.0,
+        594.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 89,
+      "title": "1. Sensor connector and calibration review",
+      "box": [
+        13.97,
+        35.211999999999996,
+        196.51000000000002,
+        202.868592
+      ],
+      "scale": 1.253,
+      "text_mm": 1.59,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 90,
+      "title": "2. 10 V reference and excitation servo",
+      "box": [
+        232.476667,
+        35.211999999999996,
+        436.57503099999997,
+        221.91859200000002
+      ],
+      "scale": 1.125,
+      "text_mm": 1.43,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 91,
+      "title": "3. Differential input filter and instrumentation gain",
+      "box": [
+        450.983333,
+        35.211999999999996,
+        633.523333,
+        205.072954
+      ],
+      "scale": 1.236,
+      "text_mm": 1.57,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 92,
+      "title": "4. Ratiometric 5 V midpoint",
+      "box": [
+        13.97,
+        210.234592,
+        196.51000000000002,
+        331.13859199999996
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 93,
+      "title": "5. One-third attenuation, low-pass filter and buffer",
+      "box": [
+        450.983333,
+        212.438954,
+        659.5549599999999,
+        383.208592
+      ],
+      "scale": 1.23,
+      "text_mm": 1.56,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 94,
+      "title": "6. Half-scale analog output and monitor",
+      "box": [
+        232.476667,
+        229.284592,
+        415.016667,
+        369.238592
+      ],
+      "scale": 1.5,
+      "text_mm": 1.91,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 95,
+      "title": "7. Full-amplitude ADC and its references",
+      "box": [
+        13.97,
+        338.504592,
+        214.64030983400002,
+        521.638592
+      ],
+      "scale": 1.147,
+      "text_mm": 1.46,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 96,
+      "title": "8. Digital observation taps and bus ownership",
+      "box": [
+        232.476667,
+        376.604592,
+        415.016667,
+        502.91999999999996
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 97,
+      "title": "9. Filtered analog rails",
+      "box": [
+        450.983333,
+        390.574592,
+        633.523333,
+        505.12859199999997
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 98,
+      "title": "10. Power drive declarations",
+      "box": [
+        232.476667,
+        510.286,
+        415.016667,
+        565.780758
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 99,
+      "title": "Interfaces",
+      "box": [
+        669.49,
+        35.211999999999996,
+        758.2496696989999,
+        219.964
+      ],
+      "scale": 1.608,
+      "text_mm": 2.04,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 100,
+      "title": "Operation and PCB guidance",
+      "box": [
+        669.49,
+        231.14,
+        827.03,
+        517.574
+      ],
+      "scale": 1.037,
+      "text_mm": 1.32,
+      "instance": "/brake_torque_sensor/torque_bridge_0_3v3_ina821"
+    },
+    {
+      "page": 101,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        420.0,
+        297.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/brake_torque_sensor/hv_to_12v_tpsm365r6"
+    },
+    {
+      "page": 102,
+      "title": "1. Buck module, input bypass and output capacitors (1 of 2)",
+      "box": [
+        13.97,
+        35.211999999999996,
+        280.81,
+        196.518592
+      ],
+      "scale": 1.113,
+      "text_mm": 1.41,
+      "instance": "/brake_torque_sensor/hv_to_12v_tpsm365r6"
+    },
+    {
+      "page": 103,
+      "title": "1. Buck module, input bypass and output capacitors (2 of 2)",
+      "box": [
+        13.97,
+        197.534592,
+        168.07244338200005,
+        243.50859200000002
+      ],
+      "scale": 1.927,
+      "text_mm": 2.45,
+      "instance": "/brake_torque_sensor/hv_to_12v_tpsm365r6"
+    },
+    {
+      "page": 104,
+      "title": "Interfaces",
+      "box": [
+        285.89000000000004,
+        35.211999999999996,
+        376.020152988,
+        87.884
+      ],
+      "scale": 2.0,
+      "text_mm": 2.54,
+      "instance": "/brake_torque_sensor/hv_to_12v_tpsm365r6"
+    },
+    {
+      "page": 105,
+      "title": "Operation and PCB guidance",
+      "box": [
+        285.89000000000004,
+        99.06,
+        406.03,
+        229.87400000000002
+      ],
+      "scale": 1.748,
+      "text_mm": 2.22,
+      "instance": "/brake_torque_sensor/hv_to_12v_tpsm365r6"
+    },
+    {
+      "page": 106,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        841.0,
+        594.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 107,
+      "title": "1. DAC and address straps",
+      "box": [
+        13.97,
+        38.812,
+        172.77,
+        200.80272100000002
+      ],
+      "scale": 1.322,
+      "text_mm": 1.68,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 108,
+      "title": "2. Set-point divider and command filter",
+      "box": [
+        177.85,
+        38.812,
+        336.65,
+        140.63859200000002
+      ],
+      "scale": 1.87,
+      "text_mm": 2.38,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 109,
+      "title": "3. Loop amplifier and gate drive",
+      "box": [
+        341.73,
+        38.812,
+        500.53,
+        297.528551
+      ],
+      "scale": 1.148,
+      "text_mm": 1.46,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 110,
+      "title": "4. Pass device, Kelvin shunt, coil terminal and flyback",
+      "box": [
+        505.61,
+        38.812,
+        664.41,
+        249.55357
+      ],
+      "scale": 1.322,
+      "text_mm": 1.68,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 111,
+      "title": "5. Current ceiling",
+      "box": [
+        177.85,
+        148.004592,
+        336.65,
+        300.92025
+      ],
+      "scale": 1.373,
+      "text_mm": 1.74,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 112,
+      "title": "6. Current monitor and output divider",
+      "box": [
+        13.97,
+        208.16872099999998,
+        172.77,
+        496.016012
+      ],
+      "scale": 1.032,
+      "text_mm": 1.31,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 113,
+      "title": "7. Fault buffer",
+      "box": [
+        505.61,
+        256.91957,
+        664.41,
+        407.838592
+      ],
+      "scale": 1.391,
+      "text_mm": 1.77,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 114,
+      "title": "8. Supply ferrites and bypass",
+      "box": [
+        341.73,
+        304.89455100000004,
+        500.53,
+        418.76859199999996
+      ],
+      "scale": 1.844,
+      "text_mm": 2.34,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 115,
+      "title": "9. Power drive declarations",
+      "box": [
+        177.85,
+        308.28625,
+        336.65,
+        363.203662
+      ],
+      "scale": 1.87,
+      "text_mm": 2.38,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 116,
+      "title": "Interfaces",
+      "box": [
+        669.49,
+        38.812,
+        822.65804139,
+        164.984
+      ],
+      "scale": 1.664,
+      "text_mm": 2.11,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 117,
+      "title": "Operation and PCB guidance",
+      "box": [
+        669.49,
+        176.16,
+        827.03,
+        385.50399999999996
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/brake_torque_sensor/brake_current_sink_0_49ma_dac80501"
+    },
+    {
+      "page": 118,
+      "title": "Complete sheet",
+      "box": [
+        0,
+        0,
+        594.0,
+        420.0
+      ],
+      "scale": 1.0,
+      "text_mm": 1.27,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 119,
+      "title": "1. Entry and reverse-polarity protection",
+      "box": [
+        13.97,
+        37.912,
+        213.15,
+        99.69
+      ],
+      "scale": 1.491,
+      "text_mm": 1.89,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 120,
+      "title": "2. High-side switch, input bypass, current limit and output",
+      "box": [
+        218.23,
+        37.912,
+        417.40999999999997,
+        246.94859200000002
+      ],
+      "scale": 1.054,
+      "text_mm": 1.34,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 121,
+      "title": "3. Enable, diagnostics and latch inputs",
+      "box": [
+        13.97,
+        107.056,
+        196.51000000000002,
+        156.21
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 122,
+      "title": "4. Fault output",
+      "box": [
+        13.97,
+        163.576,
+        196.51000000000002,
+        212.99
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 123,
+      "title": "5. Instrument taps",
+      "box": [
+        13.97,
+        220.356,
+        196.51000000000002,
+        273.04999999999995
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 124,
+      "title": "6. Load-current sense output",
+      "box": [
+        218.23,
+        254.31459199999998,
+        400.77,
+        342.56859199999997
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 125,
+      "title": "7. Power drive declarations",
+      "box": [
+        13.97,
+        280.416,
+        196.51000000000002,
+        327.553567
+      ],
+      "scale": 1.627,
+      "text_mm": 2.07,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 126,
+      "title": "Interfaces",
+      "box": [
+        422.49,
+        37.912,
+        538.844392386,
+        182.764
+      ],
+      "scale": 1.805,
+      "text_mm": 2.29,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    },
+    {
+      "page": 127,
+      "title": "Operation and PCB guidance",
+      "box": [
+        422.49,
+        193.94,
+        580.03,
+        374.81399999999996
+      ],
+      "scale": 1.333,
+      "text_mm": 1.69,
+      "instance": "/hv_input_36V_terminal_2pos_5p08_protected_vertical"
+    }
+  ]
+}

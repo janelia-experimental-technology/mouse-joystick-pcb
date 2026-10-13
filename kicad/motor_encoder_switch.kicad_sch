@@ -6532,7 +6532,7 @@
 	)
 	(group "tmc5130"
 		(uuid "923ca7fc-e783-4036-bebd-3a4b01d078af")
-		(lib_id "orb_weaver_private:tmc5130")
+		(lib_id "orb_weaver_tmc5130:tmc5130_spi_r150")
 		(members "e42510bf-12f3-499e-99b2-0445c30415a0")
 	)
 	(group "quadrature_encoder_input_5v_sn74lvc2g17"
@@ -7081,7 +7081,7 @@
 				(justify right)
 			)
 		)
-		(pin "SCK" output
+		(pin "SCK" input
 			(at 83.82 91.44 180)
 			(uuid "68050d2b-df82-4a81-a4a5-9f4f62cf9e96")
 			(effects
@@ -7161,7 +7161,7 @@
 				(justify left)
 			)
 		)
-		(pin "~{CS}" output
+		(pin "~{CS}" input
 			(at 83.82 99.06 180)
 			(uuid "8a37b00c-2b54-400f-b837-7e8e31ec1c10")
 			(effects

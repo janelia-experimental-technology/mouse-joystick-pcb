@@ -881,3 +881,26 @@ hv_input_36V_terminal_2pos_5p08_protected_vertical:
       offset_mm: 15.24
       angle: 0
       shape: output
+limit_switch_debounced_input_vertical:
+  size_mm: [25.4, 7.62]
+  pins:
+    +3.3V_SW:
+      edge: west
+      offset_mm: 2.54
+      angle: 180
+      shape: passive
+    GND:
+      edge: west
+      offset_mm: 5.08
+      angle: 180
+      shape: passive
+    LIMIT_SW:
+      edge: east
+      offset_mm: 2.54
+      angle: 0
+      shape: output
+    LIMIT_SW_INST:
+      edge: east
+      offset_mm: 5.08
+      angle: 0
+      shape: output

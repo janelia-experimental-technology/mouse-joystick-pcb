@@ -1,6 +1,21 @@
 schema: orb-weaver/subsystem/1
 name: mcu
-summary: mcu as drawn on mouse-joystick-pcb, 11 parts
+summary: 'The controller: an RP2040 with its 29 GPIO behind SN74CB3Q3245 bus switches and its own 3.3 V regulator, plus the
+  board''s parts that define the switched bus at reset, sense the switched rail and tap the DAC I2C pair for the instrument
+  port.'
+notes:
+- Every GPIO leaves the block either switched (ISOn, through the bus switch the MCU enables on GP9) or raw (GPIOn, bypassing
+  it); the rule is the powered domain of the far end, so the pyControl UART, the firmware markers, the 36 V control and the
+  ADC readbacks bypass, and the TMC, torque and DAC buses switch.
+- 'The pulls here are the board''s because they bias nets the board drives (layout convention 10): R401 holds PYC_UART_RX
+  high while the host is absent; R402 and R403 (4.7 k to +3.3V_MCU) hold the raw-side I2C pair (DAC_SCL_BYP, DAC_SDA_BYP)
+  idle while the bus switch is open, R406 and R407 (4.7 k to +3.3V_SW) are the switched side''s working pull-ups; R404 and
+  R405 hold FW_TRIG0 and FW_TRIG1 low until firmware drives them.'
+- R408 and R409 (1 k each) divide +3.3V_SW to SW_RAIL_SENSE_DIV_2 on GP26 (ADC0), so firmware can tell whether the switched
+  rail is up before it enables the bus switch; the raw rail enters the sheet as SW_RAIL_SENSE and never reaches a GPIO.
+- 'R410 and R411 (100 ohm) tap DAC_SCL and DAC_SDA to DAC_SCL_INST and DAC_SDA_INST for the instrument port: the shared I2C
+  lines are tapped once, by the board (convention 14).'
+- +5V_MCU carries a PWR_FLAG here because no power-output pin drives it in this sheet; the 5 V regulator is a root block.
 source:
   board: mouse-joystick-pcb
   sheet: mcu.kicad_sch

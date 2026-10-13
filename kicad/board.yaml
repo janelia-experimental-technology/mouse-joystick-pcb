@@ -90,7 +90,6 @@ subsystems:
       side: front
     driver:
       name: tmc5130
-      block: orb_weaver_private:tmc5130
       anchor_mm: [1.0, -14.0]
       rotation_degrees: 90
       side: front
@@ -110,6 +109,7 @@ subsystems:
       rotation_degrees: 180
       side: front
     hv_to_12v_tpsm365r6:
+      name: hv_to_12v_tpsm365r6
       anchor_mm: [35.0, -29.0]
       rotation_degrees: 180
       side: front
@@ -157,16 +157,16 @@ blocks:
     VBUS:
       open: no-connect flag
 - name: hv_to_5v_tpsm365r6
-  block: orb_weaver_private:hv_to_5v_tpsm365r6
+  block: orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v
   anchor_mm: [-21.25, -7.0]
   rotation_degrees: 90
   side: front
   anchor_rule: 'inferred (block not in the anchor table): the footprint with most pads'
   connections:
-    +5V: +5V_SW
     GND: GND
     PGOOD: PG_5V
     VIN: +36V_SW
+    VOUT: +5V_SW
 - name: hv_input_36V_terminal_2pos_5p08_protected_vertical
   block: orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical
   anchor_mm: [-44.0, -24.0]
