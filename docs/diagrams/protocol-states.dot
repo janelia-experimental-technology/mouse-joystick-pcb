@@ -1,0 +1,30 @@
+// The board's protocol state machine, protocol v1 (docs/uart-protocol.md,
+// section V1.5). Rendered to protocol-states.svg with dot -Tsvg.
+digraph protocol_states {
+  graph [rankdir=LR, fontname="Helvetica", fontsize=11, labelloc=t, nodesep=0.3, ranksep=0.5,
+         label="UART protocol v1: board states and the verbs and events that move them"];
+  node  [shape=box, style="rounded,filled", fillcolor="#f4f5f7", color="#5c6b7a", fontname="Helvetica", fontsize=10];
+  edge  [fontname="Helvetica", fontsize=9, color="#5c6b7a"];
+
+  BOOT     [shape=plaintext, label="boot: rail off,\ndriver disabled", fontsize=9];
+  IDLE; HOMED; ARMED;
+  ACTIVE   [label="ACTIVE\nmoving"];
+  RELEASED [label="RELEASED\nbrake set, driver released,\nWATCH classifier may be armed", fillcolor="#e3ecf5"];
+  FAULTED  [fillcolor="#fde9e7"];
+
+  BOOT -> IDLE;
+  IDLE -> HOMED      [label="HOME, then ev HOMED"];
+  HOMED -> ARMED     [label="ARM"];
+  ARMED -> ACTIVE    [label="MOVETO"];
+  ACTIVE -> ARMED    [label="ev TARGET"];
+  ARMED -> RELEASED  [label="BRAKE: coil current settles,\nthen ev RELEASED"];
+  RELEASED -> RELEASED [label="WATCH: one of ev PULL, PUSH,\nNOMOVE, ABORT; ev TOUCH may precede"];
+  RELEASED -> ACTIVE [label="MOVETO: re-engage, resync,\nev TRIAL, brake off"];
+  RELEASED -> ARMED  [label="STOP"];
+  RELEASED -> HOMED  [label="DISARM"];
+  ARMED -> HOMED     [label="DISARM"];
+  {IDLE HOMED ARMED ACTIVE RELEASED} -> FAULTED [color="#b4493a", style=dashed, arrowsize=0.7];
+  legend [shape=note, fillcolor="#fff8f7", color="#b4493a", fontsize=9, label="Dashed red, from every state: a fault bit set (driver, motion,\lhost-loss watchdog, brake, torque, not following) ends in FAULTED,\lwith the motor rail off. Any well-formed line from the host resets\lthe watchdog; the task's ping every 40 ms is what keeps it fed.\l"];
+  legend -> FAULTED [style=invis];
+  FAULTED -> IDLE    [label="CLRFAULT (homed cleared)"];
+}

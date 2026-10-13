@@ -661,6 +661,11 @@ any fault → FAULTED ─CLRFAULT→ IDLE (homed cleared)
 
 The state string `FREEWHEEL` becomes `RELEASED` everywhere it is reported.
 
+![Board states, protocol v1](diagrams/protocol-states.svg)
+
+The drawing is `docs/diagrams/protocol-states.dot`, rendered with Graphviz;
+edit the `.dot` and re-render.
+
 ## V1.6 Configuration defaults and the deadband
 
 `deadband_deg` defaults to 0.5° until the bench measures the
