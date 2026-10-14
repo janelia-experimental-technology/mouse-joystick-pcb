@@ -12,6 +12,12 @@ Block `orb_weaver_private:brake_current_sink_0_49ma_dac80501` placed in `/brake_
 | Sheet | `brake_current_sink_0_49ma_dac80501.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-brake_torque_sensor-brake_current_sink_0_49ma_dac80501.svg](../schematic/mouse-joystick-pcb-brake_torque_sensor-brake_current_sink_0_49ma_dac80501.svg) |
 
+## On the Board
+
+![brake_current_sink_0_49ma_dac80501 on the board](layout/brake_current_sink_0_49ma_dac80501.png)
+
+Block 14 of the [board view](../board-view.md): 24.4 × 23.7 mm on the top side, its centre 36.8 mm right of and 18.9 mm below the board centre (X right, Y up, as the enclosure tables); 54 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 DAC-programmed linear constant-current sink delivering 0-48.78 mA into a 24 V magnetic particle brake coil from a 36 V rail: a DAC80501ZDGSR at 3.3 V on I2C feeding a 0.19512 precision divider, an OPA197 integrating error amplifier on a ferrite-filtered 12 V rail driving a BUK7D36-60EX pass device over a 10 ohm Kelvin shunt, a second OPA197 as an independent 56.4 mA current ceiling that clamps the gate through a Schottky, a third as a 0-1.006 V ground-referenced current monitor behind a /2 output divider, an SN74LVC2G17 buffering the ceiling event out as active-low ~{BRAKE_FAULT}, and an S115Q flyback across the in-block 2-position 3.5 mm vertical coil terminal. The full derivation, connection table, BOM and open items are in kicad-libs docs/brake-current-sink-design.md; this note carries only what breaks silently without it. Designators are not stable (KiCad auto-annotation orders by sheet position), so everything below is named by net.
@@ -203,7 +209,7 @@ FB36001 filters +12V to +12V_FILT for U36002 (C36002, C36005); FB36002 filters +
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/brake_current_sink_0_49ma_dac80501.kicad_block/brake_current_sink_0_49ma_dac80501.brief.yaml`, the block's brief |
 | Published sheet | `d1e08b566b4fa8ed` |
 | Published PCB | `e6a791b29f1311e9` |
-| Source lock | symbol snapshot `7717d1d6cc34726c`, published 2026-10-13 |
+| Source lock | symbol snapshot `7717d1d6cc34726c`, published 2026-10-14 |
 | Placed sheet | `3ff9eaccad243649`: differs from the library's sheet; parts: the brief’s 54 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

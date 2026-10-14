@@ -12,6 +12,12 @@ Block `orb_weaver_private:hv_input_36V_terminal_2pos_5p08_protected_vertical` pl
 | Sheet | `hv_input_36V_terminal_2pos_5p08_protected_vertical.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-hv_input_36V_terminal_2pos_5p08_protected_vertical.svg](../schematic/mouse-joystick-pcb-hv_input_36V_terminal_2pos_5p08_protected_vertical.svg) |
 
+## On the Board
+
+![hv_input_36V_terminal_2pos_5p08_protected_vertical on the board](layout/hv_input_36V_terminal_2pos_5p08_protected_vertical.png)
+
+Block 1 of the [board view](../board-view.md): 26.3 × 15.5 mm on the top side, its centre 35.2 mm left of and 22.8 mm above the board centre (X right, Y up, as the enclosure tables); 18 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 Protected and electronically switched 36 V high-voltage input front end on a VERTICAL, top-entry 2-position 5.08 mm pluggable terminal block (Phoenix MSTBVA 2,5/2-G-5,08, OW-CONN-TBH-1X02-5P08-VERT, on the local orb_weaver_tht copy of the MSTBVA footprint) with a SBRT15U50SP5 reverse-polarity series diode and a TPS1HTC100-Q1 smart high-side switch providing adjustable current limit, inrush/soft-start control, analog load-current sense, thermal shutdown, and an integrated inductive discharge clamp. ENABLE is pulled low through R34006 (10 k) so the rail stays off until driven. No input TVS or power-present LED is populated in this variant, unlike the 24 V barrel-jack and terminal-block variants. Intended for HV/VMOT entry rails feeding stepper drivers, brake supplies, and downstream regulation.
@@ -141,7 +147,7 @@ R34009 at the SNS pin converts the sense current to a voltage; R34005 and C34001
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/hv_input_36V_terminal_2pos_5p08_protected_vertical.kicad_block/hv_input_36V_terminal_2pos_5p08_protected_vertical.brief.yaml`, the block's brief |
 | Published sheet | `a3d735d1cbae1ba8` |
 | Published PCB | `868d8e9a3b3dcb73` |
-| Source lock | symbol snapshot `126daeb69a2d9a76`, published 2026-10-13 |
+| Source lock | symbol snapshot `126daeb69a2d9a76`, published 2026-10-14 |
 | Placed sheet | `0aa5c86bce0f5cf9`: differs from the library's sheet; parts: the brief’s 18 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

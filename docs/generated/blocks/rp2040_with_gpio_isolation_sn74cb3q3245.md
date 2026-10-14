@@ -12,6 +12,12 @@ Block `orb_weaver_private:rp2040_with_gpio_isolation_sn74cb3q3245` placed in `/m
 | Sheet | `rp2040_with_gpio_isolation_sn74cb3q3245.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-mcu-rp2040_with_gpio_isolation_sn74cb3q3245.svg](../schematic/mouse-joystick-pcb-mcu-rp2040_with_gpio_isolation_sn74cb3q3245.svg) |
 
+## On the Board
+
+![rp2040_with_gpio_isolation_sn74cb3q3245 on the board](layout/rp2040_with_gpio_isolation_sn74cb3q3245.png)
+
+Block 9 of the [board view](../board-view.md): 28.8 × 23.7 mm on the top side, its centre 35.1 mm left of and 19.1 mm below the board centre (X right, Y up, as the enclosure tables); 35 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 RP2040 controller core and its GPIO isolation in one block: the full rp2040 core (W25Q128JVPIQ QSPI flash, 12 MHz ABM8 crystal, decoupling, BOOTSEL and RUN switches) plus four SN74CB3Q3245RGYR 8-channel bidirectional FET bus switches, with all 29 MCU-to-switch connections made inside the block so that routing is placed once instead of re-drawn per board. Derived from rp2040, which remains canonical for an MCU with no isolation and is the upstream for the core half: fix core circuitry there first, then refresh here. The switch half has no upstream; fix it here. This block replaces the retired isolation-only companion rp2040_gpio_isolation_sn74cb3q3245 outright and is the only isolated form. Core parts are positionally identical to rp2040. DO NOT place this block alongside rp2040: it already contains that core. Designators are the 40xxx band.
@@ -233,7 +239,7 @@ U40005 and U40006 pass GPIO16-23 and GPIO24-29 to the ISO ports (B side MCU, A s
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/rp2040_with_gpio_isolation_sn74cb3q3245.kicad_block/rp2040_with_gpio_isolation_sn74cb3q3245.brief.yaml`, the block's brief |
 | Published sheet | `8ead76fd0ae4e22c` |
 | Published PCB | `d79a8f4d7e226204` |
-| Source lock | symbol snapshot `43790a2d8bf6787f`, published 2026-10-13 |
+| Source lock | symbol snapshot `43790a2d8bf6787f`, published 2026-10-14 |
 | Placed sheet | `740f29d1bb57716a`: differs from the library's sheet; parts: the brief’s 35 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

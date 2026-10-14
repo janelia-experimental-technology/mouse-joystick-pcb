@@ -12,6 +12,12 @@ Block `orb_weaver_private:pycontrol_behavior_port_rj45_boundary_vertical` placed
 | Sheet | `pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-pycontrol_behavior_port_rj45_boundary_vertical.svg](../schematic/mouse-joystick-pcb-pycontrol_behavior_port_rj45_boundary_vertical.svg) |
 
+## On the Board
+
+![pycontrol_behavior_port_rj45_boundary_vertical on the board](layout/pycontrol_behavior_port_rj45_boundary_vertical.png)
+
+Block 5 of the [board view](../board-view.md): 23.2 × 17.0 mm on the top side, its centre 38.4 mm left of and 8.0 mm above the board centre (X right, Y up, as the enclosure tables); 9 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 pyControl behavior-port boundary on a VERTICAL, top-entry SHIELDED 8P8C RJ-45 jack: Molex 855085001, OW-CONN-RJ45-8P8C-THT-VERT, Cat5e, 16.5 mm tall, 1.5 A per contact, through-hole signal contacts plus two through-hole shell legs and two locator pegs. NOT Ethernet and no magnetics — the jack is a connector family, nothing more. The same front end as the horizontal pycontrol_behavior_port_rj45_boundary block: pin map 1 DIO-A, 2 GND, 4 DIO-B, 6 5V with pins 3, 5, 7, 8 explicitly no-connect; 100 ohm series resistance and a USBLC6-2P6 channel on both DIO lines, with the clamp on the connector side of the resistors and each line routing in one I/O pad and out the other; 100nF on the raw 5 V node; and the same 5 V branch exposing PYC_CONN_5V, the raw pin-6 node, and +5V_PYC, the same node through R32003 and a MBR120VLSFT1G series Schottky, for diode-ORing with other 5 V sources — pair it with usb2_vertical's +5V_USB. WATCH THE DIRECTION: pin 1 DIO-A carries the host's transmit and is the DEVICE'S RX; pin 4 DIO-B is the device's TX. Boundary pins are named by connector position, not by direction, so a board cannot mirror them by accident.
@@ -101,7 +107,7 @@ C32001 bypasses the raw PYC_CONN_5V node; R32003 (fuse position) and D32001 (ser
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/pycontrol_behavior_port_rj45_boundary_vertical.kicad_block/pycontrol_behavior_port_rj45_boundary_vertical.brief.yaml`, the block's brief |
 | Published sheet | `5a3e7d57327667b4` |
 | Published PCB | `a48b340410670fbc` |
-| Source lock | symbol snapshot `4aad11a326b6c5bc`, published 2026-10-13 |
+| Source lock | symbol snapshot `4aad11a326b6c5bc`, published 2026-10-14 |
 | Placed sheet | `d7a4722c22ca8bc8`: differs from the library's sheet; parts: the brief’s 9 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

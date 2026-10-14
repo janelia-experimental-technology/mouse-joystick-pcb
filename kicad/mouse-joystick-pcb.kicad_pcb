@@ -60255,7 +60255,7 @@
 			(uuid "57c1654f-1d59-4263-bf6b-b46b07a9c018")
 		)
 		(embedded_fonts no)
-		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/FH12-50S-0.5SVA.step"
+		(model "${ORB_WEAVER_KICAD_LIBS}/3dmodels/orb_weaver.3dshapes/mechanical/FH12-50S-0.5SVA-54.step"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -60263,7 +60263,7 @@
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz -0 -0 -180)
+				(xyz 0 0 0)
 			)
 		)
 	)

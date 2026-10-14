@@ -12,6 +12,12 @@ Block `orb_weaver_private:limit_switch_debounced_input_vertical` placed in `/mot
 | Sheet | `limit_switch_debounced_input_vertical.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-motor_encoder_switch-limit_switch_debounced_input_vertical.svg](../schematic/mouse-joystick-pcb-motor_encoder_switch-limit_switch_debounced_input_vertical.svg) |
 
+## On the Board
+
+![limit_switch_debounced_input_vertical on the board](layout/limit_switch_debounced_input_vertical.png)
+
+Block 3 of the [board view](../board-view.md): 9.4 × 13.4 mm on the top side, its centre 18.0 mm right of and 32.8 mm above the board centre (X right, Y up, as the enclosure tables); 5 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 Debounced limit-switch input with its own 2-position 3.5 mm VERTICAL, top-entry pluggable screw terminal — Phoenix MCV 1,5/2-G-3,5, OW-CONN-TBH-1X02-3P5-VERT, on the local orb_weaver_tht copy of the MCV footprint — plus a MAX6816 single switch debouncer and local Vcc decoupling. Four parts: nothing external belongs on the IN side, because the MAX6816 supplies its own IN pull-up and +/-15 kV ESD protection and needs no external pull-up, series resistor, or input capacitor — the fourth part is a 100 kohm pull-down on the OUTPUT, doing an unrelated job. Electrically identical to the horizontal limit_switch_debounced_input block, port for port and part for part including the pull-down: +3.3V_SW, GND, LIMIT_SW.
@@ -87,7 +93,7 @@ R33001 (100 k) holds LIMIT_SW low while the debouncer is unpowered; R33002 (1 k)
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/limit_switch_debounced_input_vertical.kicad_block/limit_switch_debounced_input_vertical.brief.yaml`, the block's brief |
 | Published sheet | `adab5cea95990acf` |
 | Published PCB | `c0ccc0c8ef00c177` |
-| Source lock | symbol snapshot `bdd920b7bf67c3bc`, published 2026-10-13 |
+| Source lock | symbol snapshot `bdd920b7bf67c3bc`, published 2026-10-14 |
 | Placed sheet | `45bbee1820863da4`: differs from the library's sheet; parts: the brief’s 5 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

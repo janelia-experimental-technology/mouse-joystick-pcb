@@ -12,6 +12,12 @@ Block `orb_weaver_private:torque_bridge_0_3v3_ina821` placed in `/brake_torque_s
 | Sheet | `torque_bridge_0_3v3_ina821.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-brake_torque_sensor-torque_bridge_0_3v3_ina821.svg](../schematic/mouse-joystick-pcb-brake_torque_sensor-torque_bridge_0_3v3_ina821.svg) |
 
+## On the Board
+
+![torque_bridge_0_3v3_ina821 on the board](layout/torque_bridge_0_3v3_ina821.png)
+
+Block 8 of the [board view](../board-view.md): 32.1 × 27.7 mm on the top side, its centre 31.9 mm right of and 7.7 mm above the board centre (X right, Y up, as the enclosure tables); 63 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 Single-channel torque sensor front end for a Transducer Techniques RTS-5 reaction bridge (350 ohm, 1.5 mV/V, 5 in-oz), giving a nominal 0.3540-1.3127 V ground-referenced rated-range analog output for a Neuropixels OneBox ADC channel, plus an on-board ADS8689 that streams the same conditioned signal at FULL amplitude. At the BNC, zero torque is nominally 0.8333 V; the fitted 259 ohm gain resistance gives INA821 gain 191.734. At 1.5 mV/V, +/-rated spans 0.3540-1.3127 V. The 1.577 mV/V sensor certificate at +/-150% overload predicts 0.0774-1.5892 V before tolerances. The ADC sees twice the unloaded BNC amplitude.
@@ -242,7 +248,7 @@ Instructions for review and testing, not evidence that they have run.
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/torque_bridge_0_3v3_ina821.kicad_block/torque_bridge_0_3v3_ina821.brief.yaml`, the block's brief |
 | Published sheet | `452f8890ee8e9bc4` |
 | Published PCB | `feeb93894d947e3e` |
-| Source lock | symbol snapshot `ea4d626f523fe2db`, published 2026-10-13 |
+| Source lock | symbol snapshot `ea4d626f523fe2db`, published 2026-10-14 |
 | Placed sheet | `f623bad849df7720`: differs from the library's sheet; parts: the brief’s 63 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

@@ -12,6 +12,12 @@ Block `orb_weaver_private:analog_output_0_3v3_dac80501` placed in `/motor_encode
 | Sheet | `analog_output_0_3v3_dac80501.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-motor_encoder_switch-analog_output_0_3v3_dac80501.svg](../schematic/mouse-joystick-pcb-motor_encoder_switch-analog_output_0_3v3_dac80501.svg) |
 
+## On the Board
+
+![analog_output_0_3v3_dac80501 on the board](layout/analog_output_0_3v3_dac80501.png)
+
+Block 13 of the [board view](../board-view.md): 16.4 × 10.9 mm on the top side, its centre 2.0 mm right of and 2.0 mm below the board centre (X right, Y up, as the enclosure tables); 28 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 Single-channel buffered 0-1.650 V precision analog voltage output, safe on a Neuropixels OneBox ADC channel or an unprotected 3.3 V MCU pin: a DAC80501ZDGSR at 3.3 V on I2C at address 0x48 on its internal 2.5 V reference, a 2-pole 987 Hz Sallen-Key reconstruction filter, an OPA197 on a ferrite-filtered 5 V rail at a non-inverting DC gain of 1.32 that is also the filter's active element, a /2 output divider, a 249 ohm series output resistor, an ESD clamp and a separately isolated monitor tap. AMP_VOUT full scale is 2.5 V x (1 + 3.2k/10k) = 3.300 V and AOUT is half of it, 1.650 V, LSB 25.2 uV. Built for the mouse-joystick-pcb encoder angle output, but THE CONNECTOR DELIBERATELY LIVES OUTSIDE THE BLOCK so one block serves any housing. The full derivation, values, retune ladder, layout rules and accuracy budget are in kicad-libs docs/analog-output-design.md; this note carries only what breaks silently without it. Designators are not stable (KiCad auto-annotation orders by sheet position), so everything below is named by net.
@@ -130,7 +136,7 @@ R35007 and R35011 halve AMP_VOUT to AOUT_DIV; R35009 delivers AOUT with D35001 c
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/analog_output_0_3v3_dac80501.kicad_block/analog_output_0_3v3_dac80501.brief.yaml`, the block's brief |
 | Published sheet | `a144e9037996ddf8` |
 | Published PCB | `b5ef1a929ebaacc2` |
-| Source lock | symbol snapshot `793b65d3faee8d50`, published 2026-10-13 |
+| Source lock | symbol snapshot `793b65d3faee8d50`, published 2026-10-14 |
 | Placed sheet | `4c14c278b5251f14`: differs from the library's sheet; parts: the brief’s 28 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

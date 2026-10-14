@@ -1,6 +1,6 @@
 {
   "generated_by": "orb-weaver-kicad-docs",
-  "generated_at": "2026-10-13T21:28:40Z",
+  "generated_at": "2026-10-14T18:23:06Z",
   "kicad_cli_version": "10.0.6",
   "board": "mouse-joystick-pcb",
   "sources": {
@@ -18,7 +18,7 @@
     "kicad/mcu.kicad_sch": "5fdc75bf41bfad4f2cdc3511b5b6cae75b75059c8a655e8e78a4c354e63bad53",
     "kicad/motor_encoder_switch.kicad_sch": "b742470df4e218577c24302f326df887d07e6050e778618c2867b71496bcff66",
     "kicad/mouse-joystick-pcb.kicad_dru": "27f583545dd5d6eaed53b7015bdf32c2f5e6c8951ad6c70aa193eb28bab8c497",
-    "kicad/mouse-joystick-pcb.kicad_pcb": "39aa471ed03cedc592df80e4cb42dc708a6c2744b06b9ac37997883cd7629d15",
+    "kicad/mouse-joystick-pcb.kicad_pcb": "030d6b5717c4bdb1e0329cc6451a71f6d9dcceda7913bb4da83ab7c97de82329",
     "kicad/mouse-joystick-pcb.kicad_pro": "d421324d8d92eb3482b6cc73ba1999f325481e509af59c26e327d710c2424136",
     "kicad/mouse-joystick-pcb.kicad_sch": "3e7e2abf99a77e606154b2e81592659f25b6baff20e709cfa61b8ece1ef2f4f1",
     "kicad/pycontrol_behavior_port_rj45_boundary_vertical.kicad_sch": "d7a4722c22ca8bc87a775456b18756f9c1da6464aeef9786b2fd55915eb9e456",
@@ -27,14 +27,15 @@
     "kicad/tmc5130.kicad_sch": "dcf09395ac6dac7255cae5eeaa3e589704b581a5f5d28f734c7995a32de78d5e",
     "kicad/torque_bridge_0_3v3_ina821.kicad_sch": "f623bad849df7720d09845a4c05c45b31198f0634f0f6314df8089fe7d947724",
     "kicad/usb2_vertical.kicad_sch": "3256bf0538e5431ed074117a100e87e67b48541575df3da400ab7bb7b8cf0cb2",
+    "renders": "d9e8878b118337c0b1392487a7428720417dfddcebf12115e01f8dfd0f63da70",
     "libs:design_block_families/tmc5130/family.json": "4b10ebe4131f5788dc9ce3e261c14d9dfc8acb300d4aa5046c680443b80be8a4",
-    "libs:design_block_families/tmc5130/release.json": "3ca63644e9a7aca78690662b09b8464c580b4c88467fc75aaa32f12df88d53b7",
+    "libs:design_block_families/tmc5130/release.json": "473f1dfff73d46db50a37feb7b7e8066bca8a75e2abf90b217aad44d0628f924",
     "libs:design_block_families/tmc5130/source/tmc5130.brief.yaml": "2bbd09a178964b9e2649efae736269b55cc827abf67bd1f5100bea4dc850a6e9",
     "libs:design_block_families/tpsm365r6_adjustable/family.json": "9e107bdfefcd90abc832533116bfcd1ee2aa6e05c193b9b33937201f3ad24277",
-    "libs:design_block_families/tpsm365r6_adjustable/release.json": "b2efa33f4f1b733a1e04e94182a61d6dad2d7a42b28ae7a463382c86bec88d84",
+    "libs:design_block_families/tpsm365r6_adjustable/release.json": "bd68fb93ee75e539448569308249eae0c034ab4f9d0f4b4421f04404fb47b48e",
     "libs:design_block_families/tpsm365r6_adjustable/source/tpsm365r6_adjustable.brief.yaml": "7cc91cc3bd183041d91b631e14ba5780e3a9088e41fd7272707def34c91ceae5",
     "libs:design_block_families/tpsm365r6_fixed/family.json": "c69d669ba79341ce3a2fa28a6d61a21972de4cfdfd3462923ba1d2cbd9868aeb",
-    "libs:design_block_families/tpsm365r6_fixed/release.json": "5e24fe996997435e69fa1da926727dfdc8fc430a942afb7441aa4a281192ba75",
+    "libs:design_block_families/tpsm365r6_fixed/release.json": "828e2b2812d2a99c98b6321f2e95fc09d247d9668df617d1d69c7d2d9aff2dbb",
     "libs:design_block_families/tpsm365r6_fixed/source/tpsm365r6_fixed.brief.yaml": "665a97770f1fd58e19d0d71ab71a1ecdc2ab0058929f916262fcd971e39d1d5a",
     "libs:design_blocks/orb_weaver_private.kicad_blocks/5v_to_3v3_tps73733.kicad_block/5v_to_3v3_tps73733.brief.yaml": "5ab2eb32198618b5d8fb54f3ed658dcedccf2f6638640f4891ffd23ff7e4ad06",
     "libs:design_blocks/orb_weaver_private.kicad_blocks/5v_to_3v3_tps73733.kicad_block/5v_to_3v3_tps73733.json": "6c947476fa0171b66078e9cffd17ad902acadd37a388e11772fb6f100ebd2770",
@@ -90,30 +91,32 @@
     "libs:design_blocks/orb_weaver_tpsm365r6_fixed.kicad_blocks/tpsm365r6_fixed_5v.kicad_block/tpsm365r6_fixed_5v.kicad_pcb": "17ea37099656e93f49e20c0cb2635f23fcc0918f213599825e39df4f1783db46",
     "libs:design_blocks/orb_weaver_tpsm365r6_fixed.kicad_blocks/tpsm365r6_fixed_5v.kicad_block/tpsm365r6_fixed_5v.kicad_sch": "8d37d1931ee9bd3c87b5621a453a5892f731c02ddc52a21ddc1a22293dd905e8",
     "libs:design_blocks/schematic_sources/5v_to_3v3_tps73733/generation.json": "9d7dab7c1a67cbb0be23282cf47d9d24d9aadc99b1cae4851340193992271bba",
-    "libs:design_blocks/schematic_sources/5v_to_3v3_tps73733/publication.json": "8598a17f0ef4d45ce14f87673b4f2d5383cc8e4b9c2dfddb2736486099d8df88",
+    "libs:design_blocks/schematic_sources/5v_to_3v3_tps73733/publication.json": "b571481a4b5fd44ce60a2d3e3089ea11f54a29e08a74847e8b15f243745ed117",
     "libs:design_blocks/schematic_sources/analog_output_0_3v3_dac80501/generation.json": "d3f5be34a778a3476e544e8aefbdb2c4a5a3d487b452e8e747cab3fec8b5e79c",
-    "libs:design_blocks/schematic_sources/analog_output_0_3v3_dac80501/publication.json": "60d74b4b3b341c660ffe18897b49b7ff6587e73c9df7ecd1884f3ef54902a357",
+    "libs:design_blocks/schematic_sources/analog_output_0_3v3_dac80501/publication.json": "a41074b979d4f68eb7bd50c1383c878d1d7a3571296fe326fe9ee3b7a93c14a9",
     "libs:design_blocks/schematic_sources/brake_current_sink_0_49ma_dac80501/generation.json": "c3148046dc8e57389a1ed77927ad4ce032c84a97f9ab1e47118d6bd3eded61c1",
-    "libs:design_blocks/schematic_sources/brake_current_sink_0_49ma_dac80501/publication.json": "b79775bdef99f7bebe6f2d2da1960aade396e57829bb433478849421e47fee00",
+    "libs:design_blocks/schematic_sources/brake_current_sink_0_49ma_dac80501/publication.json": "daeccc685cd3f94eae0c52b13e2623820ee98ff49e176dee28caaac639d28595",
     "libs:design_blocks/schematic_sources/hv_input_36V_terminal_2pos_5p08_protected_vertical/generation.json": "327199fb9690407580e76facad3d5e2ff16615c865cedd02c2b28a849739c23b",
-    "libs:design_blocks/schematic_sources/hv_input_36V_terminal_2pos_5p08_protected_vertical/publication.json": "d2fd855502cdfabe9f342b87ec85ae91e05f527a51967d917891e375662dcdde",
+    "libs:design_blocks/schematic_sources/hv_input_36V_terminal_2pos_5p08_protected_vertical/publication.json": "89809a692a80b8467461e4162d91f407291d73b21806e41eb7ce2fe1cba61ace",
     "libs:design_blocks/schematic_sources/instrument_port_digital_50_dut_ffc_boundary_vertical/generation.json": "ca22fcd1dec49323456344153d204748ece0e56b5e6d7ec1f8eed1c60695974b",
-    "libs:design_blocks/schematic_sources/instrument_port_digital_50_dut_ffc_boundary_vertical/publication.json": "14802dc79e13a7540abbb51e92c555ef4666d8f2b77d55c40847798f034e90fb",
+    "libs:design_blocks/schematic_sources/instrument_port_digital_50_dut_ffc_boundary_vertical/publication.json": "551e32c86e2881d320fd4af85e678e516ac7ae4af372f5d70fafe8dba4e8f44f",
     "libs:design_blocks/schematic_sources/limit_switch_debounced_input_vertical/generation.json": "557200663b82f8742e7653d3e99eeabfcd719786e8beae7630ced04c39551d5b",
-    "libs:design_blocks/schematic_sources/limit_switch_debounced_input_vertical/publication.json": "2cc4045a5fdcad18ba9ddab049d491312714f24c92c2396f0d2ef03af96646ca",
+    "libs:design_blocks/schematic_sources/limit_switch_debounced_input_vertical/publication.json": "a59ac3b590f426a6418fbcf3e0e1c22f9e985f3f0b9f05e6740b6ac12b9fd639",
     "libs:design_blocks/schematic_sources/pycontrol_behavior_port_rj45_boundary_vertical/generation.json": "d64a218f9f29266c87d678053bbee1c0fe45aaee5e09053d34aef181892e81e6",
-    "libs:design_blocks/schematic_sources/pycontrol_behavior_port_rj45_boundary_vertical/publication.json": "d8931950ad1abd3ac3a894eec6bdfbf982a6845cee34852cc66ffb28b26e2d8a",
+    "libs:design_blocks/schematic_sources/pycontrol_behavior_port_rj45_boundary_vertical/publication.json": "24f6aa0b77da1e5456c25c129445bd0a16aec194a8a02d92218eda6f74c28796",
     "libs:design_blocks/schematic_sources/quadrature_encoder_input_5v_sn74lvc2g17/generation.json": "34ab9c685a408fd819fde5467bf1d5e3b5ac4c4e6b8099144b35d7b402ac6e76",
-    "libs:design_blocks/schematic_sources/quadrature_encoder_input_5v_sn74lvc2g17/publication.json": "f1e15f8669aadcc4100c516b0653366189c0cf9bc8bfda262ca873e78e0f7d83",
+    "libs:design_blocks/schematic_sources/quadrature_encoder_input_5v_sn74lvc2g17/publication.json": "63dd7a4691166c1914179db8c226d32afdc77069d92701de589bfd5d094e8801",
     "libs:design_blocks/schematic_sources/rp2040_with_gpio_isolation_sn74cb3q3245/generation.json": "703accbc1a71b6461af8475aebbb196faba7ddc4070aabceede8887eef7f204a",
-    "libs:design_blocks/schematic_sources/rp2040_with_gpio_isolation_sn74cb3q3245/publication.json": "8b77b6ca7812bc5a48095275ef2eddc311a61b6102e197963b2079d3946b61ef",
+    "libs:design_blocks/schematic_sources/rp2040_with_gpio_isolation_sn74cb3q3245/publication.json": "a1edb525b455d34e1756979f2578d3264f0b1b3c1ef3a067da4818377ec9f45c",
     "libs:design_blocks/schematic_sources/torque_bridge_0_3v3_ina821/generation.json": "a18290ca2a627875515617cbb892ff704d1a0e51edee497e4fd06cccbdb62d97",
-    "libs:design_blocks/schematic_sources/torque_bridge_0_3v3_ina821/publication.json": "619ecd94a42578a7692576f31b026dba79845a42cca287ff359bc7bf9ad33024",
+    "libs:design_blocks/schematic_sources/torque_bridge_0_3v3_ina821/publication.json": "9bc4af6228c1ec6eeb62ad7f402b012108f3c640578e3f66e7c7eaec3475abc1",
     "libs:design_blocks/schematic_sources/usb2_vertical/generation.json": "198125d280f136a5da676b861c157fd3ddc52949fd55ade6d287e8bd67c54270",
-    "libs:design_blocks/schematic_sources/usb2_vertical/publication.json": "3b7932b71516d17c395e9296df09406af2921f4fadadc43c20ae4364d8d7f1b1",
-    "libs:scripts/board_block_docs.py": "e6c473f268233e763da5b65825c816e46c7fac417df572d75b7afedac4872938",
+    "libs:design_blocks/schematic_sources/usb2_vertical/publication.json": "26f9f34f3c9a4671e02444b1e22d09d7fe3560acc53debcc6f175d06058d4c71",
+    "libs:scripts/board_block_docs.py": "0f18a9af8fcce17baaed64686dc55002d0110306e8d31433032673a1bd5f9c26",
     "kicad/board-manifest.yaml": "846e314abb45404a5a1026ffbbbe9166625a477e91005f71e022bd201ccd0f71",
     "kicad/board.yaml": "d5cceca2db769c5184e17c90a3486731598c741055e682d71eb300056073b942",
+    "board_view": "f871ed64bf9229a5123e52bf29592f747e671c69ef9dd5762e5dc6c03f79bbd6",
+    "site_index": "a5360b71763d9176367eb02419d13f0ddb1bd0c6628fa6a7a4ef81a51a45c27d",
     "review_schematic": "c75ac3acf343289ae79405763ac53e4f0c600037ae9f310a7936e41120b1c978"
   },
   "artifacts": {
@@ -141,6 +144,56 @@
       "mouse-joystick-pcb-usb2_vertical.svg",
       "mouse-joystick-pcb.svg"
     ],
+    "layout": [
+      "layout/assembly-top.svg",
+      "layout/assembly-bottom.svg"
+    ],
+    "renders": [
+      "3d/top.png",
+      "3d/bottom.png",
+      "3d/iso-front-left.png",
+      "3d/iso-front-right.png",
+      "3d/iso-rear-left.png",
+      "3d/iso-rear-right.png",
+      "3d/elevation-front.png",
+      "3d/elevation-left.png"
+    ],
+    "step": "3d/mouse-joystick-pcb-assembled.step",
+    "glb": "3d/mouse-joystick-pcb.glb",
+    "mechanical": [
+      "mechanical/board-dimensions.md",
+      "mechanical/board-geometry.json",
+      "mechanical/connectors.csv",
+      "mechanical/mounting-holes.csv"
+    ],
+    "bom": [
+      "bom/mouse-joystick-pcb-bom.csv",
+      "bom/mouse-joystick-pcb-bom.md"
+    ],
+    "site_index": "index.md",
+    "board_view": {
+      "page": "board-view.md",
+      "overlay": "3d/top.svg",
+      "hotspots": "3d/hotspots.json",
+      "numbers": {
+        "hv_input_36V_terminal_2pos_5p08_protected_vertical": 1,
+        "quadrature_encoder_input_5v_sn74lvc2g17": 2,
+        "limit_switch_debounced_input_vertical": 3,
+        "hv_to_12v_tpsm365r6": 4,
+        "pycontrol_behavior_port_rj45_boundary_vertical": 5,
+        "hv_to_5v_tpsm365r6": 6,
+        "tmc5130": 7,
+        "torque_bridge_0_3v3_ina821": 8,
+        "rp2040_with_gpio_isolation_sn74cb3q3245": 9,
+        "usb2_vertical": 10,
+        "5v_to_3v3_tps73733_1": 11,
+        "5v_to_3v3_tps73733_2": 12,
+        "analog_output_0_3v3_dac80501": 13,
+        "brake_current_sink_0_49ma_dac80501": 14,
+        "instrument_port_digital_50_dut_ffc_boundary_vertical": 15
+      },
+      "unplaced": []
+    },
     "blocks": {
       "index": "blocks/README.md",
       "pages": [
@@ -311,7 +364,8 @@
           "check": "not run",
           "page": "hv_to_12v_tpsm365r6.md"
         }
-      ]
+      ],
+      "layouts": 15
     },
     "subsystems": {
       "index": "subsystems/README.md",
@@ -352,31 +406,6 @@
         }
       ]
     },
-    "gpio": "gpio-allocation.md",
-    "layout": [
-      "layout/assembly-top.svg",
-      "layout/assembly-bottom.svg"
-    ],
-    "renders": [
-      "3d/top.png",
-      "3d/bottom.png",
-      "3d/iso-front-left.png",
-      "3d/iso-front-right.png",
-      "3d/iso-rear-left.png",
-      "3d/iso-rear-right.png",
-      "3d/elevation-front.png",
-      "3d/elevation-left.png"
-    ],
-    "step": "3d/mouse-joystick-pcb-assembled.step",
-    "mechanical": [
-      "mechanical/board-dimensions.md",
-      "mechanical/board-geometry.json",
-      "mechanical/connectors.csv",
-      "mechanical/mounting-holes.csv"
-    ],
-    "bom": [
-      "bom/mouse-joystick-pcb-bom.csv",
-      "bom/mouse-joystick-pcb-bom.md"
-    ]
+    "gpio": "gpio-allocation.md"
   }
 }

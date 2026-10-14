@@ -12,6 +12,12 @@ Block `orb_weaver_private:quadrature_encoder_input_5v_sn74lvc2g17` placed in `/m
 | Sheet | `quadrature_encoder_input_5v_sn74lvc2g17.kicad_sch`; sheet pins: the board's own arrangement |
 | Drawing | [mouse-joystick-pcb-motor_encoder_switch-quadrature_encoder_input_5v_sn74lvc2g17.svg](../schematic/mouse-joystick-pcb-motor_encoder_switch-quadrature_encoder_input_5v_sn74lvc2g17.svg) |
 
+## On the Board
+
+![quadrature_encoder_input_5v_sn74lvc2g17 on the board](layout/quadrature_encoder_input_5v_sn74lvc2g17.png)
+
+Block 2 of the [board view](../board-view.md): 7.1 × 8.3 mm on the top side, its centre 9.6 mm right of and 27.0 mm above the board centre (X right, Y up, as the enclosure tables); 14 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 Single-ended 5 V quadrature encoder input: per-channel series/RC conditioning plus an SN74LVC2G17 dual Schmitt-trigger buffer that translates an encoder's 5 V push-pull A/B outputs into clean 3.3 V logic. The connector deliberately lives outside the block, the same way differential_encoder_receiver is built, so one block serves screw-terminal, IDC, JST or Molex harnesses and the parent picks the housing to suit the machine. Bring the raw encoder channels in on EA and EB and take conditioned logic out on ENCA and ENCB; ENCA_INST and ENCB_INST are their instrument taps. Use this for TTL/push-pull encoders; use differential_encoder_receiver instead for RS-422 A+/A-/B+/B- encoders.
@@ -123,7 +129,7 @@ C30001 (4.7 uF) and C30004 (100 nF) bypass VENC, the encoder supply the board pa
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/quadrature_encoder_input_5v_sn74lvc2g17.kicad_block/quadrature_encoder_input_5v_sn74lvc2g17.brief.yaml`, the block's brief |
 | Published sheet | `9ea7e28da205e642` |
 | Published PCB | `729da4652e0af43a` |
-| Source lock | symbol snapshot `7b3aea27bea7d460`, published 2026-10-13 |
+| Source lock | symbol snapshot `7b3aea27bea7d460`, published 2026-10-14 |
 | Placed sheet | `7d1fcb330836a385`: differs from the library's sheet; parts: the brief’s 14 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

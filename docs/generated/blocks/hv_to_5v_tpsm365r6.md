@@ -12,6 +12,12 @@ Block `orb_weaver_tpsm365r6_fixed:tpsm365r6_fixed_5v` placed in `/` of **mouse-j
 | Sheet | `hv_to_5v_tpsm365r6.kicad_sch`; sheet pins: the library's arrangement |
 | Drawing | [mouse-joystick-pcb-hv_to_5v_tpsm365r6.svg](../schematic/mouse-joystick-pcb-hv_to_5v_tpsm365r6.svg) |
 
+## On the Board
+
+![hv_to_5v_tpsm365r6 on the board](layout/hv_to_5v_tpsm365r6.png)
+
+Block 6 of the [board view](../board-view.md): 7.5 × 19.8 mm on the top side, its centre 22.7 mm left of and 8.2 mm above the board centre (X right, Y up, as the enclosure tables); 9 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 High-voltage input to a regulated 5 V (TPSM365R6V5, two 22 uF output capacitors) step-down supply: TI TPSM365R6V5RDNR fixed-output 600 mA buck module, FB tied to VOUT, MODE/SYNC tied to VCC (forced PWM), PGOOD pulled up to VOUT through 10k. Ports VIN, VOUT, PGOOD, GND. Output voltage and capacitor ratings judged from the datasheet facts at publication (release.json); hardware validation pending. BUCK profile. VIN 3.6 V to 65 V (facts, recommended operating); the block's input capacitors are 100 V 1206 parts and its VIN copper is block-local (PWR_HV_LOCAL), so the board's power entry carries its own class. 600 mA output; the module integrates the inductor; VCC bypass and the 100 nF high-frequency input bypass are the block's. PGOOD is the module's open-drain window-comparator output (rising at about 107 %, falling at about 94 % of the set point); the block pulls it up as its description says. Fixed variants: FB is tied to VOUT and pin 11 is MODE/SYNC, tied to VCC in this block (forced PWM); PGOOD is pulled up to the block's own output, so its high level is VOUT

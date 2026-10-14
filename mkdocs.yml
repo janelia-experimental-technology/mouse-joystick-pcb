@@ -1,0 +1,108 @@
+# The board's documentation site. `make site` builds docs/ into site/ with the
+# Guix mkdocs-material and `make site-serve` serves it locally;
+# .github/workflows/pages.yml builds the same from the committed pages and
+# deploys it on GitHub Pages (set Pages to "GitHub Actions" in the repository
+# settings). The generated pages, the renders and the viewer's model are
+# committed by `make docs`, so the build is mkdocs alone; while this file
+# exists, `make docs` also writes docs/index.md, the front page with the
+# turning board (kicad-libs docs/board-documentation.md, "The Site").
+site_name: mouse-joystick-pcb
+site_description: Single-axis mouse joystick controller board for the Janelia Dudman lab joystick rig, a native pyControl peripheral.
+site_url: https://peterpolidoro.github.io/mouse-joystick-pcb/
+repo_url: https://github.com/peterpolidoro/mouse-joystick-pcb
+repo_name: peterpolidoro/mouse-joystick-pcb
+edit_uri: ""
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue grey
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Dark
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue grey
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Light
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - tables
+  - admonition
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/site.css
+
+# Links from the pages to files outside docs/ (the fabrication package, the
+# KiCad sources) go to the repository on the forge instead of failing the build.
+hooks:
+  - docs/hooks/outward_links.py
+extra:
+  outward_links:
+    branch: main
+
+plugins:
+  - search
+
+# The hook is not a page.
+exclude_docs: |
+  hooks/
+
+nav:
+  - The board: index.md
+  - Documentation: generated/README.md
+  - Design blocks: generated/blocks/README.md
+  - Subsystems: generated/subsystems/README.md
+  - MCU pins: generated/gpio-allocation.md
+  - Interfaces:
+      - Interface map: interface-map.md
+      - Harness pinouts: harness-pinouts.md
+      - pyControl interface: pycontrol-interface.md
+      - pyControl port pinout: pycontrol-port-pinout.md
+      - UART protocol: uart-protocol.md
+      - OneBox analog interface: onebox-analog-interface.md
+      - Encoder analog output: encoder-analog-output.md
+      - Instrument strategy: instrument-strategy.md
+      - InstrumentPort tap resistors: instrument-port-tap-resistors.md
+      - Digital InstrumentPort migration: digital-instrument-port-migration.md
+  - Design:
+      - Power: power.md
+      - Design block map: design-block-map.md
+      - Brake controller: b5z-magnetic-particle-brake-controller.md
+      - Brake and torque purchase plan: mouse-joystick-brake-torque-purchase-plan.md
+      - Observability plan: observability-plan.md
+      - Relationship to the twin-axis board: relationship-to-twin-axis-board.md
+      - Prior art: prior-art.md
+      - Rev 0 plan: rev0-plan.md
+  - Build and test:
+      - Development: development.md
+      - Validation plan: validation-plan.md
+      - Bring-up log: bringup-log.md
+      - Rig layout: rig-layout.md
+      - Autoroute log: autoroute-log.md
+      - Routing completion, 2026-09-21: routing-rescue-2026-09-21.md
+      - Routing session handoff, 2026-09-21: routing-session-handoff-2026-09-21.md
+      - Connector access correction, 2026-09-21: connector-access-2026-09-21.md
+
+# The front page is the board view, so the generated copy stays out of the
+# navigation; the block and subsystem pages are reached from their indexes.
+not_in_nav: |
+  generated/board-view.md
+  generated/blocks/*.md
+  generated/subsystems/*.md
+  captures/**

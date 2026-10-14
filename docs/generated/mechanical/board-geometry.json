@@ -3,7 +3,7 @@
   "board": "mouse-joystick-pcb",
   "source": {
     "file": "mouse-joystick-pcb.kicad_pcb",
-    "sha256": "39aa471ed03cedc592df80e4cb42dc708a6c2744b06b9ac37997883cd7629d15"
+    "sha256": "030d6b5717c4bdb1e0329cc6451a71f6d9dcceda7913bb4da83ab7c97de82329"
   },
   "units": "mm",
   "frame": {

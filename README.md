@@ -50,11 +50,13 @@ More views, including both elevations, are in [the generated documentation](docs
 | Schematic sheets, SVG (20) | [schematic/](docs/generated/schematic/) |
 | Schematic, instance overviews and details, PDF | [Review booklet](docs/generated/schematic/mouse-joystick-pcb-schematic-review.pdf) |
 | Design blocks placed (15), one page each | [blocks/README.md](docs/generated/blocks/README.md) |
+| Board view: the model and the top render with the design blocks numbered | [board-view.md](docs/generated/board-view.md) |
 | Subsystem sheets (4), from their recipes | [subsystems/README.md](docs/generated/subsystems/README.md) |
 | MCU pin allocation, from the board source | [gpio-allocation.md](docs/generated/gpio-allocation.md) |
 | Assembly view, top | [assembly-top.svg](docs/generated/layout/assembly-top.svg) |
 | Assembly view, bottom | [assembly-bottom.svg](docs/generated/layout/assembly-bottom.svg) |
 | Assembled board, STEP, for FreeCAD | [mouse-joystick-pcb-assembled.step](docs/generated/3d/mouse-joystick-pcb-assembled.step) |
+| Assembled board, glTF, for a viewer (the library's materials written in) | [mouse-joystick-pcb.glb](docs/generated/3d/mouse-joystick-pcb.glb) |
 | Bill of materials | [table](docs/generated/bom/mouse-joystick-pcb-bom.md) · [CSV](docs/generated/bom/mouse-joystick-pcb-bom.csv) |
 | Board dimensions and stackup | [board-dimensions.md](docs/generated/mechanical/board-dimensions.md) |
 | Board geometry, machine readable | [board-geometry.json](docs/generated/mechanical/board-geometry.json) |

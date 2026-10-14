@@ -8,6 +8,7 @@
 
 # Local tool state
 /.metadata/
+/site/
 /.cache/
 /.guix/.config/
 __pycache__/

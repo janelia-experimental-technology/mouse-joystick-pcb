@@ -12,6 +12,12 @@ Block `orb_weaver_tpsm365r6_adjustable:tpsm365r6_adjustable_12v` placed in `/bra
 | Sheet | `hv_to_12v_tpsm365r6.kicad_sch`; sheet pins: the library's arrangement |
 | Drawing | [mouse-joystick-pcb-brake_torque_sensor-hv_to_12v_tpsm365r6.svg](../schematic/mouse-joystick-pcb-brake_torque_sensor-hv_to_12v_tpsm365r6.svg) |
 
+## On the Board
+
+![hv_to_12v_tpsm365r6 on the board](layout/hv_to_12v_tpsm365r6.png)
+
+Block 4 of the [board view](../board-view.md): 19.8 × 9.7 mm on the top side, its centre 33.8 mm right of and 27.9 mm above the board centre (X right, Y up, as the enclosure tables); 13 footprints. The picture is the top render clipped around the block, the rectangle the extent of its footprints' courtyards.
+
 ## Description
 
 High-voltage input to a regulated 12 V (FB 110 k over 10 k; PGOOD 10 k over 4.7 k, 3.84 V high; two 10 uF output capacitors) step-down supply: TI TPSM365R6FRDNR adjustable (1 to 13 V) 600 mA buck module, FB divider 110k over 10k against the 1.000 V reference, PGOOD divider 10k over 4.7k from VOUT, RT 7.87k. Ports VIN, VOUT, PGOOD, GND. Output voltage, PGOOD level and capacitor ratings judged from the datasheet facts at publication (release.json); hardware validation pending. BUCK profile. VIN 3.6 V to 65 V (facts, recommended operating); the block's input capacitors are 100 V 1206 parts and its VIN copper is block-local (PWR_HV_LOCAL), so the board's power entry carries its own class. 600 mA output; the module integrates the inductor; VCC bypass and the 100 nF high-frequency input bypass are the block's. PGOOD is the module's open-drain window-comparator output (rising at about 107 %, falling at about 94 % of the set point); the block pulls it up as its description says. Adjustable variant: pin 9 is FB (divider against the 1.000 V reference, VOUT = 1 V x (1 + Rtop/Rbottom)) and pin 11 is RT (7.87 k sets the switching frequency; a block value, not a variant). The PGOOD port is the divider midpoint: 3.84 V high on the 12 V variant, above a 3.3 V logic input's absolute maximum, so a 3.3 V host needs a 5 V-tolerant input or its own divider; 3.52 V on the 7 V variant
