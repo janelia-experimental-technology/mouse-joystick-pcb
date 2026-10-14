@@ -1,6 +1,6 @@
 {
   "generated_by": "orb-weaver-kicad-docs",
-  "generated_at": "2026-10-14T18:23:06Z",
+  "generated_at": "2026-10-14T19:09:13Z",
   "kicad_cli_version": "10.0.6",
   "board": "mouse-joystick-pcb",
   "sources": {
@@ -115,8 +115,10 @@
     "libs:scripts/board_block_docs.py": "0f18a9af8fcce17baaed64686dc55002d0110306e8d31433032673a1bd5f9c26",
     "kicad/board-manifest.yaml": "846e314abb45404a5a1026ffbbbe9166625a477e91005f71e022bd201ccd0f71",
     "kicad/board.yaml": "d5cceca2db769c5184e17c90a3486731598c741055e682d71eb300056073b942",
-    "board_view": "f871ed64bf9229a5123e52bf29592f747e671c69ef9dd5762e5dc6c03f79bbd6",
+    "board_view": "97fd9717f6547c2ed187c36c6baeaf1b54eb6cff87bab27f142b4e0b0c529567",
     "site_index": "a5360b71763d9176367eb02419d13f0ddb1bd0c6628fa6a7a4ef81a51a45c27d",
+    "materials_palette": "582981466a166f2174ed20923cdd31d46da7561e87e53aaa5148ea18f53c65b2",
+    "model_materials": "6d65f7c3cb92cc5b11c5dcb6972872f55cdc6450e337d9c980f98b00c2bf2cfe",
     "review_schematic": "c75ac3acf343289ae79405763ac53e4f0c600037ae9f310a7936e41120b1c978"
   },
   "artifacts": {

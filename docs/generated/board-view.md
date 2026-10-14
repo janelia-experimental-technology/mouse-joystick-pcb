@@ -21,8 +21,8 @@ placement guidance. Read on the forge, the picture is the plain top render and t
 </style>
 
 <div class="board-3d">
-<model-viewer id="board" src="../3d/mouse-joystick-pcb.glb?v=9b7a1c6a4125" alt="The assembled mouse-joystick-pcb" camera-controls touch-action="pan-y"
- camera-orbit="0deg 30deg auto" field-of-view="30deg" shadow-intensity="0.5" exposure="1.0" interaction-prompt="none"
+<model-viewer id="board" src="../3d/mouse-joystick-pcb.glb?v=3c0f45928eea" alt="The assembled mouse-joystick-pcb" camera-controls touch-action="pan-y"
+ camera-orbit="0deg 30deg auto" field-of-view="30deg" shadow-intensity="0.5" exposure="0.75" interaction-prompt="none"
  style="width:100%;height:560px;background:#fff;border-radius:8px">
 <a class="hotspot" slot="hotspot-1" data-position="0.10226 0.01359 0.07218" data-normal="0 1 0" data-n="1" href="../blocks/hv_input_36V_terminal_2pos_5p08_protected_vertical/" title="hv_input_36V_terminal_2pos_5p08_protected_vertical" aria-label="1: hv_input_36V_terminal_2pos_5p08_protected_vertical"></a>
 <a class="hotspot" slot="hotspot-2" data-position="0.14702 0.00219 0.06796" data-normal="0 1 0" data-n="2" href="../blocks/quadrature_encoder_input_5v_sn74lvc2g17/" title="quadrature_encoder_input_5v_sn74lvc2g17" aria-label="2: quadrature_encoder_input_5v_sn74lvc2g17"></a>
@@ -50,7 +50,7 @@ if(window.customElements)customElements.whenDefined('model-viewer').then(functio
 </div>
 
 <div class="board-2d">
-<object data="../3d/top.svg?v=afe533e7a547" type="image/svg+xml" style="width:100%" aria-label="The top of the board with the blocks numbered"></object>
+<object data="../3d/top.svg?v=8996a98f15c8" type="image/svg+xml" style="width:100%" aria-label="The top of the board with the blocks numbered"></object>
 <p class="board-hint">The numbers are links; in a browser with WebGL this picture is a model that turns.</p>
 </div>
 
