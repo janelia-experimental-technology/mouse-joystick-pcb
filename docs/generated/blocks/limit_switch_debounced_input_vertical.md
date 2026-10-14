@@ -86,7 +86,7 @@ R33001 (100 k) holds LIMIT_SW low while the debouncer is unpowered; R33002 (1 k)
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/limit_switch_debounced_input_vertical.kicad_block/limit_switch_debounced_input_vertical.brief.yaml`, the block's brief |
 | Published sheet | `adab5cea95990acf` |
-| Published PCB | `40867466a3ae214f` |
+| Published PCB | `c0ccc0c8ef00c177` |
 | Source lock | symbol snapshot `bdd920b7bf67c3bc`, published 2026-10-13 |
 | Placed sheet | `45bbee1820863da4`: differs from the library's sheet; parts: the brief’s 5 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

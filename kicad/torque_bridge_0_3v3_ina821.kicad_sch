@@ -9884,6 +9884,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${8c49ac07-8230-4a00-9e67-d204d2117519:REFERENCE}.8 (Vs+), on VEXC"
+			(at 561.34 74.93 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "87e28c49-dc14-4723-9b82-c7a2d7312bfe")
 		)
@@ -10190,6 +10201,17 @@
 			(at 322.58 77.47 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${e1bfe9cb-0ea9-499f-9f3d-f1a491cbba69:REFERENCE}.5 (V+), on +12V_FILT"
+			(at 322.58 77.47 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -10510,6 +10532,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${a7f8bfa8-bc3f-40cb-976f-a175c0bdb36f:REFERENCE}.5 (V+), on +5V_FILT"
+			(at 632.46 252.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "db244031-edf1-47c6-b90d-67a655daa166")
 		)
@@ -10816,6 +10849,17 @@
 			(at 251.46 77.47 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${0316917d-9692-4735-892a-7db2ce63186c:REFERENCE}.2 (Vin), on +12V_FILT"
+			(at 251.46 77.47 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -11762,6 +11806,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.2 (AVDD), on +5V_FILT"
+			(at 93.98 379.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2cfff079-8c9d-4487-989d-70ff9689c46a")
 		)
@@ -12075,6 +12130,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.16 (DVDD), on +3.3V"
+			(at 170.18 379.73 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "57b0b170-968a-414d-9988-101fc605755e")
 		)
@@ -12381,6 +12447,17 @@
 			(at 91.44 250.19 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${41434a53-c50a-4dc5-80d9-ab50c90255cd:REFERENCE}.5 (V+), on +12V_FILT"
+			(at 91.44 250.19 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -13327,6 +13404,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${a7f8bfa8-bc3f-40cb-976f-a175c0bdb36f:REFERENCE}.3 (+), on FILT_IN"
+			(at 586.74 354.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "54d51f5e-84b7-4d6f-876b-4ef1b6ecc815")
 		)
@@ -13953,6 +14041,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${8c49ac07-8230-4a00-9e67-d204d2117519:REFERENCE}.4 (+), on IN_P"
+			(at 500.38 168.91 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "e9659a24-0a38-4bda-bf30-5db138d41b9f")
 		)
@@ -14259,6 +14358,17 @@
 			(at 500.38 74.93 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${8c49ac07-8230-4a00-9e67-d204d2117519:REFERENCE}.1 (-), on IN_N"
+			(at 500.38 74.93 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -14885,6 +14995,17 @@
 			(at 40.64 488.95 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.4 (REFIO), on REFIO"
+			(at 40.64 488.95 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -15831,6 +15952,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.6 (REFCAP), on REFCAP"
+			(at 93.98 488.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "022e2590-9a55-4bda-828a-bcfb94296f66")
 		)
@@ -16137,6 +16269,17 @@
 			(at 144.78 487.68 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.6 (REFCAP), on REFCAP"
+			(at 144.78 487.68 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -16457,6 +16600,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.16 (DVDD), on +3.3V"
+			(at 144.78 378.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "8fa0aa79-6f33-43bf-af2b-18b2d7d8b24a")
 		)
@@ -16763,6 +16917,17 @@
 			(at 251.46 185.42 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${0316917d-9692-4735-892a-7db2ce63186c:REFERENCE}.6 (Vout), on VREF10"
+			(at 251.46 185.42 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -23123,6 +23288,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${41434a53-c50a-4dc5-80d9-ab50c90255cd:REFERENCE}.3 (+), on VMID_TAP"
+			(at 22.86 298.45 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "97a4058d-a34e-4637-bd39-f7cd3837804d")
 		)
@@ -24062,6 +24238,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.9 (~{RST}), on ~{RST}"
+			(at 170.18 438.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "1005b148-d5b3-4029-a7c7-a74ea5b8d0d8")
 		)
@@ -24368,6 +24555,17 @@
 			(at 193.04 438.15 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${cda5255e-696e-4e66-9da8-48a50e5816b4:REFERENCE}.13 (SDO-0), on CIPO"
+			(at 193.04 438.15 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
@@ -24688,6 +24886,17 @@
 				)
 			)
 		)
+		(property "Placement" "beside ${a7f8bfa8-bc3f-40cb-976f-a175c0bdb36f:REFERENCE}.1 (OUT), on AMP_VOUT"
+			(at 632.46 354.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "dba6d21d-a865-45dc-8940-c26d6f32718c")
 		)
@@ -24994,6 +25203,17 @@
 			(at 284.48 186.69 0)
 			(hide yes)
 			(show_name yes)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Placement" "beside ${e1bfe9cb-0ea9-499f-9f3d-f1a491cbba69:REFERENCE}.3 (+), on VREF10"
+			(at 284.48 186.69 0)
+			(hide yes)
+			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font

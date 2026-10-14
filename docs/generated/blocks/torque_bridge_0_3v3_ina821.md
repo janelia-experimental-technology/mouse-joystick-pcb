@@ -59,29 +59,29 @@ As placed on the board's sheet; 63 of 63 paired with the brief's references by s
 
 | Reference | Brief | Part | Value | Role | Placement |  |
 | --- | --- | --- | --- | --- | --- | --- |
-| `C2001` | `C37001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | INA821 Vs+ bypass (VEXC), 100 nF |  |  |
+| `C2001` | `C37001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | INA821 Vs+ bypass (VEXC), 100 nF | beside U2001.8 (Vs+), on VEXC |  |
 | `C2002` | `C37002` | `OW-CAP-10N-0805-C0G-50V` | 10nF | VEXC input filter, 10 nF C0G |  |  |
-| `C2003` | `C37003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_P shunt, 470 pF C0G |  |  |
+| `C2003` | `C37003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_P shunt, 470 pF C0G | beside U2001.4 (+), on IN_P |  |
 | `C2004` | `C37004` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ATT_TAP filter shunt, 10 nF C0G |  |  |
-| `C2005` | `C37005` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_N shunt, 470 pF C0G |  |  |
-| `C2006` | `C37006` | `OW-CAP-10N-0805-C0G-50V` | 10nF | FILT_IN filter shunt, 10 nF C0G |  |  |
-| `C2007` | `C37007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Error amp U37003 V+ bypass, 100 nF |  |  |
+| `C2005` | `C37005` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_N shunt, 470 pF C0G | beside U2001.1 (-), on IN_N |  |
+| `C2006` | `C37006` | `OW-CAP-10N-0805-C0G-50V` | 10nF | FILT_IN filter shunt, 10 nF C0G | beside U2005.3 (+), on FILT_IN |  |
+| `C2007` | `C37007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Error amp U37003 V+ bypass, 100 nF | beside U2003.5 (V+), on +12V_FILT |  |
 | `C2008` | `C37008` | `OW-CAP-10N-0805-C0G-50V` | 10nF | IN_P to IN_N differential, 10 nF C0G |  |  |
-| `C2009` | `C37009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Output buffer U37005 V+ bypass |  |  |
-| `C2010` | `C37010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | REF5010 Vin bypass, 100 nF |  |  |
-| `C2011` | `C37011` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFIO capacitor, 10 uF |  |  |
+| `C2009` | `C37009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Output buffer U37005 V+ bypass | beside U2005.5 (V+), on +5V_FILT |  |
+| `C2010` | `C37010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | REF5010 Vin bypass, 100 nF | beside U2004.2 (Vin), on +12V_FILT |  |
+| `C2011` | `C37011` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFIO capacitor, 10 uF | beside U2002.4 (REFIO), on REFIO |  |
 | `C2012` | `C37012` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +12V_FILT rail bulk, 10 uF |  |  |
 | `C2013` | `C37013` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +5V_FILT rail bulk, 10 uF |  |  |
-| `C2014` | `C37014` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFCAP capacitor, 10 uF |  |  |
+| `C2014` | `C37014` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFCAP capacitor, 10 uF | beside U2002.6 (REFCAP), on REFCAP |  |
 | `C2015` | `C37015` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +12V_FILT rail bypass, 100 nF |  |  |
 | `C2016` | `C37016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +5V_FILT rail bypass, 100 nF |  |  |
-| `C2017` | `C37017` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC REFCAP bypass, 1 uF, nearest pin |  |  |
-| `C2018` | `C37018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC AVDD bypass, 100 nF |  |  |
-| `C2019` | `C37019` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC DVDD bypass, 1 uF |  |  |
-| `C2020` | `C37020` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC DVDD bypass, 100 nF |  |  |
-| `C2021` | `C37021` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Reference output capacitor, 1 uF |  |  |
+| `C2017` | `C37017` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC REFCAP bypass, 1 uF, nearest pin | beside U2002.6 (REFCAP), on REFCAP |  |
+| `C2018` | `C37018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC AVDD bypass, 100 nF | beside U2002.2 (AVDD), on +5V_FILT |  |
+| `C2019` | `C37019` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC DVDD bypass, 1 uF | beside U2002.16 (DVDD), on +3.3V |  |
+| `C2020` | `C37020` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC DVDD bypass, 100 nF | beside U2002.16 (DVDD), on +3.3V |  |
+| `C2021` | `C37021` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Reference output capacitor, 1 uF | beside U2004.6 (Vout), on VREF10 |  |
 | `C2022` | `C37022` | `OW-CAP-470P-0402-C0G-100V` | 470pF | TQ_AOUT_DIV midpoint shunt, 470 pF |  |  |
-| `C2023` | `C37023` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VMID buffer U37006 V+ bypass |  |  |
+| `C2023` | `C37023` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VMID buffer U37006 V+ bypass | beside U2006.5 (V+), on +12V_FILT |  |
 | `D2001` | `D37001` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | TQ_AOUT ESD clamp |  |  |
 | `FB2001` | `FB37001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +12V rail ferrite |  |  |
 | `FB2002` | `FB37002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +5V rail ferrite |  |  |
@@ -98,15 +98,15 @@ As placed on the board's sheet; 63 of 63 paired with the brief's references by s
 | `R2008` | `R37008` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider bottom, 10 k |  |  |
 | `R2009` | `R37009` | `OW-PASS-0402WGF0000TCE` | 0 | Shield tie to GND, 0 R |  |  |
 | `R2010` | `R37010` | `OW-RES-13K-0402-1PCT` | 13k | Low-pass filter series, 13 k |  |  |
-| `R2011` | `R37011` | `OW-RES-10K-0402` | 10k | ~{RST} pull-up, 10 k |  |  |
-| `R2012` | `R37012` | `OW-RES-10K-0402` | 10k | CIPO pull-down, 10 k (inherited) |  |  |
+| `R2011` | `R37011` | `OW-RES-10K-0402` | 10k | ~{RST} pull-up, 10 k | beside U2002.9 (~{RST}), on ~{RST} |  |
+| `R2012` | `R37012` | `OW-RES-10K-0402` | 10k | CIPO pull-down, 10 k (inherited) | beside U2002.13 (SDO-0), on CIPO |  |
 | `R2013` | `R37013` | `OW-PASS-RC0402FR-071KL` | 1k | Q37002 base resistor, 1 k |  |  |
 | `R2014` | `R37014` | `OW-PASS-RC0402FR-0710RL` | 10 | Excitation isolation, 10 R |  |  |
-| `R2015` | `R37015` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT discharge, 100 k |  |  |
+| `R2015` | `R37015` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT discharge, 100 k | beside U2005.1 (OUT), on AMP_VOUT |  |
 | `R2016` | `R37016` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider top, 3.2 k |  |  |
 | `R2017` | `R37017` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider top, 10 k |  |  |
-| `R2018` | `R37018` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider bottom, 10 k |  |  |
-| `R2019` | `R37019` | `OW-PASS-0603WAF1003T5E` | 100k | VREF10 open-reference pull-down |  |  |
+| `R2018` | `R37018` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider bottom, 10 k | beside U2006.3 (+), on VMID_TAP |  |
+| `R2019` | `R37019` | `OW-PASS-0603WAF1003T5E` | 100k | VREF10 open-reference pull-down | beside U2003.3 (+), on VREF10 |  |
 | `R2020` | `R37020` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider bottom, 3.2 k |  |  |
 | `R2021` | `R37021` | `OW-PASS-CRCW0402249RFKED` | 249 | TQ_AOUT series resistor, 249 R |  |  |
 | `R2022` | `R37022` | `OW-PASS-RC0402FR-071KL` | 1k | TQ_AOUT_MON monitor tap, 1 k |  |  |
@@ -240,9 +240,9 @@ Instructions for review and testing, not evidence that they have run.
 | Block | `orb_weaver_private:torque_bridge_0_3v3_ina821` |
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/torque_bridge_0_3v3_ina821.kicad_block/torque_bridge_0_3v3_ina821.brief.yaml`, the block's brief |
-| Published sheet | `5bda5c5c0490626b` |
-| Published PCB | `ad93152fe75880ce` |
+| Published sheet | `452f8890ee8e9bc4` |
+| Published PCB | `feeb93894d947e3e` |
 | Source lock | symbol snapshot `ea4d626f523fe2db`, published 2026-10-13 |
-| Placed sheet | `a7b697d05468a246`: differs from the library's sheet; parts: the brief’s 63 by internal part; ports: the brief's |
+| Placed sheet | `f623bad849df7720`: differs from the library's sheet; parts: the brief’s 63 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
 

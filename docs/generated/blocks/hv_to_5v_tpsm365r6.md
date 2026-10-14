@@ -77,7 +77,7 @@ U13001 converts VIN to the fixed VOUT; C13006 and C13007 (22 uF) hold the output
 | Resolution | the placed id is in the library |
 | Brief | `design_block_families/tpsm365r6_fixed/source/tpsm365r6_fixed.brief.yaml`, the family's brief |
 | Published sheet | `8d37d1931ee9bd3c` |
-| Published PCB | `916829c6aa58a64b` |
+| Published PCB | `17ea37099656e93f` |
 | Family release | `tpsm365r6_fixed` variant `5v`, profile `buck`; 5 V (TPSM365R6V5, two 22 uF output capacitors); geometry `70b435f451caf109`; copper `5ef3613b97b53de7`; hardware unvalidated; qualification matches |
 | Placed sheet | `fd15f021ac746a0a`: differs from the library's sheet; parts: the brief’s 9 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

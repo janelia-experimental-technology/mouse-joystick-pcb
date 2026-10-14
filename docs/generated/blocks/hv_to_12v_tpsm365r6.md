@@ -85,7 +85,7 @@ U18001 converts VIN to the adjustable VOUT. Three 1 uF 100 V capacitors (C18001 
 | Resolution | the placed id is in the library |
 | Brief | `design_block_families/tpsm365r6_adjustable/source/tpsm365r6_adjustable.brief.yaml`, the family's brief |
 | Published sheet | `2bee772afd47a7db` |
-| Published PCB | `0f25edb1182658b2` |
+| Published PCB | `0be84ed5ca6597c3` |
 | Family release | `tpsm365r6_adjustable` variant `12v`, profile `buck`; 12 V (FB 110 k over 10 k; PGOOD 10 k over 4.7 k, 3.84 V high; two 10 uF output capacitors); geometry `097e1aeb511a23b1`; copper `72e9bbd61c5b742f`; hardware unvalidated; qualification matches |
 | Placed sheet | `946784efff88a092`: differs from the library's sheet; parts: the brief’s 13 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

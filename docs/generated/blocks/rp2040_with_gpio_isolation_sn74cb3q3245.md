@@ -232,7 +232,7 @@ U40005 and U40006 pass GPIO16-23 and GPIO24-29 to the ISO ports (B side MCU, A s
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/rp2040_with_gpio_isolation_sn74cb3q3245.kicad_block/rp2040_with_gpio_isolation_sn74cb3q3245.brief.yaml`, the block's brief |
 | Published sheet | `8ead76fd0ae4e22c` |
-| Published PCB | `2a82d42a8a49fa5d` |
+| Published PCB | `d79a8f4d7e226204` |
 | Source lock | symbol snapshot `43790a2d8bf6787f`, published 2026-10-13 |
 | Placed sheet | `740f29d1bb57716a`: differs from the library's sheet; parts: the brief’s 35 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

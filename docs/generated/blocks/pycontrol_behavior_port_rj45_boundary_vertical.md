@@ -100,7 +100,7 @@ C32001 bypasses the raw PYC_CONN_5V node; R32003 (fuse position) and D32001 (ser
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/pycontrol_behavior_port_rj45_boundary_vertical.kicad_block/pycontrol_behavior_port_rj45_boundary_vertical.brief.yaml`, the block's brief |
 | Published sheet | `5a3e7d57327667b4` |
-| Published PCB | `67dc59ea9677c3b5` |
+| Published PCB | `a48b340410670fbc` |
 | Source lock | symbol snapshot `4aad11a326b6c5bc`, published 2026-10-13 |
 | Placed sheet | `d7a4722c22ca8bc8`: differs from the library's sheet; parts: the brief’s 9 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

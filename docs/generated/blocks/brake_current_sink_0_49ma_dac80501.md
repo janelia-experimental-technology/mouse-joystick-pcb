@@ -62,7 +62,7 @@ As placed on the board's sheet; 54 of 54 paired with the brief's references by s
 | `C1811` | `C36011` | `OW-PASS-GRT155R6YA474KE01D` | 0.47uF | VREFIO reference bypass | beside U1801.10 (VREFIO), on VREFIO |  |
 | `C1812` | `C36012` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Loop integrator, U36002 (C0G) |  |  |
 | `C1813` | `C36013` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36004 V+ pin 5 bypass | beside U1804.5 (V+), on +5V_FILT |  |
-| `C1814` | `C36014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36003 VCC pin 5 bypass | beside U1803.5 (VCC), on +3.3V_FILT |  |
+| `C1814` | `C36014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36003 VCC pin 5 bypass | beside U1803C.5 (VCC), on +3.3V_FILT |  |
 | `C1815` | `C36015` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ISENSE_DIV midpoint shunt (C0G) |  |  |
 | `C1816` | `C36016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | V_LIMIT reference bypass | beside U1806.3 (+), on V_LIMIT |  |
 | `C1817` | `C36017` | `OW-CAP-470N-1206-X7R-100V` | 470nF | +36V coil rail bypass |  |  |
@@ -202,7 +202,7 @@ FB36001 filters +12V to +12V_FILT for U36002 (C36002, C36005); FB36002 filters +
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/brake_current_sink_0_49ma_dac80501.kicad_block/brake_current_sink_0_49ma_dac80501.brief.yaml`, the block's brief |
 | Published sheet | `d1e08b566b4fa8ed` |
-| Published PCB | `c930616eacd25b8e` |
+| Published PCB | `e6a791b29f1311e9` |
 | Source lock | symbol snapshot `7717d1d6cc34726c`, published 2026-10-13 |
 | Placed sheet | `3ff9eaccad243649`: differs from the library's sheet; parts: the brief’s 54 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

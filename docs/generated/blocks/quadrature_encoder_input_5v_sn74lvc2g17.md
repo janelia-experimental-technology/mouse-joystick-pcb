@@ -44,16 +44,16 @@ As placed on the board's sheet; 14 of 14 paired with the brief's references by s
 | Reference | Brief | Part | Value | Role | Placement |  |
 | --- | --- | --- | --- | --- | --- | --- |
 | `C1501` | `C30001` | `OW-CAP-4U7-0402-X5R-16V` | 4.7uF | VENC bulk bypass, 4.7 uF |  |  |
-| `C1502` | `C30002` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 1A, pin 1 | beside U1501.1 (1A), on EA_FILT |  |
-| `C1503` | `C30003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 2A, pin 3 | beside U1501.3 (2A), on EB_FILT |  |
+| `C1502` | `C30002` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 1A, pin 1 | beside U1501A.1 (1A), on EA_FILT |  |
+| `C1503` | `C30003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 2A, pin 3 | beside U1501B.3 (2A), on EB_FILT |  |
 | `C1504` | `C30004` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VENC bypass, 100 nF |  |  |
-| `C1505` | `C30005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 5 bypass, 100 nF | beside U1501.5 (VCC), on +3.3V |  |
+| `C1505` | `C30005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 5 bypass, 100 nF | beside U1501C.5 (VCC), on +3.3V |  |
 | `R1501` | `R30001` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  |  |
 | `R1502` | `R30002` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  |  |
 | `R1503` | `R30003` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30002 |  |  |
 | `R1504` | `R30004` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30003 |  |  |
-| `R1505` | `R30005` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501.6 (1Y), on ENCA |  |
-| `R1506` | `R30006` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501.4 (2Y), on ENCB |  |
+| `R1505` | `R30005` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501A.6 (1Y), on ENCA |  |
+| `R1506` | `R30006` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501B.4 (2Y), on ENCB |  |
 | `R1507` | `R30007` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCA_INST |  |  |
 | `R1508` | `R30008` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCB_INST |  |  |
 | `U1501` | `U30001` | `OW-MISC-SN74LVC2G17DRYR` | SN74LVC2G17DRYR | Dual Schmitt buffer, 5 V in to 3.3 V out |  |  |
@@ -122,7 +122,7 @@ C30001 (4.7 uF) and C30004 (100 nF) bypass VENC, the encoder supply the board pa
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/quadrature_encoder_input_5v_sn74lvc2g17.kicad_block/quadrature_encoder_input_5v_sn74lvc2g17.brief.yaml`, the block's brief |
 | Published sheet | `9ea7e28da205e642` |
-| Published PCB | `5b55dd7239bad6bd` |
+| Published PCB | `729da4652e0af43a` |
 | Source lock | symbol snapshot `7b3aea27bea7d460`, published 2026-10-13 |
 | Placed sheet | `7d1fcb330836a385`: differs from the library's sheet; parts: the brief’s 14 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

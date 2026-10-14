@@ -129,7 +129,7 @@ R35007 and R35011 halve AMP_VOUT to AOUT_DIV; R35009 delivers AOUT with D35001 c
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/analog_output_0_3v3_dac80501.kicad_block/analog_output_0_3v3_dac80501.brief.yaml`, the block's brief |
 | Published sheet | `a144e9037996ddf8` |
-| Published PCB | `0313bb49d9b158b2` |
+| Published PCB | `b5ef1a929ebaacc2` |
 | Source lock | symbol snapshot `793b65d3faee8d50`, published 2026-10-13 |
 | Placed sheet | `4c14c278b5251f14`: differs from the library's sheet; parts: the brief’s 28 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |

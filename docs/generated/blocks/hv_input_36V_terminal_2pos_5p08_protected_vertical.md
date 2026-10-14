@@ -140,7 +140,7 @@ R34009 at the SNS pin converts the sense current to a voltage; R34005 and C34001
 | Resolution | the placed id is in the library |
 | Brief | `design_blocks/orb_weaver_private.kicad_blocks/hv_input_36V_terminal_2pos_5p08_protected_vertical.kicad_block/hv_input_36V_terminal_2pos_5p08_protected_vertical.brief.yaml`, the block's brief |
 | Published sheet | `a3d735d1cbae1ba8` |
-| Published PCB | `b77fe45e0331ed04` |
+| Published PCB | `868d8e9a3b3dcb73` |
 | Source lock | symbol snapshot `126daeb69a2d9a76`, published 2026-10-13 |
 | Placed sheet | `0aa5c86bce0f5cf9`: differs from the library's sheet; parts: the brief’s 18 by internal part; ports: the brief's |
 | Netlist check | not run (`--brief-check`, kicad-cli) |
