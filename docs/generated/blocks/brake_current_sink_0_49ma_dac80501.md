@@ -51,64 +51,64 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 54 of 54 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 54 of 54 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1801` | `C36001` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Monitor input filter, ISENSE_IN (C0G) | beside U1804.3 (+), on ISENSE_IN |  |
-| `C1802` | `C36002` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass | beside U1802.5 (V+), on +12V_FILT |  |
-| `C1803` | `C36003` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass |  |  |
-| `C1804` | `C36004` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass |  |  |
-| `C1805` | `C36005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36002 V+ pin 5 bypass | beside U1802.5 (V+), on +12V_FILT |  |
-| `C1806` | `C36006` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36006 V+ pin 5 bypass | beside U1806.5 (V+), on +5V_FILT |  |
-| `C1807` | `C36007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36001 VDD pin 1 bypass | beside U1801.1 (VDD), on +3.3V_FILT |  |
-| `C1808` | `C36008` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Command filter, V_SET (C0G) | beside U1802.3 (+), on V_SET |  |
-| `C1809` | `C36009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +5V_FILT bypass at R36011, V_LIMIT top |  |  |
-| `C1810` | `C36010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36001 VDD pin 1 bypass | beside U1801.1 (VDD), on +3.3V_FILT |  |
-| `C1811` | `C36011` | `OW-PASS-GRT155R6YA474KE01D` | 0.47uF | VREFIO reference bypass | beside U1801.10 (VREFIO), on VREFIO |  |
-| `C1812` | `C36012` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Loop integrator, U36002 (C0G) |  |  |
-| `C1813` | `C36013` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36004 V+ pin 5 bypass | beside U1804.5 (V+), on +5V_FILT |  |
-| `C1814` | `C36014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36003 VCC pin 5 bypass | beside U1803C.5 (VCC), on +3.3V_FILT |  |
-| `C1815` | `C36015` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ISENSE_DIV midpoint shunt (C0G) |  |  |
-| `C1816` | `C36016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | V_LIMIT reference bypass | beside U1806.3 (+), on V_LIMIT |  |
-| `C1817` | `C36017` | `OW-CAP-470N-1206-X7R-100V` | 470nF | +36V coil rail bypass |  |  |
-| `C1818` | `C36018` | `OW-PASS-GRM188R72A104KA35D` | 100nF | +36V coil rail HF bypass |  |  |
-| `C1819` | `C36019` | `OW-PASS-GRM1555C1E100JA01D` | 10pF | Monitor amplifier compensation |  |  |
-| `C1820` | `C36020` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Ceiling integrator, U36006 (C0G) |  |  |
-| `D1801` | `D36001` | `OW-MISC-MBR120VLSFT1G` | MBR120VLSFT1G | Gate clamp steering diode |  |  |
-| `D1802` | `D36002` | `OW-MISC-S115Q` | S115Q | Coil flyback Schottky | beside U1805 D pins 1, 2, 5, 6, 7 (one per pin), on COIL_LO |  |
-| `D1803` | `D36003` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | ESD clamp on BRAKE_ISENSE |  |  |
-| `FB1801` | `FB36001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U1802.5 (V+), on +12V_FILT |  |
-| `FB1802` | `FB36002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites |  |  |
-| `FB1803` | `FB36003` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites |  |  |
-| `J1801` | `J36001` | `OW-CONN-TBH-1X02-3P5-VERT` | TBH-1x02-3.5mm | Brake coil terminal, +36V and COIL_LO |  |  |
-| `R1801` | `R36001` | `OW-PASS-ERA2AEB103X` | 10k | Set-point divider top, DAC_VOUT |  |  |
-| `R1802` | `R36002` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Monitor input series, V_SENSE |  |  |
-| `R1803` | `R36003` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Set-point divider middle leg (0.1 %) |  |  |
-| `R1804` | `R36004` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Set-point divider bottom leg (0.1 %) |  |  |
-| `R1805` | `R36005` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Command filter series, V_SET |  |  |
-| `R1806` | `R36006` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Loop integrator input, V_SENSE |  |  |
-| `R1807` | `R36007` | `OW-PASS-RC0402FR-071KL` | 1k | A0 strap to VDD, address 0x49 | beside U1801.7 (SYNC/A0), on DAC_A0 |  |
-| `R1808` | `R36008` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor /2 divider top (0.1 %) |  |  |
-| `R1809` | `R36009` | `OW-PASS-RC0402FR-071KL` | 1k | SPI2C strap to VDD, I2C mode | beside U1801.5 (SPI2C), on SPI2C |  |
-| `R1810` | `R36010` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor /2 divider bottom (0.1 %) |  |  |
-| `R1811` | `R36011` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | V_LIMIT divider top | beside U1806.3 (+), on V_LIMIT |  |
-| `R1812` | `R36012` | `OW-RES-6K34-0402-1PCT` | 6.34k | V_LIMIT divider bottom | beside U1806.3 (+), on V_LIMIT |  |
-| `R1813` | `R36013` | `OW-PASS-RC0402FR-071KL` | 1k | Gate series, LOOP_OUT to GATE |  |  |
-| `R1814` | `R36014` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | GATE pull-down | beside U1805.3 (G), on GATE |  |
-| `R1815` | `R36015` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Ceiling integrator input, V_SENSE |  |  |
-| `R1816` | `R36016` | `OW-PASS-KTR03EZPF10R0` | 10 | Kelvin current shunt, 10 ohm | beside U1805 S pins 4, 8 (one per pin), on V_SENSE |  |
-| `R1817` | `R36017` | `OW-PASS-ERA2AEB103X` | 10k | Monitor gain feedback, U36004 |  |  |
-| `R1818` | `R36018` | `OW-PASS-FRC0402F1103TS` | 110k | ISENSE_OUT pull-down, unpowered 0 V | beside U1804.1 (OUT), on ISENSE_OUT |  |
-| `R1819` | `R36019` | `OW-PASS-CRCW0402249RFKED` | 249 | Series output resistor |  |  |
-| `R1820` | `R36020` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, ~{BRAKE_FAULT} |  |  |
-| `R1821` | `R36021` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor gain-set, ISENSE_FB to GND (0.1 %) | beside U1804.4 (-), on ISENSE_FB |  |
-| `U1801` | `U36001` | `OW-SENS-DAC80501ZDGSR` | DAC80501ZDGSR | 16-bit I2C DAC, internal 2.5 V reference |  |  |
-| `U1802` | `U36002` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Loop error integrator, gate drive |  |  |
-| `U1803` | `U36003` | `OW-MISC-SN74LVC2G17DRYR` | SN74LVC2G17DRYR | Schmitt buffer, LIMIT_OUT to ~{BRAKE_FAULT} |  |  |
-| `U1804` | `U36004` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Current monitor amplifier, gain 4.125 |  |  |
-| `U1805` | `U36005` | `OW-PWR-BUK7D36-60EX` | BUK7D36-60EX | Linear pass MOSFET, coil current sink |  |  |
-| `U1806` | `U36006` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Current ceiling amplifier, 56.4 mA |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1801` | `C36001` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Monitor input filter, ISENSE_IN (C0G) | beside U1804.3 (+), on ISENSE_IN | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C1802` | `C36002` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass | beside U1802.5 (V+), on +12V_FILT | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C1803` | `C36003` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass |  | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C1804` | `C36004` | `OW-PASS-CL21A106KOQNNNE` | 10uF | Rail bulk bypass |  | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C1805` | `C36005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36002 V+ pin 5 bypass | beside U1802.5 (V+), on +12V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1806` | `C36006` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36006 V+ pin 5 bypass | beside U1806.5 (V+), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1807` | `C36007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36001 VDD pin 1 bypass | beside U1801.1 (VDD), on +3.3V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1808` | `C36008` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Command filter, V_SET (C0G) | beside U1802.3 (+), on V_SET | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C1809` | `C36009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +5V_FILT bypass at R36011, V_LIMIT top |  | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1810` | `C36010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36001 VDD pin 1 bypass | beside U1801.1 (VDD), on +3.3V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1811` | `C36011` | `OW-PASS-GRT155R6YA474KE01D` | 0.47uF | VREFIO reference bypass | beside U1801.10 (VREFIO), on VREFIO | GRT155R6YA474KE01D | [C711580](https://www.lcsc.com/product-detail/C711580.html) |  |
+| `C1812` | `C36012` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Loop integrator, U36002 (C0G) |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C1813` | `C36013` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36004 V+ pin 5 bypass | beside U1804.5 (V+), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1814` | `C36014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U36003 VCC pin 5 bypass | beside U1803C.5 (VCC), on +3.3V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1815` | `C36015` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ISENSE_DIV midpoint shunt (C0G) |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C1816` | `C36016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | V_LIMIT reference bypass | beside U1806.3 (+), on V_LIMIT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1817` | `C36017` | `OW-CAP-470N-1206-X7R-100V` | 470nF | +36V coil rail bypass |  | CGA1206X7R474K101NT | [C6119998](https://www.lcsc.com/product-detail/C6119998.html) |  |
+| `C1818` | `C36018` | `OW-PASS-GRM188R72A104KA35D` | 100nF | +36V coil rail HF bypass |  | GRM188R72A104KA35D | [C77058](https://www.lcsc.com/product-detail/C77058.html) |  |
+| `C1819` | `C36019` | `OW-PASS-GRM1555C1E100JA01D` | 10pF | Monitor amplifier compensation |  | GRM1555C1E100JA01D | [C161512](https://www.lcsc.com/product-detail/C161512.html) |  |
+| `C1820` | `C36020` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Ceiling integrator, U36006 (C0G) |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `D1801` | `D36001` | `OW-MISC-MBR120VLSFT1G` | MBR120VLSFT1G | Gate clamp steering diode |  | [MBR120VLSFT1G](https://www.onsemi.com/pdf/datasheet/mbr120vlsft1-d.pdf) | [C223608](https://www.lcsc.com/product-detail/C223608.html) |  |
+| `D1802` | `D36002` | `OW-MISC-S115Q` | S115Q | Coil flyback Schottky | beside U1805 D pins 1, 2, 5, 6, 7 (one per pin), on COIL_LO | [S115Q](https://www.lcsc.com/product-detail/C5362393.html) | [C5362393](https://www.lcsc.com/product-detail/C5362393.html) |  |
+| `D1803` | `D36003` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | ESD clamp on BRAKE_ISENSE |  | [TPD1E05U06DPYR](https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf) | [C436349](https://www.lcsc.com/product-detail/C436349.html) |  |
+| `FB1801` | `FB36001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U1802.5 (V+), on +12V_FILT | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `FB1802` | `FB36002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites |  | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `FB1803` | `FB36003` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites |  | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `J1801` | `J36001` | `OW-CONN-TBH-1X02-3P5-VERT` | TBH-1x02-3.5mm | Brake coil terminal, +36V and COIL_LO |  | [1843606](https://www.phoenixcontact.com/en-pc/products/1843606) | [C3019639](https://www.lcsc.com/product-detail/C3019639.html) |  |
+| `R1801` | `R36001` | `OW-PASS-ERA2AEB103X` | 10k | Set-point divider top, DAC_VOUT |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R1802` | `R36002` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Monitor input series, V_SENSE |  | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1803` | `R36003` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Set-point divider middle leg (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R1804` | `R36004` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Set-point divider bottom leg (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R1805` | `R36005` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Command filter series, V_SET |  | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1806` | `R36006` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Loop integrator input, V_SENSE |  | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1807` | `R36007` | `OW-PASS-RC0402FR-071KL` | 1k | A0 strap to VDD, address 0x49 | beside U1801.7 (SYNC/A0), on DAC_A0 | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R1808` | `R36008` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor /2 divider top (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R1809` | `R36009` | `OW-PASS-RC0402FR-071KL` | 1k | SPI2C strap to VDD, I2C mode | beside U1801.5 (SPI2C), on SPI2C | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R1810` | `R36010` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor /2 divider bottom (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R1811` | `R36011` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | V_LIMIT divider top | beside U1806.3 (+), on V_LIMIT | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1812` | `R36012` | `OW-RES-6K34-0402-1PCT` | 6.34k | V_LIMIT divider bottom | beside U1806.3 (+), on V_LIMIT | CR0402FF6341G | [C100502](https://www.lcsc.com/product-detail/C100502.html) |  |
+| `R1813` | `R36013` | `OW-PASS-RC0402FR-071KL` | 1k | Gate series, LOOP_OUT to GATE |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R1814` | `R36014` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | GATE pull-down | beside U1805.3 (G), on GATE | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1815` | `R36015` | `OW-PASS-RC0402FR-0749K9L` | 49.9k | Ceiling integrator input, V_SENSE |  | RC0402FR-0749K9L | [C137969](https://www.lcsc.com/product-detail/C137969.html) |  |
+| `R1816` | `R36016` | `OW-PASS-KTR03EZPF10R0` | 10 | Kelvin current shunt, 10 ohm | beside U1805 S pins 4, 8 (one per pin), on V_SENSE | KTR03EZPF10R0 | [C2090788](https://www.lcsc.com/product-detail/C2090788.html) |  |
+| `R1817` | `R36017` | `OW-PASS-ERA2AEB103X` | 10k | Monitor gain feedback, U36004 |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R1818` | `R36018` | `OW-PASS-FRC0402F1103TS` | 110k | ISENSE_OUT pull-down, unpowered 0 V | beside U1804.1 (OUT), on ISENSE_OUT | FRC0402F1103TS | [C2909311](https://www.lcsc.com/product-detail/C2909311.html) |  |
+| `R1819` | `R36019` | `OW-PASS-CRCW0402249RFKED` | 249 | Series output resistor |  | CRCW0402249RFKED | [C482112](https://www.lcsc.com/product-detail/C482112.html) |  |
+| `R1820` | `R36020` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, ~{BRAKE_FAULT} |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R1821` | `R36021` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Monitor gain-set, ISENSE_FB to GND (0.1 %) | beside U1804.4 (-), on ISENSE_FB | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `U1801` | `U36001` | `OW-SENS-DAC80501ZDGSR` | DAC80501ZDGSR | 16-bit I2C DAC, internal 2.5 V reference |  | [DAC80501ZDGSR](https://www.ti.com/lit/ds/symlink/dac80501.pdf) | [C1852033](https://www.lcsc.com/product-detail/C1852033.html) |  |
+| `U1802` | `U36002` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Loop error integrator, gate drive |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
+| `U1803` | `U36003` | `OW-MISC-SN74LVC2G17DRYR` | SN74LVC2G17DRYR | Schmitt buffer, LIMIT_OUT to ~{BRAKE_FAULT} |  | [SN74LVC2G17DRYR](https://www.ti.com/lit/ds/symlink/sn74lvc2g17.pdf) | [C2675856](https://www.lcsc.com/product-detail/C2675856.html) |  |
+| `U1804` | `U36004` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Current monitor amplifier, gain 4.125 |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
+| `U1805` | `U36005` | `OW-PWR-BUK7D36-60EX` | BUK7D36-60EX | Linear pass MOSFET, coil current sink |  | [BUK7D36-60EX](https://assets.nexperia.com/documents/data-sheet/BUK7D36-60E.pdf) | [C3288253](https://www.lcsc.com/product-detail/C3288253.html) |  |
+| `U1806` | `U36006` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Current ceiling amplifier, 56.4 mA |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
 
 ## Operating Notes
 
@@ -210,6 +210,6 @@ FB36001 filters +12V to +12V_FILT for U36002 (C36002, C36005); FB36002 filters +
 | Published sheet | `d1e08b566b4fa8ed` |
 | Published PCB | `e6a791b29f1311e9` |
 | Source lock | symbol snapshot `7717d1d6cc34726c`, published 2026-10-14 |
-| Placed sheet | `3ff9eaccad243649`: differs from the library's sheet; parts: the brief’s 54 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `3ff9eaccad243649`: matches the brief: its 54 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 63 identity records differ, the board's own instances |
 

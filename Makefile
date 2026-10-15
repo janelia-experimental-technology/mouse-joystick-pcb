@@ -376,7 +376,7 @@ fab:
 # per placed block, and with the board source the subsystem pages and the GPIO
 # allocation, from the library's briefs and the recipes. Both are passed when
 # the files exist; --review-schematic adds the per-block review booklet.
-DOCS_BLOCK_OPTIONS = $(if $(wildcard $(BOARD_MANIFEST)),--manifest "$(BOARD_MANIFEST)") $(if $(wildcard $(BOARD_SOURCE)),--board-source "$(BOARD_SOURCE)")
+DOCS_BLOCK_OPTIONS = $(if $(wildcard $(BOARD_MANIFEST)),--manifest "$(BOARD_MANIFEST)" --brief-check) $(if $(wildcard $(BOARD_SOURCE)),--board-source "$(BOARD_SOURCE)")
 # With a site (mkdocs.yml), the documentation also writes docs/index.md, the
 # front page with the turning board (kicad-libs PLANS 2026-10-14, the board site).
 DOCS_SITE_OPTIONS = $(if $(wildcard mkdocs.yml),--site-index docs/index.md)

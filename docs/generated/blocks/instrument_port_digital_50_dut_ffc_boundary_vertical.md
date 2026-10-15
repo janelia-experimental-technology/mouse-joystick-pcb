@@ -65,56 +65,56 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 46 of 46 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 46 of 46 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1301` | `C39001` | `OW-CAP-4U7-0402-X5R-16V` | 4.7uF | +3.3V rail-entry bulk, 4.7 uF |  |  |
-| `C1302` | `C39002` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1301.20 (VCC), on +3.3V |  |
-| `C1303` | `C39003` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1302.20 (VCC), on +3.3V |  |
-| `C1304` | `C39004` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1303.20 (VCC), on +3.3V |  |
-| `C1305` | `C39005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1304.20 (VCC), on +3.3V |  |
-| `J1301` | `J39001` | `OW-CONN-FH12-50S-0-5SVA-54` | FH12-50S-0.5SVA(54) | 50-contact FFC receptacle, top entry |  |  |
-| `R1301` | `R39001` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1301.1 (~{OE1}), on ~{OE1} |  |
-| `R1302` | `R39002` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1302.1 (~{OE1}), on ~{OE2} |  |
-| `R1303` | `R39003` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1303.1 (~{OE1}), on ~{OE3} |  |
-| `R1304` | `R39004` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1304.1 (~{OE1}), on ~{OE4} |  |
-| `R1305` | `R39005` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1306` | `R39006` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1307` | `R39007` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1308` | `R39008` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1309` | `R39009` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1310` | `R39010` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1311` | `R39011` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1312` | `R39012` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1313` | `R39013` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1314` | `R39014` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1315` | `R39015` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1316` | `R39016` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1317` | `R39017` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1318` | `R39018` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1319` | `R39019` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1320` | `R39020` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1321` | `R39021` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1322` | `R39022` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1323` | `R39023` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1324` | `R39024` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1325` | `R39025` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1326` | `R39026` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1327` | `R39027` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1328` | `R39028` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1329` | `R39029` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1330` | `R39030` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1331` | `R39031` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1332` | `R39032` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1333` | `R39033` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1334` | `R39034` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1335` | `R39035` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `R1336` | `R39036` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  |  |
-| `U1301` | `U39001` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  |  |
-| `U1302` | `U39002` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  |  |
-| `U1303` | `U39003` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  |  |
-| `U1304` | `U39004` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1301` | `C39001` | `OW-CAP-4U7-0402-X5R-16V` | 4.7uF | +3.3V rail-entry bulk, 4.7 uF |  | GRM155R61E475ME15D | [C2858031](https://www.lcsc.com/product-detail/C2858031.html) |  |
+| `C1302` | `C39002` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1301.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1303` | `C39003` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1302.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1304` | `C39004` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1303.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1305` | `C39005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 20 bypass, 100 nF | beside U1304.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `J1301` | `J39001` | `OW-CONN-FH12-50S-0-5SVA-54` | FH12-50S-0.5SVA(54) | 50-contact FFC receptacle, top entry |  | [FH12-50S-0.5SVA(54)](https://www.hirose.com/product/en/products/FH12/FH12-50S-0.5SVA%2854%29/) | [C597991](https://www.lcsc.com/product-detail/C597991.html) |  |
+| `R1301` | `R39001` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1301.1 (~{OE1}), on ~{OE1} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R1302` | `R39002` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1302.1 (~{OE1}), on ~{OE2} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R1303` | `R39003` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1303.1 (~{OE1}), on ~{OE3} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R1304` | `R39004` | `OW-RES-10K-0402` | 10k | ~{OE1}/~{OE2} pull-down, 10 k | beside U1304.1 (~{OE1}), on ~{OE4} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R1305` | `R39005` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1306` | `R39006` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1307` | `R39007` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1308` | `R39008` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1309` | `R39009` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1310` | `R39010` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1311` | `R39011` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1312` | `R39012` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1313` | `R39013` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1314` | `R39014` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1315` | `R39015` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1316` | `R39016` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1317` | `R39017` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1318` | `R39018` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1319` | `R39019` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1320` | `R39020` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1321` | `R39021` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1322` | `R39022` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1323` | `R39023` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1324` | `R39024` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1325` | `R39025` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1326` | `R39026` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1327` | `R39027` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1328` | `R39028` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1329` | `R39029` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1330` | `R39030` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1331` | `R39031` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1332` | `R39032` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1333` | `R39033` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1334` | `R39034` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1335` | `R39035` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1336` | `R39036` | `OW-PASS-0402WGF1000TCE` | 100 | Output source damping |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `U1301` | `U39001` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  | [SN74LV541ARKSR](https://www.ti.com/lit/ds/symlink/sn74lv541a.pdf) | [C7364695](https://www.lcsc.com/product-detail/C7364695.html) |  |
+| `U1302` | `U39002` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  | [SN74LV541ARKSR](https://www.ti.com/lit/ds/symlink/sn74lv541a.pdf) | [C7364695](https://www.lcsc.com/product-detail/C7364695.html) |  |
+| `U1303` | `U39003` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  | [SN74LV541ARKSR](https://www.ti.com/lit/ds/symlink/sn74lv541a.pdf) | [C7364695](https://www.lcsc.com/product-detail/C7364695.html) |  |
+| `U1304` | `U39004` | `OW-MISC-SN74LV541ARKSR` | SN74LV541ARKSR | SN74LV541A octal buffer, DUT to instrument |  | [SN74LV541ARKSR](https://www.ti.com/lit/ds/symlink/sn74lv541a.pdf) | [C7364695](https://www.lcsc.com/product-detail/C7364695.html) |  |
 
 ## Operating Notes
 
@@ -190,6 +190,6 @@ J39001 carries the 32 damped outputs (DIGn_ISO) on the contract's DUT contacts a
 | Published sheet | `a88eab295bbfb7cf` |
 | Published PCB | `495b516ac03bc8cc` |
 | Source lock | symbol snapshot `1c2b211b4f8845d5`, published 2026-10-14 |
-| Placed sheet | `15b2ba8558428542`: differs from the library's sheet; parts: the brief’s 46 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `15b2ba8558428542`: matches the brief: its 46 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 46 identity records differ, the board's own instances |
 

@@ -45,24 +45,24 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 14 of 14 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 14 of 14 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1501` | `C30001` | `OW-CAP-4U7-0402-X5R-16V` | 4.7uF | VENC bulk bypass, 4.7 uF |  |  |
-| `C1502` | `C30002` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 1A, pin 1 | beside U1501A.1 (1A), on EA_FILT |  |
-| `C1503` | `C30003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 2A, pin 3 | beside U1501B.3 (2A), on EB_FILT |  |
-| `C1504` | `C30004` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VENC bypass, 100 nF |  |  |
-| `C1505` | `C30005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 5 bypass, 100 nF | beside U1501C.5 (VCC), on +3.3V |  |
-| `R1501` | `R30001` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  |  |
-| `R1502` | `R30002` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  |  |
-| `R1503` | `R30003` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30002 |  |  |
-| `R1504` | `R30004` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30003 |  |  |
-| `R1505` | `R30005` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501A.6 (1Y), on ENCA |  |
-| `R1506` | `R30006` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501B.4 (2Y), on ENCB |  |
-| `R1507` | `R30007` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCA_INST |  |  |
-| `R1508` | `R30008` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCB_INST |  |  |
-| `U1501` | `U30001` | `OW-MISC-SN74LVC2G17DRYR` | SN74LVC2G17DRYR | Dual Schmitt buffer, 5 V in to 3.3 V out |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1501` | `C30001` | `OW-CAP-4U7-0402-X5R-16V` | 4.7uF | VENC bulk bypass, 4.7 uF |  | GRM155R61E475ME15D | [C2858031](https://www.lcsc.com/product-detail/C2858031.html) |  |
+| `C1502` | `C30002` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 1A, pin 1 | beside U1501A.1 (1A), on EA_FILT | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `C1503` | `C30003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | RC filter shunt at Schmitt input 2A, pin 3 | beside U1501B.3 (2A), on EB_FILT | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `C1504` | `C30004` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VENC bypass, 100 nF |  | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C1505` | `C30005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VCC pin 5 bypass, 100 nF | beside U1501C.5 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `R1501` | `R30001` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  | RC0402JR-07100KL | [C106234](https://www.lcsc.com/product-detail/C106234.html) |  |
+| `R1502` | `R30002` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, harness side, 100 k |  | RC0402JR-07100KL | [C106234](https://www.lcsc.com/product-detail/C106234.html) |  |
+| `R1503` | `R30003` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30002 |  | 0402WGF4701TCE | [C25900](https://www.lcsc.com/product-detail/C25900.html) |  |
+| `R1504` | `R30004` | `OW-RES-4K7-0402` | 4.7k | Series limit, RC 72 kHz with C30003 |  | 0402WGF4701TCE | [C25900](https://www.lcsc.com/product-detail/C25900.html) |  |
+| `R1505` | `R30005` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501A.6 (1Y), on ENCA | RC0402JR-07100KL | [C106234](https://www.lcsc.com/product-detail/C106234.html) |  |
+| `R1506` | `R30006` | `OW-PASS-RC0402JR-07100KL` | 100k | Pull-down, buffer output, 100 k | beside U1501B.4 (2Y), on ENCB | RC0402JR-07100KL | [C106234](https://www.lcsc.com/product-detail/C106234.html) |  |
+| `R1507` | `R30007` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCA_INST |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R1508` | `R30008` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap, 100 R, to ENCB_INST |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `U1501` | `U30001` | `OW-MISC-SN74LVC2G17DRYR` | SN74LVC2G17DRYR | Dual Schmitt buffer, 5 V in to 3.3 V out |  | [SN74LVC2G17DRYR](https://www.ti.com/lit/ds/symlink/sn74lvc2g17.pdf) | [C2675856](https://www.lcsc.com/product-detail/C2675856.html) |  |
 
 ## Operating Notes
 
@@ -130,6 +130,6 @@ C30001 (4.7 uF) and C30004 (100 nF) bypass VENC, the encoder supply the board pa
 | Published sheet | `9ea7e28da205e642` |
 | Published PCB | `729da4652e0af43a` |
 | Source lock | symbol snapshot `7b3aea27bea7d460`, published 2026-10-14 |
-| Placed sheet | `7d1fcb330836a385`: differs from the library's sheet; parts: the brief’s 14 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `7d1fcb330836a385`: matches the brief: its 14 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 16 identity records differ, the board's own instances |
 

@@ -43,19 +43,19 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 9 of 9 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 9 of 9 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C301` | `C32001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Port 5 V bypass at the clamp | beside U301.5 (VBUS), on PYC_CONN_5V |  |
-| `D301` | `D32001` | `OW-MISC-MBR120VLSFT1G` | MBR120VLSFT1G | Diode-OR Schottky |  |  |
-| `J301` | `J32001` | `OW-CONN-RJ45-8P8C-THT-VERT` | RJ45-8P8C | modular-jack |  |  |
-| `R301` | `R32001` | `OW-PASS-0402WGF1000TCE` | 100 | DIO series current limit |  |  |
-| `R302` | `R32002` | `OW-PASS-0402WGF1000TCE` | 100 | DIO series current limit |  |  |
-| `R303` | `R32003` | `OW-PASS-RL1206FR-070R36L` | 0.36 | Polyfuse position (0.36 ohm jumper) | beside U301.5 (VBUS), on PYC_CONN_5V |  |
-| `R304` | `R32004` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap series resistor |  |  |
-| `R305` | `R32005` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap series resistor |  |  |
-| `U301` | `U32001` | `OW-MISC-USBLC6-2P6` | USBLC6-2P6 | ESD clamp on DIO-A, DIO-B and 5 V |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C301` | `C32001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Port 5 V bypass at the clamp | beside U301.5 (VBUS), on PYC_CONN_5V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `D301` | `D32001` | `OW-MISC-MBR120VLSFT1G` | MBR120VLSFT1G | Diode-OR Schottky |  | [MBR120VLSFT1G](https://www.onsemi.com/pdf/datasheet/mbr120vlsft1-d.pdf) | [C223608](https://www.lcsc.com/product-detail/C223608.html) |  |
+| `J301` | `J32001` | `OW-CONN-RJ45-8P8C-THT-VERT` | RJ45-8P8C | modular-jack |  | [855085001](https://www.molex.com/en-us/products/part-detail-pdf/855085001?display=pdf) | [C588558](https://www.lcsc.com/product-detail/C588558.html) |  |
+| `R301` | `R32001` | `OW-PASS-0402WGF1000TCE` | 100 | DIO series current limit |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R302` | `R32002` | `OW-PASS-0402WGF1000TCE` | 100 | DIO series current limit |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R303` | `R32003` | `OW-PASS-RL1206FR-070R36L` | 0.36 | Polyfuse position (0.36 ohm jumper) | beside U301.5 (VBUS), on PYC_CONN_5V | RL1206FR-070R36L | [C327079](https://www.lcsc.com/product-detail/C327079.html) |  |
+| `R304` | `R32004` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap series resistor |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R305` | `R32005` | `OW-PASS-0402WGF1000TCE` | 100 | Instrument tap series resistor |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `U301` | `U32001` | `OW-MISC-USBLC6-2P6` | USBLC6-2P6 | ESD clamp on DIO-A, DIO-B and 5 V |  | [USBLC6-2P6](https://www.st.com/resource/en/datasheet/usblc6-2.pdf) | [C2827693](https://www.lcsc.com/product-detail/C2827693.html) |  |
 
 ## Operating Notes
 
@@ -108,6 +108,6 @@ C32001 bypasses the raw PYC_CONN_5V node; R32003 (fuse position) and D32001 (ser
 | Published sheet | `5a3e7d57327667b4` |
 | Published PCB | `a48b340410670fbc` |
 | Source lock | symbol snapshot `4aad11a326b6c5bc`, published 2026-10-14 |
-| Placed sheet | `d7a4722c22ca8bc8`: differs from the library's sheet; parts: the brief’s 9 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `d7a4722c22ca8bc8`: matches the brief: its 9 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 12 identity records differ, the board's own instances |
 

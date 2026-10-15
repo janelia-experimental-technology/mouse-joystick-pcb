@@ -61,73 +61,73 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 63 of 63 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 63 of 63 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C2001` | `C37001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | INA821 Vs+ bypass (VEXC), 100 nF | beside U2001.8 (Vs+), on VEXC |  |
-| `C2002` | `C37002` | `OW-CAP-10N-0805-C0G-50V` | 10nF | VEXC input filter, 10 nF C0G |  |  |
-| `C2003` | `C37003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_P shunt, 470 pF C0G | beside U2001.4 (+), on IN_P |  |
-| `C2004` | `C37004` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ATT_TAP filter shunt, 10 nF C0G |  |  |
-| `C2005` | `C37005` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_N shunt, 470 pF C0G | beside U2001.1 (-), on IN_N |  |
-| `C2006` | `C37006` | `OW-CAP-10N-0805-C0G-50V` | 10nF | FILT_IN filter shunt, 10 nF C0G | beside U2005.3 (+), on FILT_IN |  |
-| `C2007` | `C37007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Error amp U37003 V+ bypass, 100 nF | beside U2003.5 (V+), on +12V_FILT |  |
-| `C2008` | `C37008` | `OW-CAP-10N-0805-C0G-50V` | 10nF | IN_P to IN_N differential, 10 nF C0G |  |  |
-| `C2009` | `C37009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Output buffer U37005 V+ bypass | beside U2005.5 (V+), on +5V_FILT |  |
-| `C2010` | `C37010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | REF5010 Vin bypass, 100 nF | beside U2004.2 (Vin), on +12V_FILT |  |
-| `C2011` | `C37011` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFIO capacitor, 10 uF | beside U2002.4 (REFIO), on REFIO |  |
-| `C2012` | `C37012` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +12V_FILT rail bulk, 10 uF |  |  |
-| `C2013` | `C37013` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +5V_FILT rail bulk, 10 uF |  |  |
-| `C2014` | `C37014` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFCAP capacitor, 10 uF | beside U2002.6 (REFCAP), on REFCAP |  |
-| `C2015` | `C37015` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +12V_FILT rail bypass, 100 nF |  |  |
-| `C2016` | `C37016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +5V_FILT rail bypass, 100 nF |  |  |
-| `C2017` | `C37017` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC REFCAP bypass, 1 uF, nearest pin | beside U2002.6 (REFCAP), on REFCAP |  |
-| `C2018` | `C37018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC AVDD bypass, 100 nF | beside U2002.2 (AVDD), on +5V_FILT |  |
-| `C2019` | `C37019` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC DVDD bypass, 1 uF | beside U2002.16 (DVDD), on +3.3V |  |
-| `C2020` | `C37020` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC DVDD bypass, 100 nF | beside U2002.16 (DVDD), on +3.3V |  |
-| `C2021` | `C37021` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Reference output capacitor, 1 uF | beside U2004.6 (Vout), on VREF10 |  |
-| `C2022` | `C37022` | `OW-CAP-470P-0402-C0G-100V` | 470pF | TQ_AOUT_DIV midpoint shunt, 470 pF |  |  |
-| `C2023` | `C37023` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VMID buffer U37006 V+ bypass | beside U2006.5 (V+), on +12V_FILT |  |
-| `D2001` | `D37001` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | TQ_AOUT ESD clamp |  |  |
-| `FB2001` | `FB37001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +12V rail ferrite |  |  |
-| `FB2002` | `FB37002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +5V rail ferrite |  |  |
-| `J2001` | `J37001` | `OW-CONN-TBH-1X05-3P5-VERT` | TBH-1x05-3.5mm | RTS-5 sensor terminal block |  |  |
-| `Q2001` | `Q37001` | `OW-MISC-2SK1589-T1B-VB` | 2SK1589-T1B-VB | Shunt-calibration switch FET |  |  |
-| `Q2002` | `Q37002` | `OW-MISC-MMBT5550LT1G` | MMBT5550LT1G | Excitation pass transistor |  |  |
-| `R2001` | `R37001` | `OW-PASS-RT0402BRD07249RL` | 249 | INA821 gain resistor, 249 R 0.1% |  |  |
-| `R2002` | `R37002` | `OW-PASS-RC0402FR-0710RL` | 10 | INA821 gain trim, 10 R |  |  |
-| `R2003` | `R37003` | `OW-PASS-RT0402BRD0775KL` | 75k | Shunt-calibration resistor, 75 k |  |  |
-| `R2004` | `R37004` | `OW-PASS-RC0402FR-071KL` | 1k | SIG_P input filter leg, 1 k |  |  |
-| `R2005` | `R37005` | `OW-PASS-RC0402FR-071KL` | 1k | SIG_N input filter leg, 1 k |  |  |
-| `R2006` | `R37006` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider top, INA_OUT side, 10 k |  |  |
-| `R2007` | `R37007` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider top, ATT_TAP side, 10 k |  |  |
-| `R2008` | `R37008` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider bottom, 10 k |  |  |
-| `R2009` | `R37009` | `OW-PASS-0402WGF0000TCE` | 0 | Shield tie to GND, 0 R |  |  |
-| `R2010` | `R37010` | `OW-RES-13K-0402-1PCT` | 13k | Low-pass filter series, 13 k |  |  |
-| `R2011` | `R37011` | `OW-RES-10K-0402` | 10k | ~{RST} pull-up, 10 k | beside U2002.9 (~{RST}), on ~{RST} |  |
-| `R2012` | `R37012` | `OW-RES-10K-0402` | 10k | CIPO pull-down, 10 k (inherited) | beside U2002.13 (SDO-0), on CIPO |  |
-| `R2013` | `R37013` | `OW-PASS-RC0402FR-071KL` | 1k | Q37002 base resistor, 1 k |  |  |
-| `R2014` | `R37014` | `OW-PASS-RC0402FR-0710RL` | 10 | Excitation isolation, 10 R |  |  |
-| `R2015` | `R37015` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT discharge, 100 k | beside U2005.1 (OUT), on AMP_VOUT |  |
-| `R2016` | `R37016` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider top, 3.2 k |  |  |
-| `R2017` | `R37017` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider top, 10 k |  |  |
-| `R2018` | `R37018` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider bottom, 10 k | beside U2006.3 (+), on VMID_TAP |  |
-| `R2019` | `R37019` | `OW-PASS-0603WAF1003T5E` | 100k | VREF10 open-reference pull-down | beside U2003.3 (+), on VREF10 |  |
-| `R2020` | `R37020` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider bottom, 3.2 k |  |  |
-| `R2021` | `R37021` | `OW-PASS-CRCW0402249RFKED` | 249 | TQ_AOUT series resistor, 249 R |  |  |
-| `R2022` | `R37022` | `OW-PASS-RC0402FR-071KL` | 1k | TQ_AOUT_MON monitor tap, 1 k |  |  |
-| `R2023` | `R37023` | `OW-PASS-CRCW0402249RFKED` | 249 | ADC_IN series resistor, 249 R |  |  |
-| `R2024` | `R37024` | `OW-PASS-0402WGF1000TCE` | 100 | SCK instrument tap, 100 R |  |  |
-| `R2025` | `R37025` | `OW-PASS-0402WGF1000TCE` | 100 | CIPO instrument tap, 100 R |  |  |
-| `R2026` | `R37026` | `OW-PASS-0402WGF1000TCE` | 100 | COPI instrument tap, 100 R |  |  |
-| `R2027` | `R37027` | `OW-PASS-0402WGF1000TCE` | 100 | CONVST_CS instrument tap, 100 R |  |  |
-| `R2028` | `R37028` | `OW-PASS-RC0402FR-071KL` | 1k | TQ_CAL_EN_INST instrument tap, 1 k |  |  |
-| `U2001` | `U37001` | `OW-MISC-INA821IDR` | INA821IDR | INA821 instrumentation amplifier |  |  |
-| `U2002` | `U37002` | `OW-SENS-ADS8689IPWR` | ADS8689IPWR | ADS8689 16-bit SAR ADC |  |  |
-| `U2003` | `U37003` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Excitation error amplifier |  |  |
-| `U2004` | `U37004` | `OW-PWR-REF5010AIDR` | REF5010AIDR | REF5010 10 V reference |  |  |
-| `U2005` | `U37005` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Filter output buffer |  |  |
-| `U2006` | `U37006` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | VMID midpoint buffer |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C2001` | `C37001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | INA821 Vs+ bypass (VEXC), 100 nF | beside U2001.8 (Vs+), on VEXC | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2002` | `C37002` | `OW-CAP-10N-0805-C0G-50V` | 10nF | VEXC input filter, 10 nF C0G |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C2003` | `C37003` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_P shunt, 470 pF C0G | beside U2001.4 (+), on IN_P | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `C2004` | `C37004` | `OW-CAP-10N-0805-C0G-50V` | 10nF | ATT_TAP filter shunt, 10 nF C0G |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C2005` | `C37005` | `OW-CAP-470P-0402-C0G-100V` | 470pF | IN_N shunt, 470 pF C0G | beside U2001.1 (-), on IN_N | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `C2006` | `C37006` | `OW-CAP-10N-0805-C0G-50V` | 10nF | FILT_IN filter shunt, 10 nF C0G | beside U2005.3 (+), on FILT_IN | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C2007` | `C37007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Error amp U37003 V+ bypass, 100 nF | beside U2003.5 (V+), on +12V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2008` | `C37008` | `OW-CAP-10N-0805-C0G-50V` | 10nF | IN_P to IN_N differential, 10 nF C0G |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C2009` | `C37009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Output buffer U37005 V+ bypass | beside U2005.5 (V+), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2010` | `C37010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | REF5010 Vin bypass, 100 nF | beside U2004.2 (Vin), on +12V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2011` | `C37011` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFIO capacitor, 10 uF | beside U2002.4 (REFIO), on REFIO | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C2012` | `C37012` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +12V_FILT rail bulk, 10 uF |  | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C2013` | `C37013` | `OW-PASS-CL21A106KOQNNNE` | 10uF | +5V_FILT rail bulk, 10 uF |  | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C2014` | `C37014` | `OW-PASS-CL21A106KOQNNNE` | 10uF | ADC REFCAP capacitor, 10 uF | beside U2002.6 (REFCAP), on REFCAP | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C2015` | `C37015` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +12V_FILT rail bypass, 100 nF |  | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2016` | `C37016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | +5V_FILT rail bypass, 100 nF |  | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2017` | `C37017` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC REFCAP bypass, 1 uF, nearest pin | beside U2002.6 (REFCAP), on REFCAP | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C2018` | `C37018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC AVDD bypass, 100 nF | beside U2002.2 (AVDD), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2019` | `C37019` | `OW-PASS-CL05A105KL5NRNC` | 1uF | ADC DVDD bypass, 1 uF | beside U2002.16 (DVDD), on +3.3V | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C2020` | `C37020` | `OW-CAP-100N-0402-X5R-16V` | 100nF | ADC DVDD bypass, 100 nF | beside U2002.16 (DVDD), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C2021` | `C37021` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Reference output capacitor, 1 uF | beside U2004.6 (Vout), on VREF10 | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C2022` | `C37022` | `OW-CAP-470P-0402-C0G-100V` | 470pF | TQ_AOUT_DIV midpoint shunt, 470 pF |  | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `C2023` | `C37023` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VMID buffer U37006 V+ bypass | beside U2006.5 (V+), on +12V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `D2001` | `D37001` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | TQ_AOUT ESD clamp |  | [TPD1E05U06DPYR](https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf) | [C436349](https://www.lcsc.com/product-detail/C436349.html) |  |
+| `FB2001` | `FB37001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +12V rail ferrite |  | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `FB2002` | `FB37002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | +5V rail ferrite |  | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `J2001` | `J37001` | `OW-CONN-TBH-1X05-3P5-VERT` | TBH-1x05-3.5mm | RTS-5 sensor terminal block |  | [1843635](https://www.phoenixcontact.com/en-pc/products/1843635) | [C5451793](https://www.lcsc.com/product-detail/C5451793.html) |  |
+| `Q2001` | `Q37001` | `OW-MISC-2SK1589-T1B-VB` | 2SK1589-T1B-VB | Shunt-calibration switch FET |  | [2SK1589-T1B-VB](https://www.lcsc.com/product-detail/C724949.html) | [C724949](https://www.lcsc.com/product-detail/C724949.html) |  |
+| `Q2002` | `Q37002` | `OW-MISC-MMBT5550LT1G` | MMBT5550LT1G | Excitation pass transistor |  | [MMBT5550LT1G](https://www.onsemi.com/pdf/datasheet/mmbt5550lt1-d.pdf) | [C150072](https://www.lcsc.com/product-detail/C150072.html) |  |
+| `R2001` | `R37001` | `OW-PASS-RT0402BRD07249RL` | 249 | INA821 gain resistor, 249 R 0.1% |  | RT0402BRD07249RL | [C852662](https://www.lcsc.com/product-detail/C852662.html) |  |
+| `R2002` | `R37002` | `OW-PASS-RC0402FR-0710RL` | 10 | INA821 gain trim, 10 R |  | RC0402FR-0710RL | [C138066](https://www.lcsc.com/product-detail/C138066.html) |  |
+| `R2003` | `R37003` | `OW-PASS-RT0402BRD0775KL` | 75k | Shunt-calibration resistor, 75 k |  | RT0402BRD0775KL | [C728563](https://www.lcsc.com/product-detail/C728563.html) |  |
+| `R2004` | `R37004` | `OW-PASS-RC0402FR-071KL` | 1k | SIG_P input filter leg, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R2005` | `R37005` | `OW-PASS-RC0402FR-071KL` | 1k | SIG_N input filter leg, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R2006` | `R37006` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider top, INA_OUT side, 10 k |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R2007` | `R37007` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider top, ATT_TAP side, 10 k |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R2008` | `R37008` | `OW-PASS-ERA2AEB103X` | 10k | ADC /3 divider bottom, 10 k |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R2009` | `R37009` | `OW-PASS-0402WGF0000TCE` | 0 | Shield tie to GND, 0 R |  | 0402WGF0000TCE | [C17168](https://www.lcsc.com/product-detail/C17168.html) |  |
+| `R2010` | `R37010` | `OW-RES-13K-0402-1PCT` | 13k | Low-pass filter series, 13 k |  | FRC0402F1302TS | [C2909319](https://www.lcsc.com/product-detail/C2909319.html) |  |
+| `R2011` | `R37011` | `OW-RES-10K-0402` | 10k | ~{RST} pull-up, 10 k | beside U2002.9 (~{RST}), on ~{RST} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R2012` | `R37012` | `OW-RES-10K-0402` | 10k | CIPO pull-down, 10 k (inherited) | beside U2002.13 (SDO-0), on CIPO | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R2013` | `R37013` | `OW-PASS-RC0402FR-071KL` | 1k | Q37002 base resistor, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R2014` | `R37014` | `OW-PASS-RC0402FR-0710RL` | 10 | Excitation isolation, 10 R |  | RC0402FR-0710RL | [C138066](https://www.lcsc.com/product-detail/C138066.html) |  |
+| `R2015` | `R37015` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT discharge, 100 k | beside U2005.1 (OUT), on AMP_VOUT | 0603WAF1003T5E | [C25803](https://www.lcsc.com/product-detail/C25803.html) |  |
+| `R2016` | `R37016` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider top, 3.2 k |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R2017` | `R37017` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider top, 10 k |  | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R2018` | `R37018` | `OW-PASS-ERA2AEB103X` | 10k | VMID divider bottom, 10 k | beside U2006.3 (+), on VMID_TAP | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R2019` | `R37019` | `OW-PASS-0603WAF1003T5E` | 100k | VREF10 open-reference pull-down | beside U2003.3 (+), on VREF10 | 0603WAF1003T5E | [C25803](https://www.lcsc.com/product-detail/C25803.html) |  |
+| `R2020` | `R37020` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Output /2 divider bottom, 3.2 k |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R2021` | `R37021` | `OW-PASS-CRCW0402249RFKED` | 249 | TQ_AOUT series resistor, 249 R |  | CRCW0402249RFKED | [C482112](https://www.lcsc.com/product-detail/C482112.html) |  |
+| `R2022` | `R37022` | `OW-PASS-RC0402FR-071KL` | 1k | TQ_AOUT_MON monitor tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R2023` | `R37023` | `OW-PASS-CRCW0402249RFKED` | 249 | ADC_IN series resistor, 249 R |  | CRCW0402249RFKED | [C482112](https://www.lcsc.com/product-detail/C482112.html) |  |
+| `R2024` | `R37024` | `OW-PASS-0402WGF1000TCE` | 100 | SCK instrument tap, 100 R |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R2025` | `R37025` | `OW-PASS-0402WGF1000TCE` | 100 | CIPO instrument tap, 100 R |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R2026` | `R37026` | `OW-PASS-0402WGF1000TCE` | 100 | COPI instrument tap, 100 R |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R2027` | `R37027` | `OW-PASS-0402WGF1000TCE` | 100 | CONVST_CS instrument tap, 100 R |  | 0402WGF1000TCE | [C25076](https://www.lcsc.com/product-detail/C25076.html) |  |
+| `R2028` | `R37028` | `OW-PASS-RC0402FR-071KL` | 1k | TQ_CAL_EN_INST instrument tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `U2001` | `U37001` | `OW-MISC-INA821IDR` | INA821IDR | INA821 instrumentation amplifier |  | [INA821IDR](https://www.ti.com/lit/ds/symlink/ina821.pdf) | [C2060822](https://www.lcsc.com/product-detail/C2060822.html) |  |
+| `U2002` | `U37002` | `OW-SENS-ADS8689IPWR` | ADS8689IPWR | ADS8689 16-bit SAR ADC |  | [ADS8689IPWR](https://www.ti.com/lit/ds/symlink/ads8689.pdf) | [C135986](https://www.lcsc.com/product-detail/C135986.html) |  |
+| `U2003` | `U37003` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Excitation error amplifier |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
+| `U2004` | `U37004` | `OW-PWR-REF5010AIDR` | REF5010AIDR | REF5010 10 V reference |  | [REF5010AIDR](https://www.ti.com/lit/ds/symlink/ref5010.pdf) | [C913836](https://www.lcsc.com/product-detail/C913836.html) |  |
+| `U2005` | `U37005` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Filter output buffer |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
+| `U2006` | `U37006` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | VMID midpoint buffer |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
 
 ## Operating Notes
 
@@ -249,6 +249,6 @@ Instructions for review and testing, not evidence that they have run.
 | Published sheet | `452f8890ee8e9bc4` |
 | Published PCB | `feeb93894d947e3e` |
 | Source lock | symbol snapshot `ea4d626f523fe2db`, published 2026-10-14 |
-| Placed sheet | `f623bad849df7720`: differs from the library's sheet; parts: the brief’s 63 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `f623bad849df7720`: matches the brief: its 63 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 70 identity records differ, the board's own instances |
 

@@ -35,23 +35,23 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 13 of 13 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 13 of 13 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1901` | `C18001` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN |  |
-| `C1902` | `C18002` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN |  |
-| `C1903` | `C18003` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN |  |
-| `C1904` | `C18004` | `OW-PASS-GRM188R72A104KA35D` | 100nF | VIN HF bypass, 100 nF | beside U1901.3 (VIN), on VIN |  |
-| `C1905` | `C18005` | `OW-PASS-0805B105K250NT` | 1uF | VCC LDO bypass, 1 uF | beside U1901.8 (VCC), on VCC |  |
-| `C1906` | `C18006` | `OW-PASS-CL31A106KAHNNNE` | 10uF | Output capacitor, 10 uF | beside U1901.4 (VOUT), on VOUT |  |
-| `C1907` | `C18007` | `OW-PASS-CL31A106KAHNNNE` | 10uF | Output capacitor, 10 uF; DNP on 7v | beside U1901.4 (VOUT), on VOUT |  |
-| `R1901` | `R18001` | `OW-PASS-FRC0402F7871TS` | 7.87k | RT frequency-set resistor, 7.87 k | beside U1901.11 (RT), on RT |  |
-| `R1902` | `R18002` | `OW-PASS-ERA2AEB103X` | 10k | PGOOD pull-up, 10 k | beside U1901.1 (PGOOD), on PGOOD |  |
-| `R1903` | `R18003` | `OW-RES-4K7-0402` | 4.7k | PGOOD bottom leg (variant) | beside U1901.1 (PGOOD), on PGOOD |  |
-| `R1904` | `R18004` | `OW-PASS-FRC0402F1103TS` | 110k | FB top leg (variant) | beside U1901.9 (FB), on FB |  |
-| `R1905` | `R18005` | `OW-PASS-ERA2AEB103X` | 10k | FB bottom leg, 10 k | beside U1901.9 (FB), on FB |  |
-| `U1901` | `U18001` | `OW-PWR-TPSM365R6FRDNR` | TPSM365R6FRDNR | Buck module, integrated inductor |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1901` | `C18001` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1902` | `C18002` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1903` | `C18003` | `OW-PASS-1206B105K101NT` | 1uF | VIN bulk, 1 uF 100 V | beside U1901.3 (VIN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1904` | `C18004` | `OW-PASS-GRM188R72A104KA35D` | 100nF | VIN HF bypass, 100 nF | beside U1901.3 (VIN), on VIN | GRM188R72A104KA35D | [C77058](https://www.lcsc.com/product-detail/C77058.html) |  |
+| `C1905` | `C18005` | `OW-PASS-0805B105K250NT` | 1uF | VCC LDO bypass, 1 uF | beside U1901.8 (VCC), on VCC | 0805B105K250NT | [C89190](https://www.lcsc.com/product-detail/C89190.html) |  |
+| `C1906` | `C18006` | `OW-PASS-CL31A106KAHNNNE` | 10uF | Output capacitor, 10 uF | beside U1901.4 (VOUT), on VOUT | CL31A106KAHNNNE | [C9807](https://www.lcsc.com/product-detail/C9807.html) |  |
+| `C1907` | `C18007` | `OW-PASS-CL31A106KAHNNNE` | 10uF | Output capacitor, 10 uF; DNP on 7v | beside U1901.4 (VOUT), on VOUT | CL31A106KAHNNNE | [C9807](https://www.lcsc.com/product-detail/C9807.html) |  |
+| `R1901` | `R18001` | `OW-PASS-FRC0402F7871TS` | 7.87k | RT frequency-set resistor, 7.87 k | beside U1901.11 (RT), on RT | FRC0402F7871TS | [C2998145](https://www.lcsc.com/product-detail/C2998145.html) |  |
+| `R1902` | `R18002` | `OW-PASS-ERA2AEB103X` | 10k | PGOOD pull-up, 10 k | beside U1901.1 (PGOOD), on PGOOD | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R1903` | `R18003` | `OW-RES-4K7-0402` | 4.7k | PGOOD bottom leg (variant) | beside U1901.1 (PGOOD), on PGOOD | 0402WGF4701TCE | [C25900](https://www.lcsc.com/product-detail/C25900.html) |  |
+| `R1904` | `R18004` | `OW-PASS-FRC0402F1103TS` | 110k | FB top leg (variant) | beside U1901.9 (FB), on FB | FRC0402F1103TS | [C2909311](https://www.lcsc.com/product-detail/C2909311.html) |  |
+| `R1905` | `R18005` | `OW-PASS-ERA2AEB103X` | 10k | FB bottom leg, 10 k | beside U1901.9 (FB), on FB | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `U1901` | `U18001` | `OW-PWR-TPSM365R6FRDNR` | TPSM365R6FRDNR | Buck module, integrated inductor |  | [TPSM365R6FRDNR](https://www.ti.com/lit/ds/symlink/tpsm365r6.pdf) | [C6723000](https://www.lcsc.com/product-detail/C6723000.html) |  |
 
 ## Operating Notes
 
@@ -93,6 +93,6 @@ U18001 converts VIN to the adjustable VOUT. Three 1 uF 100 V capacitors (C18001 
 | Published sheet | `2bee772afd47a7db` |
 | Published PCB | `0be84ed5ca6597c3` |
 | Family release | `tpsm365r6_adjustable` variant `12v`, profile `buck`; 12 V (FB 110 k over 10 k; PGOOD 10 k over 4.7 k, 3.84 V high; two 10 uF output capacitors); geometry `097e1aeb511a23b1`; copper `72e9bbd61c5b742f`; hardware unvalidated; qualification matches |
-| Placed sheet | `946784efff88a092`: differs from the library's sheet; parts: the brief’s 13 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `946784efff88a092`: matches the brief: its 13 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 14 identity records differ, the board's own instances |
 

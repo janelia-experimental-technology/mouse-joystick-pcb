@@ -33,6 +33,8 @@ Do not edit between the markers; run `make docs` instead.
 
 More views, including both elevations, are in [the generated documentation](docs/generated/README.md).
 
+The documentation site, with the board turning and its design blocks clickable: [https://peterpolidoro.github.io/mouse-joystick-pcb/](https://peterpolidoro.github.io/mouse-joystick-pcb/).
+
 | Property | Value |
 | --- | --- |
 | Outline | 100.0 × 80.0 mm, 5.0 mm corner radius |
@@ -58,6 +60,7 @@ More views, including both elevations, are in [the generated documentation](docs
 | Assembled board, STEP, for FreeCAD | [mouse-joystick-pcb-assembled.step](docs/generated/3d/mouse-joystick-pcb-assembled.step) |
 | Assembled board, glTF, for a viewer (the library's materials written in) | [mouse-joystick-pcb.glb](docs/generated/3d/mouse-joystick-pcb.glb) |
 | Bill of materials | [table](docs/generated/bom/mouse-joystick-pcb-bom.md) · [CSV](docs/generated/bom/mouse-joystick-pcb-bom.csv) |
+| Outline and mounting holes, dimensioned drawing | [SVG](docs/generated/mechanical/board-dimensions.svg) · [PDF](docs/generated/mechanical/board-dimensions.pdf) · [PNG](docs/generated/mechanical/board-dimensions.png) |
 | Board dimensions and stackup | [board-dimensions.md](docs/generated/mechanical/board-dimensions.md) |
 | Board geometry, machine readable | [board-geometry.json](docs/generated/mechanical/board-geometry.json) |
 | Mounting holes | [mounting-holes.csv](docs/generated/mechanical/mounting-holes.csv) |
@@ -68,6 +71,10 @@ More views, including both elevations, are in [the generated documentation](docs
 Millimetres from the **centre of the board outline**, X right and Y up,
 looking at the top of the board. Extents are the part's courtyard, which is
 what a panel cutout has to clear. Full tables in [board-dimensions.md](docs/generated/mechanical/board-dimensions.md).
+
+![Outline and mounting holes, dimensioned](docs/generated/mechanical/board-dimensions.png)
+
+The outline and the mounting holes dimensioned, as KiCad draws them: [SVG](docs/generated/mechanical/board-dimensions.svg) · [PDF](docs/generated/mechanical/board-dimensions.pdf); the cross is the centre the tables measure from.
 
 **Mounting holes**
 

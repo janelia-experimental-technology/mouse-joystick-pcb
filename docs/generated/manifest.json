@@ -1,6 +1,6 @@
 {
   "generated_by": "orb-weaver-kicad-docs",
-  "generated_at": "2026-10-14T19:09:13Z",
+  "generated_at": "2026-10-15T13:21:10Z",
   "kicad_cli_version": "10.0.6",
   "board": "mouse-joystick-pcb",
   "sources": {
@@ -112,11 +112,12 @@
     "libs:design_blocks/schematic_sources/torque_bridge_0_3v3_ina821/publication.json": "9bc4af6228c1ec6eeb62ad7f402b012108f3c640578e3f66e7c7eaec3475abc1",
     "libs:design_blocks/schematic_sources/usb2_vertical/generation.json": "198125d280f136a5da676b861c157fd3ddc52949fd55ade6d287e8bd67c54270",
     "libs:design_blocks/schematic_sources/usb2_vertical/publication.json": "26f9f34f3c9a4671e02444b1e22d09d7fe3560acc53debcc6f175d06058d4c71",
-    "libs:scripts/board_block_docs.py": "0f18a9af8fcce17baaed64686dc55002d0110306e8d31433032673a1bd5f9c26",
+    "libs:scripts/board_block_docs.py": "26924022c25060ed03981d37da87af08e31f727a9742d5b0ba93455562ed670d",
     "kicad/board-manifest.yaml": "846e314abb45404a5a1026ffbbbe9166625a477e91005f71e022bd201ccd0f71",
     "kicad/board.yaml": "d5cceca2db769c5184e17c90a3486731598c741055e682d71eb300056073b942",
     "board_view": "97fd9717f6547c2ed187c36c6baeaf1b54eb6cff87bab27f142b4e0b0c529567",
-    "site_index": "a5360b71763d9176367eb02419d13f0ddb1bd0c6628fa6a7a4ef81a51a45c27d",
+    "dimension_drawing": "4d505daf8c149515cca2f5462c0bce1a80dc3e0ecffd1b23936e838eff0bfd57",
+    "site_index": "b4d68dc855d0f9476d3f2ee343853bd21bf82ea9960d0cf06661baa244439dd6",
     "materials_palette": "582981466a166f2174ed20923cdd31d46da7561e87e53aaa5148ea18f53c65b2",
     "model_materials": "6d65f7c3cb92cc5b11c5dcb6972872f55cdc6450e337d9c980f98b00c2bf2cfe",
     "review_schematic": "c75ac3acf343289ae79405763ac53e4f0c600037ae9f310a7936e41120b1c978"
@@ -162,8 +163,16 @@
     ],
     "step": "3d/mouse-joystick-pcb-assembled.step",
     "glb": "3d/mouse-joystick-pcb.glb",
+    "dimensions": {
+      "svg": "mechanical/board-dimensions.svg",
+      "pdf": "mechanical/board-dimensions.pdf",
+      "png": "mechanical/board-dimensions.png"
+    },
     "mechanical": [
       "mechanical/board-dimensions.md",
+      "mechanical/board-dimensions.pdf",
+      "mechanical/board-dimensions.png",
+      "mechanical/board-dimensions.svg",
       "mechanical/board-geometry.json",
       "mechanical/connectors.csv",
       "mechanical/mounting-holes.csv"
@@ -223,7 +232,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "instrument_port_digital_50_dut_ffc_boundary_vertical.md"
         },
         {
@@ -233,7 +242,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "rp2040_with_gpio_isolation_sn74cb3q3245.md"
         },
         {
@@ -243,7 +252,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "5v_to_3v3_tps73733_1.md"
         },
         {
@@ -253,7 +262,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "pycontrol_behavior_port_rj45_boundary_vertical.md"
         },
         {
@@ -263,7 +272,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "5v_to_3v3_tps73733_2.md"
         },
         {
@@ -273,7 +282,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "usb2_vertical.md"
         },
         {
@@ -283,7 +292,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "analog_output_0_3v3_dac80501.md"
         },
         {
@@ -293,7 +302,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "quadrature_encoder_input_5v_sn74lvc2g17.md"
         },
         {
@@ -303,7 +312,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "limit_switch_debounced_input_vertical.md"
         },
         {
@@ -313,7 +322,7 @@
           "lifecycle": "routed",
           "variant": "tmc5130 `r150` (spi)",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "tmc5130.md"
         },
         {
@@ -323,7 +332,7 @@
           "lifecycle": "routed",
           "variant": "tpsm365r6_fixed `5v` (buck)",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "hv_to_5v_tpsm365r6.md"
         },
         {
@@ -333,7 +342,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "torque_bridge_0_3v3_ina821.md"
         },
         {
@@ -343,7 +352,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "brake_current_sink_0_49ma_dac80501.md"
         },
         {
@@ -353,7 +362,7 @@
           "lifecycle": "routed",
           "variant": "",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "hv_input_36V_terminal_2pos_5p08_protected_vertical.md"
         },
         {
@@ -363,7 +372,7 @@
           "lifecycle": "routed",
           "variant": "tpsm365r6_adjustable `12v` (buck)",
           "sheet": "differs",
-          "check": "not run",
+          "check": "ok",
           "page": "hv_to_12v_tpsm365r6.md"
         }
       ],

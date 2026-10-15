@@ -45,15 +45,15 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 5 of 5 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 5 of 5 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1601` | `C33001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Vcc bypass for U33001 | beside U1601.4 (Vcc), on +3.3V_SW |  |
-| `J1601` | `J33001` | `OW-CONN-TBH-1X02-3P5-VERT` | TBH-1x02-3.5mm | Vertical switch terminal, pin 1 GND, pin 2 IN |  |  |
-| `R1601` | `R33001` | `OW-PASS-RC0402JR-07100KL` | 100k | Output pull-down for the unpowered state | beside U1601.3 (OUT), on LIMIT_SW |  |
-| `R1602` | `R33002` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap series resistor |  |  |
-| `U1601` | `U33001` | `OW-MISC-MAX6816EUS-T` | MAX6816EUS+T | Switch debouncer |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1601` | `C33001` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Vcc bypass for U33001 | beside U1601.4 (Vcc), on +3.3V_SW | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `J1601` | `J33001` | `OW-CONN-TBH-1X02-3P5-VERT` | TBH-1x02-3.5mm | Vertical switch terminal, pin 1 GND, pin 2 IN |  | [1843606](https://www.phoenixcontact.com/en-pc/products/1843606) | [C3019639](https://www.lcsc.com/product-detail/C3019639.html) |  |
+| `R1601` | `R33001` | `OW-PASS-RC0402JR-07100KL` | 100k | Output pull-down for the unpowered state | beside U1601.3 (OUT), on LIMIT_SW | RC0402JR-07100KL | [C106234](https://www.lcsc.com/product-detail/C106234.html) |  |
+| `R1602` | `R33002` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap series resistor |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `U1601` | `U33001` | `OW-MISC-MAX6816EUS-T` | MAX6816EUS+T | Switch debouncer |  | [MAX6816EUS+T](https://www.analog.com/media/en/technical-documentation/data-sheets/MAX6816-MAX6818.pdf) | [C41637](https://www.lcsc.com/product-detail/C41637.html) |  |
 
 ## Operating Notes
 
@@ -94,6 +94,6 @@ R33001 (100 k) holds LIMIT_SW low while the debouncer is unpowered; R33002 (1 k)
 | Published sheet | `adab5cea95990acf` |
 | Published PCB | `c0ccc0c8ef00c177` |
 | Source lock | symbol snapshot `bdd920b7bf67c3bc`, published 2026-10-14 |
-| Placed sheet | `45bbee1820863da4`: differs from the library's sheet; parts: the brief’s 5 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `45bbee1820863da4`: matches the brief: its 5 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 5 identity records differ, the board's own instances |
 

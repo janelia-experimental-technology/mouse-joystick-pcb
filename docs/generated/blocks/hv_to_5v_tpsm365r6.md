@@ -35,19 +35,19 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 9 of 9 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 9 of 9 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C1701` | `C13001` | `OW-PASS-1206B105K101NT` | 1uF | cin_a | beside U1701.2 (EN), on VIN |  |
-| `C1702` | `C13002` | `OW-PASS-1206B105K101NT` | 1uF | cin_b | beside U1701.3 (VIN), on VIN |  |
-| `C1703` | `C13003` | `OW-PASS-1206B105K101NT` | 1uF | cin_c | beside U1701.2 (EN), on VIN |  |
-| `C1704` | `C13004` | `OW-PASS-GRM188R72A104KA35D` | 100nF | cin_hf | beside U1701.3 (VIN), on VIN |  |
-| `C1705` | `C13005` | `OW-PASS-0805B105K250NT` | 1uF | cvcc | beside U1701.8 (VCC), on VCC |  |
-| `C1706` | `C13006` | `OW-PASS-1206X226M100NT` | 22uF | cout_a | beside U1701.4 (VOUT), on VOUT |  |
-| `C1707` | `C13007` | `OW-PASS-1206X226M100NT` | 22uF | cout_b | beside U1701.9 (BIAS), on VOUT |  |
-| `R1701` | `R13001` | `OW-RES-10K-0402` | 10k | pgood_pullup | beside U1701.1 (PGOOD), on PGOOD |  |
-| `U1701` | `U13001` | `OW-PWR-TPSM365R6V5RDNR` | TPSM365R6V5RDNR | regulator |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C1701` | `C13001` | `OW-PASS-1206B105K101NT` | 1uF | cin_a | beside U1701.2 (EN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1702` | `C13002` | `OW-PASS-1206B105K101NT` | 1uF | cin_b | beside U1701.3 (VIN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1703` | `C13003` | `OW-PASS-1206B105K101NT` | 1uF | cin_c | beside U1701.2 (EN), on VIN | 1206B105K101NT | [C91151](https://www.lcsc.com/product-detail/C91151.html) |  |
+| `C1704` | `C13004` | `OW-PASS-GRM188R72A104KA35D` | 100nF | cin_hf | beside U1701.3 (VIN), on VIN | GRM188R72A104KA35D | [C77058](https://www.lcsc.com/product-detail/C77058.html) |  |
+| `C1705` | `C13005` | `OW-PASS-0805B105K250NT` | 1uF | cvcc | beside U1701.8 (VCC), on VCC | 0805B105K250NT | [C89190](https://www.lcsc.com/product-detail/C89190.html) |  |
+| `C1706` | `C13006` | `OW-PASS-1206X226M100NT` | 22uF | cout_a | beside U1701.4 (VOUT), on VOUT | 1206X226M100NT | [C108717](https://www.lcsc.com/product-detail/C108717.html) |  |
+| `C1707` | `C13007` | `OW-PASS-1206X226M100NT` | 22uF | cout_b | beside U1701.9 (BIAS), on VOUT | 1206X226M100NT | [C108717](https://www.lcsc.com/product-detail/C108717.html) |  |
+| `R1701` | `R13001` | `OW-RES-10K-0402` | 10k | pgood_pullup | beside U1701.1 (PGOOD), on PGOOD | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `U1701` | `U13001` | `OW-PWR-TPSM365R6V5RDNR` | TPSM365R6V5RDNR | regulator |  | [TPSM365R6V5RDNR](https://www.ti.com/lit/ds/symlink/tpsm365r6.pdf) | [C19078014](https://www.lcsc.com/product-detail/C19078014.html) |  |
 
 ## Operating Notes
 
@@ -85,6 +85,6 @@ U13001 converts VIN to the fixed VOUT; C13006 and C13007 (22 uF) hold the output
 | Published sheet | `8d37d1931ee9bd3c` |
 | Published PCB | `17ea37099656e93f` |
 | Family release | `tpsm365r6_fixed` variant `5v`, profile `buck`; 5 V (TPSM365R6V5, two 22 uF output capacitors); geometry `70b435f451caf109`; copper `5ef3613b97b53de7`; hardware unvalidated; qualification matches |
-| Placed sheet | `fd15f021ac746a0a`: differs from the library's sheet; parts: the brief’s 9 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `fd15f021ac746a0a`: matches the brief: its 9 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 10 identity records differ, the board's own instances |
 

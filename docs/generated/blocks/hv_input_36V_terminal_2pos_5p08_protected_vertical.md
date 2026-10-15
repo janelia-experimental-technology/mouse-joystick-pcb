@@ -48,28 +48,28 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 18 of 18 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 18 of 18 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C501` | `C34001` | `OW-CAP-10N-0603-X7R-50V` | 10nF | SNS output filter |  |  |
-| `C502` | `C34002` | `OW-CAP-220N-0805-X7R-100V` | 220nF | HV input bypass at VS | beside U501 VS pins 12, 13, 14 (one per pin), on HV_IN |  |
-| `C503` | `C34003` | `OW-PASS-GCM188R72A223KA37D` | 22nF | Switched-rail output capacitor | beside U501 VOUT pins 8, 9, 10 (one per pin), on +36V |  |
-| `D501` | `D34001` | `OW-MISC-SBRT15U50SP5-13` | SBRT15U50SP5-13 | Reverse-polarity series diode | beside U501 VS pins 12, 13, 14 (one per pin), on HV_IN |  |
-| `J501` | `J34001` | `OW-CONN-TBH-1X02-5P08-VERT` | TBH-1x02-5.08mm | 36 V entry, 2-pos 5.08 mm vertical |  |  |
-| `R501` | `R34001` | `OW-PASS-RC0402FR-071KL` | 1k | ENABLE series, 1 k |  |  |
-| `R502` | `R34002` | `OW-RES-10K-0402` | 10k | DIAG_ENABLE series, 10 k |  |  |
-| `R503` | `R34003` | `OW-RES-10K-0402` | 10k | LATCH series, 10 k |  |  |
-| `R504` | `R34004` | `OW-RES-10K-0402` | 10k | ~{FAULT} output series, 10 k |  |  |
-| `R505` | `R34005` | `OW-PASS-RC0402FR-071KL` | 1k | SNS filter series, 1 k |  |  |
-| `R506` | `R34006` | `OW-RES-10K-0402` | 10k | EN pull-down, 10 k | beside U501.2 (EN), on ENABLE_PROT |  |
-| `R507` | `R34007` | `OW-RES-10K-0402` | 10k | ~{FAULT} pull-up to +3.3V_MCU, 10 k | beside U501.4 (~{FAULT}), on ~{FAULT_PROT} |  |
-| `R508` | `R34008` | `OW-PASS-SCR0603F40K` | 40k | ILIM programming, 40 k | beside U501.7 (ILIM), on ILIM |  |
-| `R509` | `R34009` | `OW-PASS-CRCW0402249RFKED` | 249 | SNS sense resistor, 249 ohm | beside U501.6 (SNS), on SNS_PROT |  |
-| `R510` | `R34010` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  |  |
-| `R511` | `R34011` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  |  |
-| `R512` | `R34012` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  |  |
-| `U501` | `U34001` | `OW-PWR-TPS1HTC100QPWPRQ1` | TPS1HTC100QPWPRQ1 | Smart high-side switch, analog current sense |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C501` | `C34001` | `OW-CAP-10N-0603-X7R-50V` | 10nF | SNS output filter |  | CC0603JRX7R9BB103 | [C115056](https://www.lcsc.com/product-detail/C115056.html) |  |
+| `C502` | `C34002` | `OW-CAP-220N-0805-X7R-100V` | 220nF | HV input bypass at VS | beside U501 VS pins 12, 13, 14 (one per pin), on HV_IN | CC0805KKX7R0BB224 | [C513710](https://www.lcsc.com/product-detail/C513710.html) |  |
+| `C503` | `C34003` | `OW-PASS-GCM188R72A223KA37D` | 22nF | Switched-rail output capacitor | beside U501 VOUT pins 8, 9, 10 (one per pin), on +36V | GCM188R72A223KA37D | [C161234](https://www.lcsc.com/product-detail/C161234.html) |  |
+| `D501` | `D34001` | `OW-MISC-SBRT15U50SP5-13` | SBRT15U50SP5-13 | Reverse-polarity series diode | beside U501 VS pins 12, 13, 14 (one per pin), on HV_IN | [SBRT15U50SP5-13](https://www.diodes.com/assets/Datasheets/SBRT15U50SP5.pdf) | [C211388](https://www.lcsc.com/product-detail/C211388.html) |  |
+| `J501` | `J34001` | `OW-CONN-TBH-1X02-5P08-VERT` | TBH-1x02-5.08mm | 36 V entry, 2-pos 5.08 mm vertical |  | [1755736](https://www.phoenixcontact.com/en-pc/products/1755736) | [C480503](https://www.lcsc.com/product-detail/C480503.html) |  |
+| `R501` | `R34001` | `OW-PASS-RC0402FR-071KL` | 1k | ENABLE series, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R502` | `R34002` | `OW-RES-10K-0402` | 10k | DIAG_ENABLE series, 10 k |  | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R503` | `R34003` | `OW-RES-10K-0402` | 10k | LATCH series, 10 k |  | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R504` | `R34004` | `OW-RES-10K-0402` | 10k | ~{FAULT} output series, 10 k |  | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R505` | `R34005` | `OW-PASS-RC0402FR-071KL` | 1k | SNS filter series, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R506` | `R34006` | `OW-RES-10K-0402` | 10k | EN pull-down, 10 k | beside U501.2 (EN), on ENABLE_PROT | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R507` | `R34007` | `OW-RES-10K-0402` | 10k | ~{FAULT} pull-up to +3.3V_MCU, 10 k | beside U501.4 (~{FAULT}), on ~{FAULT_PROT} | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R508` | `R34008` | `OW-PASS-SCR0603F40K` | 40k | ILIM programming, 40 k | beside U501.7 (ILIM), on ILIM | SCR0603F40K | [C3016445](https://www.lcsc.com/product-detail/C3016445.html) |  |
+| `R509` | `R34009` | `OW-PASS-CRCW0402249RFKED` | 249 | SNS sense resistor, 249 ohm | beside U501.6 (SNS), on SNS_PROT | CRCW0402249RFKED | [C482112](https://www.lcsc.com/product-detail/C482112.html) |  |
+| `R510` | `R34010` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R511` | `R34011` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R512` | `R34012` | `OW-PASS-RC0402FR-071KL` | 1k | Instrument tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `U501` | `U34001` | `OW-PWR-TPS1HTC100QPWPRQ1` | TPS1HTC100QPWPRQ1 | Smart high-side switch, analog current sense |  | [TPS1HTC100QPWPRQ1](https://www.ti.com/lit/ds/symlink/tps1htc100-q1.pdf) | [C41558366](https://www.lcsc.com/product-detail/C41558366.html) |  |
 
 ## Operating Notes
 
@@ -148,6 +148,6 @@ R34009 at the SNS pin converts the sense current to a voltage; R34005 and C34001
 | Published sheet | `a3d735d1cbae1ba8` |
 | Published PCB | `868d8e9a3b3dcb73` |
 | Source lock | symbol snapshot `126daeb69a2d9a76`, published 2026-10-14 |
-| Placed sheet | `0aa5c86bce0f5cf9`: differs from the library's sheet; parts: the brief’s 18 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `0aa5c86bce0f5cf9`: matches the brief: its 18 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 21 identity records differ, the board's own instances |
 

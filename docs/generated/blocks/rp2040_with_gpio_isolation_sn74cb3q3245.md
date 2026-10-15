@@ -106,45 +106,45 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 35 of 35 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 35 of 35 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C601` | `C40001` | `OW-PASS-C0402C150J3GACAUTO` | 15pF | Crystal load capacitors (15 pF, C0G) | beside Y601.1, on XIN |  |
-| `C602` | `C40002` | `OW-PASS-C0402C150J3GACAUTO` | 15pF | Crystal load capacitors (15 pF, C0G) | beside Y601.3, on XOUTB |  |
-| `C603` | `C40003` | `OW-PASS-CL05A105KL5NRNC` | 1uF | +3.3V bulk at VREG_IN pin 44, 1 uF | beside U601.44 (VREG_IN), on +3.3V |  |
-| `C604` | `C40004` | `OW-PASS-CL05A105KL5NRNC` | 1uF | +1.1V bulk beside DVDD pin 50, 1 uF | beside U601 DVDD pins 23, 50 (one per pin), on +1.1V |  |
-| `C605` | `C40005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 1 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V |  |
-| `C606` | `C40006` | `OW-CAP-100N-0402-X5R-16V` | 100nF | DVDD pin 23 bypass, 100 nF | beside U601 DVDD pins 23, 50 (one per pin), on +1.1V |  |
-| `C607` | `C40007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 33 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V |  |
-| `C608` | `C40008` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VREG_VOUT pin 45 bypass, 100 nF | beside U601.45 (VREG_VOUT), on +1.1V |  |
-| `C609` | `C40009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 22 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V |  |
-| `C610` | `C40010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V |  |
-| `C611` | `C40011` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601.43 (ADC_AVDD), on +3.3V |  |
-| `C612` | `C40012` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40002 VCC pin 8 bypass, 100 nF | beside U602.8 (VCC), on +3.3V |  |
-| `C613` | `C40013` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601.48 (USB_VDD), on +3.3V |  |
-| `C614` | `C40014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 10 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V |  |
-| `C615` | `C40015` | `OW-CAP-100N-0402-X5R-16V` | 100nF | RUN pin 26 filter, 100 nF | beside SW602.1, on RUN |  |
-| `C616` | `C40016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40003 VCC pin 20 bypass, 100 nF | beside U603.20 (VCC), on +3.3V |  |
-| `C617` | `C40017` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40004 VCC pin 20 bypass, 100 nF | beside U604.20 (VCC), on +3.3V |  |
-| `C618` | `C40018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40005 VCC pin 20 bypass, 100 nF | beside U605.20 (VCC), on +3.3V |  |
-| `C619` | `C40019` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40006 VCC pin 20 bypass, 100 nF | beside U606.20 (VCC), on +3.3V |  |
-| `R601` | `R40001` | `OW-RES-27R-0402` | 27 | USB_DP series, 27 R |  |  |
-| `R602` | `R40002` | `OW-RES-27R-0402` | 27 | USB_DM series, 27 R |  |  |
-| `R603` | `R40003` | `OW-PASS-RC0402FR-071KL` | 1k | Crystal drive limit, 1 k, XOUT |  |  |
-| `R604` | `R40004` | `OW-PASS-RC0402FR-071KL` | 1k | ~{BUS_SW_EN} instrument tap, 1 k |  |  |
-| `R605` | `R40005` | `OW-RES-10K-0402` | 10k | QSPI_SS pull-up, 10 k | beside U601.56 (QSPI_SS), on QSPI_SS |  |
-| `R606` | `R40006` | `OW-PASS-RC0402FR-071KL` | 1k | BOOTSEL series, 1 k, QSPI_SS to ~{USB_BOOT} |  |  |
-| `R607` | `R40007` | `OW-PASS-FRC0402F7871TS` | 7.87k | ~{BUS_SW_EN} pull-up: bus isolated at reset |  |  |
-| `SW601` | `SW40001` | `OW-MISC-436333045822` | 436333045822 | BOOTSEL switch, grounds ~{USB_BOOT} |  |  |
-| `SW602` | `SW40002` | `OW-MISC-436333045822` | 436333045822 | RUN switch, grounds RUN pin 26 |  |  |
-| `U601` | `U40001` | `OW-MCU-RP2040` | RP2040 | Controller core; GPIO9 is the switch enable |  |  |
-| `U602` | `U40002` | `OW-MCU-W25Q128JVPIQ` | W25Q128JVPIQ | QSPI boot flash, 16 MB |  |  |
-| `U603` | `U40003` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO0-7 to ISO0-7 |  |  |
-| `U604` | `U40004` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO8,10-15 to ISO8,10-15 |  |  |
-| `U605` | `U40005` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO16-23 to ISO16-23 |  |  |
-| `U606` | `U40006` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO24-29 to ISO24-29 |  |  |
-| `Y601` | `Y40001` | `OW-XTAL-12M-3225-10PF` | 12MHz | 12 MHz crystal |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C601` | `C40001` | `OW-PASS-C0402C150J3GACAUTO` | 15pF | Crystal load capacitors (15 pF, C0G) | beside Y601.1, on XIN | C0402C150J3GACAUTO | [C3888936](https://www.lcsc.com/product-detail/C3888936.html) |  |
+| `C602` | `C40002` | `OW-PASS-C0402C150J3GACAUTO` | 15pF | Crystal load capacitors (15 pF, C0G) | beside Y601.3, on XOUTB | C0402C150J3GACAUTO | [C3888936](https://www.lcsc.com/product-detail/C3888936.html) |  |
+| `C603` | `C40003` | `OW-PASS-CL05A105KL5NRNC` | 1uF | +3.3V bulk at VREG_IN pin 44, 1 uF | beside U601.44 (VREG_IN), on +3.3V | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C604` | `C40004` | `OW-PASS-CL05A105KL5NRNC` | 1uF | +1.1V bulk beside DVDD pin 50, 1 uF | beside U601 DVDD pins 23, 50 (one per pin), on +1.1V | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C605` | `C40005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 1 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C606` | `C40006` | `OW-CAP-100N-0402-X5R-16V` | 100nF | DVDD pin 23 bypass, 100 nF | beside U601 DVDD pins 23, 50 (one per pin), on +1.1V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C607` | `C40007` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 33 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C608` | `C40008` | `OW-CAP-100N-0402-X5R-16V` | 100nF | VREG_VOUT pin 45 bypass, 100 nF | beside U601.45 (VREG_VOUT), on +1.1V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C609` | `C40009` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 22 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C610` | `C40010` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C611` | `C40011` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601.43 (ADC_AVDD), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C612` | `C40012` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40002 VCC pin 8 bypass, 100 nF | beside U602.8 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C613` | `C40013` | `OW-CAP-100N-0402-X5R-16V` | 100nF | Corner bypass, pins 42-44, 48, 49, 100 nF | beside U601.48 (USB_VDD), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C614` | `C40014` | `OW-CAP-100N-0402-X5R-16V` | 100nF | IOVDD pin 10 bypass, 100 nF | beside U601 IOVDD pins 1, 10, 22, 33, 42, 49 (one per pin), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C615` | `C40015` | `OW-CAP-100N-0402-X5R-16V` | 100nF | RUN pin 26 filter, 100 nF | beside SW602.1, on RUN | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C616` | `C40016` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40003 VCC pin 20 bypass, 100 nF | beside U603.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C617` | `C40017` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40004 VCC pin 20 bypass, 100 nF | beside U604.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C618` | `C40018` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40005 VCC pin 20 bypass, 100 nF | beside U605.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C619` | `C40019` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U40006 VCC pin 20 bypass, 100 nF | beside U606.20 (VCC), on +3.3V | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `R601` | `R40001` | `OW-RES-27R-0402` | 27 | USB_DP series, 27 R |  | ERJ2GEJ270X | [C278580](https://www.lcsc.com/product-detail/C278580.html) |  |
+| `R602` | `R40002` | `OW-RES-27R-0402` | 27 | USB_DM series, 27 R |  | ERJ2GEJ270X | [C278580](https://www.lcsc.com/product-detail/C278580.html) |  |
+| `R603` | `R40003` | `OW-PASS-RC0402FR-071KL` | 1k | Crystal drive limit, 1 k, XOUT |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R604` | `R40004` | `OW-PASS-RC0402FR-071KL` | 1k | ~{BUS_SW_EN} instrument tap, 1 k |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R605` | `R40005` | `OW-RES-10K-0402` | 10k | QSPI_SS pull-up, 10 k | beside U601.56 (QSPI_SS), on QSPI_SS | ERJ2GEJ103X | [C278577](https://www.lcsc.com/product-detail/C278577.html) |  |
+| `R606` | `R40006` | `OW-PASS-RC0402FR-071KL` | 1k | BOOTSEL series, 1 k, QSPI_SS to ~{USB_BOOT} |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R607` | `R40007` | `OW-PASS-FRC0402F7871TS` | 7.87k | ~{BUS_SW_EN} pull-up: bus isolated at reset |  | FRC0402F7871TS | [C2998145](https://www.lcsc.com/product-detail/C2998145.html) |  |
+| `SW601` | `SW40001` | `OW-MISC-436333045822` | 436333045822 | BOOTSEL switch, grounds ~{USB_BOOT} |  | [436333045822](https://www.we-online.com/components/products/datasheet/436333045822.pdf) | [C7185056](https://www.lcsc.com/product-detail/C7185056.html) |  |
+| `SW602` | `SW40002` | `OW-MISC-436333045822` | 436333045822 | RUN switch, grounds RUN pin 26 |  | [436333045822](https://www.we-online.com/components/products/datasheet/436333045822.pdf) | [C7185056](https://www.lcsc.com/product-detail/C7185056.html) |  |
+| `U601` | `U40001` | `OW-MCU-RP2040` | RP2040 | Controller core; GPIO9 is the switch enable |  | [RP2040](https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf) | [C2040](https://www.lcsc.com/product-detail/C2040.html) |  |
+| `U602` | `U40002` | `OW-MCU-W25Q128JVPIQ` | W25Q128JVPIQ | QSPI boot flash, 16 MB |  | [W25Q128JVPIQ](https://www.winbond.com/resource-files/W25Q128JV%20RevI%2008232021%20Plus.pdf) | [C190862](https://www.lcsc.com/product-detail/C190862.html) |  |
+| `U603` | `U40003` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO0-7 to ISO0-7 |  | [SN74CB3Q3245RGYR](https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf) | [C201559](https://www.lcsc.com/product-detail/C201559.html) |  |
+| `U604` | `U40004` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO8,10-15 to ISO8,10-15 |  | [SN74CB3Q3245RGYR](https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf) | [C201559](https://www.lcsc.com/product-detail/C201559.html) |  |
+| `U605` | `U40005` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO16-23 to ISO16-23 |  | [SN74CB3Q3245RGYR](https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf) | [C201559](https://www.lcsc.com/product-detail/C201559.html) |  |
+| `U606` | `U40006` | `OW-MISC-SN74CB3Q3245RGYR` | SN74CB3Q3245RGYR | FET bus switch, GPIO24-29 to ISO24-29 |  | [SN74CB3Q3245RGYR](https://www.ti.com/lit/ds/symlink/sn74cb3q3245.pdf) | [C201559](https://www.lcsc.com/product-detail/C201559.html) |  |
+| `Y601` | `Y40001` | `OW-XTAL-12M-3225-10PF` | 12MHz | 12 MHz crystal |  | ABM8-272-T3 | [C20625731](https://www.lcsc.com/product-detail/C20625731.html) |  |
 
 ## Operating Notes
 
@@ -240,6 +240,6 @@ U40005 and U40006 pass GPIO16-23 and GPIO24-29 to the ISO ports (B side MCU, A s
 | Published sheet | `8ead76fd0ae4e22c` |
 | Published PCB | `d79a8f4d7e226204` |
 | Source lock | symbol snapshot `43790a2d8bf6787f`, published 2026-10-14 |
-| Placed sheet | `740f29d1bb57716a`: differs from the library's sheet; parts: the brief’s 35 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `740f29d1bb57716a`: matches the brief: its 35 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 40 identity records differ, the board's own instances |
 

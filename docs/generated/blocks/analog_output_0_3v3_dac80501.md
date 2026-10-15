@@ -49,38 +49,38 @@ The brief's shape, edge, class and meaning for each port, then what the board wi
 
 ## Parts
 
-As placed on the board's sheet; 28 of 28 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38).
+As placed on the board's sheet; 28 of 28 paired with the brief's references by symbol identity, the rest given the brief's role where the internal part has one, else the catalog's role slug; the placement is the `Placement` field of the board's symbol, else of the library's (D38); the manufacturer part and the LCSC number are the board's BOM's.
 
-| Reference | Brief | Part | Value | Role | Placement |  |
-| --- | --- | --- | --- | --- | --- | --- |
-| `C801` | `C35001` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U802.5 (V+), on +5V_FILT |  |
-| `C802` | `C35002` | `OW-PASS-CL21A106KOQNNNE` | 10uF | 3.3 V rail bulk bypass | beside U801.1 (VDD), on +3.3V_FILT |  |
-| `C803` | `C35003` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35002 V+ pin 5 bypass | beside U802.5 (V+), on +5V_FILT |  |
-| `C804` | `C35004` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U801.1 (VDD), on +3.3V_FILT |  |
-| `C805` | `C35005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35001 VDD pin 1 bypass | beside U801.1 (VDD), on +3.3V_FILT |  |
-| `C806` | `C35006` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U802.5 (V+), on +5V_FILT |  |
-| `C807` | `C35007` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Sallen-Key filter capacitors (C0G) |  |  |
-| `C808` | `C35008` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35002 V+ pin 5 bypass | beside U802.5 (V+), on +5V_FILT |  |
-| `C809` | `C35009` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Sallen-Key filter capacitors (C0G) | beside U802.3 (+), on DAC_VOUT_FILT |  |
-| `C810` | `C35010` | `OW-PASS-GRM1555C1E100JA01D` | 10pF | Gain-network compensation |  |  |
-| `C811` | `C35011` | `OW-PASS-GRT155R6YA474KE01D` | 0.47uF | VREFIO reference bypass | beside U801.10 (VREFIO), on VREFIO |  |
-| `C812` | `C35012` | `OW-CAP-470P-0402-C0G-100V` | 470pF | AOUT_DIV midpoint shunt (C0G) |  |  |
-| `D801` | `D35001` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | ESD clamp on AOUT |  |  |
-| `FB801` | `FB35001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U802.5 (V+), on +5V_FILT |  |
-| `FB802` | `FB35002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U801.1 (VDD), on +3.3V_FILT |  |
-| `R801` | `R35001` | `OW-RES-20K-0402-1PCT` | 20k | Filter series resistor, first |  |  |
-| `R802` | `R35002` | `OW-RES-13K-0402-1PCT` | 13k | Filter series resistor, second |  |  |
-| `R803` | `R35003` | `OW-PASS-ERA2AEB103X` | 10k | Gain-set resistor, AMP_FB to GND | beside U802.4 (-), on AMP_FB |  |
-| `R804` | `R35004` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Gain feedback, U35002 (0.1 %) |  |  |
-| `R805` | `R35005` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT pull-down, unpowered 0 V | beside U802.1 (OUT), on AMP_VOUT |  |
-| `R806` | `R35006` | `OW-PASS-RC0402FR-071KL` | 1k | A0 strap to GND, address 0x48 | beside U801.7 (SYNC/A0), on DAC_A0 |  |
-| `R807` | `R35007` | `OW-PASS-RT0402BRD073K2L` | 3.2k | /2 output divider top (0.1 %) |  |  |
-| `R808` | `R35008` | `OW-PASS-RC0402FR-071KL` | 1k | SPI2C strap to VDD, I2C mode | beside U801.5 (SPI2C), on SPI2C |  |
-| `R809` | `R35009` | `OW-PASS-CRCW0402249RFKED` | 249 | Series output resistor |  |  |
-| `R810` | `R35010` | `OW-PASS-RC0402FR-071KL` | 1k | Monitor tap isolation, AOUT_MON |  |  |
-| `R811` | `R35011` | `OW-PASS-RT0402BRD073K2L` | 3.2k | /2 output divider bottom (0.1 %) |  |  |
-| `U801` | `U35001` | `OW-SENS-DAC80501ZDGSR` | DAC80501ZDGSR | 16-bit I2C DAC, internal 2.5 V reference |  |  |
-| `U802` | `U35002` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Filter and gain amplifier |  |  |
+| Reference | Brief | Part | Value | Role | Placement | Manufacturer part | LCSC | DNP |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `C801` | `C35001` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U802.5 (V+), on +5V_FILT | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C802` | `C35002` | `OW-PASS-CL21A106KOQNNNE` | 10uF | 3.3 V rail bulk bypass | beside U801.1 (VDD), on +3.3V_FILT | CL21A106KOQNNNE | [C1713](https://www.lcsc.com/product-detail/C1713.html) |  |
+| `C803` | `C35003` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35002 V+ pin 5 bypass | beside U802.5 (V+), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C804` | `C35004` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U801.1 (VDD), on +3.3V_FILT | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C805` | `C35005` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35001 VDD pin 1 bypass | beside U801.1 (VDD), on +3.3V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C806` | `C35006` | `OW-PASS-CL05A105KL5NRNC` | 1uF | Rail bypass | beside U802.5 (V+), on +5V_FILT | CL05A105KL5NRNC | [C307413](https://www.lcsc.com/product-detail/C307413.html) |  |
+| `C807` | `C35007` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Sallen-Key filter capacitors (C0G) |  | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C808` | `C35008` | `OW-CAP-100N-0402-X5R-16V` | 100nF | U35002 V+ pin 5 bypass | beside U802.5 (V+), on +5V_FILT | GRM155R62A104KE14D | [C162178](https://www.lcsc.com/product-detail/C162178.html) |  |
+| `C809` | `C35009` | `OW-CAP-10N-0805-C0G-50V` | 10nF | Sallen-Key filter capacitors (C0G) | beside U802.3 (+), on DAC_VOUT_FILT | GRM2195C1H103JA01D | [C97905](https://www.lcsc.com/product-detail/C97905.html) |  |
+| `C810` | `C35010` | `OW-PASS-GRM1555C1E100JA01D` | 10pF | Gain-network compensation |  | GRM1555C1E100JA01D | [C161512](https://www.lcsc.com/product-detail/C161512.html) |  |
+| `C811` | `C35011` | `OW-PASS-GRT155R6YA474KE01D` | 0.47uF | VREFIO reference bypass | beside U801.10 (VREFIO), on VREFIO | GRT155R6YA474KE01D | [C711580](https://www.lcsc.com/product-detail/C711580.html) |  |
+| `C812` | `C35012` | `OW-CAP-470P-0402-C0G-100V` | 470pF | AOUT_DIV midpoint shunt (C0G) |  | GRM1555C2A471JE01D | [C1518202](https://www.lcsc.com/product-detail/C1518202.html) |  |
+| `D801` | `D35001` | `OW-MISC-TPD1E05U06DPYR` | TPD1E05U06DPYR | ESD clamp on AOUT |  | [TPD1E05U06DPYR](https://www.ti.com/lit/ds/symlink/tpd1e05u06.pdf) | [C436349](https://www.lcsc.com/product-detail/C436349.html) |  |
+| `FB801` | `FB35001` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U802.5 (V+), on +5V_FILT | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `FB802` | `FB35002` | `OW-PASS-FCM1608KF-601T03` | 600R@100MHz | Rail ferrites | beside U801.1 (VDD), on +3.3V_FILT | FCM1608KF-601T03 | [C141723](https://www.lcsc.com/product-detail/C141723.html) |  |
+| `R801` | `R35001` | `OW-RES-20K-0402-1PCT` | 20k | Filter series resistor, first |  | 0402WGF2002TCE | [C25765](https://www.lcsc.com/product-detail/C25765.html) |  |
+| `R802` | `R35002` | `OW-RES-13K-0402-1PCT` | 13k | Filter series resistor, second |  | FRC0402F1302TS | [C2909319](https://www.lcsc.com/product-detail/C2909319.html) |  |
+| `R803` | `R35003` | `OW-PASS-ERA2AEB103X` | 10k | Gain-set resistor, AMP_FB to GND | beside U802.4 (-), on AMP_FB | ERA2AEB103X | [C191915](https://www.lcsc.com/product-detail/C191915.html) |  |
+| `R804` | `R35004` | `OW-PASS-RT0402BRD073K2L` | 3.2k | Gain feedback, U35002 (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R805` | `R35005` | `OW-PASS-0603WAF1003T5E` | 100k | AMP_VOUT pull-down, unpowered 0 V | beside U802.1 (OUT), on AMP_VOUT | 0603WAF1003T5E | [C25803](https://www.lcsc.com/product-detail/C25803.html) |  |
+| `R806` | `R35006` | `OW-PASS-RC0402FR-071KL` | 1k | A0 strap to GND, address 0x48 | beside U801.7 (SYNC/A0), on DAC_A0 | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R807` | `R35007` | `OW-PASS-RT0402BRD073K2L` | 3.2k | /2 output divider top (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `R808` | `R35008` | `OW-PASS-RC0402FR-071KL` | 1k | SPI2C strap to VDD, I2C mode | beside U801.5 (SPI2C), on SPI2C | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R809` | `R35009` | `OW-PASS-CRCW0402249RFKED` | 249 | Series output resistor |  | CRCW0402249RFKED | [C482112](https://www.lcsc.com/product-detail/C482112.html) |  |
+| `R810` | `R35010` | `OW-PASS-RC0402FR-071KL` | 1k | Monitor tap isolation, AOUT_MON |  | RC0402FR-071KL | [C106235](https://www.lcsc.com/product-detail/C106235.html) |  |
+| `R811` | `R35011` | `OW-PASS-RT0402BRD073K2L` | 3.2k | /2 output divider bottom (0.1 %) |  | RT0402BRD073K2L | [C705066](https://www.lcsc.com/product-detail/C705066.html) |  |
+| `U801` | `U35001` | `OW-SENS-DAC80501ZDGSR` | DAC80501ZDGSR | 16-bit I2C DAC, internal 2.5 V reference |  | [DAC80501ZDGSR](https://www.ti.com/lit/ds/symlink/dac80501.pdf) | [C1852033](https://www.lcsc.com/product-detail/C1852033.html) |  |
+| `U802` | `U35002` | `OW-MISC-OPA197IDBVR` | OPA197IDBVR | Filter and gain amplifier |  | [OPA197IDBVR](https://www.ti.com/lit/ds/symlink/opa197.pdf) | [C221351](https://www.lcsc.com/product-detail/C221351.html) |  |
 
 ## Operating Notes
 
@@ -137,6 +137,6 @@ R35007 and R35011 halve AMP_VOUT to AOUT_DIV; R35009 delivers AOUT with D35001 c
 | Published sheet | `a144e9037996ddf8` |
 | Published PCB | `b5ef1a929ebaacc2` |
 | Source lock | symbol snapshot `793b65d3faee8d50`, published 2026-10-14 |
-| Placed sheet | `4c14c278b5251f14`: differs from the library's sheet; parts: the brief’s 28 by internal part; ports: the brief's |
-| Netlist check | not run (`--brief-check`, kicad-cli) |
+| Placed sheet | `4c14c278b5251f14`: matches the brief: its 28 parts by internal part, every port by name and shape; the file is the board's copy under its own designators |
+| Netlist check | ok on 2026-10-15: every pin on the brief's net; 33 identity records differ, the board's own instances |
 
