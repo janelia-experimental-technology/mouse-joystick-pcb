@@ -25,14 +25,28 @@ If `.agents/handoff.local.md` exists, read it before planning or editing.
 If the task is multi-step, risky, or likely to span more than one session, read
 `.agents/PLANS.md` and keep it updated as work progresses.
 
-## Current Routing Handoff — 2026-09-21
+## Current State — 2026-10-15
 
-Read [the routing session handoff](../docs/routing-session-handoff-2026-09-21.md)
-before planning PCB work. The four-layer board is routed and committed in
-`d5ae4b0`, with 24 mm BNC spacing and regenerated fabrication outputs. Resume
-from that board. Historical routing experiments and Rev 0 scope notes are not
-instructions to revert it. No fresh fully automatic routing benchmark exists;
-the measured 21 min 44 s run H preceded import/refill and local completion.
+v1.0 is fabricated, tagged `v1.0` and in service: four boards built from
+`fab/mouse-joystick-pcb/` (the v1.0 order, regenerated only for a new
+revision), two in Rig 1 and two on the verification rig. The copper is the
+fabricated copper; since the tag the block sheets were regenerated from the
+library with the copper kept, and the PCB changed in footprint fields, paths
+and group ids only. Its documentation is complete: the generated set under
+`docs/generated/` (block pages, subsystem pages, the MCU pin allocation, the
+dimensioned outline drawing, the BOM with its sourcing, the recorded netlist
+checks), the README block and the Pages site
+(https://peterpolidoro.github.io/mouse-joystick-pcb/, built by
+`.github/workflows/pages.yml` from the committed pages; `make site` builds it
+strictly here). Bring-up findings and open items are in `.agents/PLANS.md`
+and `docs/bringup-log.md`.
+
+The routing record of September 2026 ([the routing session handoff](../docs/routing-session-handoff-2026-09-21.md),
+the autoroute log, the routing completion and the connector access
+correction) is history, kept for how the board came to be; it is not an
+instruction to route again. The next revision's changes are the PLANS
+items (the brake overshoot, the inert torque calibration switch, the USB
+1200 baud touch), each decided with measurements first.
 
 ## Repository Purpose
 

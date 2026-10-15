@@ -34,7 +34,7 @@ the boards finally mount is an enclosure decision; the model does not fix it.
 | `J1103` 5-pos 3.5 mm | encoder: supply, return, A and B | the station's harness | same |
 | `J1601` 2-pos 3.5 mm | limit switch | the station's harness | same |
 | `J1801` 2-pos 3.5 mm | brake coil | two wires | [Interface map](interface-map.md) |
-| `J2001` 5-pos 3.5 mm | torque sensor bridge: excitation, signal pair, ground and shield | five wires, shielded | [Interface map](interface-map.md), [datasheets](datasheets/) |
+| `J2001` 5-pos 3.5 mm | torque sensor bridge: excitation, signal pair, ground and shield | five wires, shielded | [Interface map](interface-map.md), [sensor specifications](datasheets/torque-sensor-specs.png), [sensor wiring](datasheets/torque-sensor-wiring.png) |
 | `J1101` BNC | angle, 0 to 3.3 V | coax to the OneBox or an oscilloscope | [OneBox analog interface](onebox-analog-interface.md) |
 | `J901` BNC | torque, 0 to 3.3 V | coax | same |
 | `J1301` 50-pin FFC | instrument port: 32 buffered digital taps for a logic analyzer | 0.5 mm FFC to the analyzer adapter | [Interface map](interface-map.md) |

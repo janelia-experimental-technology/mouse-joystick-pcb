@@ -147,7 +147,8 @@ one shows up.
 - [Bring-up log](docs/bringup-log.md): every measurement, by board serial
 - [Fabrication package](fab/mouse-joystick-pcb/README.md): the JLCPCB package the v1.0 boards were ordered from, with its reports
 - [Datasheets](docs/datasheets/): the motor, encoder, brake and torque sensor the board was designed around
-- [Generated board documentation](docs/generated/README.md): schematic PDF and SVGs, renders, STEP, BOM and enclosure geometry
+- [Generated board documentation](docs/generated/README.md): schematic PDF and SVGs, renders, STEP and glTF, BOM, enclosure geometry and the dimensioned outline drawing, one page per placed design block and per subsystem sheet, and the MCU pin allocation
+- [The documentation site](https://peterpolidoro.github.io/mouse-joystick-pcb/): the same pages with the board turning and its design blocks clickable
 
 ## Opening And Fabricating
 

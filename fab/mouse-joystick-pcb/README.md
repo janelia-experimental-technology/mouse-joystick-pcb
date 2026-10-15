@@ -8,6 +8,11 @@ spacing, the motor/encoder terminals have wider housing gaps, and all four
 mounting holes have 7 mm outer-copper hardware clearances. This ZIP replaces
 the earlier package with 14 mm BNC spacing.
 
+**This is the v1.0 order.** The four assembled boards were built from this
+package, the repository is tagged `v1.0` on it, and it is regenerated only
+for a new revision: `make fab` on the current board would reproduce it byte
+for byte except for the creation time in the gerber headers.
+
 Upload `mouse-joystick-pcb-jlcpcb.zip` for PCB fabrication. Assembly files are
 `jlcpcb-bom.csv` and `jlcpcb-mouse-joystick-pcb-all-pos.csv`.
 

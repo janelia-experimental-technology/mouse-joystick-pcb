@@ -3,6 +3,23 @@
 Use this file for work that is multi-step, risky, or likely to span multiple
 sessions.
 
+## Documentation — complete for v1.0 (2026-10-15)
+
+The documentation program run from kicad-libs (its PLANS, 2026-10-12 to
+2026-10-15) is finished for this board: the fifteen placed block sheets
+regenerated from the library with the copper kept, a page per placed block
+(schematic, parts with sourcing, ports, the place on the board, the recorded
+netlist check), the four subsystem pages and the MCU pin allocation from
+`kicad/board.yaml` and its recipes, the dimensioned outline and mounting
+hole drawing, the BOM page with its LCSC and datasheet links, the board view
+with the model and numbered blocks, and the Pages site. `make docs` is a
+no-op until a KiCad source changes; `make docs-check` is the gate before a
+tag; `make site` builds the site strictly. The hand-written pages were
+reviewed the same day: `docs/design-block-map.md` is a pointer page, the
+routing pages of September 2026 are grouped as the routing record in the
+site's navigation. What a new revision changes in the board is the bring-up
+items below.
+
 ## Active Task — v1.0 unit A findings from the A4/A5 bring-up (2026-10-06)
 
 Measured on unit A (`E4654C159F274534`) with `mouse-joystick-firm`'s new

@@ -69,6 +69,8 @@ nav:
   - Design blocks: generated/blocks/README.md
   - Subsystems: generated/subsystems/README.md
   - MCU pins: generated/gpio-allocation.md
+  - Bill of materials: generated/bom/mouse-joystick-pcb-bom.md
+  - Board dimensions: generated/mechanical/board-dimensions.md
   - Interfaces:
       - Interface map: interface-map.md
       - Harness pinouts: harness-pinouts.md
@@ -82,7 +84,6 @@ nav:
       - Digital InstrumentPort migration: digital-instrument-port-migration.md
   - Design:
       - Power: power.md
-      - Design block map: design-block-map.md
       - Brake controller: b5z-magnetic-particle-brake-controller.md
       - Brake and torque purchase plan: mouse-joystick-brake-torque-purchase-plan.md
       - Observability plan: observability-plan.md
@@ -94,15 +95,18 @@ nav:
       - Validation plan: validation-plan.md
       - Bring-up log: bringup-log.md
       - Rig layout: rig-layout.md
+  - Routing record, September 2026:
       - Autoroute log: autoroute-log.md
       - Routing completion, 2026-09-21: routing-rescue-2026-09-21.md
       - Routing session handoff, 2026-09-21: routing-session-handoff-2026-09-21.md
       - Connector access correction, 2026-09-21: connector-access-2026-09-21.md
 
 # The front page is the board view, so the generated copy stays out of the
-# navigation; the block and subsystem pages are reached from their indexes.
+# navigation; the block and subsystem pages are reached from their indexes;
+# design-block-map.md is a pointer page kept for the documents that link it.
 not_in_nav: |
   generated/board-view.md
   generated/blocks/*.md
   generated/subsystems/*.md
+  design-block-map.md
   captures/**
