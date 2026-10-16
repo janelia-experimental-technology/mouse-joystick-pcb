@@ -22,6 +22,12 @@ If sibling checkouts exist, read:
 
 If `.agents/handoff.local.md` exists, read it before planning or editing.
 
+If the session drives a board (a reflash, a measurement, a person at the
+lever), read `../mouse-joystick-firm/.agents/AGENTS.md`, section "Hardware
+Sessions", and for the Rig 1 reflash and torque calibration of October 2026
+`../mouse-joystick-firm/.agents/handoff-rig1-torque-calibration-2026-10-16.md`.
+Measured numbers still land in this repository's `docs/bringup-log.md`.
+
 If the task is multi-step, risky, or likely to span more than one session, read
 `.agents/PLANS.md` and keep it updated as work progresses.
 
