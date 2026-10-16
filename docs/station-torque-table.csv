@@ -1,5 +1,5 @@
 rig,station,board_serial,unit,torque_sign_of_pull,friction_pull_ncm,friction_push_ncm,brake_drag_coil_off_ncm,static_share,delivered_at_0p5_ncm,delivered_at_1p0_ncm,delivered_at_2p0_ncm,delivered_at_3p5_ncm,rest_offset_ncm,measured_on,method,evidence
 desk,right,E4654C159F234234,D,+1,0.46,,0.06,0.77,0.20,0.42,1.40,3.05,-1.8,2026-10-16,hand-held hook; sensor scale confirmed with the gear out and a string loop,mouse-joystick-firm/evidence/2026-10-16-0951-deskrig-torque-cal/
 desk,left,E4654C159F504534,C,-1,0.25,0.24,0.2,0.88,0.3,0.6,1.7,4.05,+0.6,2026-10-16,hand-held hook,mouse-joystick-firm/evidence/2026-10-16-0951-deskrig-torque-cal/
-rig1,right,E4654C159F274534,A,+1,,,,,,,,,,,,
-rig1,left,E4654C159F404534,B,-1,,,,,,,,,,,,
+rig1,right,E4654C159F274534,A,+1,0.27,0.12,0.04,0.90,0.14,0.36,1.15,3.03,-0.8,2026-10-16,string loop for the pull and the hook pressed on the lever for the push; gear in; delivered torque from the sensor on firmware v1.0.1 (gauge minus friction in the bring-up log); gauge zero tracked through the slack windows,mouse-joystick-firm/evidence/2026-10-16-1359-rig1-torque-cal/
+rig1,left,E4654C159F404534,B,-1,0.18,0.15,0.04,0.91,0.15,0.43,1.42,3.58,+1.8,2026-10-16,string loop for the pull and the hook pressed on the lever for the push; gear in; delivered torque from the sensor on firmware v1.0.1 (gauge minus friction in the bring-up log); gauge zero tracked through the slack windows,mouse-joystick-firm/evidence/2026-10-16-1359-rig1-torque-cal/

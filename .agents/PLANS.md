@@ -77,8 +77,15 @@ firmware can settle:
       (`mouse-joystick-firm/docs/torque-calibration.md`).
       Decided 2026-10-16: the researcher wants the load the mouse feels, so
       every station gets the alternating pull-push run and its row in
-      `docs/station-torque-table.csv` (desk rows filled, Rig 1 rows blank);
-      `docs/bnc-conversion.md` says how the trace and the row combine.
+      `docs/station-torque-table.csv`; `docs/bnc-conversion.md` says how the
+      trace and the row combine. **Rig 1 measured 2026-10-16** (bring-up
+      log, "Rig 1 — reflash to `v1.0.1` and torque calibration"): friction
+      0.27/0.12 N·cm pull/push on the right station and 0.18/0.15 on the
+      left, smaller than the desk's; the brakes deliver 0.36 and 0.43 at
+      the commanded 1.0, 3.03 and 3.58 at full; both rows filled. Still
+      open: where in the axis the friction is, the per-station `BRAKE`
+      curve, and a gear-out scale check at Rig 1 (the hand-held geometry
+      there scattered sensor-over-gauge 0.85–1.07).
 - [x] Confirmed on the wire, for the record: I2C 0x48 and 0x49 both ACK;
       brake DAC `GAIN` 0x0101 reads back, `DEVID` 0x115; ADS8689 `RANGE_SEL`
       0x0B reads back, SDO loopback patterns clean, noise 95–112 µV rms at
@@ -110,7 +117,9 @@ the desk rig, and the unit B session of 2026-10-07.
       (the touch is honoured by the Arduino core's CDC, and the two failing
       units took it once from the self-test build).
 - [ ] Until then the firmware README documents the button procedure; a
-      reflash of Rig 1's left board needs hands at the rig.
+      reflash of Rig 1's left board needs hands at the rig. (From Peter's
+      laptop every unit has taken the touch at every attempt: desk
+      2026-10-14, Rig 1 2026-10-15 and 2026-10-16, both boards each time.)
 
 ## Completed Task — Session handoff and routing timing (2026-09-21)
 

@@ -67,9 +67,9 @@ The trace reads the torque through the brake. The mouse also pays the lever's
 friction, which the sensor never sees, and the brake does not deliver the
 torque it was commanded. Both are properties of each station, measured with a
 force gauge and kept in [`station-torque-table.csv`](station-torque-table.csv)
-by rig, station and board serial; the two desk stations are filled in and the
-Rig 1 rows wait for their measurement. With `tau_b` the trace's torque from
-the formula above and the table's values for the station:
+by rig, station and board serial; all four stations are filled in (the desk
+on the morning of 2026-10-16, Rig 1 the same afternoon). With `tau_b` the
+trace's torque from the formula above and the table's values for the station:
 
 | Situation | Load on the mouse |
 | --- | --- |
@@ -103,11 +103,12 @@ brake, nothing else.
 - Once the lever slips, the reading flattens at the brake's slip torque
   however hard the mouse pulls. The angle channel, not the torque channel,
   describes the movement.
-- The lever's own friction, 0.25 to 0.5 N·cm per station as measured on the
-  desk rig, is paid by the mouse and never appears on the torque trace.
+- The lever's own friction, 0.25 to 0.5 N·cm per station on the desk rig and
+  0.1 to 0.3 on Rig 1, is paid by the mouse and never appears on the torque
+  trace.
 - The brake does not deliver its commanded torque at the low end: the task's
-  1.0 N·cm setting delivered 0.4 to 0.7 N·cm on the desk stations, full
-  current 3.0 on one and 4.0 on the other. Per-station numbers are in the
-  table above and in the bring-up log; Rig 1's stations are not yet measured.
+  1.0 N·cm setting delivered 0.4 to 0.7 N·cm on the desk stations and 0.36
+  and 0.43 on Rig 1's, full current 3.0 to 4.0 depending on the station.
+  Per-station numbers are in the table above and in the bring-up log.
 
 Noise on the torque channel is about 0.4 mN·cm rms, far below any of this.
