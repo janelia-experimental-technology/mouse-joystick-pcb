@@ -144,6 +144,7 @@ one shows up.
 - [Rig layout](docs/rig-layout.md): how a board sits in the rig and what plugs into each connector
 - [Power](docs/power.md): the 36 V chain, the two domains and the pyControl 5 V budget
 - [OneBox analog interface](docs/onebox-analog-interface.md) and [encoder analog output](docs/encoder-analog-output.md): the angle and torque BNC outputs
+- [Converting the BNC voltages](docs/bnc-conversion.md): degrees and newton-centimetres from the two outputs, what the torque trace means, and the [per-station table](docs/station-torque-table.csv) of friction and delivered brake torque
 - [Bring-up log](docs/bringup-log.md): every measurement, by board serial
 - [Fabrication package](fab/mouse-joystick-pcb/README.md): the JLCPCB package the v1.0 boards were ordered from, with its reports
 - [Datasheets](docs/datasheets/): the motor, encoder, brake and torque sensor the board was designed around

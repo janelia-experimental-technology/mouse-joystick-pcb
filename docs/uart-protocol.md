@@ -772,8 +772,8 @@ none changes a line already specified.
   field is a missing brake or a brake at zero.) `torque` likewise: a number
   whenever `caps` has `torque`.
 - **`TQ get` → `ack;s;torque=<Ncm>;raw=<Ncm>;cal=0|1`**: the tared reading,
-  the untared one on the nominal scale about the nominal zero (what a tare
-  removed), and the shunt-calibration switch's state. `TQ zero` and
+  the untared one about the nominal zero on the firmware's torque scale (what
+  a tare removed), and the shunt-calibration switch's state. `TQ zero` and
   `TQ cal;on|off` answer `ack`; anything else `nak;badargs`; the verb is
   `badverb` without the capability. On v1.0 as built the cal switch is inert
   (bring-up log, A5), so `TQ cal` is a verb and not a calibration there.

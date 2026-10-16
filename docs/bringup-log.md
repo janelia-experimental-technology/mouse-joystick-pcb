@@ -42,8 +42,8 @@ assumed to hold on it. Record which revision a serial is, not just the serial.
 | **Board 5** | `E465C0164B30612D` | **Second `v0.3` unit**, `MJ_BOARD_REV=1`, named board 5 in the firmware handoff of 2026-10-02. Carries a `mouse_joystick_qp_rev1_usb` build from that morning; **stages 1–3 have never run on it.** Not on the bench 2026-10-05 |
 | **Board 6 (v1.0 unit A)** | `E4654C159F274534` | **First `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with a wrong green, banded part at every `C2858031` position; dead until `C1301` was removed on 2026-10-05, then `C1208` refitted with a genuine 4.7 µF and `C1501` removed. **Stages 1, 2, A3, A6 and the QP protocol session passed 2026-10-05; stages A4 (brake sink) and A5 (torque bridge) passed 2026-10-06** — brake 0–48.80 mA linear, full-scale step overshoots to 62 mA with no `~{BRAKE_FAULT}`; ADS8689 alive, 95–112 µV rms, shunt-cal switch inert. Drives the replacement joystick unit. See [v1.0 unit A](#v10-unit-a--e4654c159f274534--stage-1-passed-2026-10-05-1504-after-removing-c1301) and [A4/A5](#v10-unit-a--stages-a4-and-a5-brake-sink-and-torque-bridge-2026-10-06-08480855) **Installed in Rig 1 2026-10-09, the RIGHT joystick (Breakout port 4); reflashed 2026-10-15** at the rig from Peter's laptop to `v1.0.0-6-g4213e48` (the code of firmware tag `v1.0.0`; 1200 baud touch honoured, picotool verified, `id` over the RJ-45 confirms, then two `joystick_trial` trials through the rig's pyboard: home 1.25 s, present −5.041°, `RELEASED`, `NOMOVE`, park 0.0, no fault; `mouse-joystick-firm/evidence/2026-10-15-1318-rig1-reflash/`). |
 | **Board 7 (v1.0 unit B)** | `E4654C159F404534` | **Second `v1.0` unit**, `MJ_BOARD_REV=2`. Arrived with the same wrong part at `C1301`, `C1208`, `C1501`; reworked by Peter 2026-10-07 (`C1208` refitted, `C1301` and `C1501` removed). **Stage 1 passed 2026-10-07, 09:08: 20 checks, 0 failed.** For the LEFT joystick of Rig 1 (Breakout port 1). See [v1.0 unit B](#v10-unit-b-board-7--e4654c159f404534--stage-1-passed-2026-10-07-0908) **Installed in Rig 1 2026-10-09; reflashed 2026-10-15** at the rig from Peter's laptop to `v1.0.0-6-g4213e48` (the 1200 baud touch honoured first time on this unit, picotool verified, `id` over the RJ-45 confirms, then two `joystick_trial` trials through the rig's pyboard: home 1.32 s, present −4.95°, `RELEASED`, `NOMOVE`, park −0.091 then 0.0, no fault; same evidence directory). |
-| **Board 8 (v1.0 unit C)** | `E4654C159F504534` | **Third `v1.0` unit**, `MJ_BOARD_REV=2`, on Peter's desk rig since 2026-10-12: Breakout port 1, the LEFT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque negative on a pull) the same day. See "Desk rig" below. **Reflashed 2026-10-14** from Peter's laptop to `v1.0.0-2-g109169f` (the code of firmware tag `v1.0.0`; the 1200 baud touch honoured, picotool verified, `id` over the RJ-45 confirms; `mouse-joystick-firm/evidence/2026-10-14-0910-deskrig-reflash/`). |
-| **Board 9 (v1.0 unit D)** | `E4654C159F234234` | **Fourth `v1.0` unit**, `MJ_BOARD_REV=2`, desk rig, Breakout port 4, the RIGHT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque positive on a pull) 2026-10-12. **Reflashed 2026-10-14** from Peter's laptop to `v1.0.0-2-g109169f` (the code of firmware tag `v1.0.0`; the 1200 baud touch honoured, picotool verified, `id` over the RJ-45 confirms; `mouse-joystick-firm/evidence/2026-10-14-0910-deskrig-reflash/`). |
+| **Board 8 (v1.0 unit C)** | `E4654C159F504534` | **Third `v1.0` unit**, `MJ_BOARD_REV=2`, on Peter's desk rig since 2026-10-12: Breakout port 1, the LEFT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque negative on a pull) the same day. See "Desk rig" below. **Reflashed 2026-10-14** from Peter's laptop to `v1.0.0-2-g109169f` (the code of firmware tag `v1.0.0`; the 1200 baud touch honoured, picotool verified, `id` over the RJ-45 confirms; `mouse-joystick-firm/evidence/2026-10-14-0910-deskrig-reflash/`). **Torque chain calibrated against a force gauge 2026-10-16** (left station: sensor on its certificate within the hand-held method's 5 %, friction 0.23–0.38 N·cm, brake drag 0.1–0.3 with the coil off; see the 2026-10-16 section). |
+| **Board 9 (v1.0 unit D)** | `E4654C159F234234` | **Fourth `v1.0` unit**, `MJ_BOARD_REV=2`, desk rig, Breakout port 4, the RIGHT mechanism. Stage 1 20 checks 0 failed, delivery build, one trial through pyControl and the pull sign (−1, torque positive on a pull) 2026-10-12. **Reflashed 2026-10-14** from Peter's laptop to `v1.0.0-2-g109169f` (the code of firmware tag `v1.0.0`; the 1200 baud touch honoured, picotool verified, `id` over the RJ-45 confirms; `mouse-joystick-firm/evidence/2026-10-14-0910-deskrig-reflash/`). **Torque chain calibrated against a force gauge 2026-10-16** (right station: sensor/true 0.965 with the gear out against 0.961 from the certificates, friction 0.42–0.50 N·cm in the lever axis, brake 3.0 N·cm at full; see the 2026-10-16 section). |
 
 **Which board drives which joystick — established 2026-09-03.**
 
@@ -1555,6 +1555,121 @@ the following session recovers without anyone touching the board. Before
 
 **Not yet measured on these two boards:** the angle and torque outputs on a
 scope, and which LA5032 sits on which board (the beacon).
+
+## Desk rig — torque calibration against a force gauge, boards 8 and 9 — 2026-10-16
+
+**The first calibration of the torque chain against a known torque, on both
+desk-rig boards, with a Mark-10 M3-05 force gauge** (250 gF × 0.2 gF, ±0.3 %
+of full scale, serial 3706367) read over its USB serial port at 10 Hz
+alongside the boards' own 50 Hz `STREAM`. Evidence:
+`mouse-joystick-firm/evidence/2026-10-16-0951-deskrig-torque-cal/` (every
+log with host timestamps, the scripts that ran and reduced them, `meta.txt`).
+Firmware: the delivery build `v1.0.0-2-g109169f` on both boards, driven
+through the pyboard's raw REPL with no pyControl runner attached. No `tq zero`
+was sent, so every torque below is the raw reading about the nominal zero on
+the firmware's nominal 1.5 mV/V scale.
+
+**Method.** Rail up, home, present at −5°, `brake L` → `RELEASED`, then Peter
+loaded the lever with the gauge while the board streamed angle and torque;
+hands off, `moveto −5`, next level. The gauge hooked the lever at 72–73 mm
+from the lever axis, pulling toward the mouse's side (decreasing angle,
+negative on the gauge) and pushing back. Levels 3.5, 0, 1.0, 2.0 and 0.5 N·cm
+commanded. The reduction pairs each gauge reading with the nearest stream
+sample and separates **sliding** samples (the lever moving at about 2.3 °/s,
+the brake slipping, friction kinetic) from **static** ones. Because the
+sensor sits behind the brake, it reads only the torque passing through the
+brake; the gear train and the lever bearings act on the lever's side of it,
+so while sliding
+
+```
+gauge torque  = torque through the brake + friction
+sensor        = a × torque through the brake
+```
+
+and the brake-off slides give the friction directly (the sensor then sees
+only the brake's drag). Static holds below slip are not a calibration regime:
+static friction takes an indeterminate share and the sensor read 0.77–0.88 of
+the gauge there on both stations.
+
+**The sensor scale, two ways.** With the gear in and the hook on the lever by
+hand (`board9_right_run3.log`, `board9_right_run4.log`,
+`board8_left_run1.log`):
+
+| Station | Sensor over torque through the brake, full brake, sliding | Friction the gauge pays, brake off | Brake drag with the coil off, as the sensor sees it |
+| --- | --- | --- | --- |
+| Right, board 9 (unit D) | **0.84–0.86** | 0.42–0.50 N·cm | 0.05–0.07 N·cm |
+| Left, board 8 (unit C) | **0.93–0.96** | 0.23–0.38 N·cm | 0.1–0.3 N·cm |
+
+Then on the right station with the **pinion removed** (homed and braked with
+the gear in, the pinion taken off while the brake held the lever, the gauge
+on a **string loop** at 72–73 mm so the pull aligned itself,
+`board9_right_pinion_run1.log`, reduced by gauge cycle since the encoder on
+the motor shaft no longer sees the lever): eight clean pull cycles at full
+brake gave **0.94–1.03, median 0.965**, against **0.961 expected from the
+certificates** (the two sensor certificates read 1.544 and 1.577 mV/V, mean
+1.5605, over the firmware's nominal 1.5). The electronics and the sensor are
+on their certificate; the shortfall of the hand-held hook runs was geometry
+(a pull not quite perpendicular reads high), not the instrument. Friction with
+the gear out was 0.41–0.47 N·cm, the same as with it in, so **the friction is
+in the lever axis, not the gear train**, and on the right station it is not in
+the brake either (the sensor sees only 0.05–0.07 of drag); the left brake
+drags 0.1–0.3 N·cm with its coil off. Removing the pinion also moved the raw
+rest reading from −1.8 to −2.1 N·cm: the gear mesh loads the sensor path by
+about 0.3 N·cm.
+
+**What the brake delivers** (gauge torque while sliding less the friction;
+the sensor's own reading divided by its ratio agrees within the spread):
+
+| Commanded | Right delivers | Left delivers |
+| --- | --- | --- |
+| 0.5 N·cm | 0.17–0.22 | 0.2–0.5 (few samples) |
+| 1.0 | 0.40–0.45 | 0.5–0.7 |
+| 2.0 | 1.4 | 1.6–1.8 |
+| 3.5 | 3.0–3.1 | 4.0–4.1 |
+
+The firmware's `BRAKE` maps torque to current on the datasheet's straight
+line, and the brakes do not follow it at the low end: the task's 1.0 N·cm
+setting delivers 0.4–0.7, and the two brakes differ by about 25 % at full
+current. At that setting the mouse works against roughly as much friction as
+brake, about 6 gF of friction and 5 gF of brake at the 75 mm grip.
+
+**Rest readings.** Right: −1.75 to −1.85 N·cm raw throughout (−2.1 with the
+gear out). Left: +0.20 at the first `RELEASED`, then +0.55 to +0.64 for the
+rest of the session after the first hard pull. The preload is mechanical,
+differs by station and sign, and moves with the gear mesh and with load; the
+per-trial tare the firmware applies, and a per-trial zero from the trace on
+the OneBox side, remain necessary.
+
+**Consequences.**
+
+- The certificate average, 1.5605 mV/V, is the torque constant: at the BNC
+  **0.141 V per N·cm**, zero at the trace's own rest. **Decided the same
+  day: the firmware carries it** (`kTorqueSensitivityVPerV` in
+  `mouse-joystick-firm/src/Conversions.hpp`), so every torque a board reports
+  is 0.961 of what the same reading gave on `v1.0.0`, `WATCH`'s `touch`
+  threshold is in true N·cm, and pyControl's log agrees with the trace. The
+  BNC is analog and does not change. Every number in this entry is on the
+  old nominal scale, as stated above; a repeat on the new build should read
+  the sensor at 1.00 of the torque through the brake. The desk boards'
+  reflash to the new build is recorded in their table rows above.
+- The hand-held hook gives the sensor scale to about 10 %; a string loop and
+  the gear out give it to a few percent. Friction and the brake curve are
+  per-station mechanical properties and need measuring per station; the
+  sensor scale does not, now that it is on the certificate.
+- Where the friction lives in the lever axis is not yet separated: the
+  bearings and the brake's coupling to the sensor are the candidates, and the
+  loosen-and-feel test was not possible with the bolts as they are.
+- Session scripts: `mouse-joystick-firm/tools/torque_cal_run.py` (the
+  run, with a cue window for the person at the lever),
+  `torque_cal_reduce.py` (gear in, by lever velocity),
+  `torque_cal_cycles.py` (gear out, by gauge cycle), `cue_display.py`;
+  procedure in `mouse-joystick-firm/docs/torque-calibration.md`.
+
+Two attempts that produced no data are kept for what they taught: the script
+slept 500 ms after `hv on` without pinging and the board faulted
+`host_timeout` (the watchdog is 100 ms), and `brake 0` answers `ack` and
+`ev;RELEASED` in one UART read, which a wait loop that returns on the first
+match drops.
 
 ## Board 4 — `E4654C159F171E34` — v0.3, Stage 1
 

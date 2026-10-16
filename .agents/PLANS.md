@@ -49,12 +49,36 @@ firmware can settle:
       N-channel enhancement MOSFET's source sits at `SIG_N` ≈ 5 V against a
       3.3 V gate. Fix in the block (a P-channel or a level shift) for the next
       spin; until then calibration is weights on the lever arm (rig plan C3).
+      **Done another way 2026-10-16:** a Mark-10 force gauge on a string
+      loop, with the gear out, read the right desk station's sensor at 0.965
+      of the torque through the brake against 0.961 from the certificates
+      (bring-up log, 2026-10-16). The chain is on its certificate; the switch
+      fix stays for the next spin as the in-situ check it was meant to be.
 - [ ] **Torque rest reading 69–71 mV below the ideal 1.6667 V zero** at
       `AMP_VOUT` (−0.255 N·cm on the nominal scale), 7× the sensor's zero
       balance. Mechanism preload (the joystick against its stop through the
       coupling) or front-end offset (`VEXC`, `VMID`, INA821): free the
       joystick by hand and read again, or meter `VEXC` (10.000 V) and `VMID`
       (5.000 V). Not a defect until separated; tare handles it either way.
+      **Mechanical, 2026-10-16:** the rest is −1.8 N·cm raw on unit D and
+      +0.2 then +0.6 on unit C, moves 0.3 when the pinion comes off and after
+      a hard pull. Preload through the brake's coupling, not the front end.
+      The per-trial tare stays necessary; `docs/bnc-conversion.md` tells the
+      researcher to zero from the trace.
+- [ ] **Friction in the lever axis and a non-linear brake, measured
+      2026-10-16** (bring-up log): moving the free lever costs 0.42–0.50 N·cm
+      on the right desk station and 0.23–0.38 on the left, the same with the
+      gear out, so it is the lever bearings or the brake's coupling, not the
+      gear train; the left brake drags 0.1–0.3 with its coil off. The brakes
+      deliver 0.4–0.7 N·cm at the commanded 1.0 and 3.0 / 4.0 at full. Open:
+      where in the axis the friction is (parts loosened one at a time with the
+      gauge on the lever), whether `BRAKE` should map through a per-station
+      curve, and the same measurements on Rig 1's stations
+      (`mouse-joystick-firm/docs/torque-calibration.md`).
+      Decided 2026-10-16: the researcher wants the load the mouse feels, so
+      every station gets the alternating pull-push run and its row in
+      `docs/station-torque-table.csv` (desk rows filled, Rig 1 rows blank);
+      `docs/bnc-conversion.md` says how the trace and the row combine.
 - [x] Confirmed on the wire, for the record: I2C 0x48 and 0x49 both ACK;
       brake DAC `GAIN` 0x0101 reads back, `DEVID` 0x115; ADS8689 `RANGE_SEL`
       0x0B reads back, SDO loopback patterns clean, noise 95–112 µV rms at
