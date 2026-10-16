@@ -17,10 +17,20 @@ V_angle  =  0.025 V  +  (angle − lo) / (hi − lo)  ×  1.625 V
 angle    =  lo  +  (V_angle − 0.025) / 1.625  ×  (hi − lo)
 ```
 
-The rig's task sends `ANGSCALE −10.125 0.0`, the board's travel, so 0.025 V
-is −10.125° and 1.650 V is 0°, and the output is 0.160 V per degree. Record
-the `ANGSCALE` values with every session; they are the only thing the formula
-depends on.
+The output is off at power-up and valid only while a session has sent
+`ANGOUT ON`, the board is homed, its rail is up and it is not faulted;
+otherwise the DAC parks at code 0 and the BNC reads a few millivolts. `lo`
+and `hi` are whatever the session's `ANGSCALE` said (the firmware's default
+is −20 to 20). The firmware's bring-up task sends the board's commandable
+travel, −10.125 to 0, which puts 0.025 V at −10.125° and 1.650 V at 0°,
+0.160 V per degree; the rig's trial task
+(`joystick-rig/pycontrol/tasks/rig1/joystick_trial.py`) sends neither command
+as of 2026-10-16, so its sessions leave this BNC at the floor. A released
+lever swings far past the commandable travel (to the hard stop near −28° at
+Rig 1, −48° on the bench on 2026-10-07) and the output pins at its floor
+beyond `lo`, so a recording scale should cover the swing: −28.125 to 0 was
+used on the bench, 0.058 V per degree. Record the `ANGSCALE` values with
+every session; they are the only thing the formula depends on.
 
 Provenance: the DAC-to-BNC transfer measured unity to 0.03 % with a +0.2 mV
 offset on board 4 (bring-up log, 2026-09-10) and within 0.5 % through the
